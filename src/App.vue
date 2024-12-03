@@ -1,11 +1,19 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import HistoryView from './views/historyView.vue';
+import StatusKRISView from './views/StatusKRISView.vue';
+import StatusView from './views/StatusView.vue';
+import StatusConferView from './views/StatusConferView.vue';
+import StatusPCView from './views/StatusPCView.vue';
+import EofficeView from './views/EofficeView.vue';
+import Search from './views/Search.vue';
+
 </script>
 
 <template>
   <div> <!-- Root element ห่อส่วนประกอบทั้งหมด -->
-    <header>
+    <!-- <header>
       <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
       <div class="wrapper">
@@ -16,7 +24,8 @@ import HelloWorld from './components/HelloWorld.vue'
           <RouterLink to="/about">About</RouterLink>
         </nav>
       </div>
-    </header>
+    </header> -->
+    <Search/>
 
     <RouterView />
   </div>
