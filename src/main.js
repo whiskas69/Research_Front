@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
@@ -11,9 +12,10 @@ import "./assets/style.css"
 const app = createApp(App)
 
 app.use(router)
+app.use(createPinia())
 
 app.use(vue3GoogleLogin, {
-    clientId: '974883783456-t59kniqebdsckb3urv52p5p6umjddb7f.apps.googleusercontent.com'
+    clientId: import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID
 })
 
 app.mount('#app')

@@ -5,13 +5,21 @@
         <span :class="`flex items-center ${customSpan}`"> {{ span }}</span>
         <span :class="`flex items-center ${customLabel}`"> {{ label }}</span>
 
-        <input type="text" :class="`input input-bordered w-auto min-w-96 ml-2 mb-2 ${customInput2}`" :value="value"
-          :placeholder="placeholder" :disabled="disabled">
-
+        <input
+          type="text"
+          :class="`input input-bordered w-auto min-w-96 ml-2 mb-2 ${customInput2}`"
+          :value="value"
+          :placeholder="placeholder"
+          :disabled="disabled"
+        />
       </label>
-      <input type="file"
-      :class="`file-input file-input-bordered w-full ${customInput}`" :value="value" :disabled="disabled"
-        @input="$emit('input, $event.target.value')">
+      <input
+        type="file"
+        :class="`file-input file-input-bordered w-full ${customInput}`"
+        :value="value"
+        :disabled="disabled"
+        @input="$emit('input, $event.target.value')"
+      />
     </label>
   </div>
 </template>

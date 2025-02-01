@@ -20,20 +20,35 @@ import Pro_Confer from '@/views/form/Profess/Pro_Confer.vue'
 import Pro_Page from '@/views/form/Profess/Pro_Page.vue'
 import Pro_Scolar from '@/views/form/Profess/Pro_Scolar.vue'
 
+import offic_Confer from '@/views/form/Officer/Confer.vue'
+import offic_resPage from '@/views/form/Officer/PageCharge/ResearchPage.vue'
+import offic_financePage from '@/views/form/Officer/PageCharge/FinancePag.vue'
+import offic_Scolar from '@/views/form/Officer/Scolar.vue'
+
 import Profile from '@/views/Profile.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'HomePageProfes',
+      path: "/",
+      name: "Search",
+      component: Search,
+    },
+    {
+      path: "/homepage",
+      name: "HomePageProfes",
       component: HomePage_Profes,
     },
     {
-      path: '/search',
-      name: 'Search',
-      component: Search,
+      path: '/officer',
+      name: 'HomePageOfficer',
+      component: HomePage_Offi,
+    },
+    {
+      path: '/admin',
+      name: 'HomepageAdmin',
+      component: Homepage_Admin,
     },
     {
       path: '/login',
@@ -41,9 +56,10 @@ const router = createRouter({
       component: LoginPage,
     },
     {
-      path: '/allstatus',
-      name: 'Status',
-      component : StatusView,
+      path: "/allstatus",
+      name: "Status",
+      component: StatusView,
+      meta: { requiresAuth: true },
     },
     {
       path: '/statusConfer',
@@ -96,11 +112,41 @@ const router = createRouter({
       component: Pro_Scolar
     },
     {
+      path: '/officFormConfer/:id',
+      name: 'OfficFormConfer',
+      component: offic_Confer
+    },
+    {
+      path: '/officFormPC/:id',
+      name: 'OfficFormPC',
+      component: offic_resPage
+    },
+    {
+      path: '/officFormPCFin/:id',
+      name: 'OfficFormPCFin',
+      component: offic_financePage
+    },
+    {
+      path: '/officFormKris/:id',
+      name: 'OfficFormKris',
+      component: offic_Scolar
+    },
+    {
       path: '/profile',
       name: 'Profile',
       component: Profile
-    }
+    },
   ],
 })
+
+//check login
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem("loggedIn");
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next("/login");
+  } else {
+    next();
+  }
+});
 
 export default router

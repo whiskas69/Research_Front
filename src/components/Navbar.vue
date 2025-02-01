@@ -1,28 +1,99 @@
-<!-- in present only professor don't have any role -->
-
 <template>
   <div class="navbar bg-base-100 px-14 py-2 shadow-sm sticky top-0 z-40">
-    <router-link to="/" class="flex=auto max-w-14 w-full">
+    <router-link
+      v-if="!userStore.user"
+      to="/"
+      class="flex=auto max-w-14 w-full"
+    >
       <img
         src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
         alt="IT KMITL"
       />
     </router-link>
 
+    <div v-else-if="userStore.user">
+      <router-link
+        v-if="userStore.user.user_role == 'professor'"
+        to="/homepage"
+        class="flex=auto max-w-14 w-full"
+      >
+        <img
+          src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
+          alt="IT KMITL"
+        />
+      </router-link>
+
+      <router-link
+        v-else-if="userStore.user.user_role == 'hr' || userStore.user.user_role == 'research' || userStore.user.user_role == 'finance'"
+        to="/Officer"
+        class="flex=auto max-w-14 w-full"
+      >
+        <img
+          src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
+          alt="IT KMITL"
+        />
+      </router-link>
+
+      <router-link
+        v-if="userStore.user.user_role == 'approver'"
+        to="/Officer"
+        class="flex=auto max-w-14 w-full"
+      >
+        <img
+          src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
+          alt="IT KMITL"
+        />
+      </router-link>
+
+      <router-link
+        v-if="userStore.user.user_role == 'admin'"
+        to="/admin"
+        class="flex=auto max-w-14 w-full"
+      >
+        <img
+          src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
+          alt="IT KMITL"
+        />
+      </router-link>
+    </div>
+
     <div class="flex-auto w-3/6">
       <ul class="menu menu-horizontal px-5">
-        <li>
-          <details>
-            <summary>สถานะและประวัติ</summary>
-            <ul class="bg-base-100 rounded-t-none p-2 w-full">
-              <li><router-link to="/allstatus">สถานะเอกสาร</router-link></li>
-              <li>
-                <router-link to="/allhistory">ประวัติการยื่น</router-link>
-              </li>
-            </ul>
-          </details>
-        </li>
-        <li><router-link to="/search">สรุปผลแบบสถิติ</router-link></li>
+        <div v-if="userStore.user">
+          <ul
+            class="menu menu-horizontal"
+            v-if="userStore.user.user_role == 'professor'"
+          >
+            <li>
+              <details>
+                <summary>สถานะและประวัติ</summary>
+
+                <ul class="bg-base-100 rounded-t-none p-1 w-full">
+                  <li>
+                    <router-link to="/allstatus">สถานะเอกสาร</router-link>
+                  </li>
+                  <li>
+                    <router-link to="/allhistory">ประวัติการยื่น</router-link>
+                  </li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+
+          <li v-else-if="userStore.user.user_role == 'hr' || userStore.user.user_role == 'research' || userStore.user.user_role == 'finance'">
+            <router-link to="/officer">เอกสารที่อนุมัติแล้ว</router-link>
+          </li>
+
+          <li v-else-if="userStore.user.user_role == 'approver'">
+            <router-link to="/EofficeView">เอกสารที่อนุมัติแล้ว</router-link>
+          </li>
+
+          <li v-else-if="userStore.user.user_role == 'admin'">
+            <router-link to="/">แก้เงื่อนไขการพิจารณา</router-link>
+          </li>
+        </div>
+
+        <li><router-link to="/">สรุปผลแบบสถิติ</router-link></li>
       </ul>
     </div>
 
@@ -43,59 +114,66 @@
               d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
             />
           </svg>
-          <!-- <span class="badge badge-xs badge-primary indicator-item"></span> -->
         </div>
       </button>
+    </div>
 
-      <div v-if="!user">
-        <router-link to="/login" class="btn bg-[#4285F4] hover:bg-[#4285F4] text-white ml-10">
+    <div v-if="!userStore.user">
+      <router-link
+        to="/login"
+        class="btn bg-[#4285F4] hover:bg-[#4285F4] text-white ml-10"
+      >
         เข้าสู่ระบบ
-        </router-link>
-      </div>
+      </router-link>
+    </div>
 
-      <div class="px-5" v-if="user">
-        <ul class="menu menu-horizontal">
-          <li>
-            <details>
-              <summary
-                class="bg-[#4285F4] hover:bg-[#4285F4] py-[13px] text-white"
-              >
-                นายจารุวัฒน์ วรรณวนัช
-              </summary>
-              <ul class="bg-base-100 rounded-t-none p-2 w-full">
-                <li><router-link to="/profile">ข้อมูลส่วนตัว</router-link></li>
-                <li @click="logout"><router-link to="/">ออกจากระบบ</router-link></li>
-              </ul>
-            </details>
-          </li>
-        </ul>
-      </div>
+    <div class="px-5" v-if="userStore.user">
+      <ul class="menu menu-horizontal">
+        <li>
+          <details>
+            <summary
+              v-if="userStore.user.user_nameth"
+              class="bg-[#4285F4] hover:bg-[#4285F4] py-[13px] text-white min-w-32"
+            >
+              {{ userStore.user.user_nameth }}
+            </summary>
+            <summary
+              v-else-if="userStore.user.user_nameeng"
+              class="bg-[#4285F4] hover:bg-[#4285F4] py-[13px] text-white min-w-32"
+            >
+              {{ userStore.user.user_nameeng }}
+            </summary>
+            <ul class="bg-base-100 rounded-t-none p-2 w-full">
+              <li><router-link to="/profile">ข้อมูลส่วนตัว</router-link></li>
+              <li @click="logout">
+                <router-link to="/">ออกจากระบบ</router-link>
+              </li>
+            </ul>
+          </details>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { useUserStore } from "@/store/userStore";
 
 const router = useRouter();
-let user = ref(null);
+const userStore = useUserStore();
 
-const getUserInfo = (res) => {
-    const storageUser = localStorage.getItem('user');
-    if (storageUser) {
-        user.value = JSON.parse(storageUser);
-        router.push('/')
-    }
+//{ "user_id": 2498,
+// "user_role": "professor",
+// "user_nameth": "นางสาวศศิกานต์ หลงกระจ่าง",
+// "user_nameeng": "",
+// "user_email": "64070105@it.kmitl.ac.th",
+// "user_signature": "",
+// "user_money": 20000,
+// "user_position": "" }
+
+const logout = async () => {
+  await userStore.logout();
+  router.push("/login");
 };
-
-const logout = (res) => {
-    localStorage.removeItem('user');
-    router.push('/')
-    location.reload()
-}
-
-onMounted( () => {
-    getUserInfo();
-})
 </script>

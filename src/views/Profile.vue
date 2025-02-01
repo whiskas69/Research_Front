@@ -6,8 +6,9 @@
         label="ชื่อ (ภาษาไทย)"
         customLabel="w-1/6"
         customInput="w-full"
-        placeholder="นายจารุวัฒน์ วรรณวัฒน์"
-        disabled="true"
+        :placeholder="profileData.nameth"
+        v-model="profileData.nameth"
+        @input="handleInput('nameth', $event.target.value)"
       />
     </div>
 
@@ -16,6 +17,9 @@
         label="ชื่อ (ภาษาอังกฤษ)"
         customLabel="w-1/6"
         customInput="w-full"
+        :placeholder="profileData.nameeng"
+        v-model="profileData.nameeng"
+        @input="handleInput('nameeng', $event.target.value)"
       />
     </div>
 
@@ -24,6 +28,9 @@
         label="ตำแหน่ง"
         customLabel="w-1/6"
         customInput="w-full"
+        :placeholder="profileData.position"
+        v-model="profileData.position"
+        @input="handleInput('position', $event.target.value)"
       />
     </div>
 
@@ -32,6 +39,8 @@
         label="อีเมล"
         customLabel="w-1/6"
         customInput="w-full"
+        :placeholder="profileData.email"
+        v-model="profileData.email"
         disabled="true"
       />
     </div>
@@ -41,12 +50,15 @@
         label="ยอดคงเหลือของการขออนุมัติเดินทาง ไปเผยแพร่ผลงานในการประชุมวิชาการ"
         customLabel="w-full max-w-fit mr-5"
         customInput="w-full"
-        placeholder="2000"
+        :placeholder="profileData.money"
+        v-model="profileData.money"
         disabled="true"
       />
     </div>
 
-    <button class="btn bg-blue-500 text-white">ตกลง</button>
+    <button @click="updatedProfile" class="btn bg-blue-500 text-white">
+      ตกลง
+    </button>
 
     <div class="my-10 flex flex-col">
       <h1 class="text-xl font-bold">ลายเซ็น</h1>
@@ -59,59 +71,114 @@
         <input
           type="file"
           class="file-input file-input-bordered w-full max-w-xs"
+          @change="handleFile($event, 'signature')"
         />
       </div>
 
-      <button class="btn bg-blue-500 text-white">ตกลง</button>
+      <div>
+        <button @click="updatesignature" class="btn bg-blue-500 text-white">
+          ตกลง
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
-</script>
+import { ref, computed, onMounted, reactive } from "vue";
+import { useRouter } from "vue-router";
 
-<style>
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  padding-left: 5%;
-}
-.thaiName {
-  padding-top: 2%;
-  width: 40%;
-}
-.email {
-  width: 40%;
-}
-.amount {
-  width: 80%;
-}
-.hEngName {
-  padding-right: 27%;
-}
-.hposition {
-  padding-right: 34%;
-}
-input[type="text"],
-input[type="email"] {
-  width: 300px;
-  padding: 0.5em;
-}
-input[type="file"] {
-  width: 300px;
-  padding: 0.5em;
-  width: 100%;
-}
-button {
-  border: none;
-  border-radius: 5px;
-  /* cursor: pointer; */
-  width: 10%;
-}
-button:hover {
-  background-color: #0056b3;
-}
-</style>
+import { useUserStore } from "@/store/userStore";
+import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
+import api from "@/setting/api";
+
+const router = useRouter();
+const userStore = useUserStore();
+
+const profileData = reactive({
+  Id: "",
+  nameth: "",
+  nameeng: "",
+  position: "",
+  email: "",
+  money: "",
+  signature: null,
+});
+
+const user = computed(() => userStore.user);
+
+onMounted(async () => {
+  await userStore.fetchUser();
+  console.log("user : ", user.value?.user_id);
+
+  // อัปเดตค่าหลังจาก `user` โหลดเสร็จ
+  profileData.Id = user.value?.user_id;
+  profileData.nameth = user.value?.user_nameth || "";
+  profileData.nameeng = user.value?.user_nameeng || "";
+  profileData.position = user.value?.user_position || "";
+  profileData.email = user.value?.user_email || "";
+  profileData.money = user.value?.user_money || "";
+  profileData.signature = user.value?.user_signature || "";
+});
+
+const handleInput = (key, value) => {
+  profileData[key] = value;
+};
+
+const handleFile = (event, fieldName) => {
+  const signature = event.target.files[0];
+  if (signature) {
+    profileData[fieldName] = signature;
+    console.log(`File assigned to ${fieldName}:`, profileData[fieldName]);
+    console.log("Updated profileData:", profileData);
+  } else {
+    console.error(`No file selected for ${fieldName}.`);
+  }
+};
+
+const updatedProfile = async () => {
+  try {
+    const DataforUpdate = {
+      user_id: profileData.Id,
+      user_nameth: profileData.nameth,
+      user_nameeng: profileData.nameeng,
+      user_position: profileData.position,
+      user_email: profileData.email,
+      user_money: profileData.money,
+    };
+
+    console.log("DataforUpdate : ", DataforUpdate);
+    const response = await api.put("/profileupdate", DataforUpdate);
+
+    alert("Update Success");
+    console.log("response : ", response);
+
+    location.reload();
+  } catch (error) {
+    console.log("error", error);
+  }
+};
+
+const updatesignature = async () => {
+  try {
+    const DataforUpdate = {
+      user_id: profileData.Id,
+      user_signature: profileData.signature,
+    };
+
+    console.log("DataforUpdate : ", DataforUpdate);
+    const response = await api.put("/signatureupdate", DataforUpdate, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Required for file uploads
+      },
+    });
+
+    alert("Update Success");
+    console.log("response : ", response);
+
+    location.reload();
+  } catch (error) {
+    console.log("error", error);
+  }
+};
+</script>

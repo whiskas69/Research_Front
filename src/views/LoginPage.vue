@@ -1,12 +1,8 @@
 <template>
   <div class="">
     <!-- background -->
-    <div
-      class="h-[91.9vh] bg-cover bg-center flex justify-center items-center"
-      style="
-        background-image: url(https://media.discordapp.net/attachments/1252175189849018370/1310622431777525771/background.png?ex=6768d381&is=67678201&hm=6fbe3c4d4c410d189b2d3e5d49e871015adb56dc781f2f8c4d4ced9169a0e298&=&format=webp&quality=lossless&width=1032&height=671);
-      "
-    >
+    <div class="h-[91.9vh] bg-cover bg-center flex justify-center items-center"
+      style="background-image: url('/images/background.png')">
       <!-- login box -->
       <div class="text-center bg-white w-1/4 rounded-md drop-shadow-lg p-5">
         <p class="text-2xl leading-relaxed">RESEARCH ADMINISTRATION</p>
@@ -19,42 +15,69 @@
         <p class="text-lg leading-relaxed pt-5 pb-3">
           ยืนยันตัวตนด้วยบริการของ Google
         </p>
-        <!-- button login google -->
-        <GoogleLogin :callback="callback" />
-        <!-- <button class="btn btn-outline w-full outline-black" v-google-login="onGoogleLogin">Login with Google</button> -->
+        <button class="btn w-full" @click="login"><img :src="GoogleLogo" class="w-10" alt="Google Logo" />Login With
+          Google</button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { decodeCredential } from "vue3-google-login";
+import { onMounted } from "vue";
+import GoogleLogo from '../assets/google.svg';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '@/store/userStore';
+import api from "@/setting/api";
 
+const userStore = useUserStore();
 const router = useRouter();
-let userData = ref(null);
 
-const callback = (response) => {
+const login = async () => {
   try {
-    if (!response || !response.credential) {
-      throw new Error("No credential received from Google response");
-    }
+    const googleAuth = window.google.accounts.oauth2.initCodeClient({
+      client_id: import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID,
+      scope: "openid profile email",
+      ux_mode: "popup",
+      callback: async (response) => {
+        console.log("google auth response: ", response);
 
-    userData = decodeCredential(response.credential);
+        if (response.code) {
+          try {
+            //backend api
+            const res = await api.post("/auth", {}, {
+              headers: {
+                Authorization: response.code
+              }
+            });
+            console.log("login success :", res.data);
 
-    // save localstorage
-    localStorage.setItem('user', JSON.stringify(userData))
-    router.push('/')
-    location.reload()
+            await userStore.fetchUser(); //load user data before login
 
-    console.log("Login Success", userData);
-  } catch (err) {
-    console.log("has err is ", err.message);
+            const currentUser = userStore.user;
+
+            if (currentUser?.user_role == 'professor') {
+              router.push("/homepage");
+            } else if (currentUser?.user_role == 'insecter' || currentUser?.user_role == 'approver') {
+              router.push("/Officer");
+            } else if (currentUser?.user_role == 'admin') {
+              router.push("/admin");
+            }
+
+          } catch (error) {
+            console.error("login fail : ", error);
+          }
+        }
+      },
+    });
+
+    googleAuth.requestCode();
+
+  } catch (error) {
+    console.error("Login failed:", error)
   }
-  // This callback will be triggered when the user selects or login to his Google account from the popup
-  //   const userData = decodeCredential(response.credential)
-  // decodeCredential will retrive the JWT payload from the credential
-  //   console.log("Handle the response", userData)
-};
+}
+
+onMounted(async () => {
+  await userStore.fetchUser();
+});
 </script>

@@ -7,7 +7,7 @@
         :class="`input input-bordered mx-1 w-full ${customInput}`"
         :placeholder="placeholder"
         :disabled="disabled"
-        v-model="test"
+        v-model="inputtext"
         @input="handleInput"
       />
     </label>
@@ -34,7 +34,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  test: {
+  inputtext: {
     type: String,
     default: "",
   },
@@ -52,7 +52,7 @@ const props = defineProps({
   },
 });
 
-const test = ref(props.test);
+const inputtext = ref(props.inputtext);
 const emit = defineEmits();
 
 // Method to handle input changes and log them

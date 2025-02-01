@@ -1,17 +1,6 @@
 <template>
-  {{ formData.name }}
-  {{ formData.userID }}
-  <!-- เช็คว่า Professor มีข้อมูลหรือยัง -->
-  <div v-if="formData.name">
-    <p>get user success</p>
-    {{ this.formData }}
-  </div>
-  <div v-else>
-    <!-- แสดงข้อความระหว่างรอดึงข้อมูล -->
-    <p>Loading...</p>
-  </div>
-
   <div>
+    
     <div class="container my-10 mx-auto">
       <p class="text-xl font-bold mb-5">
         ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
@@ -150,11 +139,11 @@
           </div>
 
           <div class="flex flex-row">
-            <CheckInput 
-            label="Nature" 
-            customDiv="max-w-72 flex items-center" 
-            v-model="formData.nature"
-            @input="handleCheckbox('nature', 'nature')"
+            <CheckInput
+              label="Nature"
+              customDiv="max-w-72 flex items-center"
+              v-model="formData.nature"
+              @input="handleCheckbox('nature', 'nature')"
             />
           </div>
 
@@ -163,18 +152,18 @@
               <span class="flex mr-2 items-center">
                 วงเงินตามเกณฑ์การให้การสนับสนุนไม่เกิน
               </span>
-<!-- not sure select -->
-              <select 
-              class="select select-bordered w-3/12"
-              v-model="formData.moneyOp"
-            @input="handleInputSelect"
-            >
-                <option>เลือกวงเงินสนับสนุน</option>
-                <option>20,000 บาท</option>
-                <option>30,000 บาท</option>
-                <option>40,000 บาท</option>
-                <option>60,000 บาท</option>
-                <option>70,000 บาท</option>
+              <!-- not sure select -->
+              <select
+                class="select select-bordered w-3/12"
+                v-model="formData.moneyOp"
+                @change="handleInputSelect"
+              >
+                <option disabled value="">เลือกวงเงินสนับสนุน</option>
+                <option :value="20000">20,000 บาท</option>
+                <option :value="30000">30,000 บาท</option>
+                <option :value="40000">40,000 บาท</option>
+                <option :value="60000">60,000 บาท</option>
+                <option :value="70000">70,000 บาท</option>
               </select>
             </div>
           </label>
@@ -202,36 +191,38 @@
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               v-model="formData.schedule"
-            @input="handleInput('schedule', $event.target.value)"
+              @input="handleInput('schedule', $event.target.value)"
             />
             <TextInputLabelLeft
               label="ฉบับที่ (Issue)"
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               v-model="formData.issue"
-            @input="handleInput('issue', $event.target.value)"
+              @input="handleInput('issue', $event.target.value)"
             />
             <TextInputLabelLeft
               label="เดือน"
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               v-model="formData.months"
-            @input="handleInput('months', $event.target.value)"
+              @input="handleInput('months', $event.target.value)"
             />
-            <TextInputLabelLeft
-              label="ปี ค.ศ./พ.ศ."
-              customLabel="w-auto min-w-fit"
-              customDiv="max-w-fit"
-              v-model="formData.year"
-            @input="handleInput('year', $event.target.value)"
-            />
-            <TextInputLabelLeft
-              label="เลขที่ ISSN/ISBN (อื่นๆ)"
-              customLabel="w-auto min-w-fit"
-              customDiv="max-w-fit"
-              v-model="formData.ISSN"
-            @input="handleInput('ISSN', $event.target.value)"
-            />
+            <div class="flex flex-row">
+              <TextInputLabelLeft
+                label="ปี ค.ศ./พ.ศ."
+                customLabel="w-auto min-w-fit"
+                customDiv="max-w-fit"
+                v-model="formData.year"
+                @input="handleInput('year', $event.target.value)"
+              />
+              <TextInputLabelLeft
+                label="เลขที่ ISSN/ISBN (อื่นๆ)"
+                customLabel="w-auto min-w-fit"
+                customDiv="max-w-fit"
+                v-model="formData.ISSN"
+                @input="handleInput('ISSN', $event.target.value)"
+              />
+            </div>
           </div>
 
           <div class="flex flex-row mt-4 justify-between">
@@ -241,7 +232,7 @@
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               v-model="formData.submitReach"
-            @input="handleInput('submitReach', $event.target.value)"
+              @input="handleInput('submitReach', $event.target.value)"
             />
             <TextInputLabelLeft
               label="วันประกาศผลการพิจารณา"
@@ -249,7 +240,7 @@
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               v-model="formData.announce"
-            @input="handleInput('announce', $event.target.value)"
+              @input="handleInput('announce', $event.target.value)"
             />
             <TextInputLabelLeft
               label="วันสุดท้ายของการจ่ายค่าตีพิมพ์"
@@ -257,7 +248,7 @@
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               v-model="formData.latePay"
-            @input="handleInput('latePay', $event.target.value)"
+              @input="handleInput('latePay', $event.target.value)"
             />
           </div>
 
@@ -270,7 +261,7 @@
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-fit"
                 v-model="formData.reachOther"
-            @input="handleInput('reachOther', $event.target.value)"
+                @input="handleInput('reachOther', $event.target.value)"
               />
             </div>
             <p>ประเภทโครงการวิจัย</p>
@@ -278,39 +269,43 @@
             <div class="flex flex-row ml-5">
               <RadioInput
                 label="วิจัยพื้นฐาน"
+                value="วิจัยพื้นฐาน"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-cente"
-                v-model="formData.basic"
-                @input="handleInputReach"
+                v-model="formData.redioResearch"
+                @change="handleInputRediO"
               />
               <RadioInput
                 label="วิจัยประยุกต์"
+                value="วิจัยประยุกต์"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-cente"
-                v-model="formData.applied"
-            @input="handleInputReach"
+                v-model="formData.redioResearch"
+                @change="handleInputRediO"
               />
               <RadioInput
                 label="วิจัยและพัฒนา"
+                value="วิจัยและพัฒนา"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-cente"
-                v-model="formData.develop"
-            @input="handleInputReach"
+                v-model="formData.redioResearch"
+                @change="handleInputRediO"
               />
               <div class="flex flex-row">
                 <RadioInput
                   label="วิจัยอื่น ๆ "
+                  value="วิจัยอื่น ๆ"
                   name="type"
                   customDiv="max-w-fit mr-2 flex items-cente"
-                  v-model="formData.other"
-            @input="handleInputReach"
+                  v-model="formData.redioResearch"
+                  @change="handleInputRediO"
                 />
                 <TextInputLabelLeft
                   label="(ระบุ)"
                   name="type"
                   customDiv="max-w-fit flex items-cente"
                   v-model="formData.otherInput"
-            @input="handleInputReach"
+                  @input="handleInput"
                 />
               </div>
             </div>
@@ -319,7 +314,7 @@
               label="ชื่อแหล่งทุนวิจัย"
               customLabel="w-auto min-w-fit"
               v-model="formData.source"
-            @input="handleInput('source', $event.target.value)"
+              @input="handleInput('source', $event.target.value)"
             />
             <div class="flex flex-row">
               <TextInputLabelLeft
@@ -327,14 +322,14 @@
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-max mr-10"
                 v-model="formData.credit"
-            @input="handleInput('credit', $event.target.value)"
+                @input="handleInput('credit', $event.target.value)"
               />
               <TextInputLabelLeft
                 label="ประจำปี"
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-max mr-10"
                 v-model="formData.inYears"
-            @input="handleInput('inYears', $event.target.value)"
+                @input="handleInput('inYears', $event.target.value)"
               />
             </div>
           </SectionWrapper>
@@ -344,17 +339,19 @@
       <Mainbox>
         <p class="text-lg font-bold">3. ผู้ขอรับการสนับสนุน</p>
         <SectionWrapper>
-          <RadioInput 
-          label="ผู้ประพันธ์อันดับแรก First Author" 
-          name="Author" 
-          v-model="formData.firstAuth"
-            @input="handleInputRedioAuth"
-            />
+          <RadioInput
+            label="ผู้ประพันธ์อันดับแรก First Author"
+            value="First Author"
+            name="Author"
+            v-model="formData.redioAuth"
+            @change="handleInputRedioAuth"
+          />
           <RadioInput
             label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
+            value="Corresponding Author"
             name="Author"
-            v-model="formData.SecondAuth"
-            @input="handleInputRedioAuth"
+            v-model="formData.redioAuth"
+            @change="handleInputRedioAuth"
           />
         </SectionWrapper>
       </Mainbox>
@@ -374,35 +371,85 @@
         </SectionWrapper>
       </Mainbox>
       <!-- เอกสารหลักฐานที่แนบ -->
-       <!-- ต้อง loop มั้ย หรือเขียนแยกไปเลย -->
       <Mainbox>
         <SectionWrapper>
           <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
-          <div v-for="(item, key) in FileForm" :key="key" class="mb-4">
-            <div v-if="item.name === 'Second' || item.name === 'Ninth'">
-              <!-- Render FileInputWithInput for specific conditions -->
-              <FileInputWithInput
-                :label="item.label"
-                :customLabel="item.customLabel"
-                :span="item.span"
-                :customSpan="item.customSpan"
-              />
-            </div>
-            <div v-else>
-              <!-- Render FileInput for all other conditions -->
-              <FileInput
-                :label="item.label"
-                :customLabel="item.customLabel"
-                :span="item.span"
-                :customSpan="item.customSpan"
-              />
+          <FileInput
+            label="หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature"
+            name="First"
+            type="file"
+            v-model="formData.file1"
+            @change="handleFile($event, 'file1')"
+          />
+          <!-- ยังไม่ได้ใส่ v-model ต้องเพิ่มในตาราง filePDF ด้วย -->
+          <TextInputLabelLeft
+            label="ลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus"
+            customLabel="w-auto min-w-fit"
+            customDiv="max-w-max mr-10"
+            @input="handleInput('inputFile2', $event.target.value)"
+          />
+          <FileInput
+            label="หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus"
+            name="Second"
+            type="file"
+            v-model="formData.file2"
+            @change="handleFile($event, 'file2')"
+          />
+          <FileInput
+            label="ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ / อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์"
+            name="Third"
+            type="file"
+            v-model="formData.file3"
+            @change="handleFile($event, 'file3')"
+          />
+          <FileInput
+            label="หลักฐานการส่งบทความ หนังสือตอบรับบทความ"
+            name="Fourth"
+            type="file"
+            v-model="formData.file4"
+            @change="handleFile($event, 'file4')"
+          />
+          <FileInput
+            label="สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar"
+            name="Fifth"
+            type="file"
+            v-model="formData.file5"
+            @change="handleFile($event, 'file5')"
+          />
+
+          <!-- <input type="file" class="bg-red-200" @change="handleFile" /> -->
+
+          <!-- <div v-if="formData.file1">
+            <p>File Name: {{ formData.file1.name }}</p>
+            <p>File Size: {{ formData.file1.size }} bytes</p>
+            <p>File Type: {{ formData.file1.type }}</p>
+            <a :href="URL.createObjectURL(formData.file1)" target="_blank"
+              >View File</a
+            >
+          </div> -->
+
+          <!-- showPDF {{ Use an iframe to display PDF }}-->
+          <!-- <div v-if="formData.file1" class="columns is-multiline">
+            <div class="card-image">
+              <figure class="image my-5">
+                <iframe
+                  v-if="isPDF(formData.file1)"
+                  :src="showPDF(formData.file1)"
+                  width="100%"
+                  height="500px"
+                ></iframe>
+              </figure>
             </div>
           </div>
+          {{ formData.file1 }} -->
         </SectionWrapper>
       </Mainbox>
-      {{ formData }}
+
+      <!-- {{ formData }} -->
       <div class="flex justify-end">
-        <button @click="NewPC" class="btn btn-success text-white">บันทึกข้อมูล</button>
+        <button @click="NewPC" class="btn btn-success text-white">
+          บันทึกข้อมูล
+        </button>
       </div>
     </div>
   </div>
@@ -418,7 +465,7 @@ import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 import CheckInput from "@/components/Input/CheckInput.vue";
 import FileInput from "@/components/Input/FileInput.vue";
-import FileInputWithInput from "@/components/Input/FileInputWithInput.vue";
+// import FileInputWithInput from "@/components/Input/FileInputWithInput.vue";
 
 // จัดการข้อมูลหลัก
 const formData = reactive({
@@ -431,6 +478,7 @@ const formData = reactive({
   textOther2: "",
   // PageDetail
   nameJournal: "",
+  check: [],
   checkISI: "",
   input1ISI: "",
   input2ISI: "", //isi
@@ -441,8 +489,8 @@ const formData = reactive({
   input1Scopus: "",
   input2Scopus: "", //scopus
   nature: "",
-  moneyOp: "4999",
-  //ReachDetail
+  moneyOp: "",
+  //ResearchDetail
   nameReach: "",
   schedule: "",
   issue: "",
@@ -453,138 +501,124 @@ const formData = reactive({
   announce: "",
   latePay: "",
   reachOther: "",
-  basic: "",
-  applied: "",
-  develop: "วิจัยและพัฒนา",
-  other: "",
+  redioResearch: "",
   otherInput: "",
   source: "",
   credit: "",
   inYears: "",
   //AuthForm
-  firstAuth: "",
-  SecondAuth: "Corresponding Author",
+  redioAuth: "",
   //MoneyPG
   moneyPG: "",
   //FileForm
-  file1: "",
-  file2: "",
-  file3: "",
-  file4: "",
-  file5: "",
+  file1: null,
+  file2: null,
+  inputFile2: "",
+  file3: null,
+  file4: null,
+  file5: null,
+  //วันที่ส่งเอกสาร
+  docSubmitDate: "",
+  typeFile: "Page_Charge",
+  //satatus
+  statusForm: "ตรวจสอบ",
+  moneyForm: "100000"
 });
+//วันที่ส่งเอกสาร
+const datetime = new Date();
+// Extract year, month, and day
+const year = datetime.getFullYear();
+const month = String(datetime.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+const day = String(datetime.getDate()).padStart(2, '0');
+// Combine in YYYY-MM-DD format
+formData.docSubmitDate = `${year}-${month}-${day}`;
+console.log(formData.docSubmitDate);
 
 const handleInput = (key, value) => {
   formData[key] = value;
-  console.log("0000000000000000000000000000000")
-  console.log(JSON.stringify(formData))
+  console.log("0000000000000000000000000000000");
+  // console.log(JSON.stringify(formData));
   console.log(`${key} updated to: ${value}`);
-  console.log("key: ", key)
-  console.log("value: ", value)
-  console.log("--------------------------------")
+  // console.log("key: ", key);
+  // console.log("value: ", value);
+  console.log("--------------------------------");
 };
-const handleCheckbox = (key, value) => {
-  formData[key] = formData[key] ? "" : value;
-  console.log(`${key} is now ${formData[key]}`);
-};
+// const handleDay = (key, value) => {
+//   // Convert the string (YYYY-MM-DD) to a Date object
+//   const datetime = new Date(value);
 
-const moneyOptions = {
-  "20,000 บาท": 20000,
-  "30,000 บาท": 30000,
-  "40,000 บาท": 40000,
-  "60,000 บาท": 60000,
-  "70,000 บาท": 70000,
+//   if (isNaN(datetime)) {
+//     console.error("Invalid date format");
+//     return;
+//   }
+
+//   const year = datetime.getFullYear();
+//   const month = String(datetime.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+//   const day = String(datetime.getDate()).padStart(2, '0');
+
+//   formData[key] = `${day}-${month}-${year}`;
+//   console.log(`${key} updated to: ${formData[key]}`);
+//   console.log("--------------------------------");
+// };
+
+const handleCheckbox = (key, value) => {
+  if (formData[key]) {
+    // If the checkbox is checked, uncheck it and remove the value from the array
+    formData[key] = "";
+    console.log("1");
+    formData.check = formData.check.filter((item) => item !== value);
+  } else {
+    // If the checkbox is unchecked, check it and add the value to the array
+    formData[key] = value;
+    console.log("12");
+    formData.check.push(value);
+  }
+  console.log(`${key} is now ${formData[key]}`);
+  console.log("Updated formData.check:", formData.check);
 };
 
 const handleInputSelect = (event) => {
-  formData.moneyOp = moneyOptions[event.target.value] || event.target.value;
+  formData.moneyOp = event.target.value;
   console.log("Updated moneyOp:", formData.moneyOp);
+  console.log("puch in moneyOp", formData.moneyOp);
+  // console.log(JSON.stringify(formData));
 };
 
-// watch(
-//   () => formData.value,
-//   (newValue) => {
-//     // test = newValue;
-//     // console.log("fromData", newValue);
-//     test.value = newValue; // Update the `test` ref
-//     console.log("Updated formData:", newValue); // Log the new value of `formData`
-//   },
-//   { deep: true } // Enable deep watching
-// );
-const handleInputReach = (event) => {
-  if (formData.basic) {
-    formData.basic = "วิจัยพื้นฐาน";
-    formData.applied = "";
-    formData.develop = "";
-    formData.other = "";
-    console.log("วิจัยพื้นฐาน Selected:", formData.basic);
-  }
-  else if (!formData.applied) {
-    formData.basic = "";
-    formData.applied = "วิจัยประยุกต์";
-    formData.develop = "";
-    formData.other = "";
-    console.log("วิจัยประยุกต์ Selected:", formData.applied);
-  }
-  else if (!formData.develop) {
-    formData.basic = "";
-    formData.applied = "";
-    formData.develop = "วิจัยและพัฒนา";
-    formData.other = "";
-    console.log("วิจัยและพัฒนา Selected:", formData.develop);
-  }
-  else if (!formData.other) {
-    formData.basic = "";
-    formData.applied = "";
-    formData.develop =""
-    formData.other = "อื่น ๆ";
-    console.log("วิจัยอื่น ๆ Selected:", formData.other);
-    formData.otherInput = "event.target.value";
-    console.log("วิจัยอื่น ๆ (ระบุ) updated:", event.target.value);
-  }
-};
-const handleInputRedioAuth = () => {
-  // ถ้าเลือก "First Author"
-  if (!formData.firstAuth) {
-    formData.firstAuth = "First Author";  // กำหนดค่า "First Author"
-    formData.SecondAuth = "";
-    console.log("First Author Selected:", formData.firstAuth);
-    console.log("Corresponding Author not Selected:", formData.SecondAuth);
-  }
-  // ถ้าเลือก "Corresponding Author"
-  else if (!formData.SecondAuth) {
-    formData.firstAuth = "";
-    formData.SecondAuth = "Corresponding Author";  // กำหนดค่า "Corresponding Author"
-    console.log("First Author not Selected:", formData.firstAuth);
-    console.log("Corresponding Author Selected:", formData.SecondAuth);
-  }
-};
-const FileForm = {
-  First: {
-    label:
-      "หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature",
-    name: "First",
-  },
-  Second: {
-    label:
-      "หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus",
-    name: "Second",
-  },
-  Third: {
-    label:
-      "ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ / อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์",
-    name: "Third",
-  },
-  Fourth: {
-    label: "หลักฐานการส่งบทความ หนังสือตอบรับบทความ",
-    name: "Fourth",
-  },
-  Fifth: {
-    label: "สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar",
-    name: "Fifth",
-  },
+const handleInputRediO = (event) => {
+  formData.redioResearch = event.target.value || event.target.value;
+  console.log("Updated redioResearch:", formData.redioResearch);
+  console.log("puch in redioResearch", formData.redioResearch);
+  // console.log(JSON.stringify(formData));
 };
 
+const handleInputRedioAuth = (event) => {
+  formData.redioAuth = event.target.value || event.target.value;
+  console.log("Updated redioAuth:", formData.redioAuth);
+  console.log("puch in redioAuth", formData.redioAuth);
+  // console.log(JSON.stringify(formData));
+};
+
+const handleFile = (event, fieldName) => {
+  const file = event.target.files[0];
+  if (file) {
+    formData[fieldName] = file;
+    console.log(`File assigned to ${fieldName}:`, formData[fieldName]);
+    console.log("Updated formData:", formData);
+  } else {
+    console.error(`No file selected for ${fieldName}.`);
+  }
+};
+// const showPDF = (file) => {
+//   if (file instanceof File || file instanceof Blob) {
+//     return URL.createObjectURL(file);
+//   }
+//   console.error("Invalid file for PDF display:", file);
+//   return "";
+// };
+// const isPDF = (file) => {
+//   // Check if the file type is PDF
+//   return file && file.type === "application/pdf";
+// };
 
 //isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
 const isLoading = ref(true);
@@ -592,10 +626,10 @@ const isLoading = ref(true);
 
 const fetchProfessorData = async () => {
   try {
-    const response = await axios.get("http://localhost:3000/user/7");
+    const response = await axios.get("http://localhost:3000/user/1");
     // formData.asdf = response.data;
-    formData.userID = response.data.user_id
-    formData.name = response.data.user_name;
+    formData.userID = response.data.user_id;
+    formData.name = response.data.user_nameth;
     formData.position = response.data.user_position;
     console.log("get user: ", response.data);
   } catch (error) {
@@ -603,6 +637,7 @@ const fetchProfessorData = async () => {
   } finally {
     isLoading.value = false;
   }
+  console.log("Fetching professor data...");
 };
 
 const NewPC = async () => {
@@ -610,15 +645,29 @@ const NewPC = async () => {
     console.log("before postPC: ", formData);
     console.log("formData as JSON:", JSON.stringify(formData, null, 2));
     console.log("before userID: ", JSON.stringify(formData));
-    // 
+    //
     // message.value = response.data.message;
+
+    // const dataFile = {
+    //   type: formData.typeFile,
+    //   Pc_proof: formData.file1,
+    // };
+    // console.log("postPC: ", JSON.stringify(dataFile));
+    //  // Send file data to the backend
+    //  const responseFile = await axios.post("http://localhost:3000/pdf", dataFile, {
+    //   headers: {
+    //     "Content-Type": "multipart/form-data", // Required for file uploads
+    //   },
+    // });
+    // console.log("responseFile: ", responseFile);
+    // console.log("Response data: ", responseFile.data);
 
     const Dataforbackend = {
       user_id: formData.userID,
       pageC_times: formData.textOther1,
       pageC_days: formData.textOther2,
       journal_name: formData.nameJournal,
-      quality_journal: formData.checkISI,
+      quality_journal: JSON.stringify(formData.check),
       pc_isi_year: formData.input1ISI,
       pc_sjr_year: formData.input1SJR,
       pc_scopus_year: formData.input1Scopus,
@@ -632,34 +681,71 @@ const NewPC = async () => {
       month: formData.months,
       year: formData.year,
       ISSN_ISBN: formData.ISSN,
-      Submission_date: formData.submitReach,
+      submission_date: formData.submitReach,
       date_review_announce: formData.announce,
       final_date: formData.latePay,
       article_research_ject: formData.reachOther,
-      research_type: 'วิจัยพื้นฐาน',
+      research_type: formData.redioResearch,
       research_type2: formData.otherInput,
       name_funding_source: formData.source,
       budget_limit: formData.credit,
       annual: formData.inYears,
-      presenter_type: 'Corresponding Author',
+      presenter_type: formData.redioAuth,
       request_support: formData.moneyPG,
+      doc_submit_date: formData.docSubmitDate,
+
+      type: formData.typeFile,
+      pc_proof: formData.file1,
+      quartile_order: formData.inputFile2,
+      q_pc_proof: formData.file2,
+      invoice_public: formData.file3,
+      accepted: formData.file4,
+      copy_article: formData.file5,
+
+      form_status: formData.statusForm,
+      form_money: formData.moneyForm,
     };
+
     console.log("postPC: ", JSON.stringify(Dataforbackend));
-    const response = await axios.post("http://localhost:3000/page_charge", Dataforbackend);
-    console.log('res: ', response)
-    
-    // console.log("allpostPC: ", message.value);
-    // console.log("postPC: ", response.data);
+    const response = await axios.post(
+      "http://localhost:3000/page_charge",
+      Dataforbackend,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data", // Required for file uploads
+        },
+      }
+    );
+    alert("Have new PC!");
+    console.log("res: ", response);
+
+    // const data = await response.json();
+    // if (response.ok) {
+    //   console.log('Page Charge created with pc_id:', data.pc_id);
+    //   // Use pc_id for further actions
+    // } else {
+    //   console.error('Error:', data.error);
+    // }
+
+    console.log("allpostPC: ", message.value);
+    console.log("postPC: ", response.data);
   } catch (error) {
     console.error(error);
-    // message.value = 'Error adding page_charge. Please try again.';
-  } 
+    message.value = "Error adding page_charge. Please try again.";
+  }
 };
+
+const element = document.querySelector('your-selector');
+if (!element) {
+  console.error('Element not found!');
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const element = document.querySelector('your-selector');
+  console.log("element: ",element);
+});
 
 // ดึงข้อมูลเมื่อ component ถูกโหลด
 onMounted(() => {
   fetchProfessorData();
 });
-
-
 </script>
