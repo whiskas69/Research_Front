@@ -5,6 +5,7 @@
         type="checkbox"
         :class="`checkbox mx-1 ml-2 ${customClass}`"
         :disabled="disabled"
+        :checked="checked"
         @input="$emit('input, $event.target.value')"
       />
       <span :class="`${customLabel}`"> {{ label }}</span>
@@ -27,6 +28,10 @@ defineProps({
     required: true,
   },
   disabled: {
+    type: Boolean,
+    default: false,
+  },
+  checked: {
     type: Boolean,
     default: false,
   },

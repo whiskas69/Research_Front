@@ -97,7 +97,7 @@
               customLabel="mr-2"
               customInput="max-w-max"
               customDiv="max-w-max"
-              v-model="formData.checkinput1SJR"
+              v-model="formData.input1SJR"
             />
             <TextInputLabelLeft
               label="SJR Score"
@@ -142,17 +142,22 @@
           </div>
           <label class="form-control">
             <div class="flex flex-row">
-              <TextInputLabelLeft
-              label="วงเงินตามเกณฑ์การให้การสนับสนุนไม่เกิน"
-              customLabel="w-auto mx-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              :placeholder="formData.moneyOp"
-              v-model="formData.input2Scopus"
-            />
-            <span class="flex items-center">บาท</span>
+              <span class="flex mr-2 items-center">
+                วงเงินตามเกณฑ์การให้การสนับสนุนไม่เกิน
+              </span>
+              <!-- not sure select -->
+              <select
+                class="select select-bordered w-3/12"
+                v-model="formData.moneyOp"
+                disabled="true"
+              >
+                <option disabled value="">เลือกวงเงินสนับสนุน</option>
+                <option :value="20000">20,000 บาท</option>
+                <option :value="30000">30,000 บาท</option>
+                <option :value="40000">40,000 บาท</option>
+                <option :value="60000">60,000 บาท</option>
+              </select>
             </div>
-            
           </label>
         </SectionWrapper>
       </Mainbox>
@@ -735,7 +740,28 @@ const PG1 = {
   disabled: false,
 };
 
-
+const PG2 = {
+  Choice1: {
+    label: "อนุมัติ",
+    name: "comment",
+    disabled: false,
+  },
+  Choice2: {
+    label: "ไม่อนุมัติ",
+    name: "comment",
+    disabled: false,
+  },
+  Choice3: {
+    label: "อื่น ๆ",
+    name: "comment",
+    disabled: false,
+  },
+  comments: {
+    label: "เนื่องจาก",
+    name: "textArea",
+    disabled: false,
+  },
+};
 
 const showPDF = () => {
   console.log(formData.file1);
@@ -857,7 +883,7 @@ const loopdata = async () => {
 
   console.log("formdata, ", formData.check)
   for (let i = 0; i < formData.check.length; i++) {
-    console.log("checking journal", formData.check[i]);
+    console.log("checking journal", quality_journal[i]);
     if (formData.check[i] == "nature") {
       formData.nature = "nature";
       console.log("Journal have 'nature'");
@@ -878,12 +904,11 @@ const loopdata = async () => {
 }
 
 // ดึงข้อมูลเมื่อ component ถูกโหลด
-onMounted(async () => {
-  await fetchProfessorData();
+onMounted(() => {
+  fetchProfessorData();
 
   console.log("formdatacheck, ", formData.check)
   loopdata();
-  console.log("check, ", formData.checkISI)
 });
 </script>
 

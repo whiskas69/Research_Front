@@ -272,7 +272,7 @@
                 value="วิจัยพื้นฐาน"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-cente"
-                v-model="formData.redioResearch"
+                v-model="formData.radioResearch"
                 @change="handleInputRediO"
               />
               <RadioInput
@@ -280,7 +280,7 @@
                 value="วิจัยประยุกต์"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-cente"
-                v-model="formData.redioResearch"
+                v-model="formData.radioResearch"
                 @change="handleInputRediO"
               />
               <RadioInput
@@ -288,7 +288,7 @@
                 value="วิจัยและพัฒนา"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-cente"
-                v-model="formData.redioResearch"
+                v-model="formData.radioResearch"
                 @change="handleInputRediO"
               />
               <div class="flex flex-row">
@@ -297,7 +297,7 @@
                   value="วิจัยอื่น ๆ"
                   name="type"
                   customDiv="max-w-fit mr-2 flex items-cente"
-                  v-model="formData.redioResearch"
+                  v-model="formData.radioResearch"
                   @change="handleInputRediO"
                 />
                 <TextInputLabelLeft
@@ -501,7 +501,7 @@ const formData = reactive({
   announce: "",
   latePay: "",
   reachOther: "",
-  redioResearch: "",
+  radioResearch: "",
   otherInput: "",
   source: "",
   credit: "",
@@ -585,9 +585,9 @@ const handleInputSelect = (event) => {
 };
 
 const handleInputRediO = (event) => {
-  formData.redioResearch = event.target.value || event.target.value;
-  console.log("Updated redioResearch:", formData.redioResearch);
-  console.log("puch in redioResearch", formData.redioResearch);
+  formData.radioResearch = event.target.value || event.target.value;
+  console.log("Updated radioResearch:", formData.radioResearch);
+  console.log("puch in radioResearch", formData.radioResearch);
   // console.log(JSON.stringify(formData));
 };
 
@@ -685,7 +685,7 @@ const NewPC = async () => {
       date_review_announce: formData.announce,
       final_date: formData.latePay,
       article_research_ject: formData.reachOther,
-      research_type: formData.redioResearch,
+      research_type: formData.radioResearch,
       research_type2: formData.otherInput,
       name_funding_source: formData.source,
       budget_limit: formData.credit,
