@@ -1,74 +1,73 @@
 <template>
   <div class="navbar bg-base-100 px-14 py-2 shadow-sm sticky top-0 z-40">
-    <router-link
-      v-if="!userStore.user"
-      to="/"
-      class="flex=auto max-w-14 w-full"
-    >
-      <img
-        src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-        alt="IT KMITL"
-      />
-    </router-link>
+    <div class="start mr-5">
+      <div v-if="!userStore.user">
+        <router-link to="/">
+          <img
+            class="flex-auto max-w-14 w-24"
+            src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
+            alt="IT KMITL"
+          />
+        </router-link>
+      </div>
 
-    <div v-else-if="userStore.user">
-      <router-link
-        v-if="userStore.user.user_role == 'professor'"
-        to="/homepage"
-        class="flex=auto max-w-14 w-full"
-      >
-        <img
-          src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-          alt="IT KMITL"
-        />
-      </router-link>
+      <div v-else-if="userStore.user">
+        <div v-if="userStore.user.user_role == 'professor'">
+          <router-link to="/homepage">
+            <img
+              class="flex-auto max-w-14 w-24"
+              src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
+              alt="IT KMITL"
+            />
+          </router-link>
+        </div>
 
-      <router-link
-        v-else-if="userStore.user.user_role == 'hr' || userStore.user.user_role == 'research' || userStore.user.user_role == 'finance'"
-        to="/Officer"
-        class="flex=auto max-w-14 w-full"
-      >
-        <img
-          src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-          alt="IT KMITL"
-        />
-      </router-link>
+        <div
+          v-else-if="
+            userStore.user.user_role == 'hr' ||
+            userStore.user.user_role == 'research' ||
+            userStore.user.user_role == 'finance'
+          "
+        >
+          <router-link to="/Officer">
+            <img
+              class="flex-auto max-w-14 w-24"
+              src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
+              alt="IT KMITL"
+            />
+          </router-link>
+        </div>
 
-      <router-link
-        v-if="userStore.user.user_role == 'approver'"
-        to="/Officer"
-        class="flex=auto max-w-14 w-full"
-      >
-        <img
-          src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-          alt="IT KMITL"
-        />
-      </router-link>
+        <div v-else-if="userStore.user.user_role == 'approver'">
+          <router-link to="/Officer">
+            <img
+              class="flex-auto max-w-14 w-24"
+              src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
+              alt="IT KMITL"
+            />
+          </router-link>
+        </div>
 
-      <router-link
-        v-if="userStore.user.user_role == 'admin'"
-        to="/admin"
-        class="flex=auto max-w-14 w-full"
-      >
-        <img
-          src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-          alt="IT KMITL"
-        />
-      </router-link>
+        <div v-else-if="userStore.user.user_role == 'admin'">
+          <router-link to="/admin">
+            <img
+              class="flex-auto max-w-14 w-24"
+              src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
+              alt="IT KMITL"
+            />
+          </router-link>
+        </div>
+      </div>
     </div>
 
     <div class="flex-auto w-3/6">
-      <ul class="menu menu-horizontal px-5">
+      <ul class="menu menu-horizontal px-5 flex">
         <div v-if="userStore.user">
-          <ul
-            class="menu menu-horizontal"
-            v-if="userStore.user.user_role == 'professor'"
-          >
-            <li>
+          <ul class="menu menu-horizontal" v-if="userStore.user.user_role == 'professor'">
+            <li class="justify-center">
               <details>
                 <summary>สถานะและประวัติ</summary>
-
-                <ul class="bg-base-100 rounded-t-none p-1 w-full">
+                <ul class="bg-base-100 rounded-t-none">
                   <li>
                     <router-link to="/allstatus">สถานะเอกสาร</router-link>
                   </li>
@@ -80,20 +79,26 @@
             </li>
           </ul>
 
-          <li v-else-if="userStore.user.user_role == 'hr' || userStore.user.user_role == 'research' || userStore.user.user_role == 'finance'">
+          <li class="justify-center"
+            v-else-if="
+              userStore.user.user_role == 'hr' ||
+              userStore.user.user_role == 'research' ||
+              userStore.user.user_role == 'finance'
+            "
+          >
             <router-link to="/officer">เอกสารที่อนุมัติแล้ว</router-link>
           </li>
 
-          <li v-else-if="userStore.user.user_role == 'approver'">
+          <li class="justify-center" v-else-if="userStore.user.user_role == 'approver'">
             <router-link to="/EofficeView">เอกสารที่อนุมัติแล้ว</router-link>
           </li>
 
-          <li v-else-if="userStore.user.user_role == 'admin'">
+          <li class="justify-center" v-else-if="userStore.user.user_role == 'admin'">
             <router-link to="/">แก้เงื่อนไขการพิจารณา</router-link>
           </li>
         </div>
 
-        <li><router-link to="/">สรุปผลแบบสถิติ</router-link></li>
+        <li class="justify-center"><router-link to="/">สรุปผลแบบสถิติ</router-link></li>
       </ul>
     </div>
 
@@ -157,20 +162,18 @@
 </template>
 
 <script setup>
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/store/userStore";
 
 const router = useRouter();
 const userStore = useUserStore();
 
-//{ "user_id": 2498,
-// "user_role": "professor",
-// "user_nameth": "นางสาวศศิกานต์ หลงกระจ่าง",
-// "user_nameeng": "",
-// "user_email": "64070105@it.kmitl.ac.th",
-// "user_signature": "",
-// "user_money": 20000,
-// "user_position": "" }
+onMounted(async () => {
+  if (!userStore.user) {
+    await userStore.fetchUser();
+  }
+});
 
 const logout = async () => {
   await userStore.logout();
