@@ -86,13 +86,11 @@
 
 <script setup>
 import { ref, computed, onMounted, reactive } from "vue";
-import { useRouter } from "vue-router";
 
 import { useUserStore } from "@/store/userStore";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import api from "@/setting/api";
 
-const router = useRouter();
 const userStore = useUserStore();
 
 const profileData = reactive({

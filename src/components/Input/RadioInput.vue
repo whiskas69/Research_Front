@@ -8,6 +8,7 @@
         :value="value"
         :name="name"
         :disabled="disabled"
+        :checked="checked"
         @input="$emit('input, $event.target.value')"
       />
       <span :class="`${customLabel}`"> {{ label }}</span>
@@ -42,6 +43,10 @@ defineProps({
     default: "",
   },
   disabled: {
+    type: Boolean,
+    default: false,
+  },
+  checked: {
     type: Boolean,
     default: false,
   },
