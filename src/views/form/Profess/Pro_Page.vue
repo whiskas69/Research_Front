@@ -294,7 +294,7 @@
               <div class="flex flex-row">
                 <RadioInput
                   label="วิจัยอื่น ๆ "
-                  value="วิจัยอื่น ๆ"
+                  value="อื่น ๆ"
                   name="type"
                   customDiv="max-w-fit mr-2 flex items-cente"
                   v-model="formData.radioResearch"
@@ -662,7 +662,7 @@ const NewPC = async () => {
     // console.log("responseFile: ", responseFile);
     // console.log("Response data: ", responseFile.data);
 
-    const Dataforbackend = {
+    const dataForBackend = {
       user_id: formData.userID,
       pageC_times: formData.textOther1,
       pageC_days: formData.textOther2,
@@ -706,10 +706,10 @@ const NewPC = async () => {
       form_money: formData.moneyForm,
     };
 
-    console.log("postPC: ", JSON.stringify(Dataforbackend));
+    console.log("postPC: ", JSON.stringify(dataForBackend));
     const response = await axios.post(
       "http://localhost:3000/page_charge",
-      Dataforbackend,
+      dataForBackend,
       {
         headers: {
           "Content-Type": "multipart/form-data", // Required for file uploads
