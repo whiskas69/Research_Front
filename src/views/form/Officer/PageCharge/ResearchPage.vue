@@ -69,18 +69,22 @@
               disabled="false"
             />
             <TextInputLabelLeft
+            v-if="formData.checkISI == 'ISI'"
               label="ปี"
               customLabel="mr-2"
               customInput="max-w-max"
               customDiv="max-w-max"
-              v-model="formData.input1ISI"
+              disabled="true"
+              :placeholder="formData.input1ISI"
             />
             <TextInputLabelLeft
+            v-if="formData.checkISI == 'ISI'"
               label="Impact Factor"
               customLabel="w-28 mx-2"
               customInput="max-w-max"
               customDiv="max-w-max"
-              v-model="formData.input2ISI"
+              disabled="true"
+              :placeholder="formData.input2ISI"
             />
           </div>
 
@@ -93,18 +97,22 @@
               disabled="false"
             />
             <TextInputLabelLeft
+            v-if="formData.checkISI == 'SJR'"
               label="ปี"
               customLabel="mr-2"
               customInput="max-w-max"
               customDiv="max-w-max"
-              v-model="formData.checkinput1SJR"
+              disabled="true"
+              :placeholder="formData.checkinput1SJR"
             />
             <TextInputLabelLeft
+            v-if="formData.checkISI == 'SJR'"
               label="SJR Score"
               customLabel="w-28 mx-2"
               customInput="max-w-max"
               customDiv="max-w-max"
-              v-model="formData.input2SJR"
+              disabled="true"
+              :placeholder="formData.input2SJR"
             />
           </div>
 
@@ -117,18 +125,22 @@
               disabled="false"
             />
             <TextInputLabelLeft
+            v-if="formData.checkISI == 'Scopus'"
               label="ปี"
               customLabel="mr-2"
               customInput="max-w-max"
               customDiv="max-w-max"
-              v-model="formData.input1Scopus"
+              disabled="true"
+              :placeholder="formData.input1Scopus"
             />
             <TextInputLabelLeft
+            v-if="formData.checkISI == 'Scopus'"
               label="Cite Score"
               customLabel="w-28 mx-2"
               customInput="max-w-max"
               customDiv="max-w-max"
-              v-model="formData.input2Scopus"
+              disabled="true"
+              :placeholder="formData.input2Scopus"
             />
           </div>
           <div class="flex flex-row">
@@ -143,16 +155,15 @@
           <label class="form-control">
             <div class="flex flex-row">
               <TextInputLabelLeft
-              label="วงเงินตามเกณฑ์การให้การสนับสนุนไม่เกิน"
-              customLabel="w-auto mx-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              :placeholder="formData.moneyOp"
-              v-model="formData.input2Scopus"
-            />
-            <span class="flex items-center">บาท</span>
+                label="วงเงินตามเกณฑ์การให้การสนับสนุนไม่เกิน"
+                customLabel="w-auto mx-2"
+                customInput="max-w-max"
+                customDiv="max-w-max"
+                :placeholder="formData.moneyOp"
+                v-model="formData.input2Scopus"
+              />
+              <span class="flex items-center">บาท</span>
             </div>
-            
           </label>
         </SectionWrapper>
       </Mainbox>
@@ -497,7 +508,9 @@
         </SectionWrapper>
       </Mainbox>
       <div class="flex justify-end">
-        <button class="btn btn-success text-white">บันทึกข้อมูล</button>
+        <button @click="OfficerPC" class="btn btn-success text-white">
+          บันทึกข้อมูล
+        </button>
       </div>
       <p class="text-xl font-bold my-5">wine</p>
       {{ formData.check }}
@@ -735,8 +748,6 @@ const PG1 = {
   disabled: false,
 };
 
-
-
 const showPDF = () => {
   console.log(formData.file1);
   if (formData.file1 && formData.file1.type === "application/pdf") {
@@ -782,18 +793,21 @@ console.log("params.id", id);
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
 const fetchProfessorData = async () => {
   try {
-    const responseUser = await axios.get("http://localhost:3000/user/1");
-    formData.userID = responseUser.data.user_id;
-    formData.name = responseUser.data.user_nameth;
-    formData.position = responseUser.data.user_position;
-    console.log("get user: ", responseUser.data);
-
     const responsePC = await axios.get(
       `http://localhost:3000/page_charge/${id}`
     );
+    const userID = responsePC.data.user_id;
+    const responseUser = await axios.get(
+      `http://localhost:3000/user/${userID}`
+    );
+    formData.userID = responseUser.data.user_id;
+    formData.name = responseUser.data.user_nameth;
+    formData.position = responseUser.data.user_position;
 
-    console.log("get user: ", `${id}`);
-    console.log("get user: ", responsePC.data);
+    console.log("get user: ", responseUser.data);
+    console.log("get userid: ", responsePC.data.user_id);
+    console.log("get responsePC: ", responsePC.data);
+
     const PCData = responsePC.data;
     formData.textOther1 = PCData.pageC_times;
     formData.textOther2 = PCData.pageC_days;
@@ -842,8 +856,28 @@ const OfficerPC = async () => {
     const dataForBackend = {
       pageC_id: id,
       p_research_admin: formData.redioAuthOffic,
-      p_reason: description,
+      p_reason: formData.description,
+      research_doc_submit_date: formData.docSubmitDate,
+
+      type: formData.typeFile,
+      form_status: formData.statusForm,
+      form_money: formData.moneyForm,
     };
+    console.log("postPC: ", JSON.stringify(dataForBackend));
+
+    const response = await axios.post(
+      "http://localhost:3000/opinionPC",
+      dataForBackend,
+      {
+        headers: {
+          "Content-Type": "application/json", // Required for file uploads
+        },
+      }
+    );
+    alert("Have new OfficerPC!");
+    console.log("res: ", response);
+    console.log("allpostOfficerPC: ", message.value);
+    console.log("postOfficerPC: ", response.data);
   } catch (error) {
     console.error(error);
     message.value = "Error adding page_charge. Please try again.";
@@ -851,11 +885,11 @@ const OfficerPC = async () => {
 };
 
 const loopdata = async () => {
-  console.log("in loop")
+  console.log("in loop");
 
   fetchProfessorData();
 
-  console.log("formdata, ", formData.check)
+  console.log("formdata, ", formData.check);
   for (let i = 0; i < formData.check.length; i++) {
     console.log("checking journal", formData.check[i]);
     if (formData.check[i] == "nature") {
@@ -875,15 +909,15 @@ const loopdata = async () => {
       console.log("Journal have 'Scopus'");
     }
   }
-}
+};
 
 // ดึงข้อมูลเมื่อ component ถูกโหลด
 onMounted(async () => {
   await fetchProfessorData();
 
-  console.log("formdatacheck, ", formData.check)
+  console.log("formdatacheck, ", formData.check);
   loopdata();
-  console.log("check, ", formData.checkISI)
+  console.log("check, ", formData.checkISI);
 });
 </script>
 
