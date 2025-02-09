@@ -60,7 +60,7 @@
       </div>
     </div>
 
-    <div class="flex-auto w-3/6">
+    <div class="flex-auto w-4/6">
       <ul class="menu menu-horizontal px-5 flex">
         <div v-if="userStore.user">
           <ul class="menu menu-horizontal" v-if="userStore.user.user_role == 'professor'">

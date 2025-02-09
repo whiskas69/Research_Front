@@ -8,7 +8,7 @@
         :checked="checked"
         @input="$emit('input, $event.target.value')"
       />
-      <span :class="`${customLabel}`"> {{ label }}</span>
+      <span :class="`ml-1${customLabel}`"> {{ label }}</span>
     </label>
   </div>
 </template>

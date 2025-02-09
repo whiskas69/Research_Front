@@ -52,34 +52,3 @@ defineProps({
   },
 });
 </script>
-
-//
-<script>
-// import { ref } from "vue";
-// import { computed } from "vue";
-
-// export default {
-//   props: {
-//     label: {
-//       type: String,
-//       required: true,
-//     },
-//     value: {
-//       type: String,
-//       default: "",
-//     },
-//     id: {
-//       type: String,
-//       default: "",
-//     },
-//   },
-//   setup(props) {
-//     const id = computed(
-//       () => props.id || `input-${Math.random().toString(36).substr(2, 9)}`
-//     );
-
-//     return { id };
-//   },
-// };
-//
-</script>

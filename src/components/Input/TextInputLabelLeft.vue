@@ -7,16 +7,12 @@
         :class="`input input-bordered mx-1 w-full ${customInput}`"
         :placeholder="placeholder"
         :disabled="disabled"
-        v-model="inputtext"
-        @input="handleInput"
       />
     </label>
   </div>
 </template>
 
 <script setup>
-import { ref, defineEmits } from "vue";
-
 const props = defineProps({
   label: {
     type: String,
@@ -51,13 +47,4 @@ const props = defineProps({
     default: "",
   },
 });
-
-const inputtext = ref(props.inputtext);
-const emit = defineEmits();
-
-// Method to handle input changes and log them
-const handleInput = (event) => {
-  console.log("Text Input updated:", event.target.value);
-  emit("update:modelValue", event.target.value);
-};
 </script>
