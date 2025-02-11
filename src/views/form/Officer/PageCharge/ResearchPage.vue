@@ -642,7 +642,7 @@ const formData = reactive({
   docSubmitDate: "",
   typeFile: "Page_Charge",
   //satatus
-  statusForm: "ฝ่ายบริหารงานวิจัย",
+  statusForm: "ฝ่ายบริหารการเงิน",
   moneyForm: "100000",
   // ความเห้นเจ้าหน้าที่
   redioAuthOffic: "",
@@ -742,7 +742,7 @@ const AssociateForm = {
     disabled: false,
   },
 };
-
+""
 const PG1 = {
   label: "รับทราบ",
   disabled: false,
