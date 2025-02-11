@@ -168,9 +168,6 @@
                 formData.conference.quality_meeting == 'มาตรฐาน' ? true : false
               "
             />
-            <p class="text-sm text-red-500">
-              ต้องเพิ่มค่าคะแนนเข้าตารางดาต้าเบส
-            </p>
             <RadioInput
               label="ระดับดีมาก"
               name="Level"
@@ -187,96 +184,110 @@
                 value="SJR"
                 disabled="flase"
                 :checked="
-                  formData.conference.quality_meeting == 'ดีมาก' ? true : false
+                  formData.score.score_formular == 'SJR' ? true : false
                 "
               />
-              <div class="flex flex-row w-full px-7 my-2">
-                <TextInputLabelLeft
-                  label="• ค่า SJR"
-                  customLabel="w-auto mr-1"
-                  customDiv="max-w-max"
-                  customInput="max-w-max mr-3"
-                  v-model="formData.sjr"
-                />
-                <TextInputLabelLeft
-                  label="ปี"
-                  customLabel="w-auto mr-1"
-                  customDiv="max-w-max"
-                  customInput="max-w-max mr-3"
-                  v-model="formData.sjrYear"
-                />
-                <TextInputLabelLeft
-                  label="x H-Index"
-                  customLabel="w-auto mr-1"
-                  customDiv="max-w-max"
-                  customInput="max-w-max mr-3"
-                  v-model="formData.hIndex"
-                />
-                <TextInputLabelLeft
-                  label="ปี"
-                  customLabel="w-auto mr-1"
-                  customDiv="max-w-max"
-                  customInput="max-w-max mr-3"
-                  v-model="formData.hIndexYear"
-                />
+              <div v-if="formData.score.score_formular == 'SJR'">
+                <div class="flex flex-row w-full px-7 my-2">
+                  <TextInputLabelLeft
+                    label="• ค่า SJR"
+                    customLabel="w-auto mr-1"
+                    customDiv="max-w-max"
+                    customInput="max-w-max mr-3"
+                    disabled="true"
+                    :placeholder="formData.score.sjr_score"
+                  />
+                  <TextInputLabelLeft
+                    label="ปี"
+                    customLabel="w-auto mr-1"
+                    customDiv="max-w-max"
+                    customInput="max-w-max mr-3"
+                    disabled="true"
+                    :placeholder="formData.score.sjr_year"
+                  />
+                  <TextInputLabelLeft
+                    label="x H-Index"
+                    customLabel="w-auto mr-1"
+                    customDiv="max-w-max"
+                    customInput="max-w-max mr-3"
+                    disabled="true"
+                    :placeholder="formData.score.hindex_score"
+                  />
+                  <TextInputLabelLeft
+                    label="ปี"
+                    customLabel="w-auto mr-1"
+                    customDiv="max-w-max"
+                    customInput="max-w-max mr-3"
+                    disabled="true"
+                    :placeholder="formData.score.hindex_year"
+                  />
+                </div>
+                <span class="place-self-center"
+                  >มีค่าคะแนน = {{ formData.score.score_result }} คะแนน</span
+                >
               </div>
-              <span class="place-self-center"
-                >มีค่าคะแนน = {{ totalScore }} คะแนน</span
-              >
+              
               <RadioInput
                 label="ใช้ผลการจัดระดับ CIF (Conference Impact Factor)"
                 name="Score"
                 value="CIF"
                 disabled="flase"
                 :checked="
-                  formData.conference.quality_meeting == 'ดีมาก' ? true : false
+                  formData.score.score_formular == 'CIF' ? true : false
                 "
               />
-              <div class="flex flex-row w-full px-7 my-2">
-                <TextInputLabelLeft
-                  label="• ค่า Citation total"
-                  customLabel="w-auto mr-1"
-                  customDiv="max-w-max"
-                  customInput="max-w-max mr-3"
-                  v-model="formData.citat"
-                  @input="handleInput('citat', $event.target.value)"
-                />
-                <TextInputLabelLeft
-                  label="x H-Index"
-                  customLabel="w-auto mr-1"
-                  customDiv="max-w-max"
-                  customInput="max-w-max mr-3"
-                  v-model="formData.hIndex"
-                  @input="handleInput('hIndex', $event.target.value)"
-                />
+              <div v-if="formData.score.score_formular == 'CIF'">
+                <div class="flex flex-row w-full px-7 my-2">
+                  <TextInputLabelLeft
+                    label="• ค่า Citation total"
+                    customLabel="w-auto mr-1"
+                    customDiv="max-w-max"
+                    customInput="max-w-max mr-3"
+                    disabled="true"
+                    :placeholder="formData.score.citat"
+                  />
+                  <TextInputLabelLeft
+                    label="x H-Index"
+                    customLabel="w-auto mr-1"
+                    customDiv="max-w-max"
+                    customInput="max-w-max mr-3"
+                    disabled="true"
+                    :placeholder="formData.score.hindex_score"
+                  />
+                </div>
+                <span class="place-self-center"
+                  >มีค่าคะแนน = {{ formData.score.score_result }} คะแนน</span
+                >
               </div>
-              <span class="place-self-center"
-                >มีค่าคะแนน = {{ totalScore }} คะแนน</span
-              >
-
               <RadioInput
                 label="ใช้ผลการจัดระดับ CORE Conference Ranking"
                 name="Score"
                 value="CORE"
                 disabled="flase"
                 :checked="
-                  formData.conference.quality_meeting == 'ดีมาก' ? true : false
+                  formData.score.score_formular == 'CORE' ? true : false
                 "
               />
-              <div class="flex flex-row w-full px-7 my-2">
-                <TextInputLabelLeft
-                  label="• ค่า"
-                  customLabel="w-auto mr-1"
-                  customDiv="max-w-max"
-                  customInput="max-w-max mr-3"
-                  v-model="formData.coreConf"
-                  @input="handleInput('coreConf', $event.target.value)"
-                />
-                <span class="place-self-center">(ตั้งแต่ A ขึ้นไป)</span>
+              <div v-if="formData.score.score_formular == 'CORE'">
+                <div class="flex flex-row w-full px-7 my-2">
+                  <TextInputLabelLeft
+                    label="• ค่า"
+                    customLabel="w-auto mr-1"
+                    customDiv="max-w-max"
+                    customInput="max-w-max mr-3"
+                    disabled="true"
+                    :placeholder="
+                      formData.score.core_rank
+                        ? formData.score.core_rank.toUpperCase()
+                        : ''
+                    "
+                  />
+                  <span class="place-self-center">(ตั้งแต่ A ขึ้นไป)</span>
+                </div>
+                <p class="px-7 text-sm text-red-500">
+                  เช็คคะแนนได้จาก http://portal.core.edu.au/conf-ranks
+                </p>
               </div>
-              <p class="px-7 text-sm text-red-500">
-                เช็คคะแนนได้จาก http://portal.core.edu.au/conf-ranks
-              </p>
             </SectionWrapper>
           </SectionWrapper>
         </SectionWrapper>
@@ -505,6 +516,8 @@
           />
         </SectionWrapper>
       </Mainbox>
+
+      <p class="text-sm text-red-500">ต้องแก้เรื่องผลรวม</p>
       <!-- รายการค่าใช้จ่ายที่ขอเบิกจ่าย -->
       <Mainbox>
         <SectionWrapper>
@@ -519,20 +532,22 @@
                   customLabel="w-auto pr-2"
                   customDiv="max-w-max"
                   customInput="max-w-max"
-                  v-model="formData.numberArticles"
-                  @input="handleInput('numberArticles', $event.target.value)"
+                  disabled="true"
+                  :placeholder="formData.conference.num_register_articles"
                 />
                 <TextInputLabelLeft
                   label="บทความ ๆ ละ"
                   customLabel="w-auto px-2"
                   customDiv="max-w-max"
                   customInput="max-w-max"
-                  v-model="formData.amount1article"
-                  @input="handleInput('amount1article', $event.target.value)"
+                  disabled="true"
+                  :placeholder="formData.conference.regist_amount_1_article"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
-              <p class="flex items-center">รวม {{ total }} บาท</p>
+              <p class="flex items-center">
+                รวม {{ formData.conference.total_amount }} บาท
+              </p>
             </div>
 
             <p>2. ค่าพาหนะเดินทาง</p>
@@ -543,8 +558,8 @@
                   customLabel="w-64 pr-2"
                   customDiv="max-w-[50rem]"
                   customInput="max-w-[50rem]"
-                  v-model="formData.domesticExpenses"
-                  @input="handleInput('domesticExpenses', $event.target.value)"
+                  disabled="true"
+                  :placeholder="formData.conference.domestic_expenses"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -554,8 +569,8 @@
                   customLabel="w-64 pr-2"
                   customDiv="max-w-[50rem]"
                   customInput="max-w-[50rem]"
-                  v-model="formData.overseasExpenses"
-                  @input="handleInput('overseasExpenses', $event.target.value)"
+                  disabled="true"
+                  :placeholder="formData.conference.overseas_expenses"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -567,16 +582,16 @@
                   customLabel="w-96 pr-2"
                   customDiv="max-w-[30rem]"
                   customInput="max-w-[14rem]"
-                  v-model="formData.travelCountry"
-                  @input="handleInput('travelCountry', $event.target.value)"
+                  disabled="true"
+                  :placeholder="formData.conference.travel_country"
                 />
                 <TextInputLabelLeft
                   label="- กรุงเทพฯ"
                   customLabel="w-22 px-2"
                   customDiv="max-w-[20rem]"
                   customInput="max-w-[14rem]"
-                  v-model="formData.interExpenses"
-                  @input="handleInput('interExpenses', $event.target.value)"
+                  disabled="true"
+                  :placeholder="formData.conference.inter_expenses"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -588,8 +603,8 @@
                 customLabel="w-auto pr-2"
                 customDiv="max-w-[52rem]"
                 customInput="max-w-[40rem]"
-                v-model="formData.airplaneTax"
-                @input="handleInput('airplaneTax', $event.target.value)"
+                disabled="true"
+                :placeholder="formData.conference.airplane_tax"
               />
               <p class="flex items-center pl-2">บาท</p>
             </div>
@@ -601,20 +616,22 @@
                   customLabel="w-auto pr-2"
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[19rem]"
-                  v-model="formData.numberDaysRoom"
-                  @input="handleInput('numberDaysRoom', $event.target.value)"
+                  disabled="true"
+                  :placeholder="formData.conference.num_days_room"
                 />
                 <TextInputLabelLeft
                   label="คืน ๆ ละ"
                   customLabel="w-auto pr-2"
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[20rem]"
-                  v-model="formData.roomCostPerNight"
-                  @input="handleInput('roomCostPerNight', $event.target.value)"
+                  disabled="true"
+                  :placeholder="formData.conference.room_cost_per_night"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
-              <p class="flex items-center">รวม {{ total }} บาท</p>
+              <p class="flex items-center">
+                รวม {{ formData.conference.total_room }} บาท
+              </p>
             </div>
 
             <div class="flex flex-row mb-2 justify-between">
@@ -624,23 +641,25 @@
                   customLabel="w-auto pr-2"
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[16rem]"
-                  v-model="formData.numTravelDays"
-                  @input="handleInput('numTravelDays', $event.target.value)"
+                  disabled="true"
+                  :placeholder="formData.conference.num_travel_days"
                 />
                 <TextInputLabelLeft
                   label="คืน ๆ ละ"
                   customLabel="w-auto pr-2"
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[20rem]"
-                  v-model="formData.dailyAllowance"
-                  @input="handleInput('dailyAllowance', $event.target.value)"
+                  disabled="true"
+                  :placeholder="formData.conference.daily_allowance"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
-              <p class="flex items-center">รวม {{ total }} บาท</p>
+              <p class="flex items-center">
+                รวม {{ formData.conference.total_allowance }} บาท
+              </p>
             </div>
             <p class="font-bold text-2xl pt-5 text-right">
-              รวมทั้งสิ้น ......... บาท
+              รวมทั้งสิ้น {{ formData.conference.all_money }} บาท
             </p>
           </SectionWrapper>
         </SectionWrapper>
@@ -828,7 +847,7 @@
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
-            value="ข้อมูลถูกต้อง"
+            value="ไม่ถูกต้อง"
             name="re"
             v-model="formData.redioAuthOffic"
             @change="handleInput('redioAuthOffic', $event.target.value)"
@@ -840,7 +859,9 @@
         </SectionWrapper>
       </Mainbox>
       <div class="flex justify-end">
-        <button class="btn btn-success text-white">บันทึกข้อมูล</button>
+        <button @click="OfficerConfer" class="btn btn-success text-white">
+          บันทึกข้อมูล
+        </button>
       </div>
     </div>
   </div>
@@ -860,6 +881,7 @@ import CheckInput from "@/components/Input/CheckInput.vue";
 const formData = reactive({
   conference: [],
   user: [],
+  score: [],
   checkFullPaper: "",
   checkPubJournal: "",
   checkQProof: "",
@@ -869,14 +891,24 @@ const formData = reactive({
   checkRateDocument: "",
   checkConfProof: "",
   checkWorkedNo3NeverAbroad: "",
+  //วันที่ส่งเอกสาร
+  docSubmitDate: "",
   //satatus
   statusForm: "ฝ่ายบริหารงานวิจัย",
-  moneyForm: "100000",
   // ความเห้นเจ้าหน้าที่
   redioAuthOffic: "",
   description: "",
 });
 console.log("conference", formData);
+//วันที่ส่งเอกสาร
+const datetime = new Date();
+// Extract year, month, and day
+const year = datetime.getFullYear();
+const month = String(datetime.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+const day = String(datetime.getDate()).padStart(2, "0");
+// Combine in YYYY-MM-DD format
+formData.docSubmitDate = `${year}-${month}-${day}`;
+console.log(formData.docSubmitDate);
 
 const handleCheckbox = (key, value) => {
   if (formData[key]) {
@@ -926,10 +958,45 @@ const fetchOfficerData = async () => {
     formData.user = responseUser.data;
     console.log("user123", formData.user);
     console.log("user_nameth", formData.user.user_nameth);
+
+    const responseScore = await axios.get(`http://localhost:3000/score/${id}`);
+    console.log("score123", responseScore);
+    formData.score = responseScore.data;
+    console.log("score", formData.score);
+    console.log("score_formular", formData.score.score_formular);
   } catch (error) {
     console.error("Error fetching Officer data:", error);
   } finally {
     isLoading.value = false;
+  }
+};
+
+const OfficerConfer = async () => {
+  try {
+    const dataForBackend = {
+      conf_id: id,
+      c_research_admin: formData.redioAuthOffic,
+      c_reason: formData.description,
+      hr_doc_submit_date: formData.docSubmitDate,
+    };
+    console.log("postPC: ", JSON.stringify(dataForBackend));
+
+    const response = await axios.post(
+      "http://localhost:3000/opinionConf",
+      dataForBackend,
+      {
+        headers: {
+          "Content-Type": "application/json", // Required for file uploads
+        },
+      }
+    );
+    alert("Have new OfficerConfer!");
+    console.log("res: ", response);
+    console.log("allpostOfficerConfer: ", message.value);
+    console.log("postOfficerConfer: ", response.data);
+  } catch (error) {
+    console.error(error);
+    message.value = "Error adding page_charge. Please try again.";
   }
 };
 
