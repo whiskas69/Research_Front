@@ -6,6 +6,8 @@
       </p>
       <Mainbox>
         <SectionWrapper>
+          {{ formData.name }}
+          {{ formData.position }}
           <TextInputLabelLeft
             label="ชื่อ"
             customLabel="w-2/12 text-lg font-bold"
@@ -724,8 +726,8 @@ const user = computed(() => userStore.user);
 const formData = reactive({
   //Professor
   user_id: "",
-  user_nameth: "",
-  user_position: "",
+  name: "",
+  position: "",
 
   textOther1: "",
   textOther2: "",
@@ -897,26 +899,6 @@ const total = computed(() => {
 //   (formData.numTravelDays * formData.dailyAllowance)
 //   return all
 // });
-//isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
-const isLoading = ref(true);
-// ตัวแปรสำหรับเก็บข้อมูลจาก backend
-
-// const fetchProfessorData = async () => {
-//   try {
-//     const response = await axios.get("http://localhost:3000/user/9322");
-//     // formData.asdf = response.data;
-//     formData.userID = response.data.user_id;
-//     formData.name = response.data.user_nameeng;
-//     formData.position = response.data.user_position;
-//     console.log("get user: ", response.data);
-//   } catch (error) {
-//     console.error("Error fetching professor data:", error);
-//   } finally {
-//     isLoading.value = false;
-//   }
-//   console.log("Fetching professor data...");
-// };
-
 const newConfer = async () => {
   try {
     console.log("before postPC: ", formData);
@@ -990,7 +972,7 @@ const newConfer = async () => {
       form_money: formData.moneyForm,
       
     };
-    console.log("postPC: ", JSON.stringify(dataForBackend));
+    console.log("post confer: ", JSON.stringify(dataForBackend));
     const response = await axios.post(
       "http://localhost:3000/conference",
       dataForBackend,
@@ -1012,8 +994,4 @@ const newConfer = async () => {
   }
 };
 
-// // ดึงข้อมูลเมื่อ component ถูกโหลด
-onMounted(() => {
-  fetchProfessorData();
-});
 </script>

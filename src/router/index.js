@@ -22,6 +22,7 @@ import Pro_Scolar from '@/views/form/Profess/Pro_Scolar.vue'
 
 import offic_Confer from '@/views/form/Officer/Confer.vue'
 import offic_hrConfer from '@/views/form/Officer/Conference/HRConfer.vue'
+import offic_resConfer from '@/views/form/Officer/Conference/ResearchConfer.vue'
 
 import offic_resPage from '@/views/form/Officer/PageCharge/ResearchPage.vue'
 import offic_financePage from '@/views/form/Officer/PageCharge/FinancePag.vue'
@@ -114,22 +115,26 @@ const router = createRouter({
       component: Pro_Scolar
     },
     {
-      path: '/officFormConfer/:id',
-      name: 'officFormConfer',
+      path: '/officFormConfer/hr/:id',
+      name: 'officFormConferHr',
       component: offic_hrConfer
     },
     {
-      path: '/officFormPC/:id',
-      name: 'OfficFormPC',
+      path: '/officFormConfer/research/:id',
+      name: 'officFormConferRes',
+      component: offic_resConfer
+    },{
+      path: '/officFormPC/research/:id',
+      name: 'OfficFormPCRes',
       component: offic_resPage
     },
     {
-      path: '/officFormPCFin/:id',
+      path: '/officFormPC/finance/:id',
       name: 'OfficFormPCFin',
       component: offic_financePage
     },
     {
-      path: '/officFormKris/:id',
+      path: '/officFormKris/research/:id',
       name: 'OfficFormKris',
       component: offic_Scolar
     },

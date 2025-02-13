@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="container my-10 mx-auto">
-      <p class="text-xl font-bold mb-5">แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ</p>
+      <p class="text-xl font-bold mb-5">
+        แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ
+      </p>
 
       <Mainbox>
         <p class="text-lg font-bold">รายละเอียดเบื้องต้น</p>
@@ -13,9 +15,13 @@
               label="(ภาษาไทย)"
               customLabel="w-64"
               v-model="formData.projectTH"
-              @input="handleInput('projectTH', $event.target.value)"/>
+              @input="handleInput('projectTH', $event.target.value)"
+            />
 
-            <span v-if="v$.projectTH.$error" class="text-base ml-56 text-red-500">
+            <span
+              v-if="v$.projectTH.$error"
+              class="text-base ml-56 text-red-500"
+            >
               {{ v$.projectTH.$errors[0].$message }}
             </span>
 
@@ -23,16 +29,22 @@
               label="(ภาษาอังกฤษ)"
               customLabel="w-64"
               v-model="formData.projectENG"
-              @input="handleInput('projectENG', $event.target.value)"/>
+              @input="handleInput('projectENG', $event.target.value)"
+            />
 
-            <span v-if="v$.projectENG.$error" class="text-base ml-56 text-red-500">
+            <span
+              v-if="v$.projectENG.$error"
+              class="text-base ml-56 text-red-500"
+            >
               {{ v$.projectENG.$errors[0].$message }}
             </span>
           </SectionWrapper>
         </div>
 
         <div class="py-2 px-5">
-          <p class="font-bold">2. สอดคล้องกับกลุ่มวิจัย (Research Cluster) ของ สจล.</p>
+          <p class="font-bold">
+            2. สอดคล้องกับกลุ่มวิจัย (Research Cluster) ของ สจล.
+          </p>
 
           <SectionWrapper>
             <div class="flex flex-row w-full">
@@ -41,31 +53,38 @@
                   class="pb-3"
                   label="ICT: Robotics & Automation"
                   v-model="formData.resCluster"
-                  @input="handleCheckbox('resCluster', 'ICT: Robotics & Automation')"/>
+                  @input="
+                    handleCheckbox('resCluster', 'ICT: Robotics & Automation')
+                  "
+                />
 
                 <CheckInput
                   class="pb-3"
                   label="ICT: Smart City & IoT"
                   v-model="formData.resCluster"
-                  @input="handleCheckbox('resCluster', 'ICT: Smart City & IoT')"/>
-                
+                  @input="handleCheckbox('resCluster', 'ICT: Smart City & IoT')"
+                />
+
                 <CheckInput
                   class="pb-3"
                   label="Battery & EV"
                   v-model="formData.resCluster"
-                  @input="handleCheckbox('resCluster', 'Battery & EV')"/>
+                  @input="handleCheckbox('resCluster', 'Battery & EV')"
+                />
 
                 <CheckInput
                   class="pb-3"
                   label="Renewable Energy"
                   v-model="formData.resCluster"
-                  @input="handleCheckbox('resCluster', 'Renewable Energy')"/>
+                  @input="handleCheckbox('resCluster', 'Renewable Energy')"
+                />
 
                 <CheckInput
                   class="pb-3"
                   label="Biomedical"
                   v-model="formData.resCluster"
-                  @input="handleCheckbox('resCluster', 'Biomedical')"/>
+                  @input="handleCheckbox('resCluster', 'Biomedical')"
+                />
               </div>
 
               <div class="flex flex-col w-full">
@@ -73,25 +92,31 @@
                   class="pb-3"
                   label="Agriculture & Food"
                   v-model="formData.resCluster"
-                  @input="handleCheckbox('resCluster', 'Agriculture & Food')"/>
+                  @input="handleCheckbox('resCluster', 'Agriculture & Food')"
+                />
 
                 <CheckInput
                   class="pb-3"
                   label="Future Mobility & Logistic"
                   v-model="formData.resCluster"
-                  @input="handleCheckbox('resCluster', 'Future Mobility & Logistic')"/>
+                  @input="
+                    handleCheckbox('resCluster', 'Future Mobility & Logistic')
+                  "
+                />
 
                 <CheckInput
                   class="pb-3"
                   label="Materials"
                   v-model="formData.resCluster"
-                  @input="handleCheckbox('resCluster', 'Materials')"/>
+                  @input="handleCheckbox('resCluster', 'Materials')"
+                />
 
                 <CheckInput
                   class="pb-3"
                   label="Creative Economy"
                   v-model="formData.resCluster"
-                  @input="handleCheckbox('resCluster', 'Creative Economy')"/>
+                  @input="handleCheckbox('resCluster', 'Creative Economy')"
+                />
 
                 <div class="flex flex-row items-center">
                   <CheckInput
@@ -99,21 +124,29 @@
                     label="อื่น ๆ ระบุ"
                     customDiv="max-w-32"
                     v-model="formData.resCluster"
-                    @input="handleCheckbox('resCluster', 'อื่น ๆ')"/>
+                    @input="handleCheckbox('resCluster', 'อื่น ๆ')"
+                  />
                   <TextInputLabelLeft
                     label=""
                     v-model="formData.resClusterOther"
                     :disabled="!formData.resCluster.includes('อื่น ๆ')"
-                    @input="handleInput('resClusterOther', $event.target.value)"/>
+                    @input="handleInput('resClusterOther', $event.target.value)"
+                  />
                 </div>
               </div>
             </div>
 
-            <span v-if="v$.resCluster.$error" class="ml-3 text-base w-2/6 text-red-500">
+            <span
+              v-if="v$.resCluster.$error"
+              class="ml-3 text-base w-2/6 text-red-500"
+            >
               * กรุณาเลือกข้อมูลอย่างน้อย 1 ตัวเลือก *
             </span>
 
-            <span v-if="v$.resClusterOther.$error" class="ml-2 text-base text-red-500">
+            <span
+              v-if="v$.resClusterOther.$error"
+              class="ml-2 text-base text-red-500"
+            >
               * กรุณาระบุข้อมูลเพิ่มเติม *
             </span>
           </SectionWrapper>
@@ -127,45 +160,68 @@
                 class="pb-3"
                 label="มีการใช้สัตว์ทดลอง"
                 v-model="formData.resStandards"
-                @input="handleCheckStandards('resStandards', 'มีการใช้สัตว์ทดลอง')"/>
+                @input="
+                  handleCheckStandards('resStandards', 'มีการใช้สัตว์ทดลอง')
+                "
+              />
 
               <CheckInput
                 class="pb-3"
                 label="มีการวิจัยในมนุษย์"
                 v-model="formData.resStandards"
-                @input="handleCheckStandards('resStandards', 'มีการวิจัยในมนุษย์')"/>
+                @input="
+                  handleCheckStandards('resStandards', 'มีการวิจัยในมนุษย์')
+                "
+              />
 
               <CheckInput
                 class="pb-3"
                 label="มีการวิจัยด้านเทคโนโลยีชีวภาพสมัยใหม่หรือพันธุวิศวกรรม"
                 v-model="formData.resStandards"
-                @input="handleCheckStandards('resStandards','มีการวิจัยด้านเทคโนโลยีชีวภาพสมัยใหม่หรือพันธุวิศวกรรม')"/>
+                @input="
+                  handleCheckStandards(
+                    'resStandards',
+                    'มีการวิจัยด้านเทคโนโลยีชีวภาพสมัยใหม่หรือพันธุวิศวกรรม'
+                  )
+                "
+              />
 
               <CheckInput
                 class="pb-3"
                 label="มีการใช้พันธุ์พืช"
                 v-model="formData.resStandards"
-                @input="handleCheckStandards('resStandards', 'มีการใช้พันธุ์พืช')"/>
+                @input="
+                  handleCheckStandards('resStandards', 'มีการใช้พันธุ์พืช')
+                "
+              />
 
               <div class="flex flex-row items-center ml-10">
-                <CheckInput
+                <RadioInput
                   class="flex items-center w-1/3"
                   label="มาตรา 52 (เพื่อประโยชน์ทางการค้า)"
                   customDiv="max-w-80"
                   v-model="formData.resStandardsTrade"
-                  @input="handleCheckTrade('resStandardsTrade', 'มาตรา 52')"/>
-                <CheckInput
+                  @change="handleInput('resStandardsTrade', 'มาตรา 52')"
+                />
+                <RadioInput
                   class="flex items-center"
                   label="มาตรา 53 (ไม่มีวัตถุประสงค์เพื่อประโยชน์ทางการค้า)"
                   v-model="formData.resStandardsTrade"
-                  @input="handleCheckTrade('resStandardsTrade', 'มาตรา 53')"/>
+                  @change="handleInput('resStandardsTrade', 'มาตรา 53')"
+                />
               </div>
             </div>
-            <span v-if="v$.resStandards.$error" class="ml-3 text-base w-2/6 text-red-500">
+            <span
+              v-if="v$.resStandards.$error"
+              class="ml-3 text-base w-2/6 text-red-500"
+            >
               * กรุณาเลือกข้อมูลอย่างน้อย 1 ตัวเลือก *
             </span>
 
-            <span v-if="v$.resStandardsTrade.$error" class="ml-12 text-base w-2/6 text-red-500">
+            <span
+              v-if="v$.resStandardsTrade.$error"
+              class="ml-12 text-base w-2/6 text-red-500"
+            >
               * กรุณาเลือกข้อมูลมาตรา *
             </span>
           </SectionWrapper>
@@ -180,18 +236,26 @@
                 label="ชื่อ - สกุล (ภาษาไทย)"
                 customLabel="w-64"
                 :placeholder="formData.nameTH"
-                disabled="true"/>
+                disabled="true"
+              />
 
-              <span v-if="v$.nameTH.$error" class="text-base ml-56 text-red-500">
+              <span
+                v-if="v$.nameTH.$error"
+                class="text-base ml-56 text-red-500"
+              >
                 {{ v$.nameTH.$errors[0].$message }}
               </span>
               <TextInputLabelLeft
                 label="ชื่อ - สกุล (ภาษาอังกฤษ)"
                 customLabel="w-64"
                 :placeholder="formData.nameENG"
-                disabled="true"/>
+                disabled="true"
+              />
 
-              <span v-if="v$.nameENG.$error" class="text-base ml-56 text-red-500">
+              <span
+                v-if="v$.nameENG.$error"
+                class="text-base ml-56 text-red-500"
+              >
                 {{ v$.nameENG.$errors[0].$message }}
               </span>
 
@@ -200,10 +264,16 @@
                   label="ดัชนี H-Index"
                   customLabel="w-64"
                   v-model="formData.Hindex"
-                  @input="handleInput('Hindex', $event.target.value)"/>
-                <p class="text-sm text-blue-500 py-2 mx-52">(search ชื่อตนเองในฐาน https://www.scopus.com/)</p>
+                  @input="handleInput('Hindex', $event.target.value)"
+                />
+                <p class="text-sm text-blue-500 py-2 mx-52">
+                  (search ชื่อตนเองในฐาน https://www.scopus.com/)
+                </p>
               </div>
-              <span v-if="v$.Hindex.$error" class="text-base mr-64 text-red-500">
+              <span
+                v-if="v$.Hindex.$error"
+                class="text-base mr-64 text-red-500"
+              >
                 {{ v$.Hindex.$error[0].$message }}
               </span>
               <span
@@ -356,6 +426,7 @@ import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import TextInputLabelRight from "@/components/Input/TextInputLabelRight.vue";
+import RadioInput from "@/components/Input/RadioInput.vue";
 import CheckInput from "@/components/Input/CheckInput.vue";
 import FileInput from "@/components/Input/FileInput.vue";
 
@@ -405,9 +476,9 @@ const rules = {
     required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
     isThai,
   },
-  projectENG: { 
-    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required), 
-    isEng 
+  projectENG: {
+    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
+    isEng,
   },
   resCluster: { required },
   resClusterOther: {
@@ -415,18 +486,27 @@ const rules = {
   },
   resStandards: { required },
   resStandardsTrade: { required },
-  nameTH: { 
-    required: helpers.withMessage("* กรุณากรอกข้อมูลส่วนตัวในหน้าข้อมูลส่วนตัวก่อน *", required),
-    isThai
+  nameTH: {
+    required: helpers.withMessage(
+      "* กรุณากรอกข้อมูลส่วนตัวในหน้าข้อมูลส่วนตัวก่อน *",
+      required
+    ),
+    isThai,
   },
-  nameENG: { 
-    required: helpers.withMessage("* กรุณากรอกข้อมูลส่วนตัวในหน้าข้อมูลส่วนตัวก่อน *", required),
-    isEng
+  nameENG: {
+    required: helpers.withMessage(
+      "* กรุณากรอกข้อมูลส่วนตัวในหน้าข้อมูลส่วนตัวก่อน *",
+      required
+    ),
+    isEng,
   },
-  Hindex: { 
-    required: helpers.withMessage("* กรุณากรอกข้อมู *", required), 
-    numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric), 
-    minValue: helpers.withMessage("* กรุณาตรวจสอบคะแนน คะแนนไม่สามารถต่ำกว่า 0 ได้ *",minValue(0)) 
+  Hindex: {
+    required: helpers.withMessage("* กรุณากรอกข้อมู *", required),
+    numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
+    minValue: helpers.withMessage(
+      "* กรุณาตรวจสอบคะแนน คะแนนไม่สามารถต่ำกว่า 0 ได้ *",
+      minValue(0)
+    ),
   },
   inveninno: { required },
   participation: { required },
