@@ -28,7 +28,7 @@ const fetchOfficerData = async () => {
 // ฟังก์ชันสำหรับดึงชื่อจาก nameC, nameP หรือ nameK
 const getNameById = (nameList, id) => {
   const nameObj = nameList.find((item) => item[0] === id);
-  return nameObj ? nameObj[1].user_nameeng : "ไม่พบชื่อ";
+  return nameObj ? nameObj[1].user_nameth : "ไม่พบชื่อ";
 };
 
 onMounted(() => {
@@ -47,7 +47,7 @@ onMounted(() => {
         
         <!-- Conference -->
         <div v-if="form.form_type == 'Conference'">
-          <router-link :to="`/officFormConfer/${form.conf_id}`">
+          <router-link :to="`/officFormConfer/hr/${form.conf_id}`">
             <div class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer">
               <p class="flex justify-between px-5 py-1 text-left">
                 <span class="text-base">{{ getNameById(listForm.nameC, form.conf_id) }}</span>
@@ -59,7 +59,7 @@ onMounted(() => {
 
         <!-- Page Charge -->
         <div v-if="form.form_type == 'Page_Charge'">
-          <router-link :to="`/officFormPC/${form.pageC_id}`">
+          <router-link :to="`/officFormPC/research/${form.pageC_id}`">
             <div class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer">
               <p class="flex justify-between px-5 py-1 text-left">
                 <span class="text-base">{{ getNameById(listForm.nameP, form.pageC_id) }}</span>
@@ -71,7 +71,7 @@ onMounted(() => {
 
         <!-- Research_KRIS -->
         <div v-if="form.form_type == 'Research_KRIS'">
-          <router-link :to="`/officFormKris/${form.kris_id}`">
+          <router-link :to="`/officFormKris/research/${form.kris_id}`">
             <div class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer">
               <p class="flex justify-between px-5 py-1 text-left">
                 <span class="text-base">{{ getNameById(listForm.nameK, form.kris_id) }}</span>
