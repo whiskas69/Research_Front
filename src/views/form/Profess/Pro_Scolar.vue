@@ -200,14 +200,22 @@
                   class="flex items-center w-1/3"
                   label="มาตรา 52 (เพื่อประโยชน์ทางการค้า)"
                   customDiv="max-w-80"
+                  name="trade"
                   v-model="formData.resStandardsTrade"
-                  @change="handleInput('resStandardsTrade', 'มาตรา 52')"
+                  :disabled="
+                    !formData.resStandards.includes('มีการใช้พันธุ์พืช')
+                  "
+                  @change="handleInput('resStandardsTrade', '52')"
                 />
                 <RadioInput
                   class="flex items-center"
                   label="มาตรา 53 (ไม่มีวัตถุประสงค์เพื่อประโยชน์ทางการค้า)"
+                  name="trade"
                   v-model="formData.resStandardsTrade"
-                  @change="handleInput('resStandardsTrade', 'มาตรา 53')"
+                  :disabled="
+                    !formData.resStandards.includes('มีการใช้พันธุ์พืช')
+                  "
+                  @change="handleInput('resStandardsTrade', '53')"
                 />
               </div>
             </div>
@@ -235,30 +243,15 @@
               <TextInputLabelLeft
                 label="ชื่อ - สกุล (ภาษาไทย)"
                 customLabel="w-64"
-                :placeholder="formData.nameTH"
+                :placeholder="formData.positionTH + ' ' + formData.nameTH"
                 disabled="true"
               />
-
-              <span
-                v-if="v$.nameTH.$error"
-                class="text-base ml-56 text-red-500"
-              >
-                {{ v$.nameTH.$errors[0].$message }}
-              </span>
               <TextInputLabelLeft
                 label="ชื่อ - สกุล (ภาษาอังกฤษ)"
                 customLabel="w-64"
-                :placeholder="formData.nameENG"
+                :placeholder="formData.positionENG + ' ' + formData.nameENG"
                 disabled="true"
               />
-
-              <span
-                v-if="v$.nameENG.$error"
-                class="text-base ml-56 text-red-500"
-              >
-                {{ v$.nameENG.$errors[0].$message }}
-              </span>
-
               <div class="flex flex-col">
                 <TextInputLabelLeft
                   label="ดัชนี H-Index"
@@ -266,23 +259,17 @@
                   v-model="formData.Hindex"
                   @input="handleInput('Hindex', $event.target.value)"
                 />
-                <p class="text-sm text-blue-500 py-2 mx-52">
+                <p class="text-sm text-blue-500 py-2 ml-[14rem]">
                   (search ชื่อตนเองในฐาน https://www.scopus.com/)
                 </p>
               </div>
               <span
                 v-if="v$.Hindex.$error"
-                class="text-base mr-64 text-red-500"
+                class="text-base ml-[14rem] text-red-500"
               >
-                {{ v$.Hindex.$error[0].$message }}
+                {{ v$.Hindex.$errors[0].$message }}
               </span>
-              <span
-                v-for="error in v$.Hindex.$errors"
-                :key="error.$uid"
-                class="text-base text-right w-4/12 text-red-500"
-              >
-                * โปรดกรอกข้อมูล *
-              </span>
+
               <TextInputLabelLeft
                 label="ประวัติด้านสิ่งประดิษฐ์ หรือ นวัตกรรม"
                 customLabel="w-3/12"
@@ -290,12 +277,12 @@
                 @input="handleInput('inveninno', $event.target.value)"
               />
               <span
-                v-for="error in v$.inveninno.$errors"
-                :key="error.$uid"
-                class="text-base text-right w-4/12 text-red-500"
+                v-if="v$.inveninno.$error"
+                class="text-base ml-[17rem] text-red-500"
               >
-                * โปรดกรอกข้อมูล *
+                {{ v$.inveninno.$errors[0].$message }}
               </span>
+
               <div class="flex flex-row">
                 <TextInputLabelLeft
                   label="ร้อยละการมีส่วนร่วมในโครงการ"
@@ -310,11 +297,10 @@
                 >
               </div>
               <span
-                v-for="error in v$.participation.$errors"
-                :key="error.$uid"
-                class="text-base text-right w-4/12 text-red-500"
+                v-if="v$.participation.$error"
+                class="text-base ml-[17rem] text-red-500"
               >
-                * โปรดกรอกข้อมูล *
+                {{ v$.participation.$errors[0].$message }}
               </span>
             </div>
           </SectionWrapper>
@@ -357,25 +343,22 @@
               />
             </div>
             <span
-              v-for="error in v$.periodYear.$errors"
-              :key="error.$uid"
-              class="w-4/12 text-red-500"
+              v-if="v$.periodYear.$error"
+              class="text-base ml-2 text-red-500"
             >
-              * โปรดกรอกข้อมูลระยะเวลา *
+              {{ v$.periodYear.$errors[0].$message }}
             </span>
             <span
-              v-for="error in v$.periodStart.$errors"
-              :key="error.$uid"
-              class="w-4/12 text-red-500"
+              v-if="v$.periodStart.$error"
+              class="text-base ml-2 text-red-500"
             >
-              * โปรดกรอกข้อมูลวันที่เริ่มต้น *
+              {{ v$.periodStart.$errors[0].$message }}
             </span>
             <span
-              v-for="error in v$.periodEnd.$errors"
-              :key="error.$uid"
-              class="w-4/12 text-red-500"
+              v-if="v$.periodEnd.$error"
+              class="text-base ml-2 text-red-500"
             >
-              * โปรดกรอกข้อมูลวันที่สิ้นสุด *
+              {{ v$.periodEnd.$errors[0].$message }}
             </span>
           </SectionWrapper>
         </div>
@@ -389,12 +372,11 @@
             @change="handleFile($event, 'file')"
           />
           <span
-            v-for="error in v$.file.$errors"
-            :key="error.$uid"
-            class="w-4/12 text-red-500"
-          >
-            * โปรดเลือกไฟล์ *
-          </span>
+              v-if="v$.file.$error"
+              class="text-base ml-2 text-red-500"
+            >
+              {{ v$.file.$errors[0].$message }}
+            </span>
         </SectionWrapper>
       </Mainbox>
 
@@ -408,17 +390,17 @@
 </template>
 
 <script setup>
-import { ref, computed, reactive, onMounted } from "vue";
+import { computed, reactive, onMounted, watch } from "vue";
 
 import { useVuelidate } from "@vuelidate/core";
 import {
   helpers,
+  maxValue,
   minValue,
   numeric,
   required,
   requiredIf,
 } from "@vuelidate/validators";
-
 import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
 
@@ -442,7 +424,9 @@ const formData = reactive({
   resStandardsTrade: "",
   // Professor
   userID: "",
+  positionTH: "",
   nameTH: "",
+  positionENG: "",
   nameENG: "",
   Hindex: "",
   inveninno: "",
@@ -456,18 +440,22 @@ const formData = reactive({
 });
 
 //Validate Section
-
-// check is Thai
 const isThai = helpers.withMessage(
   "* กรุณากรอกข้อมูลเป็นภาษาไทย สามารถมีตัวเลขและอักขระพิเศษได้ *",
   (value) =>
     !!value && /^[ก-๙0-9!@#$%^&*()_+\-=<>?/.,;:'"[\]{}\\|`~ ]+$/u.test(value)
 );
 
-//check is Eng
 const isEng = helpers.withMessage(
   "* กรุณากรอกข้อมูลเป็นภาษาอังกฤษ สามารถมีตัวเลขและอักขระพิเศษได้ *",
   (value) => /^[a-zA-Z0-9!@#$%^&*()_+\-=<>?/.,;:'"[\]{}\\|`~ ]+$/.test(value)
+);
+
+const validDate = helpers.withMessage(
+  "* วันที่สิ้นสุดไม่สามารถเกิดขึ้นก่อนวันเริ่มต้นได้ *", () => {
+    if (!formData.periodStart || !formData.periodEnd) return true;
+    return new Date(formData.periodEnd) >= new Date(formData.periodStart);
+  }
 );
 
 //validate rule
@@ -485,37 +473,54 @@ const rules = {
     required: requiredIf(() => formData.resCluster.includes("อื่น ๆ")),
   },
   resStandards: { required },
-  resStandardsTrade: { required },
-  nameTH: {
-    required: helpers.withMessage(
-      "* กรุณากรอกข้อมูลส่วนตัวในหน้าข้อมูลส่วนตัวก่อน *",
-      required
+  resStandardsTrade: {
+    required: requiredIf(() =>
+      formData.resStandards.includes("มีการใช้พันธุ์พืช")
     ),
-    isThai,
-  },
-  nameENG: {
-    required: helpers.withMessage(
-      "* กรุณากรอกข้อมูลส่วนตัวในหน้าข้อมูลส่วนตัวก่อน *",
-      required
-    ),
-    isEng,
   },
   Hindex: {
-    required: helpers.withMessage("* กรุณากรอกข้อมู *", required),
+    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
     minValue: helpers.withMessage(
       "* กรุณาตรวจสอบคะแนน คะแนนไม่สามารถต่ำกว่า 0 ได้ *",
       minValue(0)
     ),
   },
-  inveninno: { required },
-  participation: { required },
-  periodYear: { required },
-  periodStart: { required },
-  periodEnd: { required },
+  inveninno: { required: helpers.withMessage("* กรุณากรอกข้อมูล *", required) },
+  participation: {
+    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
+    numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
+    maxValue: helpers.withMessage(
+      "* กรุณาตรวจสอบ การมีส่วนร่วมไม่สามารถกรอกได้มากกว่า 100 *",
+      maxValue(100)
+    ),
+  },
+  periodYear: {
+    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
+    numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
+  },
+  periodStart: {
+    required: helpers.withMessage("* กรุณากรอกวันที่เริ่มต้น *", required),
+  },
+  periodEnd: {
+    required: helpers.withMessage("* กรุณากรอกวันที่สิ้นสุด *", required),
+    validDate
+  },
 
   //FileForm
-  file: { required },
+  file: {
+    required: helpers.withMessage("* กรุณาอัปโหลดไฟล์ *", required),
+    fileType: helpers.withMessage(
+      "* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
+      (value) => {
+        if (!value) return false;
+        const allowedTypes = [
+          "application/pdf",
+        ];
+        return allowedTypes.includes(value.type);
+      }
+    ),
+  },
 };
 
 const v$ = useVuelidate(rules, formData);
@@ -531,10 +536,21 @@ onMounted(async () => {
   formData.userID = user.value?.user_id;
   formData.nameTH = user.value?.user_nameth || "";
   formData.nameENG = user.value?.user_nameeng || "";
+  (formData.positionTH = user.value?.user_positionth || ""),
+    (formData.positionENG = user.value?.user_positioneng || "");
 });
 
 const handleInput = (key, value) => {
-  formData[key] = value;
+  if (!formData.resStandards.includes("มีการใช้พันธุ์พืช")) {
+    formData.resStandardsTrade = "";
+  }
+  if (formData.resCluster.includes("อื่น ๆ")) {
+    formData.resClusterOther = "";
+  } else {
+    formData[key] = value;
+  }
+
+  // formData[key] = value;
 };
 
 const handleCheckbox = (key, value) => {
@@ -555,21 +571,6 @@ const handleCheckbox = (key, value) => {
 };
 
 const handleCheckStandards = (key, value) => {
-  if (!Array.isArray(formData[key])) {
-    // Ensure formData[key] is an array
-    formData[key] = [];
-  }
-
-  if (formData[key].includes(value)) {
-    // Remove the value if it exists in the array
-    formData[key] = formData[key].filter((item) => item !== value);
-  } else {
-    // Add the value to the array
-    formData[key].push(value);
-  }
-};
-
-const handleCheckTrade = (key, value) => {
   if (!Array.isArray(formData[key])) {
     // Ensure formData[key] is an array
     formData[key] = [];

@@ -1,11 +1,5 @@
-<script setup>
-import Navbar from '@/components/Navbar.vue';
-</script>
-
 <template>
     <div>
-        <Navbar />
-
         <div class="container my-10 mx-auto ">
             <p class="text-xl font-bold pb-5">การจัดการผู้ใช้</p>
             <!-- table -->
