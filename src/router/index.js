@@ -20,7 +20,6 @@ import Pro_Confer from '@/views/form/Profess/Pro_Confer.vue'
 import Pro_Page from '@/views/form/Profess/Pro_Page.vue'
 import Pro_Scolar from '@/views/form/Profess/Pro_Scolar.vue'
 
-import offic_Confer from '@/views/form/Officer/Confer.vue'
 import offic_hrConfer from '@/views/form/Officer/Conference/HRConfer.vue'
 import offic_resConfer from '@/views/form/Officer/Conference/ResearchConfer.vue'
 

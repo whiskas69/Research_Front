@@ -836,28 +836,21 @@
             <RadioInput
               label="ระดับมาตรฐาน"
               name="Sub1"
-              value="ระดับมาตรฐาน"
+              value="มาตรฐาน"
               v-model="formData.redioAuthOffic"
             @change="handleInput('redioAuthOffic', $event.target.value)"
             />
             <RadioInput
               label="ระดับดีมาก"
               name="Sub1"
-              value="ระดับดีมาก"
+              value="ดีมาก"
               v-model="formData.redioAuthOffic"
             @change="handleInput('redioAuthOffic', $event.target.value)"
             />
-            <div class="py-1">
-              <TextInputLabelLeft
-                label="เหตุผล :"
-                customLabel="w-16"
-                @input="handleInput('description', $event.target.value)"
-              />
-            </div>
           </div>
 
           <TextArea
-            label="• กรณี ที่เป็นการประชุมวิชาการระดับดีมาก เลือกวิธีคิดค่าคะแนนตุณภาพ และมีระดับคะแนนคุณภาพของการประชุมฯ ดังนี้"
+            label="• กรณี ที่เป็นการประชุมวิชาการระดับดีมาก เลือกวิธีคิดค่าคะแนนคุณภาพ และมีระดับคะแนนคุณภาพของการประชุมฯ ดังนี้"
             @input="handleInput('descGood', $event.target.value)"
             />
 
@@ -894,7 +887,7 @@ const formData = reactive({
   // ความเห้นเจ้าหน้าที่
   redioAuthOffic: "",
   description: "",
-  descGood: "",
+  formStatus: "ฝ่ายบริหารการเงิน",
 });
 console.log("conference", formData);
 //วันที่ส่งเอกสาร
@@ -965,22 +958,20 @@ const OfficerConfer = async () => {
   try {
     const dataForBackend = {
       conf_id: id,
+      c_research_admin: formData.hr.c_research_admin,
+      c_reason: formData.hr.c_reason,
       c_meet_quality: formData.redioAuthOffic,
-      // c_quality_reason: formData.description,
-      c_good_reason: formData.descGood,
-      hr_doc_submit_date: formData.docSubmitDate,
+      c_good_reason: formData.description,
+      research_doc_submit_date: formData.docSubmitDate,
+      form_status: formData.formStatus,
     };
     console.log("post office confer: ", JSON.stringify(dataForBackend));
 
-    const response = await axios.post(
-      "http://localhost:3000/opinionConf",
-      dataForBackend,
-      {
-        headers: {
-          "Content-Type": "application/json", // Required for file uploads
-        },
-      }
-    );
+    const response = await axios.put(
+  `http://localhost:3000/opinionConf/${id}`,
+  dataForBackend,
+  { headers: { "Content-Type": "application/json" } }
+);
     alert("Have new OfficerConfer!");
     console.log("res: ", response);
     console.log("allpostOfficerConfer: ", message.value);
