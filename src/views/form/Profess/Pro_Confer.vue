@@ -183,10 +183,7 @@
                 v-model="formData.score"
                 @change="handleInput('score', $event.target.value)"
               />
-              <div
-                
-                class="flex flex-row w-full px-7 my-2"
-              >
+              <div class="flex flex-row w-full px-7 my-2">
                 <TextInputLabelLeft
                   label="• ค่า SJR"
                   customLabel="w-auto mr-1"
@@ -220,9 +217,7 @@
                   @input="handleInput('hIndexYear', $event.target.value)"
                 />
               </div>
-              <span
-
-                class="place-self-center"
+              <span v-if="formData.score == 'SJR'" class="place-self-center"
                 >มีค่าคะแนน = {{ totalScore }} คะแนน</span
               >
               <RadioInput
@@ -232,9 +227,7 @@
                 v-model="formData.score"
                 @change="handleInput('score', $event.target.value)"
               />
-              <div
-                class="flex flex-row w-full px-7 my-2"
-              >
+              <div class="flex flex-row w-full px-7 my-2">
                 <TextInputLabelLeft
                   label="• ค่า Citation total"
                   customLabel="w-auto mr-1"
@@ -252,8 +245,7 @@
                   @input="handleInput('hIndex', $event.target.value)"
                 />
               </div>
-              <span
-                class="place-self-center"
+              <span v-if="formData.score == 'CIF'" class="place-self-center"
                 >มีค่าคะแนน = {{ totalScore }} คะแนน</span
               >
 
@@ -264,9 +256,7 @@
                 v-model="formData.score"
                 @change="handleInput('score', $event.target.value)"
               />
-              <div
-                class="flex flex-row w-full px-7 my-2"
-              >
+              <div class="flex flex-row w-full px-7 my-2">
                 <TextInputLabelLeft
                   label="• ค่า"
                   customLabel="w-auto mr-1"
@@ -352,7 +342,7 @@
               ในกรณีลาครั้งที่ 2 (การประชุมฯ ณ ต่างประเทศ)
               มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล
             </p>
-            <div  class="flex flex-row px-7 mt-1">
+            <div class="flex flex-row px-7 mt-1">
               <RadioInput
                 label="WoS-Q1"
                 name="WoS"
@@ -368,7 +358,7 @@
                 @change="handleInput('wos', $event.target.value)"
               />
             </div>
-            <div  class="px-7 py-2">
+            <div class="px-7 py-2">
               <TextInputLabelLeft
                 label="เรื่อง"
                 customLabel="pr-2"
@@ -494,7 +484,7 @@
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
-              <p class="flex items-center">รวม {{ total }} บาท</p>
+              <p class="flex items-center">รวม {{ totalAmount }} บาท</p>
             </div>
 
             <p>2. ค่าพาหนะเดินทาง</p>
@@ -576,7 +566,11 @@
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
-              <p class="flex items-center">รวม {{ total }} บาท</p>
+              <p
+                class="flex items-center"
+              >
+                รวม {{ totalRoom }} บาท
+              </p>
             </div>
 
             <div class="flex flex-row mb-2 justify-between">
@@ -599,10 +593,10 @@
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
-              <p class="flex items-center">รวม {{ total }} บาท</p>
+              <p class="flex items-center">รวม {{ totalAllowance }} บาท</p>
             </div>
             <p class="font-bold text-2xl pt-5 text-right">
-              รวมทั้งสิ้น ......... บาท
+              รวมทั้งสิ้น {{ allTotal }} บาท
             </p>
           </SectionWrapper>
         </SectionWrapper>
@@ -699,7 +693,9 @@
 {{datetime}}
 {{datetime2}} -->
       <div class="flex justify-end">
-        <button @click="newConfer" class="btn btn-success text-white">บันทึกข้อมูล</button>
+        <button @click="newConfer" class="btn btn-success text-white">
+          บันทึกข้อมูล
+        </button>
       </div>
     </div>
   </div>
@@ -776,21 +772,21 @@ const formData = reactive({
   venue: "",
 
   //List of expenses
-  numberArticles: "",
-  amount1article: "",
-  totalAmount: "3", //รวมบทความทั้งหมด
-  domesticExpenses: "",
-  overseasExpenses: "",
+  numberArticles: 0,
+  amount1article: 0,
+  totalAmount: 0, //รวมบทความทั้งหมด
+  domesticExpenses: 0,
+  overseasExpenses: 0,
   travelCountry: "",
-  interExpenses: "",
-  airplaneTax: "",
-  numberDaysRoom: "",
-  roomCostPerNight: "",
-  totalRoom: "",
-  numTravelDays: "",
-  dailyAllowance: "",
-  totalAllowance: "",
-  all_money: "20", //แก้ด้วย
+  interExpenses: 0,
+  airplaneTax: 0,
+  numberDaysRoom: 0,
+  roomCostPerNight: 0,
+  totalRoom: 0,
+  numTravelDays: 0,
+  dailyAllowance: 0,
+  totalAllowance: 0,
+  all_money: 0, //แก้ด้วย
 
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
@@ -817,14 +813,14 @@ const formData = reactive({
 });
 
 onMounted(async () => {
-  await userStore.fetchUser();  
+  await userStore.fetchUser();
 
   formData.user_id = user.value?.user_id;
   formData.name = user.value?.user_nameth || "";
   formData.position = user.value?.user_position || "";
 
   console.log("formData in mounted : ", formData);
-})
+});
 
 //วันที่ส่งเอกสาร
 const datetime = new Date();
@@ -858,12 +854,15 @@ const handleFile = (event, fieldName) => {
 };
 
 const totalScore = computed(() => {
+  console.log("totalScore");
   if (formData.score == "SJR") {
+    console.log("SJR");
     if (formData.sjr != null && formData.hIndex != null) {
       return formData.sjr * formData.hIndex;
     }
     return null;
   } else if (formData.score == "CIF") {
+    console.log("CIF");
     if (formData.citat != null && formData.hIndex != null) {
       return 0.5 * (formData.citat / 200 + formData.hIndex);
     }
@@ -876,29 +875,39 @@ const totalScore = computed(() => {
 watch(totalScore, (newValue) => {
   formData.total = newValue;
   console.log("Updated formData.total: ", formData.total);
+  console.log("all", JSON.stringify(formData));
 });
 
-
-const total = computed(() => {
-  if (formData.numberArticles != null && formData.amount1article != null) {
-    return formData.numberArticles * formData.amount1article;
-  }
-  if (formData.numberDaysRoom != null && formData.roomCostPerNight != null) {
-    return formData.numberDaysRoom * formData.roomCostPerNight;
-  }
-  if (formData.numTravelDays != null && formData.dailyAllowance != null) {
-    return formData.numTravelDays * formData.dailyAllowance;
-  }
+const totalAmount = computed(() => {
+  formData.totalAmount = formData.numberArticles * formData.amount1article;
+  console.log("tt amout", formData.totalAmount);
+  return formData.totalAmount;
+});
+const totalRoom = computed(() => {
+  formData.totalRoom = formData.numberDaysRoom * formData.roomCostPerNight;
+  console.log("tt room", formData.totalRoom);
+  return formData.totalRoom;
+});
+const totalAllowance = computed(() => {
+  formData.totalAllowance = formData.numTravelDays * formData.dailyAllowance;
+  console.log("tt totalAllowance", formData.totalAllowance);
+  return formData.totalAllowance;
 });
 
-// const allTotal = computed(() => {
-//   all = (formData.numberArticles * formData.amount1article)+
-//   (formData.numberDaysRoom * formData.roomCostPerNight)  +
-//   formData.domesticExpenses + formData.overseasExpenses +
-//   formData.interExpenses + formData.airplaneTax +
-//   (formData.numTravelDays * formData.dailyAllowance)
-//   return all
-// });
+const allTotal = computed(() => {
+  formData.all_money =
+    (parseFloat(formData.totalAmount) || 0) +
+    (parseFloat(formData.domesticExpenses) || 0) +
+    (parseFloat(formData.overseasExpenses) || 0) +
+    (parseFloat(formData.interExpenses) || 0) +
+    (parseFloat(formData.airplaneTax) || 0) + 
+    (parseFloat(formData.totalRoom) || 0) +
+    (parseFloat(formData.totalAllowance) || 0);
+
+  console.log("tt all_money", formData.all_money);
+  return formData.all_money;
+});
+
 const newConfer = async () => {
   try {
     console.log("before postPC: ", formData);
@@ -947,12 +956,12 @@ const newConfer = async () => {
       doc_submit_date: formData.docSubmitDate,
 
       score_formular: formData.score,
-      sjr_score: formData.sjr, 
-      sjr_year: formData.sjrYear, 
-      hindex_score: formData.hIndex, 
-      hindex_year: formData.hIndexYear, 
-      citat: formData.citat, 
-      score_result: formData.total, 
+      sjr_score: formData.sjr,
+      sjr_year: formData.sjrYear,
+      hindex_score: formData.hIndex,
+      hindex_year: formData.hIndexYear,
+      citat: formData.citat,
+      score_result: formData.total,
       core_rank: formData.coreConf,
 
       type: formData.typeFile,
@@ -961,7 +970,7 @@ const newConfer = async () => {
       published_journals: formData.file2,
       q_proof: formData.file3,
       call_for_paper: formData.file4,
-      accepted:formData.file5,
+      accepted: formData.file5,
       fee_receipt: formData.file6,
       fx_rate_document: formData.file7,
       conf_proof: formData.file8,
@@ -970,7 +979,6 @@ const newConfer = async () => {
 
       form_status: formData.statusForm,
       form_money: formData.moneyForm,
-      
     };
     console.log("post confer: ", JSON.stringify(dataForBackend));
     const response = await axios.post(
@@ -987,11 +995,9 @@ const newConfer = async () => {
 
     console.log("allpostConfer: ", message.value);
     console.log("postConfer: ", response.data);
-
   } catch (error) {
     console.error(error);
     message.value = "Error adding Conferent. Please try again.";
   }
 };
-
 </script>
