@@ -182,9 +182,7 @@
                 name="Score"
                 value="SJR"
                 disabled="flase"
-                :checked="
-                  formData.score.score_formular == 'SJR' ? true : false
-                "
+                :checked="formData.score.score_formular == 'SJR' ? true : false"
               />
               <div v-if="formData.score.score_formular == 'SJR'">
                 <div class="flex flex-row w-full px-7 my-2">
@@ -225,15 +223,13 @@
                   >มีค่าคะแนน = {{ formData.score.score_result }} คะแนน</span
                 >
               </div>
-              
+
               <RadioInput
                 label="ใช้ผลการจัดระดับ CIF (Conference Impact Factor)"
                 name="Score"
                 value="CIF"
                 disabled="flase"
-                :checked="
-                  formData.score.score_formular == 'CIF' ? true : false
-                "
+                :checked="formData.score.score_formular == 'CIF' ? true : false"
               />
               <div v-if="formData.score.score_formular == 'CIF'">
                 <div class="flex flex-row w-full px-7 my-2">
@@ -671,10 +667,6 @@
 
           <!-- เอกสารหลักฐานที่แนบ -->
           <!-- 1 -->
-          <CheckInput
-            v-model="formData.checkFullPaper"
-            @input="handleCheckbox('checkFullPaper', true)"
-          />
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -689,10 +681,6 @@
             </div>
           </div>
           <!-- 2 -->
-          <CheckInput
-            v-model="formData.checkPubJournal"
-            @input="handleCheckbox('checkPubJournal', true)"
-          />
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -714,10 +702,6 @@
             </div>
           </div>
           <!-- 3 -->
-          <CheckInput
-            v-model="formData.checkQProof"
-            @input="handleCheckbox('checkQProof', true)"
-          />
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -735,10 +719,6 @@
             </div>
           </div>
           <!-- 4 -->
-          <CheckInput
-            v-model="formData.checkCallPaper"
-            @input="handleCheckbox('checkCallPaper', true)"
-          />
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -755,10 +735,6 @@
             </div>
           </div>
           <!-- 5 -->
-          <CheckInput
-            v-model="formData.checkAccepted"
-            @input="handleCheckbox('checkAccepted', true)"
-          />
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -773,10 +749,6 @@
             </div>
           </div>
           <!-- 6 -->
-          <CheckInput
-            v-model="formData.checkFeeReceipt"
-            @input="handleCheckbox('checkFeeReceipt', true)"
-          />
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -791,10 +763,6 @@
             </div>
           </div>
           <!-- 7 -->
-          <CheckInput
-            v-model="formData.checkRateDocument"
-            @input="handleCheckbox('checkRateDocument', true)"
-          />
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -809,10 +777,6 @@
             </div>
           </div>
           <!-- 8 -->
-          <CheckInput
-            v-model="formData.checkConfProof"
-            @input="handleCheckbox('checkConfProof', true)"
-          />
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -841,22 +805,150 @@
             label="ข้อมูลถูกต้อง"
             value="ถูกต้อง"
             name="re"
-            v-model="formData.redioAuthOffic"
-            @change="handleInput('redioAuthOffic', $event.target.value)"
+            disabled="flase"
+            :checked="
+              formData.offic.c_research_admin == 'ถูกต้อง' ? true : false
+            "
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
             value="ไม่ถูกต้อง"
             name="re"
-            v-model="formData.redioAuthOffic"
-            @change="handleInput('redioAuthOffic', $event.target.value)"
+            disabled="flase"
+            :checked="
+              formData.offic.c_research_admin == 'ไม่ถูกต้อง' ? true : false
+            "
           />
           <textarea
             class="textarea textarea-bordered w-full"
-            @input="handleInput('description', $event.target.value)"
+            disabled="true"
+            :placeholder="formData.offic.c_reason"
           ></textarea>
         </SectionWrapper>
       </Mainbox>
+
+      <Mainbox>
+        <SectionWrapper>
+          <p>ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
+
+          <p>• คุณภาพของการประชุม ฯ</p>
+
+          <div class="px-5">
+            <RadioInput
+              label="ระดับมาตรฐาน"
+              name="Sub1"
+              value="มาตรฐาน"
+              disabled="flase"
+              :checked="
+                formData.offic.c_meet_quality == 'มาตรฐาน' ? true : false
+              "
+            />
+            <RadioInput
+              label="ระดับดีมาก"
+              name="Sub1"
+              value="ดีมาก"
+              disabled="flase"
+              :checked="formData.offic.c_meet_quality == 'ดีมาก' ? true : false"
+            />
+          </div>
+
+          <TextArea
+            label="• กรณี ที่เป็นการประชุมวิชาการระดับดีมาก เลือกวิธีคิดค่าคะแนนคุณภาพ และมีระดับคะแนนคุณภาพของการประชุมฯ ดังนี้"
+            disabled="true"
+            :placeholder="formData.offic.c_good_reason"
+          />
+        </SectionWrapper>
+      </Mainbox>
+
+      <Mainbox>
+        <SectionWrapper>
+          <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
+          <TextInputLabelLeft
+            label="ปีงบประมาณ พ.ศ."
+            customInput="max-w-max text-center"
+            v-model="formData.year"
+            @input="handleInput('year', $event.target.value)"
+          />
+
+          <div class="flex justify-end">
+            <div class="flex flex-row justify-between">
+              <TextInputLabelLeft
+                label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น"
+                customInput="max-w-max text-center"
+                v-model="formData.totalAll"
+                @input="handleInput('totalAll', $event.target.value)"
+              />
+              <p class="flex items-center w-12">บาท</p>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <div class="flex flex-row justify-between">
+              <TextInputLabelLeft
+                label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
+                customInput="max-w-max text-center"
+                disabled="true"
+                :placeholder="formData.numAppove"
+              />
+              <p class="flex items-center w-12">รายการ</p>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <div class="flex flex-row justify-between">
+              <TextInputLabelLeft
+                label="รวมเป็นเงิน"
+                customInput="max-w-max text-center"
+                disabled="true"
+                :placeholder="formData.totalAppove"
+              />
+              <p class="flex items-center w-12">บาท</p>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <div class="flex flex-row justify-between">
+              <TextInputLabelLeft
+                label="วงเงินที่คณะจัดสรรไว้ คงเหลือ"
+                customInput="max-w-max text-center"
+                disabled="true"
+                :placeholder="formData.creditLimit"
+              />
+              <p class="flex items-center w-12">บาท</p>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <div class="flex flex-row justify-between">
+              <TextInputLabelLeft
+                label="จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้  เป็นจำนวนเงิน"
+                customInput="max-w-max text-center"
+                v-model="formData.moneyConfer"
+                @input="handleInput('moneyConfer', $event.target.value)"
+              />
+              <p class="flex items-center w-12">บาท</p>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <div class="flex flex-row justify-between">
+              <TextInputLabelLeft
+                label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น"
+                customInput="max-w-max text-center"
+                disabled="true"
+                :placeholder="formData.totalcreditLimit"
+              />
+              <p class="flex items-center w-12">บาท</p>
+            </div>
+          </div>
+
+          <div class="flex justify-end">
+            <button class="btn text-black btn-warning mr-5">คำนวณ</button>
+          </div>
+
+          <div class="flex justify-end mt-5">
+            <p class="text-red-500 mr-5">
+              วงเงินที่สามารถเบิกได้ {{ formData }} บาท
+            </p>
+          </div>
+        </SectionWrapper>
+      </Mainbox>
+
       <div class="flex justify-end">
         <button @click="OfficerConfer" class="btn btn-success text-white">
           บันทึกข้อมูล
@@ -876,27 +968,24 @@ import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 import CheckInput from "@/components/Input/CheckInput.vue";
+import TextArea from "@/components/Input/TextArea.vue";
 
 const formData = reactive({
   conference: [],
   user: [],
   score: [],
-  checkFullPaper: "",
-  checkPubJournal: "",
-  checkQProof: "",
-  checkCallPaper: "",
-  checkAccepted: "",
-  checkFeeReceipt: "",
-  checkRateDocument: "",
-  checkConfProof: "",
-  checkWorkedNo3NeverAbroad: "",
+  offic: [],
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
-  //satatus
-  statusForm: "ฝ่ายบริหารงานวิจัย",
   // ความเห้นเจ้าหน้าที่
-  redioAuthOffic: "",
-  description: "",
+  year: "",
+  totalAll: 0,
+  numAppove: 0,
+  totalAppove: 0,
+  creditLimit: 0,
+  moneyConfer: 0,
+  totalcreditLimit: 0,
+  formStatus: "รองคณบดี",
 });
 console.log("conference", formData);
 //วันที่ส่งเอกสาร
@@ -909,21 +998,6 @@ const day = String(datetime.getDate()).padStart(2, "0");
 formData.docSubmitDate = `${year}-${month}-${day}`;
 console.log(formData.docSubmitDate);
 
-const handleCheckbox = (key, value) => {
-  if (formData[key]) {
-    // If the checkbox is checked, uncheck it and remove the value from the array
-    formData[key] = "";
-    console.log("1");
-    formData.check = formData.check.filter((item) => item !== value);
-  } else {
-    // If the checkbox is unchecked, check it and add the value to the array
-    formData[key] = value;
-    console.log("12");
-    formData.check.push(value);
-  }
-  console.log(`${key} is now ${formData[key]}`);
-  console.log("Updated formData.check:", formData.check);
-};
 const handleInput = (key, value) => {
   formData[key] = value;
   console.log("0000000000000000000000000000000");
@@ -933,6 +1007,11 @@ const handleInput = (key, value) => {
   // console.log("value: ", value);
   console.log("--------------------------------");
 };
+
+const caltotalAppove = () =>{
+
+}
+
 const isLoading = ref(true);
 // Access route parameters
 const route = useRoute();
@@ -963,6 +1042,13 @@ const fetchOfficerData = async () => {
     formData.score = responseScore.data;
     console.log("score", formData.score);
     console.log("score_formular", formData.score.score_formular);
+
+    const responseHR = await axios.get(
+      `http://localhost:3000/opinionConf/${id}`
+    );
+    console.log("offic123", responseHR);
+    formData.offic = responseHR.data;
+    console.log("offic", JSON.stringify(formData.offic));
   } catch (error) {
     console.error("Error fetching Officer data:", error);
   } finally {
@@ -974,20 +1060,20 @@ const OfficerConfer = async () => {
   try {
     const dataForBackend = {
       conf_id: id,
-      c_research_admin: formData.redioAuthOffic,
-      c_reason: formData.description,
-      hr_doc_submit_date: formData.docSubmitDate,
-    };
-    console.log("postPC: ", JSON.stringify(dataForBackend));
+      c_research_admin: formData.offic.c_research_admin,
+      c_reason: formData.offic.c_reason,
+      c_meet_quality: formData.offic.redioAuthOffic,
+      c_good_reason: formData.offic.description,
 
-    const response = await axios.post(
-      "http://localhost:3000/opinionConf",
+      research_doc_submit_date: formData.docSubmitDate,
+      form_status: formData.formStatus,
+    };
+    console.log("post office confer: ", JSON.stringify(dataForBackend));
+
+    const response = await axios.put(
+      `http://localhost:3000/opinionConf/${id}`,
       dataForBackend,
-      {
-        headers: {
-          "Content-Type": "application/json", // Required for file uploads
-        },
-      }
+      { headers: { "Content-Type": "application/json" } }
     );
     alert("Have new OfficerConfer!");
     console.log("res: ", response);

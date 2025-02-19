@@ -5,7 +5,6 @@
         ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
       </p>
       <Mainbox>
-        {{ formData.user }}
         <SectionWrapper>
           <TextInputLabelLeft
             label="ชื่อ"
