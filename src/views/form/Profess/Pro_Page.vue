@@ -521,7 +521,7 @@ const formData = reactive({
   docSubmitDate: "",
   typeFile: "Page_Charge",
   //satatus
-  statusForm: "ตรวจสอบ",
+  statusForm: "ฝ่ายบริหารงานวิจัย",
   moneyForm: "100000"
 });
 //วันที่ส่งเอกสาร
@@ -645,23 +645,7 @@ const NewPC = async () => {
     console.log("before postPC: ", formData);
     console.log("formData as JSON:", JSON.stringify(formData, null, 2));
     console.log("before userID: ", JSON.stringify(formData));
-    //
-    // message.value = response.data.message;
-
-    // const dataFile = {
-    //   type: formData.typeFile,
-    //   Pc_proof: formData.file1,
-    // };
-    // console.log("postPC: ", JSON.stringify(dataFile));
-    //  // Send file data to the backend
-    //  const responseFile = await axios.post("http://localhost:3000/pdf", dataFile, {
-    //   headers: {
-    //     "Content-Type": "multipart/form-data", // Required for file uploads
-    //   },
-    // });
-    // console.log("responseFile: ", responseFile);
-    // console.log("Response data: ", responseFile.data);
-
+    
     const dataForBackend = {
       user_id: formData.userID,
       pageC_times: formData.textOther1,
@@ -718,14 +702,6 @@ const NewPC = async () => {
     );
     alert("Have new PC!");
     console.log("res: ", response);
-
-    // const data = await response.json();
-    // if (response.ok) {
-    //   console.log('Page Charge created with pc_id:', data.pc_id);
-    //   // Use pc_id for further actions
-    // } else {
-    //   console.error('Error:', data.error);
-    // }
 
     console.log("allpostPC: ", message.value);
     console.log("postPC: ", response.data);

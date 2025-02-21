@@ -15,7 +15,7 @@
           <TextInputLabelLeft
             label="ตำแหน่ง"
             customLabel="w-2/12 text-lg font-bold"
-            :placeholder="formData.user.user_position"
+            :placeholder="formData.user.user_positionth"
             disabled="true"
           />
 
@@ -909,7 +909,7 @@
                 label="วงเงินที่คณะจัดสรรไว้ คงเหลือ"
                 customInput="max-w-max text-center"
                 disabled="true"
-                :placeholder="formData.creditLimit"
+                :placeholder="caltotalFaculty"
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
@@ -931,19 +931,20 @@
                 label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น"
                 customInput="max-w-max text-center"
                 disabled="true"
-                :placeholder="formData.totalcreditLimit"
+                :placeholder="caltotalFacultyNow"
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
-
           <div class="flex justify-end">
             <button class="btn text-black btn-warning mr-5">คำนวณ</button>
           </div>
-
+          <p class="text-red-500 mr-5">
+              เหลือ RuleBase******
+            </p>
           <div class="flex justify-end mt-5">
             <p class="text-red-500 mr-5">
-              วงเงินที่สามารถเบิกได้ {{ formData }} บาท
+              วงเงินที่สามารถเบิกได้ {{ formData.canWithdrawn }} บาท
             </p>
           </div>
         </SectionWrapper>
@@ -959,7 +960,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
 
@@ -985,6 +986,7 @@ const formData = reactive({
   creditLimit: 0,
   moneyConfer: 0,
   totalcreditLimit: 0,
+  canWithdrawn: 0,
   formStatus: "รองคณบดี",
 });
 console.log("conference", formData);
@@ -1008,9 +1010,15 @@ const handleInput = (key, value) => {
   console.log("--------------------------------");
 };
 
-const caltotalAppove = () =>{
+const caltotalFaculty = computed(() =>{
+  formData.creditLimit = parseFloat(formData.totalAll) - parseFloat(formData.totalAppove)
+  return formData.creditLimit
+});
 
-}
+const caltotalFacultyNow = computed(() =>{
+  formData.totalcreditLimit = parseFloat(formData.creditLimit) - parseFloat(formData.moneyConfer)
+  return formData.totalcreditLimit
+});
 
 const isLoading = ref(true);
 // Access route parameters
@@ -1049,6 +1057,21 @@ const fetchOfficerData = async () => {
     console.log("offic123", responseHR);
     formData.offic = responseHR.data;
     console.log("offic", JSON.stringify(formData.offic));
+
+    const responseForm = await axios.get(
+      `http://localhost:3000/allForms`
+    )
+    console.log("form 123", JSON.stringify(responseForm));
+    // approveForm = responseForm.data.form_status
+    for(let i = 0; i < responseForm.length; i++){
+      if (responseForm.data.form_status == 'อนุมัติ'  && responseForm.data.form_type == 'Conference'){
+        formData.numAppove++
+        formData.totalAppove += formData.totalAppove
+      }
+    }
+    console.log("numAppove", formData.numAppove)
+    console.log("totalAppove", formData.totalAppove)
+
   } catch (error) {
     console.error("Error fetching Officer data:", error);
   } finally {

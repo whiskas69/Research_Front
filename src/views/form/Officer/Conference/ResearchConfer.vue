@@ -850,7 +850,7 @@
 
           <TextArea
             label="• กรณี ที่เป็นการประชุมวิชาการระดับดีมาก เลือกวิธีคิดค่าคะแนนคุณภาพ และมีระดับคะแนนคุณภาพของการประชุมฯ ดังนี้"
-            @input="handleInput('descGood', $event.target.value)"
+            @input="handleInput('description', $event.target.value)"
             />
 
         </SectionWrapper>

@@ -1,5 +1,4 @@
 <template>
-  {{ formData }}
   <div>
     <div class="container my-10 mx-auto">
       <p class="text-xl font-bold mb-5">
@@ -11,12 +10,12 @@
             label="ชื่อ"
             customLabel="w-2/12 text-lg font-bold"
             disabled="true"
-            :placeholder="formData.name"
+            :placeholder="formData.user.user_nameth"
           />
           <TextInputLabelLeft
             label="ตำแหน่ง"
             customLabel="w-2/12 text-lg font-bold"
-            :placeholder="formData.position"
+            :placeholder="formData.user.user_positionth"
             disabled="true"
           />
           <div class="flex flex-row">
@@ -26,14 +25,14 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               disabled="true"
-              :placeholder="formData.textOther1"
+              :placeholder="formData.pageChange.pageC_times"
             />
             <TextInputLabelLeft
               label="วันที่"
               customLabel="ml-2 w-10"
               customInput="max-w-max"
               disabled="true"
-              :placeholder="formData.textOther2"
+              :placeholder="formData.pageChange.pageC_days"
             />
           </div>
           <p class="text-red-500 text-sm">
@@ -56,7 +55,7 @@
             name="Input"
             customLabel="w-24"
             disabled="true"
-            :placeholder="formData.nameJournal"
+            :placeholder="formData.pageChange.journal_name"
           />
           <p>เป็นวารสารที่อยู่ในฐานข้อมูลสากล</p>
 
@@ -69,22 +68,22 @@
               disabled="false"
             />
             <TextInputLabelLeft
-            v-if="formData.checkISI == 'ISI'"
+              v-if="formData.checkISI == 'ISI'"
               label="ปี"
               customLabel="mr-2"
               customInput="max-w-max"
               customDiv="max-w-max"
               disabled="true"
-              :placeholder="formData.input1ISI"
+              :placeholder="formData.pageChange.pc_isi_year"
             />
             <TextInputLabelLeft
-            v-if="formData.checkISI == 'ISI'"
+              v-if="formData.checkISI == 'ISI'"
               label="Impact Factor"
               customLabel="w-28 mx-2"
               customInput="max-w-max"
               customDiv="max-w-max"
               disabled="true"
-              :placeholder="formData.input2ISI"
+              :placeholder="formData.pageChange.impact_factor"
             />
           </div>
 
@@ -97,22 +96,22 @@
               disabled="false"
             />
             <TextInputLabelLeft
-            v-if="formData.checkISI == 'SJR'"
+              v-if="formData.checkSJR == 'SJR'"
               label="ปี"
               customLabel="mr-2"
               customInput="max-w-max"
               customDiv="max-w-max"
               disabled="true"
-              :placeholder="formData.checkinput1SJR"
+              :placeholder="formData.pageChange.pc_sjr_year"
             />
             <TextInputLabelLeft
-            v-if="formData.checkISI == 'SJR'"
+              v-if="formData.checkSJR == 'SJR'"
               label="SJR Score"
               customLabel="w-28 mx-2"
               customInput="max-w-max"
               customDiv="max-w-max"
               disabled="true"
-              :placeholder="formData.input2SJR"
+              :placeholder="formData.pageChange.sjr_score"
             />
           </div>
 
@@ -125,24 +124,25 @@
               disabled="false"
             />
             <TextInputLabelLeft
-            v-if="formData.checkISI == 'Scopus'"
+              v-if="formData.checkScopus == 'Scopus'"
               label="ปี"
               customLabel="mr-2"
               customInput="max-w-max"
               customDiv="max-w-max"
               disabled="true"
-              :placeholder="formData.input1Scopus"
+              :placeholder="formData.pageChange.pc_scopus_year"
             />
             <TextInputLabelLeft
-            v-if="formData.checkISI == 'Scopus'"
+              v-if="formData.checkScopus == 'Scopus'"
               label="Cite Score"
               customLabel="w-28 mx-2"
               customInput="max-w-max"
               customDiv="max-w-max"
               disabled="true"
-              :placeholder="formData.input2Scopus"
+              :placeholder="formData.pageChange.cite_score"
             />
           </div>
+
           <div class="flex flex-row">
             <CheckInput
               label="Nature"
@@ -159,8 +159,8 @@
                 customLabel="w-auto mx-2"
                 customInput="max-w-max"
                 customDiv="max-w-max"
-                :placeholder="formData.moneyOp"
-                v-model="formData.input2Scopus"
+                disabled="true"
+                :placeholder="formData.pageChange.support_limit"
               />
               <span class="flex items-center">บาท</span>
             </div>
@@ -178,7 +178,7 @@
             label="ชื่อบทความ"
             customLabel="w-auto min-w-fit"
             disabled="true"
-            :placeholder="formData.nameReach"
+            :placeholder="formData.pageChange.article_title"
           />
         </SectionWrapper>
         <div>
@@ -189,21 +189,21 @@
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               disabled="true"
-              :placeholder="formData.schedule"
+              :placeholder="formData.pageChange.vol_journal"
             />
             <TextInputLabelLeft
               label="ฉบับที่ (Issue)"
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               disabled="true"
-              :placeholder="formData.issue"
+              :placeholder="formData.pageChange.issue_journal"
             />
             <TextInputLabelLeft
               label="เดือน"
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               disabled="true"
-              :placeholder="formData.months"
+              :placeholder="formData.pageChange.months"
             />
             <div class="flex flex-row">
               <TextInputLabelLeft
@@ -211,14 +211,14 @@
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-fit"
                 disabled="true"
-                :placeholder="formData.year"
+                :placeholder="formData.pageChange.year"
               />
               <TextInputLabelLeft
                 label="เลขที่ ISSN/ISBN (อื่นๆ)"
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-fit"
                 disabled="true"
-                :placeholder="formData.ISSN"
+                :placeholder="formData.pageChange.ISSN_ISBN"
               />
             </div>
           </div>
@@ -229,21 +229,21 @@
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               disabled="true"
-              :placeholder="formData.submitReach"
+              :placeholder="formData.pageChange.submission_date"
             />
             <TextInputLabelLeft
               label="วันประกาศผลการพิจารณา"
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               disabled="true"
-              :placeholder="formData.announce"
+              :placeholder="formData.pageChange.date_review_announce"
             />
             <TextInputLabelLeft
               label="วันสุดท้ายของการจ่ายค่าตีพิมพ์"
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               disabled="true"
-              :placeholder="formData.latePay"
+              :placeholder="formData.pageChange.final_date"
             />
           </div>
 
@@ -255,7 +255,7 @@
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-fit"
                 disabled="true"
-                :placeholder="formData.reachOther"
+                :placeholder="formData.pageChange.article_research_ject"
               />
             </div>
             <p>ประเภทโครงการวิจัย</p>
@@ -267,9 +267,11 @@
                 customDiv="max-w-fit mr-10 flex items-center"
                 disabled="flase"
                 :checked="
-                  formData.radioResearch == 'วิจัยพื้นฐาน' ? true : false
+                  formData.pageChange.research_type == 'วิจัยพื้นฐาน'
+                    ? true
+                    : false
                 "
-                v-model="formData.radioResearch"
+                v-model="formData.pageChange.research_type"
               />
               <RadioInput
                 label="วิจัยประยุกต์"
@@ -278,9 +280,11 @@
                 customDiv="max-w-fit mr-10 flex items-center"
                 disabled="flase"
                 :checked="
-                  formData.radioResearch == 'วิจัยประยุกต์' ? true : false
+                  formData.pageChange.research_type == 'วิจัยประยุกต์'
+                    ? true
+                    : false
                 "
-                v-model="formData.radioResearch"
+                v-model="formData.pageChange.research_type"
               />
               <RadioInput
                 label="วิจัยและพัฒนา"
@@ -289,9 +293,11 @@
                 customDiv="max-w-fit mr-10 flex items-center"
                 disabled="flase"
                 :checked="
-                  formData.radioResearch == 'วิจัยและพัฒนา' ? true : false
+                  formData.pageChange.research_type == 'วิจัยและพัฒนา'
+                    ? true
+                    : false
                 "
-                v-model="formData.radioResearch"
+                v-model="formData.pageChange.research_type"
               />
               <div class="flex flex-row">
                 <RadioInput
@@ -301,16 +307,18 @@
                   customDiv="max-w-fit mr-2 flex items-center"
                   disabled="flase"
                   :checked="
-                    formData.radioResearch == 'วิจัยอื่น ๆ' ? true : false
+                    formData.pageChange.research_type == 'วิจัยอื่น ๆ'
+                      ? true
+                      : false
                   "
-                  v-model="formData.radioResearch"
+                  v-model="formData.pageChange.research_type"
                 />
                 <TextInputLabelLeft
-                  v-if="formData.radioResearch == 'วิจัยอื่น ๆ '"
+                  v-if="formData.pageChange.research_type == 'วิจัยอื่น ๆ '"
                   label="(ระบุ)"
                   name="type"
                   customDiv="max-w-fit flex items-cente"
-                  v-model="formData.otherInput"
+                  v-model="formData.pageChange.research_type2"
                 />
               </div>
             </div>
@@ -319,7 +327,7 @@
               label="ชื่อแหล่งทุนวิจัย"
               customLabel="w-auto min-w-fit"
               disabled="true"
-              :placeholder="formData.source"
+              :placeholder="formData.pageChange.name_funding_source"
             />
             <div class="flex flex-row">
               <TextInputLabelLeft
@@ -327,14 +335,14 @@
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-max mr-10"
                 disabled="true"
-                :placeholder="formData.credit"
+                :placeholder="formData.pageChange.budget_limit"
               />
               <TextInputLabelLeft
                 label="ประจำปี"
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-max mr-10"
                 disabled="true"
-                :placeholder="formData.inYears"
+                :placeholder="formData.pageChange.annual"
               />
             </div>
           </SectionWrapper>
@@ -349,8 +357,12 @@
             value="First Author"
             name="Author"
             disabled="flase"
-            :checked="formData.redioAuth == 'First Author' ? true : false"
-            v-model="formData.redioAuth"
+            :checked="
+              formData.pageChange.presenter_type == 'First Author'
+                ? true
+                : false
+            "
+            v-model="formData.pageChange.presenter_type"
           />
           <RadioInput
             label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
@@ -358,9 +370,11 @@
             name="Author"
             disabled="flase"
             :checked="
-              formData.redioAuth == 'Corresponding Author' ? true : false
+              formData.pageChange.presenter_type == 'Corresponding Author'
+                ? true
+                : false
             "
-            v-model="formData.redioAuth"
+            v-model="formData.pageChange.presenter_type"
           />
         </SectionWrapper>
       </Mainbox>
@@ -375,7 +389,7 @@
             customLabel="w-auto min-w-fit"
             customInput="max-w-fit"
             disabled="true"
-            :placeholder="formData.moneyPG"
+            :placeholder="formData.pageChange.request_support"
           />
         </SectionWrapper>
       </Mainbox>
@@ -512,54 +526,6 @@
           บันทึกข้อมูล
         </button>
       </div>
-      <p class="text-xl font-bold my-5">wine</p>
-      {{ formData.check }}
-      <!-- {{ formData.file1 }}
-
-      <div v-if="formData.file1">
-        <p>File Name: {{ formData.file1.name }}</p>
-        <p>File Size: {{ formData.file1.size }} bytes</p>
-        <p>File Type: {{ formData.file1.type }}</p>
-        <a
-          v-if="formData.file1 instanceof Blob"
-          :href="getFileURL(formData.file1)"
-          target="_blank"
-        >
-          View File
-        </a>
-        Show PDF Button
-    <button @click="showPDF">Show PDF</button>
-Download PDF Button
-<button @click="downloadPDF">Download PDF</button>
-
-      </div> -->
-
-      <!-- <div v-if="formData.file1" class="columns is-multiline">
-            <div class="card-image">
-              <figure class="image my-5">
-                <iframe
-                  v-if="isPDF(formData.file1)"
-                  :src="showPDF(formData.file1)"
-                  width="100%"
-                  height="500px"
-                ></iframe>
-              </figure>
-            </div>
-          </div> -->
-      <!-- <ProfDetail :Professor="Professor" /> -->
-      <!-- <DetailPage :PageDetail="PageDetail" /> -->
-      <!-- <DetailReach :ReachDetail="ReachDetail" /> -->
-      <!-- <Author :AuthForm="AuthForm" /> -->
-      <!-- <MoneyPageChange :MoneyPG="MoneyPG" /> -->
-      <!-- <File :FileForm="FileForm" /> -->
-
-      <!-- <ResearchPG :Research="Research" /> -->
-      <MoneyConfer :MoneyForm="MoneyForm" />
-      <AssociarConfer :AssociateForm="AssociateForm" />
-
-      <NotedPG1 :PG1="PG1" />
-
-      <NotedPG2 :PG2="PG2" />
     </div>
   </div>
 </template>
@@ -574,63 +540,17 @@ import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 import CheckInput from "@/components/Input/CheckInput.vue";
-import RadiowithArea from "@/components/Input/RadiowithArea.vue";
-
-import ProfDetail from "@/components/form/Conference/ProfDetail.vue";
-import DetailPage from "@/components/form/PageCharge/DetailPage.vue";
-import DetailReach from "@/components/form/PageCharge/DetailReach.vue";
-import Author from "@/components/form/Conference/Author.vue";
-import MoneyPageChange from "@/components/form/PageCharge/MoneyPageChange.vue";
-import File from "@/components/form/Officer/File.vue";
-import ResearchPG from "@/components/form/Officer/ResearchPG.vue";
-import MoneyConfer from "@/components/form/Officer/MoneyConfer.vue";
-import AssociarConfer from "@/components/form/Officer/AssociarConfer.vue";
-import NotedPG1 from "@/components/form/Officer/NotedPG1.vue";
-import NotedPG2 from "@/components/form/Officer/NotedPG2.vue";
 
 // จัดการข้อมูลหลัก
 const formData = reactive({
-  // asdf: "",
-  userID: "",
-  // Professor
-  name: "",
-  position: "",
-  textOther1: "",
-  textOther2: "",
-  // PageDetail
-  nameJournal: "",
+  pageChange: [],
+  user: [],
+
   check: [],
   checkISI: "",
-  input1ISI: "",
-  input2ISI: "", //isi
   checkSJR: "",
-  input1SJR: "",
-  input2SJR: "", //sjr
   checkScopus: "",
-  input1Scopus: "",
-  input2Scopus: "", //scopus
   nature: "",
-  moneyOp: "",
-  //ResearchDetail
-  nameReach: "",
-  schedule: "",
-  issue: "",
-  months: "",
-  year: "",
-  ISSN: "",
-  submitReach: "",
-  announce: "",
-  latePay: "",
-  reachOther: "",
-  radioResearch: "",
-  otherInput: "",
-  source: "",
-  credit: "",
-  inYears: "",
-  //AuthForm
-  redioAuth: "",
-  //MoneyPG
-  moneyPG: "",
   //FileForm
   file1: null,
   file2: null,
@@ -643,7 +563,6 @@ const formData = reactive({
   typeFile: "Page_Charge",
   //satatus
   statusForm: "ฝ่ายบริหารการเงิน",
-  moneyForm: "100000",
   // ความเห้นเจ้าหน้าที่
   redioAuthOffic: "",
   description: "",
@@ -669,121 +588,6 @@ const handleInput = (key, value) => {
   console.log("--------------------------------");
 };
 
-const MoneyForm = {
-  MainLabel: {
-    label: "ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ",
-    name: "maintext",
-  },
-  Input1: {
-    label: "ปีงบประมาณ พ.ศ.",
-    name: "years",
-    customInput: "max-w-max text-center",
-  },
-  Input2: {
-    label: "วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น",
-    customInput: "max-w-max text-center",
-    disabled: false,
-  },
-  Input3: {
-    label: "โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน",
-    customInput: "max-w-max text-center",
-    disabled: true,
-    placeholder: "0",
-    text: "รายการ",
-  },
-  Input4: {
-    label: "รวมเป็นเงิน",
-    customInput: "max-w-max text-center",
-    disabled: true,
-    placeholder: "0",
-  },
-  Input5: {
-    label: "วงเงินที่คณะจัดสรรไว้ คงเหลือ",
-    customInput: "max-w-max text-center",
-    disabled: true,
-    placeholder: "0",
-  },
-  Input6: {
-    label: "จำนวนเงินที่ขออนุมัติจค่า Page Charge ในครั้งนี้  เป็นจำนวนเงิน",
-    customInput: "max-w-max text-center",
-    disabled: false,
-  },
-  Input7: {
-    label: "วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น",
-    customInput: "max-w-max text-center",
-    disabled: true,
-    placeholder: "0",
-  },
-  text: {
-    label: "วงเงินที่สามารถเบิกได้ 0 บาท",
-    name: "text",
-  },
-};
-
-const AssociateForm = {
-  Maintext: {
-    label: "รองคณบดีฝ่ายงานวิจัย",
-    name: "maintext",
-    disabled: false,
-  },
-  Choice1: {
-    label: "เห็นชอบ",
-    name: "comment",
-    disabled: false,
-  },
-  Choice2: {
-    label: "ไม่เห็นชอบ",
-    name: "comment",
-    disabled: false,
-  },
-  comments: {
-    label: "ความคิดเห็น",
-    name: "textArea",
-    disabled: false,
-  },
-};
-""
-const PG1 = {
-  label: "รับทราบ",
-  disabled: false,
-};
-
-const showPDF = () => {
-  console.log(formData.file1);
-  if (formData.file1 && formData.file1.type === "application/pdf") {
-    console.log("formData.file1");
-    const fileURL = URL.createObjectURL(formData.file1);
-    window.open(fileURL, "_blank"); // Opens the file in a new tab
-  } else {
-    alert("File is not a valid PDF.");
-  }
-};
-const downloadPDF = () => {
-  // Check if the file type is PDF
-  console.log(formData.file1);
-  if (formData.file1) {
-    const fileURL = URL.createObjectURL(formData.file1);
-    const link = document.createElement("a");
-    link.href = fileURL;
-    link.download = formData.file1.name || "download.pdf"; // Default name if none provided
-    link.click();
-    URL.revokeObjectURL(fileURL); // Clean up the object URL
-  } else {
-    alert("No file available to download.");
-  }
-};
-
-const getFileURL = (file) => {
-  try {
-    if (file instanceof Blob) {
-      return URL.createObjectURL(file);
-    }
-  } catch (err) {
-    console.error("Error creating object URL:", err);
-  }
-  return "";
-};
-
 //isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
 const isLoading = ref(true);
 // Access route parameters
@@ -800,47 +604,19 @@ const fetchProfessorData = async () => {
     const responseUser = await axios.get(
       `http://localhost:3000/user/${userID}`
     );
-    formData.userID = responseUser.data.user_id;
-    formData.name = responseUser.data.user_nameth;
-    formData.position = responseUser.data.user_position;
+    formData.user = responseUser.data;
 
-    console.log("get user: ", responseUser.data);
+    console.log("get user: ", formData.user);
     console.log("get userid: ", responsePC.data.user_id);
     console.log("get responsePC: ", responsePC.data);
 
-    const PCData = responsePC.data;
-    formData.textOther1 = PCData.pageC_times;
-    formData.textOther2 = PCData.pageC_days;
-    formData.nameJournal = PCData.journal_name;
-    formData.check = PCData.quality_journal;
-    formData.input1ISI = PCData.pc_isi_year;
+    formData.pageChange = responsePC.data;
+    console.log("pageChange", formData.pageChange);
+    formData.check = formData.pageChange.quality_journal;
 
-    formData.moneyOp = PCData.support_limit;
-    formData.nameReach = PCData.article_title;
-    formData.schedule = PCData.vol_journal;
-    formData.issue = PCData.issue_journal;
-    formData.months = PCData.month;
-    formData.year = PCData.year;
-    formData.ISSN = PCData.ISSN_ISBN;
-    formData.submitReach = PCData.submission_date;
-    formData.announce = PCData.date_review_announce;
-    formData.latePay = PCData.final_date;
-    formData.reachOther = PCData.article_research_ject;
-    formData.radioResearch = PCData.research_type;
-    formData.otherInput = PCData.research_type2;
-    formData.source = PCData.name_funding_source;
-    formData.credit = PCData.budget_limit;
-    formData.inYears = PCData.annual;
-
-    formData.redioAuth = PCData.presenter_type;
-
-    formData.moneyPG = PCData.request_support;
-
-    console.log("get page_charge: ", PCData);
-
-    const responseFile = await axios.get("http://localhost:3000/pdf/2");
-    const pdfData = responseFile.data;
-    formData.file1 = pdfData.Invoice;
+    // const responseFile = await axios.get("http://localhost:3000/pdf/2");
+    // const pdfData = responseFile.data;
+    // formData.file1 = pdfData.Invoice;
 
     console.log("PDF JAAAA: ", pdfData);
   } catch (error) {
@@ -914,43 +690,6 @@ const loopdata = async () => {
 // ดึงข้อมูลเมื่อ component ถูกโหลด
 onMounted(async () => {
   await fetchProfessorData();
-
-  console.log("formdatacheck, ", formData.check);
   loopdata();
-  console.log("check, ", formData.checkISI);
 });
 </script>
-
-<!-- <script>
-export default {
-  data() {
-    return {
-      formData: {
-        file1: null, // This should be a valid File object (e.g., from an input field)
-      },
-    };
-  },
-  methods: {
-    showPDF() {
-      if (this.formData.file1 && this.formData.file1.type === "application/pdf") {
-        const fileURL = URL.createObjectURL(this.formData.file1);
-        window.open(fileURL, "_blank"); // Opens the file in a new tab
-      } else {
-        alert("File is not a valid PDF.");
-      }
-    },
-    downloadPDF() {
-      if (this.formData.file1) {
-        const fileURL = URL.createObjectURL(this.formData.file1);
-        const link = document.createElement("a");
-        link.href = fileURL;
-        link.download = this.formData.file1.name || "download.pdf"; // Default name if none provided
-        link.click();
-        URL.revokeObjectURL(fileURL); // Clean up the object URL
-      } else {
-        alert("No file available to download.");
-      }
-    },
-  },
-};
-</script> -->
