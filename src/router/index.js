@@ -26,6 +26,8 @@ import offic_fincConfer from '@/views/form/Officer/Conference/FinanceConfer.vue'
 
 import offic_resPage from '@/views/form/Officer/PageCharge/ResearchPage.vue'
 import offic_financePage from '@/views/form/Officer/PageCharge/FinancePag.vue'
+import offic_associatePage from'@/views/form/Officer/PageCharge/AssociatePage.vue'
+
 import offic_Scolar from '@/views/form/Officer/Scolar.vue'
 
 import Profile from '@/views/Profile.vue'
@@ -138,6 +140,11 @@ const router = createRouter({
       path: '/officFormPC/finance/:id',
       name: 'OfficFormPCFin',
       component: offic_financePage
+    },
+    {
+      path: '/officFormPC/associate/:id',
+      name: 'OfficFormPCAssoc',
+      component: offic_associatePage
     },
     {
       path: '/officFormKris/research/:id',
