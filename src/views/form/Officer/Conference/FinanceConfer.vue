@@ -1066,11 +1066,11 @@ const fetchOfficerData = async () => {
     console.log("score", formData.score);
     console.log("score_formular", formData.score.score_formular);
 
-    const responseHR = await axios.get(
+    const responseoffic = await axios.get(
       `http://localhost:3000/opinionConf/${id}`
     );
-    console.log("offic123", responseHR);
-    formData.offic = responseHR.data;
+    console.log("offic123", responseoffic);
+    formData.offic = responseoffic.data;
     console.log("offic", JSON.stringify(formData.offic));
 
     const responseForm = await axios.get(

@@ -805,7 +805,7 @@
             value="ถูกต้อง"
             name="re"
             disabled="flase"
-            :checked="formData.hr.c_research_admin == 'ถูกต้อง' ? true : false"
+            :checked="formData.offic.c_research_admin == 'ถูกต้อง' ? true : false"
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
@@ -813,13 +813,13 @@
             name="re"
             disabled="flase"
             :checked="
-              formData.hr.c_research_admin == 'ไม่ถูกต้อง' ? true : false
+              formData.offic.c_research_admin == 'ไม่ถูกต้อง' ? true : false
             "
           />
           <textarea
             class="textarea textarea-bordered w-full"
             disabled="true"
-            :placeholder="formData.hr.c_reason"
+            :placeholder="formData.offic.c_reason"
           ></textarea>
         </SectionWrapper>
       </Mainbox>
@@ -879,7 +879,7 @@ const formData = reactive({
   conference: [],
   user: [],
   score: [],
-  hr: [],
+  offic: [],
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
   // ความเห้นเจ้าหน้าที่
@@ -952,12 +952,12 @@ const fetchOfficerData = async () => {
     console.log("score", formData.score);
     console.log("score_formular", formData.score.score_formular);
 
-    const responseHR = await axios.get(
+    const responseoffic = await axios.get(
       `http://localhost:3000/opinionConf/${id}`
     );
-    console.log("hr123", responseHR);
-    formData.hr = responseHR.data;
-    console.log("hr", formData.hr);
+    console.log("hr123", responseoffic);
+    formData.offic = responseoffic.data;
+    console.log("hr", formData.offic);
     // console.log("hr", formData.score.score_formular);
   } catch (error) {
     console.error("Error fetching Officer data:", error);
@@ -970,8 +970,8 @@ const OfficerConfer = async () => {
   try {
     const dataForBackend = {
       conf_id: id,
-      c_research_admin: formData.hr.c_research_admin,
-      c_reason: formData.hr.c_reason,
+      c_research_admin: formData.offic.c_research_admin,
+      c_reason: formData.offic.c_reason,
       c_meet_quality: formData.redioAuthOffic,
       c_good_reason: formData.description,
       research_doc_submit_date: formData.docSubmitDate,
