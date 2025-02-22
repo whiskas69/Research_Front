@@ -1,36 +1,36 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import LoginPage from '@/views/LoginPage.vue'
-import Search from '@/views/Search.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import LoginPage from "@/views/LoginPage.vue";
+import Search from "@/views/Search.vue";
 
-import StatusView from '@/views/StatusView.vue'
-import StatusConferView from '@/views/StatusConferView.vue'
-import StatusPCView from '@/views/StatusPCView.vue'
-import StatusKRISView from '@/views/StatusKRISView.vue'
+import StatusView from "@/views/StatusView.vue";
+import StatusConferView from "@/views/StatusConferView.vue";
+import StatusPCView from "@/views/StatusPCView.vue";
+import StatusKRISView from "@/views/StatusKRISView.vue";
 
-import HistoryView from '@/views/HistoryView.vue'
-import Confer from '@/views/history/Confer.vue'
-import Page from '@/views/history/Page.vue'
-import Scolar from '@/views/history/Scolar.vue'
+import HistoryView from "@/views/HistoryView.vue";
+import Confer from "@/views/history/Confer.vue";
+import Page from "@/views/history/Page.vue";
+import Scolar from "@/views/history/Scolar.vue";
 
-import HomePage_Profes from '@/views/Homepage/HomePage_Profes.vue'
-import HomePage_Offi from '@/views/Homepage/HomePage_Offi.vue'
-import Homepage_Admin from '@/views/Homepage/Homepage_Admin.vue'
+import HomePage_Profes from "@/views/Homepage/HomePage_Profes.vue";
+import HomePage_Offi from "@/views/Homepage/HomePage_Offi.vue";
+import Homepage_Admin from "@/views/Homepage/Homepage_Admin.vue";
 
-import Pro_Confer from '@/views/form/Profess/Pro_Confer.vue'
-import Pro_Page from '@/views/form/Profess/Pro_Page.vue'
-import Pro_Scolar from '@/views/form/Profess/Pro_Scolar.vue'
+import Pro_Confer from "@/views/form/Profess/Pro_Confer.vue";
+import Pro_Page from "@/views/form/Profess/Pro_Page.vue";
+import Pro_Scolar from "@/views/form/Profess/Pro_Scolar.vue";
 
-import offic_hrConfer from '@/views/form/Officer/Conference/HRConfer.vue'
-import offic_resConfer from '@/views/form/Officer/Conference/ResearchConfer.vue'
-import offic_fincConfer from '@/views/form/Officer/Conference/FinanceConfer.vue'
+import offic_hrConfer from "@/views/form/Officer/Conference/HRConfer.vue";
+import offic_resConfer from "@/views/form/Officer/Conference/ResearchConfer.vue";
+import offic_fincConfer from "@/views/form/Officer/Conference/FinanceConfer.vue";
 
-import offic_resPage from '@/views/form/Officer/PageCharge/ResearchPage.vue'
-import offic_financePage from '@/views/form/Officer/PageCharge/FinancePag.vue'
-import offic_associatePage from'@/views/form/Officer/PageCharge/AssociatePage.vue'
+import offic_resPage from "@/views/form/Officer/PageCharge/ResearchPage.vue";
+import offic_financePage from "@/views/form/Officer/PageCharge/FinancePag.vue";
+import offic_associatePage from "@/views/form/Officer/PageCharge/AssociatePage.vue";
 
-import offic_Scolar from '@/views/form/Officer/Scolar.vue'
+import offic_Scolar from "@/views/form/Officer/Scolar.vue";
 
-import Profile from '@/views/Profile.vue'
+import Profile from "@/views/Profile.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,18 +46,18 @@ const router = createRouter({
       component: HomePage_Profes,
     },
     {
-      path: '/officer',
-      name: 'HomePageOfficer',
+      path: "/officer",
+      name: "HomePageOfficer",
       component: HomePage_Offi,
     },
     {
-      path: '/admin',
-      name: 'HomepageAdmin',
+      path: "/admin",
+      name: "HomepageAdmin",
       component: Homepage_Admin,
     },
     {
-      path: '/login',
-      name: 'Login',
+      path: "/login",
+      name: "Login",
       component: LoginPage,
     },
     {
@@ -67,97 +67,97 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: '/statusConfer',
-      name: 'StatusConfer',
-      component: StatusConferView
+      path: "/allhistory",
+      name: "History",
+      component: HistoryView,
     },
     {
-      path: '/statusPC',
-      name: 'StatusPC',
-      component: StatusPCView
+      path: "/historyConfer",
+      name: "HistoryConfer",
+      component: Confer,
     },
     {
-      path: '/statusKris',
-      name: 'StatusKris',
-      component: StatusKRISView
+      path: "/historyPC",
+      name: "HistoryPC",
+      component: Page,
     },
     {
-      path: '/allhistory',
-      name: 'History',
-      component: HistoryView
+      path: "/historyKris",
+      name: "HistoryKris",
+      component: Scolar,
     },
     {
-      path: '/historyConfer',
-      name: 'HistoryConfer',
-      component: Confer
+      path: "/formConfer",
+      name: "Form_Confer",
+      component: Pro_Confer,
     },
     {
-      path: '/historyPC',
-      name: 'HistoryPC',
-      component: Page
+      path: "/formPC",
+      name: "FormPC",
+      component: Pro_Page,
     },
     {
-      path: '/historyKris',
-      name: 'HistoryKris',
-      component: Scolar
+      path: "/formKris",
+      name: "FormKris",
+      component: Pro_Scolar,
     },
     {
-      path: '/formConfer',
-      name: 'Form_Confer',
-      component: Pro_Confer
+      path: "/officFormConfer/hr/:id",
+      name: "officFormConferHr",
+      component: offic_hrConfer,
     },
     {
-      path: '/formPC',
-      name: 'FormPC',
-      component: Pro_Page
+      path: "/officFormConfer/research/:id",
+      name: "officFormConferRes",
+      component: offic_resConfer,
     },
     {
-      path: '/formKris',
-      name: 'FormKris',
-      component: Pro_Scolar
+      path: "/officFormConfer/finance/:id",
+      name: "officFormConferFinc",
+      component: offic_fincConfer,
     },
     {
-      path: '/officFormConfer/hr/:id',
-      name: 'officFormConferHr',
-      component: offic_hrConfer
+      path: "/officFormPC/research/:id",
+      name: "OfficFormPCRes",
+      component: offic_resPage,
     },
     {
-      path: '/officFormConfer/research/:id',
-      name: 'officFormConferRes',
-      component: offic_resConfer
+      path: "/officFormPC/finance/:id",
+      name: "OfficFormPCFin",
+      component: offic_financePage,
     },
     {
-      path: '/officFormConfer/finance/:id',
-      name: 'officFormConferFinc',
-      component: offic_fincConfer
+      path: "/officFormPC/associate/:id",
+      name: "OfficFormPCAssoc",
+      component: offic_associatePage,
     },
     {
-      path: '/officFormPC/research/:id',
-      name: 'OfficFormPCRes',
-      component: offic_resPage
+      path: "/officFormKris/research/:id",
+      name: "OfficFormKris",
+      component: offic_Scolar,
     },
     {
-      path: '/officFormPC/finance/:id',
-      name: 'OfficFormPCFin',
-      component: offic_financePage
+      path: "/status/Conference/:id",
+      name: "StatusConfer",
+      component: StatusConferView,
     },
     {
-      path: '/officFormPC/associate/:id',
-      name: 'OfficFormPCAssoc',
-      component: offic_associatePage
+      path: "/status/PageCharge/:id",
+      name: "StatusPC",
+      component: StatusPCView,
     },
     {
-      path: '/officFormKris/research/:id',
-      name: 'OfficFormKris',
-      component: offic_Scolar
+      path: "/status/Kris/:id",
+      name: "StatusKris",
+      component: StatusKRISView,
     },
     {
-      path: '/profile',
-      name: 'Profile',
-      component: Profile
+      path: "/profile",
+      name: "Profile",
+      component: Profile,
     },
   ],
-})
+});
 
 //check login
 router.beforeEach((to, from, next) => {
@@ -169,4 +169,4 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-export default router
+export default router;
