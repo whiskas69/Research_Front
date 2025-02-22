@@ -204,7 +204,7 @@
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               disabled="true"
-              :placeholder="formData.pageChange.months"
+              :placeholder="formData.pageChange.month"
             />
             <div class="flex flex-row">
               <TextInputLabelLeft
@@ -237,7 +237,9 @@
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               disabled="true"
-              :placeholder="formatThaiDate(formData.pageChange.date_review_announce)"
+              :placeholder="
+                formatThaiDate(formData.pageChange.date_review_announce)
+              "
             />
             <TextInputLabelLeft
               label="วันสุดท้ายของการจ่ายค่าตีพิมพ์"
@@ -491,37 +493,186 @@
             label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้"
             value="อนุมัติ"
             name="re"
-            v-model="formData.redioAuthOffic"
-            @change="handleInput('redioAuthOffic', $event.target.value)"
+            disabled="flase"
+            :checked="
+              formData.offic.p_research_admin == 'อนุมัติ' ? true : false
+            "
           />
           <textarea
+            v-if="formData.offic.p_research_admin == 'อนุมัติ'"
             class="textarea textarea-bordered w-full"
-            @input="handleInput('description', $event.target.value)"
+            disabled="true"
+            :placeholder="formData.offic.p_reason"
           ></textarea>
           <RadioInput
             label="ถูกต้องตามเงื่อนไขการสนับสนุน กรณีส่งหนังสือตอบรับย้อนหลัง ดังนี้"
-            value="อนุมัติ"
+            value="รอหนังสือตอบรับ"
             name="re"
-            v-model="formData.redioAuthOffic"
-            @change="handleInput('redioAuthOffic', $event.target.value)"
+            disabled="flase"
+            :checked="
+              formData.offic.p_research_admin == 'รอหนังสือตอบรับ'
+                ? true
+                : false
+            "
           />
           <textarea
+            v-if="formData.offic.p_research_admin == 'รอหนังสือตอบรับ'"
             class="textarea textarea-bordered w-full"
-            @input="handleInput('description', $event.target.value)"
+            disabled="true"
+            :placeholder="formData.offic.p_reason"
           ></textarea>
           <RadioInput
             label="อื่น ๆ"
             value="อื่น ๆ"
             name="re"
-            v-model="formData.redioAuthOffic"
-            @change="handleInput('redioAuthOffic', $event.target.value)"
+            disabled="flase"
+            :checked="
+              formData.offic.p_research_admin == 'อื่น ๆ' ? true : false
+            "
           />
           <textarea
+            v-if="formData.offic.p_research_admin == 'อื่น ๆ'"
             class="textarea textarea-bordered w-full"
-            @input="handleInput('description', $event.target.value)"
+            disabled="true"
+            :placeholder="formData.offic.p_reason"
           ></textarea>
         </SectionWrapper>
       </Mainbox>
+      <Mainbox>
+        <SectionWrapper>
+          <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
+          <TextInputLabelLeft
+            label="ปีงบประมาณ พ.ศ."
+            customInput="max-w-max text-center"
+            disabled="true"
+            :placeholder="formData.budget.budget_year"
+          />
+
+          <div class="flex justify-end">
+            <div class="flex flex-row justify-between">
+              <TextInputLabelLeft
+                label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น"
+                customInput="max-w-max text-center"
+                disabled="true"
+                :placeholder="formData.budget.total_amount"
+              />
+              <p class="flex items-center w-12">บาท</p>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <div class="flex flex-row justify-between">
+              <TextInputLabelLeft
+                label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
+                customInput="max-w-max text-center"
+                disabled="true"
+                :placeholder="formData.budget.num_expenses_approved"
+              />
+              <p class="flex items-center w-12">รายการ</p>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <div class="flex flex-row justify-between">
+              <TextInputLabelLeft
+                label="รวมเป็นเงิน"
+                customInput="max-w-max text-center"
+                disabled="true"
+                :placeholder="formData.budget.total_amount_approved"
+              />
+              <p class="flex items-center w-12">บาท</p>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <div class="flex flex-row justify-between">
+              <TextInputLabelLeft
+                label="วงเงินที่คณะจัดสรรไว้ คงเหลือ"
+                customInput="max-w-max text-center"
+                disabled="true"
+                :placeholder="formData.budget.remaining_credit_limit"
+              />
+              <p class="flex items-center w-12">บาท</p>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <div class="flex flex-row justify-between">
+              <TextInputLabelLeft
+                label="จำนวนเงินที่ขออนุมัติจค่า Page Charge ในครั้งนี้ เป็นจำนวนเงิน"
+                customInput="max-w-max text-center"
+                disabled="true"
+                :placeholder="formData.budget.money_confer"
+              />
+              <p class="flex items-center w-12">บาท</p>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <div class="flex flex-row justify-between">
+              <TextInputLabelLeft
+                label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น"
+                customInput="max-w-max text-center"
+                disabled="true"
+                :placeholder="formData.budget.total_remaining_credit_limit"
+              />
+              <p class="flex items-center w-12">บาท</p>
+            </div>
+          </div>
+          <p class="text-red-500 mr-5">เหลือ RuleBase******</p>
+          <div class="flex justify-end mt-5">
+            <p class="text-red-500 mr-5">
+              วงเงินที่สามารถเบิกได้ {{ formData.budget.form_money }} บาท
+            </p>
+          </div>
+        </SectionWrapper>
+      </Mainbox>
+      <!-- รองคณบดีฝ่ายงานวิจัย -->
+      <Mainbox>
+        <SectionWrapper>
+          <p class="text-lg font-bold">
+            รองคณบดีฝ่ายงานวิจัย
+          </p>
+          
+          <div>
+            <TextArea label="ความคิดเห็น"
+            @input="handleInput('description', $event.target.value)"/>
+          </div>
+        </SectionWrapper>
+      </Mainbox>
+      <p>แยกหน้าคับ</p>
+      <!-- คณบดี 1-->
+      <Mainbox>
+        <SectionWrapper>
+            <p class="text-lg font-bold">เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 1) </p>
+            <p class="text-base mt-1">
+                เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความ
+            </p>
+            <RadioInput label="รับทราบ"
+            v-model="formData.redioAuthOffic"
+            @change="handleInput('redioAuthOffic', $event.target.value)"/>
+        </SectionWrapper>
+    </Mainbox>
+    <Mainbox>
+        <SectionWrapper>
+            <p class="text-lg font-bold">เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 2) </p>
+            <p class="text-base mt-1">
+                ขณะนี้บทความได้รับการตอบรับแล้ว (Letter of acceptance) เมื่อวันที่ <b>{{ formData.check }} </b>
+                ตามหลักฐานที่แนบจึงเรียนมาเพื่อโปรดพิจารณา
+            </p>
+                <div class="px-2">
+                    <RadioInput label="อนุมัติ" value="อนุมัติ" name="comment" />
+                </div>
+                <div class="px-2">
+                    <RadioInput label="ไม่อนุมัติ" value="ไม่อนุมัติ" name="comment" />
+                </div>
+                <div>
+                    <TextArea label="เนื่องจาก" />
+                </div>
+                <div class="px-2">
+                    <RadioInput label="อื่น ๆ" value="อื่น ๆ" name="comment" />
+                </div>
+                <div>
+                    <TextArea label="เนื่องจาก" />
+                </div>
+
+        </SectionWrapper>
+    </Mainbox>
       <div class="flex justify-end">
         <button @click="OfficerPC" class="btn btn-success text-white">
           บันทึกข้อมูล
@@ -541,11 +692,15 @@ import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 import CheckInput from "@/components/Input/CheckInput.vue";
+import TextArea from "@/components/Input/TextArea.vue";
+
 
 // จัดการข้อมูลหลัก
 const formData = reactive({
   pageChange: [],
   user: [],
+  offic: [],
+  budget: [],
 
   check: [],
   checkISI: "",
@@ -567,6 +722,7 @@ const formData = reactive({
   // ความเห้นเจ้าหน้าที่
   redioAuthOffic: "",
   description: "",
+
 });
 
 //วันที่ส่งเอกสาร
@@ -580,16 +736,26 @@ formData.docSubmitDate = `${year}-${month}-${day}`;
 console.log(formData.docSubmitDate);
 
 const formatThaiDate = (dateString) => {
-  console.log("formatThaiDate input: ", dateString);
+  // console.log("formatThaiDate input: ", dateString);
   const date = new Date(dateString);
   const months = [
-    "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", 
-    "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."
+    "ม.ค.",
+    "ก.พ.",
+    "มี.ค.",
+    "เม.ย.",
+    "พ.ค.",
+    "มิ.ย.",
+    "ก.ค.",
+    "ส.ค.",
+    "ก.ย.",
+    "ต.ค.",
+    "พ.ย.",
+    "ธ.ค.",
   ];
   const day = date.getDate();
   const month = months[date.getMonth()];
   const year = date.getFullYear() + 543;
-  console.log("new date: ",`${day} ${month} ${year}`)
+  // console.log("new date: ",`${day} ${month} ${year}`)
   return `${day} ${month} ${year}`;
 };
 
@@ -631,7 +797,20 @@ const fetchProfessorData = async () => {
 
     // const responseFile = await axios.get("http://localhost:3000/pdf/2");
     // const pdfData = responseFile.data;
-    // formData.file1 = pdfData.Invoice;
+
+    const responseoffic = await axios.get(
+      `http://localhost:3000/opinionPC/${id}`
+    );
+    console.log("offic123", responseoffic);
+    formData.offic = responseoffic.data;
+    console.log("offic", JSON.stringify(formData.offic));
+
+    const responsebudget = await axios.get(
+      `http://localhost:3000/budget/pageCharge/${id}`
+    );
+    console.log("budget 123", responsebudget);
+    formData.budget = responsebudget.data;
+    console.log("budget", JSON.stringify(formData.budget));
 
     console.log("PDF JAAAA: ", pdfData);
   } catch (error) {
@@ -647,7 +826,8 @@ const OfficerPC = async () => {
     const dataForBackend = {
       pageC_id: id,
       p_research_admin: formData.redioAuthOffic,
-      p_reason: formData.description,
+      //long ka na bo dee
+      p_deputy_dean: formData.description,
       research_doc_submit_date: formData.docSubmitDate,
 
       type: formData.typeFile,

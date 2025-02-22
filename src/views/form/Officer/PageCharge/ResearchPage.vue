@@ -203,7 +203,7 @@
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               disabled="true"
-              :placeholder="formData.pageChange.months"
+              :placeholder="formData.pageChange.month"
             />
             <div class="flex flex-row">
               <TextInputLabelLeft
@@ -499,7 +499,7 @@
           ></textarea>
           <RadioInput
             label="ถูกต้องตามเงื่อนไขการสนับสนุน กรณีส่งหนังสือตอบรับย้อนหลัง ดังนี้"
-            value="อนุมัติ"
+            value="รอหนังสือตอบรับ"
             name="re"
             v-model="formData.redioAuthOffic"
             @change="handleInput('redioAuthOffic', $event.target.value)"
