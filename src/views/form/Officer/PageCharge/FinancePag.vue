@@ -32,7 +32,7 @@
               customLabel="ml-2 w-10"
               customInput="max-w-max"
               disabled="true"
-              :placeholder="formData.pageChange.pageC_days"
+              :placeholder="formatThaiDate(formData.pageChange.pageC_days)"
             />
           </div>
           <p class="text-red-500 text-sm">
@@ -352,9 +352,7 @@
           <div class="flex justify-end">
             <button class="btn text-black btn-warning mr-5">คำนวณ</button>
           </div>
-          <p class="text-red-500 mr-5">
-              เหลือ RuleBase******
-            </p>
+          <p class="text-red-500 mr-5">เหลือ RuleBase******</p>
           <div class="flex justify-end mt-5">
             <p class="text-red-500 mr-5">
               วงเงินที่สามารถเบิกได้ {{ formData.canWithdrawn }} บาท
@@ -364,7 +362,9 @@
       </Mainbox>
 
       <div class="flex justify-end">
-        <button @click="OfficerPC" class="btn btn-success text-white">บันทึกข้อมูล</button>
+        <button @click="OfficerPC" class="btn btn-success text-white">
+          บันทึกข้อมูล
+        </button>
       </div>
     </div>
   </div>
@@ -423,6 +423,20 @@ const day = String(datetime.getDate()).padStart(2, "0");
 formData.docSubmitDate = `${year}-${month}-${day}`;
 console.log(formData.docSubmitDate);
 
+const formatThaiDate = (dateString) => {
+  console.log("formatThaiDate input: ", dateString);
+  const date = new Date(dateString);
+  const months = [
+    "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", 
+    "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."
+  ];
+  const day = date.getDate();
+  const month = months[date.getMonth()];
+  const year = date.getFullYear() + 543;
+  console.log("new date: ",`${day} ${month} ${year}`)
+  return `${day} ${month} ${year}`;
+};
+
 const handleInput = (key, value) => {
   formData[key] = value;
   console.log("0000000000000000000000000000000");
@@ -433,14 +447,16 @@ const handleInput = (key, value) => {
   console.log("--------------------------------");
 };
 
-const caltotalFaculty = computed(() =>{
-  formData.creditLimit = parseFloat(formData.totalAll) - parseFloat(formData.totalAppove)
-  return formData.creditLimit
+const caltotalFaculty = computed(() => {
+  formData.creditLimit =
+    parseFloat(formData.totalAll) - parseFloat(formData.totalAppove);
+  return formData.creditLimit;
 });
 
-const caltotalFacultyNow = computed(() =>{
-  formData.totalcreditLimit = parseFloat(formData.creditLimit) - parseFloat(formData.moneyConfer)
-  return formData.totalcreditLimit
+const caltotalFacultyNow = computed(() => {
+  formData.totalcreditLimit =
+    parseFloat(formData.creditLimit) - parseFloat(formData.moneyConfer);
+  return formData.totalcreditLimit;
 });
 
 //isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
@@ -470,19 +486,19 @@ const fetchProfessorData = async () => {
     console.log("pageChange", formData.pageChange);
     formData.check = formData.pageChange.quality_journal;
 
-    const responseForm = await axios.get(
-      `http://localhost:3000/allForms`
-    )
+    const responseForm = await axios.get(`http://localhost:3000/allForms`);
     console.log("form 123", JSON.stringify(responseForm));
-    for(let i = 0; i < responseForm.length; i++){
-      if (responseForm.data.form_status == 'อนุมัติ' && responseForm.data.form_type == 'Page_Charge'){
-        formData.numAppove++
-        formData.totalAppove += formData.totalAppove
+    for (let i = 0; i < responseForm.length; i++) {
+      if (
+        responseForm.data.form_status == "อนุมัติ" &&
+        responseForm.data.form_type == "Page_Charge"
+      ) {
+        formData.numAppove++;
+        formData.totalAppove += formData.totalAppove;
       }
     }
-    console.log("numAppove", formData.numAppove)
-    console.log("totalAppove", formData.totalAppove)
-    
+    console.log("numAppove", formData.numAppove);
+    console.log("totalAppove", formData.totalAppove);
   } catch (error) {
     console.error("Error fetching professor data:", error);
   } finally {
@@ -491,15 +507,15 @@ const fetchProfessorData = async () => {
   console.log("Fetching professor data...");
 };
 
-const cal  = async () => {
+const cal = async () => {
   try {
-  const responseCalPC = await axios.get(
+    const responseCalPC = await axios.get(
       `http://localhost:3000/page_charge/calc/${id}`
     );
-    console.log("responseCalPC", responseCalPC)
-    formData.canWithdrawn = responseCalPC.data.withdrawn
-    return formData.canWithdrawn
-  }catch (error) {
+    console.log("responseCalPC", responseCalPC);
+    formData.canWithdrawn = responseCalPC.data.withdrawn;
+    return formData.canWithdrawn;
+  } catch (error) {
     console.error("Error fetching professor data:", error);
   } finally {
     isLoading.value = false;
@@ -546,17 +562,17 @@ const OfficerPC = async () => {
       money_confer: formData.moneyConfer,
       total_remaining_credit_limit: formData.totalcreditLimit,
       doc_submit_date: formData.docSubmitDate,
-
+      type: formData.typeFile,
       form_status: formData.formStatus,
-      form_money: formData.canWithdrawn
+      form_money: formData.canWithdrawn,
     };
     console.log("post office confer: ", JSON.stringify(dataForBackend));
 
     const response = await axios.post(
-  `http://localhost:3000/budget`,
-  dataForBackend,
-  { headers: { "Content-Type": "application/json" } }
-);
+      `http://localhost:3000/budget`,
+      dataForBackend,
+      { headers: { "Content-Type": "application/json" } }
+    );
     alert("Have new OfficerConfer!");
     console.log("res: ", response);
     console.log("allpostOfficerConfer: ", message.value);

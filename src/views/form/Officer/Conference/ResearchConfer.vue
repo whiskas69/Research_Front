@@ -33,7 +33,7 @@
               customLabel="ml-2 w-10"
               customInput="max-w-max"
               disabled="true"
-              :placeholder="formData.conference.conf_days"
+              :placeholder="formatThaiDate(formData.conference.conf_days)"
             />
           </div>
           <p class="text-red-500 text-sm">
@@ -59,7 +59,7 @@
               customDiv="max-w-max"
               customInput="max-w-max"
               disabled="true"
-              :placeholder="formData.conference.trav_dateStart"
+              :placeholder="formatThaiDate(formData.conference.trav_dateStart)"
             />
             <TextInputLabelLeft
               label="ถึงวันที่"
@@ -67,7 +67,7 @@
               customDiv="max-w-max ml-36"
               customInput="max-w-max"
               disabled="true"
-              :placeholder="formData.conference.trav_dateEnd"
+              :placeholder="formatThaiDate(formData.conference.trav_dateEnd)"
             />
           </div>
 
@@ -91,7 +91,7 @@
               customDiv="max-w-max mr-36"
               customInput="max-w-max"
               disabled="true"
-              :placeholder="formData.conference.meeting_date"
+              :placeholder="formatThaiDate(formData.conference.meeting_date)"
             />
             <TextInputLabelLeft
               label="สถานที่จัด"
@@ -108,7 +108,7 @@
               customDiv="max-w-max"
               customInput="max-w-max"
               disabled="true"
-              :placeholder="formData.conference.date_submit_orrganizer"
+              :placeholder="formatThaiDate(formData.conference.date_submit_orrganizer)"
             />
             <TextInputLabelLeft
               label="วันประกาศผลการพิจารณาบทความ"
@@ -116,7 +116,7 @@
               customDiv="max-w-max"
               customInput="max-w-max"
               disabled="true"
-              :placeholder="formData.conference.argument_date_review"
+              :placeholder="formatThaiDate(formData.conference.argument_date_review)"
             />
             <TextInputLabelLeft
               label="วันสุดท้ายของการลงทะเบียน"
@@ -124,7 +124,7 @@
               customDiv="max-w-max"
               customInput="max-w-max"
               disabled="true"
-              :placeholder="formData.conference.last_day_register"
+              :placeholder="formatThaiDate(formData.conference.last_day_register)"
             />
           </div>
         </SectionWrapper>
@@ -512,7 +512,6 @@
         </SectionWrapper>
       </Mainbox>
 
-      <p class="text-sm text-red-500">ต้องแก้เรื่องผลรวม</p>
       <!-- รายการค่าใช้จ่ายที่ขอเบิกจ่าย -->
       <Mainbox>
         <SectionWrapper>
@@ -898,6 +897,20 @@ const day = String(datetime.getDate()).padStart(2, "0");
 // Combine in YYYY-MM-DD format
 formData.docSubmitDate = `${year}-${month}-${day}`;
 console.log(formData.docSubmitDate);
+
+const formatThaiDate = (dateString) => {
+  console.log("formatThaiDate input: ", dateString);
+  const date = new Date(dateString);
+  const months = [
+    "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", 
+    "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."
+  ];
+  const day = date.getDate();
+  const month = months[date.getMonth()];
+  const year = date.getFullYear() + 543;
+  console.log("new date: ",`${day} ${month} ${year}`)
+  return `${day} ${month} ${year}`;
+};
 
 const handleInput = (key, value) => {
   formData[key] = value;

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p>long คณบดี ja</p>
     <div class="container my-10 mx-auto">
       <p class="text-xl font-bold mb-5">
         ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
@@ -562,7 +563,7 @@ const formData = reactive({
   docSubmitDate: "",
   typeFile: "Page_Charge",
   //satatus
-  statusForm: "ฝ่ายบริหารการเงิน",
+  statusForm: "คณบดี",
   // ความเห้นเจ้าหน้าที่
   redioAuthOffic: "",
   description: "",
