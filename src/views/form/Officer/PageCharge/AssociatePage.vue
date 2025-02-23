@@ -785,12 +785,11 @@ const OfficerPC = async () => {
       //research
       p_research_admin: formData.offic.p_research_admin,
       p_reason: formData.offic.p_reason,
-      research_doc_submit_date: new Date(
-        formData.offic.research_doc_submit_date
-      )
-        .toISOString()
-        .slice(0, 19)
-        .replace("T", " "),
+      research_doc_submit_date: (() => {
+        const researchDate = new Date(formData.offic.research_doc_submit_date);
+        researchDate.setDate(researchDate.getDate() + 1);
+        return researchDate.toISOString().slice(0, 19).replace("T", " ");
+      })(),
       //long ka na bo dee
       p_deputy_dean: formData.description,
       associate_doc_submit_date: formData.docSubmitDate,

@@ -692,8 +692,9 @@
             />
           </div>
           <div>
-            <TextArea label="เนื่องจาก" 
-            @input="handleInput('description', $event.target.value)"
+            <TextArea
+              label="เนื่องจาก"
+              @input="handleInput('description', $event.target.value)"
             />
           </div>
         </SectionWrapper>
@@ -851,22 +852,21 @@ const OfficerPC = async () => {
       //research
       p_research_admin: formData.offic.p_research_admin,
       p_reason: formData.offic.p_reason,
-      research_doc_submit_date: new Date(
-        formData.offic.research_doc_submit_date
-      )
-        .toISOString()
-        .slice(0, 19)
-        .replace("T", " "),
+      research_doc_submit_date: (() => {
+        const researchDate = new Date(formData.offic.research_doc_submit_date);
+        researchDate.setDate(researchDate.getDate() + 1);
+        return researchDate.toISOString().slice(0, 19).replace("T", " ");
+      })(),
+
       //long ka na bo dee
       p_deputy_dean: formData.offic.p_deputy_dean,
-      associate_doc_submit_date: new Date(
-        formData.offic.associate_doc_submit_date
-      )
-        .toISOString()
-        .slice(0, 19)
-        .replace("T", " "),
+      associate_doc_submit_date: (() => {
+        const researchDate = new Date(formData.offic.associate_doc_submit_date);
+        researchDate.setDate(researchDate.getDate() + 1);
+        return researchDate.toISOString().slice(0, 19).replace("T", " ");
+      })(),
       //ka na bo dee
-      p_date_accepted_approve: '2001-02-10',//fake
+      p_date_accepted_approve: "2001-02-10", //fake
       p_acknowledge: formData.acknowledge,
       p_approve_result: formData.redioAuthOffic,
       p_reason_dean_appeove: formData.description,
