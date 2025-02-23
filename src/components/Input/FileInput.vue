@@ -3,7 +3,7 @@
     <label class="flex flex-col">
       <div class="flex flex-row items-center">
         <span :class="`${customSpan}`"> {{ span }}</span>
-        <span :class="`${customLabel}`"> {{ label }}</span>
+        <span :class="`mb-1 ${customLabel}`"> {{ label }}</span>
       </div>
 
       <input type="file" :class="`file-input file-input-bordered w-full ${customInput}`" :value="value"

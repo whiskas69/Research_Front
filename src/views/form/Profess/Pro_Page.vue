@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <div class="container my-10 mx-auto">
       <p class="text-xl font-bold mb-5">
         ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
@@ -456,8 +455,11 @@
 </template>
 
 <script setup>
-import { ref, watch, reactive, onMounted } from "vue";
+import { ref, watch, reactive, onMounted, computed } from "vue";
 import axios from "axios";
+
+import api from "@/setting/api";
+import { useUserStore } from "@/store/userStore";
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
@@ -466,6 +468,9 @@ import RadioInput from "@/components/Input/RadioInput.vue";
 import CheckInput from "@/components/Input/CheckInput.vue";
 import FileInput from "@/components/Input/FileInput.vue";
 // import FileInputWithInput from "@/components/Input/FileInputWithInput.vue";
+
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
 
 // จัดการข้อมูลหลัก
 const formData = reactive({
@@ -524,6 +529,15 @@ const formData = reactive({
   statusForm: "ฝ่ายบริหารงานวิจัย",
   moneyForm: "100000"
 });
+
+onMounted(async () => {
+  await userStore.fetchUser();
+
+  formData.userID = user.value?.user_id;
+  formData.name = user.value?.user_nameth || "";
+  formData.position = user.value?.user_positionth || "";
+})
+
 //วันที่ส่งเอกสาร
 const datetime = new Date();
 // Extract year, month, and day
@@ -620,26 +634,6 @@ const handleFile = (event, fieldName) => {
 //   return file && file.type === "application/pdf";
 // };
 
-//isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
-const isLoading = ref(true);
-// ตัวแปรสำหรับเก็บข้อมูลจาก backend
-
-const fetchProfessorData = async () => {
-  try {
-    const response = await axios.get("http://localhost:3000/user/1");
-    // formData.asdf = response.data;
-    formData.userID = response.data.user_id;
-    formData.name = response.data.user_nameth;
-    formData.position = response.data.user_position;
-    console.log("get user: ", response.data);
-  } catch (error) {
-    console.error("Error fetching professor data:", error);
-  } finally {
-    isLoading.value = false;
-  }
-  console.log("Fetching professor data...");
-};
-
 const NewPC = async () => {
   try {
     console.log("before postPC: ", formData);
@@ -718,10 +712,5 @@ if (!element) {
 document.addEventListener('DOMContentLoaded', () => {
   const element = document.querySelector('your-selector');
   console.log("element: ",element);
-});
-
-// ดึงข้อมูลเมื่อ component ถูกโหลด
-onMounted(() => {
-  fetchProfessorData();
 });
 </script>

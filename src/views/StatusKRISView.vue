@@ -81,7 +81,7 @@ const getDataForm = async () => {
       const response = await api.get(`/form/kris/${id}`);
 
       data.form = response.data.form;
-      data.kris = response.data.kris[0];
+      data.kris = response.data.kris;
 
       console.log(response);
     } catch (error) {
@@ -89,10 +89,6 @@ const getDataForm = async () => {
     }
   }
 };
-
-// const viewFile = async () => {
-//   const 
-// }
 
 onMounted(() => {
   getDataForm();

@@ -4,7 +4,7 @@
     <div v-for="form in data.allForm" :key="form.form_id">
 
       <div class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2" v-if="form.form_type == 'Research_KRIS'">
-        <router-link :to="`/status/Kris/${form.form_id}`">
+        <router-link :to="`/status/Kris/${form.kris_id}`">
           <h2 class="text-lg font-bold">
             แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ
           </h2>
@@ -32,7 +32,7 @@
       </div>
 
       <div class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"  v-if="form.form_type == 'Conference'">
-        <router-link :to="`/status/Conference/${form.form_id}`">
+        <router-link :to="`/status/Conference/${form.conf_id}`">
           <h2 class="text-lg font-bold">
             ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
           </h2>
@@ -65,7 +65,7 @@
       </div>
 
       <div class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2" v-if="form.form_type == 'Page_Charge'">
-        <router-link :to="`/status/PageCharge/${form.form_id}`">
+        <router-link :to="`/status/PageCharge/${form.pageC_id}`">
           <h2 class="text-lg font-bold">
             ขออนุมัติค่า Page Chargeเพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
           </h2>
