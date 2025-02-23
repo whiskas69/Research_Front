@@ -15,7 +15,7 @@
           <TextInputLabelLeft
             label="ตำแหน่ง"
             customLabel="w-2/12 text-lg font-bold"
-            :placeholder="formData.user.user_position"
+            :placeholder="formData.user.user_positionth"
             disabled="true"
           />
 
@@ -987,7 +987,7 @@ const OfficerConfer = async () => {
   try {
     const dataForBackend = {
       conf_id: id,
-      c_research_admin: formData.redioAuthOffic,
+      c_research_hr: formData.redioAuthOffic,
       c_reason: formData.description,
       hr_doc_submit_date: formData.docSubmitDate,
     };

@@ -625,11 +625,75 @@
       <Mainbox>
         <SectionWrapper>
           <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
-
           <div>
             <TextArea
               label="ความคิดเห็น"
-              @input="handleInput('description', $event.target.value)"
+              disabled="true"
+              :placeholder="formData.offic.p_deputy_dean"
+            />
+          </div>
+        </SectionWrapper>
+      </Mainbox>
+      <!-- คณบดี 1-->
+      <Mainbox>
+        <SectionWrapper>
+          <p class="text-lg font-bold">
+            เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 1)
+          </p>
+          <p class="text-base mt-1">
+            เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความ
+          </p>
+          <RadioInput
+            label="รับทราบ"
+            value="รับทราบ"
+            v-model="formData.acknowledge"
+            @change="handleInput('acknowledge', $event.target.value)"
+          />
+        </SectionWrapper>
+      </Mainbox>
+      <Mainbox>
+        <SectionWrapper>
+          <p class="text-lg font-bold">
+            เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 2)
+          </p>
+          <p class="text-base mt-1">
+            ขณะนี้บทความได้รับการตอบรับแล้ว (Letter of acceptance) เมื่อวันที่
+            <b>{{ formData.check }} </b>
+            ตามหลักฐานที่แนบจึงเรียนมาเพื่อโปรดพิจารณา
+          </p>
+          <div class="px-2">
+            <RadioInput
+              label="อนุมัติ"
+              value="อนุมัติ"
+              name="comment"
+              v-model="formData.redioAuthOffic"
+              @change="handleInput('redioAuthOffic', $event.target.value)"
+            />
+          </div>
+          <div class="px-2">
+            <RadioInput
+              label="ไม่อนุมัติ"
+              value="ไม่อนุมัติ"
+              name="comment"
+              v-model="formData.redioAuthOffic"
+              @change="handleInput('redioAuthOffic', $event.target.value)"
+            />
+          </div>
+          <div>
+            <TextArea label="เนื่องจาก" />
+          </div>
+          <div class="px-2">
+            <RadioInput
+              label="อื่น ๆ"
+              value="อื่น ๆ"
+              name="comment"
+              v-model="formData.redioAuthOffic"
+              @change="handleInput('redioAuthOffic', $event.target.value)"
+            />
+          </div>
+          <div>
+            <TextArea label="เนื่องจาก" 
+            @input="handleInput('description', $event.target.value)"
             />
           </div>
         </SectionWrapper>
@@ -677,8 +741,10 @@ const formData = reactive({
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
   //satatus
-  statusForm: "คณบดี",
+  statusForm: "",
   // ความเห้นเจ้าหน้าที่
+  acknowledge: "",
+  redioAuthOffic: "",
   description: "",
 });
 
@@ -792,10 +858,21 @@ const OfficerPC = async () => {
         .slice(0, 19)
         .replace("T", " "),
       //long ka na bo dee
-      p_deputy_dean: formData.description,
-      associate_doc_submit_date: formData.docSubmitDate,
+      p_deputy_dean: formData.offic.p_deputy_dean,
+      associate_doc_submit_date: new Date(
+        formData.offic.associate_doc_submit_date
+      )
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " "),
+      //ka na bo dee
+      p_date_accepted_approve: '2001-02-10',//fake
+      p_acknowledge: formData.acknowledge,
+      p_approve_result: formData.redioAuthOffic,
+      p_reason_dean_appeove: formData.description,
+      dean_doc_submit_date: formData.docSubmitDate,
       //form
-      form_status: formData.statusForm,
+      form_status: formData.redioAuthOffic,
     };
     console.log("postPC: ", JSON.stringify(dataForBackend));
 

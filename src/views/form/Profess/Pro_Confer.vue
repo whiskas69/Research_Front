@@ -6,8 +6,6 @@
       </p>
       <Mainbox>
         <SectionWrapper>
-          {{ formData.name }}
-          {{ formData.position }}
           <TextInputLabelLeft
             label="ชื่อ"
             customLabel="w-2/12 text-lg font-bold"
@@ -806,9 +804,7 @@ const formData = reactive({
 
   //form
   typeFile: "Conference",
-
   //satatus
-  statusForm: "ตรวจสอบ",
   moneyForm: "100000",
 });
 
@@ -817,7 +813,7 @@ onMounted(async () => {
 
   formData.user_id = user.value?.user_id;
   formData.name = user.value?.user_nameth || "";
-  formData.position = user.value?.user_position || "";
+  formData.position = user.value?.user_positionth || "";
 
   console.log("formData in mounted : ", formData);
 });
@@ -977,7 +973,6 @@ const newConfer = async () => {
       other_name: formData.inputFile9,
       other_file: formData.file9,
 
-      form_status: formData.statusForm,
       form_money: formData.moneyForm,
     };
     console.log("post confer: ", JSON.stringify(dataForBackend));

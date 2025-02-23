@@ -23,10 +23,13 @@ import Pro_Scolar from "@/views/form/Profess/Pro_Scolar.vue";
 import offic_hrConfer from "@/views/form/Officer/Conference/HRConfer.vue";
 import offic_resConfer from "@/views/form/Officer/Conference/ResearchConfer.vue";
 import offic_fincConfer from "@/views/form/Officer/Conference/FinanceConfer.vue";
+import offic_associateConfer from "@/views/form/Officer/Conference/AssociateConfer.vue";
+import offic_deanConfer from "@/views/form/Officer/Conference/DeanConfer.vue";
 
 import offic_resPage from "@/views/form/Officer/PageCharge/ResearchPage.vue";
 import offic_financePage from "@/views/form/Officer/PageCharge/FinancePag.vue";
 import offic_associatePage from "@/views/form/Officer/PageCharge/AssociatePage.vue";
+import offic_deanPage from "@/views/form/Officer/PageCharge/DeanPage.vue";
 
 import offic_Scolar from "@/views/form/Officer/Scolar.vue";
 
@@ -117,6 +120,16 @@ const router = createRouter({
       component: offic_fincConfer,
     },
     {
+      path: "/officFormConfer/associate/:id",
+      name: "officFormConferAssoc",
+      component: offic_associateConfer,
+    },
+    {
+      path: "/officFormConfer/deane/:id",
+      name: "officFormConferDean",
+      component: offic_deanConfer,
+    },
+    {
       path: "/officFormPC/research/:id",
       name: "OfficFormPCRes",
       component: offic_resPage,
@@ -130,6 +143,11 @@ const router = createRouter({
       path: "/officFormPC/associate/:id",
       name: "OfficFormPCAssoc",
       component: offic_associatePage,
+    },
+    {
+      path: "/officFormPC/dean/:id",
+      name: "OfficFormPCDean",
+      component: offic_deanPage,
     },
     {
       path: "/officFormKris/research/:id",

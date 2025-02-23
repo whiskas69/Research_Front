@@ -647,7 +647,7 @@ const OfficerPC = async () => {
       pageC_id: id,
       p_research_admin: formData.redioAuthOffic,
       p_reason: formData.description,
-      research_doc_submit_date: formData.docSubmitDate,
+      research_doc_submit_date: formData.docSubmitDate || null,
 
       type: formData.typeFile,
       form_status: formData.statusForm,
