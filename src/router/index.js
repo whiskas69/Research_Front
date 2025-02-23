@@ -35,6 +35,10 @@ import offic_Scolar from "@/views/form/Officer/Scolar.vue";
 
 import Profile from "@/views/Profile.vue";
 
+import his_confer from '@/views/history/Confer.vue'
+import his_pageCharge from '@/views/history/Page.vue'
+import his_kris from '@/views/history/Scolar.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -173,6 +177,21 @@ const router = createRouter({
       path: "/profile",
       name: "Profile",
       component: Profile,
+    },
+    {
+      path: "/history/confer/:id",
+      name: "HistoryConfer",
+      component: his_confer,
+    },
+    {
+      path: "/history/pageCharge/:id",
+      name: "HistoryPageCharge",
+      component: his_pageCharge,
+    },
+    {
+      path: "/history/kris/:id",
+      name: "HistoryKris",
+      component: his_kris,
     },
   ],
 });

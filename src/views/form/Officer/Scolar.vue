@@ -322,7 +322,7 @@
           <RadioInput
             label="รับทราบ"
             name="noted"
-            value="รับทราบ"
+            value="ถูกต้อง"
             v-model="formData.redioAuthOffic"
             @change="handleInput('redioAuthOffic', $event.target.value)"
           />
@@ -336,7 +336,7 @@
         </SectionWrapper>
       </Mainbox>
       <div class="flex justify-end">
-        <button class="btn btn-success text-white">บันทึกข้อมูล</button>
+        <button @click="OfficerKris" class="btn btn-success text-white">บันทึกข้อมูล</button>
       </div>
     </div>
   </div>
@@ -503,165 +503,36 @@ const loopStandard = async () => {
     }
   }
 };
+const OfficerKris = async () => {
+  try {
+    const dataForBackend = {
+      kris_id: id,
+      research_admin: formData.redioAuthOffic,
+      doc_submit_date: formData.docSubmitDate
+    };
+    console.log("postKris: ", JSON.stringify(dataForBackend));
+
+    const response = await axios.post(
+      `http://localhost:3000/opinionKris`,
+      dataForBackend,
+      {
+        headers: {
+          "Content-Type": "application/json", // Required for file uploads
+        },
+      }
+    );
+    alert("Have new OfficerPC!");
+    console.log("res: ", response);
+    console.log("allpostOfficerPC: ", message.value);
+    console.log("postOfficerPC: ", response.data);
+  } catch (error) {
+    console.error(error);
+    message.value = "Error adding page_charge. Please try again.";
+  }
+};
 onMounted(async () => {
   await fetchOfficerData();
   loopCluster();
   loopStandard();
 });
-// For sending to Research.vue in component
-const ResearchForm = {
-  ResearchName: {
-    NameThai: {
-      label: "(ภาษาไทย)",
-      customLabel: "w-1/12",
-      disabled: true,
-    },
-    NameEng: {
-      label: "(ภาษาอังกฤษ)",
-      customLabel: "w-1/12",
-      disabled: true,
-    },
-  },
-  ResearchCluster: {
-    FirstRow: {
-      first: {
-        label: "ICT: Robotics & Automation",
-        disabled: true,
-      },
-      second: {
-        label: "ICT: Smart City & IoT",
-        disabled: true,
-      },
-      third: {
-        label: "Battery & EV",
-        disabled: true,
-      },
-      fourth: {
-        label: "Renewable Energy",
-        disabled: true,
-      },
-      fifth: {
-        label: "Biomedical",
-        disabled: true,
-      },
-    },
-    SecondRow: {
-      first: {
-        label: "Agriculture & Food",
-        disabled: true,
-      },
-      second: {
-        label: "Future Mobility & Logistic",
-        disabled: true,
-      },
-      third: {
-        label: "Materials",
-        disabled: true,
-      },
-      fourth: {
-        label: "Creative Economy",
-        disabled: true,
-      },
-      fifth: {
-        label: "อื่น ๆ ระบุ",
-        disabled: true,
-        customDiv: "max-w-32",
-      },
-      textinput: {
-        label: "",
-        disabled: true,
-      },
-    },
-  },
-  ResearchStandards: {
-    first: {
-      label: "มีการใช้สัตว์ทดลอง",
-      disabled: true,
-    },
-    second: {
-      label: "มีการวิจัยในมนุษย์",
-      disabled: true,
-    },
-    third: {
-      label: "มีการวิจัยด้านเทคโนโลยีชีวภาพสมัยใหม่หรือพันธุวิศวกรรม",
-      disabled: true,
-    },
-    fourth: {
-      label: "มีการใช้พันธุ์พืช",
-      disabled: true,
-    },
-    fifth: {
-      label: "มาตรา 52 (เพื่อประโยชน์ทางการค้า)",
-      disabled: true,
-      customDiv: "max-w-80",
-    },
-    sixth: {
-      label: "มาตรา 53 (ไม่มีวัตถุประสงค์เพื่อประโยชน์ทางการค้า)",
-      disabled: true,
-    },
-  },
-  Researcher: {
-    NameThai: {
-      label: "ชื่อ - สกุล (ภาษาไทย)",
-      customLabel: "w-2/12",
-      placeholder: "นายจารุวัฒน์ วรรณวนัช",
-      disabled: true,
-    },
-    NameEng: {
-      label: "ชื่อ - สกุล (ภาษาอังกฤษ)",
-      customLabel: "w-2/12",
-      placeholder: "Mr. Jaruwat Wannawanat",
-      disabled: true,
-    },
-    HIndex: {
-      label: "ดัชนี H-Index",
-      customLabel: "w-2/12",
-      disabled: true,
-    },
-    History: {
-      label: "ประวัติด้านสิ่งประดิษฐ์ /นวัตกรรม",
-      customLabel: "w-1/6",
-      disabled: true,
-    },
-    Persent: {
-      label: "ร้อยละการมีส่วนร่วมในโครงการ",
-      customLabel: "w-4/6",
-      customDiv: "max-w-96 w-auto",
-      customInput: "max-w-32",
-      disabled: true,
-    },
-  },
-  Time: {
-    years: {
-      label: "ปี",
-      customDiv: "max-w-32 w-auto ",
-      customInput: "max-w-32",
-      disabled: true,
-    },
-    start: {
-      label: "เริ่ม",
-      type: "date",
-      customInput: "max-w-fit ml-5",
-      customDiv: "max-w-fit mr-5",
-      disabled: true,
-    },
-    end: {
-      label: "สิ้นสุด",
-      type: "date",
-      customLabel: "w-1/12",
-      customInput: "max-w-fit ml-[-20px]",
-      disabled: true,
-    },
-  },
-  Noted: {
-    first: {
-      label: "รับทราบ",
-      name: "noted",
-    },
-    second: {
-      label: "ไม่รับทราบ",
-      name: "noted",
-    },
-  },
-};
 </script>
