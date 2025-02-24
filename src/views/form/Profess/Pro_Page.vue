@@ -518,7 +518,6 @@ const formData = reactive({
   //FileForm
   file1: null,
   file2: null,
-  inputFile2: "",
   file3: null,
   file4: null,
   file5: null,
@@ -673,7 +672,6 @@ const NewPC = async () => {
 
       type: formData.typeFile,
       pc_proof: formData.file1,
-      quartile_order: formData.inputFile2,
       q_pc_proof: formData.file2,
       invoice_public: formData.file3,
       accepted: formData.file4,
