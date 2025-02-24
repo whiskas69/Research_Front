@@ -527,7 +527,6 @@ const formData = reactive({
   typeFile: "Page_Charge",
   //satatus
   statusForm: "ฝ่ายบริหารงานวิจัย",
-  moneyForm: "100000"
 });
 
 onMounted(async () => {
@@ -681,7 +680,6 @@ const NewPC = async () => {
       copy_article: formData.file5,
 
       form_status: formData.statusForm,
-      form_money: formData.moneyForm,
     };
 
     console.log("postPC: ", JSON.stringify(dataForBackend));

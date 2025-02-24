@@ -805,7 +805,6 @@ const formData = reactive({
   //form
   typeFile: "Conference",
   //satatus
-  moneyForm: "100000",
 });
 
 onMounted(async () => {
@@ -973,7 +972,6 @@ const newConfer = async () => {
       other_name: formData.inputFile9,
       other_file: formData.file9,
 
-      form_money: formData.moneyForm,
     };
     console.log("post confer: ", JSON.stringify(dataForBackend));
     const response = await axios.post(
