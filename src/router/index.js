@@ -3,9 +3,9 @@ import LoginPage from "@/views/LoginPage.vue";
 import Search from "@/views/Search.vue";
 
 import StatusView from "@/views/StatusView.vue";
-import StatusConferView from "@/views/StatusConferView.vue";
-import StatusPCView from "@/views/StatusPCView.vue";
-import StatusKRISView from "@/views/StatusKRISView.vue";
+import StatusConferView from "@/views/status/StatusConferView.vue";
+import StatusPCView from "@/views/status/StatusPCView.vue";
+import StatusKRISView from "@/views/status/StatusKRISView.vue";
 
 import HistoryView from "@/views/HistoryView.vue";
 import Confer from "@/views/history/Confer.vue";

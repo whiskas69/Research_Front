@@ -130,7 +130,6 @@ onMounted(async () => {
   await userStore.fetchUser();
 
   data.userID = user.value?.user_id;
-  // data.userRole = user
 
   pulldata();
 });

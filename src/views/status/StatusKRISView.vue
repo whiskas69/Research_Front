@@ -6,14 +6,16 @@
         แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ
       </h2>
 
+      <p class="ml-5">
+        โครงการวิจัย : {{ data.name }}
+      </p>
+
       <div
         v-if="data.form.form_status == 'ไม่อนุมัติ'"
         class="flex justify-center"
       >
         <ul class="steps steps-vertical lg:steps-horizontal">
-          <li data-content="" class="step w-40">
-            ฝ่ายบริหารงานวิจัย
-          </li>
+          <li data-content="" class="step w-40">ฝ่ายบริหารงานวิจัย</li>
           <li data-content="" class="step w-40">เข้าที่ประชุม</li>
           <li data-content="✗" class="step step-error w-40">ไม่อนุมัติ</li>
         </ul>
@@ -47,15 +49,22 @@
     </Mainbox>
 
     <Mainbox>
-        <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
-        <div class="flex flex-rowitems-center">
-          <p class="w-1/5 min-w-64 flex place-items-center">แบบเสนอโครงการวิจัย (Research Project)</p>
-          <div class="ml-5">
-            <button class="btn bg-[#E85F19] text-white mr-5">ดูเอกสาร</button>
-            <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-          </div>
+      <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
+      <div class="flex flex-rowitems-center">
+        <p class="w-1/5 min-w-64 flex place-items-center">
+          แบบเสนอโครงการวิจัย (Research Project)
+        </p>
+        <div class="ml-5">
+          <button @click="getFile" class="btn bg-[#E85F19] text-white mr-5">
+            ดูเอกสาร
+          </button>
+
+          <button @click="downloadFile" class="btn bg-[#4285F4] text-white">
+            โหลดเอกสาร
+          </button>
         </div>
-      </Mainbox>
+      </div>
+    </Mainbox>
   </div>
 </template>
 
@@ -70,23 +79,49 @@ const id = route.params.id;
 
 const data = reactive({
   form: "",
-  kris: "",
+  name: "",
+  file: "",
 });
 
 const getDataForm = async () => {
-  if (id != null || id != "") {
-    try {
-      console.log("in try");
+  if (id == null || id == "") {
+    alert("โปรดเข้าสู่ระบบใหม่อีกครั้ง");
+  }
 
-      const response = await api.get(`/form/kris/${id}`);
+  try {
+    const response = await api.get(`/form/kris/${id}`);
 
-      data.form = response.data.form;
-      data.kris = response.data.kris;
+    data.form = response.data.form;
+    data.name = response.data.name;
 
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+    const responsefile = await api.get(`/getFilekris?kris_id=${id}`);
+    data.file = responsefile.data.fileUrl;
+
+    console.log("Success", response);
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
+
+const getFile = async () => {
+  window.open(data.file, "_blank");
+};
+
+const downloadFile = async () => {
+  try {
+    const response = await fetch(data.file);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "แบบเสนอโครงการวิจัย " + data.name + " .pdf"; // ชื่อไฟล์ที่บันทึก
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Error downloading file:", error);
   }
 };
 

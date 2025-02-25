@@ -5,6 +5,8 @@
       <h2 class="text-lg font-bold mb-5">
         ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
       </h2>
+      <p class="ml-5">ชื่อวารสาร : {{ data.jounal }}</p>
+      <p class="ml-5">ชื่อบทความ : {{ data.name }}</p>
 
       <div
         class="flex justify-center"
@@ -119,14 +121,10 @@
     <Mainbox>
       <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
 
-      <div class="px-5">
-        <div
-          class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.pC.pc_proof != null"
-        >
+      <div class="px-5 mb-3">
+        <div class="flex flex-rowitems-center mt-2 justify-between" v-if="data.page_c.pc_proof && data.page_c.pc_proof !== ''">
           <p class="w-3/5 min-w-64 flex place-items-center">
-            หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ
-            Nature
+            หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature
           </p>
 
           <div class="ml-5">
@@ -135,7 +133,7 @@
           </div>
         </div>
 
-        <div v-if="data.pC.pc_proof == null">
+        <div v-else>
           <FileInput
             label="หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature"
             name="pc_proof"
@@ -146,14 +144,10 @@
         </div>
       </div>
 
-      <div class="px-5">
-        <div
-          class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.pC.q_pc_proof != null"
-        >
+      <div class="px-5 mb-3">
+        <div class="flex flex-rowitems-center mt-2 justify-between" v-if="data.page_c.q_pc_proof && data.page_c.q_pc_proof !== ''">
           <p class="w-3/5 min-w-64 flex place-items-center">
-            หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ
-            Scopus หรือ Nature
+            หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature
           </p>
           <div class="ml-5">
             <button class="btn bg-[#E85F19] text-white mr-5">ดูเอกสาร</button>
@@ -161,22 +155,18 @@
           </div>
         </div>
 
-        <div v-if="data.pC.q_pc_proof === null">
+        <div v-else>
           <FileInput
             label="หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature"
             name="q_pc_proof"
             type="file"
-            v-model="data.q_pc_proof"
             @change="handleFile($event, 'q_pc_proof')"
           />
         </div>
       </div>
 
-      <div class="px-5">
-        <div
-          class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.pC.invoice_public != null"
-        >
+      <div class="px-5 mb-3">
+        <div class="flex flex-rowitems-center mt-2 justify-between" v-if="data.page_c.invoice_public && data.page_c.invoice_public != ''">
           <p class="w-3/5 min-w-64 flex place-items-center">
             ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์
             /อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์
@@ -187,22 +177,18 @@
           </div>
         </div>
 
-        <div v-if="data.pC.invoice_public == null">
+        <div v-else>
           <FileInput
             label="ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์/อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์"
             name="invoice_public"
             type="file"
-            v-model="data.invoice_public"
             @change="handleFile($event, 'invoice_public')"
           />
         </div>
       </div>
 
-      <div class="px-5">
-        <div
-          class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.pC.accepted != null"
-        >
+      <div class="px-5 mb-3">
+        <div class="flex flex-rowitems-center mt-2 justify-between" v-if="data.page_c.accepted && data.page_c.accepted != ''">
           <p class="w-3/5 min-w-64 flex place-items-center">
             หลักฐานการส่งบทความ หนังสือตอบรับบทความ
           </p>
@@ -212,22 +198,18 @@
           </div>
         </div>
 
-        <div v-if="data.pC.accepted == null">
+        <div v-else>
           <FileInput
             label="หลักฐานการส่งบทความ หนังสือตอบรับบทความ"
             name="accepted"
             type="file"
-            v-model="data.accepted"
             @change="handleFile($event, 'accepted')"
           />
         </div>
       </div>
 
-      <div class="px-5">
-        <div
-          class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.pC.copy_article != null"
-        >
+      <div class="px-5 mb-3">
+        <div class="flex flex-rowitems-center mt-2 justify-between" v-if="data.page_c.copy_article && data.page_c.copy_article != ''">
           <p class="w-3/5 min-w-64 flex place-items-center">
             สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar
           </p>
@@ -237,12 +219,11 @@
           </div>
         </div>
 
-        <div v-if="data.pC.copy_article == null">
+        <div v-else>
           <FileInput
             label="สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar"
             name="copy_article"
             type="file"
-            v-model="data.copy_article"
             @change="handleFile($event, 'copy_article')"
           />
         </div>
@@ -250,7 +231,7 @@
     </Mainbox>
 
     <div class="flex justify-end">
-      <button @click="UpdatePc" class="btn btn-success text-white">
+      <button @click="updateFile" class="btn btn-success text-white">
         บันทึกข้อมูล
       </button>
     </div>
@@ -271,73 +252,117 @@ const id = route.params.id;
 
 const data = reactive({
   form: "",
-  pC: "",
-  pc_proof: "",
-  q_pc_proof: "",
-  invoice_public: "",
-  accepted: "",
-  copy_article: "",
+  page_c: "",
+  name: "",
+  jounal: "",
+
+  //file
+  pc_proof: null,
+  q_pc_proof: null,
+  invoice_public: null,
+  accepted: null,
+  copy_article: null,
 });
 
+//sent file
 const handleFile = (event, fieldName) => {
   const file = event.target.files[0];
+
   if (file) {
     data[fieldName] = file;
-    console.log(`File assigned to ${fieldName}:`, data[fieldName]);
-    console.log("Updated formData:", data);
+    console.log(`file assigned to ${fieldName}:`, data[fieldName]);
+    console.log("Update data:", data);
   } else {
-    console.error(`No file selected for ${fieldName}.`);
+    console.error(`No file selected for ${fieldName}`);
   }
 };
 
+//ดึงข้อมูล
 const getDataPc = async () => {
-  if (id != null || id != "") {
-    try {
-      const response = await api.get(`/form/Pc/${id}`);
-      data.form = response.data.form;
-      data.pC = response.data.pC;
-      data.pc_proof = response.data.pC.pc_proof;
-      data.q_pc_proof = response.data.pC.q_pc_proof;
-      data.invoice_public = response.data.pC.invoice_public;
-      data.accepted = response.data.pC.accepted;
-      data.copy_article = response.data.pC.copy_article;
-
-      console.log("file", data);
-    } catch (error) {
-      console.log(error);
-    }
+  if (id == null || id == "") {
+    alert("โปรดเข้าสู่ระบบใหม่อีกครั้ง");
   }
-};
 
-const UpdatePc = async () => {
   try {
-    const formData = new FormData();
+    const response = await api.get(`/form/Pc/${id}`);
 
-    formData.append("pageC_id", id);
-    
-    //check is file
-    if (data.pc_proof) formData.append("pc_proof", data.pc_proof);
-    if (data.q_pc_proof) formData.append("q_pc_proof", data.q_pc_proof);
-    if (data.invoice_public) formData.append("invoice_public", data.invoice_public);
-    if (data.accepted) formData.append("accepted", data.accepted);
-    if (data.copy_article) formData.append("copy_article", data.copy_article);
+    data.form = response.data.form;
+    data.page_c = response.data.page_c;
+    data.jounal = response.data.journal;
+    data.name = response.data.name;
 
-    console.log("data, ", formData);
+    data.pc_proof = response.data.page_c.pc_proof;
+    data.q_pc_proof = response.data.page_c.q_pc_proof;
+    data.invoice_public = response.data.page_c.invoice_public;
+    data.accepted = response.data.page_c.accepted;
+    data.copy_article = response.data.page_c.copy_article;
 
-    const response = await api.put(`/page_charge/${id}`, formData, {
-      headers: {
-
-        "Content-Type": "multipart/form-data", // Required for file uploads
-      },
-    });
-
-    console.log("res:", response);
+    console.log("Success", response);
   } catch (error) {
-    console.log(error);
+    console.log("Error", error);
   }
 };
+
+//update file 
+const updateFile = async () => {
+  try {
+    const dataforupdate = {
+      pageC_id: id,
+      pc_proof: data.pc_proof,
+      q_pc_proof: data.q_pc_proof,
+      invoice_public: data.invoice_public,
+      accepted: data.accepted,
+      copy_article: data.copy_article
+    }
+
+    const response = await api.put('updateFilePage_C', dataforupdate,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data" //req for file upload
+        }
+      }
+    );
+    console.log(response)
+
+    alert("บันทึกข้อมูลเรียบร้อย");
+
+    location.reload();
+  } catch (error) {
+    
+  }
+}
+
+// const UpdatePc = async () => {
+//   try {
+//     const formData = new FormData();
+
+//     formData.append("pageC_id", id);
+
+//     //check is file
+//     if (data.pc_proof) formData.append("pc_proof", data.pc_proof);
+//     if (data.q_pc_proof) formData.append("q_pc_proof", data.q_pc_proof);
+//     if (data.invoice_public) formData.append("invoice_public", data.invoice_public);
+//     if (data.accepted) formData.append("accepted", data.accepted);
+//     if (data.copy_article) formData.append("copy_article", data.copy_article);
+
+//     console.log("data, ", formData);
+
+//     const response = await api.put(`/page_charge/${id}`, formData, {
+//       headers: {
+
+//         "Content-Type": "multipart/form-data", // Required for file uploads
+//       },
+//     });
+
+//     console.log("res:", response);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 onMounted(() => {
   getDataPc();
+
+  console.log("data", data);
 });
 </script>

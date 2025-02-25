@@ -1,6 +1,8 @@
 <template>
   <div class="container my-10 mx-auto">
     <h1 class="text-xl font-bold p-5">สถานะเอกสาร</h1>
+    <p>form : {{ data.form }}</p>
+    <p></p>
     <Mainbox>
       <h2 class="text-lg font-bold mb-5">
         ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
