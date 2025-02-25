@@ -78,6 +78,14 @@
               @input="handleInput('input1ISI', $event.target.value)"
             />
             <TextInputLabelLeft
+              label="ลำดับ Quartile"
+              customLabel="mr-2"
+              customInput="max-w-max"
+              customDiv="max-w-max"
+              v-model="formData.quartileISI"
+              @input="handleInput('quartileISI', $event.target.value)"
+            />
+            <TextInputLabelLeft
               label="Impact Factor"
               customLabel="w-28 mx-2"
               customInput="max-w-max"
@@ -103,6 +111,14 @@
               @input="handleInput('input1SJR', $event.target.value)"
             />
             <TextInputLabelLeft
+              label="ลำดับ Quartile"
+              customLabel="mr-2"
+              customInput="max-w-max"
+              customDiv="max-w-max"
+              v-model="formData.quartileSJR"
+              @input="handleInput('quartileSJR', $event.target.value)"
+            />
+            <TextInputLabelLeft
               label="SJR Score"
               customLabel="w-28 mx-2"
               customInput="max-w-max"
@@ -126,6 +142,14 @@
               customDiv="max-w-max"
               v-model="formData.input1Scopus"
               @input="handleInput('input1Scopus', $event.target.value)"
+            />
+            <TextInputLabelLeft
+              label="ลำดับ Quartile"
+              customLabel="mr-2"
+              customInput="max-w-max"
+              customDiv="max-w-max"
+              v-model="formData.quartileScopus"
+              @input="handleInput('quartileScopus', $event.target.value)"
             />
             <TextInputLabelLeft
               label="Cite Score"
@@ -155,7 +179,7 @@
               <select
                 class="select select-bordered w-3/12"
                 v-model="formData.moneyOp"
-                @change="handleInputSelect"
+                @change="handleInput('moneyOp', $event.target.value)"
               >
                 <option disabled value="">เลือกวงเงินสนับสนุน</option>
                 <option :value="20000">20,000 บาท</option>
@@ -272,7 +296,7 @@
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-cente"
                 v-model="formData.radioResearch"
-                @change="handleInputRediO"
+                @change="handleInput('radioResearch', $event.target.value)"
               />
               <RadioInput
                 label="วิจัยประยุกต์"
@@ -280,7 +304,7 @@
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-cente"
                 v-model="formData.radioResearch"
-                @change="handleInputRediO"
+                @change="handleInput('radioResearch', $event.target.value)"
               />
               <RadioInput
                 label="วิจัยและพัฒนา"
@@ -288,7 +312,7 @@
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-cente"
                 v-model="formData.radioResearch"
-                @change="handleInputRediO"
+                @change="handleInput('radioResearch', $event.target.value)"
               />
               <div class="flex flex-row">
                 <RadioInput
@@ -297,14 +321,14 @@
                   name="type"
                   customDiv="max-w-fit mr-2 flex items-cente"
                   v-model="formData.radioResearch"
-                  @change="handleInputRediO"
+                  @change="handleInput('radioResearch', $event.target.value)"
                 />
                 <TextInputLabelLeft
                   label="(ระบุ)"
                   name="type"
                   customDiv="max-w-fit flex items-cente"
                   v-model="formData.otherInput"
-                  @input="handleInput"
+                  @input="handleInput('otherInput', $event.target.value)"
                 />
               </div>
             </div>
@@ -343,14 +367,14 @@
             value="First Author"
             name="Author"
             v-model="formData.redioAuth"
-            @change="handleInputRedioAuth"
+            @change="handleInput('redioAuth', $event.target.value)"
           />
           <RadioInput
             label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
             value="Corresponding Author"
             name="Author"
             v-model="formData.redioAuth"
-            @change="handleInputRedioAuth"
+            @change="handleInput('redioAuth', $event.target.value)"
           />
         </SectionWrapper>
       </Mainbox>
@@ -486,12 +510,15 @@ const formData = reactive({
   check: [],
   checkISI: "",
   input1ISI: "",
+  quartileISI: "",
   input2ISI: "", //isi
   checkSJR: "",
   input1SJR: "",
+  quartileSJR: "",
   input2SJR: "", //sjr
   checkScopus: "",
   input1Scopus: "",
+  quartileScopus: "",
   input2Scopus: "", //scopus
   nature: "",
   moneyOp: "",
@@ -534,14 +561,14 @@ onMounted(async () => {
   formData.userID = user.value?.user_id;
   formData.name = user.value?.user_nameth || "";
   formData.position = user.value?.user_positionth || "";
-})
+});
 
 //วันที่ส่งเอกสาร
 const datetime = new Date();
 // Extract year, month, and day
 const year = datetime.getFullYear();
-const month = String(datetime.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-const day = String(datetime.getDate()).padStart(2, '0');
+const month = String(datetime.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+const day = String(datetime.getDate()).padStart(2, "0");
 // Combine in YYYY-MM-DD format
 formData.docSubmitDate = `${year}-${month}-${day}`;
 console.log(formData.docSubmitDate);
@@ -555,23 +582,6 @@ const handleInput = (key, value) => {
   // console.log("value: ", value);
   console.log("--------------------------------");
 };
-// const handleDay = (key, value) => {
-//   // Convert the string (YYYY-MM-DD) to a Date object
-//   const datetime = new Date(value);
-
-//   if (isNaN(datetime)) {
-//     console.error("Invalid date format");
-//     return;
-//   }
-
-//   const year = datetime.getFullYear();
-//   const month = String(datetime.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-//   const day = String(datetime.getDate()).padStart(2, '0');
-
-//   formData[key] = `${day}-${month}-${year}`;
-//   console.log(`${key} updated to: ${formData[key]}`);
-//   console.log("--------------------------------");
-// };
 
 const handleCheckbox = (key, value) => {
   if (formData[key]) {
@@ -587,27 +597,6 @@ const handleCheckbox = (key, value) => {
   }
   console.log(`${key} is now ${formData[key]}`);
   console.log("Updated formData.check:", formData.check);
-};
-
-const handleInputSelect = (event) => {
-  formData.moneyOp = event.target.value;
-  console.log("Updated moneyOp:", formData.moneyOp);
-  console.log("puch in moneyOp", formData.moneyOp);
-  // console.log(JSON.stringify(formData));
-};
-
-const handleInputRediO = (event) => {
-  formData.radioResearch = event.target.value || event.target.value;
-  console.log("Updated radioResearch:", formData.radioResearch);
-  console.log("puch in radioResearch", formData.radioResearch);
-  // console.log(JSON.stringify(formData));
-};
-
-const handleInputRedioAuth = (event) => {
-  formData.redioAuth = event.target.value || event.target.value;
-  console.log("Updated redioAuth:", formData.redioAuth);
-  console.log("puch in redioAuth", formData.redioAuth);
-  // console.log(JSON.stringify(formData));
 };
 
 const handleFile = (event, fieldName) => {
@@ -637,7 +626,7 @@ const NewPC = async () => {
     console.log("before postPC: ", formData);
     console.log("formData as JSON:", JSON.stringify(formData, null, 2));
     console.log("before userID: ", JSON.stringify(formData));
-    
+
     const dataForBackend = {
       user_id: formData.userID,
       pageC_times: formData.textOther1,
@@ -650,6 +639,9 @@ const NewPC = async () => {
       impact_factor: formData.input2ISI,
       sjr_score: formData.input2SJR,
       cite_score: formData.input2Scopus,
+      qt_isi: formData.quartileISI,
+      qt_sjr: formData.quartileSJR,
+      qt_scopus: formData.quartileScopus,
       support_limit: formData.moneyOp,
       article_title: formData.nameReach,
       vol_journal: formData.schedule,
@@ -701,12 +693,12 @@ const NewPC = async () => {
   }
 };
 
-const element = document.querySelector('your-selector');
+const element = document.querySelector("your-selector");
 if (!element) {
-  console.error('Element not found!');
+  console.error("Element not found!");
 }
-document.addEventListener('DOMContentLoaded', () => {
-  const element = document.querySelector('your-selector');
-  console.log("element: ",element);
+document.addEventListener("DOMContentLoaded", () => {
+  const element = document.querySelector("your-selector");
+  console.log("element: ", element);
 });
 </script>

@@ -67,24 +67,33 @@
               :checked="formData.checkISI == 'ISI' ? true : false"
               disabled="false"
             />
-            <TextInputLabelLeft
+              <TextInputLabelLeft
               v-if="formData.checkISI == 'ISI'"
-              label="ปี"
-              customLabel="mr-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              disabled="true"
-              :placeholder="formData.pageChange.pc_isi_year"
-            />
-            <TextInputLabelLeft
+                label="ปี"
+                customLabel="mr-2"
+                customInput="max-w-max"
+                customDiv="max-w-max"
+                disabled="true"
+                :placeholder="formData.pageChange.pc_isi_year"
+              />
+              <TextInputLabelLeft
               v-if="formData.checkISI == 'ISI'"
-              label="Impact Factor"
-              customLabel="w-28 mx-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              disabled="true"
-              :placeholder="formData.pageChange.impact_factor"
-            />
+                label="ลำดับ Quartile"
+                customLabel="mr-2"
+                customInput="max-w-max"
+                customDiv="max-w-max"
+                disabled="true"
+                :placeholder="formData.pageChange.qt_isi"
+              />
+              <TextInputLabelLeft
+              v-if="formData.checkISI == 'ISI'"
+                label="Impact Factor"
+                customLabel="w-28 mx-2"
+                customInput="max-w-max"
+                customDiv="max-w-max"
+                disabled="true"
+                :placeholder="formData.pageChange.impact_factor"
+              />
           </div>
 
           <div class="flex flex-row">
@@ -95,7 +104,7 @@
               :checked="formData.checkSJR == 'SJR' ? true : false"
               disabled="false"
             />
-            <TextInputLabelLeft
+              <TextInputLabelLeft
               v-if="formData.checkSJR == 'SJR'"
               label="ปี"
               customLabel="mr-2"
@@ -105,7 +114,16 @@
               :placeholder="formData.pageChange.pc_sjr_year"
             />
             <TextInputLabelLeft
-              v-if="formData.checkSJR == 'SJR'"
+            v-if="formData.checkSJR == 'SJR'"
+                label="ลำดับ Quartile"
+                customLabel="mr-2"
+                customInput="max-w-max"
+                customDiv="max-w-max"
+                disabled="true"
+                :placeholder="formData.pageChange.qt_sjr"
+              />
+            <TextInputLabelLeft
+            v-if="formData.checkSJR == 'SJR'"
               label="SJR Score"
               customLabel="w-28 mx-2"
               customInput="max-w-max"
@@ -132,6 +150,15 @@
               disabled="true"
               :placeholder="formData.pageChange.pc_scopus_year"
             />
+            <TextInputLabelLeft
+            v-if="formData.checkScopus == 'Scopus'"
+                label="ลำดับ Quartile"
+                customLabel="mr-2"
+                customInput="max-w-max"
+                customDiv="max-w-max"
+                disabled="true"
+                :placeholder="formData.pageChange.qt_scopus"
+              />
             <TextInputLabelLeft
               v-if="formData.checkScopus == 'Scopus'"
               label="Cite Score"
