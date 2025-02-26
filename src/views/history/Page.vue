@@ -22,26 +22,72 @@ import axios from "axios";
 import { jsPDF } from "jspdf";
 
 const exportTopdf = async () => {
-  console.log('792034-12')
-    const pdf = new jsPDF();
+  const pdf = new jsPDF();
 
-    // โหลดไฟล์ฟอนต์แบบไดนามิก
-    // // const fontUrl = "@/assets/fonts/Sarabun-Regular-normal.js";
-    // const response = await fetch(fontUrl);
-    // const fontData = await response.text();
+  // โหลดฟอนต์ภาษาไทย
+  const fontUrl = "/src/assets/fonts/THSarabunNew-normal.js"; // ตรวจสอบเส้นทางให้ถูกต้อง
+  const fontModule = await import(fontUrl);
 
-    // pdf.addFileToVFS("Sarabun-Regular.ttf", fontData);
-    // pdf.addFont("Sarabun-Regular.ttf", "Sarabun", "normal");
-    // pdf.setFont("Sarabun");
-    pdf.setFont('Sarabun','normal');
-      pdf.setTextColor('#025955'); 
+  // ลงทะเบียนฟอนต์กับ jsPDF
+  pdf.addFileToVFS("THSarabunNew.ttf", fontModule.font);
+  pdf.addFont("THSarabunNew.ttf", "THSarabunNew", "normal");
+  pdf.setFont("THSarabunNew", "normal");
 
-    pdf.text("ทดสอบภาษาไทย (Thai text test)", 10, 20);
-    pdf.text("ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงาน", 10, 30);
+  // ตั้งค่าขนาดฟอนต์เริ่มต้น
+  pdf.setFontSize(12);
 
-    pdf.save("export.pdf");
+  // เพิ่มข้อความหัวเรื่อง
+  pdf.setFontSize(16);
+  pdf.setFont("THSarabunNew", "bold");
+  pdf.text("แบบขอรับการสนับสนุนค่าใช้จ่ายในการเผยแพร่ผลงานทางวิชาการ", 15, 20);
+
+  // เพิ่มข้อความรายละเอียด
+  pdf.setFontSize(12);
+  pdf.setFont("THSarabunNew", "normal");
+  pdf.text("ตามประกาศคณะฯ เรื่อง การสนับสนุนค่าใช้จ่ายในการเผยแพร่ผลงานทางวิชาการของอาจารย์ประจำคณะเทคโนโลยีสารสนเทศ พ.ศ. 2567", 15, 30);
+  pdf.text("และประกาศ สจล. เรื่อง การสนับสนุนค่าใช้จ่ายสำหรับการนำเสนอบทความวิจัยลงตีพิมพ์", 15, 35);
+  pdf.text("ในวารสารวิชาการระดับนานาชาติ ด้วยเงินรายได้ ลงวันที่ 11 กรกฎาคม 2565 และฉบับที่ 2 ลงวันที่ 19 กรกฎาคม 2565", 15, 40);
+
+  // เพิ่มหัวข้อ "แบบที่ 2"
+  pdf.setFontSize(14);
+  pdf.setFont("THSarabunNew", "bold");
+  pdf.text("แบบที่ 2 ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ", 15, 50);
+
+  // เพิ่มข้อความรายละเอียดแบบฟอร์ม
+  pdf.setFontSize(12);
+  pdf.setFont("THSarabunNew", "normal");
+  pdf.text("ข้าพเจ้า ตำแหน่ง", 15, 60);
+  pdf.text("มีความประสงค์ขออนุมัติค่าใช้จ่ายในการเผยแพร่บทความวิจัยลงตีพิมพ์ (Page Charge) ในวารสารทางวิชาการระดับนานาชาติ", 15, 65);
+  pdf.text("ด้วยเงินรายได้ ซึ่งมีรายชื่ออยู่ใน List[®] ที่คณะได้ให้การรับรองแล้ว โดยมติคณะ ครั้งที่_____เมื่อวันที่_____ มีรายละเอียดดังนี้", 15, 70);
+
+  // เพิ่มหัวข้อ "1. รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์"
+  pdf.setFontSize(14);
+  pdf.setFont("THSarabunNew", "bold");
+  pdf.text("1. รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์", 15, 80);
+
+  // เพิ่มข้อความรายละเอียดวารสาร
+  pdf.setFontSize(12);
+  pdf.setFont("THSarabunNew", "normal");
+  pdf.text("ชื่อวารสาร:____บอกสำนักพิมพ์_____", 15, 85);
+  pdf.text("- เป็นวารสารที่อยู่ในฐานข้อมูลสากล: ISI ได้รับการจัดลำดับ Quartile ปู_____ Impact Factor =_____", 15, 90);
+  pdf.text("SJR ได้รับการจัดลำดับ Quartile ปู_____ SJR Score    =_____", 15, 95);
+  pdf.text("Scopus ได้รับการจัดลำดับ Quartile ปู_____ CiteScore   =_____", 15, 100);
+  pdf.text("Nature", 15, 105);
+  pdf.text("วงเงินตามเกณฑ์การให้การสนับสนุน ไม่เกิน_____บาท", 15, 110);
+
+  // เพิ่มหัวข้อ "2. รายละเอียดผลงานวิจัยที่ส่งเสนอพิจารณา / ได้รับการตอบรับให้ตีพิมพ์"
+  pdf.setFontSize(14);
+  pdf.setFont("THSarabunNew", "bold");
+  pdf.text("2. รายละเอียดผลงานวิจัยที่ส่งเสนอพิจารณา / ได้รับการตอบรับให้ตีพิมพ์", 15, 120);
+
+  // เพิ่มข้อความรายละเอียดผลงานวิจัย
+  pdf.setFontSize(12);
+  pdf.setFont("THSarabunNew", "normal");
+  pdf.text("ชื่อบทความ:_____", 15, 125);
+
+  // บันทึกไฟล์ PDF
+  pdf.save("export.pdf");
 };
-
 // จัดการข้อมูลหลัก
 const formData = reactive({
   pageChange: [],
@@ -72,25 +118,6 @@ const fetchProfessorData = async () => {
     formData.pageChange = responsePC.data;
     console.log("pageChange", formData.pageChange);
     formData.check = formData.pageChange.quality_journal;
-
-    // const responseFile = await axios.get("http://localhost:3000/pdf/2");
-    // const pdfData = responseFile.data;
-
-    const responseoffic = await axios.get(
-      `http://localhost:3000/opinionPC/${id}`
-    );
-    console.log("offic123", responseoffic);
-    formData.offic = responseoffic.data;
-    console.log("offic", JSON.stringify(formData.offic));
-
-    const responsebudget = await axios.get(
-      `http://localhost:3000/budget/pageCharge/${id}`
-    );
-    console.log("budget 123", responsebudget);
-    formData.budget = responsebudget.data;
-    console.log("budget", JSON.stringify(formData.budget));
-
-    console.log("PDF JAAAA: ", pdfData);
   } catch (error) {
     console.error("Error fetching professor data:", error);
   } finally {
