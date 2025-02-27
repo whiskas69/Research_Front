@@ -213,7 +213,7 @@
 </template>
 
 <script setup>
-import { computed, reactive, onMounted, watch } from "vue";
+import { computed, reactive, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 import { useVuelidate } from "@vuelidate/core";
@@ -242,12 +242,15 @@ const formData = reactive({
   //project
   projectTH: "",
   projectENG: "",
+
   //Research Cluster
   resCluster: [],
   resClusterOther: "",
+
   //Research Standards
   resStandards: [],
   resStandardsTrade: "",
+
   // Professor
   userID: "",
   positionTH: "",
@@ -366,16 +369,7 @@ onMounted(async () => {
 });
 
 const handleInput = (key, value) => {
-  if (!formData.resStandards.includes("มีการใช้พันธุ์พืช")) {
-    formData.resStandardsTrade = "";
-  }
-  if (formData.resCluster.includes("อื่น ๆ")) {
-    formData.resClusterOther = "";
-  } else {
-    formData[key] = value;
-  }
-
-  // formData[key] = value;
+  formData[key] = value;
 };
 
 const handleCheckbox = (key, value) => {
