@@ -707,7 +707,8 @@
             />
           </div>
           <div>
-            <TextArea label="เนื่องจาก" />
+            <TextArea label="เนื่องจาก" 
+            @input="handleInput('description', $event.target.value)"/>
           </div>
           <div class="px-2">
             <RadioInput
