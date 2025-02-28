@@ -322,7 +322,7 @@
           <RadioInput
             label="รับทราบ"
             name="noted"
-            value="ถูกต้อง"
+            value="รับทราบ"
             v-model="formData.redioAuthOffic"
             @change="handleInput('redioAuthOffic', $event.target.value)"
           />

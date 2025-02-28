@@ -1,28 +1,31 @@
 <template>
-  <div>
-    <div id="app" class="container my-10 mx-auto">
-      <div id="testToPDF">
-        <h1>Test to do export PDF</h1>
-        <p class="text-xl font-bold mb-5">
-          ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
-        </p>
-        <p> {{ formData.pageChange }}</p>
-        
-      </div>
-      <button @click="exportTopdf" class="bg-red-500">Export to PDF</button>
+    <p class="text-2xl font-bold text-center my-10">ประวัติเอกสาร</p>
+  <hisPageChage :id="id" />
+      <div class="container my-10 mx-auto">
+    <div class="flex justify-end">
+      <button
+        @click="exportToPDF"
+        class="btn text-white bg-[#4285F4] hover:bg-[#4285F4]"
+      >
+        นำออกเอกสารเป็น PDF
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
 import { useRoute } from "vue-router";
-import axios from "axios";
-
 import { jsPDF } from "jspdf";
 
-const exportTopdf = async () => {
-  const pdf = new jsPDF();
+import hisPageChage from "@/components/form/History/PageCharge.vue";
+
+// Access route parameters
+const route = useRoute();
+const id = route.params.id;
+console.log("params.id", id);
+
+const exportToPDF = async () => {
+const pdf = new jsPDF();
 
   // โหลดฟอนต์ภาษาไทย
   const fontUrl = "/src/assets/fonts/THSarabunNew-normal.js"; // ตรวจสอบเส้นทางให้ถูกต้อง
@@ -88,47 +91,4 @@ const exportTopdf = async () => {
   // บันทึกไฟล์ PDF
   pdf.save("export.pdf");
 };
-// จัดการข้อมูลหลัก
-const formData = reactive({
-  pageChange: [],
-  user: [],
-  offic: [],
-  budget: [],
-
-});
-
-const route = useRoute();
-const id = route.params.id;
-console.log("params.id", id);
-const fetchProfessorData = async () => {
-  try {
-    const responsePC = await axios.get(
-      `http://localhost:3000/page_charge/${id}`
-    );
-    const userID = responsePC.data.user_id;
-    const responseUser = await axios.get(
-      `http://localhost:3000/user/${userID}`
-    );
-    formData.user = responseUser.data;
-
-    console.log("get user: ", formData.user);
-    console.log("get userid: ", responsePC.data.user_id);
-    console.log("get responsePC: ", responsePC.data);
-
-    formData.pageChange = responsePC.data;
-    console.log("pageChange", formData.pageChange);
-    formData.check = formData.pageChange.quality_journal;
-  } catch (error) {
-    console.error("Error fetching professor data:", error);
-  } finally {
-    isLoading.value = false;
-  }
-  console.log("Fetching professor data...");
-};
-
-// ดึงข้อมูลเมื่อ component ถูกโหลด
-onMounted(async () => {
-  await fetchProfessorData();
-  // loopdata();
-});
 </script>
