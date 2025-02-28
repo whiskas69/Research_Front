@@ -499,60 +499,53 @@ const user = computed(() => userStore.user);
 // จัดการข้อมูลหลัก
 const formData = reactive({
   // asdf: "",
-  userID: "",
+  userID: null,
   // Professor
-  name: "",
-  position: "",
-  textOther1: "",
-  textOther2: "",
+  name: null,
+  position: null,
+  textOther1: 0,
+  textOther2: 0,
   // PageDetail
-  nameJournal: "",
+  nameJournal: null,
   check: [],
-  checkISI: "",
-  input1ISI: "",
-  quartileISI: "",
-  input2ISI: "", //isi
-  checkSJR: "",
-  input1SJR: "",
-  quartileSJR: "",
-  input2SJR: "", //sjr
-  checkScopus: "",
-  input1Scopus: "",
-  quartileScopus: "",
-  input2Scopus: "", //scopus
-  nature: "",
-  moneyOp: "",
+  input1ISI: null,
+  quartileISI: null,
+  input2ISI: null, //isi
+  input1SJR: null,
+  quartileSJR: null,
+  input2SJR: null, //sjr
+  input1Scopus: null,
+  quartileScopus: null,
+  input2Scopus: null, //scopus
+  moneyOp: null,
   //ResearchDetail
-  nameReach: "",
-  schedule: "",
-  issue: "",
-  months: "",
-  year: "",
-  ISSN: "",
-  submitReach: "",
-  announce: "",
-  latePay: "",
-  reachOther: "",
-  radioResearch: "",
-  otherInput: "",
-  source: "",
-  credit: "",
-  inYears: "",
+  nameReach: null,
+  schedule: null,
+  issue: null,
+  months: null,
+  year: null,
+  ISSN: null,
+  submitReach: null,
+  announce: null,
+  latePay: null,
+
+
+  reachOther: null,
+  radioResearch: null,
+  otherInput: null,
+  source: null,
+  credit: null,
+  inYears: null,
   //AuthForm
-  redioAuth: "",
+  redioAuth: null,
   //MoneyPG
-  moneyPG: "",
+  moneyPG: null,
   //FileForm
   file1: null,
   file2: null,
   file3: null,
   file4: null,
   file5: null,
-  //วันที่ส่งเอกสาร
-  docSubmitDate: "",
-  typeFile: "Page_Charge",
-  //satatus
-  statusForm: "ฝ่ายบริหารงานวิจัย",
 });
 
 onMounted(async () => {
@@ -660,16 +653,12 @@ const NewPC = async () => {
       annual: formData.inYears,
       presenter_type: formData.redioAuth,
       request_support: formData.moneyPG,
-      doc_submit_date: formData.docSubmitDate,
 
-      type: formData.typeFile,
       pc_proof: formData.file1,
       q_pc_proof: formData.file2,
       invoice_public: formData.file3,
       accepted: formData.file4,
       copy_article: formData.file5,
-
-      form_status: formData.statusForm,
     };
 
     console.log("postPC: ", JSON.stringify(dataForBackend));
