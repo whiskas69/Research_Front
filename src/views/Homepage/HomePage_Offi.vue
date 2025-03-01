@@ -14,16 +14,26 @@ const isLoading = ref(true);
 const fetchOfficerData = async () => {
   try {
     const responseOffice = await axios.get("http://localhost:3000/formsOffice");
-    listForm.forms = responseOffice.data.forms;
-    listForm.nameC = responseOffice.data.confer;
-    listForm.nameP = responseOffice.data.pageC;
-    listForm.nameK = responseOffice.data.kris;
+    console.log("responseOffice.data", responseOffice.data.forms);
+
+    // ค้นหาทุก form ที่ตรงกับเงื่อนไข
+    const filteredForms = responseOffice.data.forms.filter(
+      (form) => form.form_status === "ฝ่ายบริหารงานวิจัย"
+    );
+    console.log("filteredForms", filteredForms);
+    if (filteredForms.length > 0) {
+      listForm.forms = filteredForms;
+      listForm.nameC = responseOffice.data.confer;
+      listForm.nameP = responseOffice.data.pageC;
+      listForm.nameK = responseOffice.data.kris;
+    }
   } catch (error) {
     console.error("Error fetching Officer data:", error);
   } finally {
     isLoading.value = false;
   }
 };
+
 
 // ฟังก์ชันสำหรับดึงชื่อจาก nameC, nameP หรือ nameK
 const getNameById = (nameList, id) => {
@@ -41,7 +51,7 @@ onMounted(() => {
   <div class="Main">
     <div class="container my-10 mx-auto">
       <p class="text-xl font-bold mb-5">เอกสารต้องตรวจตอบ</p>
-
+<p>สถานะในหน้านี้ 'ฝ่ายบริหารงานวิจัย'</p>
       <!-- Loop forms ทั้งหมด -->
       <div v-for="form in listForm.forms" :key="form.form_id">
         
