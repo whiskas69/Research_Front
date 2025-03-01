@@ -32,6 +32,7 @@
               label="วันที่"
               customLabel="ml-2 w-10"
               customInput="max-w-max"
+              customDiv="max-w-max"
               type="date"
               v-model="formData.textOther2"
               @input="handleInput('textOther2', $event)"
@@ -46,7 +47,6 @@
           </p>
         </SectionWrapper>
       </Mainbox>
-      <!-- 1.  รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์  -->
       <Mainbox>
         <p class="leading-9 text-lg font-bold">
           1.  รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์
@@ -55,7 +55,6 @@
         <SectionWrapper>
           <TextInputLabelLeft
             label="ชื่อวารสาร"
-            name="Input"
             customLabel="w-24"
             v-model="formData.nameJournal"
             @input="handleInput('nameJournal', $event)"
@@ -79,7 +78,7 @@
             />
             <TextInputLabelLeft
               label="ลำดับ Quartile"
-              customLabel="mr-2"
+              customLabel="ml-4 mr-2"
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.quartileISI"
@@ -112,7 +111,7 @@
             />
             <TextInputLabelLeft
               label="ลำดับ Quartile"
-              customLabel="mr-2"
+              customLabel="ml-4 mr-2"
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.quartileSJR"
@@ -145,7 +144,7 @@
             />
             <TextInputLabelLeft
               label="ลำดับ Quartile"
-              customLabel="mr-2"
+              customLabel="ml-4 mr-2"
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.quartileScopus"
@@ -175,7 +174,6 @@
               <span class="flex mr-2 items-center">
                 วงเงินตามเกณฑ์การให้การสนับสนุนไม่เกิน
               </span>
-              <!-- not sure select -->
               <select
                 class="select select-bordered w-3/12"
                 v-model="formData.moneyOp"
@@ -192,7 +190,7 @@
           </label>
         </SectionWrapper>
       </Mainbox>
-      <!-- 2. รายละเอียดผลงานวิจัยที่ส่งเสนอพิจารณา / ได้รับการตอบรับให้ตีพิมพ์ -->
+
       <Mainbox>
         <p class="leading-9 text-lg font-bold">
           2. รายละเอียดผลงานวิจัยที่ส่งเสนอพิจารณา / ได้รับการตอบรับให้ตีพิมพ์
@@ -200,76 +198,98 @@
         <SectionWrapper>
           <TextInputLabelLeft
             label="ชื่อบทความ"
-            customLabel="w-auto min-w-fit"
+            customLabel="w-24"
             v-model="formData.nameReach"
             @input="handleInput('nameReach', $event)"
           />
-        </SectionWrapper>
 
-        <div>
           <p>กำหนดการที่คาดว่าจะได้รับการลงตีพิมพ์ในวารสาร</p>
+
           <div class="flex flex-row mt-2 justify-between">
             <TextInputLabelLeft
               label="ปีที่ (Vol.)"
-              customLabel="w-auto min-w-fit"
-              customDiv="max-w-fit"
+              customLabel="w-[40%]"
+              customInput="w-[60%]"
+              customDiv="max-w-[15%]"
               v-model="formData.schedule"
               @input="handleInput('schedule', $event)"
             />
             <TextInputLabelLeft
               label="ฉบับที่ (Issue)"
-              customLabel="w-auto min-w-fit"
-              customDiv="max-w-fit"
+              customLabel="w-[45%]"
+              customInput="w-[55%]"
+              customDiv="max-w-[15%]"
               v-model="formData.issue"
               @input="handleInput('issue', $event)"
             />
+
+            <label class="form-control w-full max-w-[20%]">
+              <div class="flex flex-row w-full">
+                <span class="flex mr-2 items-center"> เดือน </span>
+                <select
+                  class="select select-bordered flex-1"
+                  v-model="formData.months"
+                  @change="handleInput('months', $event)"
+                >
+                  <option disabled value="">เลือกเดือน</option>
+                  <option value="มกราคม">มกราคม</option>
+                  <option value="กุมภาพันธ์">กุมภาพันธ์</option>
+                  <option value="มีนาคม">มีนาคม</option>
+                  <option value="เมษายน">เมษายน</option>
+                  <option value="พฤษภาคม">พฤษภาคม</option>
+                  <option value="มิถุนายน">มิถุนายน</option>
+                  <option value="กรกฎาคม">กรกฎาคม</option>
+                  <option value="สิงหาคม">สิงหาคม</option>
+                  <option value="กันยายน">กันยายน</option>
+                  <option value="ตุลาคม">ตุลาคม</option>
+                  <option value="พฤศจิกายน">พฤศจิกายน</option>
+                  <option value="ธันวาคม">ธันวาคม</option>
+                </select>
+              </div>
+            </label>
+
             <TextInputLabelLeft
-              label="เดือน"
-              customLabel="w-auto min-w-fit"
-              customDiv="max-w-fit"
-              v-model="formData.months"
-              @input="handleInput('months', $event)"
+              label="ปี ค.ศ./พ.ศ."
+              customLabel="w-[40%]"
+              customInput="w-[60%]"
+              customDiv="max-w-[15%]"
+              v-model="formData.year"
+              @input="handleInput('year', $event)"
             />
-            <div class="flex flex-row">
-              <TextInputLabelLeft
-                label="ปี ค.ศ./พ.ศ."
-                customLabel="w-auto min-w-fit"
-                customDiv="max-w-fit"
-                v-model="formData.year"
-                @input="handleInput('year', $event)"
-              />
-              <TextInputLabelLeft
-                label="เลขที่ ISSN/ISBN (อื่นๆ)"
-                customLabel="w-auto min-w-fit"
-                customDiv="max-w-fit"
-                v-model="formData.ISSN"
-                @input="handleInput('ISSN', $event)"
-              />
-            </div>
+
+            <TextInputLabelLeft
+              label="เลขที่ ISSN/ISBN (อื่นๆ)"
+              customLabel="w-[40%]"
+              customInput="w-[60%]"
+              customDiv="max-w-[30%]"
+              v-model="formData.ISSN"
+              @input="handleInput('ISSN', $event)"
+            />
           </div>
 
-          <div class="flex flex-row mt-4 justify-between">
+          <div class="flex flex-row mt-2 justify-between w-[100%]">
             <TextInputLabelLeft
               label="วันที่ส่งบทความไปยังสำนักพิมพ์เจ้าของวารสาร"
               type="date"
-              customLabel="w-auto min-w-fit"
-              customDiv="max-w-fit"
+              customLabel="w-[100%]"
+              customInput="w-[35%]"
+              customDiv="max-w-[35%]"
               v-model="formData.submitReach"
               @input="handleInput('submitReach', $event)"
             />
             <TextInputLabelLeft
               label="วันประกาศผลการพิจารณา"
               type="date"
-              customLabel="w-auto min-w-fit"
-              customDiv="max-w-fit"
+              customLabel="w-[100%]"
+              customDiv="max-w-[30%]"
               v-model="formData.announce"
               @input="handleInput('announce', $event)"
             />
             <TextInputLabelLeft
               label="วันสุดท้ายของการจ่ายค่าตีพิมพ์"
               type="date"
-              customLabel="w-auto min-w-fit"
-              customDiv="max-w-fit"
+              customInput="w-[35%]"
+              customDiv="max-w-[30%]"
               v-model="formData.latePay"
               @input="handleInput('latePay', $event)"
             />
@@ -280,13 +300,12 @@
               <p class="flex text-blue-500 w-12 items-center">(ถ้ามี)</p>
               <TextInputLabelLeft
                 label="บทความวิจัยนี้เป็นผลงานจากโครงการวิจัยเรื่อง"
-                type="date"
-                customLabel="w-auto min-w-fit"
-                customDiv="max-w-fit"
+                customLabel="w-[30%]"
                 v-model="formData.reachOther"
                 @input="handleInput('reachOther', $event)"
               />
             </div>
+
             <p>ประเภทโครงการวิจัย</p>
 
             <div class="flex flex-row ml-5">
@@ -339,6 +358,7 @@
               v-model="formData.source"
               @input="handleInput('source', $event)"
             />
+
             <div class="flex flex-row">
               <TextInputLabelLeft
                 label="วงเงินงบประมาณการวิจัย"
@@ -356,9 +376,9 @@
               />
             </div>
           </SectionWrapper>
-        </div>
+        </SectionWrapper>
       </Mainbox>
-      <!-- 3. ผู้ขอรับการสนับสนุน -->
+
       <Mainbox>
         <p class="text-lg font-bold">3. ผู้ขอรับการสนับสนุน</p>
         <SectionWrapper>
@@ -378,7 +398,7 @@
           />
         </SectionWrapper>
       </Mainbox>
-      <!-- 4. ขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge) -->
+
       <Mainbox>
         <p class="leading-9 text-lg font-bold">
           4. ขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge)
@@ -393,7 +413,6 @@
           />
         </SectionWrapper>
       </Mainbox>
-      <!-- เอกสารหลักฐานที่แนบ -->
       <Mainbox>
         <SectionWrapper>
           <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
@@ -401,67 +420,34 @@
             label="หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature"
             name="First"
             type="file"
-            v-model="formData.file1"
             @change="handleFile($event, 'file1')"
           />
           <FileInput
             label="หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus"
             name="Second"
             type="file"
-            v-model="formData.file2"
             @change="handleFile($event, 'file2')"
           />
           <FileInput
             label="ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ / อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์"
             name="Third"
             type="file"
-            v-model="formData.file3"
             @change="handleFile($event, 'file3')"
           />
           <FileInput
             label="หลักฐานการส่งบทความ หนังสือตอบรับบทความ"
             name="Fourth"
             type="file"
-            v-model="formData.file4"
             @change="handleFile($event, 'file4')"
           />
           <FileInput
             label="สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar"
             name="Fifth"
             type="file"
-            v-model="formData.file5"
             @change="handleFile($event, 'file5')"
           />
-
-          <!-- <input type="file" class="bg-red-200" @change="handleFile" /> -->
-
-          <!-- <div v-if="formData.file1">
-            <p>File Name: {{ formData.file1.name }}</p>
-            <p>File Size: {{ formData.file1.size }} bytes</p>
-            <p>File Type: {{ formData.file1.type }}</p>
-            <a :href="URL.createObjectURL(formData.file1)" target="_blank"
-              >View File</a
-            >
-          </div> -->
-
-          <!-- showPDF {{ Use an iframe to display PDF }}-->
-          <!-- <div v-if="formData.file1" class="columns is-multiline">
-            <div class="card-image">
-              <figure class="image my-5">
-                <iframe
-                  v-if="isPDF(formData.file1)"
-                  :src="showPDF(formData.file1)"
-                  width="100%"
-                  height="500px"
-                ></iframe>
-              </figure>
-            </div>
-          </div>
-          {{ formData.file1 }} -->
         </SectionWrapper>
       </Mainbox>
-
-      <!-- {{ formData }} -->
       <div class="flex justify-end">
         <button @click="NewPC" class="btn btn-success text-white">
           บันทึกข้อมูล
@@ -472,7 +458,7 @@
 </template>
 
 <script setup>
-import { ref, watch, reactive, onMounted, computed } from "vue";
+import { reactive, onMounted, computed } from "vue";
 import axios from "axios";
 
 import api from "@/setting/api";
@@ -484,7 +470,6 @@ import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 import CheckInput from "@/components/Input/CheckInput.vue";
 import FileInput from "@/components/Input/FileInput.vue";
-// import FileInputWithInput from "@/components/Input/FileInputWithInput.vue";
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
@@ -538,8 +523,6 @@ const formData = reactive({
   file3: null,
   file4: null,
   file5: null,
-
-  docSubmitDate: null,
 });
 
 const inputTypes = {
@@ -590,7 +573,6 @@ const inputTypes = {
   file3: "string",
   file4: "string",
   file5: "string",
-  docSubmitDate: "date",
 };
 onMounted(async () => {
   await userStore.fetchUser();
@@ -676,7 +658,7 @@ const NewPC = async () => {
       pageC_times: formData.textOther1,
       pageC_days: formData.textOther2,
       journal_name: formData.nameJournal,
-      quality_journal: JSON.stringify(formData.check),
+      quality_journal: formData.check,
       pc_isi_year: formData.input1ISI,
       pc_sjr_year: formData.input1SJR,
       pc_scopus_year: formData.input1Scopus,
@@ -732,13 +714,4 @@ const NewPC = async () => {
     message.value = "Error adding page_charge. Please try again.";
   }
 };
-
-const element = document.querySelector("your-selector");
-if (!element) {
-  console.error("Element not found!");
-}
-document.addEventListener("DOMContentLoaded", () => {
-  const element = document.querySelector("your-selector");
-  console.log("element: ", element);
-});
 </script>
