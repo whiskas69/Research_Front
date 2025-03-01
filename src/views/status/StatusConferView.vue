@@ -16,7 +16,7 @@
           <li data-content="" class="step w-40">รองคณบดี</li>
           <li data-content="" class="step w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
-          <li data-content="✗" class="step step step-error w-40 w-40">
+          <li data-content="✗" class="step  step-error w-40">
             ไม่อนุมัติ
           </li>
         </ul>
