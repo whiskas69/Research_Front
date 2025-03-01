@@ -737,7 +737,7 @@ const formData = reactive({
   argumentDateReview: "",
   lastDayRegister: "",
 
-  //qualityMeeting งง เก้บไว้ก่อน
+  //qualityMeeting
   meetingType: "",
   qualityMeeting: "",
 
@@ -757,7 +757,7 @@ const formData = reactive({
   //AuthForm
   redioAuth: "",
 
-  //4. การลา งง คับ
+  //การลา
   timeLeave: "",
   locat: "",
   wos: "",
