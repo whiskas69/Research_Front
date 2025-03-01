@@ -26,7 +26,7 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.textOther1"
-              @input="handleInput('textOther1', $event.target.value)"
+              @input="handleInput('textOther1', $event)"
             />
             <TextInputLabelLeft
               label="วันที่"
@@ -34,7 +34,7 @@
               customInput="max-w-max"
               type="date"
               v-model="formData.textOther2"
-              @input="handleInput('textOther2', $event.target.value)"
+              @input="handleInput('textOther2', $event)"
             />
           </div>
           <p class="text-red-500 text-sm">
@@ -58,7 +58,7 @@
             name="Input"
             customLabel="w-24"
             v-model="formData.nameJournal"
-            @input="handleInput('nameJournal', $event.target.value)"
+            @input="handleInput('nameJournal', $event)"
           />
           <p>เป็นวารสารที่อยู่ในฐานข้อมูลสากล</p>
 
@@ -75,7 +75,7 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.input1ISI"
-              @input="handleInput('input1ISI', $event.target.value)"
+              @input="handleInput('input1ISI', $event)"
             />
             <TextInputLabelLeft
               label="ลำดับ Quartile"
@@ -83,7 +83,7 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.quartileISI"
-              @input="handleInput('quartileISI', $event.target.value)"
+              @input="handleInput('quartileISI', $event)"
             />
             <TextInputLabelLeft
               label="Impact Factor"
@@ -91,7 +91,7 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.input2ISI"
-              @input="handleInput('input2ISI', $event.target.value)"
+              @input="handleInput('input2ISI', $event)"
             />
           </div>
 
@@ -108,7 +108,7 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.input1SJR"
-              @input="handleInput('input1SJR', $event.target.value)"
+              @input="handleInput('input1SJR', $event)"
             />
             <TextInputLabelLeft
               label="ลำดับ Quartile"
@@ -116,7 +116,7 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.quartileSJR"
-              @input="handleInput('quartileSJR', $event.target.value)"
+              @input="handleInput('quartileSJR', $event)"
             />
             <TextInputLabelLeft
               label="SJR Score"
@@ -124,7 +124,7 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.input2SJR"
-              @input="handleInput('input2SJR', $event.target.value)"
+              @input="handleInput('input2SJR', $event)"
             />
           </div>
 
@@ -141,7 +141,7 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.input1Scopus"
-              @input="handleInput('input1Scopus', $event.target.value)"
+              @input="handleInput('input1Scopus', $event)"
             />
             <TextInputLabelLeft
               label="ลำดับ Quartile"
@@ -149,7 +149,7 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.quartileScopus"
-              @input="handleInput('quartileScopus', $event.target.value)"
+              @input="handleInput('quartileScopus', $event)"
             />
             <TextInputLabelLeft
               label="Cite Score"
@@ -157,7 +157,7 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.input2Scopus"
-              @input="handleInput('input2Scopus', $event.target.value)"
+              @input="handleInput('input2Scopus', $event)"
             />
           </div>
 
@@ -179,7 +179,7 @@
               <select
                 class="select select-bordered w-3/12"
                 v-model="formData.moneyOp"
-                @change="handleInput('moneyOp', $event.target.value)"
+                @change="handleInput('moneyOp', $event)"
               >
                 <option disabled value="">เลือกวงเงินสนับสนุน</option>
                 <option :value="20000">20,000 บาท</option>
@@ -202,7 +202,7 @@
             label="ชื่อบทความ"
             customLabel="w-auto min-w-fit"
             v-model="formData.nameReach"
-            @input="handleInput('nameReach', $event.target.value)"
+            @input="handleInput('nameReach', $event)"
           />
         </SectionWrapper>
 
@@ -214,21 +214,21 @@
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               v-model="formData.schedule"
-              @input="handleInput('schedule', $event.target.value)"
+              @input="handleInput('schedule', $event)"
             />
             <TextInputLabelLeft
               label="ฉบับที่ (Issue)"
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               v-model="formData.issue"
-              @input="handleInput('issue', $event.target.value)"
+              @input="handleInput('issue', $event)"
             />
             <TextInputLabelLeft
               label="เดือน"
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               v-model="formData.months"
-              @input="handleInput('months', $event.target.value)"
+              @input="handleInput('months', $event)"
             />
             <div class="flex flex-row">
               <TextInputLabelLeft
@@ -236,14 +236,14 @@
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-fit"
                 v-model="formData.year"
-                @input="handleInput('year', $event.target.value)"
+                @input="handleInput('year', $event)"
               />
               <TextInputLabelLeft
                 label="เลขที่ ISSN/ISBN (อื่นๆ)"
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-fit"
                 v-model="formData.ISSN"
-                @input="handleInput('ISSN', $event.target.value)"
+                @input="handleInput('ISSN', $event)"
               />
             </div>
           </div>
@@ -255,7 +255,7 @@
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               v-model="formData.submitReach"
-              @input="handleInput('submitReach', $event.target.value)"
+              @input="handleInput('submitReach', $event)"
             />
             <TextInputLabelLeft
               label="วันประกาศผลการพิจารณา"
@@ -263,7 +263,7 @@
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               v-model="formData.announce"
-              @input="handleInput('announce', $event.target.value)"
+              @input="handleInput('announce', $event)"
             />
             <TextInputLabelLeft
               label="วันสุดท้ายของการจ่ายค่าตีพิมพ์"
@@ -271,7 +271,7 @@
               customLabel="w-auto min-w-fit"
               customDiv="max-w-fit"
               v-model="formData.latePay"
-              @input="handleInput('latePay', $event.target.value)"
+              @input="handleInput('latePay', $event)"
             />
           </div>
 
@@ -284,7 +284,7 @@
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-fit"
                 v-model="formData.reachOther"
-                @input="handleInput('reachOther', $event.target.value)"
+                @input="handleInput('reachOther', $event)"
               />
             </div>
             <p>ประเภทโครงการวิจัย</p>
@@ -296,7 +296,7 @@
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-cente"
                 v-model="formData.radioResearch"
-                @change="handleInput('radioResearch', $event.target.value)"
+                @change="handleInput('radioResearch', $event)"
               />
               <RadioInput
                 label="วิจัยประยุกต์"
@@ -304,7 +304,7 @@
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-cente"
                 v-model="formData.radioResearch"
-                @change="handleInput('radioResearch', $event.target.value)"
+                @change="handleInput('radioResearch', $event)"
               />
               <RadioInput
                 label="วิจัยและพัฒนา"
@@ -312,7 +312,7 @@
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-cente"
                 v-model="formData.radioResearch"
-                @change="handleInput('radioResearch', $event.target.value)"
+                @change="handleInput('radioResearch', $event)"
               />
               <div class="flex flex-row">
                 <RadioInput
@@ -321,14 +321,14 @@
                   name="type"
                   customDiv="max-w-fit mr-2 flex items-cente"
                   v-model="formData.radioResearch"
-                  @change="handleInput('radioResearch', $event.target.value)"
+                  @change="handleInput('radioResearch', $event)"
                 />
                 <TextInputLabelLeft
                   label="(ระบุ)"
                   name="type"
                   customDiv="max-w-fit flex items-cente"
                   v-model="formData.otherInput"
-                  @input="handleInput('otherInput', $event.target.value)"
+                  @input="handleInput('otherInput', $event)"
                 />
               </div>
             </div>
@@ -337,7 +337,7 @@
               label="ชื่อแหล่งทุนวิจัย"
               customLabel="w-auto min-w-fit"
               v-model="formData.source"
-              @input="handleInput('source', $event.target.value)"
+              @input="handleInput('source', $event)"
             />
             <div class="flex flex-row">
               <TextInputLabelLeft
@@ -345,14 +345,14 @@
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-max mr-10"
                 v-model="formData.credit"
-                @input="handleInput('credit', $event.target.value)"
+                @input="handleInput('credit', $event)"
               />
               <TextInputLabelLeft
                 label="ประจำปี"
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-max mr-10"
                 v-model="formData.inYears"
-                @input="handleInput('inYears', $event.target.value)"
+                @input="handleInput('inYears', $event)"
               />
             </div>
           </SectionWrapper>
@@ -367,14 +367,14 @@
             value="First Author"
             name="Author"
             v-model="formData.redioAuth"
-            @change="handleInput('redioAuth', $event.target.value)"
+            @change="handleInput('redioAuth', $event)"
           />
           <RadioInput
             label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
             value="Corresponding Author"
             name="Author"
             v-model="formData.redioAuth"
-            @change="handleInput('redioAuth', $event.target.value)"
+            @change="handleInput('redioAuth', $event)"
           />
         </SectionWrapper>
       </Mainbox>
@@ -389,7 +389,7 @@
             customLabel="w-auto min-w-fit"
             customInput="max-w-fit"
             v-model="formData.moneyPG"
-            @input="handleInput('moneyPG', $event.target.value)"
+            @input="handleInput('moneyPG', $event)"
           />
         </SectionWrapper>
       </Mainbox>
@@ -403,13 +403,6 @@
             type="file"
             v-model="formData.file1"
             @change="handleFile($event, 'file1')"
-          />
-          <!-- ยังไม่ได้ใส่ v-model ต้องเพิ่มในตาราง filePDF ด้วย -->
-          <TextInputLabelLeft
-            label="ลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus"
-            customLabel="w-auto min-w-fit"
-            customDiv="max-w-max mr-10"
-            @input="handleInput('inputFile2', $event.target.value)"
           />
           <FileInput
             label="หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus"
@@ -529,7 +522,6 @@ const formData = reactive({
   announce: null,
   latePay: null,
 
-
   reachOther: null,
   radioResearch: null,
   otherInput: null,
@@ -546,8 +538,60 @@ const formData = reactive({
   file3: null,
   file4: null,
   file5: null,
+
+  docSubmitDate: null,
 });
 
+const inputTypes = {
+  // asdf: "",
+  userID: "string",
+  // Professor
+  name: "string",
+  position: "string",
+  textOther1: "number",
+  textOther2: "date",
+  // PageDetail
+  nameJournal: "string",
+  check: "array",
+  input1ISI: "number",
+  quartileISI: "number",
+  input2ISI: "number", //isi
+  input1SJR: "number",
+  quartileSJR: "number",
+  input2SJR: "number", //sjr
+  input1Scopus: "number",
+  quartileScopus: "number",
+  input2Scopus: "number", //scopus
+  moneyOp: "number",
+  //ResearchDetail
+  nameReach: "string",
+  schedule: "number",
+  issue: "number",
+  months: "string",
+  year: "number",
+  ISSN: "string",
+  submitReach: "date",
+  announce: "date",
+  latePay: "date",
+
+  reachOther: "string",
+  radioResearch: "string",
+  otherInput: "string",
+  source: "string",
+  credit: "number",
+  inYears: "number",
+  //AuthForm
+  redioAuth: "string",
+  //MoneyPG
+  moneyPG: "number",
+  //FileForm
+  file1: "string",
+  file2: "string",
+  file3: "string",
+  file4: "string",
+  file5: "string",
+  docSubmitDate: "date",
+};
 onMounted(async () => {
   await userStore.fetchUser();
 
@@ -566,8 +610,15 @@ const day = String(datetime.getDate()).padStart(2, "0");
 formData.docSubmitDate = `${year}-${month}-${day}`;
 console.log(formData.docSubmitDate);
 
-const handleInput = (key, value) => {
-  formData[key] = value;
+const handleInput = (key, event) => {
+  // formData[key] = value;
+  const value = event.target.value.trim(); // ลบช่องว่างหน้า-หลัง
+  const type = inputTypes[key]; // ตรวจสอบประเภทของ input
+  if (type === "number") {
+    formData[key] = value === "" ? null : parseInt(value, 10);
+  } else {
+    formData[key] = value;
+  }
   console.log("0000000000000000000000000000000");
   // console.log(JSON.stringify(formData));
   console.log(`${key} updated to: ${value}`);
