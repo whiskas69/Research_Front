@@ -12,6 +12,8 @@ import Confer from "@/views/history/Confer.vue";
 import Page from "@/views/history/Page.vue";
 import Scolar from "@/views/history/Scolar.vue";
 
+import eOffice from "@/views/EofficeView.vue"
+
 import HomePage_Profes from "@/views/Homepage/HomePage_Profes.vue";
 import HomePage_Offi from "@/views/Homepage/HomePage_Offi.vue";
 import Homepage_Admin from "@/views/Homepage/Homepage_Admin.vue";
@@ -42,6 +44,11 @@ import his_kris from '@/views/history/Scolar.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: "/eoffice",
+      name: "eOffice",
+      component: eOffice,
+    },
     {
       path: "/",
       name: "Search",
