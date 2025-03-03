@@ -1012,7 +1012,7 @@ const formData = reactive({
   // ความเห้นเจ้าหน้าที่
   acknowledge: "",
   //satatus
-  formStatus: "อนุมัติ",
+  formStatus: "รออนุมัติ",
 });
 console.log("conference", formData);
 //วันที่ส่งเอกสาร

@@ -770,7 +770,7 @@ const formData = reactive({
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
   //satatus
-  statusForm: "",
+  formStatus: "รออนุมัติ",
   // ความเห้นเจ้าหน้าที่
   acknowledge: "",
   redioAuthOffic: "",
@@ -900,7 +900,7 @@ const OfficerPC = async () => {
       p_reason_dean_appeove: formData.description,
       dean_doc_submit_date: formData.docSubmitDate,
       //form
-      form_status: formData.redioAuthOffic,
+      form_status: formData.formStatus,
     };
     console.log("postPC: ", JSON.stringify(dataForBackend));
 
