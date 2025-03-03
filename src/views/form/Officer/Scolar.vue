@@ -336,7 +336,9 @@
         </SectionWrapper>
       </Mainbox>
       <div class="flex justify-end">
-        <button @click="OfficerKris" class="btn btn-success text-white">บันทึกข้อมูล</button>
+        <button @click="OfficerKris" class="btn btn-success text-white">
+          บันทึกข้อมูล
+        </button>
       </div>
     </div>
   </div>
@@ -376,6 +378,7 @@ const formData = reactive({
   docSubmitDate: "",
   // ความเห้นเจ้าหน้าที่
   redioAuthOffic: "",
+  formStatus: "เข้าที่ประชุม"
 });
 console.log("kris", formData);
 //วันที่ส่งเอกสาร
@@ -508,7 +511,9 @@ const OfficerKris = async () => {
     const dataForBackend = {
       kris_id: id,
       research_admin: formData.redioAuthOffic,
-      doc_submit_date: formData.docSubmitDate
+      doc_submit_date: formData.docSubmitDate,
+      //form
+      form_status: formData.formStatus,
     };
     console.log("postKris: ", JSON.stringify(dataForBackend));
 
