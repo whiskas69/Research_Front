@@ -1,6 +1,6 @@
 <template>
   <div class="container my-10 mx-auto">
-    <h1 class="text-xl font-bold p-5">เอกสารที่รออนุมัติใน E-Office</h1>
+    <h1 class="text-xl font-bold p-5">เอกสารที่รออนุมัติใน E-Office หรือ รอเข้าที่ประชุม</h1>
     <div v-for="form in data.allForm" :key="form.form_id">
       <div
         class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
@@ -22,15 +22,16 @@
               </div>
             </div>
           </div>
-        </router-link>
-        <div class="flex justify-end mr-10">
-          <CheckInput
-          label="คลิกที่กล่องสี่เหลี่ยมเมื่อเอกสารได้รับการอนุมัติ"
-          customDiv="max-w-72 flex items-center"
-          :checked="data.approvedForms.includes(form.form_id)"
-          @input="handleCheckbox(form.form_id, 'อนุมัติ')"
-        />
+          <div class="flex justify-end mr-5">
+          <button
+            @click="addAppoved(form.form_id)"
+            class="btn btn-success text-white"
+          >
+            คลิกเมื่อเอกสารได้รับการอนุมัติ
+          </button>
         </div>
+        </router-link>
+
       </div>
 
       <div
@@ -41,7 +42,7 @@
           <h2 class="text-lg font-bold">
             ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
           </h2>
-          <div class="columns-2 mt-2 ml-5">
+          <div class="mt-2 ml-5">
             <div>
               <div class="flex">
                 <h4 class="mr-5">ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}</h4>
@@ -57,16 +58,13 @@
                   วงเงินที่เบิกได้ : {{ form.form_money }} บาท
                 </h4>
               </div>
-              <div class="flex justify-end h-20 mr-10">
-                <label class="label cursor-pointer">
-                  <input
-                    type="checkbox"
-                    class="checkbox checkbox-accent mr-2"
-                  />
-                  <span class="label-text"
-                    >คลิกที่กล่องสี่เหลี่ยมเมื่อเอกสารได้รับการอนุมัติ</span
-                  >
-                </label>
+              <div class="flex justify-end mr-5">
+                <button
+                  @click="addAppoved(form.form_id)"
+                  class="btn btn-success text-white"
+                >
+                  คลิกเมื่อเอกสารได้รับการอนุมัติ
+                </button>
               </div>
             </div>
           </div>
@@ -82,7 +80,7 @@
             ขออนุมัติค่า Page
             Chargeเพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
           </h2>
-          <div class="columns-2 mt-2 ml-5">
+          <div class="mt-2 ml-5">
             <div>
               <div class="flex">
                 <h4 class="mr-5">ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}</h4>
@@ -98,53 +96,35 @@
                   วงเงินที่เบิกได้ : {{ form.form_money }} บาท
                 </h4>
               </div>
-              <div class="flex justify-end h-20 mr-10">
-                <label class="label cursor-pointer">
-                  <input
-                    type="checkbox"
-                    class="checkbox checkbox-accent mr-2"
-                  />
-                  <span class="label-text"
-                    >คลิกที่กล่องสี่เหลี่ยมเมื่อเอกสารได้รับการอนุมัติ</span
-                  >
-                </label>
+              <div class="flex justify-end mr-5">
+                <button
+                  @click="addAppoved(form.form_id)"
+                  class="btn btn-success text-white"
+                >
+                  คลิกเมื่อเอกสารได้รับการอนุมัติ
+                </button>
               </div>
             </div>
           </div>
         </router-link>
       </div>
     </div>
-
-    <!-- 2 -->
-    <h1 class="text-xl font-bold p-5">เอกสารที่อนุมัติแล้ว</h1>
   </div>
 </template>
 <script setup>
 import { computed, onMounted, reactive } from "vue";
 import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
-import CheckInput from "@/components/Input/CheckInput.vue";
 
 const data = reactive({
   userID: "",
   userRole: "",
   allForm: [],
-  approvedForms: [], //id form approved
+  status: "อนุมัติ",
 });
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
-
-const handleCheckbox = (formId, status) => {
-  if (status === "อนุมัติ") {
-    if (!data.approvedForms.includes(formId)) {
-      data.approvedForms.push(formId); // เพิ่ม form_id
-    } else {
-      data.approvedForms = data.approvedForms.filter(id => id !== formId); // ยกเลิกการอนุมัติ
-    }
-  }
-  console.log("Approved Forms:", data.approvedForms);
-};
 //pull data
 const pulldata = async () => {
   try {
@@ -152,13 +132,59 @@ const pulldata = async () => {
     console.log("res", res.data);
 
     const filteredForms = res.data
-      .filter((form) => form.form_status === "รออนุมัติ")
+      .filter((form) => form.form_status === "รออนุมัติ" || form.form_status === "เข้าที่ประชุม")
       .sort((a, b) => b.form_id - a.form_id);
     console.log("filteredForms", filteredForms);
 
     data.allForm = filteredForms;
   } catch (error) {
     console.log(error);
+  }
+};
+
+const addAppoved = async (formId) => {
+  console.log("formId", formId);
+  console.log("data.allForm", data.allForm);
+  console.log("form_status", data.allForm.form_status);
+  // Check if data.allForm is an array and get the correct item
+  const formData = Array.isArray(data.allForm)
+    ? data.allForm.find((f) => f.form_id === formId)
+    : null;
+
+  if (!formData) {
+    console.error("Form data not found for formId:", formId);
+    alert("ไม่พบข้อมูลเอกสาร");
+    return;
+  }
+  console.log("Selected Form Data: ", formData);
+  console.log("form_status", formData.form_status);
+  try {
+    alert("เอกสารนี้ได้รับการอนุมัติในระบบ E-Office แล้ว");
+    const updateStatus = {
+      form_id: formId,
+      form_type: formData.form_type,
+      conf_id: formData.conf_id,
+      pageC_id: formData.pageC_id,
+      kris_id: formData.kris_id,
+      form_status: data.status,
+      form_money: formData.form_money,
+    };
+    console.log("updateStatus: ", updateStatus);
+    console.log("Requesting URL: ", `http://localhost:3000/form/${formId}`);
+    const response = await api.put(
+      `http://localhost:3000/form/${formId}`,
+      updateStatus,
+      {
+        headers: {
+          "Content-Type": "application/json", // Required for file uploads
+        },
+      }
+    );
+    console.log("res: ", response);
+    alert("เอกสารได้รับการอนุมัติแล้ว");
+  } catch (error) {
+    console.log("Error saving code : ", error);
+    alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
   }
 };
 
