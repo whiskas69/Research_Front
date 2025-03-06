@@ -49,7 +49,11 @@ const login = async () => {
                 Authorization: response.code
               }
             });
+
             console.log("login success :", res.data);
+            
+            localStorage.setItem("loggedIn", "true");
+            userStore.loggedIn = true;
 
             await userStore.fetchUser(); //load user data before login
 
@@ -64,10 +68,10 @@ const login = async () => {
             }
 
           } catch (error) {
-            console.error("login fail : ", error);
+            alert(error.response.data.message)
           }
         }
-      },
+      } 
     });
 
     googleAuth.requestCode();

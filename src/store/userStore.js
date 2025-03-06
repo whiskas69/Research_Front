@@ -1,36 +1,35 @@
 import { defineStore } from "pinia";
 import api from "@/setting/api";
 
-//ดึง token จาก cookies
-// function getToken() {
-//   const match = document.cookie.match(new RegExp('(^| )token=([^;]+)'));
-//   if (match) return match[2];
-//   return null;
-// }
-
 export const useUserStore = defineStore("user", {
   state: () => ({
     user: null, //เก็บข้อมูล user
-    // token: getToken(),
+    loggedIn: localStorage.getItem("loggedIn") === "true",
   }),
 
   actions: {
     async fetchUser() {
+      //check user login
+      if (!this.loggedIn) {
+        console.log("User not logged in.");
 
-      // if (!this.token) return
+        alert("กรุณาทำการเข้าสู่ระบบ");
+
+        if (window.location.pathname !== "/login") {
+          window.location.href = "/login";
+        }
+
+        return;
+      }
 
       try {
         const response = await api.get("/me", {
           withCredentials: true,
         });
 
-        console.log("response.data :", response.data.user)
         this.user = response.data.user;
-        console.log("this user", this.user);
-
-        localStorage.setItem("loggedIn", "true"); //remember status login\
-
       } catch (error) {
+        alert(error.response.data.message);
 
         console.error("Error fetching user: ", error);
         this.user = null;
@@ -43,8 +42,8 @@ export const useUserStore = defineStore("user", {
         await api.post("/logout");
         this.user = null;
         localStorage.removeItem("loggedIn");
-        console.log("login success");
       } catch (error) {
+        alert(error.response.data.message);
         console.error("logout error:", error);
       }
     },
