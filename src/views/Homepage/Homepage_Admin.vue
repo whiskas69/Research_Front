@@ -1,15 +1,111 @@
 <template>
-  <div>
+  <div class="relative">
     <div class="container my-10 mx-auto">
       <p class="text-xl font-bold pb-5">การจัดการผู้ใช้</p>
+      <p class="text-xl font-bold pb-5">มีการเพิ่มผุใช้ด้วย</p>
+      <!-- ปุ่มแก้ไข -->
+      <div class="flex justify-end mt-5">
+        <button @click="openEdit" class="btn btn-success text-white">
+          แก้ไข
+        </button>
+      </div>
+
+      <!-- Overlay แสดงทับ -->
+      <div
+        v-show="showEdit"
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 pt-6"
+      >
+        <div
+          class="bg-white p-5 rounded-lg shadow-lg w-5xl max-h-screen overflow-auto"
+        >
+          <button
+            @click="closeEdit"
+            class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+          >
+            <b>x</b>
+          </button>
+
+          <p class="text-xl font-bold">แก้ไขข้อมูล</p>
+
+          <!-- table -->
+          <div class="overflow-x-auto">
+            <table class="table">
+              <!-- head -->
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="text-xl text-black text-center">ชื่อผู้ใช้</th>
+                  <th class="text-xl text-black text-center">
+                    หน้าที่ของผู้ใช้เดิม
+                  </th>
+                  <th class="text-xl text-black text-center">
+                    แก้ไขหน้าที่ของผู้ใช้
+                  </th>
+                  <th class="text-xl text-black text-center">
+                    ยอดเงินการขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมวิชาการ
+                  </th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody
+                v-for="(user, index) in formData.users"
+                :key="user.user_id"
+              >
+                <tr>
+                  <th class="text-center">{{ index + 1 }}</th>
+                  <td class="text-center">{{ user.user_nameth }}</td>
+                  <td class="text-center">{{ user.user_role }}</td>
+                  <td class="text-center">
+                    <select
+                      class="select select-bordered flex-1"
+                      @change="handleInput(user.user_id, $event)"
+                    >
+                      <option disabled selected>เลือกหน้าที่ผู้ใช้</option>
+                      <option :value="'professor'">อาจารย์</option>
+                      <option :value="'hr'">
+                        เจ้าหน้าที่บริหารทรัพยากรบุคคล
+                      </option>
+                      <option :value="'research'">เจ้าหน้าที่งานวิจัย</option>
+                      <option :value="'finance'">เจ้าหน้าที่การเงิน</option>
+                      <option :value="'associate'">รองคณบดี</option>
+                      <option :value="'dean'">คณบดี</option>
+                      <option :value="'admin'">ผู้ดูแล</option>
+                    </select>
+                  </td>
+                  <td class="text-center">
+                    <TextInputLabelLeft
+                      customLabel="w-auto min-w-fit"
+                      customDiv="max-w-max mr-10"
+                      :placeholder="user.user_moneyCF"
+                      @input="handleInputMoney(user.user_id, $event)"
+                    />
+                  </td>
+                  <td class="text-center">
+                    <button class="btn btn-error text-base text-white">
+                      ลบผู้ใช้
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="flex justify-end mt-5">
+              <button @click="closeEdit" class="btn btn-success text-white">
+                ยืนยัน
+              </button>
+              <button @click="updateUserRoles" class="btn btn-primary">
+                อัปเดตข้อมูล
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- table -->
       <div class="overflow-x-auto">
         <table class="table">
-          <!-- head -->
           <thead>
             <tr>
               <th></th>
-
               <th class="text-xl text-black text-center">ชื่อผู้ใช้</th>
               <th class="text-xl text-black text-center">หน้าที่ของผู้ใช้</th>
               <th class="text-xl text-black text-center">
@@ -19,90 +115,95 @@
             </tr>
           </thead>
           <tbody v-for="(user, index) in formData.users" :key="user.user_id">
-            <!-- row 1 -->
             <tr>
               <th class="text-center">{{ index + 1 }}</th>
-
               <td class="text-center">{{ user.user_nameth }}</td>
               <td class="text-center">{{ user.user_role }}</td>
-              <td class="text-center">
-                <select
-                  class="select select-bordered w-full max-w-xs"
-                  v-model="selectedRole"
-                >
-                  <option
-                    v-for="(thai, eng) in roleMapping"
-                    :key="eng"
-                    :value="thai"
-                  >
-                    {{ thai }}
-                  </option>
-                </select>
-              </td>
               <td class="text-center">{{ user.user_moneyCF }}</td>
-              <td class="text-center">
-                <button class="btn btn-error text-base text-white">
-                  ลบผู้ใช้
-                </button>
-              </td>
             </tr>
           </tbody>
         </table>
-      </div>
-      <div class="flex justify-end mt-5">
-        <button class="btn btn-success text-white">ยืนยัน</button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, reactive, onMounted } from "vue";
+import { ref, reactive, computed, onMounted } from "vue";
 import axios from "axios";
-const formData = reactive({
-  users: [],
-});
+import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 
-const roleMapping = {
-  professor: "อาจารย์",
-  admin: "ผู้ดูแล",
-  hr: "เจ้าหน้าที่ HR",
-  research: "เจ้าหน้าที่งานวิจัย",
-  finance: "เจ้าหน้าที่การเงิน",
-  associate: "รองคณบดี",
-  dean: "คณบดี",
+const showEdit = ref(false);
+
+// เปิด Overlay และปิด Scroll ของ body
+const openEdit = () => {
+  showEdit.value = true;
+  document.body.classList.add("overflow-hidden"); // ปิด Scroll ของหน้าเว็บ
 };
 
-const reverseRoleMapping = Object.fromEntries(
-  Object.entries(roleMapping).map(([key, value]) => [value, key])
-);
+// ปิด Overlay และคืนค่า Scroll ของ body
+const closeEdit = () => {
+  showEdit.value = false;
+  document.body.classList.remove("overflow-hidden"); // เปิด Scroll กลับ
+};
 
-// คำนวณค่าเริ่มต้น
-const selectedRole = computed({
-  get: () => {
-    console.log("user.user_role:", formData.users.user_role);
-    roleMapping[formData.users.user_role] || "อาจารย์";
-  }, // ถ้าไม่มีค่าให้ default เป็น "อาจารย์"
-  set: (newValue) => {
-    console.log("newValue:", newValue);
-    formData.users.user_role = reverseRoleMapping[newValue];
-  },// ค่าที่ selece มาใหม่
+const formData = reactive({
+  users: [],
+  userRoles: [],
 });
+
+const handleInput = (id, event) => {
+  const value = event.target.value; // ดึงค่าจาก input
+  // ตรวจสอบว่ามี `id` นี้ใน `userRoles` แล้วหรือยัง
+  const index = formData.userRoles.findIndex((item) => item.id === id);
+
+  if (index !== -1) {
+    // ถ้ามีแล้วให้อัปเดตค่าใหม่
+    formData.userRoles[index].value = value;
+  } else {
+    // ถ้ายังไม่มีให้เพิ่ม Object ใหม่เข้าไป
+    formData.userRoles.push({ id, value });
+  }
+
+  console.log("Updated userRoles:", JSON.stringify(formData.userRoles));
+};
+
+const isLoading = ref(true);
+
 const fetchOfficerData = async () => {
   try {
     const responseUser = await axios.get(`http://localhost:3000/users`);
-    console.log("get all user: ", responseUser.data);
     formData.users = responseUser.data;
-    console.log("user123", formData.users);
-    console.log("user_nameth", formData.users.user_nameth);
   } catch (error) {
     console.error("Error fetching Officer data:", error);
   } finally {
     isLoading.value = false;
   }
 };
+
+const updateUserRoles = async () => {
+  try {
+    const response = await axios.put("http://localhost:3000/updateRoles", {
+      userRoles: formData.userRoles, // ส่ง userRoles [{ id: 1, value: 'admin' }, ...]
+    });
+
+    console.log("Response from server:", response.data);
+    alert(response.data.message);
+  } catch (error) {
+    console.error("Error updating user roles:", error);
+    alert("เกิดข้อผิดพลาดในการอัปเดตข้อมูล");
+  }
+};
+
+
 onMounted(async () => {
   await fetchOfficerData();
-  console.log("user.user_role ตอนโหลด:", user.user_role);
 });
 </script>
+
+<style>
+/* ป้องกันการ Scroll ของหน้าเว็บเมื่อ Overlay เปิด */
+body.overflow-hidden {
+  overflow: hidden;
+}
+</style>
