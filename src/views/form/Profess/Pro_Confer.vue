@@ -983,14 +983,16 @@ const newConfer = async () => {
         },
       }
     );
-    alert("Have new Confer!");
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+      router.push("/allstatus");
+
     console.log("res: ", response);
 
     console.log("allpostConfer: ", message.value);
     console.log("postConfer: ", response.data);
   } catch (error) {
     console.error(error);
-    message.value = "Error adding Conferent. Please try again.";
+    // message.value = "Error adding Conferent. Please try again.";
   }
 };
 </script>

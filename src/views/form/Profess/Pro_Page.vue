@@ -446,7 +446,7 @@
               <div class="flex flex-row">
                 <RadioInput
                   label="วิจัยอื่น ๆ "
-                  value="อื่น ๆ"
+                  value="อื่นๆ"
                   name="type"
                   customDiv="max-w-fit mr-2 flex items-cente"
                   v-model="formData.radioResearch"
@@ -915,7 +915,7 @@ const rules = computed(() => ({
   },
   radioResearch: { requiredIfOther: () => formData.reachOther !== "" },
   otherInput: {
-    requiredIfOtherInput: () => formData.radioResearch === "อื่น ๆ",
+    requiredIfOtherInput: () => formData.radioResearch === "อื่นๆ",
   },
 
   source: { requiredIfOther: () => formData.reachOther !== "" },
@@ -1094,7 +1094,9 @@ const NewPC = async () => {
           "Content-Type": "multipart/form-data", // Required for file uploads
         },
       });
-      alert("Have new PC!");
+      alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+      router.push("/allstatus");
+
       console.log("res: ", response);
 
       console.log("allpostPC: ", message.value);
@@ -1106,6 +1108,7 @@ const NewPC = async () => {
     }
   } else {
     alert("โปรดกรอกข้อมูลให้ครบถ้วน");
+    console.log(v$.value.$errors)
   }
 };
 </script>
