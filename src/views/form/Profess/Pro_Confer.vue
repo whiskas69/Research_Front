@@ -950,7 +950,7 @@ const newConfer = async () => {
       all_money: formData.all_money,
       doc_submit_date: formData.docSubmitDate,
 
-      score_formular: formData.score,
+      score_type: formData.score,
       sjr_score: formData.sjr,
       sjr_year: formData.sjrYear,
       hindex_score: formData.hIndex,

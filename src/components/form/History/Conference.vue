@@ -188,9 +188,9 @@
                   name="Score"
                   value="SJR"
                   disabled="flase"
-                  :checked="formData.score.score_formular == 'SJR' ? true : false"
+                  :checked="formData.score.score_type == 'SJR' ? true : false"
                 />
-                <div v-if="formData.score.score_formular == 'SJR'">
+                <div v-if="formData.score.score_type == 'SJR'">
                   <div class="flex flex-row w-full px-7 my-2">
                     <TextInputLabelLeft
                       label="• ค่า SJR"
@@ -235,9 +235,9 @@
                   name="Score"
                   value="CIF"
                   disabled="flase"
-                  :checked="formData.score.score_formular == 'CIF' ? true : false"
+                  :checked="formData.score.score_type == 'CIF' ? true : false"
                 />
-                <div v-if="formData.score.score_formular == 'CIF'">
+                <div v-if="formData.score.score_type == 'CIF'">
                   <div class="flex flex-row w-full px-7 my-2">
                     <TextInputLabelLeft
                       label="• ค่า Citation total"
@@ -266,10 +266,10 @@
                   value="CORE"
                   disabled="flase"
                   :checked="
-                    formData.score.score_formular == 'CORE' ? true : false
+                    formData.score.score_type == 'CORE' ? true : false
                   "
                 />
-                <div v-if="formData.score.score_formular == 'CORE'">
+                <div v-if="formData.score.score_type == 'CORE'">
                   <div class="flex flex-row w-full px-7 my-2">
                     <TextInputLabelLeft
                       label="• ค่า"
@@ -1056,7 +1056,7 @@
       console.log("score123", responseScore);
       formData.score = responseScore.data;
       console.log("score", formData.score);
-      console.log("score_formular", formData.score.score_formular);
+      console.log("score_type", formData.score.score_type);
   
       const responseoffic = await axios.get(
         `http://localhost:3000/opinionConf/${id}`
