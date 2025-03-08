@@ -4,7 +4,7 @@
         <p class="text-xl font-bold mb-5">
           แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ
         </p>
-  
+
         <Mainbox>
           <p class="text-lg font-bold">รายละเอียดเบื้องต้น</p>
           <div class="py-2 px-5">
@@ -115,9 +115,9 @@
                   <CheckInput
                     class="pb-3"
                     label="Creative Economy"
-                    v-model="formData.creatEco"
+                    v-model="formData.CreativeEco"
                     :checked="
-                      formData.creatEco == 'Creative Economy' ? true : false
+                      formData.CreativeEco == 'Creative Economy' ? true : false
                     "
                     disabled="false"
                   />
@@ -190,7 +190,7 @@
                     class="flex items-center w-1/3"
                     label="มาตรา 52 (เพื่อประโยชน์ทางการค้า)"
                     customDiv="max-w-80"
-                    disabled="flase"
+                    disabled="false"
                     :checked="
                       formData.kris.res_standard_trade == 'มาตรา 52'
                         ? true
@@ -201,7 +201,7 @@
                   <RadioInput
                     class="flex items-center"
                     label="มาตรา 53 (ไม่มีวัตถุประสงค์เพื่อประโยชน์ทางการค้า)"
-                    disabled="flase"
+                    disabled="false"
                     :checked="
                       formData.kris.res_standard_trade == 'มาตรา 53'
                         ? true
@@ -246,7 +246,7 @@
                 <TextInputLabelLeft
                   label="ประวัติด้านสิ่งประดิษฐ์ หรือ นวัตกรรม"
                   customLabel="w-3/12"
-                  :placeholder="formData.kris.his_inveninno"
+                  :placeholder="formData.kris.his_invention"
                   disabled="true"
                 />
                 <div class="flex flex-row">
@@ -255,7 +255,7 @@
                     customLabel="w-[530px]"
                     customDiv="max-w-[600px]"
                     customInput="w-32"
-                    :placeholder="formData.kris.participation_percen"
+                    :placeholder="formData.kris.participation_percent"
                     disabled="true"
                   />
                   <span class="text-sm text-red-500 w-1/6 flex items-center"
@@ -363,7 +363,7 @@
     agricFood: "",
     fml: "",
     materials: "",
-    creatEco: "",
+    CreativeEco: "",
     other: "",
     //standard
     animal: "",
@@ -444,7 +444,7 @@
         console.log("Journal have 'Materials'");
       }
       if (formData.kris.research_cluster[i] == "Creative Economy") {
-        formData.creatEco = "Creative Economy";
+        formData.CreativeEco = "Creative Economy";
         console.log("Journal have 'Creative Economy'");
       }
       if (formData.kris.research_cluster[i] == "อื่น ๆ") {
@@ -486,7 +486,7 @@
     try {
       const dataForBackend = {
         kris_id: id,
-        research_admin: formData.redioAuthOffic,
+        research_admin: formData.radioAuthOffic,
         doc_submit_date: formData.docSubmitDate
       };
       console.log("postKris: ", JSON.stringify(dataForBackend));
@@ -502,7 +502,7 @@
       );
       alert("Have new OfficerPC!");
       console.log("res: ", response);
-      console.log("allpostOfficerPC: ", message.value);
+      console.log("All post OfficerPC: ", message.value);
       console.log("postOfficerPC: ", response.data);
     } catch (error) {
       console.error(error);

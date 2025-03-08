@@ -5,7 +5,7 @@
       <h2 class="text-lg font-bold mb-5">
         ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
       </h2>
-      <p class="ml-5">ชื่อวารสาร : {{ data.jounal }}</p>
+      <p class="ml-5">ชื่อวารสาร : {{ data.journal }}</p>
       <p class="ml-5">ชื่อบทความ : {{ data.name }}</p>
 
       <div class="flex justify-center" v-if="data.form.form_status == 'ไม่อนุมัติ'">
@@ -264,7 +264,7 @@ const data = reactive({
   form: "",
   page_c: "",
   name: "",
-  jounal: "",
+  journal: "",
 
   //file
   pc_proof: null,
@@ -368,7 +368,7 @@ const getDataPc = async () => {
 
     data.form = response.data.form;
     data.page_c = response.data.page_c;
-    data.jounal = response.data.journal;
+    data.journal = response.data.journal;
     data.name = response.data.name;
 
     data.pc_proof = response.data.page_c.pc_proof;

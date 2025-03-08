@@ -10,7 +10,7 @@ import StatusKRISView from "@/views/status/StatusKRISView.vue";
 import HistoryView from "@/views/HistoryView.vue";
 import Confer from "@/views/history/Confer.vue";
 import Page from "@/views/history/Page.vue";
-import Scolar from "@/views/history/Scolar.vue";
+import Kris from "@/views/history/Kris.vue";
 
 import eOffice from "@/views/EofficeView.vue"
 
@@ -20,7 +20,7 @@ import Homepage_Admin from "@/views/Homepage/Homepage_Admin.vue";
 
 import Pro_Confer from "@/views/form/Profess/Pro_Confer.vue";
 import Pro_Page from "@/views/form/Profess/Pro_Page.vue";
-import Pro_Scolar from "@/views/form/Profess/Pro_Kris.vue";
+import Pro_Kris from "@/views/form/Profess/Pro_Kris.vue";
 
 import offic_hrConfer from "@/views/form/Officer/Conference/HRConfer.vue";
 import offic_resConfer from "@/views/form/Officer/Conference/ResearchConfer.vue";
@@ -33,13 +33,13 @@ import offic_financePage from "@/views/form/Officer/PageCharge/FinancePag.vue";
 import offic_associatePage from "@/views/form/Officer/PageCharge/AssociatePage.vue";
 import offic_deanPage from "@/views/form/Officer/PageCharge/DeanPage.vue";
 
-import offic_Scolar from "@/views/form/Officer/Scolar.vue";
+import offic_Kris from "@/views/form/Officer/Kris.vue";
 
 import Profile from "@/views/Profile.vue";
 
 import his_confer from '@/views/history/Confer.vue'
 import his_pageCharge from '@/views/history/Page.vue'
-import his_kris from '@/views/history/Scolar.vue'
+import his_kris from '@/views/history/Kris.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -98,7 +98,7 @@ const router = createRouter({
     {
       path: "/historyKris",
       name: "HistoryKris",
-      component: Scolar,
+      component: Kris,
     },
     {
       path: "/formConfer",
@@ -113,7 +113,7 @@ const router = createRouter({
     {
       path: "/formKris",
       name: "FormKris",
-      component: Pro_Scolar,
+      component: Pro_Kris,
     },
     {
       path: "/officFormConfer/hr/:id",
@@ -163,7 +163,7 @@ const router = createRouter({
     {
       path: "/officFormKris/research/:id",
       name: "OfficFormKris",
-      component: offic_Scolar,
+      component: offic_Kris,
     },
     {
       path: "/status/Conference/:id",

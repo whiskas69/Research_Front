@@ -1,5 +1,4 @@
 <template>
-  <!-- Radio input -->
   <div :class="`from-control w-full ${customDiv}`">
     <label class="w-full flex items-center">
       <input

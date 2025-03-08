@@ -227,12 +227,12 @@
               />
               <div class="flex flex-row w-full px-7 my-2">
                 <TextInputLabelLeft
-                  label="• ค่า Citation total"
+                  label="• ค่า citation total"
                   customLabel="w-auto mr-1"
                   customDiv="max-w-max"
                   customInput="max-w-max mr-3"
-                  v-model="formData.citat"
-                  @input="handleInput('citat', $event.target.value)"
+                  v-model="formData.Citation"
+                  @input="handleInput('Citation', $event.target.value)"
                 />
                 <TextInputLabelLeft
                   label="x H-Index"
@@ -281,15 +281,15 @@
             label="ผู้ประพันธ์อันดับแรก First Author"
             value="First Author"
             name="Author"
-            v-model="formData.redioAuth"
-            @change="handleInput('redioAuth', $event.target.value)"
+            v-model="formData.radioAuth"
+            @change="handleInput('radioAuth', $event.target.value)"
           />
           <RadioInput
             label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
             value="Corresponding Author"
             name="Author"
-            v-model="formData.redioAuth"
-            @change="handleInput('redioAuth', $event.target.value)"
+            v-model="formData.radioAuth"
+            @change="handleInput('radioAuth', $event.target.value)"
           />
         </SectionWrapper>
       </Mainbox>
@@ -315,15 +315,15 @@
                 label="สถานที่จัดภายในประเทศ"
                 name="thai"
                 value="ในประเทศ"
-                v-model="formData.locat"
-                @change="handleInput('locat', $event.target.value)"
+                v-model="formData.location"
+                @change="handleInput('location', $event.target.value)"
               />
               <RadioInput
                 label="สถานที่จัด ณ ต่างประเทศ"
                 name="thai"
                 value="ต่างประเทศ"
-                v-model="formData.locat"
-                @change="handleInput('locat', $event.target.value)"
+                v-model="formData.location"
+                @change="handleInput('location', $event.target.value)"
               />
             </div>
           </SectionWrapper>
@@ -750,16 +750,16 @@ const formData = reactive({
   hIndexYear: 0,
   total: 0,
   // CIF
-  citat: 0,
+  Citation: 0,
   //CORE Conference Ranking
   coreConf: "",
 
   //AuthForm
-  redioAuth: "",
+  radioAuth: "",
 
   //การลา
   timeLeave: "",
-  locat: "",
+  location: "",
   wos: "",
   nameWos: "",
   withdraw: "",
@@ -858,8 +858,8 @@ const totalScore = computed(() => {
     return null;
   } else if (formData.score == "CIF") {
     console.log("CIF");
-    if (formData.citat != null && formData.hIndex != null) {
-      return 0.5 * (formData.citat / 200 + formData.hIndex);
+    if (formData.Citation != null && formData.hIndex != null) {
+      return 0.5 * (formData.Citation / 200 + formData.hIndex);
     }
     return null;
   }
@@ -919,14 +919,14 @@ const newConfer = async () => {
       conf_name: formData.conferenceName,
       meeting_date: formData.meetingDate,
       meeting_venue: formData.meetingVenue,
-      date_submit_orrganizer: formData.dateSubmitToOrganizer,
+      date_submit_organizer: formData.dateSubmitToOrganizer,
       argument_date_review: formData.argumentDateReview,
       last_day_register: formData.lastDayRegister,
       meeting_type: formData.meetingType,
       quality_meeting: formData.qualityMeeting,
-      presenter_type: formData.redioAuth,
+      presenter_type: formData.radioAuth,
       time_of_leave: formData.timeLeave,
-      locattion_1: formData.locat,
+      location_1: formData.location,
       wos_2_leave: formData.wos,
       name_2_leave: formData.nameWos,
       withdraw: formData.withdraw,
@@ -955,7 +955,7 @@ const newConfer = async () => {
       sjr_year: formData.sjrYear,
       hindex_score: formData.hIndex,
       hindex_year: formData.hIndexYear,
-      citat: formData.citat,
+      Citation: formData.Citation,
       score_result: formData.total,
       core_rank: formData.coreConf,
 

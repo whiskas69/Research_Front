@@ -190,7 +190,7 @@
                   class="flex items-center w-1/3"
                   label="มาตรา 52 (เพื่อประโยชน์ทางการค้า)"
                   customDiv="max-w-80"
-                  disabled="flase"
+                  disabled="false"
                   :checked="
                     formData.kris.res_standard_trade == 'มาตรา 52'
                       ? true
@@ -201,7 +201,7 @@
                 <RadioInput
                   class="flex items-center"
                   label="มาตรา 53 (ไม่มีวัตถุประสงค์เพื่อประโยชน์ทางการค้า)"
-                  disabled="flase"
+                  disabled="false"
                   :checked="
                     formData.kris.res_standard_trade == 'มาตรา 53'
                       ? true
@@ -246,7 +246,7 @@
               <TextInputLabelLeft
                 label="ประวัติด้านสิ่งประดิษฐ์ หรือ นวัตกรรม"
                 customLabel="w-3/12"
-                :placeholder="formData.kris.his_inveninno"
+                :placeholder="formData.kris.his_invention"
                 disabled="true"
               />
               <div class="flex flex-row">
@@ -255,7 +255,7 @@
                   customLabel="w-[530px]"
                   customDiv="max-w-[600px]"
                   customInput="w-32"
-                  :placeholder="formData.kris.participation_percen"
+                  :placeholder="formData.kris.participation_percent"
                   disabled="true"
                 />
                 <span class="text-sm text-red-500 w-1/6 flex items-center"
@@ -323,15 +323,15 @@
             label="รับทราบ"
             name="noted"
             value="รับทราบ"
-            v-model="formData.redioAuthOffic"
-            @change="handleInput('redioAuthOffic', $event.target.value)"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
           />
           <RadioInput
             label="ไม่รับทราบ"
             name="noted"
             value="ไม่รับทราบ"
-            v-model="formData.redioAuthOffic"
-            @change="handleInput('redioAuthOffic', $event.target.value)"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
           />
         </SectionWrapper>
       </Mainbox>
@@ -377,7 +377,7 @@ const formData = reactive({
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
   // ความเห้นเจ้าหน้าที่
-  redioAuthOffic: "",
+  radioAuthOffic: "",
   formStatus: "เข้าที่ประชุม"
 });
 console.log("kris", formData);
@@ -510,7 +510,7 @@ const OfficerKris = async () => {
   try {
     const dataForBackend = {
       kris_id: id,
-      research_admin: formData.redioAuthOffic,
+      research_admin: formData.radioAuthOffic,
       doc_submit_date: formData.docSubmitDate,
       //form
       form_status: formData.formStatus,

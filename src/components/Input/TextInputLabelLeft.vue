@@ -30,10 +30,6 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  inputtext: {
-    type: String,
-    default: "",
-  },
   customDiv: {
     type: String,
     default: "",

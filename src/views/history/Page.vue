@@ -1,6 +1,6 @@
 <template>
     <p class="text-2xl font-bold text-center my-10">ประวัติเอกสาร</p>
-  <hisPageChage :id="id" />
+  <hisPageCharge :id="id" />
       <div class="container my-10 mx-auto">
     <div class="flex justify-end">
       <button
@@ -17,7 +17,7 @@
 import { useRoute } from "vue-router";
 import { jsPDF } from "jspdf";
 
-import hisPageChage from "@/components/form/History/PageCharge.vue";
+import hisPageCharge from "@/components/form/History/PageCharge.vue";
 
 // Access route parameters
 const route = useRoute();

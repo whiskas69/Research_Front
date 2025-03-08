@@ -1,10 +1,8 @@
 <template>
     <Mainbox>
-
-        <p class="leading-9 text-lg font-bold"> 2. รายละเอียดผลงานวิจัยที่ส่งเสนอพิจารณา / ได้รับการตอบรับให้ตีพิมพ์
-        </p>
+        <p class="leading-9 text-lg font-bold"> 2. รายละเอียดผลงานวิจัยที่ส่งเสนอพิจารณา / ได้รับการตอบรับให้ตีพิมพ์</p>
         <SectionWrapper>
-            <TextInputLabelLeft 
+            <TextInputLabelLeft
             :label="props.ReachDetail.NameReach.label"
                 :disabled="props.ReachDetail.NameReach.disabled"
                 :customLabel="props.ReachDetail.NameReach.customLabel" />
