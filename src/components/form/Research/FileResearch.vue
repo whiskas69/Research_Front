@@ -19,7 +19,7 @@ import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import FileInput from "@/components/Input/FileInput.vue"
 
-// For reciving data from Scolaruse.vue in tag Research
+// For reciving data from Krisuse.vue in tag Research
 const props = defineProps({
   ResearchForm: {
     type: Object,

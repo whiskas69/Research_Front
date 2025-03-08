@@ -292,7 +292,7 @@
                 value="วิจัยพื้นฐาน"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
-                disabled="flase"
+                disabled="false"
                 :checked="
                   formData.pageChange.research_type == 'วิจัยพื้นฐาน'
                     ? true
@@ -305,7 +305,7 @@
                 value="วิจัยประยุกต์"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
-                disabled="flase"
+                disabled="false"
                 :checked="
                   formData.pageChange.research_type == 'วิจัยประยุกต์'
                     ? true
@@ -318,7 +318,7 @@
                 value="วิจัยและพัฒนา"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
-                disabled="flase"
+                disabled="false"
                 :checked="
                   formData.pageChange.research_type == 'วิจัยและพัฒนา'
                     ? true
@@ -332,7 +332,7 @@
                   value="วิจัยอื่น ๆ"
                   name="type"
                   customDiv="max-w-fit mr-2 flex items-center"
-                  disabled="flase"
+                  disabled="false"
                   :checked="
                     formData.pageChange.research_type == 'วิจัยอื่น ๆ'
                       ? true
@@ -344,7 +344,7 @@
                   v-if="formData.pageChange.research_type == 'วิจัยอื่น ๆ '"
                   label="(ระบุ)"
                   name="type"
-                  customDiv="max-w-fit flex items-cente"
+                  customDiv="max-w-fit flex items-center"
                   v-model="formData.pageChange.research_type2"
                 />
               </div>
@@ -383,7 +383,7 @@
             label="ผู้ประพันธ์อันดับแรก First Author"
             value="First Author"
             name="Author"
-            disabled="flase"
+            disabled="false"
             :checked="
               formData.pageChange.presenter_type == 'First Author'
                 ? true
@@ -395,7 +395,7 @@
             label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
             value="Corresponding Author"
             name="Author"
-            disabled="flase"
+            disabled="false"
             :checked="
               formData.pageChange.presenter_type == 'Corresponding Author'
                 ? true
@@ -517,8 +517,8 @@
             label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้"
             value="อนุมัติ"
             name="re"
-            v-model="formData.redioAuthOffic"
-            @change="handleInput('redioAuthOffic', $event.target.value)"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
           />
           <textarea
             class="textarea textarea-bordered w-full"
@@ -528,8 +528,8 @@
             label="ถูกต้องตามเงื่อนไขการสนับสนุน กรณีส่งหนังสือตอบรับย้อนหลัง ดังนี้"
             value="รอหนังสือตอบรับ"
             name="re"
-            v-model="formData.redioAuthOffic"
-            @change="handleInput('redioAuthOffic', $event.target.value)"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
           />
           <textarea
             class="textarea textarea-bordered w-full"
@@ -539,8 +539,8 @@
             label="อื่น ๆ"
             value="อื่น ๆ"
             name="re"
-            v-model="formData.redioAuthOffic"
-            @change="handleInput('redioAuthOffic', $event.target.value)"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
           />
           <textarea
             class="textarea textarea-bordered w-full"
@@ -591,7 +591,7 @@ const formData = reactive({
   //satatus
   statusForm: "ฝ่ายบริหารการเงิน",
   // ความเห้นเจ้าหน้าที่
-  redioAuthOffic: "",
+  radioAuthOffic: "",
   description: "",
 });
 
@@ -672,7 +672,7 @@ const OfficerPC = async () => {
   try {
     const dataForBackend = {
       pageC_id: id,
-      p_research_admin: formData.redioAuthOffic,
+      p_research_admin: formData.radioAuthOffic,
       p_reason: formData.description,
       research_doc_submit_date: formData.docSubmitDate || null,
 

@@ -5,7 +5,7 @@
       <h2 class="text-lg font-bold mb-5">
         ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
       </h2>
-      <p class="ml-5">ชื่อการประชุม : {{ data.confername }}</p>
+      <p class="ml-5">ชื่อการประชุม : {{ data.confer_name }}</p>
       <p class="ml-5">ชื่อบทความ : {{ data.name }}</p>
 
       <div class="flex justify-center" v-if="data.form.form_status == 'ไม่อนุมัติ'">
@@ -367,7 +367,7 @@ const data = reactive({
   form: "",
   conf: "",
   name: "",
-  confername: "",
+  confer_name: "",
 
   //file
   full_page: null,
@@ -506,7 +506,7 @@ const getDataConf = async () => {
 
     data.form = response.data.form;
     data.conf = response.data.conf;
-    data.confername = response.data.confername;
+    data.confer_name = response.data.confer_name;
     data.name = response.data.name;
 
     data.full_page = response.data.conf.full_page;

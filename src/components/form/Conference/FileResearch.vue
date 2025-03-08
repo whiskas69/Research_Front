@@ -26,7 +26,7 @@ import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import FileInput from "@/components/Input/FileInput.vue"
 import FileInputWithInput from "@/components/Input/FileInputWithInput.vue";
 
-// For reciving data from Scolaruse.vue in tag Research
+// For reciving data from Kris.vue in tag Research
 const props = defineProps({
   FileForm: {
     type: Object,

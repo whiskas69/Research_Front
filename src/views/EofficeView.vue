@@ -24,7 +24,7 @@
           </div>
           <div class="flex justify-end mr-5">
           <button
-            @click="addAppoved(form.form_id)"
+            @click="addapproved(form.form_id)"
             class="btn btn-success text-white"
           >
             คลิกเมื่อเอกสารได้รับการอนุมัติ
@@ -60,7 +60,7 @@
               </div>
               <div class="flex justify-end mr-5">
                 <button
-                  @click="addAppoved(form.form_id)"
+                  @click="addapproved(form.form_id)"
                   class="btn btn-success text-white"
                 >
                   คลิกเมื่อเอกสารได้รับการอนุมัติ
@@ -98,7 +98,7 @@
               </div>
               <div class="flex justify-end mr-5">
                 <button
-                  @click="addAppoved(form.form_id)"
+                  @click="addapproved(form.form_id)"
                   class="btn btn-success text-white"
                 >
                   คลิกเมื่อเอกสารได้รับการอนุมัติ
@@ -142,7 +142,7 @@ const pulldata = async () => {
   }
 };
 
-const addAppoved = async (formId) => {
+const addapproved = async (formId) => {
   console.log("formId", formId);
   console.log("data.allForm", data.allForm);
   console.log("form_status", data.allForm.form_status);

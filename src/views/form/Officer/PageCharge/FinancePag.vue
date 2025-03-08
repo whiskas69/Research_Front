@@ -327,7 +327,7 @@
                 label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
                 customInput="max-w-max text-center"
                 disabled="true"
-                :placeholder="formData.numAppove"
+                :placeholder="formData.numapprove"
               />
               <p class="flex items-center w-12">รายการ</p>
             </div>
@@ -338,7 +338,7 @@
                 label="รวมเป็นเงิน"
                 customInput="max-w-max text-center"
                 disabled="true"
-                :placeholder="formData.totalAppove"
+                :placeholder="formData.totalapprove"
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
@@ -427,8 +427,8 @@ const formData = reactive({
   // ความเห้นเจ้าหน้าที่
   year: "",
   totalAll: 0,
-  numAppove: 0,
-  totalAppove: 0,
+  numapprove: 0,
+  totalapprove: 0,
   creditLimit: 0,
   moneyConfer: 0,
   totalcreditLimit: 0,
@@ -436,7 +436,7 @@ const formData = reactive({
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
   typeFile: "Page_Charge",
-  //satatus
+  //status
   formStatus: "รองคณบดี",
 });
 
@@ -476,7 +476,7 @@ const handleInput = (key, value) => {
 
 const caltotalFaculty = computed(() => {
   formData.creditLimit =
-    parseFloat(formData.totalAll) - parseFloat(formData.totalAppove);
+    parseFloat(formData.totalAll) - parseFloat(formData.totalapprove);
   return formData.creditLimit;
 });
 
@@ -520,12 +520,12 @@ const fetchProfessorData = async () => {
         responseForm.data.form_status == "อนุมัติ" &&
         responseForm.data.form_type == "Page_Charge"
       ) {
-        formData.numAppove++;
-        formData.totalAppove += formData.totalAppove;
+        formData.numapprove++;
+        formData.totalapprove += formData.totalapprove;
       }
     }
-    console.log("numAppove", formData.numAppove);
-    console.log("totalAppove", formData.totalAppove);
+    console.log("numapprove", formData.numapprove);
+    console.log("totalapprove", formData.totalapprove);
   } catch (error) {
     console.error("Error fetching professor data:", error);
   } finally {
@@ -583,8 +583,8 @@ const OfficerPC = async () => {
       pageC_id: id,
       budget_year: formData.year,
       total_amount: formData.totalAll,
-      num_expenses_approved: formData.numAppove,
-      total_amount_approved: formData.totalAppove,
+      num_expenses_approved: formData.numapprove,
+      total_amount_approved: formData.totalapprove,
       remaining_credit_limit: formData.creditLimit,
       money_confer: formData.moneyConfer,
       total_remaining_credit_limit: formData.totalcreditLimit,

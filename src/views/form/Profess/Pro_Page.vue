@@ -423,7 +423,7 @@
                 label="วิจัยพื้นฐาน"
                 value="วิจัยพื้นฐาน"
                 name="type"
-                customDiv="max-w-fit mr-10 flex items-cente"
+                customDiv="max-w-fit mr-10 flex items-center"
                 v-model="formData.radioResearch"
                 @change="handleInput('radioResearch', $event)"
               />
@@ -431,7 +431,7 @@
                 label="วิจัยประยุกต์"
                 value="วิจัยประยุกต์"
                 name="type"
-                customDiv="max-w-fit mr-10 flex items-cente"
+                customDiv="max-w-fit mr-10 flex items-center"
                 v-model="formData.radioResearch"
                 @change="handleInput('radioResearch', $event)"
               />
@@ -439,7 +439,7 @@
                 label="วิจัยและพัฒนา"
                 value="วิจัยและพัฒนา"
                 name="type"
-                customDiv="max-w-fit mr-10 flex items-cente"
+                customDiv="max-w-fit mr-10 flex items-center"
                 v-model="formData.radioResearch"
                 @change="handleInput('radioResearch', $event)"
               />
@@ -448,14 +448,14 @@
                   label="วิจัยอื่น ๆ "
                   value="อื่นๆ"
                   name="type"
-                  customDiv="max-w-fit mr-2 flex items-cente"
+                  customDiv="max-w-fit mr-2 flex items-center"
                   v-model="formData.radioResearch"
                   @change="handleInput('radioResearch', $event)"
                 />
                 <TextInputLabelLeft
                   label="(ระบุ)"
                   name="type"
-                  customDiv="max-w-fit flex items-cente"
+                  customDiv="max-w-fit flex items-center"
                   v-model="formData.otherInput"
                   @input="handleInput('otherInput', $event)"
                 />

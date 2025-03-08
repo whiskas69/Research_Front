@@ -294,7 +294,7 @@
                 value="วิจัยพื้นฐาน"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
-                disabled="flase"
+                disabled="false"
                 :checked="
                   formData.pageChange.research_type == 'วิจัยพื้นฐาน'
                     ? true
@@ -307,7 +307,7 @@
                 value="วิจัยประยุกต์"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
-                disabled="flase"
+                disabled="false"
                 :checked="
                   formData.pageChange.research_type == 'วิจัยประยุกต์'
                     ? true
@@ -320,7 +320,7 @@
                 value="วิจัยและพัฒนา"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
-                disabled="flase"
+                disabled="false"
                 :checked="
                   formData.pageChange.research_type == 'วิจัยและพัฒนา'
                     ? true
@@ -334,7 +334,7 @@
                   value="วิจัยอื่น ๆ"
                   name="type"
                   customDiv="max-w-fit mr-2 flex items-center"
-                  disabled="flase"
+                  disabled="false"
                   :checked="
                     formData.pageChange.research_type == 'วิจัยอื่น ๆ'
                       ? true
@@ -346,7 +346,7 @@
                   v-if="formData.pageChange.research_type == 'วิจัยอื่น ๆ '"
                   label="(ระบุ)"
                   name="type"
-                  customDiv="max-w-fit flex items-cente"
+                  customDiv="max-w-fit flex items-center"
                   v-model="formData.pageChange.research_type2"
                 />
               </div>
@@ -385,7 +385,7 @@
             label="ผู้ประพันธ์อันดับแรก First Author"
             value="First Author"
             name="Author"
-            disabled="flase"
+            disabled="false"
             :checked="
               formData.pageChange.presenter_type == 'First Author'
                 ? true
@@ -397,7 +397,7 @@
             label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
             value="Corresponding Author"
             name="Author"
-            disabled="flase"
+            disabled="false"
             :checked="
               formData.pageChange.presenter_type == 'Corresponding Author'
                 ? true
@@ -519,7 +519,7 @@
             label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้"
             value="อนุมัติ"
             name="re"
-            disabled="flase"
+            disabled="false"
             :checked="
               formData.offic.p_research_admin == 'อนุมัติ' ? true : false
             "
@@ -534,7 +534,7 @@
             label="ถูกต้องตามเงื่อนไขการสนับสนุน กรณีส่งหนังสือตอบรับย้อนหลัง ดังนี้"
             value="รอหนังสือตอบรับ"
             name="re"
-            disabled="flase"
+            disabled="false"
             :checked="
               formData.offic.p_research_admin == 'รอหนังสือตอบรับ'
                 ? true
@@ -551,7 +551,7 @@
             label="อื่น ๆ"
             value="อื่น ๆ"
             name="re"
-            disabled="flase"
+            disabled="false"
             :checked="
               formData.offic.p_research_admin == 'อื่น ๆ' ? true : false
             "
@@ -693,8 +693,8 @@
               label="อนุมัติ"
               value="อนุมัติ"
               name="comment"
-              v-model="formData.redioAuthOffic"
-              @change="handleInput('redioAuthOffic', $event.target.value)"
+              v-model="formData.radioAuthOffic"
+              @change="handleInput('radioAuthOffic', $event.target.value)"
             />
           </div>
           <div class="px-2">
@@ -702,8 +702,8 @@
               label="ไม่อนุมัติ"
               value="ไม่อนุมัติ"
               name="comment"
-              v-model="formData.redioAuthOffic"
-              @change="handleInput('redioAuthOffic', $event.target.value)"
+              v-model="formData.radioAuthOffic"
+              @change="handleInput('radioAuthOffic', $event.target.value)"
             />
           </div>
           <div>
@@ -715,8 +715,8 @@
               label="อื่น ๆ"
               value="อื่น ๆ"
               name="comment"
-              v-model="formData.redioAuthOffic"
-              @change="handleInput('redioAuthOffic', $event.target.value)"
+              v-model="formData.radioAuthOffic"
+              @change="handleInput('radioAuthOffic', $event.target.value)"
             />
           </div>
           <div>
@@ -773,7 +773,7 @@ const formData = reactive({
   formStatus: "รออนุมัติ",
   // ความเห้นเจ้าหน้าที่
   acknowledge: "",
-  redioAuthOffic: "",
+  radioAuthOffic: "",
   description: "",
 });
 
@@ -896,7 +896,7 @@ const OfficerPC = async () => {
       //ka na bo dee
       p_date_accepted_approve: "2001-02-10", //fake
       p_acknowledge: formData.acknowledge,
-      p_approve_result: formData.redioAuthOffic,
+      p_approve_result: formData.radioAuthOffic,
       p_reason_dean_appeove: formData.description,
       dean_doc_submit_date: formData.docSubmitDate,
       //form

@@ -1,9 +1,7 @@
 <template>
   <div class="">
-    <!-- background -->
     <div class="h-[91.9vh] bg-cover bg-center flex justify-center items-center"
       style="background-image: url('/images/background.png')">
-      <!-- login box -->
       <div class="text-center bg-white w-1/4 rounded-md drop-shadow-lg p-5">
         <p class="text-2xl leading-relaxed">RESEARCH ADMINISTRATION</p>
         <p class="text-xl leading-relaxed pb-5">
@@ -51,7 +49,6 @@ const login = async () => {
             });
 
             console.log("login success :", res.data);
-            
             localStorage.setItem("loggedIn", "true");
             userStore.loggedIn = true;
 
@@ -71,7 +68,7 @@ const login = async () => {
             alert(error.response.data.message)
           }
         }
-      } 
+      }
     });
 
     googleAuth.requestCode();

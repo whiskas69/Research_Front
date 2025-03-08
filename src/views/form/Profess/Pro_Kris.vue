@@ -272,14 +272,14 @@
               <TextInputLabelLeft
                 label="ประวัติด้านสิ่งประดิษฐ์ หรือ นวัตกรรม"
                 customLabel="w-3/12"
-                v-model="formData.inveninno"
-                @input="handleInput('inveninno', $event.target.value)"
+                v-model="formData.invention"
+                @input="handleInput('invention', $event.target.value)"
               />
               <span
-                v-if="v$.inveninno.$error"
+                v-if="v$.invention.$error"
                 class="text-base ml-[17rem] text-red-500"
               >
-                {{ v$.inveninno.$errors[0].$message }}
+                {{ v$.invention.$errors[0].$message }}
               </span>
 
               <div class="flex flex-row">
@@ -377,7 +377,7 @@
       </Mainbox>
 
       <div class="flex justify-end">
-        <button @click="NewScolar" class="btn btn-success text-white">
+        <button @click="NewKris" class="btn btn-success text-white">
           บันทึกข้อมูล
         </button>
       </div>
@@ -431,7 +431,7 @@ const formData = reactive({
   positionENG: "",
   nameENG: "",
   Hindex: "",
-  inveninno: "",
+  invention: "",
   participation: "",
   periodYear: "",
   periodStart: "",
@@ -489,7 +489,7 @@ const rules = {
       minValue(0)
     ),
   },
-  inveninno: { required: helpers.withMessage("* กรุณากรอกข้อมูล *", required) },
+  invention: { required: helpers.withMessage("* กรุณากรอกข้อมูล *", required) },
   participation: {
     required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
@@ -586,7 +586,7 @@ const handleFile = (event, fieldName) => {
   }
 };
 
-const NewScolar = async () => {
+const NewKris = async () => {
   const result = await v$.value.$validate();
 
   if (result) {
@@ -600,8 +600,8 @@ const NewScolar = async () => {
         res_standard: formData.resStandards,
         res_standard_trade: formData.resStandardsTrade,
         h_index: formData.Hindex,
-        his_inveninno: formData.inveninno,
-        participation_percen: formData.participation,
+        his_invention: formData.invention,
+        participation_percent: formData.participation,
         year: formData.periodYear,
         project_periodStart: formData.periodStart,
         project_periodEnd: formData.periodEnd,

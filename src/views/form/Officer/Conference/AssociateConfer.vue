@@ -109,7 +109,7 @@
               customInput="max-w-max"
               disabled="true"
               :placeholder="
-                formatThaiDate(formData.conference.date_submit_orrganizer)
+                formatThaiDate(formData.conference.date_submit_organizer)
               "
             />
             <TextInputLabelLeft
@@ -146,7 +146,7 @@
             label="การประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ และไม่อยู่ในฐานข้อมูลสากล SCOPUS"
             name="Scopus"
             value="คณะจัด ไม่อยู่scopus"
-            disabled="flase"
+            disabled="false"
             :checked="
               formData.conference.meeting_type == 'คณะจัด ไม่อยู่scopus'
                 ? true
@@ -157,7 +157,7 @@
             label="การประชุมทางวิชาการที่อยู่ในฐานข้อมูลสากล SCOPUS โดยมีการกำหนดคุณภาพแบ่งเป็น 2 ระดับ "
             name="Scopus"
             value="อยู่ในscopus"
-            disabled="flase"
+            disabled="false"
             :checked="
               formData.conference.meeting_type == 'อยู่ในscopus' ? true : false
             "
@@ -168,7 +168,7 @@
               label="ระดับมาตรฐาน"
               name="Level"
               value="มาตรฐาน"
-              disabled="flase"
+              disabled="false"
               :checked="
                 formData.conference.quality_meeting == 'มาตรฐาน' ? true : false
               "
@@ -177,7 +177,7 @@
               label="ระดับดีมาก"
               name="Level"
               value="ดีมาก"
-              disabled="flase"
+              disabled="false"
               :checked="
                 formData.conference.quality_meeting == 'ดีมาก' ? true : false
               "
@@ -187,7 +187,7 @@
                 label="ใช้คะแนนที่คำนวณจาก SJR indicator และ H Index ที่ได้มาจาก SCImago Journal & Country Rank"
                 name="Score"
                 value="SJR"
-                disabled="flase"
+                disabled="false"
                 :checked="formData.score.score_type == 'SJR' ? true : false"
               />
               <div v-if="formData.score.score_type == 'SJR'">
@@ -234,18 +234,18 @@
                 label="ใช้ผลการจัดระดับ CIF (Conference Impact Factor)"
                 name="Score"
                 value="CIF"
-                disabled="flase"
+                disabled="false"
                 :checked="formData.score.score_type == 'CIF' ? true : false"
               />
               <div v-if="formData.score.score_type == 'CIF'">
                 <div class="flex flex-row w-full px-7 my-2">
                   <TextInputLabelLeft
-                    label="• ค่า Citation total"
+                    label="• ค่า citation total"
                     customLabel="w-auto mr-1"
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
                     disabled="true"
-                    :placeholder="formData.score.citat"
+                    :placeholder="formData.score.Citation"
                   />
                   <TextInputLabelLeft
                     label="x H-Index"
@@ -264,7 +264,7 @@
                 label="ใช้ผลการจัดระดับ CORE Conference Ranking"
                 name="Score"
                 value="CORE"
-                disabled="flase"
+                disabled="false"
                 :checked="
                   formData.score.score_type == 'CORE' ? true : false
                 "
@@ -302,7 +302,7 @@
             label="ผู้ประพันธ์อันดับแรก First Author"
             value="First Author"
             name="Author"
-            disabled="flase"
+            disabled="false"
             :checked="
               formData.conference.presenter_type == 'First Author'
                 ? true
@@ -313,7 +313,7 @@
             label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
             value="Corresponding Author"
             name="Author"
-            disabled="flase"
+            disabled="false"
             :checked="
               formData.conference.presenter_type == 'Corresponding Author'
                 ? true
@@ -336,7 +336,7 @@
               label="ครั้งที่ 1"
               name="TimeLeave"
               value="1"
-              disabled="flase"
+              disabled="false"
               :checked="formData.conference.time_of_leave == 1 ? true : false"
             />
             <div
@@ -347,18 +347,18 @@
                 label="สถานที่จัดภายในประเทศ"
                 name="thai"
                 value="ในประเทศ"
-                disabled="flase"
+                disabled="false"
                 :checked="
-                  formData.conference.locattion_1 == 'ในประเทศ' ? true : false
+                  formData.conference.location_1 == 'ในประเทศ' ? true : false
                 "
               />
               <RadioInput
                 label="สถานที่จัด ณ ต่างประเทศ"
                 name="thai"
                 value="ต่างประเทศ"
-                disabled="flase"
+                disabled="false"
                 :checked="
-                  formData.conference.locattion_1 == 'ต่างประเทศ' ? true : false
+                  formData.conference.location_1 == 'ต่างประเทศ' ? true : false
                 "
               />
             </div>
@@ -369,7 +369,7 @@
               label="ครั้งที่ 2"
               name="TimeLeave"
               value="2"
-              disabled="flase"
+              disabled="false"
               :checked="formData.conference.time_of_leave == 2 ? true : false"
             />
             <p class="py-1 px-7">
@@ -384,7 +384,7 @@
                 label="WoS-Q1"
                 name="WoS"
                 value="WoS-Q1"
-                disabled="flase"
+                disabled="false"
                 :checked="
                   formData.conference.wos_2_leave == 'WoS-Q1' ? true : false
                 "
@@ -393,7 +393,7 @@
                 label="WoS-Q2"
                 name="WoS"
                 value="WoS-Q2"
-                disabled="flase"
+                disabled="false"
                 :checked="
                   formData.conference.wos_2_leave == 'WoS-Q2' ? true : false
                 "
@@ -421,14 +421,14 @@
               label="ไม่เกิน 50%"
               name="withdraw"
               value="50%"
-              disabled="flase"
+              disabled="false"
               :checked="formData.conference.withdraw == '50%' ? true : false"
             />
             <RadioInput
               label="ไม่เกิน 100% มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล"
               name="withdraw"
               value="100%"
-              disabled="flase"
+              disabled="false"
               :checked="formData.conference.withdraw == '100%' ? true : false"
             />
             <div
@@ -439,7 +439,7 @@
                 label="WoS-Q1"
                 name="WoS"
                 value="WoS-Q1"
-                disabled="flase"
+                disabled="false"
                 :checked="
                   formData.conference.wd_100_quality == 'WoS-Q1' ? true : false
                 "
@@ -448,7 +448,7 @@
                 label="WoS-Q2"
                 name="WoS"
                 value="WoS-Q2"
-                disabled="flase"
+                disabled="false"
                 :checked="
                   formData.conference.wd_100_quality == 'WoS-Q2' ? true : false
                 "
@@ -457,7 +457,7 @@
                 label="WoS-Q3"
                 name="WoS"
                 value="WoS-Q3"
-                disabled="flase"
+                disabled="false"
                 :checked="
                   formData.conference.wd_100_quality == 'WoS-Q3' ? true : false
                 "
@@ -466,7 +466,7 @@
                 label="SJR-Q1"
                 name="WoS"
                 value="SJR-Q1"
-                disabled="flase"
+                disabled="false"
                 :checked="
                   formData.conference.wd_100_quality == 'SJR-Q1' ? true : false
                 "
@@ -475,7 +475,7 @@
                 label="SJR-Q2"
                 name="WoS"
                 value="SJR-Q2"
-                disabled="flase"
+                disabled="false"
                 :checked="
                   formData.conference.wd_100_quality == 'SJR-Q2' ? true : false
                 "
@@ -501,7 +501,7 @@
             label="ณ ต่างประเทศ"
             name="Venue"
             value="ณ ต่างประเทศ"
-            disabled="flase"
+            disabled="false"
             :checked="
               formData.conference.country_conf == 'ณ ต่างประเทศ' ? true : false
             "
@@ -510,7 +510,7 @@
             label="ภายในประเทศ"
             name="Venue"
             value="ภายในประเทศ"
-            disabled="flase"
+            disabled="false"
             :checked="
               formData.conference.country_conf == 'ภายในประเทศ' ? true : false
             "
@@ -810,14 +810,14 @@
             label="ข้อมูลถูกต้อง"
             value="ถูกต้อง"
             name="re"
-            disabled="flase"
+            disabled="false"
             :checked="formData.offic.c_research_hr == 'ถูกต้อง' ? true : false"
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
             value="ไม่ถูกต้อง"
             name="re"
-            disabled="flase"
+            disabled="false"
             :checked="
               formData.offic.c_research_hr == 'ไม่ถูกต้อง' ? true : false
             "
@@ -841,7 +841,7 @@
               label="ระดับมาตรฐาน"
               name="Sub1"
               value="มาตรฐาน"
-              disabled="flase"
+              disabled="false"
               :checked="
                 formData.offic.c_meet_quality == 'มาตรฐาน' ? true : false
               "
@@ -850,7 +850,7 @@
               label="ระดับดีมาก"
               name="Sub1"
               value="ดีมาก"
-              disabled="flase"
+              disabled="false"
               :checked="formData.offic.c_meet_quality == 'ดีมาก' ? true : false"
             />
           </div>
@@ -988,8 +988,8 @@ const formData = reactive({
   // ความเห้นเจ้าหน้าที่
   year: "",
   totalAll: 0,
-  numAppove: 0,
-  totalAppove: 0,
+  numapprove: 0,
+  totalapprove: 0,
   creditLimit: 0,
   moneyConfer: 0,
   totalcreditLimit: 0,

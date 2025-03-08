@@ -118,7 +118,6 @@ const user = computed(() => userStore.user);
 const pulldata = async () => {
   try {
     const res = await api.get(`/form/${data.userID}`);
-    
     console.log("res", res.data)
 
     const filteredForms = res.data.filter(
