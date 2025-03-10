@@ -58,7 +58,7 @@
                   <td class="text-center">
                     <select
                       class="select select-bordered flex-1"
-                      @change="handleInput(user.user_id, $event)"
+                      @change="handleInput(user.user_id, $event, 'role')"
                     >
                       <option disabled selected>เลือกหน้าที่ผู้ใช้</option>
                       <option :value="'professor'">อาจารย์</option>
@@ -74,14 +74,15 @@
                   </td>
                   <td class="text-center">
                     <TextInputLabelLeft
+                    v-if="user.user_role == 'professor'"
                       customLabel="w-auto min-w-fit"
                       customDiv="max-w-max mr-10"
                       :placeholder="user.user_moneyCF"
-                      @input="handleInputMoney(user.user_id, $event)"
+                      @input="handleInput(user.user_id, $event, 'money')"
                     />
                   </td>
                   <td class="text-center">
-                    <button class="btn btn-error text-base text-white">
+                    <button @click="deleteUser(user.user_id)" class="btn btn-error text-base text-white">
                       ลบผู้ใช้
                     </button>
                   </td>
@@ -119,7 +120,7 @@
               <th class="text-center">{{ index + 1 }}</th>
               <td class="text-center">{{ user.user_nameth }}</td>
               <td class="text-center">{{ user.user_role }}</td>
-              <td class="text-center">{{ user.user_moneyCF }}</td>
+              <td class="text-center" v-if="user.user_role == 'professor'">{{ user.user_moneyCF }}</td>
             </tr>
           </tbody>
         </table>
@@ -150,22 +151,29 @@ const closeEdit = () => {
 const formData = reactive({
   users: [],
   userRoles: [],
+  userMoneyCF: []
 });
 
-const handleInput = (id, event) => {
-  const value = event.target.value; // ดึงค่าจาก input
-  // ตรวจสอบว่ามี `id` นี้ใน `userRoles` แล้วหรือยัง
-  const index = formData.userRoles.findIndex((item) => item.id === id);
+const handleInput = (id, event, type) => {
+  let value = event.target.value.trim(); // ตัดช่องว่าง
+  let targetArray = type === "money" ? formData.userMoneyCF : formData.userRoles;
 
+  // แปลงค่าเป็นตัวเลขถ้าเป็น `money`
+  if (type === "money") {
+    value = value ? parseInt(value, 10) : 0; // ถ้าเป็นค่าว่างให้เป็น `0`
+  }
+  // ตรวจสอบว่ามี `id` นี้อยู่แล้วหรือไม่
+  const index = targetArray.findIndex((item) => item.id === id);
+  console.log("index", index)
   if (index !== -1) {
     // ถ้ามีแล้วให้อัปเดตค่าใหม่
-    formData.userRoles[index].value = value;
+    targetArray[index].value = value;
   } else {
     // ถ้ายังไม่มีให้เพิ่ม Object ใหม่เข้าไป
-    formData.userRoles.push({ id, value });
+    targetArray.push({ id, value });
   }
 
-  console.log("Updated userRoles:", JSON.stringify(formData.userRoles));
+  console.log(`Updated ${type} ${index}:`, JSON.stringify(targetArray));
 };
 
 const isLoading = ref(true);
@@ -183,18 +191,37 @@ const fetchOfficerData = async () => {
 
 const updateUserRoles = async () => {
   try {
+    const mergedData = [...formData.userRoles, ...formData.userMoneyCF];
+    console.log("mergedData", mergedData)
     const response = await axios.put("http://localhost:3000/updateRoles", {
-      userRoles: formData.userRoles, // ส่ง userRoles [{ id: 1, value: 'admin' }, ...]
+      userUpdates: mergedData, // ส่ง userRoles [{ id: 1, value: 'admin' }, ...]
     });
 
     console.log("Response from server:", response.data);
-    alert(response.data.message);
+    
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+    location.reload();
   } catch (error) {
     console.error("Error updating user roles:", error);
     alert("เกิดข้อผิดพลาดในการอัปเดตข้อมูล");
   }
 };
 
+const deleteUser = async (id) => {
+  try {
+    const response = await axios.delete(`http://localhost:3000/user/${id}`, {
+      id, // ส่ง userRoles [{ id: 1, value: 'admin' }, ...]
+    });
+
+    console.log("delete id:", response.data);
+    
+    alert("ลบผู้ใช้เรียบร้อย");
+    window.location.reload();
+  } catch (error) {
+    console.error("Error updating user roles:", error);
+    alert("เกิดข้อผิดพลาดในการอัปเดตข้อมูล");
+  }
+}
 
 onMounted(async () => {
   await fetchOfficerData();
