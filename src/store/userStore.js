@@ -29,6 +29,7 @@ export const useUserStore = defineStore("user", {
 
         this.user = response.data.user;
       } catch (error) {
+        console.log("Userstore", error.response.data.message)
         alert(error.response.data.message);
 
         console.error("Error fetching user: ", error);

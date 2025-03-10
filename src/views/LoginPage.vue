@@ -79,6 +79,10 @@ const login = async () => {
 }
 
 onMounted(async () => {
-  await userStore.fetchUser();
+  onMounted(async () => {
+  if (!userStore.loggedIn) {
+    await userStore.fetchUser();
+  }
+});
 });
 </script>
