@@ -2,8 +2,10 @@
   <div class="relative">
     <div class="container my-10 mx-auto">
       <p class="text-xl font-bold pb-5">การจัดการผู้ใช้</p>
-      <p class="text-xl font-bold pb-5">มีการเพิ่มผุใช้ด้วย</p>
-      <TextInputLabelLeft
+      <Mainbox>
+        <p class="font-bold mb-5">เพิ่มผู้ใช้</p>
+        <SectionWrapper>
+          <TextInputLabelLeft
         label="ชื่อ (ภาษาไทย)"
         customLabel="mr-2"
         customInput="max-w-max"
@@ -76,6 +78,9 @@
       <button @click="addUser" class="btn btn-error text-base text-white">
         เพิ่มผู้ใช้
       </button>
+        </SectionWrapper>
+      </Mainbox>
+
       <!-- ปุ่มแก้ไข -->
       <div class="flex justify-end mt-5">
         <button @click="openEdit" class="btn btn-success text-base text-white">
@@ -211,6 +216,8 @@
 import { ref, reactive, computed, onMounted } from "vue";
 import axios from "axios";
 import api from "@/setting/api";
+import Mainbox from "@/components/form/Mainbox.vue";
+import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 
 const showEdit = ref(false);

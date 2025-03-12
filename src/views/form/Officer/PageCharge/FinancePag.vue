@@ -1,216 +1,8 @@
 <template>
   <div>
     <div class="container my-10 mx-auto">
-      <p class="text-xl font-bold mb-5">
-        ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
-      </p>
-      <Mainbox>
-        <SectionWrapper>
-          <TextInputLabelLeft
-            label="ชื่อ"
-            customLabel="w-2/12 text-lg font-bold"
-            disabled="true"
-            :placeholder="formData.user.user_nameth"
-          />
-          <TextInputLabelLeft
-            label="ตำแหน่ง"
-            customLabel="w-2/12 text-lg font-bold"
-            :placeholder="formData.user.user_positionth"
-            disabled="true"
-          />
-          <div class="flex flex-row">
-            <TextInputLabelLeft
-              label="มีรายชื่ออยู่ใน List ที่คณะได้ให้การรับรองแล้ว โดยมติคณะ ครั้งที่"
-              customLabel="w-auto"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              disabled="true"
-              :placeholder="formData.pageChange.pageC_times"
-            />
-            <TextInputLabelLeft
-              label="วันที่"
-              customLabel="ml-2 w-10"
-              customInput="max-w-max"
-              disabled="true"
-              :placeholder="formatThaiDate(formData.pageChange.pageC_days)"
-            />
-          </div>
-          <p class="text-red-500 text-sm">
-            สามารถตรวจสอบรายชื่อ List ของคณะได้ที่เว็บไซต์คณะที่ Share
-            online-การวิจัย และ
-            <a href="https://erp.it.kmitl.ac.th/journal_conf_list"
-              >https://erp.it.kmitl.ac.th/journal_conf_list</a
-            >
-          </p>
-        </SectionWrapper>
-      </Mainbox>
-      <!-- 1.  รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์  -->
-      <Mainbox>
-        <p class="leading-9 text-lg font-bold">
-          1. รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์
-        </p>
-        <SectionWrapper>
-          <TextInputLabelLeft
-            label="ชื่อวารสาร"
-            name="Input"
-            customLabel="w-24"
-            disabled="true"
-            :placeholder="formData.pageChange.journal_name"
-          />
-          <p>เป็นวารสารที่อยู่ในฐานข้อมูลสากล</p>
+      <PageChageData :id="id"/>
 
-          <div class="flex flex-row">
-            <CheckInput
-              label="ISI ได้รับการจัดลำดับ Quartile "
-              customDiv="max-w-72 flex items-center"
-              v-model="formData.checkISI"
-              :checked="formData.checkISI == 'ISI' ? true : false"
-              disabled="false"
-            />
-            <TextInputLabelLeft
-              v-if="formData.checkISI == 'ISI'"
-              label="ปี"
-              customLabel="mr-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              disabled="true"
-              :placeholder="formData.pageChange.pc_isi_year"
-            />
-            <TextInputLabelLeft
-              v-if="formData.checkISI == 'ISI'"
-                label="ลำดับ Quartile"
-                customLabel="mr-2"
-                customInput="max-w-max"
-                customDiv="max-w-max"
-                disabled="true"
-                :placeholder="formData.pageChange.qt_isi"
-              />
-            <TextInputLabelLeft
-              v-if="formData.checkISI == 'ISI'"
-              label="Impact Factor"
-              customLabel="w-28 mx-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              disabled="true"
-              :placeholder="formData.pageChange.impact_factor"
-            />
-          </div>
-
-          <div class="flex flex-row">
-            <CheckInput
-              label="SJR ได้รับการจัดลำดับ Quartile "
-              customDiv="max-w-72 flex items-center"
-              v-model="formData.checkSJR"
-              :checked="formData.checkSJR == 'SJR' ? true : false"
-              disabled="false"
-            />
-            <TextInputLabelLeft
-              v-if="formData.checkSJR == 'SJR'"
-              label="ปี"
-              customLabel="mr-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              disabled="true"
-              :placeholder="formData.pageChange.pc_sjr_year"
-            />
-            <TextInputLabelLeft
-            v-if="formData.checkSJR == 'SJR'"
-                label="ลำดับ Quartile"
-                customLabel="mr-2"
-                customInput="max-w-max"
-                customDiv="max-w-max"
-                disabled="true"
-                :placeholder="formData.pageChange.qt_sjr"
-              />
-            <TextInputLabelLeft
-              v-if="formData.checkSJR == 'SJR'"
-              label="SJR Score"
-              customLabel="w-28 mx-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              disabled="true"
-              :placeholder="formData.pageChange.sjr_score"
-            />
-          </div>
-
-          <div class="flex flex-row">
-            <CheckInput
-              label="Scopus ได้รับการจัดลำดับ Quartile "
-              customDiv="max-w-72 flex items-center"
-              v-model="formData.checkScopus"
-              :checked="formData.checkScopus == 'Scopus' ? true : false"
-              disabled="false"
-            />
-            <TextInputLabelLeft
-              v-if="formData.checkScopus == 'Scopus'"
-              label="ปี"
-              customLabel="mr-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              disabled="true"
-              :placeholder="formData.pageChange.pc_scopus_year"
-            />
-            <TextInputLabelLeft
-            v-if="formData.checkScopus == 'Scopus'"
-                label="ลำดับ Quartile"
-                customLabel="mr-2"
-                customInput="max-w-max"
-                customDiv="max-w-max"
-                disabled="true"
-                :placeholder="formData.pageChange.qt_scopus"
-              />
-            <TextInputLabelLeft
-              v-if="formData.checkScopus == 'Scopus'"
-              label="Cite Score"
-              customLabel="w-28 mx-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              disabled="true"
-              :placeholder="formData.pageChange.cite_score"
-            />
-          </div>
-
-          <div class="flex flex-row">
-            <CheckInput
-              label="Nature"
-              customDiv="max-w-72 flex items-center"
-              v-model="formData.nature"
-              :checked="formData.nature == 'nature' ? true : false"
-              disabled="false"
-            />
-          </div>
-
-          <label class="form-control">
-            <div class="flex flex-row">
-              <TextInputLabelLeft
-                label="วงเงินตามเกณฑ์การให้การสนับสนุนไม่เกิน"
-                customLabel="w-auto mx-2"
-                customInput="max-w-max"
-                customDiv="max-w-max"
-                disabled="true"
-                :placeholder="formData.pageChange.support_limit"
-              />
-              <span class="flex items-center">บาท</span>
-            </div>
-          </label>
-        </SectionWrapper>
-      </Mainbox>
-
-      <!-- 4. ขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge) -->
-      <Mainbox>
-        <p class="leading-9 text-lg font-bold">
-          4. ขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge)
-        </p>
-        <SectionWrapper>
-          <TextInputLabelLeft
-            label="จำนวนเงิน"
-            customLabel="w-auto min-w-fit"
-            customInput="max-w-fit"
-            disabled="true"
-            :placeholder="formData.pageChange.request_support"
-          />
-        </SectionWrapper>
-      </Mainbox>
       <!-- เอกสารหลักฐานที่แนบ -->
       <p class="text-xl font-bold my-5 bg-red-600">ยังไม่สามารถเปิด pdf ได้</p>
       <Mainbox>
@@ -405,25 +197,11 @@ import axios from "axios";
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
-import CheckInput from "@/components/Input/CheckInput.vue";
+import PageChageData from "@/components/form/DataforOffice/PageChage.vue";
 
 // จัดการข้อมูลหลัก
 const formData = reactive({
-  pageChange: [],
-  user: [],
-
-  check: [],
-  checkISI: "",
-  checkSJR: "",
-  checkScopus: "",
-  nature: "",
-  //FileForm
-  file1: null,
-  file2: null,
-  inputFile2: "",
-  file3: null,
-  file4: null,
-  file5: null,
+  offic: [],
   // ความเห้นเจ้าหน้าที่
   year: "",
   totalAll: 0,
@@ -449,20 +227,6 @@ const day = String(datetime.getDate()).padStart(2, "0");
 // Combine in YYYY-MM-DD format
 formData.docSubmitDate = `${year}-${month}-${day}`;
 console.log(formData.docSubmitDate);
-
-const formatThaiDate = (dateString) => {
-  console.log("formatThaiDate input: ", dateString);
-  const date = new Date(dateString);
-  const months = [
-    "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", 
-    "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."
-  ];
-  const day = date.getDate();
-  const month = months[date.getMonth()];
-  const year = date.getFullYear() + 543;
-  console.log("new date: ",`${day} ${month} ${year}`)
-  return `${day} ${month} ${year}`;
-};
 
 const handleInput = (key, value) => {
   formData[key] = value;
@@ -496,22 +260,13 @@ console.log("params.id", id);
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
 const fetchProfessorData = async () => {
   try {
-    const responsePC = await axios.get(
-      `http://localhost:3000/page_charge/${id}`
+    
+    const responseoffic = await axios.get(
+      `http://localhost:3000/opinionPC/${id}`
     );
-    const userID = responsePC.data.user_id;
-    const responseUser = await axios.get(
-      `http://localhost:3000/user/${userID}`
-    );
-    formData.user = responseUser.data;
-
-    console.log("get user: ", formData.user);
-    console.log("get userid: ", responsePC.data.user_id);
-    console.log("get responsePC: ", responsePC.data);
-
-    formData.pageChange = responsePC.data;
-    console.log("pageChange", formData.pageChange);
-    formData.check = formData.pageChange.quality_journal;
+    console.log("offic123", responseoffic);
+    formData.offic = responseoffic.data;
+    console.log("offic", JSON.stringify(formData.offic));
 
     const responseForm = await axios.get(`http://localhost:3000/allForms`);
     console.log("form 123", JSON.stringify(responseForm));
@@ -550,33 +305,6 @@ const cal = async () => {
   console.log("Fetching professor data...");
 };
 
-const loopdata = async () => {
-  console.log("in loop");
-
-  fetchProfessorData();
-
-  console.log("formdata, ", formData.check);
-  for (let i = 0; i < formData.check.length; i++) {
-    console.log("checking journal", formData.check[i]);
-    if (formData.check[i] == "nature") {
-      formData.nature = "nature";
-      console.log("Journal have 'nature'");
-    }
-    if (formData.check[i] == "ISI") {
-      formData.checkISI = "ISI";
-      console.log("Journal have 'ISI'");
-    }
-    if (formData.check[i] == "SJR") {
-      formData.checkSJR = "SJR";
-      console.log("Journal have 'SJR'");
-    }
-    if (formData.check[i] == "Scopus") {
-      formData.checkScopus = "Scopus";
-      console.log("Journal have 'Scopus'");
-    }
-  }
-};
-
 const OfficerPC = async () => {
   try {
     const dataForBackend = {
@@ -613,7 +341,6 @@ const OfficerPC = async () => {
 // ดึงข้อมูลเมื่อ component ถูกโหลด
 onMounted(async () => {
   await fetchProfessorData();
-  loopdata();
   cal();
 });
 </script>

@@ -8,9 +8,9 @@ import StatusPCView from "@/views/status/StatusPCView.vue";
 import StatusKRISView from "@/views/status/StatusKRISView.vue";
 
 import HistoryView from "@/views/HistoryView.vue";
-import Confer from "@/views/history/Confer.vue";
-import Page from "@/views/history/Page.vue";
-import Kris from "@/views/history/Kris.vue";
+import his_confer from '@/views/history/Confer.vue'
+import his_pageCharge from '@/views/history/Page.vue'
+import his_kris from '@/views/history/Kris.vue'
 
 import eOffice from "@/views/EofficeView.vue"
 
@@ -36,10 +36,6 @@ import offic_deanPage from "@/views/form/Officer/PageCharge/DeanPage.vue";
 import offic_Kris from "@/views/form/Officer/Kris.vue";
 
 import Profile from "@/views/Profile.vue";
-
-import his_confer from '@/views/history/Confer.vue'
-import his_pageCharge from '@/views/history/Page.vue'
-import his_kris from '@/views/history/Kris.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -86,21 +82,6 @@ const router = createRouter({
       component: HistoryView,
     },
     {
-      path: "/historyConfer",
-      name: "HistoryConfer",
-      component: Confer,
-    },
-    {
-      path: "/historyPC",
-      name: "HistoryPC",
-      component: Page,
-    },
-    {
-      path: "/historyKris",
-      name: "HistoryKris",
-      component: Kris,
-    },
-    {
       path: "/formConfer",
       name: "Form_Confer",
       component: Pro_Confer,
@@ -136,7 +117,7 @@ const router = createRouter({
       component: offic_associateConfer,
     },
     {
-      path: "/officFormConfer/deane/:id",
+      path: "/officFormConfer/dean/:id",
       name: "officFormConferDean",
       component: offic_deanConfer,
     },
