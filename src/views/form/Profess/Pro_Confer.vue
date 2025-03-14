@@ -56,7 +56,7 @@
           <div class="flex flex-row">
             <TextInputLabelLeft
               label="เดินทางวันที่"
-              customLabel="w-auto mr-1"
+              customLabel="w-auto mr-2"
               customDiv="max-w-max"
               customInput="max-w-max"
               type="date"
@@ -65,8 +65,8 @@
             />
             <TextInputLabelLeft
               label="ถึงวันที่"
-              customLabel="w-auto mr-8"
-              customDiv="max-w-max ml-36"
+              customLabel="w-auto mr-2"
+              customDiv="max-w-max ml-[10%]"
               customInput="max-w-max"
               type="date"
               v-model="formData.travelEnd"
@@ -80,6 +80,7 @@
             v-model="formData.research"
             @input="handleInput('research', $event.target.value)"
           />
+
           <TextInputLabelLeft
             label="ชื่อการประชุมทางวิชาการ"
             customLabel="w-1/6"
@@ -88,10 +89,30 @@
           />
 
           <div class="flex flex-row">
+            <p class="w-[40%]">การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
+
+            <RadioInput
+              customDiv="w-[20%]"
+              label="ณ ต่างประเทศ"
+              name="Venue"
+              value="ณ ต่างประเทศ"
+              v-model="formData.venue"
+              @change="handleInput('venue', $event.target.value)"
+            />
+            <RadioInput
+              label="ภายในประเทศ"
+              name="Venue"
+              value="ภายในประเทศ"
+              v-model="formData.venue"
+              @change="handleInput('venue', $event.target.value)"
+            />
+          </div>
+
+          <div class="flex flex-row">
             <TextInputLabelLeft
               label="วันที่จัด"
-              customLabel="w-auto mr-8"
-              customDiv="max-w-max mr-36"
+              customLabel="w-auto mr-9"
+              customDiv="max-w-max mr-10"
               customInput="max-w-max"
               type="date"
               v-model="formData.meetingDate"
@@ -100,36 +121,54 @@
             <TextInputLabelLeft
               label="สถานที่จัด"
               customLabel="w-24"
+              customInput="w-full"
               v-model="formData.meetingVenue"
               @input="handleInput('meetingVenue', $event.target.value)"
+            />
+            <TextInputLabelLeft
+              v-if="formData.venue == 'ณ ต่างประเทศ'"
+              customDiv="ml-10"
+              label="ประเทศ"
+              customLabel="w-24"
+              customInput="w-full"
+              v-model="formData.location"
+              @input="handleInput('location', $event.target.value)"
+            />
+            <TextInputLabelLeft
+              v-if="formData.venue == 'ภายในประเทศ'"
+              customDiv="ml-10"
+              label="จังหวัด"
+              customLabel="w-24"
+              customInput="w-full"
+              v-model="formData.location"
+              @input="handleInput('location', $event.target.value)"
             />
           </div>
 
           <div class="flex flex-row justify-between">
             <TextInputLabelLeft
               label="วันที่ส่งบทความไปยังผู้จัด"
-              customLabel="w-auto mr-1"
+              type="date"
               customDiv="max-w-max"
               customInput="max-w-max"
-              type="date"
               v-model="formData.dateSubmitToOrganizer"
               @input="handleInput('dateSubmitToOrganizer', $event.target.value)"
             />
+
             <TextInputLabelLeft
               label="วันประกาศผลการพิจารณาบทความ"
-              customLabel="w-auto mr-1"
+              type="date"
               customDiv="max-w-max"
               customInput="max-w-max"
-              type="date"
               v-model="formData.argumentDateReview"
               @input="handleInput('argumentDateReview', $event.target.value)"
             />
+
             <TextInputLabelLeft
               label="วันสุดท้ายของการลงทะเบียน"
-              customLabel="w-auto mr-1"
+              type="date"
               customDiv="max-w-max"
               customInput="max-w-max"
-              type="date"
               v-model="formData.lastDayRegister"
               @input="handleInput('lastDayRegister', $event.target.value)"
             />
@@ -184,7 +223,7 @@
               <div class="flex flex-row w-full px-7 my-2">
                 <TextInputLabelLeft
                   label="• ค่า SJR"
-                  customLabel="w-auto mr-1"
+                  customLabel="w-16 mr-1"
                   customDiv="max-w-max"
                   customInput="max-w-max mr-3"
                   v-model="formData.sjr"
@@ -214,10 +253,11 @@
                   v-model="formData.hIndexYear"
                   @input="handleInput('hIndexYear', $event.target.value)"
                 />
+                <span v-if="formData.score == 'SJR'" class="place-self-center"
+                  >มีค่าคะแนน = {{ totalScore }} คะแนน</span
+                >
               </div>
-              <span v-if="formData.score == 'SJR'" class="place-self-center"
-                >มีค่าคะแนน = {{ totalScore }} คะแนน</span
-              >
+
               <RadioInput
                 label="ใช้ผลการจัดระดับ CIF (Conference Impact Factor)"
                 name="Score"
@@ -242,10 +282,10 @@
                   v-model="formData.hIndex"
                   @input="handleInput('hIndex', $event.target.value)"
                 />
-              </div>
-              <span v-if="formData.score == 'CIF'" class="place-self-center"
+                <span v-if="formData.score == 'CIF'" class="place-self-center"
                 >มีค่าคะแนน = {{ totalScore }} คะแนน</span
               >
+              </div>
 
               <RadioInput
                 label="ใช้ผลการจัดระดับ CORE Conference Ranking"
@@ -310,25 +350,6 @@
               v-model="formData.timeLeave"
               @change="handleInput('timeLeave', $event.target.value)"
             />
-            <div class="flex flex-row px-7 mt-1">
-              <RadioInput
-                label="สถานที่จัดภายในประเทศ"
-                name="thai"
-                value="ในประเทศ"
-                v-model="formData.location"
-                @change="handleInput('location', $event.target.value)"
-              />
-              <RadioInput
-                label="สถานที่จัด ณ ต่างประเทศ"
-                name="thai"
-                value="ต่างประเทศ"
-                v-model="formData.location"
-                @change="handleInput('location', $event.target.value)"
-              />
-            </div>
-          </SectionWrapper>
-
-          <SectionWrapper>
             <RadioInput
               label="ครั้งที่ 2"
               name="TimeLeave"
@@ -431,27 +452,6 @@
               />
             </div>
           </SectionWrapper>
-        </SectionWrapper>
-      </Mainbox>
-
-      <!-- 5. เป็นการประชุมวิชาการที่ใช้สถานที่จัด -->
-      <Mainbox>
-        <p class="text-lg font-bold">5. เป็นการประชุมวิชาการที่ใช้สถานที่จัด</p>
-        <SectionWrapper>
-          <RadioInput
-            label="ณ ต่างประเทศ"
-            name="Venue"
-            value="ณ ต่างประเทศ"
-            v-model="formData.venue"
-            @change="handleInput('venue', $event.target.value)"
-          />
-          <RadioInput
-            label="ภายในประเทศ"
-            name="Venue"
-            value="ภายในประเทศ"
-            v-model="formData.venue"
-            @change="handleInput('venue', $event.target.value)"
-          />
         </SectionWrapper>
       </Mainbox>
 
@@ -564,11 +564,7 @@
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
-              <p
-                class="flex items-center"
-              >
-                รวม {{ totalRoom }} บาท
-              </p>
+              <p class="flex items-center">รวม {{ totalRoom }} บาท</p>
             </div>
 
             <div class="flex flex-row mb-2 justify-between">
@@ -608,88 +604,58 @@
             label="สำเนาบทความ (Full Paper)"
             name="First"
             type="file"
-            v-model="formData.file1"
             @change="handleFile($event, 'file1')"
           />
           <!-- have input -->
           <TextInputLabelLeft
-            label="เมื่อ ของอันที่ 2"
-            customLabel="pr-2"
-            v-model="formData.inputFile2"
+            label="*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* (Full Paper ประกอบการเบิก) มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล WoS/SJR ซึ่งได้รับการตีพิมพ์ไม่เกิน 2 ปี ก่อนการประชุม เมื่อ"
+            customLabel="w-[290%]"
+            customInput="w-1/6"
             @input="handleInput('inputFile2', $event.target.value)"
           />
           <FileInput
-            span="*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน"
-            customSpan="text-blue-500"
-            label="(Full Paper ประกอบการเบิก) มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล WoS/SJR ซึ่งได้รับการตีพิมพ์ไม่เกิน 2 ปี ก่อนการประชุม เมื่อ"
             name="Second"
             type="file"
-            v-model="formData.file2"
             @change="handleFile($event, 'file2')"
           />
           <FileInput
-            span="*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน"
-            customSpan="text-blue-500"
-            label="หลักฐานเอกสาร Quartile ของ Paper ที่ใช้ประกอบการเบิก"
+            label="*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* หลักฐานเอกสาร Quartile ของ Paper ที่ใช้ประกอบการเบิก"
             name="Third"
             type="file"
-            v-model="formData.file3"
             @change="handleFile($event, 'file3')"
           />
           <FileInput
             label="เอกสารประชาสัมพันธ์การจัดการประชุมทางวิชาการ (Call for paper)"
             name="Fourth"
             type="file"
-            v-model="formData.file4"
             @change="handleFile($event, 'file4')"
           />
           <FileInput
             label="จดหมายการตอบรับเข้าร่วมประชุม (Accepted)"
             name="Fifth"
             type="file"
-            v-model="formData.file5"
             @change="handleFile($event, 'file5')"
           />
           <FileInput
             label="เอกสารแสดงค่าลงทะเบียน"
             name="Sixth"
             type="file"
-            v-model="formData.file6"
             @change="handleFile($event, 'file6')"
           />
           <FileInput
             label="เอกสารแสดงอัตราแลกเปลี่ยน (ณ วันที่ยื่น)"
             name="Seventh"
             type="file"
-            v-model="formData.file7"
             @change="handleFile($event, 'file7')"
           />
           <FileInput
             label="หลักฐานการประชุมวิชาการอยู่ในฐาน Scopus"
             name="Eighth"
             type="file"
-            v-model="formData.file8"
             @change="handleFile($event, 'file8')"
-          />
-          <FileInput
-            label="อื่นๆ"
-            name="Ninth"
-            type="file"
-            v-model="formData.file9"
-            @change="handleFile($event, 'file9')"
-          />
-          <TextInputLabelLeft
-            label="ชื่อเอกสาร"
-            customLabel="pr-2"
-            v-model="formData.inputFile9"
-            @input="handleInput('inputFile9', $event.target.value)"
           />
         </SectionWrapper>
       </Mainbox>
-      {{ formData }}
-      <!-- <p>asdf</p>
-{{datetime}}
-{{datetime2}} -->
       <div class="flex justify-end">
         <button @click="newConfer" class="btn btn-success text-white">
           บันทึกข้อมูล
@@ -801,10 +767,6 @@ const formData = reactive({
   file8: null,
   file9: null,
   inputFile9: "",
-
-  //form
-  typeFile: "Conference",
-  //satatus
 });
 
 onMounted(async () => {
@@ -895,7 +857,7 @@ const allTotal = computed(() => {
     (parseFloat(formData.domesticExpenses) || 0) +
     (parseFloat(formData.overseasExpenses) || 0) +
     (parseFloat(formData.interExpenses) || 0) +
-    (parseFloat(formData.airplaneTax) || 0) + 
+    (parseFloat(formData.airplaneTax) || 0) +
     (parseFloat(formData.totalRoom) || 0) +
     (parseFloat(formData.totalAllowance) || 0);
 
@@ -926,7 +888,7 @@ const newConfer = async () => {
       quality_meeting: formData.qualityMeeting,
       presenter_type: formData.radioAuth,
       time_of_leave: formData.timeLeave,
-      location_1: formData.location,
+      location: formData.location,
       wos_2_leave: formData.wos,
       name_2_leave: formData.nameWos,
       withdraw: formData.withdraw,
@@ -948,7 +910,6 @@ const newConfer = async () => {
       daily_allowance: formData.dailyAllowance,
       total_allowance: formData.totalAllowance,
       all_money: formData.all_money,
-      doc_submit_date: formData.docSubmitDate,
 
       score_type: formData.score,
       sjr_score: formData.sjr,
@@ -968,10 +929,7 @@ const newConfer = async () => {
       accepted: formData.file5,
       fee_receipt: formData.file6,
       fx_rate_document: formData.file7,
-      conf_proof: formData.file8,
-      other_name: formData.inputFile9,
-      other_file: formData.file9,
-
+      conf_proof: formData.file8
     };
     console.log("post confer: ", JSON.stringify(dataForBackend));
     const response = await axios.post(
@@ -984,7 +942,7 @@ const newConfer = async () => {
       }
     );
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      router.push("/allstatus");
+    router.push("/allstatus");
 
     console.log("res: ", response);
 
