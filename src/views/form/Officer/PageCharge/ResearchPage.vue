@@ -16,10 +16,11 @@
                 </p>
               </div>
               <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
+                <button @click="getFile(formData.f_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
                   ดูเอกสาร
                 </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button @click="
+              downloadFile(formData.f_pc_proof, 'หลักฐานการอยู่ในฐานข้อมูลสากล')" class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
               </div>
             </div>
           </div>
@@ -27,18 +28,17 @@
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
-                <TextInputLabelLeft
-                  customLabel="w-auto min-w-fit"
-                  customInput="max-w-fit ml-2"
-                  label="หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus"
-                  disabled="ture"
-                />
+                <p>
+                  หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus
+                </p>
               </div>
               <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
+                <button @click="getFile(formData.f_q_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
                   ดูเอกสาร
                 </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button @click="
+              downloadFile(formData.f_q_pc_proof, 'หลักฐานการจัดลำดับ Quartile')
+              " class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
               </div>
             </div>
           </div>
@@ -52,10 +52,12 @@
                 </p>
               </div>
               <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
+                <button @click="getFile(formData.f_invoice_public)" class="btn bg-[#E85F19] text-white mr-5">
                   ดูเอกสาร
                 </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button @click="
+              downloadFile(formData.f_invoice_public, 'ใบแจ้งหนี้ค่าใช้จ่าย')
+              " class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
               </div>
             </div>
           </div>
@@ -66,10 +68,10 @@
                 <p>หลักฐานการส่งบทความ หนังสือตอบรับบทความ</p>
               </div>
               <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
+                <button  @click="getFile(formData.f_accepted)" class="btn bg-[#E85F19] text-white mr-5">
                   ดูเอกสาร
                 </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button @click="downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')" class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
               </div>
             </div>
           </div>
@@ -80,10 +82,15 @@
                 <p>สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar</p>
               </div>
               <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
+                <button @click="getFile(formData.f_copy_article)" class="btn bg-[#E85F19] text-white mr-5">
                   ดูเอกสาร
                 </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button @click="
+              downloadFile(
+                formData.f_copy_article,
+                'สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar'
+              )
+              " class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
               </div>
             </div>
           </div>
@@ -171,6 +178,7 @@
 import { ref, onMounted, reactive } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
+import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
@@ -180,6 +188,14 @@ import PageChageData from "@/components/form/DataforOffice/PageChage.vue";
 
 // จัดการข้อมูลหลัก
 const formData = reactive({
+  file: "",
+  name: [],
+  //urlfile
+  f_pc_proof: "",
+  f_q_pc_proof: "",
+  f_invoice_public: "",
+  f_accepted: "",
+  f_copy_article: "",
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
   typeFile: "Page_Charge",
@@ -210,11 +226,55 @@ const handleInput = (key, value) => {
   // console.log("value: ", value);
   console.log("--------------------------------");
 };
+const getDataPc = async () => {
+  if (id == null || id == "") {
+    alert("โปรดเข้าสู่ระบบใหม่อีกครั้ง");
+  }
+  try {
+    console.log("wineyu");
+    const response = await api.get(`/form/Pc/${id}`);
+    formData.name = response.data.name;
+    const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
+    console.log("response", responsefile);
+    console.log("responsedata", responsefile.data);
+    // formData.file = responsefile.data;
+    formData.f_pc_proof = responsefile.data.file_pc_proof;
+    formData.f_q_pc_proof = responsefile.data.file_q_pc_proof;
+    formData.f_invoice_public = responsefile.data.file_invoice_public;
+    formData.f_accepted = responsefile.data.file_accepted;
+    formData.f_copy_article = responsefile.data.file_copy_article;
+    console.log("Success", response);
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
 // Access route parameters
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
+const getFile = async (fileUrl) => {
+  formData.file = fileUrl;
+  window.open(formData.file, "_blank");
+};
+
+const downloadFile = async (fileUrl, fileName) => {
+  try {
+    const response = await fetch(fileUrl);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fileName + " ของ " + formData.name + ".pdf";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Error downloading file:", error);
+  }
+};
 
 const OfficerPC = async () => {
   try {
@@ -250,4 +310,9 @@ const OfficerPC = async () => {
     message.value = "Error adding page_charge. Please try again.";
   }
 };
+
+onMounted(() => {
+  getDataPc();
+  // checkfile();
+});
 </script>

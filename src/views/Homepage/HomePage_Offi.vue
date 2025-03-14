@@ -1,7 +1,9 @@
 <script setup>
 import { ref, onMounted, reactive } from "vue";
+import { useUserStore } from "@/store/userStore";
 import axios from "axios";
 
+const userStore = useUserStore();
 const listForm = reactive({
   forms: [],
   nameC: [],
@@ -16,10 +18,38 @@ const fetchOfficerData = async () => {
     const responseOffice = await axios.get("http://localhost:3000/formsOffice");
     console.log("responseOffice.data", responseOffice.data.forms);
 
+    let filteredForms = ""
     // ค้นหาทุก form ที่ตรงกับเงื่อนไข
-    const filteredForms = responseOffice.data.forms.filter(
+    if(form.form_status === "ฝ่ายบริหารทรัพยากรบุคคล" && userStore.user.user_role == 'hr'){
+      filteredForms = responseOffice.data.forms.filter(
+      (form) => form.form_status === "ฝ่ายบริหารทรัพยากรบุคคล"
+      );
+      console.log("filteredForms",filteredForms)
+    }
+    else if(form.form_status === "ฝ่ายบริหารงานวิจัย" && userStore.user.user_role == 'research'){
+      filteredForms = responseOffice.data.forms.filter(
       (form) => form.form_status === "ฝ่ายบริหารงานวิจัย"
-    );
+      );
+      console.log("filteredForms",filteredForms)
+    }
+    else if(form.form_status === "ฝ่ายบริหารการเงิน" && userStore.user.user_role == 'finance'){
+      filteredForms = responseOffice.data.forms.filter(
+      (form) => form.form_status === "ฝ่ายบริหารการเงิน"
+      );
+      console.log("filteredForms",filteredForms)
+    }else if(form.form_status === "รองคณบดี" && userStore.user.user_role == 'associate'){
+      filteredForms = responseOffice.data.forms.filter(
+      (form) => form.form_status === "รองคณบดี"
+      );
+      console.log("filteredForms",filteredForms)
+    }
+    else if(form.form_status === "คณบดี" && userStore.user.user_role == 'approver'){
+      filteredForms = responseOffice.data.forms.filter(
+      (form) => form.form_status === "คณบดี"
+      );
+      console.log("filteredForms",filteredForms)
+    }
+    
     console.log("filteredForms", filteredForms);
     if (filteredForms.length > 0) {
       listForm.forms = filteredForms;
@@ -41,8 +71,11 @@ const getNameById = (nameList, id) => {
   return nameObj ? nameObj[1].user_nameth : "ไม่พบชื่อ";
 };
 
-onMounted(() => {
+onMounted( async () => {
   fetchOfficerData();
+  if (!userStore.user) {
+    await userStore.fetchUser();
+  }
 });
 </script>
 

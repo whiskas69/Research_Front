@@ -116,31 +116,38 @@
 
     <div class="flex-auto w-2/6 justify-end">
       <details class="dropdown">
-        <summary class="btn m-1"><div class="indicator">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-            />
-          </svg>
-        </div>
-      </summary>
-      <ul class="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-    <li v-for="noti in listNoti.noti" :key="noti.noti_id">
-      <div>
-        <p>{{ noti.name_form }}</p>
-        <p v-if="noti.kris_id != null">แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ{{ noti.status_form }}</p>
-      </div>
-    </li>
-  </ul>
+        <summary class="btn m-1">
+          <div class="indicator">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+              />
+            </svg>
+          </div>
+        </summary>
+        <ul
+          class="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+        >
+          <li v-for="noti in listNoti.noti" :key="noti.noti_id">
+            <div>
+              <p>{{ noti.name_form }}</p>
+              <p v-if="noti.kris_id != null">
+                แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ{{
+                  noti.status_form
+                }}
+              </p>
+            </div>
+          </li>
+        </ul>
       </details>
       <button class="btn btn-ghost btn-circle">
         <div class="indicator">
@@ -216,8 +223,7 @@ const fetchData = async () => {
     const response = await axios.get("http://localhost:3000/notiAll");
     console.log("response.data", response.data);
 
-      listNoti.noti = response.data;
-    
+    listNoti.noti = response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
   } finally {
@@ -226,7 +232,7 @@ const fetchData = async () => {
 };
 
 onMounted(async () => {
-  fetchData()
+  fetchData();
   if (!userStore.user) {
     await userStore.fetchUser();
   }
