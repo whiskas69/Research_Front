@@ -264,7 +264,7 @@
           </p>
           <p class="text-base mt-1">
             ขณะนี้บทความได้รับการตอบรับแล้ว (Letter of acceptance) เมื่อวันที่
-            <b>{{ formData.check }} </b>
+            <b>{{ formData.offic.p_date_accepted_approve }} </b>
             ตามหลักฐานที่แนบจึงเรียนมาเพื่อโปรดพิจารณา
           </p>
           <div class="px-2">

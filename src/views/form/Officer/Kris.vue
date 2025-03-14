@@ -287,7 +287,7 @@
                 customLabel="w-fit pl-5 mr-2"
                 customDiv="max-w-fit"
                 customInput="max-w-fit"
-                :placeholder="formData.kris.project_periodStart"
+                :placeholder="formatThaiDate(formData.kris.project_periodStart)"
                 disabled="true"
               />
               <TextInputLabelLeft
@@ -295,7 +295,7 @@
                 customLabel="w-fit pl-5 mr-2"
                 customDiv="max-w-fit"
                 customInput="max-w-fit"
-                :placeholder="formData.kris.project_periodEnd"
+                :placeholder="formatThaiDate(formData.kris.project_periodEnd)"
                 disabled="true"
               />
             </div>
@@ -308,8 +308,8 @@
         <div class="flex flex-rowitems-center">
           <p>แบบเสนอโครงการวิจัย (Research Project)</p>
           <div class="ml-80">
-            <button class="btn bg-[#E85F19] text-white mr-5">ดูเอกสาร</button>
-            <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+            <button @click="getFile" class="btn bg-[#E85F19] text-white mr-5">ดูเอกสาร</button>
+            <button @click="downloadFile" class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
           </div>
         </div>
       </Mainbox>
@@ -345,8 +345,9 @@
 </template>
 
 <script setup>
-import { ref, computed, reactive, onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { ref, reactive, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import api from "@/setting/api";
 import axios from "axios";
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
@@ -358,6 +359,8 @@ import RadioInput from "@/components/Input/RadioInput.vue";
 const formData = reactive({
   kris: [],
   user: [],
+  file: [],
+  name: "",
   //cluster
   ictRA: "",
   ictSCI: "",
@@ -391,6 +394,20 @@ const day = String(datetime.getDate()).padStart(2, "0");
 formData.docSubmitDate = `${year}-${month}-${day}`;
 console.log(formData.docSubmitDate);
 
+const formatThaiDate = (dateString) => {
+    console.log("formatThaiDate input: ", dateString);
+    const date = new Date(dateString);
+    const months = [
+      "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", 
+      "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."
+    ];
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear() + 543;
+    console.log("new date: ",`${day} ${month} ${year}`)
+    return `${day} ${month} ${year}`;
+  };
+
 const handleInput = (key, value) => {
   formData[key] = value;
   console.log("0000000000000000000000000000000");
@@ -409,6 +426,14 @@ console.log("params.id", id);
 
 const fetchOfficerData = async () => {
   try {
+    const response = await api.get(`/form/kris/${id}`);
+
+    formData.name = response.data.name;
+    const responsefile = await api.get(`/getFilekris?kris_id=${id}`);
+    console.log("responsefile", responsefile.data);
+    console.log("responsefile", responsefile.data.fileUrl);
+    formData.file = responsefile.data.fileUrl;
+
     const responseConfer = await axios.get(`http://localhost:3000/kris/${id}`);
     console.log("kris123", responseConfer);
     formData.kris = responseConfer.data;
@@ -506,6 +531,30 @@ const loopStandard = async () => {
     }
   }
 };
+const getFile = async () => {
+  window.open(formData.file, "_blank");
+};
+
+const downloadFile = async () => {
+  try {
+    const response = await fetch(formData.file);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+console.log("formData.file", formData.file)
+console.log("formData.file", formData.file)
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "แบบเสนอโครงการวิจัย " + formData.name + " .pdf"; // ชื่อไฟล์ที่บันทึก
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Error downloading file:", error);
+  }
+};
+const router = useRouter();
+
 const OfficerKris = async () => {
   try {
     const dataForBackend = {
@@ -526,7 +575,8 @@ const OfficerKris = async () => {
         },
       }
     );
-    alert("Have new OfficerPC!");
+    alert("บันทึกข้อมูลเรียบร้อย");
+    router.push("/allstatus");
     console.log("res: ", response);
     console.log("allpostOfficerPC: ", message.value);
     console.log("postOfficerPC: ", response.data);

@@ -274,11 +274,11 @@ const data = reactive({
   copy_article: null,
 
   //urlfile
-  f_pc_proof: "",
-  f_q_pc_proof: "",
-  f_invoice_public: "",
-  f_accepted: "",
-  f_copy_article: "",
+  f_pc_proof: null,
+  f_q_pc_proof: null,
+  f_invoice_public: null,
+  f_accepted: null,
+  f_copy_article: null,
 
   //setfile
   file: "",

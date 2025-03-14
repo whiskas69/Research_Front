@@ -4,9 +4,6 @@
         <p class="text-xl font-bold mb-5">
           ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
         </p>
-        <p class="text-xl font-bold mb-5">
-          ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
-        </p>
         <Mainbox>
           <SectionWrapper>
             <TextInputLabelLeft
@@ -448,13 +445,6 @@
     checkSJR: "",
     checkScopus: "",
     nature: "",
-    //FileForm
-    file1: null,
-    file2: null,
-    inputFile2: "",
-    file3: null,
-    file4: null,
-    file5: null,
   });
   
   const formatThaiDate = (dateString) => {
@@ -496,12 +486,6 @@
       formData.pageChange = responsePC.data;
       console.log("pageChange", formData.pageChange);
       formData.check = formData.pageChange.quality_journal;
-  
-      // const responseFile = await axios.get("http://localhost:3000/pdf/2");
-      // const pdfData = responseFile.data;
-      // formData.file1 = pdfData.Invoice;
-  
-      console.log("PDF JAAAA: ", pdfData);
     } catch (error) {
       console.error("Error fetching professor data:", error);
     } finally {
