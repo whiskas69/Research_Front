@@ -88,11 +88,11 @@
             @input="handleInput('conferenceName', $event.target.value)"
           />
 
-          <div class="flex flex-row">
+          <div class="flex flex-row w-full">
             <p class="w-[40%]">การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
 
             <RadioInput
-              customDiv="w-[20%]"
+              customDiv="w-[15%]"
               label="ณ ต่างประเทศ"
               name="Venue"
               value="ณ ต่างประเทศ"
@@ -666,8 +666,14 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, reactive, watch } from "vue";
-import axios from "axios";
+import { computed, onMounted, reactive, watch } from "vue";
+import { useRouter } from "vue-router";
+import { useVuelidate } from "@vuelidate/core";
+import { required, numeric, minValue, maxValue, between, helpers, requiredIf } from "@vuelidate/validators";
+import { DateTime } from "luxon";
+
+import { useUserStore } from "@/store/userStore";
+import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
@@ -675,99 +681,108 @@ import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 import FileInput from "@/components/Input/FileInput.vue";
 
-import { useUserStore } from "@/store/userStore";
-import api from "@/setting/api";
-
-const userStore = useUserStore();
-
-const user = computed(() => userStore.user);
+const router = useRouter();
 
 // จัดการข้อมูลหลัก
 const formData = reactive({
-  //Professor
-  user_id: "",
-  name: "",
-  position: "",
-
-  textOther1: "",
-  textOther2: "",
-
+  user_id: null,
+  name: null,
+  position: null,
+  textOther1: null,
+  textOther2: null,
   //detailTravel
-  travelStart: "",
-  travelEnd: "",
-  research: "",
-  conferenceName: "",
-  meetingDate: "",
-  meetingVenue: "",
-  dateSubmitToOrganizer: "",
-  argumentDateReview: "",
-  lastDayRegister: "",
-
+  travelStart: null,
+  travelEnd: null,
+  research: null,
+  conferenceName: null,
+  meetingDate: null,
+  meetingVenue: null,
+  dateSubmitToOrganizer: null,
+  argumentDateReview: null,
+  lastDayRegister: null,
   //qualityMeeting
-  meetingType: "",
-  qualityMeeting: "",
-
-  //แยกตาราง ไปตาราง score
-  score: "",
-  // sjr
-  sjr: 0,
-  sjrYear: 0,
-  hIndex: 0,
-  hIndexYear: 0,
-  total: 0,
-  // CIF
-  Citation: 0,
-  //CORE Conference Ranking
-  coreConf: "",
-
+  meetingType: null,
+  qualityMeeting: null,
+  //แยกตารางไปscore
+  score: null,
+  sjr: null,
+  sjrYear: null,
+  hIndex: null,
+  hIndexYear: null,
+  total: null,
+  Citation: null,
+  coreConf: null,
   //AuthForm
-  radioAuth: "",
-
+  radioAuth: null,
   //การลา
-  timeLeave: "",
-  location: "",
-  wos: "",
-  nameWos: "",
-  withdraw: "",
-  quality100: "",
-  name100: "",
-
+  timeLeave: null,
+  location: null,
+  wos: null,
+  nameWos: null,
+  withdraw: null,
+  quality100: null,
+  name100: null,
   //venue
-  venue: "",
-
+  venue: null,
   //List of expenses
-  numberArticles: 0,
-  amount1article: 0,
-  totalAmount: 0, //รวมบทความทั้งหมด
-  domesticExpenses: 0,
-  overseasExpenses: 0,
-  travelCountry: "",
-  interExpenses: 0,
-  airplaneTax: 0,
-  numberDaysRoom: 0,
-  roomCostPerNight: 0,
-  totalRoom: 0,
-  numTravelDays: 0,
-  dailyAllowance: 0,
-  totalAllowance: 0,
-  all_money: 0, //แก้ด้วย
-
-  //วันที่ส่งเอกสาร
-  docSubmitDate: "",
+  numberArticles: null,
+  amount1article: null,
+  totalAmount: null,
+  domesticExpenses: null,
+  overseasExpenses: null,
+  travelCountry: null,
+  interExpenses: null,
+  airplaneTax: null,
+  numberDaysRoom: null,
+  roomCostPerNight: null,
+  totalRoom: null,
+  numTravelDays: null,
+  dailyAllowance: null,
+  totalAllowance: null,
+  all_money: null, //แก้ด้วย
 
   //FileForm
   file1: null,
   file2: null,
-  inputFile2: "",
+  inputFile2: null,
   file3: null,
   file4: null,
   file5: null,
   file6: null,
   file7: null,
-  file8: null,
-  file9: null,
-  inputFile9: "",
+  file8: null
 });
+
+// ฟังก์ชันตรวจสอบปีปัจจุบัน
+const currentYear = DateTime.now().year;
+const currentDate = DateTime.now().toISODate();
+
+// ฟังก์ชันตรวจสอบว่าเป็นวันที่ในอดีตหรือไม่
+const pastDate = (value) => !value || value <= currentDate;
+
+//validate rule
+const rules = computed(() => ({
+  textOther1: {
+    required: helpers.withMessage("* กรุณากรอกข้อมูลครั้งที่ *", required),
+    numeric: helpers.withMessage(
+      "* กรุณากรอกข้อมูลครั้งที่เป็นตัวเลข *",
+      numeric
+    ),
+    minValue: helpers.withMessage(
+      "* ครั้งที่ไม่สามารถต่ำกว่า 1 ได้ *",
+      minValue(1)
+    ),
+  },
+  textOther2: {
+    required: helpers.withMessage("* กรุณากรอกข้อมูลวันที่ *", required),
+    pastDate: helpers.withMessage("* วันที่ต้องไม่เกินวันปัจจุบัน *", pastDate),
+  },
+}))
+
+const v$ = useVuelidate(rules, formData);
+
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
 
 onMounted(async () => {
   await userStore.fetchUser();
@@ -775,28 +790,11 @@ onMounted(async () => {
   formData.user_id = user.value?.user_id;
   formData.name = user.value?.user_nameth || "";
   formData.position = user.value?.user_positionth || "";
-
-  console.log("formData in mounted : ", formData);
 });
-
-//วันที่ส่งเอกสาร
-const datetime = new Date();
-// Extract year, month, and day
-const year = datetime.getFullYear();
-const month = String(datetime.getMonth() + 1).padStart(2, "0"); // Months are 0-based
-const day = String(datetime.getDate()).padStart(2, "0");
-// Combine in YYYY-MM-DD format
-formData.docSubmitDate = `${year}-${month}-${day}`;
-console.log(formData.docSubmitDate);
 
 const handleInput = (key, value) => {
   formData[key] = value;
-  console.log("0000000000000000000000000000000");
-  // console.log(JSON.stringify(formData));
   console.log(`${key} updated to: ${value}`);
-  // console.log("key: ", key);
-  // console.log("value: ", value);
-  console.log("--------------------------------");
 };
 
 const handleFile = (event, fieldName) => {
@@ -866,6 +864,7 @@ const allTotal = computed(() => {
 });
 
 const newConfer = async () => {
+
   try {
     console.log("before postPC: ", formData);
     console.log("formData as JSON:", JSON.stringify(formData, null, 2));
@@ -932,8 +931,8 @@ const newConfer = async () => {
       conf_proof: formData.file8
     };
     console.log("post confer: ", JSON.stringify(dataForBackend));
-    const response = await axios.post(
-      "http://localhost:3000/conference",
+    const response = await api.post(
+      "/conference",
       dataForBackend,
       {
         headers: {
@@ -950,7 +949,6 @@ const newConfer = async () => {
     console.log("postConfer: ", response.data);
   } catch (error) {
     console.error(error);
-    // message.value = "Error adding Conferent. Please try again.";
   }
 };
 </script>
