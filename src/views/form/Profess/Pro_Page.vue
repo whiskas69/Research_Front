@@ -669,7 +669,7 @@
 import { reactive, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
-import { required, numeric, minValue, maxValue, between, helpers, requiredIf } from "@vuelidate/validators";
+import { required, numeric, minValue, maxValue, between, helpers, requiredIf, integer } from "@vuelidate/validators";
 import { DateTime } from "luxon";
 
 import { useUserStore } from "@/store/userStore";
@@ -792,10 +792,8 @@ const pastDate = (value) => !value || value <= currentDate;
 const rules = computed(() => ({
   textOther1: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลครั้งที่ *", required),
-    numeric: helpers.withMessage(
-      "* กรุณากรอกข้อมูลครั้งที่เป็นตัวเลข *",
-      numeric
-    ),
+    numeric: helpers.withMessage("* กรุณากรอกข้อมูลครั้งที่เป็นตัวเลข *", numeric),
+    integer: helpers.withMessage("* กรุณากรอกเป็นจำนวนเต็ม *", integer),
     minValue: helpers.withMessage(
       "* ครั้งที่ไม่สามารถต่ำกว่า 1 ได้ *",
       minValue(1)

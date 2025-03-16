@@ -47,7 +47,6 @@
         </SectionWrapper>
       </Mainbox>
 
-      <!-- 1.  รายละเอียดการขออนุมัติเดินทาง -->
       <Mainbox>
         <p class="leading-9 text-lg font-bold">
           1. รายละเอียดการขออนุมัติเดินทาง
@@ -89,10 +88,10 @@
           />
 
           <div class="flex flex-row w-full">
-            <p class="w-[40%]">การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
+            <p class="w-2/6 mr-4 ">การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
 
             <RadioInput
-              customDiv="w-[15%]"
+              customDiv="max-w-36"
               label="ณ ต่างประเทศ"
               name="Venue"
               value="ณ ต่างประเทศ"
@@ -176,7 +175,6 @@
         </SectionWrapper>
       </Mainbox>
 
-      <!-- 2.  รายละเอียดการขออนุมัติเดินทาง -->
       <Mainbox>
         <p class="leading-9 text-lg font-bold">
           2.  รายละเอียดการขออนุมัติเดินทาง
@@ -313,7 +311,6 @@
         </SectionWrapper>
       </Mainbox>
 
-      <!-- 3. ผู้ขอรับการสนับสนุน -->
       <Mainbox>
         <p class="text-lg font-bold">3. ผู้ขอรับการสนับสนุน</p>
         <SectionWrapper>
@@ -334,7 +331,6 @@
         </SectionWrapper>
       </Mainbox>
 
-      <!-- 4.  การลาและการขอเบิกค่าลงทะเบียนและค่าใช้จ่ายอื่น ๆ -->
       <Mainbox>
         <p class="text-lg font-bold">
           4.  การลาและการขอเบิกค่าลงทะเบียนและค่าใช้จ่ายอื่น ๆ
@@ -455,7 +451,6 @@
         </SectionWrapper>
       </Mainbox>
 
-      <!-- รายการค่าใช้จ่ายที่ขอเบิกจ่าย -->
       <Mainbox>
         <SectionWrapper>
           <p class="leading-9 text-lg font-bold">
@@ -510,8 +505,6 @@
                 <p class="flex items-center pl-2">บาท</p>
               </div>
               <div class="flex flex-row">
-                <p>ถ้าไปต่างประเทศแล้วต้องเดินทางไปอีกเมือง คิดยังไง</p>
-                <p>ข้อนี้เฉพาะในประเทศ?</p>
                 <TextInputLabelLeft
                   label="• เดินทางระหว่างประเทศ กรุงเทพฯ -"
                   customLabel="w-96 pr-2"
@@ -596,7 +589,6 @@
         </SectionWrapper>
       </Mainbox>
 
-      <!-- เอกสารหลักฐานที่แนบ -->
       <Mainbox>
         <SectionWrapper>
           <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
@@ -606,7 +598,6 @@
             type="file"
             @change="handleFile($event, 'file1')"
           />
-          <!-- have input -->
           <TextInputLabelLeft
             label="*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* (Full Paper ประกอบการเบิก) มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล WoS/SJR ซึ่งได้รับการตีพิมพ์ไม่เกิน 2 ปี ก่อนการประชุม เมื่อ"
             customLabel="w-[290%]"
@@ -669,7 +660,7 @@
 import { computed, onMounted, reactive, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
-import { required, numeric, minValue, maxValue, between, helpers, requiredIf } from "@vuelidate/validators";
+import { required, numeric, minValue, integer, helpers, requiredIf, maxValue } from "@vuelidate/validators";
 import { DateTime } from "luxon";
 
 import { useUserStore } from "@/store/userStore";
@@ -685,98 +676,128 @@ const router = useRouter();
 
 // จัดการข้อมูลหลัก
 const formData = reactive({
-  user_id: null,
-  name: null,
-  position: null,
-  textOther1: null,
-  textOther2: null,
-  //detailTravel
-  travelStart: null,
-  travelEnd: null,
-  research: null,
-  conferenceName: null,
-  meetingDate: null,
-  meetingVenue: null,
-  dateSubmitToOrganizer: null,
-  argumentDateReview: null,
-  lastDayRegister: null,
-  //qualityMeeting
-  meetingType: null,
-  qualityMeeting: null,
-  //แยกตารางไปscore
-  score: null,
-  sjr: null,
-  sjrYear: null,
-  hIndex: null,
-  hIndexYear: null,
-  total: null,
-  Citation: null,
-  coreConf: null,
-  //AuthForm
-  radioAuth: null,
-  //การลา
-  timeLeave: null,
-  location: null,
-  wos: null,
-  nameWos: null,
-  withdraw: null,
-  quality100: null,
-  name100: null,
-  //venue
-  venue: null,
-  //List of expenses
-  numberArticles: null,
-  amount1article: null,
-  totalAmount: null,
-  domesticExpenses: null,
-  overseasExpenses: null,
-  travelCountry: null,
-  interExpenses: null,
-  airplaneTax: null,
-  numberDaysRoom: null,
-  roomCostPerNight: null,
-  totalRoom: null,
-  numTravelDays: null,
-  dailyAllowance: null,
-  totalAllowance: null,
-  all_money: null, //แก้ด้วย
+  user_id: 0,
+  name: "",
+  position: "",
+  textOther1: 0,
+  textOther2: "",
+  
+  travelStart: "",
+  travelEnd: "",
+  research: "",
+  conferenceName: "",
 
-  //FileForm
-  file1: null,
-  file2: null,
-  inputFile2: null,
-  file3: null,
-  file4: null,
-  file5: null,
-  file6: null,
-  file7: null,
-  file8: null
+  venue: "",
+  meetingDate: "",
+  meetingVenue: "",
+  location: "",
+
+  dateSubmitToOrganizer: "",
+  argumentDateReview: "",
+  lastDayRegister: "",
+  
+  meetingType: "",
+  qualityMeeting: "",
+  
+  score: 0,
+  sjr: 0,
+  sjrYear: 0,
+  hIndex: 0,
+  hIndexYear: 0,
+  total: 0,
+  Citation: 0,
+  coreConf: 0,
+  
+  radioAuth: "",
+  
+  timeLeave: "",
+  wos: "",
+  nameWos: "",
+
+  withdraw: "",
+  quality100: "",
+  name100: "",
+  
+  numberArticles: "",
+  amount1article: "",
+  totalAmount: "",
+  domesticExpenses: "",
+  overseasExpenses: "",
+  travelCountry: "",
+  interExpenses: "",
+  airplaneTax: "",
+  numberDaysRoom: "",
+  roomCostPerNight: "",
+  totalRoom: "",
+  numTravelDays: "",
+  dailyAllowance: "",
+  totalAllowance: "",
+  all_money: "", //แก้ด้วย
+
+  file1: "",
+  file2: "",
+  inputFile2: "",
+  file3: "",
+  file4: "",
+  file5: "",
+  file6: "",
+  file7: "",
+  file8: ""
 });
 
 // ฟังก์ชันตรวจสอบปีปัจจุบัน
 const currentYear = DateTime.now().year;
 const currentDate = DateTime.now().toISODate();
 
-// ฟังก์ชันตรวจสอบว่าเป็นวันที่ในอดีตหรือไม่
-const pastDate = (value) => !value || value <= currentDate;
-
 //validate rule
 const rules = computed(() => ({
   textOther1: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลครั้งที่ *", required),
-    numeric: helpers.withMessage(
-      "* กรุณากรอกข้อมูลครั้งที่เป็นตัวเลข *",
-      numeric
-    ),
-    minValue: helpers.withMessage(
-      "* ครั้งที่ไม่สามารถต่ำกว่า 1 ได้ *",
-      minValue(1)
-    ),
+    numeric: helpers.withMessage("* กรุณากรอกข้อมูลครั้งที่เป็นตัวเลข *", numeric),
+    integer: helpers.withMessage("* กรุณากรอกเป็นจำนวนเต็ม *", integer),
+    minValue: helpers.withMessage("* ครั้งที่ไม่สามารถต่ำกว่า 1 ได้ *", minValue(1)),
   },
   textOther2: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลวันที่ *", required),
-    pastDate: helpers.withMessage("* วันที่ต้องไม่เกินวันปัจจุบัน *", pastDate),
+    maxValue: helpers.withMessage("* วันที่ต้องไม่เกินวันปัจจุบัน *", maxValue(currentDate)),
   },
+  travelStart: {
+    required: helpers.withMessage("* กรุณากรอกข้อมูลเดินทาง *", required),
+    minValue: helpers.withMessage("* วันเดินทางไม่สามารถเกิดก่อนวันปัจจุบันได้ *", minValue(currentDate))
+  },
+  travelEnd: {
+    required: helpers.withMessage("* กรุณากรอกข้อมูลวันเดินทางกลับ *", required),
+    minValue: helpers.withMessage("* วันเดินทางกลับไม่สามารถเกิดก่อนวันไปได้ *", minValue(formData.travelStart))
+  },
+  research: {
+    required: helpers.withMessage("* กรุณากรอกชื่อผลงานวิจัย *", required),
+  },
+  conferenceName: {
+    required: helpers.withMessage("* กรุณากรอกชื่องานประชุมวิชาการ *", required),
+  },
+  venue: {
+    required: helpers.withMessage("* กรุณาเลือกว่าไปต่างประเทศ หรือในประเทศ *", required),
+  },
+  meetingDate: {
+    required: helpers.withMessage("* กรุณากรอกข้อมูลวันที่จัดข้อมูลการประชุมวิชาการ *", required),
+    minValue: helpers.withMessage("* วันที่จัดการประชุมวิชาการไม่สามารถจัดก่อนวันที่จะเดินทางได้ *", minValue(formData.travelStart)),
+    maxValue: helpers.withMessage("* วันที่จัดการประชุมวิชาการไม่สามารถจัดหลังจากที่เดินทางกลับได้ *", maxValue(formData.travelEnd))
+  },
+  meetingVenue: {
+    required: helpers.withMessage("* กรุณากรอกข้อมูลสถานที่จัดงานประชุมวิชาการ *", required)
+  },
+  location: {
+    required: helpers.withMessage("* กรุณากรอกประเทศ หรือจังหวัดที่ไปประชุมวิชาการ *", required)
+  },
+  dateSubmitToOrganizer: {
+    required: helpers.withMessage("* กรุณากรอกข้อมูลวันที่ส่งข้อมูลงานวิชาการ *", required),
+    maxValue: helpers.withMessage("* ไม่สามารถส่งงานวิจัยหลังจากวันที่กรอกข้อมูลแบบฟอร์มนี้ *", maxValue(currentDate))
+  },
+  argumentDateReview: {
+    required: helpers.withMessage("* กรุณากรอกข้อมูลวันที่ประกาศผลการคัดเลือก *", required),
+    minValue: helpers.withMessage("* ไม่สามารถกรอกวันประกาศผลก่อนสะนที่สมัครได้ *", minValue(formData.dateSubmitToOrganizer))
+  }
+
 }))
 
 const v$ = useVuelidate(rules, formData);
@@ -864,6 +885,7 @@ const allTotal = computed(() => {
 });
 
 const newConfer = async () => {
+  console.log("before postPC: ", formData);
 
   try {
     console.log("before postPC: ", formData);
@@ -931,10 +953,7 @@ const newConfer = async () => {
       conf_proof: formData.file8
     };
     console.log("post confer: ", JSON.stringify(dataForBackend));
-    const response = await api.post(
-      "/conference",
-      dataForBackend,
-      {
+    const response = await api.post("/conference", dataForBackend, {
         headers: {
           "Content-Type": "multipart/form-data", // Required for file uploads
         },
@@ -945,10 +964,11 @@ const newConfer = async () => {
 
     console.log("res: ", response);
 
-    console.log("allpostConfer: ", message.value);
     console.log("postConfer: ", response.data);
   } catch (error) {
-    console.error(error);
+    console.log("Error saving code : ", error);
+
+    alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
   }
 };
 </script>
