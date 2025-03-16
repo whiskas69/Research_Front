@@ -21,6 +21,7 @@ import Homepage_Admin from "@/views/Homepage/Homepage_Admin.vue";
 import Pro_Confer from "@/views/form/Profess/Pro_Confer.vue";
 import Pro_Page from "@/views/form/Profess/Pro_Page.vue";
 import Pro_Kris from "@/views/form/Profess/Pro_Kris.vue";
+import Pro_ITScolar from "@/views/form/Profess/Pro_ITScolar.vue";
 
 import offic_hrConfer from "@/views/form/Officer/Conference/HRConfer.vue";
 import offic_resConfer from "@/views/form/Officer/Conference/ResearchConfer.vue";
@@ -90,6 +91,11 @@ const router = createRouter({
       path: "/formPC",
       name: "FormPC",
       component: Pro_Page,
+    },
+    {
+      path: "/formITScolar",
+      name: "FormITScolar",
+      component: Pro_ITScolar,
     },
     {
       path: "/formKris",
