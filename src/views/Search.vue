@@ -1,7 +1,8 @@
 <template>
   <div class="container my-10 mx-auto">
-    <div>
-      <p>สถิติจ้า แต่ยังไม่ทำ</p>
+    <div class="bg-white p-5 rounded-lg shadow h-[500px] w-[700px]">
+      <h2 class="text-lg font-semibold mb-4">Revenue</h2>
+      <canvas ref="chartCanvas"></canvas>
     </div>
     <div class="p-5 shadow m-5 rounded-xl mb-10">
       <div class="flex">
@@ -26,7 +27,9 @@
 
       <div class="mt-2 ml-5">
         <div class="flex">
-          <label for="title" class="mr-5 place-content-center">ชื่อบทความ</label>
+          <label for="title" class="mr-5 place-content-center"
+            >ชื่อบทความ</label
+          >
           <input
             type="text"
             id="title"
@@ -35,13 +38,17 @@
           />
         </div>
         <div class="flex mt-5">
-          <label for="title" class="mr-5 place-content-center">ปีงบประมาณ</label>
+          <label for="title" class="mr-5 place-content-center"
+            >ปีงบประมาณ</label
+          >
           <select class="select select-bordered w-60 mr-10">
             <option disabled selected>ทั้งหมด</option>
             <option>2567</option>
             <option>2566</option>
           </select>
-          <label for="title" class="mr-5 place-content-center">ประเภทการขอรับสนับสนุน</label>
+          <label for="title" class="mr-5 place-content-center"
+            >ประเภทการขอรับสนับสนุน</label
+          >
           <select class="select select-bordered w-96">
             <option disabled selected>ทั้งหมด</option>
             <option>ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ</option>
@@ -66,11 +73,11 @@
           <h4 class="font-bold">Article Title</h4>
         </div>
         <div class="flex mb-3">
-          <h4 class="mr-5 ">ชื่องานประชุม/วารสาร :</h4>
+          <h4 class="mr-5">ชื่องานประชุม/วารสาร :</h4>
           <h4 class="">ACM Symp on Theory of Computing</h4>
         </div>
         <div class="flex mb-3">
-          <h4 class="mr-5 ">ผู้รับสนับสนุน  :</h4>
+          <h4 class="mr-5">ผู้รับสนับสนุน :</h4>
           <h4 class="">นางภรินทร์ แก้วสีดา</h4>
         </div>
       </div>
@@ -81,15 +88,48 @@
           <h4 class="font-bold">Article Title</h4>
         </div>
         <div class="flex mb-3">
-          <h4 class="mr-5 ">ชื่องานประชุม/วารสาร :</h4>
+          <h4 class="mr-5">ชื่องานประชุม/วารสาร :</h4>
           <h4 class="">ACM Symp on Theory of Computing</h4>
         </div>
         <div class="flex mb-3">
-          <h4 class="mr-5 ">ผู้รับสนับสนุน  :</h4>
+          <h4 class="mr-5">ผู้รับสนับสนุน :</h4>
           <h4 class="">นางภรินทร์ แก้วสีดา</h4>
         </div>
       </div>
-
     </div>
   </div>
 </template>
+<script setup>
+import { ref, onMounted } from "vue";
+import { Chart, registerables } from "chart.js";
+
+Chart.register(...registerables);
+
+const chartCanvas = ref(null);
+
+onMounted(() => {
+  new Chart(chartCanvas.value, {
+    type: "doughnut",
+    data: {
+      labels: ["Direct", "Affiliate", "Sponsored", "E-mail"],
+      datasets: [
+        {
+          data: [35.7, 11.9, 22.2, 30.2],
+          backgroundColor: ["#6366F1", "#FACC15", "#EF4444", "#06B6D4"],
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+  });
+});
+</script>
+<style scoped>
+/* กำหนดขนาดของกราฟ */
+/* .chart-container {
+  height: 300px;
+  width: 100px;
+} */
+</style>
