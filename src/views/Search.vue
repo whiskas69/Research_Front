@@ -1,10 +1,10 @@
 <template>
   <div class="container my-10 mx-auto">
-    <div class="bg-white p-5 rounded-lg shadow h-[500px] w-[700px]">
-      <h2 class="text-lg font-semibold mb-4">Revenue</h2>
-      <canvas ref="chartCanvas"></canvas>
-    </div>
-    <div class="p-5 shadow m-5 rounded-xl mb-10">
+    <!-- <RemainingBudget/> -->
+    <!-- <DisbursementApproval/> -->
+    <!-- <TotalDocuments/> -->
+    <DisbursementEachYear/>
+    <div class="p-5 shadow m-5 rounded-xl mb-10 pt-[200px]">
       <div class="flex">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -102,6 +102,10 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { Chart, registerables } from "chart.js";
+import RemainingBudget from "./Dashboard/RemainingBudget.vue";
+import DisbursementApproval from "./Dashboard/DisbursementApproval.vue";
+import TotalDocuments from "./Dashboard/TotalDocuments.vue";
+import DisbursementEachYear from "./Dashboard/DisbursementEachYear.vue";
 
 Chart.register(...registerables);
 
@@ -126,10 +130,3 @@ onMounted(() => {
   });
 });
 </script>
-<style scoped>
-/* กำหนดขนาดของกราฟ */
-/* .chart-container {
-  height: 300px;
-  width: 100px;
-} */
-</style>
