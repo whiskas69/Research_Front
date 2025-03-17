@@ -233,13 +233,13 @@
               label="ชื่อ - สกุล (ภาษาไทย)"
               customLabel="w-64"
               :placeholder="formData.positionTH + ' ' + formData.nameTH"
-              disabled="true"
+              :disabled="true"
             />
             <TextInputLabelLeft
               label="ชื่อ - สกุล (ภาษาอังกฤษ)"
               customLabel="w-64"
               :placeholder="formData.positionENG + ' ' + formData.nameENG"
-              disabled="true"
+              :disabled="true"
             />
             <div class="flex flex-col">
               <TextInputLabelLeft

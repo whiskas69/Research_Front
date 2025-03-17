@@ -170,24 +170,35 @@
               v-model="formData.meetingVenue"
               @input="handleInput('meetingVenue', $event.target.value)"
             />
-            <TextInputLabelLeft
+            <div
+              class="ml-10 w-full flex justify-center items-center"
               v-if="formData.venue == 'ณ ต่างประเทศ'"
-              customDiv="ml-10"
-              label="ประเทศ"
-              customLabel="w-24"
-              customInput="w-full"
-              v-model="formData.location"
-              @input="handleInput('location', $event.target.value)"
-            />
-            <TextInputLabelLeft
+            >
+              <div class="flex flex-row w-full">
+                <span class="flex mr-2 items-center"> ประเทศ </span>
+                <v-select
+                  class="w-full"
+                  :options="countries"
+                  v-model="formData.location"
+                  @input="handleInput('location', $event.target.value)"
+                ></v-select>
+              </div>
+            </div>
+
+            <div
+              class="ml-5 w-full flex justify-center items-center"
               v-if="formData.venue == 'ภายในประเทศ'"
-              customDiv="ml-10"
-              label="จังหวัด"
-              customLabel="w-24"
-              customInput="w-full"
-              v-model="formData.location"
-              @input="handleInput('location', $event.target.value)"
-            />
+            >
+              <div class="flex flex-row w-full">
+                <span class="flex mr-2 items-center"> จังหวัด </span>
+                <v-select
+                  class="w-full"
+                  :options="provinces"
+                  v-model="formData.location"
+                  @input="handleInput('location', $event.target.value)"
+                ></v-select>
+              </div>
+            </div>
           </div>
 
           <span
@@ -291,6 +302,9 @@
               name="Level"
               value="มาตรฐาน"
               v-model="formData.qualityMeeting"
+              :disabled="
+                !formData.meetingType || formData.meetingType !== 'อยู่ในscopus'
+              "
               @change="handleInput('qualityMeeting', $event.target.value)"
             />
             <RadioInput
@@ -298,6 +312,9 @@
               name="Level"
               value="ดีมาก"
               v-model="formData.qualityMeeting"
+              :disabled="
+                !formData.meetingType || formData.meetingType !== 'อยู่ในscopus'
+              "
               @change="handleInput('qualityMeeting', $event.target.value)"
             />
 
@@ -314,6 +331,10 @@
                 name="Score"
                 value="SJR"
                 v-model="formData.score"
+                :disabled="
+                  !formData.qualityMeeting ||
+                  formData.qualityMeeting !== 'ดีมาก'
+                "
                 @change="handleInput('score', $event.target.value)"
               />
               <div class="flex flex-row w-full px-7 my-2">
@@ -323,6 +344,7 @@
                   customDiv="max-w-max"
                   customInput="max-w-max mr-3"
                   v-model="formData.sjr"
+                  :disabled="!formData.score || formData.score !== 'SJR'"
                   @input="handleInput('sjr', $event.target.value)"
                 />
                 <TextInputLabelLeft
@@ -331,6 +353,7 @@
                   customDiv="max-w-max"
                   customInput="max-w-max mr-3"
                   v-model="formData.sjrYear"
+                  :disabled="!formData.score || formData.score !== 'SJR'"
                   @input="handleInput('sjrYear', $event.target.value)"
                 />
                 <TextInputLabelLeft
@@ -339,6 +362,7 @@
                   customDiv="max-w-max"
                   customInput="max-w-max mr-3"
                   v-model="formData.sjrhIndex"
+                  :disabled="!formData.score || formData.score !== 'SJR'"
                   @input="handleInput('sjrhIndex', $event.target.value)"
                 />
                 <TextInputLabelLeft
@@ -347,10 +371,11 @@
                   customDiv="max-w-max"
                   customInput="max-w-max mr-3"
                   v-model="formData.hIndexYear"
+                  :disabled="!formData.score || formData.score !== 'SJR'"
                   @input="handleInput('hIndexYear', $event.target.value)"
                 />
-                <span v-if="formData.score == 'SJR'" class="place-self-center"
-                  >มีค่าคะแนน = {{ totalScore }} คะแนน</span
+                <span v-if="formData.score == 'SJR'" class="place-self-center">
+                  มีค่าคะแนน = {{ totalScore }} คะแนน</span
                 >
               </div>
 
@@ -384,6 +409,10 @@
                 name="Score"
                 value="CIF"
                 v-model="formData.score"
+                :disabled="
+                  !formData.qualityMeeting ||
+                  formData.qualityMeeting !== 'ดีมาก'
+                "
                 @change="handleInput('score', $event.target.value)"
               />
               <div class="flex flex-row w-full px-7 my-2">
@@ -393,6 +422,7 @@
                   customDiv="max-w-max"
                   customInput="max-w-max mr-3"
                   v-model="formData.Citation"
+                  :disabled="!formData.score || formData.score !== 'CIF'"
                   @input="handleInput('Citation', $event.target.value)"
                 />
                 <TextInputLabelLeft
@@ -401,6 +431,7 @@
                   customDiv="max-w-max"
                   customInput="max-w-max mr-3"
                   v-model="formData.hIndex"
+                  :disabled="!formData.score || formData.score !== 'CIF'"
                   @input="handleInput('hIndex', $event.target.value)"
                 />
                 <span v-if="formData.score == 'CIF'" class="place-self-center"
@@ -426,6 +457,10 @@
                 name="Score"
                 value="CORE"
                 v-model="formData.score"
+                :disabled="
+                  !formData.qualityMeeting ||
+                  formData.qualityMeeting !== 'ดีมาก'
+                "
                 @change="handleInput('score', $event.target.value)"
               />
               <div class="flex flex-row w-full px-7 my-2">
@@ -435,6 +470,7 @@
                   customDiv="max-w-max"
                   customInput="max-w-max mr-3"
                   v-model="formData.coreConf"
+                  :disabled="!formData.score || formData.score !== 'CORE'"
                   @input="handleInput('coreConf', $event.target.value)"
                 />
                 <span class="place-self-center"
@@ -526,16 +562,28 @@
             <div class="flex flex-row px-7 mt-1">
               <RadioInput
                 label="WoS-Q1"
-                name="WoS"
+                name="wos"
                 value="WoS-Q1"
                 v-model="formData.wos"
+                :disabled="
+                  !(
+                    formData.timeLeave === '2' &&
+                    formData.venue === 'ณ ต่างประเทศ'
+                  )
+                "
                 @change="handleInput('wos', $event.target.value)"
               />
               <RadioInput
                 label="WoS-Q2"
-                name="WoS"
+                name="wos"
                 value="WoS-Q2"
                 v-model="formData.wos"
+                :disabled="
+                  !(
+                    formData.timeLeave === '2' &&
+                    formData.venue === 'ณ ต่างประเทศ'
+                  )
+                "
                 @change="handleInput('wos', $event.target.value)"
               />
             </div>
@@ -550,6 +598,12 @@
                 label="เรื่อง"
                 customLabel="pr-2"
                 v-model="formData.nameWos"
+                :disabled="
+                  !(
+                    formData.timeLeave === '2' &&
+                    formData.venue === 'ณ ต่างประเทศ'
+                  )
+                "
                 @input="handleInput('nameWos', $event.target.value)"
               />
 
@@ -572,6 +626,7 @@
               name="withdraw"
               value="50%"
               v-model="formData.withdraw"
+              :disabled="formData.venue !== 'ณ ต่างประเทศ'"
               @change="handleInput('withdraw', $event.target.value)"
             />
             <RadioInput
@@ -579,6 +634,7 @@
               name="withdraw"
               value="100%"
               v-model="formData.withdraw"
+              :disabled="formData.venue !== 'ณ ต่างประเทศ'"
               @change="handleInput('withdraw', $event.target.value)"
             />
             <span
@@ -591,37 +647,42 @@
             <div class="flex flex-row px-7 mt-1">
               <RadioInput
                 label="WoS-Q1"
-                name="WoS"
+                name="quality100"
                 value="WoS-Q1"
                 v-model="formData.quality100"
+                :disabled="formData.withdraw !== '100%'"
                 @change="handleInput('quality100', $event.target.value)"
               />
               <RadioInput
                 label="WoS-Q2"
-                name="WoS"
+                name="quality100"
                 value="WoS-Q2"
                 v-model="formData.quality100"
+                :disabled="formData.withdraw !== '100%'"
                 @change="handleInput('quality100', $event.target.value)"
               />
               <RadioInput
                 label="WoS-Q3"
-                name="WoS"
+                name="quality100"
                 value="WoS-Q3"
                 v-model="formData.quality100"
+                :disabled="formData.withdraw !== '100%'"
                 @change="handleInput('quality100', $event.target.value)"
               />
               <RadioInput
                 label="SJR-Q1"
-                name="WoS"
+                name="quality100"
                 value="SJR-Q1"
                 v-model="formData.quality100"
+                :disabled="formData.withdraw !== '100%'"
                 @change="handleInput('quality100', $event.target.value)"
               />
               <RadioInput
                 label="SJR-Q2"
-                name="WoS"
+                name="quality100"
                 value="SJR-Q2"
                 v-model="formData.quality100"
+                :disabled="formData.withdraw !== '100%'"
                 @change="handleInput('quality100', $event.target.value)"
               />
             </div>
@@ -636,6 +697,7 @@
                 label="เรื่อง"
                 customLabel="pr-2"
                 v-model="formData.name100"
+                :disabled="formData.withdraw !== '100%'"
                 @input="handleInput('name100', $event.target.value)"
               />
               <span
@@ -728,14 +790,25 @@
                 {{ v$.overseasExpenses.$errors[0].$message }}
               </span>
               <div class="flex flex-row">
-                <TextInputLabelLeft
+                <!-- <TextInputLabelLeft
                   label="• เดินทางระหว่างประเทศ กรุงเทพฯ -"
                   customLabel="w-96 pr-2"
                   customDiv="max-w-[30rem]"
                   customInput="max-w-[14rem]"
                   v-model="formData.travelCountry"
                   @input="handleInput('travelCountry', $event.target.value)"
-                />
+                /> -->
+                <div class="max-w-[30rem] flex justify-center items-center">
+                  <div class="flex flex-row w-full">
+                    <span class="w-[31rem] pr-2 flex justify-center items-center">• เดินทางระหว่างประเทศ กรุงเทพฯ -</span>
+                    <v-select
+                      class="w-full"
+                      :options="countries"
+                      v-model="formData.travelCountry"
+                      @input="handleInput('travelCountry', $event.target.value)"
+                    ></v-select>
+                  </div>
+                </div>
                 <TextInputLabelLeft
                   label="- กรุงเทพฯ"
                   customLabel="w-22 px-2"
@@ -874,11 +947,13 @@
             label="*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* (Full Paper ประกอบการเบิก) มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล WoS/SJR ซึ่งได้รับการตีพิมพ์ไม่เกิน 2 ปี ก่อนการประชุม เมื่อ"
             customLabel="w-[290%]"
             customInput="w-1/6"
+            :disabled="formData.withdraw !== '100%'"
             @input="handleInput('inputFile2', $event.target.value)"
           />
           <FileInput
             name="Second"
             type="file"
+            :disabled="formData.withdraw !== '100%'"
             @change="handleFile($event, 'file2')"
           />
           <span
@@ -897,6 +972,7 @@
             label="*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* หลักฐานเอกสาร Quartile ของ Paper ที่ใช้ประกอบการเบิก"
             name="Third"
             type="file"
+            :disabled="formData.withdraw !== '100%'"
             @change="handleFile($event, 'file3')"
           />
           <span
@@ -990,7 +1066,6 @@ import {
   maxValue,
   decimal,
   sameAs,
-  alpha,
 } from "@vuelidate/validators";
 import { DateTime } from "luxon";
 
@@ -1002,6 +1077,11 @@ import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 import FileInput from "@/components/Input/FileInput.vue";
+
+import location from "@/location.json";
+
+const countries = location.countries;
+const provinces = location.provinces;
 
 const router = useRouter();
 
@@ -1077,14 +1157,42 @@ const formData = reactive({
   file8: "",
 });
 
-// ฟังก์ชันตรวจสอบปีปัจจุบัน
+// ตรวจสอบปีและวันที่นี้
 const currentYear = computed(() => DateTime.now().year);
-const currentDate = computed(() => DateTime.now().toFormat("yyyy-MM-dd"));
+const currentDate = computed(() => DateTime.now().toISODate());
 
+// ตรวจเงื่อนไข 2 อัน
 const isRequiredForWos = () =>
   formData.timeLeave.includes("2") && formData.venue.includes("ณ ต่างประเทศ");
 
-//validate rule
+// ตรวจว่าวันที่ไม่อยู่หลัง value <= x
+const beforeDate = (value, date) => {
+  return (
+    DateTime.fromISO(value).toISODate() <= DateTime.fromISO(date).toISODate()
+  );
+};
+
+//ตรวจว่าวันที่ไม่เกิดก่อน value >= x
+const afterDate = (value, date) => {
+  return (
+    DateTime.fromISO(value).toISODate() >= DateTime.fromISO(date).toISODate()
+  );
+};
+
+// ตรวจว่าวันที่ไม่อยู่หลัง value < x
+const beforeDatenoteqal = (value, date) => {
+  return (
+    DateTime.fromISO(value).toISODate() < DateTime.fromISO(date).toISODate()
+  );
+};
+
+//ตรวจว่าวันที่ไม่เกิดก่อน value > x
+const afterDatenoteqal = (value, date) => {
+  return (
+    DateTime.fromISO(value).toISODate() > DateTime.fromISO(date).toISODate()
+  );
+};
+
 const rules = computed(() => ({
   textOther1: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลครั้งที่ *", required),
@@ -1100,16 +1208,15 @@ const rules = computed(() => ({
   },
   textOther2: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลวันที่ *", required),
-    maxValue: helpers.withMessage(
-      "* วันที่ต้องไม่เกินวันปัจจุบัน *",
-      maxValue(currentDate)
+    beforeDate: helpers.withMessage("* วันที่ต้องไม่เกินวันนี้ *", (value) =>
+      beforeDate(value, currentDate.value)
     ),
   },
   travelStart: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลเดินทาง *", required),
-    minValue: helpers.withMessage(
-      "* วันเดินทางไม่สามารถเกิดก่อนวันปัจจุบันได้ *",
-      minValue(currentDate)
+    afterDatenoteqal: helpers.withMessage(
+      "* วันเดินทางไม่สามารถเกิดก่อน หรือเป็นวันนี้ได้ *",
+      (value) => afterDatenoteqal(value, currentDate.value)
     ),
   },
   travelEnd: {
@@ -1117,9 +1224,9 @@ const rules = computed(() => ({
       "* กรุณากรอกข้อมูลวันเดินทางกลับ *",
       required
     ),
-    minValue: helpers.withMessage(
+    afterDate: helpers.withMessage(
       "* วันเดินทางกลับไม่สามารถเกิดก่อนวันไปได้ *",
-      minValue(formData.travelStart)
+      (value) => afterDate(value, formData.travelStart)
     ),
   },
   research: {
@@ -1142,13 +1249,13 @@ const rules = computed(() => ({
       "* กรุณากรอกข้อมูลวันที่จัดข้อมูลการประชุมวิชาการ *",
       required
     ),
-    minValue: helpers.withMessage(
+    afterDate: helpers.withMessage(
       "* วันที่จัดการประชุมวิชาการไม่สามารถจัดก่อนวันที่จะเดินทางได้ *",
-      minValue(formData.travelStart)
+      (value) => afterDate(value, formData.travelStart)
     ),
-    maxValue: helpers.withMessage(
+    beforeDate: helpers.withMessage(
       "* วันที่จัดการประชุมวิชาการไม่สามารถจัดหลังจากที่เดินทางกลับได้ *",
-      maxValue(formData.travelEnd)
+      (value) => beforeDate(value, formData.travelEnd)
     ),
   },
   meetingVenue: {
@@ -1168,9 +1275,9 @@ const rules = computed(() => ({
       "* กรุณากรอกข้อมูลวันที่ส่งข้อมูลงานวิชาการ *",
       required
     ),
-    maxValue: helpers.withMessage(
+    beforeDate: helpers.withMessage(
       "* ไม่สามารถส่งงานวิจัยหลังจากวันที่กรอกข้อมูลแบบฟอร์มนี้ *",
-      maxValue(currentDate.value)
+      (value) => beforeDate(value, currentDate.value)
     ),
   },
   argumentDateReview: {
@@ -1178,13 +1285,13 @@ const rules = computed(() => ({
       "* กรุณากรอกข้อมูลวันที่ประกาศผลการคัดเลือก *",
       required
     ),
-    minValue: helpers.withMessage(
-      "* ไม่สามารถกรอกวันประกาศผลก่อนวันที่สมัครได้ *",
-      minValue(formData.dateSubmitToOrganizer)
+    afterDatenoteqal: helpers.withMessage(
+      "* ไม่สามารถกรอกวันประกาศผลก่อน หรือวันสมัคร *",
+      (value) => afterDatenoteqal(value, formData.dateSubmitToOrganizer)
     ),
-    maxValue: helpers.withMessage(
-      "* ไม่สามารถกรอกวันประกาศผลหลังจากวันที่เดินทาง หรือวันลงทะเบียนวันสุดท้ายได้ *",
-      maxValue(Math.min(formData.travelStart, formData.lastDayRegister))
+    beforeDatenoteqal: helpers.withMessage(
+      "* ไม่สามารถกรอกวันประกาศผลหลังจากวันที่เดินทางได้ *",
+      (value) => beforeDatenoteqal(value, formData.travelStart)
     ),
   },
   lastDayRegister: {
@@ -1192,19 +1299,27 @@ const rules = computed(() => ({
       "* กรุณากรอกข้อมูลวันที่วันสุดท้ายที่สามารถลงทะเบียนได้ *",
       required
     ),
-    minValue: helpers.withMessage(
-      "* วันสุดท้ายของการลงทะเบียนไม่สามารถเกิดก่อนการคัดเลือก วันที่ส่งงานวิจัย และวันกรอกแบบฟอร์มได้ *",
-      minValue(
-        Math.max(
-          currentDate.value,
-          formData.dateSubmitToOrganizer,
-          formData.argumentDateReview
+    afterDatenoteqal: helpers.withMessage(
+      "* วันสุดท้ายของการลงทะเบียนไม่สามารถเกิดก่อนวันที่ส่งงาน หรือประกาศผลได้ *",
+      (value) =>
+        afterDatenoteqal(
+          value,
+          DateTime.min(
+            DateTime.fromISO(formData.dateSubmitToOrganizer),
+            DateTime.fromISO(formData.argumentDateReview)
+          )
         )
-      )
     ),
-    maxValue: helpers.withMessage(
+    beforeDatenoteqal: helpers.withMessage(
       "* วันสุดท้ายของการลงทะเบียนไม่สามารถเกิดหลังจากวันเดินทาง หรือวันที่จัดงานได้ *",
-      maxValue(Math.min(formData.travelStart, formData.meetingDate))
+      (value) =>
+        beforeDatenoteqal(
+          value,
+          DateTime.min(
+            DateTime.fromISO(formData.travelStart),
+            DateTime.fromISO(formData.meetingDate)
+          )
+        )
     ),
   },
   meetingType: {
@@ -1250,8 +1365,8 @@ const rules = computed(() => ({
       sameAs(formData.hIndexYear)
     ),
     maxValue: helpers.withMessage(
-      "* ปีไม่สามารถเป็นปีที่มากกว่าปีปัจจุบัน *",
-      maxValue(currentYear)
+      "* ปีไม่สามารถเป็นปีที่มากกว่าปีนี้ *",
+      maxValue(currentYear.value)
     ),
   },
   sjrhIndex: {
@@ -1283,8 +1398,8 @@ const rules = computed(() => ({
       sameAs(formData.sjrYear)
     ),
     maxValue: helpers.withMessage(
-      "* ปีไม่สามารถเป็นปีที่มากกว่าปีปัจจุบัน *",
-      maxValue(currentYear)
+      "* ปีไม่สามารถเป็นปีที่มากกว่าปีนี้ *",
+      maxValue(currentYear.value)
     ),
   },
   //total
@@ -1391,7 +1506,10 @@ const rules = computed(() => ({
     minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
   },
   travelCountry: {
-    alpha: helpers.withMessage("* กรุณากรอกเป็นตัวหนังสือ *", alpha),
+    required: helpers.withMessage(
+      "* กรุณาเลือกประเทศ *",
+      requiredIf(() => formData.venue == 'ณ ต่างประเทศ')
+    )
   },
   interExpenses: {
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
@@ -1469,7 +1587,11 @@ const rules = computed(() => ({
     integer: helpers.withMessage("* กรุณาระบุเป็นจำนวนเต็ม *", integer),
     minValue: helpers.withMessage(
       "* ต้องอยู่ในช่วง 2 ปี *",
-      minValue(currentYear - 2)
+      minValue(currentYear.value - 2)
+    ),
+    maxValue: helpers.withMessage(
+      "* ไม่สามารถยื่นเอกสารที่ปีมากกว่าปัจจุบันได้ห *",
+      maxValue(currentYear.value)
     ),
   },
   file3: {
@@ -1575,8 +1697,8 @@ const totalScore = computed(() => {
   console.log("totalScore");
   if (formData.score == "SJR") {
     console.log("SJR");
-    if (formData.sjr != null && formData.hIndex != null) {
-      return formData.sjr * formData.hIndex;
+    if (formData.sjr != null && formData.sjrhIndex != null) {
+      return formData.sjr * formData.sjrhIndex;
     }
     return null;
   } else if (formData.score == "CIF") {

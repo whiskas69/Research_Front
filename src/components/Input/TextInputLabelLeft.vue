@@ -41,6 +41,7 @@ const props = defineProps({
   customInput: {
     type: String,
     default: "",
-  },
+  }
 });
+
 </script>
