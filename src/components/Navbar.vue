@@ -59,7 +59,6 @@
         </div>
       </div>
     </div>
-
     <div class="flex-auto w-4/6">
       <ul class="menu menu-horizontal px-5 flex">
         <div v-if="userStore.user">
@@ -118,7 +117,7 @@
         <summary class="btn m-1">
           <!-- Badge Notification -->
           <span
-            v-if="listNoti.noti.length > 0"
+            v-if="!isRead && listNoti.noti.length > 0"
             class="absolute top-0 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-s font-bold text-white"
           >
             {{ listNoti.noti.length }}
@@ -128,35 +127,47 @@
         <ul
           class="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
         >
-          <li v-for="noti in listNoti.noti" :key="noti.noti_id">
-            <div class="bg-red-200 w-full">
-              <p>{{ noti.name_form }}</p>
+        <!-- <div v-if="userStore.user.user_role === 'professor'"> -->
+          <li v-for="noti in listNoti.notiPro" :key="noti.noti_id">
+            <div
+              class="bg-red-200 w-full"
+            >
               <p>{{ noti.name_form }}</p>
               <p v-if="noti.kris_id != null">
                 แบบเสนอโครงการวิจัย สถานะ <b>{{ noti.status_form }}</b>
               </p>
+              <p v-if="noti.pageC_id != null">
+                Page Charge ตีพิมพ์ผลงานวารสาร สถานะ
+                <b>{{ noti.status_form }}</b>
+              </p>
+              <p v-if="noti.conf_id != null">
+                การประชุมทางวิชาการ สถานะ <b>{{ noti.status_form }}</b>
+              </p>
             </div>
           </li>
+        <!-- </div> -->
+        <!-- <div v-if="userStore.user.user_role != 'professor'"> -->
+          <li v-for="noti in listNoti.noti" :key="noti.noti_id">
+            <div
+              class="bg-red-200 w-full"
+            >
+            <p>{{ noti.user_nameth }}</p>
+              <p>{{ noti.name_form }}</p>
+              <p v-if="noti.kris_id != null">
+                แบบเสนอโครงการวิจัย สถานะ <b>{{ noti.status_form }}</b>
+              </p>
+              <p v-if="noti.pageC_id != null">
+                Page Charge ตีพิมพ์ผลงานวารสาร สถานะ
+                <b>{{ noti.status_form }}</b>
+              </p>
+              <p v-if="noti.conf_id != null">
+                การประชุมทางวิชาการ สถานะ <b>{{ noti.status_form }}</b>
+              </p>
+            </div>
+          </li>
+        <!-- </div> -->
         </ul>
       </details>
-      <button class="btn btn-ghost btn-circle">
-        <div class="indicator">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-            />
-          </svg>
-        </div>
-      </button>
     </div>
 
     <div v-if="!userStore.user">
@@ -198,7 +209,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive } from "vue";
+import { ref, onMounted, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
@@ -207,19 +218,28 @@ const router = useRouter();
 const userStore = useUserStore();
 const listNoti = reactive({
   noti: [],
+  notiPro: [],
 });
 //check noti.lenght > 0 show noti if click noti.lenght == 0
 
-const clear = () =>{
-  // delete noti opened
-  return numNoti == 0;
-}
+const clear = () => {
+  isRead.value = true;
+};
+const isLoading = ref(true);
+const isRead = ref(false); // ✅ เช็คว่ากดอ่านแล้วหรือยัง
 const fetchData = async () => {
   try {
     const response = await api.get("/notiAll");
-    console.log("response.data", response.data);
+    console.log("notiAll: ", response.data.data);
+    console.log("user: ", userStore.user)
 
-    listNoti.noti = response.data;
+    // แก้userStore.user ตรง 40
+    const filteredNoti = response.data.data.filter(
+       (noti) => noti.user_id === 40
+     );
+     listNoti.notiPro = filteredNoti;
+    listNoti.noti = response.data.data;
+    isRead.value = false;
   } catch (error) {
     console.error("Error fetching data:", error);
   } finally {
