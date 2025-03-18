@@ -18,6 +18,26 @@
         </ul>
       </div>
 
+      <div v-if="data.form.form_status == 'อนุมัติ'" class="flex justify-center">
+        <ul class="steps steps-vertical lg:steps-horizontal">
+          <li data-content="✓" class="step step-primary w-40">
+            ฝ่ายบริหารงานวิจัย
+          </li>
+          <li data-content="✓" class="step step-primary w-40">เข้าที่ประชุม</li>
+          <li data-content="✓" class="step step-primary w-40">อนุมัติ</li>
+        </ul>
+      </div>
+
+      <div v-if="data.form.form_status == 'เข้าที่ประชุม'" class="flex justify-center">
+        <ul class="steps steps-vertical lg:steps-horizontal">
+          <li data-content="✓" class="step step-primary w-40">
+            ฝ่ายบริหารงานวิจัย
+          </li>
+          <li data-content="✓" class="step step-primary w-40">เข้าที่ประชุม</li>
+          <li class="step w-40">อนุมัติ</li>
+        </ul>
+      </div>
+
       <div v-if="data.form.form_status == 'ฝ่ายบริหารงานวิจัย'" class="flex justify-center">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
@@ -25,16 +45,6 @@
           </li>
           <li class="step w-40">เข้าที่ประชุม</li>
           <li class="step w-40">อนุมัติ</li>
-        </ul>
-      </div>
-
-      <div v-if="data.form.form_status == 'อนุมัติ'" class="flex justify-center">
-        <ul class="steps steps-vertical lg:steps-horizontal">
-          <li data-content="✓" class="step step-primary w-40">
-            ฝ่ายบริหารงานวิจัย
-          </li>
-          <li data-content="✓" class="step step-primary w-40">เข้าที่ประชุม</li>
-          <li data-content="✓" class="step step-accent w-40">อนุมัติ</li>
         </ul>
       </div>
     </Mainbox>

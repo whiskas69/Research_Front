@@ -336,7 +336,7 @@
             </label>
 
             <TextInputLabelLeft
-              label="ปี ค.ศ./พ.ศ."
+              label="ปี ค.ศ."
               customLabel="w-[50%]"
               customInput="w-[50%]"
               customDiv="max-w-[15%]"
@@ -781,12 +781,44 @@ const inputTypes = {
   file5: "string",
 };
 
-// ฟังก์ชันตรวจสอบปีปัจจุบัน
-const currentYear = DateTime.now().year;
-const currentDate = DateTime.now().toISODate();
+// ตรวจสอบปีและวันที่นี้
+const currentYear = computed(() => DateTime.now().year);
+const currentDate = computed(() => DateTime.now().toISODate());
+
+// ตรวจเงื่อนไข 2 อัน
+const isRequiredForWos = () =>
+  formData.timeLeave.includes("2") && formData.venue.includes("ณ ต่างประเทศ");
+
+// ตรวจว่าวันที่ไม่อยู่หลัง value <= x
+const beforeDate = (value, date) => {
+  return (
+    DateTime.fromISO(value).toISODate() <= DateTime.fromISO(date).toISODate()
+  );
+};
+
+//ตรวจว่าวันที่ไม่เกิดก่อน value >= x
+const afterDate = (value, date) => {
+  return (
+    DateTime.fromISO(value).toISODate() >= DateTime.fromISO(date).toISODate()
+  );
+};
+
+// ตรวจว่าวันที่ไม่อยู่หลัง value < x
+const beforeDatenoteqal = (value, date) => {
+  return (
+    DateTime.fromISO(value).toISODate() < DateTime.fromISO(date).toISODate()
+  );
+};
+
+//ตรวจว่าวันที่ไม่เกิดก่อน value > x
+const afterDatenoteqal = (value, date) => {
+  return (
+    DateTime.fromISO(value).toISODate() > DateTime.fromISO(date).toISODate()
+  );
+};
 
 // ฟังก์ชันตรวจสอบว่าเป็นวันที่ในอดีตหรือไม่
-const pastDate = (value) => !value || value <= currentDate;
+const pastDate = (value) => !value || value <= currentDate.value;
 
 //validate rule
 const rules = computed(() => ({
@@ -794,14 +826,11 @@ const rules = computed(() => ({
     required: helpers.withMessage("* กรุณากรอกข้อมูลครั้งที่ *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลครั้งที่เป็นตัวเลข *", numeric),
     integer: helpers.withMessage("* กรุณากรอกเป็นจำนวนเต็ม *", integer),
-    minValue: helpers.withMessage(
-      "* ครั้งที่ไม่สามารถต่ำกว่า 1 ได้ *",
-      minValue(1)
-    ),
+    minValue: helpers.withMessage("* ครั้งที่ไม่สามารถต่ำกว่า 1 ได้ *", minValue(1)),
   },
   textOther2: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลวันที่ *", required),
-    pastDate: helpers.withMessage("* วันที่ต้องไม่เกินวันปัจจุบัน *", pastDate),
+    beforeDate: helpers.withMessage("* วันที่ต้องไม่เกินวันนี้ *", (value) => beforeDate(value, currentDate.value)),
   },
   nameJournal: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลชื่อวารสาร *", required),
@@ -811,10 +840,7 @@ const rules = computed(() => ({
   },
   yearISI: {
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    maxValue: helpers.withMessage(
-      "* ปีไม่สามารถมากกว่าปีปัจจุบันได้ *",
-      maxValue(currentYear)
-    ),
+    maxValue: helpers.withMessage("* ปีไม่สามารถมากกว่าปีปัจจุบันได้ *", maxValue(currentYear.value)),
     required: helpers.withMessage(
       "* กรุณากรอกข้อมูลปีที่ได้รับการจัดลำดับ Quartile *",
       requiredIf(() => formData.check.includes("ISI"))
@@ -846,7 +872,7 @@ const rules = computed(() => ({
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
     maxValue: helpers.withMessage(
       "* ปีไม่สามารถมากกว่าปีปัจจุบันได้ *",
-      maxValue(currentYear)
+      maxValue(currentYear.value)
     ),
     required: helpers.withMessage(
       "* กรุณากรอกข้อมูลปีที่ได้รับการจัดลำดับ Quartile *",
@@ -879,7 +905,7 @@ const rules = computed(() => ({
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
     maxValue: helpers.withMessage(
       "* ปีไม่สามารถมากกว่าปีปัจจุบันได้ *",
-      maxValue(currentYear)
+      maxValue(currentYear.value)
     ),
     required: helpers.withMessage(
       "* กรุณากรอกข้อมูลปีที่ได้รับการจัดลำดับ Quartile *",
@@ -923,7 +949,7 @@ const rules = computed(() => ({
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
     minValue: helpers.withMessage(
       "* ปีไม่สามารถน้อยกว่าปีปัจจุบันได้ *",
-      minValue(currentYear)
+      minValue(currentYear.value)
     ),
   },
   issue: {
@@ -941,11 +967,11 @@ const rules = computed(() => ({
     required: helpers.withMessage("* กรุณาเลือกข้อมูลเดือน *", required),
   },
   year: {
-    required: helpers.withMessage("* กรุณากรอกข้อมูลปี ค.ศ./พ.ศ. *", required),
+    required: helpers.withMessage("* กรุณากรอกข้อมูลปี ค.ศ. *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
     minValue: helpers.withMessage(
       "* ปีไม่สามารถน้อยกว่าปีปัจจุบันได้ *",
-      minValue(currentYear)
+      minValue(currentYear.value)
     ),
   },
   ISSN: {
@@ -959,30 +985,25 @@ const rules = computed(() => ({
       "* กรุณากรอกวันที่ส่งบทความไปยังสำนักพิมพ์เจ้าของวารสาร *",
       required
     ),
-    pastDate: helpers.withMessage(
-      "ต้องไม่เกิดก่อนวันที่ส่งงานวิจัย",
-      (value) => value >= formData.submitReach
-    ),
+    afterDate: helpers.withMessage("วันที่ไม่สามารถเกิดก่อนวันที่ส่งงานวิจัยได้", (value) => afterDate(value, formData.submitReach))
   },
   announce: {
     required: helpers.withMessage(
       "* กรุณากรอกวันประกาศผลการพิจารณา *",
       required
     ),
-    pastDate: helpers.withMessage(
-      "ต้องไม่เกิดก่อนวันที่ส่งงานวิจัย",
-      (value) => value >= formData.submitReach
-    ),
+    afterDate: helpers.withMessage("วันที่ไม่สามารถเกิดก่อนวันที่ส่งงานวิจัยได้", (value) => afterDate(value, formData.submitReach))
   },
   latePay: {
     required: helpers.withMessage(
       "* กรุณากรอกวันสุดท้ายของการจ่ายค่าตีพิมพ์ *",
       required
     ),
-    pastDate: helpers.withMessage(
-      "ต้องไม่เกิน announce และวันปัจจุบัน",
-      (value) => value <= formData.announce && value <= currentDate
-    ),
+    afterDate: helpers.withMessage("วันที่ไม่สามารถเกิดก่อนวันที่ส่งงานวิจัย และวันประกาศผลได้", (value) => afterDate(value, DateTime.min(
+            DateTime.fromISO(formData.announce),
+            DateTime.fromISO(currentDate.value)
+          )))
+    ,
   },
   radioResearch: {
     required: helpers.withMessage(
@@ -1017,7 +1038,7 @@ const rules = computed(() => ({
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
     maxValue: helpers.withMessage(
       "* ปีไม่สามารถมากกว่าปีปัจจุบันได้ *",
-      maxValue(currentYear)
+      maxValue(currentYear.value)
     ),
   },
   radioAuth: {
@@ -1180,6 +1201,8 @@ const NewPC = async () => {
           "Content-Type": "multipart/form-data", // Required for file uploads
         },
       });
+      console.log(response)
+      
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
       router.push("/allstatus");
     } catch (error) {

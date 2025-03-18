@@ -1,10 +1,16 @@
 <template>
   <p class="text-2xl font-bold text-center my-10">ประวัติเอกสาร</p>
-  <!-- <hisPageCharge :id="id" /> -->
+  <hisPageCharge :id="id" />
   <div class="container my-10 mx-auto">
     <div class="flex justify-end">
-      <button
+      <!-- <button
         @click="exportToPDF"
+        class="btn text-white bg-[#4285F4] hover:bg-[#4285F4]"
+      >
+        นำออกเอกสารเป็น PDF
+      </button> -->
+      <button
+        onclick="window.print()"
         class="btn text-white bg-[#4285F4] hover:bg-[#4285F4]"
       >
         นำออกเอกสารเป็น PDF

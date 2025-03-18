@@ -201,6 +201,8 @@ const updatesignature = async () => {
         },
       });
 
+      console.log(response)
+
       alert("อัปโหลดลายเซ็นเรียบร้อยแล้ว");
 
       location.reload();

@@ -12,13 +12,11 @@
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="" class="step w-40">ฝ่ายบริหารทรัพยากรบุคคล</li>
           <li data-content="" class="step w-40">ฝ่ายบริหารงานวิจัย</li>
-          <li data-content="" class="step w-40">ฝ่ายการเงิน</li>
+          <li data-content="" class="step w-40">ฝ่ายบริหารการเงิน</li>
           <li data-content="" class="step w-40">รองคณบดี</li>
           <li data-content="" class="step w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
-          <li data-content="✗" class="step  step-error w-40">
-            ไม่อนุมัติ
-          </li>
+          <li data-content="✗" class="step step-error w-40">ไม่อนุมัติ</li>
         </ul>
       </div>
 
@@ -30,11 +28,11 @@
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="✓" class="step step-primary w-40">ฝ่ายการเงิน</li>
+          <li data-content="✓" class="step step-primary w-40">ฝ่ายบริหารการเงิน</li>
           <li data-content="✓" class="step step-primary w-40">รองคณบดี</li>
           <li data-content="✓" class="step step-primary w-40">คณบดี</li>
           <li data-content="✓" class="step step-primary w-40">รออนุมัติ</li>
-          <li data-content="✓" class="step step-accent w-40">อนุมัติ</li>
+          <li data-content="✓" class="step step-primary w-40">อนุมัติ</li>
         </ul>
       </div>
 
@@ -46,7 +44,7 @@
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="✓" class="step step-primary w-40">ฝ่ายการเงิน</li>
+          <li data-content="✓" class="step step-primary w-40">ฝ่ายบริหารการเงิน</li>
           <li data-content="✓" class="step step-primary w-40">รองคณบดี</li>
           <li data-content="✓" class="step step-primary w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
@@ -62,7 +60,7 @@
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="✓" class="step step-primary w-40">ฝ่ายการเงิน</li>
+          <li data-content="✓" class="step step-primary w-40">ฝ่ายบริหารการเงิน</li>
           <li data-content="✓" class="step step-primary w-40">รองคณบดี</li>
           <li data-content="" class="step w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
@@ -70,7 +68,7 @@
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'ฝ่ายการเงิน'">
+      <div class="flex justify-center" v-if="data.form.form_status == 'ฝ่ายบริหารการเงิน'">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารทรัพยากรบุคคล
@@ -78,7 +76,7 @@
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="✓" class="step step-primary w-40">ฝ่ายการเงิน</li>
+          <li data-content="✓" class="step step-primary w-40">ฝ่ายบริหารการเงิน</li>
           <li data-content="" class="step w-40">รองคณบดี</li>
           <li data-content="" class="step w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
@@ -94,7 +92,7 @@
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="" class="step w-40">ฝ่ายการเงิน</li>
+          <li data-content="" class="step w-40">ฝ่ายบริหารการเงิน</li>
           <li data-content="" class="step w-40">รองคณบดี</li>
           <li data-content="" class="step w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
@@ -108,7 +106,7 @@
             ฝ่ายบริหารทรัพยากรบุคคล
           </li>
           <li data-content="" class="step w-40">ฝ่ายบริหารงานวิจัย</li>
-          <li data-content="" class="step w-40">ฝ่ายการเงิน</li>
+          <li data-content="" class="step w-40">ฝ่ายบริหารการเงิน</li>
           <li data-content="" class="step w-40">รองคณบดี</li>
           <li data-content="" class="step w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
@@ -119,9 +117,9 @@
 
     <Mainbox>
       <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
-      <span class="text-s font-bold text-red-500 ml-5 mt-2">ส่งเอกสารเพิ่มเติมได้เพียงครั้งเดียวเท่านั้น
-        และจำเป็นต้องกรอกทุกช่อง</span>
-
+      <span class="text-s font-bold text-red-500 ml-5 mt-2" v-if="!data.check">
+        ส่งเอกสารเพิ่มเติมได้เพียงครั้งเดียวเท่านั้นและจำเป็นต้องกรอกทุกช่อง
+      </span>
       <div class="px-5 mb-3">
         <div class="flex flex-rowitems-center mt-2 justify-between"
           v-if="data.conf.full_page && data.conf.full_page !== ''">
@@ -267,8 +265,9 @@
             <button @click="getFile(data.f_fee_receipt)" class="btn bg-[#E85F19] text-white mr-5">
               ดูเอกสาร
             </button>
-            <button @click="downloadFile(data.f_fee_receipt, 'เอกสารแสดงค่าลงทะเบียน')"
-              class="btn bg-[#4285F4] text-white">
+            <button @click="
+              downloadFile(data.f_fee_receipt, 'เอกสารแสดงค่าลงทะเบียน')
+              " class="btn bg-[#4285F4] text-white">
               โหลดเอกสาร
             </button>
           </div>
@@ -294,7 +293,10 @@
               ดูเอกสาร
             </button>
             <button @click="
-              downloadFile(data.f_fx_rate_document, 'เอกสารแสดงอัตราแลกเปลี่ยน')
+              downloadFile(
+                data.f_fx_rate_document,
+                'เอกสารแสดงอัตราแลกเปลี่ยน'
+              )
               " class="btn bg-[#4285F4] text-white">
               โหลดเอกสาร
             </button>
@@ -476,7 +478,7 @@ const handleFile = (event, fieldName) => {
   if (file) {
     data[fieldName] = file;
   } else {
-    console.error(`No file selected for ${fieldName}`);
+    console.log(`No file selected for ${fieldName}`);
   }
 };
 
@@ -613,8 +615,8 @@ const downloadFile = async (fileUrl, fileName) => {
   }
 };
 
-onMounted(() => {
-  getDataConf();
+onMounted(async () => {
+  await getDataConf();
   checkfile();
 });
 </script>

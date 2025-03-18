@@ -11,7 +11,7 @@
       <div class="flex justify-center" v-if="data.form.form_status == 'ไม่อนุมัติ'">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="" class="step w-40">ฝ่ายบริหารงานวิจัย</li>
-          <li data-content="" class="step w-40">ฝ่ายการเงิน</li>
+          <li data-content="" class="step w-40">ฝ่ายบริหารการเงิน</li>
           <li data-content="" class="step w-40">รองคณบดี</li>
           <li data-content="" class="step w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
@@ -26,7 +26,7 @@
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="✓" class="step step-primary w-40">ฝ่ายการเงิน</li>
+          <li data-content="✓" class="step step-primary w-40">ฝ่ายบริหารการเงิน</li>
           <li data-content="✓" class="step step-primary w-40">รองคณบดี</li>
           <li data-content="✓" class="step step-primary w-40">คณบดี</li>
           <li data-content="✓" class="step step-primary w-40">รออนุมัติ</li>
@@ -39,11 +39,11 @@
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="✓" class="step step-primary w-40">ฝ่ายการเงิน</li>
+          <li data-content="✓" class="step step-primary w-40">ฝ่ายบริหารการเงิน</li>
           <li data-content="✓" class="step step-primary w-40">รองคณบดี</li>
           <li data-content="✓" class="step step-primary w-40">คณบดี</li>
           <li data-content="✓" class="step step-primary w-40">รออนุมัติ</li>
-          <li data-content="✓" class="step step-accent w-40">อนุมัติ</li>
+          <li data-content="✓" class="step step-primary w-40">อนุมัติ</li>
         </ul>
       </div>
 
@@ -52,7 +52,7 @@
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="✓" class="step step-primary w-40">ฝ่ายการเงิน</li>
+          <li data-content="✓" class="step step-primary w-40">ฝ่ายบริหารการเงิน</li>
           <li data-content="✓" class="step step-primary w-40">รองคณบดี</li>
           <li data-content="✓" class="step step-primary w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
@@ -65,7 +65,7 @@
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="✓" class="step step-primary w-40">ฝ่ายการเงิน</li>
+          <li data-content="✓" class="step step-primary w-40">ฝ่ายบริหารการเงิน</li>
           <li data-content="✓" class="step step-primary w-40">รองคณบดี</li>
           <li data-content="" class="step w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
@@ -73,12 +73,12 @@
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'ฝ่ายการเงิน'">
+      <div class="flex justify-center" v-if="data.form.form_status == 'ฝ่ายบริหารการเงิน'">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="✓" class="step step-primary w-40">ฝ่ายการเงิน</li>
+          <li data-content="✓" class="step step-primary w-40">ฝ่ายบริหารการเงิน</li>
           <li data-content="" class="step w-40">รองคณบดี</li>
           <li data-content="" class="step w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
@@ -91,7 +91,7 @@
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="" class="step w-40">ฝ่ายการเงิน</li>
+          <li data-content="" class="step w-40">ฝ่ายบริหารการเงิน</li>
           <li data-content="" class="step w-40">รองคณบดี</li>
           <li data-content="" class="step w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
@@ -102,7 +102,7 @@
 
     <Mainbox>
       <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
-      <span class="text-s font-bold text-red-500 ml-5 mt-2">ส่งเอกสารเพิ่มเติมได้เพียงครั้งเดียวเท่านั้น
+      <span class="text-s font-bold text-red-500 ml-5 mt-2" v-if="!data.check">ส่งเอกสารเพิ่มเติมได้เพียงครั้งเดียวเท่านั้น
         และจำเป็นต้องกรอกทุกช่อง</span>
 
       <div class="px-5 mb-3">
@@ -463,9 +463,8 @@ const downloadFile = async (fileUrl, fileName) => {
     console.error("Error downloading file:", error);
   }
 };
-
-onMounted(() => {
-  getDataPc();
+onMounted(async () => {
+  await getDataPc();
   checkfile();
 });
 </script>
