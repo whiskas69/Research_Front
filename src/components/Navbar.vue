@@ -115,115 +115,65 @@
     <!-- end -->
     <div class="flex-auto w-2/6 justify-end">
       <div v-if="userStore.user">
-        <div v-if="userStore.user.user_role == 'professor'"></div>
+        <div v-if="userStore.user.user_role == 'professor'">
+          <div class="dropdown dropdown-bottom dropdown-end">
+            <div tabindex="0" role="button" class="btn m-1">
+              <span v-if="list_notification.Pro_noti.length > 0"
+              class="absolute top-0 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-s font-bold text-white"
+            >
+              {{ list_notification.Pro_noti.length }}
+            </span>
+              <i class="color-black text-xl fa fa-bell"></i>
+            </div>
 
-        <div class="dropdown dropdown-bottom dropdown-end" @click="clear">
+            <ul
+              tabindex="0"
+              class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+              v-if="userStore.user.user_role == 'professor'"
+            >
+              <li v-for="item in list_notification.Pro_noti" :key="item.noti_id">
+                <div class="flex flex-col items-start" v-if="item.form_type == 'Research_KRIS'">
+                  <p>แบบเสนอโครงการวิจัย</p>
+                  <p>ชื่องานวิจัย : {{ item.name_form }}</p>
+                  <p>สถานะ : {{ item.form_status }}</p>
+                </div>
+                <div class="flex flex-col items-start" v-if="item.form_type == 'Conference'">
+                  <p>ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ</p>
+                  <p>ชื่อบทความ : {{ item.name_form }}</p>
+                  <p>สถานะ : {{ item.form_status }}</p>
+                </div>
+                <div class="flex flex-col items-start" v-if="item.form_type == 'Page_Charge'">
+                  <p>ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ</p>
+                  <p>ชื่อบทความ : {{ item.name_form }}</p>
+                  <p>สถานะ : {{ item.form_status }}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- <div class="dropdown dropdown-bottom dropdown-end" @click="clear">
           <div tabindex="0" role="button" class="btn m-1">
-            <span
+            <!-- <span
               v-if="!isRead && listNoti.noti.length > 0"
               class="absolute top-0 right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-s font-bold text-white"
             >
               {{ listNoti.noti.length }}
-            </span>
-            <i class="color-black text-xl fa fa-bell"></i>
-          </div>
-          <ul
+            </span> -->
+            <!-- <i class="color-black text-xl fa fa-bell"></i> -->
+          <!-- </div> -->
+          <!-- <ul
             tabindex="0"
             class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
             v-if="userStore.user.user_role == 'professor'"
           >
-            <li v-for="noti in listNoti.notiPro" :key="noti.noti_id">
-              <p>{{ noti.name_form }}</p>
-              <p v-if="noti.kris_id != null">
-                แบบเสนอโครงการวิจัย สถานะ <b>{{ noti.status_form }}</b>
-              </p>
-              <p v-if="noti.pageC_id != null">
-                Page Charge ตีพิมพ์ผลงานวารสาร สถานะ
-                <b>{{ noti.status_form }}</b>
-              </p>
-              <p v-if="noti.conf_id != null">
-                การประชุมทางวิชาการ สถานะ <b>{{ noti.status_form }}</b>
-              </p>
-            </li>
-
-            <!-- aaaaaa -->
-            <li v-for="noti in listNoti.noti" :key="noti.noti_id">
-              <div class="bg-red-200 w-full">
-                <p>{{ noti.user_nameth }}</p>
-                <p>{{ noti.name_form }}</p>
-                <p v-if="noti.kris_id != null">
-                  แบบเสนอโครงการวิจัย สถานะ <b>{{ noti.status_form }}</b>
-                </p>
-                <p v-if="noti.pageC_id != null">
-                  Page Charge ตีพิมพ์ผลงานวารสาร สถานะ
-                  <b>{{ noti.status_form }}</b>
-                </p>
-                <p v-if="noti.conf_id != null">
-                  การประชุมทางวิชาการ สถานะ <b>{{ noti.status_form }}</b>
-                </p>
-              </div>
-            </li>
             <li>
               <a>{{ listNoti }}</a>
             </li>
             <li><a>Item 2</a></li>
           </ul>
-        </div>
+        </div> -->
       </div>
-
-      <details @click="clear" class="dropdown">
-        <summary class="btn m-1">
-          <!-- Badge Notification -->
-          <span
-            v-if="!isRead && listNoti.noti.length > 0"
-            class="absolute top-0 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-s font-bold text-white"
-          >
-            {{ listNoti.noti.length }}
-          </span>
-          <i class="color-black text-xl fa fa-bell"></i>
-        </summary>
-        <ul
-          class="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
-        >
-          <!-- <div v-if="userStore.user.user_role == 'professor'"> -->
-          <!-- mynoti -->
-          <li v-for="noti in listNoti.notiPro" :key="noti.noti_id">
-            <div class="bg-red-200 w-full">
-              <p>{{ noti.name_form }}</p>
-              <p v-if="noti.kris_id != null">
-                แบบเสนอโครงการวิจัย สถานะ <b>{{ noti.status_form }}</b>
-              </p>
-              <p v-if="noti.pageC_id != null">
-                Page Charge ตีพิมพ์ผลงานวารสาร สถานะ
-                <b>{{ noti.status_form }}</b>
-              </p>
-              <p v-if="noti.conf_id != null">
-                การประชุมทางวิชาการ สถานะ <b>{{ noti.status_form }}</b>
-              </p>
-            </div>
-          </li>
-          <!-- </div> -->
-          <!-- <div v-if="userStore.user.user_role != 'professor'"> -->
-          <!-- allnoti -->
-          <li v-for="noti in listNoti.noti" :key="noti.noti_id">
-            <div class="bg-red-200 w-full">
-              <p>{{ noti.user_nameth }}</p>
-              <p>{{ noti.name_form }}</p>
-              <p v-if="noti.kris_id != null">
-                แบบเสนอโครงการวิจัย สถานะ <b>{{ noti.status_form }}</b>
-              </p>
-              <p v-if="noti.pageC_id != null">
-                Page Charge ตีพิมพ์ผลงานวารสาร สถานะ
-                <b>{{ noti.status_form }}</b>
-              </p>
-              <p v-if="noti.conf_id != null">
-                การประชุมทางวิชาการ สถานะ <b>{{ noti.status_form }}</b>
-              </p>
-            </div>
-          </li>
-          <!-- </div> -->
-        </ul>
-      </details>
     </div>
 
     <div v-if="!userStore.user">
@@ -265,7 +215,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, computed } from "vue";
+import { onMounted, reactive, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
@@ -275,64 +225,57 @@ const router = useRouter();
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
-const myData = reactive({
-  user_id: "",
-  user_role: "",
-});
-
-const listNoti = reactive({
-  noti: [],
-  notiPro: [],
+const list_notification = reactive({
+  Pro_noti: [],
+  Off_noti: [],
 });
 
 const clear = () => {
   isRead.value = true;
 };
 
-const isLoading = ref(true);
-
-const isRead = ref(false); // ✅ เช็คว่ากดอ่านแล้วหรือยัง
-
 const fetchData = async () => {
   try {
-    const response = await api.get("/notification");
-    console.log("notiAll: ", response.data.data);
-    console.log("user: ", userStore.user);
+    const response = await api.get("/all_notification");
+    // console.log("notiAll: ", response.data.data);
+    // console.log("user: ", userStore.user);
 
-    // แก้userStore.user ตรง 40
-    const filteredNoti = response.data.data.filter(
-      (noti) => noti.user_id === 40
-    );
-    listNoti.notiPro = filteredNoti;
-    listNoti.noti = response.data.data;
-    isRead.value = false;
+    // // แก้userStore.user ตรง 40
+    // const filteredNoti = response.data.data.filter(
+    //   (noti) => noti.user_id === 40
+    // );
+    // listNoti.notiPro = filteredNoti;
+    // listNoti.noti = response.data.data;
+    // isRead.value = false;
+    list_notification.Off_noti = response.data;
+    console.log("Off_noti: ", list_notification.Off_noti);
   } catch (error) {
     console.error("Error fetching data:", error);
   } finally {
-    isLoading.value = false;
+    // isLoading.value = false;
   }
 };
 
-const fetchNotification = async () => {
+const fetchNotificationbyID = async () => {
   try {
-    const mynotification = await api.get(`/notification/${userStore.user.user_id}`);
+    const mynotification = await api.get(
+      `/notification/${userStore.user.user_id}`
+    );
 
-    console.log("myNoti", mynotification);
+    list_notification.Pro_noti = mynotification.data;
+    console.log("mynotification", list_notification.Pro_noti);
   } catch (error) {
-    console.log('error, ', error)
+    console.log("error, ", error);
   }
-}
+};
 
 onMounted(async () => {
   if (!userStore.user) {
     await userStore.fetchUser();
-
-    myData.user_id = user.value?.user_id;
-    myData.user_role = user.value?.user_role;
   }
 
   fetchData();
-  fetchNotification();
+  fetchNotificationbyID();
 });
 
 const logout = async () => {
