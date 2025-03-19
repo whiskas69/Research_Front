@@ -1139,9 +1139,9 @@ const formData = reactive({
   all_money: "", //แก้ด้วย
 
   file1: "",
-  file2: "",
+  file2: null,
   inputFile2: "",
-  file3: "",
+  file3: null,
   file4: "",
   file5: "",
   file6: "",
