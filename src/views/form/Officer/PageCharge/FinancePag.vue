@@ -149,7 +149,7 @@
           <div class="flex justify-end">
             <div class="flex flex-row justify-between">
               <TextInputLabelLeft
-                label="จำนวนเงินที่ขออนุมัติจค่า Page Charge ในครั้งนี้ เป็นจำนวนเงิน"
+                label="จำนวนเงินที่ขออนุมัติค่า Page Charge ในครั้งนี้ เป็นจำนวนเงิน"
                 customInput="max-w-max text-center"
                 v-model="formData.moneyConfer"
                 @input="handleInput('moneyConfer', $event.target.value)"
@@ -314,7 +314,7 @@ const OfficerPC = async () => {
       num_expenses_approved: formData.numapprove,
       total_amount_approved: formData.totalapprove,
       remaining_credit_limit: formData.creditLimit,
-      money_confer: formData.moneyConfer,
+      amount_approval: formData.moneyConfer,
       total_remaining_credit_limit: formData.totalcreditLimit,
       doc_submit_date: formData.docSubmitDate,
       type: formData.typeFile,

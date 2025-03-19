@@ -408,7 +408,7 @@ const OfficerConfer = async () => {
       num_expenses_approved: formData.numapprove,
       total_amount_approved: formData.totalapprove,
       remaining_credit_limit: formData.creditLimit,
-      money_confer: formData.moneyConfer,
+      amount_approval: formData.moneyConfer,
       total_remaining_credit_limit: formData.totalcreditLimit,
       doc_submit_date: formData.docSubmitDate,
       type: formData.typeFile,
