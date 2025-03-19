@@ -151,8 +151,8 @@
               <TextInputLabelLeft
                 label="จำนวนเงินที่ขออนุมัติค่า Page Charge ในครั้งนี้ เป็นจำนวนเงิน"
                 customInput="max-w-max text-center"
-                v-model="formData.moneyConfer"
-                @input="handleInput('moneyConfer', $event.target.value)"
+                v-model="formData.approval"
+                @input="handleInput('approval', $event.target.value)"
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
@@ -208,7 +208,7 @@ const formData = reactive({
   numapprove: 0,
   totalapprove: 0,
   creditLimit: 0,
-  moneyConfer: 0,
+  approval: 0,
   totalcreditLimit: 0,
   canWithdrawn: 0,
   //วันที่ส่งเอกสาร
@@ -246,7 +246,7 @@ const caltotalFaculty = computed(() => {
 
 const caltotalFacultyNow = computed(() => {
   formData.totalcreditLimit =
-    parseFloat(formData.creditLimit) - parseFloat(formData.moneyConfer);
+    parseFloat(formData.creditLimit) - parseFloat(formData.approval);
   return formData.totalcreditLimit;
 });
 
@@ -314,7 +314,7 @@ const OfficerPC = async () => {
       num_expenses_approved: formData.numapprove,
       total_amount_approved: formData.totalapprove,
       remaining_credit_limit: formData.creditLimit,
-      amount_approval: formData.moneyConfer,
+      amount_approval: formData.approval,
       total_remaining_credit_limit: formData.totalcreditLimit,
       doc_submit_date: formData.docSubmitDate,
       type: formData.typeFile,
