@@ -283,21 +283,21 @@
                   disabled="true"
                 />
                 <TextInputLabelLeft
-                  label="เริ่ม"
-                  customLabel="w-fit pl-5 mr-2"
-                  customDiv="max-w-fit"
-                  customInput="max-w-fit"
-                  :placeholder="formData.kris.project_periodStart"
-                  disabled="true"
-                />
-                <TextInputLabelLeft
-                  label="สิ้นสุด"
-                  customLabel="w-fit pl-5 mr-2"
-                  customDiv="max-w-fit"
-                  customInput="max-w-fit"
-                  :placeholder="formData.kris.project_periodEnd"
-                  disabled="true"
-                />
+                label="เริ่ม"
+                customLabel="w-fit pl-5 mr-2"
+                customDiv="max-w-fit"
+                customInput="max-w-fit"
+                :placeholder="formatThaiDate(formData.kris.project_periodStart)"
+                disabled="true"
+              />
+              <TextInputLabelLeft
+                label="สิ้นสุด"
+                customLabel="w-fit pl-5 mr-2"
+                customDiv="max-w-fit"
+                customInput="max-w-fit"
+                :placeholder="formatThaiDate(formData.kris.project_periodEnd)"
+                disabled="true"
+              />
               </div>
             </SectionWrapper>
           </div>
@@ -340,7 +340,7 @@
   </template>
   
   <script setup>
-  import { ref, computed, reactive, onMounted } from "vue";
+  import { ref, reactive, onMounted } from "vue";
   import { useRoute } from "vue-router";
   import axios from "axios";
   import Mainbox from "@/components/form/Mainbox.vue";
@@ -377,15 +377,29 @@
   const route = useRoute();
   const id = route.params.id;
   console.log("params.id", id);
-  
+
+  const formatThaiDate = (dateString) => {
+    console.log("formatThaiDate input: ", dateString);
+    const date = new Date(dateString);
+    const months = [
+      "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", 
+      "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."
+    ];
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear() + 543;
+    console.log("new date: ",`${day} ${month} ${year}`)
+    return `${day} ${month} ${year}`;
+  };
+
   const fetchOfficerData = async () => {
     try {
-      const responseConfer = await axios.get(`http://localhost:3000/kris/${id}`);
-      console.log("kris123", responseConfer);
-      formData.kris = responseConfer.data;
+      const response = await axios.get(`http://localhost:3000/kris/${id}`);
+      console.log("kris123", response);
+      formData.kris = response.data;
       console.log("kris123", formData.kris);
   
-      const userID = responseConfer.data.user_id;
+      const userID = response.data.user_id;
       const responseUser = await axios.get(
         `http://localhost:3000/user/${userID}`
       );
@@ -394,7 +408,7 @@
       console.log("user123", formData.user);
 
       const responseOffic = await axios.get(
-        `http://localhost:3000/user/${id}`
+        `http://localhost:3000/opinionkris/${id}`
       );
       console.log("get offic: ", responseOffic.data);
       formData.offic = responseOffic.data;
@@ -482,33 +496,7 @@
       }
     }
   };
-  const OfficerKris = async () => {
-    try {
-      const dataForBackend = {
-        kris_id: id,
-        research_admin: formData.radioAuthOffic,
-        doc_submit_date: formData.docSubmitDate
-      };
-      console.log("postKris: ", JSON.stringify(dataForBackend));
   
-      const response = await axios.post(
-        `http://localhost:3000/opinionKris`,
-        dataForBackend,
-        {
-          headers: {
-            "Content-Type": "application/json", // Required for file uploads
-          },
-        }
-      );
-      alert("Have new OfficerPC!");
-      console.log("res: ", response);
-      console.log("All post OfficerPC: ", message.value);
-      console.log("postOfficerPC: ", response.data);
-    } catch (error) {
-      console.error(error);
-      message.value = "Error adding page_charge. Please try again.";
-    }
-  };
   onMounted(async () => {
     await fetchOfficerData();
     loopCluster();

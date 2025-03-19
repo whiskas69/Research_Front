@@ -4,7 +4,7 @@
   <div class="container my-10 mx-auto">
     <div class="flex justify-end">
       <button
-        @click="exportToPDF"
+        onclick="window.print()"
         class="btn text-white bg-[#4285F4] hover:bg-[#4285F4]"
       >
         นำออกเอกสารเป็น PDF
