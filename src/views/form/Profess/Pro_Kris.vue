@@ -592,9 +592,10 @@ const NewKris = async () => {
         year: formData.periodYear,
         project_periodStart: formData.periodStart,
         project_periodEnd: formData.periodEnd,
-
         kris_file: formData.file,
       };
+
+      console.log("Dataforbackend : ", Dataforbackend);
 
       const response = await api.post("/kris", Dataforbackend, {
         headers: {
@@ -602,10 +603,12 @@ const NewKris = async () => {
         },
       });
 
+      console.log("response : ", response);
+
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
       router.push("/allstatus");
     } catch (error) {
-      console.log("Error saving code : ", error);
+      console.log("Error saving code : ", error.response?.data || error.message);
 
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
     }
