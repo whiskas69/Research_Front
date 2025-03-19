@@ -313,6 +313,16 @@ const fetchData = async () => {
   }
 };
 
+const fetchNotification = async () => {
+  try {
+    const mynotification = await api.get(`/notification/${userStore.user.user_id}`);
+
+    console.log("myNoti", mynotification);
+  } catch (error) {
+    console.log('error, ', error)
+  }
+}
+
 onMounted(async () => {
   if (!userStore.user) {
     await userStore.fetchUser();
@@ -322,6 +332,7 @@ onMounted(async () => {
   }
 
   fetchData();
+  fetchNotification();
 });
 
 const logout = async () => {
