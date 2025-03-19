@@ -89,19 +89,13 @@
             v-else-if="
               userStore.user.user_role == 'hr' ||
               userStore.user.user_role == 'research' ||
-              userStore.user.user_role == 'finance'
+              userStore.user.user_role == 'finance' ||
+              userStore.user.user_role == 'associate' ||
+              userStore.user.user_role == 'dean'
             "
           >
-            <router-link to="/officer">เอกสารที่อนุมัติแล้ว</router-link>
+            <router-link to="/eoffice">เอกสารที่อนุมัติแล้ว</router-link>
           </li>
-
-          <li
-            class="justify-center"
-            v-else-if="userStore.user.user_role == 'approver'"
-          >
-            <router-link to="/EofficeView">เอกสารที่อนุมัติแล้ว</router-link>
-          </li>
-
           <li
             class="justify-center"
             v-else-if="userStore.user.user_role == 'admin'"
@@ -109,7 +103,9 @@
             <router-link to="/">แก้เงื่อนไขการพิจารณา</router-link>
           </li>
         </div>
-
+        <!-- <li v-if="userStore.user.user_role != 'professor' && userStore.user.user_role != 'admin'">
+          <router-link to="/allhistory">ประวัติการยื่น</router-link>
+        </li> -->
         <li class="justify-center">
           <router-link to="/">สรุปผลแบบสถิติ</router-link>
         </li>
@@ -281,7 +277,7 @@ const user = computed(() => userStore.user);
 
 const myData = reactive({
   user_id: "",
-  user_role: ""
+  user_role: "",
 });
 
 const listNoti = reactive({
@@ -299,7 +295,6 @@ const isRead = ref(false); // ✅ เช็คว่ากดอ่านแล�
 
 const fetchData = async () => {
   try {
-
     const response = await api.get("/notification");
     console.log("notiAll: ", response.data.data);
     console.log("user: ", userStore.user);

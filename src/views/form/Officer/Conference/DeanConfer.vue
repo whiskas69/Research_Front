@@ -260,7 +260,7 @@
                 label="จำนวนเงินที่ขออนุมัติจค่า Page Charge ในครั้งนี้ เป็นจำนวนเงิน"
                 customInput="max-w-max text-center"
                 disabled="true"
-                :placeholder="formData.budget.money_confer"
+                :placeholder="formData.budget.amount_approval"
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
