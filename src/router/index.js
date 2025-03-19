@@ -12,6 +12,9 @@ import his_confer from '@/views/history/Confer.vue'
 import his_pageCharge from '@/views/history/Page.vue'
 import his_kris from '@/views/history/Kris.vue'
 
+import ConferPDF from "@/views/ToPDF/ConferPDF.vue";
+import PageCPDF from "@/views/ToPDF/PageCPDF.vue";
+
 import eOffice from "@/views/EofficeView.vue"
 
 import HomePage_Profes from "@/views/Homepage/HomePage_Profes.vue";
@@ -187,6 +190,18 @@ const router = createRouter({
       name: "HistoryKris",
       component: his_kris,
     },
+    {
+      path: "/pdf/confer/:id",
+      name: "ConferPDF",
+      component: ConferPDF,
+      meta: { hideNavbar: true },
+    },
+    {
+      path: "/pdf/pageCharge/:id",
+      name: "PageCPDF",
+      component: PageCPDF,
+      meta: { hideNavbar: true },
+    },
   ],
 });
 
@@ -199,5 +214,4 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
-
 export default router;

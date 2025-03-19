@@ -2,19 +2,14 @@
   <p class="text-2xl font-bold text-center my-10">ประวัติเอกสาร</p>
   <hisPageCharge :id="id" />
   <div class="container my-10 mx-auto">
-    <div class="flex justify-end">
-      <!-- <button
-        @click="exportToPDF"
-        class="btn text-white bg-[#4285F4] hover:bg-[#4285F4]"
-      >
-        นำออกเอกสารเป็น PDF
-      </button> -->
+    <div class="flex justify-end no-print">
+      <router-link :to="`/pdf/pageCharge/${id}`">
       <button
-        onclick="window.print()"
         class="btn text-white bg-[#4285F4] hover:bg-[#4285F4]"
       >
-        นำออกเอกสารเป็น PDF
+        พิมพ์แบบฟอร์ม
       </button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -67,6 +62,14 @@ const normalFontModule = await import(fontUrls.normal);
   }
 };
 </script>
+
+<style>
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+</style>
 
 <!-- const exportToPDF = async () => {
   const pdf = new jsPDF();

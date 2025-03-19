@@ -1,11 +1,14 @@
 <script setup>
 import Navbar from "@/components/Navbar.vue";
-import { RouterView } from "vue-router";
+import { RouterView, useRoute } from "vue-router";
+
+const route = useRoute();
 </script>
 
 <template>
   <div>
-    <Navbar />
+    <Navbar v-if="!route.meta.hideNavbar" />
+    <!-- <Navbar /> -->
     <RouterView />
   </div>
 </template>
