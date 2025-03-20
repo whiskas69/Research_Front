@@ -84,6 +84,22 @@
             </li>
           </ul>
 
+          <div
+            class="flex flex-row"
+            v-else-if="
+              userStore.user.user_role == 'hr' ||
+              userStore.user.user_role == 'research'
+            "
+          >
+            <li class="justify-center">
+              <router-link to="/allstatus">สถานะเอกสาร</router-link>
+            </li>
+
+            <li class="justify-center">
+              <router-link to="/eoffice">เอกสารที่รออนุมัติ</router-link>
+            </li>
+          </div>
+
           <li
             class="justify-center"
             v-else-if="
@@ -96,6 +112,7 @@
           >
             <router-link to="/eoffice">เอกสารที่อนุมัติแล้ว</router-link>
           </li>
+
           <li
             class="justify-center"
             v-else-if="userStore.user.user_role == 'admin'"
@@ -103,9 +120,6 @@
             <router-link to="/">แก้เงื่อนไขการพิจารณา</router-link>
           </li>
         </div>
-        <!-- <li v-if="userStore.user.user_role != 'professor' && userStore.user.user_role != 'admin'">
-          <router-link to="/allhistory">ประวัติการยื่น</router-link>
-        </li> -->
         <li class="justify-center">
           <router-link to="/">สรุปผลแบบสถิติ</router-link>
         </li>
@@ -116,13 +130,14 @@
     <div class="flex-auto w-2/6 justify-end">
       <div v-if="userStore.user">
         <div v-if="userStore.user.user_role == 'professor'">
-          <div class="dropdown dropdown-bottom dropdown-end">
+          <div class="dropdown dropdown-bottom dropdown-end" @click="updateNotifications">
             <div tabindex="0" role="button" class="btn m-1">
-              <span v-if="list_notification.Pro_noti.length > 0"
-              class="absolute top-0 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-s font-bold text-white"
-            >
-              {{ list_notification.Pro_noti.length }}
-            </span>
+              <span
+                v-if="filteredNotificationCount > 0"
+                class="absolute top-0 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-s font-bold text-white"
+              >
+                {{ filteredNotificationCount }}
+              </span>
               <i class="color-black text-xl fa fa-bell"></i>
             </div>
 
@@ -131,19 +146,34 @@
               class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
               v-if="userStore.user.user_role == 'professor'"
             >
-              <li v-for="item in list_notification.Pro_noti" :key="item.noti_id">
-                <div class="flex flex-col items-start" v-if="item.form_type == 'Research_KRIS'">
+              <li
+                v-for="item in list_notification.Pro_noti"
+                :key="item.noti_id"
+              >
+                <div
+                  class="flex flex-col items-start"
+                  v-if="item.form_type == 'Research_KRIS'"
+                >
                   <p>แบบเสนอโครงการวิจัย</p>
                   <p>ชื่องานวิจัย : {{ item.name_form }}</p>
                   <p>สถานะ : {{ item.form_status }}</p>
                 </div>
-                <div class="flex flex-col items-start" v-if="item.form_type == 'Conference'">
+                <div
+                  class="flex flex-col items-start"
+                  v-if="item.form_type == 'Conference'"
+                >
                   <p>ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ</p>
                   <p>ชื่อบทความ : {{ item.name_form }}</p>
                   <p>สถานะ : {{ item.form_status }}</p>
                 </div>
-                <div class="flex flex-col items-start" v-if="item.form_type == 'Page_Charge'">
-                  <p>ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ</p>
+                <div
+                  class="flex flex-col items-start"
+                  v-if="item.form_type == 'Page_Charge'"
+                >
+                  <p>
+                    ขออนุมัติค่า Page Charge
+                    เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
+                  </p>
                   <p>ชื่อบทความ : {{ item.name_form }}</p>
                   <p>สถานะ : {{ item.form_status }}</p>
                 </div>
@@ -151,28 +181,6 @@
             </ul>
           </div>
         </div>
-
-        <!-- <div class="dropdown dropdown-bottom dropdown-end" @click="clear">
-          <div tabindex="0" role="button" class="btn m-1">
-            <!-- <span
-              v-if="!isRead && listNoti.noti.length > 0"
-              class="absolute top-0 right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-s font-bold text-white"
-            >
-              {{ listNoti.noti.length }}
-            </span> -->
-            <!-- <i class="color-black text-xl fa fa-bell"></i> -->
-          <!-- </div> -->
-          <!-- <ul
-            tabindex="0"
-            class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
-            v-if="userStore.user.user_role == 'professor'"
-          >
-            <li>
-              <a>{{ listNoti }}</a>
-            </li>
-            <li><a>Item 2</a></li>
-          </ul>
-        </div> -->
       </div>
     </div>
 
@@ -223,36 +231,27 @@ import api from "@/setting/api";
 const router = useRouter();
 
 const userStore = useUserStore();
-const user = computed(() => userStore.user);
 
 const list_notification = reactive({
   Pro_noti: [],
   Off_noti: [],
 });
 
-const clear = () => {
-  isRead.value = true;
-};
+const filteredNotificationCount = computed(() => {
+  return list_notification.Pro_noti.filter((item) => {
+    return ( item.is_read == 0 );
+  }).length;
+});
+
+console.log("filteredNotificationCount: ", filteredNotificationCount);
 
 const fetchData = async () => {
   try {
     const response = await api.get("/all_notification");
-    // console.log("notiAll: ", response.data.data);
-    // console.log("user: ", userStore.user);
-
-    // // แก้userStore.user ตรง 40
-    // const filteredNoti = response.data.data.filter(
-    //   (noti) => noti.user_id === 40
-    // );
-    // listNoti.notiPro = filteredNoti;
-    // listNoti.noti = response.data.data;
-    // isRead.value = false;
     list_notification.Off_noti = response.data;
     console.log("Off_noti: ", list_notification.Off_noti);
   } catch (error) {
     console.error("Error fetching data:", error);
-  } finally {
-    // isLoading.value = false;
   }
 };
 
@@ -262,12 +261,49 @@ const fetchNotificationbyID = async () => {
       `/notification/${userStore.user.user_id}`
     );
 
-    list_notification.Pro_noti = mynotification.data;
-    console.log("mynotification", list_notification.Pro_noti);
+    // ตรวจสอบว่าข้อมูลเป็น Array ก่อนกรอง
+    if (Array.isArray(mynotification.data)) {
+      list_notification.Pro_noti = mynotification.data.filter(
+        (item) =>
+          !(
+            (item.form_status === "ฝ่ายบริหารงานวิจัย" &&
+              ["Research_KRIS", "Page_Charge"].includes(item.form_type)) ||
+            (item.form_status === "ฝ่ายบริหารทรัพยากรบุคคล" &&
+              item.form_type === "Conference")
+          )
+      );
+    } else {
+      console.error("API response is not an array:", mynotification.data);
+      list_notification.Pro_noti = [];
+    }
+
+    console.log("Pro_noti: ", list_notification.Pro_noti);
   } catch (error) {
-    console.log("error, ", error);
+    console.error("Error fetching notifications:", error);
   }
 };
+
+const updateNotifications = async () => {
+  if (list_notification.Pro_noti.length === 0) return;
+
+  try {
+        const notiIds = list_notification.Pro_noti.map(noti => noti.noti_id);
+
+        await api.put('/notifications/update_read', { notiIds });
+
+        console.log("อัปเดตสถานะของทุก Notification สำเร็จ");
+
+        // อัปเดตข้อมูลบนหน้า UI ทันที
+        list_notification.Pro_noti = list_notification.Pro_noti.map(noti => ({
+          ...noti,
+          is_read: 1
+        }));
+
+        console.log("list_notification.Pro_noti หลังอัปเดต:", list_notification.Pro_noti);
+      } catch (error) {
+        console.error('เกิดข้อผิดพลาดในการอัปเดต Notification:', error);
+      }
+}
 
 onMounted(async () => {
   if (!userStore.user) {

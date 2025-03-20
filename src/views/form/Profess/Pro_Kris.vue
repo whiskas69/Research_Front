@@ -440,7 +440,7 @@ const validDate = helpers.withMessage(
   "* วันที่สิ้นสุดไม่สามารถเกิดขึ้นก่อนวันเริ่มต้นได้ *",
   () => {
     if (!formData.periodStart || !formData.periodEnd) return true;
-    return new Date(formData.periodEnd) >= new Date(formData.periodStart);
+    return new Date(formData.periodEnd) > new Date(formData.periodStart);
   }
 );
 
