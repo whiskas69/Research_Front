@@ -1,6 +1,6 @@
 <template>
-  <div class="container my-10 mx-auto bg-yellow-300">
-    <p class="text-2xl font-bold text-center my-10 no-print">export pdf pc</p>
+  <div class="container my-10 mx-auto">
+    <p class="text-2xl font-bold text-center no-print">export pdf pc</p>
     <div class="flex flex-col">
       <div class="flex flex-col justify-center items-center">
         <p class="text-[15px] font-bold pt-7">
@@ -20,10 +20,8 @@
           และฉบับที่ 2 ลงวันที่ 19 กรกฎาคม 2565
         </p>
       </div>
-      <div
-        class="flex mt-1 mx-5 py-2 border-2 border-black justify-center bg-pink-300"
-      >
-        <p class="text-[14px] font-bold pr-3 bg-green-300">
+      <div class="flex mt-1 mx-5 py-2 border border-black justify-center">
+        <p class="text-[14px] font-bold pr-3">
           แบบที่ 2 ขออนุมัติค่า Page Charge
           เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
         </p>
@@ -241,11 +239,65 @@
     </div>
     <!-- 4. เอกสารหลักฐานที่แนบมาพร้อมนี้ -->
     <p class="text-[13px] font-bold pt-3">4. เอกสารหลักฐานที่แนบมาพร้อมนี้</p>
-    <p>รอเช็คเอกสาร</p>
-    <p>รอเช็คเอกสาร</p>
-    <p>รอเช็คเอกสาร</p>
-    <p>รอเช็คเอกสาร</p>
-    {{ formData.file }}
+    <div class="flex flex-col text-[13px] px-5 pt-1">
+      <div>
+        <input
+          type="checkbox"
+          class="pt-1 px-5"
+          :checked="formData.file.pc_proof != null ? true : false"
+          disabled="false"
+        />
+        <span class="text-[13px] px-4">
+          หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature
+        </span>
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          class="pt-1 px-5"
+          :checked="formData.file.q_pc_proof != null ? true : false"
+          disabled="false"
+        />
+        <span class="text-[13px] px-4">
+          หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ
+          Scopus
+        </span>
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          class="pt-1 px-5"
+          :checked="formData.file.invoice_public != null ? true : false"
+          disabled="false"
+        />
+        <span class="text-[13px] px-4">
+          ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ /
+          อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์</span
+        >
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          class="pt-1 px-5"
+          :checked="formData.file.accepted != null ? true : false"
+          disabled="false"
+        />
+        <span class="text-[13px] px-4">
+          หลักฐานการส่งบทความ หนังสือตอบรับบทความ</span
+        >
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          class="pt-1 px-5"
+          :checked="formData.file.copy_article != null ? true : false"
+          disabled="false"
+        />
+        <span class="text-[13px] px-4">
+          สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar</span
+        >
+      </div>
+    </div>
     <!-- 5.	ขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge)  -->
     <div class="flex flex-row gap-x-4">
       <p class="text-[13px] font-bold pt-3">
@@ -255,17 +307,204 @@
         เป็นจำนวนเงิน {{ formData.formattedNumbers.request_support }} บาท
       </p>
     </div>
-
+    {{ formData.user.user_signature }}
     <div class="flex flex-col text-[13px] pt-3 items-end">
       <p>ลงชื่อ ผู้เสนอขออนุมัติ</p>
       <p>img ja</p>
-      <img :src="formData.user.user_signature" alt="" />
+      <img :src="formData.user.user_signature" alt="ลายเซ็น" />
+
       <p>{{ formatThaiDate(formData.pageChange.doc_submit_date) }}</p>
     </div>
 
     <div class="page-break"></div>
-    <p>wow</p>
+    <div class="flex flex-row mt-10">
+      <p class="underline font-bold pr-2">ตรวจสอบข้อมูล ผลงาน และหลักฐาน</p>
+      <p>(ตามประกาศ สจล. และประกาศคณะ ที่อ้างอิง)</p>
+    </div>
+    <div class="flex flex-col divide-y divide-black border border-black mt-3">
+      <div class="flex flex-col mt-1 py-2 text-[13px] px-2">
+        <div class="flex flex-row">
+          <p class="underline pr-2">ขั้นตอนที่ 1</p>
+          <p>งานบริหารงานวิจัย</p>
+        </div>
+        <p>ตรวจหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ สจล. และประกาศคณะ</p>
+        <div class="flex flex-row gap-4">
+          <input
+            type="radio"
+            disabled="false"
+            :checked="
+              formData.offic.p_research_admin == 'อนุมัติ' ? true : false
+            "
+          />
+          <span>ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้</span>
+          <p v-if="formData.offic.p_research_admin == 'อนุมัติ'">
+            {{ formData.offic.p_reason }}
+          </p>
+        </div>
+        <div class="flex flex-row gap-4">
+          <input
+            type="radio"
+            disabled="false"
+            :checked="
+              formData.offic.p_research_admin == 'อื่น ๆ' ? true : false
+            "
+          />
+          <span>อื่น ๆ</span>
+          <p v-if="formData.offic.p_research_admin == 'อื่น ๆ'">
+            {{ formData.offic.p_reason }}
+          </p>
+        </div>
+        <div class="flex flex-col text-[13px] pt-3 items-end">
+          <div class="flex flex-row gap-1">
+            <p>ลงนาม</p>
+            <p>img ja</p>
+            <img :src="formData.user.user_signature" alt="ลายเซ็น" />
+            <p>เจ้าหน้าที่บริหารงานวิจัย</p>
+          </div>
 
+          <p>{{ formatThaiDate(formData.offic.research_doc_submit_date) }}</p>
+        </div>
+      </div>
+      <div class="flex flex-col py-2 text-[13px] px-2">
+        <div class="flex flex-row">
+          <p class="underline pr-2">ขั้นตอนที่ 2</p>
+          <p>งานการเงิน</p>
+        </div>
+        <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
+        <p>ปีงบประมาณ พ.ศ. {{ formData.budget.budget_year }}</p>
+        <div class="flex flex-col items-end">
+          <div class="flex flex-row justify-between gap-3">
+            <p>วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น</p>
+            <p>{{ formData.formattedBudget.total_amount }}</p>
+            <p>บาท</p>
+          </div>
+          <div class="flex flex-row justify-between gap-3">
+            <p>โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน</p>
+            <p>{{ formData.budget.num_expenses_approved }}</p>
+            <p>รายการ</p>
+            <p>รวมเป็นเงิน</p>
+            <p>{{ formData.formattedBudget.total_amount_approved }}</p>
+            <p>บาท</p>
+          </div>
+          <div class="flex flex-row justify-between gap-3">
+            <p>วงเงินที่คณะจัดสรรไว้ คงเหลือ</p>
+            <p>{{ formData.formattedBudget.remaining_credit_limit }}</p>
+            <p>บาท</p>
+          </div>
+          <div class="flex flex-row justify-between gap-3">
+            <p>จำนวนเงินที่ขออนุมัติค่า Page Charge ในครั้งนี้ เป็นจำนวนเงิน</p>
+            <p>{{ formData.formattedBudget.money_confer }}</p>
+            <p>บาท</p>
+          </div>
+          <div class="flex flex-row justify-between gap-3">
+            <p>งเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น</p>
+            <p>{{ formData.formattedBudget.total_remaining_credit_limit }}</p>
+            <p>บาท</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col text-[13px] pt-3 items-end px-10">
+          <div class="flex flex-row gap-1">
+            <p>ลงนาม</p>
+            <p>img ja</p>
+            <img :src="formData.user.user_signature" alt="ลายเซ็น" />
+            <p>เจ้าหน้าที่การเงิน</p>
+          </div>
+
+          <p>{{ formatThaiDate(formData.budget.doc_submit_date) }}</p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="grid grid-cols-2 divide-x divide-black border border-black mt-5"
+    >
+      <div class="text-[13px] px-2">
+        <p class="underline">ความเห็นรองคณบดี (กำกับดูแลด้านงานวิจัย)</p>
+        <p class="pt-4">{{ formData.offic.p_deputy_dean }}</p>
+        <div class="flex flex-col text-[13px] pt-3 items-end">
+          <div class="flex flex-row gap-1">
+            <p>ลงนาม</p>
+            <p>img ja</p>
+            <img :src="formData.user.user_signature" alt="ลายเซ็น" />
+          </div>
+
+          <p>{{ formatThaiDate(formData.offic.associate_doc_submit_date) }}</p>
+        </div>
+      </div>
+      <div class="text-[13px] px-2">
+        <div class="flex flex-row gap-2">
+          <p class="font-bold">เรียน คณบดีคณะเทคโนโลยีสารสนเทศ</p>
+          <p>(ครั้งที่ 1)</p>
+        </div>
+        <p class="pt-1 px-8">
+          เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความ
+        </p>
+        <p class="flex justify-end font-bold pr-10">รับทราบ</p>
+        <div class="flex flex-col text-[13px] pt-3 items-end">
+          <div class="flex flex-row gap-1">
+            <p>ลงนาม</p>
+            <p>img ja</p>
+            <img :src="formData.user.user_signature" alt="ลายเซ็น" />
+            <p>คณบดี</p>
+          </div>
+          <p>(รองศาสตราจารย์ ดร.ศิริเดช บุญแสง)</p>
+          <p>{{ formatThaiDate(formData.offic.dean_doc_submit_date) }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-row gap-3 pr-10 pt-4 text-[13px]">
+      <p class="font-bold">เรียน</p>
+      <p class="font-bold">คณบดีคณะเทคโนโลยีสารสนเทศ</p>
+      <p>(ครั้งที่ 2)</p>
+    </div>
+    <p class="text-[13px] pl-10">
+      ขณะนี้บทความได้รับการตอบรับแล้ว (Letter of acceptance) เมื่อวันที่
+      {{
+        formatThaiDate(formData.offic.p_date_accepted_approve)
+      }}
+      ตามหลักฐานที่แนบ
+    </p>
+    <p class="text-[13px]">จึงเรียนมาเพื่อโปรดพิจารณา</p>
+
+    <div class="flex flex-row text-[13px] pt-3 gap-4">
+      <p class="font-bold">ผลการพิจารณา</p>
+      <input
+        type="radio"
+        disabled="false"
+        :checked="formData.offic.p_approve_result == 'อนุมัติ' ? true : false"
+      />
+      <span>อนุมัติ</span>
+      <input
+        type="radio"
+        disabled="false"
+        :checked="
+          formData.offic.p_approve_result == 'ไม่อนุมัติ' ? true : false
+        "
+      />
+      <span>ไม่อนุมัติ</span>
+      <p v-if="formData.offic.p_approve_result == 'ไม่อนุมัติ'">เนื่องจาก</p>
+    </div>
+    <div class="flex flex-row text-[13px] pt-3 gap-4 px-[100px]">
+      <input
+        type="radio"
+        disabled="false"
+        :checked="
+          formData.offic.p_approve_result == 'อื่นๆ' ? true : false
+        "
+      />
+      <span>อื่นๆ</span>
+      <p v-if="formData.offic.p_approve_result == 'อื่นๆ'">เนื่องจาก</p>
+    </div>
+    <div class="flex flex-col text-[13px] pt-3 items-end">
+          <div class="flex flex-row gap-1">
+            <p>ลงนาม</p>
+            <p>img ja</p>
+            <img :src="formData.user.user_signature" alt="ลายเซ็น" />
+            <p>คณบดี</p>
+          </div>
+          <p>(รองศาสตราจารย์ ดร.ศิริเดช บุญแสง)</p>
+          <p>{{ formatThaiDate(formData.offic.dean_doc_submit_date) }}</p>
+        </div>
     <div class="container my-10 mx-auto">
       <div class="flex justify-end no-print">
         <button
@@ -291,6 +530,7 @@ const formData = reactive({
   offic: [],
   budget: [],
   formattedNumbers: "",
+  formattedBudget: "",
   file: [],
 
   check: [],
@@ -335,7 +575,7 @@ const fetchProfessorData = async () => {
     const userID = responsePC.data.user_id;
     const responseUser = await api.get(`/user/${userID}`);
     formData.user = responseUser.data;
-
+    console.log("img", formData.user.user_signature);
     // console.log("get user: ", formData.user);
 
     formData.pageChange = responsePC.data;
@@ -349,13 +589,26 @@ const fetchProfessorData = async () => {
       ).toLocaleString(),
     };
     const responseoffic = await api.get(`/opinionPC/${id}`);
-    // console.log("offic123", responseoffic);
+    console.log("offic123", responseoffic);
     formData.offic = responseoffic.data;
 
     const responsebudget = await api.get(`/budget/pageCharge/${id}`);
-    // console.log("budget 123", responsebudget);
+    console.log("budget 123", responsebudget);
     formData.budget = responsebudget.data;
-    // console.log("budget", JSON.stringify(formData.budget));
+    console.log("budget", JSON.stringify(formData.budget));
+    formData.formattedBudget = {
+      total_amount: Number(formData.budget.total_amount).toLocaleString(),
+      total_amount_approved: Number(
+        formData.budget.total_amount_approved
+      ).toLocaleString(),
+      remaining_credit_limit: Number(
+        formData.budget.remaining_credit_limit
+      ).toLocaleString(),
+      money_confer: Number(formData.budget.money_confer).toLocaleString(),
+      total_remaining_credit_limit: Number(
+        formData.budget.total_remaining_credit_limit
+      ).toLocaleString(),
+    };
 
     const responseFile = await api.get(`/pdf/${id}`);
     console.log("file 123", responseFile);
