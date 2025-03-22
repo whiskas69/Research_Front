@@ -2,8 +2,9 @@
   <div class="container my-10 mx-auto">
     <!-- <RemainingBudget/> -->
     <!-- <DisbursementApproval/> -->
-    <!-- <TotalDocuments/> -->
-    <DisbursementEachYear/>
+    <TotalDocuments/>
+    <!-- <DisbursementEachYear/> -->
+     <!-- <br><br><br> -->
     <div class="p-5 shadow m-5 rounded-xl mb-10 pt-[200px]">
       <div class="flex">
         <svg
