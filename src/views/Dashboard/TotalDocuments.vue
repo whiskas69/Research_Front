@@ -1,5 +1,6 @@
 <template>
-  <div class="bg-white p-5 rounded-lg shadow h-[500px] w-[700px]">
+  <!-- shadow -->
+  <div class="bg-white p-5 rounded-lg  h-[500px] w-[700px]">
     <h2 class="text-lg font-semibold">จำนวนเอกสารทั้งหมด</h2>
     <p class="font-bold text-gray-700">ปีงบประมาณ 2567</p>
     <canvas ref="chartCanvas"></canvas>
