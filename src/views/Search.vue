@@ -1,6 +1,6 @@
 <template>
   <div class="container my-10 mx-auto">
-    <!-- <RemainingBudget/> -->
+    <RemainingBudget/>
     <!-- <DisbursementApproval/> -->
     <TotalDocuments/>
     <!-- <DisbursementEachYear/> -->
@@ -110,24 +110,5 @@ import DisbursementEachYear from "./Dashboard/DisbursementEachYear.vue";
 
 Chart.register(...registerables);
 
-const chartCanvas = ref(null);
 
-onMounted(() => {
-  new Chart(chartCanvas.value, {
-    type: "doughnut",
-    data: {
-      labels: ["Direct", "Affiliate", "Sponsored", "E-mail"],
-      datasets: [
-        {
-          data: [35.7, 11.9, 22.2, 30.2],
-          backgroundColor: ["#6366F1", "#FACC15", "#EF4444", "#06B6D4"],
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-    },
-  });
-});
 </script>
