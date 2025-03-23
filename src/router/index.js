@@ -41,7 +41,7 @@ import offic_Kris from "@/views/form/Officer/Kris.vue";
 
 import Profile from "@/views/Profile.vue";
 
-import test from "@/views/test.vue";
+import test from "@/views/Summary.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

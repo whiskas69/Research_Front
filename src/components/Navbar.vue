@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-base-100 px-14 py-2 shadow-sm sticky top-0 z-40">
+  <div class="navbar bg-base-100 px-14 py-1 shadow-sm sticky top-0 z-40">
     <!-- logo -->
     <div class="start mr-5">
       <div v-if="!userStore.user">
@@ -241,7 +241,7 @@
     <div v-if="!userStore.user">
       <router-link
         to="/login"
-        class="btn bg-[#4285F4] hover:bg-[#4285F4] text-white ml-10"
+        class="btn w-full bg-[#4285F4] hover:bg-[#4285F4] text-white ml-10"
       >
         เข้าสู่ระบบ
       </router-link>
