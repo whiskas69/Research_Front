@@ -1,6 +1,9 @@
 <template>
   <p class="text-2xl font-bold text-center my-10">ประวัติเอกสาร</p>
-  <hisPageCharge :id="id" />
+  <PageChageData :id="id"/>
+      <Research :id="id" :type="'Page_Charge'"/>
+      <FinanceAll :id="id" :type="'Page_Charge'"/>
+      <Assosiate :id="id" :type="'Page_Charge'"/>
   <div class="container my-10 mx-auto">
     <div class="flex justify-end no-print">
       <router-link :to="`/pdf/pageCharge/${id}`">
@@ -18,7 +21,10 @@
 import { useRoute } from "vue-router";
 import { jsPDF } from "jspdf";
 
-import hisPageCharge from "@/components/form/History/PageCharge.vue";
+import PageChageData from "@/components/form/DataforOffice/PageChage.vue";
+import Research from "@/components/form/DataforOffice/Research.vue";
+import FinanceAll from "@/components/form/DataforOffice/FinanceAll.vue";
+import Assosiate from "@/components/form/DataforOffice/Assosiate.vue";
 
 // Access route parameters
 const route = useRoute();

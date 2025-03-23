@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="container my-10 mx-auto">
+<<<<<<< Updated upstream
       <PageChageData :id="id"/>
 
       <!-- เอกสารหลักฐานที่แนบ -->
@@ -91,6 +92,11 @@
         </SectionWrapper>
       </Mainbox>
       <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
+=======
+      <PageChageData :id="id" />
+      <Research :id="id" :type="'Page_Charge'"/>
+      
+>>>>>>> Stashed changes
       <Mainbox>
         <SectionWrapper>
           <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
@@ -190,13 +196,19 @@
 
 <script setup>
 import { ref, onMounted, reactive, computed } from "vue";
+<<<<<<< Updated upstream
 import { useRoute } from "vue-router";
 import axios from "axios";
+=======
+import { useRoute, useRouter } from "vue-router";
+import api from "@/setting/api";
+>>>>>>> Stashed changes
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import PageChageData from "@/components/form/DataforOffice/PageChage.vue";
+import Research from "@/components/form/DataforOffice/Research.vue";
 
 // จัดการข้อมูลหลัก
 const formData = reactive({
@@ -250,6 +262,7 @@ const caltotalFacultyNow = computed(() => {
 });
 
 //isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
+const router = useRouter();
 const isLoading = ref(true);
 // Access route parameters
 const route = useRoute();
@@ -309,7 +322,8 @@ const OfficerPC = async () => {
     const dataForBackend = {
       pageC_id: id,
       budget_year: formData.year,
-      total_amount: formData.totalAll,
+      Page_Charge_amount: formData.totalAll,
+      Conference_amount: 90,
       num_expenses_approved: formData.numapprove,
       total_amount_approved: formData.totalapprove,
       remaining_credit_limit: formData.creditLimit,
@@ -322,12 +336,20 @@ const OfficerPC = async () => {
     };
     console.log("post office confer: ", JSON.stringify(dataForBackend));
 
+<<<<<<< Updated upstream
     const response = await axios.post(
       `http://localhost:3000/budget`,
       dataForBackend,
       { headers: { "Content-Type": "application/json" } }
     );
     alert("Have new OfficerConfer!");
+=======
+    const response = await api.post(`/budget`, dataForBackend, {
+      headers: { "Content-Type": "application/json" },
+    });
+    alert("Have new OfficerPC !");
+    router.push("/officer");
+>>>>>>> Stashed changes
     console.log("res: ", response);
     console.log("allpostOfficerConfer: ", message.value);
     console.log("postOfficerConfer: ", response.data);

@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="container my-10 mx-auto">
+<<<<<<< Updated upstream
       <ConferenceData :id="id" />
       <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
       <Mainbox>
@@ -296,6 +297,14 @@
         </SectionWrapper>
       </Mainbox>
 
+=======
+      <ConferenceData :id="id"/>
+      <HR :id="id"/>
+      <Research :id="id" :type="'Conference'"/>
+      <FinanceAll :id="id" :type="'Conference'"/>
+      <Assosiate :id="id" :type="'Conference'"/>
+    
+>>>>>>> Stashed changes
       <Mainbox>
         <SectionWrapper>
           <p class="text-lg font-bold">เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความจากผู้จัด</p>
@@ -318,16 +327,18 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, computed } from "vue";
-import { useRoute } from "vue-router";
+import { ref, onMounted, reactive } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
-import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
+<<<<<<< Updated upstream
 import CheckInput from "@/components/Input/CheckInput.vue";
 import TextArea from "@/components/Input/TextArea.vue";
+=======
+>>>>>>> Stashed changes
 import ConferenceData from "@/components/form/DataforOffice/Conference.vue";
 
 const formData = reactive({
@@ -368,7 +379,7 @@ const handleInput = (key, value) => {
   // console.log("value: ", value);
   console.log("--------------------------------");
 };
-
+const router = useRouter();
 const isLoading = ref(true);
 // Access route parameters
 const route = useRoute();
@@ -439,6 +450,7 @@ const OfficerConfer = async () => {
       { headers: { "Content-Type": "application/json" } }
     );
     alert("Have new OfficerConfer!");
+    router.push("/officer");
     console.log("res: ", response);
     console.log("allpostOfficerConfer: ", message.value);
     console.log("postOfficerConfer: ", response.data);

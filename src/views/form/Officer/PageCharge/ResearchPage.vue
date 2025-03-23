@@ -108,6 +108,16 @@
             v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)"
           />
+          <TextInputLabelLeft
+            v-if="formData.radioAuthOffic == 'อนุมัติ'"
+            label="ได้รับหนังสือตอบรับบทความ เมื่อวันที่"
+            customLabel="mx-2 w-full "
+            customInput="max-w-max"
+            customDiv="max-w-max"
+            type="date"
+            v-model="formData.dateAccep"
+            @input="handleInput('dateAccep', $event.target.value)"
+          />
           <textarea
             class="textarea textarea-bordered w-full"
             @input="handleInput('description', $event.target.value)"
@@ -136,35 +146,6 @@
           ></textarea>
         </SectionWrapper>
       </Mainbox>
-      <Mainbox>
-        <SectionWrapper>
-          <p>ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
-          <RadioInput
-            label="มีหนังสือตอบรับบทความ"
-            value="มี"
-            name="have"
-            v-model="formData.haveAccep"
-            @change="handleInput('haveAccep', $event.target.value)"
-          />
-          <TextInputLabelLeft
-            v-if="formData.haveAccep == 'มี'"
-            label="ได้รับเมื่อวันที่"
-            customLabel="ml-2 w-24"
-            customInput="max-w-max"
-            customDiv="max-w-max"
-            type="date"
-            v-model="formData.dateAccep"
-            @input="handleInput('dateAccep', $event.target.value)"
-          />
-          <RadioInput
-            label="ไม่มีหนังสือตอบรับบทความ"
-            value="ไม่มี"
-            name="have"
-            v-model="formData.haveAccep"
-            @change="handleInput('haveAccep', $event.target.value)"
-          />
-        </SectionWrapper>
-      </Mainbox>
       <div class="flex justify-end">
         <button @click="OfficerPC" class="btn btn-success text-white">
           บันทึกข้อมูล
@@ -176,7 +157,7 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import api from "@/setting/api";
 
@@ -204,7 +185,6 @@ const formData = reactive({
   // ความเห้นเจ้าหน้าที่
   radioAuthOffic: "",
   description: "",
-  haveAccep: "",
   dateAccep: "",
 });
 
@@ -249,6 +229,7 @@ const getDataPc = async () => {
   }
 };
 // Access route parameters
+const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
@@ -282,7 +263,6 @@ const OfficerPC = async () => {
       pageC_id: id,
       p_research_admin: formData.radioAuthOffic,
       p_reason: formData.description,
-      // p_haveAccep: formData.haveAccep,
       p_date_accepted_approve: formData.dateAccep,
       research_doc_submit_date: formData.docSubmitDate || null,
 
@@ -302,6 +282,7 @@ const OfficerPC = async () => {
       }
     );
     alert("Have new OfficerPC!");
+    router.push("/officer");
     console.log("res: ", response);
     console.log("allpostOfficerPC: ", message.value);
     console.log("postOfficerPC: ", response.data);

@@ -83,24 +83,72 @@
               disabled="true"
               :placeholder="formData.conference.conf_name"
             />
-  
-            <div class="flex flex-row">
-              <TextInputLabelLeft
-                label="วันที่จัด"
-                customLabel="w-auto mr-8"
-                customDiv="max-w-max mr-36"
-                customInput="max-w-max"
-                disabled="true"
-                :placeholder="formatThaiDate(formData.conference.meeting_date)"
-              />
-              <TextInputLabelLeft
+            <div class="flex flex-row w-full">
+            <p class="w-2/6 mr-4">การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
+
+            <RadioInput
+              label="ณ ต่างประเทศ"
+              name="Venue"
+              value="ณ ต่างประเทศ"
+              disabled="false"
+              :checked="
+                formData.conference.country_conf == 'ณ ต่างประเทศ' ? true : false
+              "
+            />
+            <RadioInput
+              label="ภายในประเทศ"
+              name="Venue"
+              value="ภายในประเทศ"
+              disabled="false"
+              :checked="
+                formData.conference.country_conf == 'ภายในประเทศ' ? true : false
+              "
+            />
+          </div>
+          <div class="flex flex-row">
+            <TextInputLabelLeft
+              label="วันที่จัด"
+              customLabel="w-auto mr-9"
+              customDiv="max-w-max mr-10"
+              customInput="max-w-max"
+              disabled="true"
+              :placeholder="formatThaiDate(formData.conference.meeting_date)"
+
+            />
+            <TextInputLabelLeft
                 label="สถานที่จัด"
                 customLabel="w-24"
                 disabled="true"
                 :placeholder="formData.conference.meeting_venue"
               />
+            <div
+              class="ml-10 w-full flex justify-center items-center"
+              v-if="formData.conference.country_conf == 'ณ ต่างประเทศ'"
+            >
+              <div class="flex flex-row w-full">
+                <TextInputLabelLeft
+                label="ประเทศ"
+                customLabel="w-24"
+                disabled="true"
+                :placeholder="formData.conference.location"
+              />
+              </div>
             </div>
-  
+
+            <div
+              class="ml-5 w-full flex justify-center items-center"
+              v-if="formData.conference.country_conf == 'ภายในประเทศ'"
+            >
+              <div class="flex flex-row w-full">
+                <TextInputLabelLeft
+                label="จังหวัด"
+                customLabel="w-24"
+                disabled="true"
+                :placeholder="formData.conference.location"
+              />
+              </div>
+            </div>
+          </div>
             <div class="flex flex-row justify-between">
               <TextInputLabelLeft
                 label="วันที่ส่งบทความไปยังผู้จัด"
@@ -490,32 +538,7 @@
             </SectionWrapper>
           </SectionWrapper>
         </Mainbox>
-  
-        <!-- 5. เป็นการประชุมวิชาการที่ใช้สถานที่จัด -->
-        <Mainbox>
-          <p class="text-lg font-bold">5. เป็นการประชุมวิชาการที่ใช้สถานที่จัด</p>
-          <SectionWrapper>
-            <RadioInput
-              label="ณ ต่างประเทศ"
-              name="Venue"
-              value="ณ ต่างประเทศ"
-              disabled="false"
-              :checked="
-                formData.conference.country_conf == 'ณ ต่างประเทศ' ? true : false
-              "
-            />
-            <RadioInput
-              label="ภายในประเทศ"
-              name="Venue"
-              value="ภายในประเทศ"
-              disabled="false"
-              :checked="
-                formData.conference.country_conf == 'ภายในประเทศ' ? true : false
-              "
-            />
-          </SectionWrapper>
-        </Mainbox>
-  
+   
         <!-- รายการค่าใช้จ่ายที่ขอเบิกจ่าย -->
         <Mainbox>
           <SectionWrapper>

@@ -282,8 +282,14 @@
           <div class="flex justify-end">
             <button class="btn text-black btn-warning mr-5">คำนวณ</button>
           </div>
+<<<<<<< Updated upstream
           <p class="text-red-500 mr-5">
               เหลือ RuleBase******
+=======
+          <div class="flex flex-col items-end mt-5">
+            <p class="text-red-500 mr-5">
+              วงเงินที่สามารถเบิกได้ {{ formData.canWithdrawn.money }} บาท
+>>>>>>> Stashed changes
             </p>
           <div class="flex justify-end mt-5">
             <p class="text-red-500 mr-5">
@@ -325,7 +331,7 @@ const formData = reactive({
   creditLimit: 0,
   moneyConfer: 0,
   totalcreditLimit: 0,
-  canWithdrawn: 0,
+  canWithdrawn: "",
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
   typeFile: "Conference",
@@ -362,7 +368,10 @@ const caltotalFacultyNow = computed(() =>{
   formData.totalcreditLimit = parseFloat(formData.creditLimit) - parseFloat(formData.moneyConfer)
   return formData.totalcreditLimit
 });
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 const isLoading = ref(true);
 // Access route parameters
 const route = useRoute();

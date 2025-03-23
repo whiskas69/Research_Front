@@ -2,6 +2,7 @@
   <div>
     <div class="container my-10 mx-auto">
       <PageChageData :id="id"/>
+<<<<<<< Updated upstream
       <!-- เอกสารหลักฐานที่แนบ -->
       <Mainbox>
         <SectionWrapper>
@@ -240,6 +241,11 @@
           </div>
         </SectionWrapper>
       </Mainbox>
+=======
+      <Research :id="id" :type="'Page_Charge'"/>
+      <FinanceAll :id="id" :type="'Page_Charge'"/>
+      <Assosiate :id="id" :type="'Page_Charge'"/>
+>>>>>>> Stashed changes
       <!-- คณบดี 1-->
       <Mainbox>
         <SectionWrapper>
@@ -264,7 +270,7 @@
           </p>
           <p class="text-base mt-1">
             ขณะนี้บทความได้รับการตอบรับแล้ว (Letter of acceptance) เมื่อวันที่
-            <b>{{ formData.offic.p_date_accepted_approve }} </b>
+            <b>{{ formatThaiDate(formData.offic.p_date_accepted_approve) }} </b>
             ตามหลักฐานที่แนบจึงเรียนมาเพื่อโปรดพิจารณา
           </p>
           <div class="px-2">
@@ -317,12 +323,11 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
-import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 import TextArea from "@/components/Input/TextArea.vue";
 import PageChageData from "@/components/form/DataforOffice/PageChage.vue";
@@ -352,6 +357,20 @@ const day = String(datetime.getDate()).padStart(2, "0");
 formData.docSubmitDate = `${year}-${month}-${day}`;
 console.log(formData.docSubmitDate);
 
+const formatThaiDate = (dateString) => {
+    console.log("formatThaiDate input: ", dateString);
+    const date = new Date(dateString);
+    const months = [
+      "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", 
+      "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."
+    ];
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear() + 543;
+    console.log("new date: ",`${day} ${month} ${year}`)
+    return `${day} ${month} ${year}`;
+  };
+
 const handleInput = (key, value) => {
   formData[key] = value;
   console.log("0000000000000000000000000000000");
@@ -365,6 +384,7 @@ const handleInput = (key, value) => {
 //isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
 const isLoading = ref(true);
 // Access route parameters
+const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
@@ -435,6 +455,7 @@ const OfficerPC = async () => {
       }
     );
     alert("Have new OfficerPC!");
+    router.push("/officer");
     console.log("res: ", response);
     console.log("allpostOfficerPC: ", message.value);
     console.log("postOfficerPC: ", response.data);

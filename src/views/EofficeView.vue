@@ -55,7 +55,7 @@
               </div>
               <div class="flex">
                 <h4 class="mr-5">
-                  วงเงินที่เบิกได้ : {{ form.form_money }} บาท
+                  วงเงินที่เบิกได้ : {{ form.canWithdrawn }} บาท
                 </h4>
               </div>
               <div class="flex justify-end mr-5">
@@ -93,7 +93,7 @@
               </div>
               <div class="flex">
                 <h4 class="mr-5">
-                  วงเงินที่เบิกได้ : {{ form.form_money }} บาท
+                  วงเงินที่เบิกได้ : {{ form.canWithdrawn }} บาท
                 </h4>
               </div>
               <div class="flex justify-end mr-5">
@@ -121,6 +121,7 @@ const data = reactive({
   userRole: "",
   allForm: [],
   status: "อนุมัติ",
+  canWithdrawn: 10000,
 });
 
 const userStore = useUserStore();

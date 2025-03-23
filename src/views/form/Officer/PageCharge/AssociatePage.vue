@@ -2,232 +2,9 @@
   <div>
     <div class="container my-10 mx-auto">
       <PageChageData :id="id"/>
+      <Research :id="id" :type="'Page_Charge'"/>
+      <FinanceAll :id="id" :type="'Page_Charge'"/>
       
-      <!-- เอกสารหลักฐานที่แนบ -->
-      <Mainbox>
-        <SectionWrapper>
-          <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
-          <!-- 1 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <p>
-                  หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus
-                  หรือ Nature
-                </p>
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <!-- 2 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <TextInputLabelLeft
-                  customLabel="w-auto min-w-fit"
-                  customInput="max-w-fit ml-2"
-                  label="หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus"
-                  disabled="ture"
-                />
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <!-- 3 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <p>
-                  ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ /
-                  อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์
-                </p>
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <!-- 4 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <p>หลักฐานการส่งบทความ หนังสือตอบรับบทความ</p>
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <!-- 5 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <p>สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar</p>
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-        </SectionWrapper>
-      </Mainbox>
-
-      <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
-      <Mainbox>
-        <SectionWrapper>
-          <p>ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
-          <RadioInput
-            label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้"
-            value="อนุมัติ"
-            name="re"
-            disabled="false"
-            :checked="
-              formData.offic.p_research_admin == 'อนุมัติ' ? true : false
-            "
-          />
-          <textarea
-            v-if="formData.offic.p_research_admin == 'อนุมัติ'"
-            class="textarea textarea-bordered w-full"
-            disabled="true"
-            :placeholder="formData.offic.p_reason"
-          ></textarea>
-          <RadioInput
-            label="ถูกต้องตามเงื่อนไขการสนับสนุน กรณีส่งหนังสือตอบรับย้อนหลัง ดังนี้"
-            value="รอหนังสือตอบรับ"
-            name="re"
-            disabled="false"
-            :checked="
-              formData.offic.p_research_admin == 'รอหนังสือตอบรับ'
-                ? true
-                : false
-            "
-          />
-          <textarea
-            v-if="formData.offic.p_research_admin == 'รอหนังสือตอบรับ'"
-            class="textarea textarea-bordered w-full"
-            disabled="true"
-            :placeholder="formData.offic.p_reason"
-          ></textarea>
-          <RadioInput
-            label="อื่น ๆ"
-            value="อื่น ๆ"
-            name="re"
-            disabled="false"
-            :checked="
-              formData.offic.p_research_admin == 'อื่น ๆ' ? true : false
-            "
-          />
-          <textarea
-            v-if="formData.offic.p_research_admin == 'อื่น ๆ'"
-            class="textarea textarea-bordered w-full"
-            disabled="true"
-            :placeholder="formData.offic.p_reason"
-          ></textarea>
-        </SectionWrapper>
-      </Mainbox>
-      <Mainbox>
-        <SectionWrapper>
-          <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
-          <TextInputLabelLeft
-            label="ปีงบประมาณ พ.ศ."
-            customInput="max-w-max text-center"
-            disabled="true"
-            :placeholder="formData.budget.budget_year"
-          />
-
-          <div class="flex justify-end">
-            <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น"
-                customInput="max-w-max text-center"
-                disabled="true"
-                :placeholder="formData.budget.total_amount"
-              />
-              <p class="flex items-center w-12">บาท</p>
-            </div>
-          </div>
-          <div class="flex justify-end">
-            <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
-                customInput="max-w-max text-center"
-                disabled="true"
-                :placeholder="formData.budget.num_expenses_approved"
-              />
-              <p class="flex items-center w-12">รายการ</p>
-            </div>
-          </div>
-          <div class="flex justify-end">
-            <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="รวมเป็นเงิน"
-                customInput="max-w-max text-center"
-                disabled="true"
-                :placeholder="formData.budget.total_amount_approved"
-              />
-              <p class="flex items-center w-12">บาท</p>
-            </div>
-          </div>
-          <div class="flex justify-end">
-            <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="วงเงินที่คณะจัดสรรไว้ คงเหลือ"
-                customInput="max-w-max text-center"
-                disabled="true"
-                :placeholder="formData.budget.remaining_credit_limit"
-              />
-              <p class="flex items-center w-12">บาท</p>
-            </div>
-          </div>
-          <div class="flex justify-end">
-            <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="จำนวนเงินที่ขออนุมัติจค่า Page Charge ในครั้งนี้ เป็นจำนวนเงิน"
-                customInput="max-w-max text-center"
-                disabled="true"
-                :placeholder="formData.budget.amount_approval"
-              />
-              <p class="flex items-center w-12">บาท</p>
-            </div>
-          </div>
-          <div class="flex justify-end">
-            <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น"
-                customInput="max-w-max text-center"
-                disabled="true"
-                :placeholder="formData.budget.total_remaining_credit_limit"
-              />
-              <p class="flex items-center w-12">บาท</p>
-            </div>
-          </div>
-          <p class="text-red-500 mr-5">เหลือ RuleBase******</p>
-          <div class="flex justify-end mt-5">
-            <p class="text-red-500 mr-5">
-              วงเงินที่สามารถเบิกได้ {{ formData.budget.form_money }} บาท
-            </p>
-          </div>
-        </SectionWrapper>
-      </Mainbox>
       <!-- รองคณบดีฝ่ายงานวิจัย -->
       <Mainbox>
         <SectionWrapper>
@@ -252,7 +29,7 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 
 import Mainbox from "@/components/form/Mainbox.vue";
@@ -261,7 +38,8 @@ import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 import TextArea from "@/components/Input/TextArea.vue";
 import PageChageData from "@/components/form/DataforOffice/PageChage.vue";
-
+import Research from "@/components/form/DataforOffice/Research.vue";
+import FinanceAll from "@/components/form/DataforOffice/FinanceAll.vue";
 // จัดการข้อมูลหลัก
 const formData = reactive({
   offic: [],
@@ -297,6 +75,7 @@ const handleInput = (key, value) => {
 //isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
 const isLoading = ref(true);
 // Access route parameters
+const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
@@ -357,6 +136,7 @@ const OfficerPC = async () => {
       }
     );
     alert("Have new OfficerPC!");
+    router.push("/officer");
     console.log("res: ", response);
     console.log("allpostOfficerPC: ", message.value);
     console.log("postOfficerPC: ", response.data);
