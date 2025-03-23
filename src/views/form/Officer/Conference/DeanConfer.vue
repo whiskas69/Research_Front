@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="container my-10 mx-auto">
-      <ConferenceData :id="id" />
+      <!-- <ConferenceData :id="id"/> -->
+      <ResearchCon :id="id" :type="'Conference'"/>
       <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
       <Mainbox>
         <SectionWrapper>
@@ -329,6 +330,7 @@ import RadioInput from "@/components/Input/RadioInput.vue";
 import CheckInput from "@/components/Input/CheckInput.vue";
 import TextArea from "@/components/Input/TextArea.vue";
 import ConferenceData from "@/components/form/DataforOffice/Conference.vue";
+import ResearchCon from "@/components/form/DataforOffice/ResearchCon.vue";
 
 const formData = reactive({
   offic: [],
