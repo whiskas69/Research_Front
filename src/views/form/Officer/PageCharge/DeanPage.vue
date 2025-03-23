@@ -219,12 +219,12 @@
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
-          <p class="text-red-500 mr-5">เหลือ RuleBase******</p>
+          <!---<p class="text-red-500 mr-5">เหลือ RuleBase******</p>
           <div class="flex justify-end mt-5">
             <p class="text-red-500 mr-5">
               วงเงินที่สามารถเบิกได้ {{ formData.budget.form_money }} บาท
             </p>
-          </div>
+          </div>-->
         </SectionWrapper>
       </Mainbox>
       <!-- รองคณบดีฝ่ายงานวิจัย -->

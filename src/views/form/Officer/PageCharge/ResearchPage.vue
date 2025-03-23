@@ -282,7 +282,7 @@ const OfficerPC = async () => {
       pageC_id: id,
       p_research_admin: formData.radioAuthOffic,
       p_reason: formData.description,
-      p_haveAccep: formData.haveAccep,
+      // p_haveAccep: formData.haveAccep,
       p_date_accepted_approve: formData.dateAccep,
       research_doc_submit_date: formData.docSubmitDate || null,
 

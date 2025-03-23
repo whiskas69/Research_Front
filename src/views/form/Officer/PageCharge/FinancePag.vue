@@ -4,7 +4,6 @@
       <PageChageData :id="id"/>
 
       <!-- เอกสารหลักฐานที่แนบ -->
-      <p class="text-xl font-bold my-5 bg-red-600">ยังไม่สามารถเปิด pdf ได้</p>
       <Mainbox>
         <SectionWrapper>
           <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
