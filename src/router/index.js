@@ -41,7 +41,7 @@ import offic_Kris from "@/views/form/Officer/Kris.vue";
 
 import Profile from "@/views/Profile.vue";
 
-import test from "@/views/test.vue";
+import summary from "@/views/Summary.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -205,9 +205,9 @@ const router = createRouter({
       meta: { hideNavbar: true },
     },
     {
-      path: "/test",
-      name: "test",
-      component: test,
+      path: "/summary",
+      name: "summary",
+      component: summary,
     },
   ],
 });

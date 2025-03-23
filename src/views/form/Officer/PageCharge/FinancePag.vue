@@ -1,102 +1,10 @@
 <template>
   <div>
     <div class="container my-10 mx-auto">
-<<<<<<< Updated upstream
-      <PageChageData :id="id"/>
-
-      <!-- เอกสารหลักฐานที่แนบ -->
-      <Mainbox>
-        <SectionWrapper>
-          <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
-          <!-- 1 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <p>
-                  หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus
-                  หรือ Nature
-                </p>
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <!-- 2 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <TextInputLabelLeft
-                  customLabel="w-auto min-w-fit"
-                  customInput="max-w-fit ml-2"
-                  label="หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus"
-                  disabled="ture"
-                />
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <!-- 3 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <p>
-                  ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ /
-                  อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์
-                </p>
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <!-- 4 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <p>หลักฐานการส่งบทความ หนังสือตอบรับบทความ</p>
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <!-- 5 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <p>สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar</p>
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-        </SectionWrapper>
-      </Mainbox>
-      <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
-=======
+      
       <PageChageData :id="id" />
       <Research :id="id" :type="'Page_Charge'"/>
       
->>>>>>> Stashed changes
       <Mainbox>
         <SectionWrapper>
           <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
@@ -174,10 +82,18 @@
             </div>
           </div>
           <div class="flex justify-end">
-            <button class="btn text-black btn-warning mr-5">คำนวณ</button>
+            <button
+              @click="showCreditLimit = true"
+              class="btn text-black btn-warning mr-5"
+            >
+              คำนวณ
+            </button>
           </div>
-          <p class="text-red-500 mr-5">เหลือ RuleBase******</p>
-          <div class="flex justify-end mt-5">
+
+          <div
+            v-show="showCreditLimit"
+            class="creditLimit flex justify-end mt-5"
+          >
             <p class="text-red-500 mr-5">
               วงเงินที่สามารถเบิกได้ {{ formData.canWithdrawn }} บาท
             </p>
@@ -196,13 +112,10 @@
 
 <script setup>
 import { ref, onMounted, reactive, computed } from "vue";
-<<<<<<< Updated upstream
 import { useRoute } from "vue-router";
 import axios from "axios";
-=======
 import { useRoute, useRouter } from "vue-router";
 import api from "@/setting/api";
->>>>>>> Stashed changes
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
@@ -226,6 +139,7 @@ const formData = reactive({
   docSubmitDate: "",
   typeFile: "Page_Charge",
   //status
+  form_id: 0,
   formStatus: "รองคณบดี",
 });
 
@@ -261,6 +175,7 @@ const caltotalFacultyNow = computed(() => {
   return formData.totalcreditLimit;
 });
 
+const showCreditLimit = ref(false);
 //isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
 const router = useRouter();
 const isLoading = ref(true);
@@ -272,15 +187,11 @@ console.log("params.id", id);
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
 const fetchProfessorData = async () => {
   try {
-    
-    const responseoffic = await axios.get(
-      `http://localhost:3000/opinionPC/${id}`
-    );
+    const responseoffic = await api.get(`/opinionPC/${id}`);
     console.log("offic123", responseoffic);
     formData.offic = responseoffic.data;
-    console.log("offic", JSON.stringify(formData.offic));
 
-    const responseForm = await axios.get(`http://localhost:3000/allForms`);
+    const responseForm = await api.get(`/allForms`);
     console.log("form 123", JSON.stringify(responseForm));
     for (let i = 0; i < responseForm.length; i++) {
       if (
@@ -293,6 +204,10 @@ const fetchProfessorData = async () => {
     }
     console.log("numapprove", formData.numapprove);
     console.log("totalapprove", formData.totalapprove);
+
+    const responseFormPC = await api.get(`/formPC/${id}`);
+    console.log("responseFormPC 123", responseFormPC);
+    formData.form_id = responseFormPC.data.form_id;
   } catch (error) {
     console.error("Error fetching professor data:", error);
   } finally {
@@ -303,9 +218,7 @@ const fetchProfessorData = async () => {
 
 const cal = async () => {
   try {
-    const responseCalPC = await axios.get(
-      `http://localhost:3000/page_charge/calc/${id}`
-    );
+    const responseCalPC = await api.get(`/page_charge/calc/${id}`);
     console.log("responseCalPC", responseCalPC);
     formData.canWithdrawn = responseCalPC.data.withdrawn;
     return formData.canWithdrawn;
@@ -320,7 +233,7 @@ const cal = async () => {
 const OfficerPC = async () => {
   try {
     const dataForBackend = {
-      pageC_id: id,
+      form_id: formData.form_id,
       budget_year: formData.year,
       Page_Charge_amount: formData.totalAll,
       Conference_amount: 90,
@@ -330,26 +243,16 @@ const OfficerPC = async () => {
       amount_approval: formData.approval,
       total_remaining_credit_limit: formData.totalcreditLimit,
       doc_submit_date: formData.docSubmitDate,
-      type: formData.typeFile,
       form_status: formData.formStatus,
       form_money: formData.canWithdrawn,
     };
     console.log("post office confer: ", JSON.stringify(dataForBackend));
 
-<<<<<<< Updated upstream
-    const response = await axios.post(
-      `http://localhost:3000/budget`,
-      dataForBackend,
-      { headers: { "Content-Type": "application/json" } }
-    );
-    alert("Have new OfficerConfer!");
-=======
     const response = await api.post(`/budget`, dataForBackend, {
       headers: { "Content-Type": "application/json" },
     });
     alert("Have new OfficerPC !");
     router.push("/officer");
->>>>>>> Stashed changes
     console.log("res: ", response);
     console.log("allpostOfficerConfer: ", message.value);
     console.log("postOfficerConfer: ", response.data);

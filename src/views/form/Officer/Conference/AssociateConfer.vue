@@ -26,7 +26,7 @@
 
 <script setup>
 import { ref, onMounted, reactive, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 
 import Mainbox from "@/components/form/Mainbox.vue";
@@ -69,6 +69,7 @@ const handleInput = (key, value) => {
 
 const isLoading = ref(true);
 // Access route parameters
+const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
@@ -122,6 +123,7 @@ const OfficerConfer = async () => {
       { headers: { "Content-Type": "application/json" } }
     );
     alert("Have new OfficerConfer!");
+    router.push("/officer");
     console.log("res: ", response);
     console.log("allpostOfficerConfer: ", message.value);
     console.log("postOfficerConfer: ", response.data);

@@ -841,6 +841,7 @@ const rules = computed(() => ({
   yearISI: {
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
     maxValue: helpers.withMessage("* ปีไม่สามารถมากกว่าปีปัจจุบันได้ *", maxValue(currentYear.value)),
+    minValue: helpers.withMessage("* ปีไม่สามารถย้อนหลังเกิน 6 ปี *", minValue(currentYear.value-6)),
     required: helpers.withMessage(
       "* กรุณากรอกข้อมูลปีที่ได้รับการจัดลำดับ Quartile *",
       requiredIf(() => formData.check.includes("ISI"))
@@ -870,6 +871,7 @@ const rules = computed(() => ({
   },
   yearSJR: {
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
+    minValue: helpers.withMessage("* ปีไม่สามารถย้อนหลังเกิน 6 ปี *", minValue(currentYear.value-6)),
     maxValue: helpers.withMessage(
       "* ปีไม่สามารถมากกว่าปีปัจจุบันได้ *",
       maxValue(currentYear.value)

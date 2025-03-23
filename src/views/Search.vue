@@ -1,11 +1,30 @@
 <template>
   <div class="container my-10 mx-auto">
-    <RemainingBudget/>
-    <!-- <DisbursementApproval/> -->
-    <TotalDocuments/>
-    <!-- <DisbursementEachYear/> -->
-     <!-- <br><br><br> -->
-    <div class="p-5 shadow m-5 rounded-xl mb-10 pt-[200px]">
+    <!-- <div class="flex justify-end mt-5">
+      <router-link to="/summary">
+        <button class="btn btn-neutral">ไปหน้าสรุปผลเป็นตาราง</button>
+      </router-link>
+    </div> -->
+
+    <div class="flex flex-row justify-between m-2 h-1/2 w-full bg-slate-200">
+      <RemainingConfer />
+      <RemainingPC />
+      <TotalDocuments />
+      <!-- <DisbursementEachYear /> -->
+    </div>
+    <!-- <div class="flex flex-row justify-between m-2 h-1/2">
+      <TotalDocuments />
+      <DisbursementApproval />
+    </div> -->
+
+    <div class="flex justify-end mt-5">
+      <router-link to="/summary">
+        <button class="btn btn-neutral">ไปหน้าสรุปผลเป็นตาราง</button>
+      </router-link>
+    </div>
+
+    <!-- <br><br><br> -->
+    <!-- <div class="p-5 shadow m-5 rounded-xl mb-10 pt-[200px]">
       <div class="flex">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -62,9 +81,9 @@
           <button class="btn btn-warning justify-end">ค้นหา</button>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <div class="p-5 shadow m-5 rounded-xl mb-10">
+    <!-- <div class="p-5 shadow m-5 rounded-xl mb-10">
       <h1 class="text-lg font-bold ml-2">
         ผลงานวิชาการ/บทความที่ได้รับการสนับสนุน
       </h1>
@@ -97,18 +116,18 @@
           <h4 class="">นางภรินทร์ แก้วสีดา</h4>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script setup>
 import { ref, onMounted } from "vue";
 import { Chart, registerables } from "chart.js";
-import RemainingBudget from "./Dashboard/RemainingBudget.vue";
+import RemainingConfer from "./Dashboard/RemainingConfer.vue";
+import RemainingPC from "./Dashboard/RemainingPC.vue";
+
 import DisbursementApproval from "./Dashboard/DisbursementApproval.vue";
 import TotalDocuments from "./Dashboard/TotalDocuments.vue";
 import DisbursementEachYear from "./Dashboard/DisbursementEachYear.vue";
 
 Chart.register(...registerables);
-
-
 </script>

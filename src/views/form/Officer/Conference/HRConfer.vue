@@ -8,10 +8,10 @@
           <p>ตรวจหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ สจล. และประกาศคณะ</p>
           <!-- เอกสารหลักฐานที่แนบ -->
           <!-- 1 -->
-          <CheckInput
+          <!-- <CheckInput
             v-model="formData.checkFullPaper"
             @input="handleCheckbox('checkFullPaper', true)"
-          />
+          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -26,10 +26,10 @@
             </div>
           </div>
           <!-- 2 -->
-          <CheckInput
+          <!-- <CheckInput
             v-model="formData.checkPubJournal"
             @input="handleCheckbox('checkPubJournal', true)"
-          />
+          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -54,10 +54,10 @@
             </div>
           </div>
           <!-- 3 -->
-          <CheckInput
+          <!-- <CheckInput
             v-model="formData.checkQProof"
             @input="handleCheckbox('checkQProof', true)"
-          />
+          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -77,10 +77,10 @@
             </div>
           </div>
           <!-- 4 -->
-          <CheckInput
+          <!-- <CheckInput
             v-model="formData.checkCallPaper"
             @input="handleCheckbox('checkCallPaper', true)"
-          />
+          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -102,10 +102,10 @@
             </div>
           </div>
           <!-- 5 -->
-          <CheckInput
+          <!-- <CheckInput
             v-model="formData.checkAccepted"
             @input="handleCheckbox('checkAccepted', true)"
-          />
+          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -120,10 +120,10 @@
             </div>
           </div>
           <!-- 6 -->
-          <CheckInput
+          <!-- <CheckInput
             v-model="formData.checkFeeReceipt"
             @input="handleCheckbox('checkFeeReceipt', true)"
-          />
+          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -138,10 +138,10 @@
             </div>
           </div>
           <!-- 7 -->
-          <CheckInput
+          <!-- <CheckInput
             v-model="formData.checkRateDocument"
             @input="handleCheckbox('checkRateDocument', true)"
-          />
+          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -158,10 +158,10 @@
             </div>
           </div>
           <!-- 8 -->
-          <CheckInput
+          <!-- <CheckInput
             v-model="formData.checkConfProof"
             @input="handleCheckbox('checkConfProof', true)"
-          />
+          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -181,6 +181,7 @@
             </div>
           </div>
           <RadioInput
+            v-if="formData.user == 0"
             v-model="formData.checkWorkedNo3NeverAbroad"
             @input="handleInput('profes3y', true)"
             label="เป็นพนักงานสถาบันที่ปฏิบัติงานมาแล้วไม่เกิน 3 ปีนับตั้งแต่วันบรรจุและยังไม่เคยลาเข้าร่วมประชุมทางวิชาการ ณ ต่างประเทศ"
@@ -211,7 +212,7 @@
           />
           <textarea
             class="textarea textarea-bordered w-full"
-            @input="handleInput('descriptionOther', $event.target.value)"
+            @input="handleInput('description', $event.target.value)"
           ></textarea>
         </SectionWrapper>
       </Mainbox>
@@ -226,7 +227,7 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import api from "@/setting/api";
 
@@ -240,6 +241,7 @@ import ConferenceData from "@/components/form/DataforOffice/Conference.vue";
 const formData = reactive({
   file: "",
   name: "",
+  user: "",
   //url
   f_full_page: null,
   f_published_journals: null,
@@ -264,7 +266,7 @@ const formData = reactive({
   //satatus
   statusForm: "ฝ่ายบริหารงานวิจัย",
   // ความเห้นเจ้าหน้าที่
-  descriptionOther: "",
+  // descriptionOther: "",
   profes3y: "",//ถ้าเป้นค่าว่าให้ == f
   radioAuthOffic: "",
   description: "",
@@ -295,6 +297,7 @@ const handleCheckbox = (key, value) => {
   console.log(`${key} is now ${formData[key]}`);
   console.log("Updated formData.check:", formData.check);
 };
+
 const handleInput = (key, value) => {
   formData[key] = value;
   console.log("0000000000000000000000000000000");
@@ -308,11 +311,16 @@ const getDataConf = async () => {
   if (id == null || id == "") {
     alert("โปรดเข้าสู่ระบบใหม่อีกครั้ง");
   }
-
   try {
-    const response = await api.get(`/form/confer/${id}`);
-    data.form = response.data.form;
-    data.name = response.data.name;
+    const response = await api.get(`/conference/${id}`);
+    formData.form = response.data.form;
+    formData.name = response.data.name;
+    const user_id = response.data.user_id
+    console.log("user_id9089",user_id)
+    const responseUser = await api.get(
+        `/user/${user_id}`
+      );
+      formData.user = responseUser.data.user_confer;
 
     const responsefile = await api.get(`/getFileConf?conf_id=${id}`);
     formData.f_full_page = responsefile.data.file_full_page;
@@ -351,6 +359,7 @@ const downloadFile = async (fileUrl, fileName) => {
     console.error("Error downloading file:", error);
   }
 };
+const router = useRouter();
 // Access route parameters
 const route = useRoute();
 const id = route.params.id;
@@ -375,6 +384,7 @@ const OfficerConfer = async () => {
       }
     );
     alert("Have new OfficerConfer!");
+    router.push("/officer");
     console.log("res: ", response);
     console.log("allpostOfficerConfer: ", message.value);
     console.log("postOfficerConfer: ", response.data);

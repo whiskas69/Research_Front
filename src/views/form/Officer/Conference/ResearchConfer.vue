@@ -2,147 +2,10 @@
   <div>
     <div class="container my-10 mx-auto">
       <ConferenceData :id="id" />
-      <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
-      <Mainbox>
+      <HR :id="id"/>
+      <!-- <Mainbox>
         <SectionWrapper>
-          <p>ตรวจหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ สจล. และประกาศคณะ</p>
-
-          <!-- เอกสารหลักฐานที่แนบ -->
-          <!-- 1 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <p>สำเนาบทความ (Full Paper)</p>
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <!-- 2 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <span class="w-[15rem] flex items-center text-blue-500 mr-2"
-                  >*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน*</span
-                >
-                <TextInputLabelLeft
-                  customInput="max-w-24"
-                  label="(Full Paper ประกอบการเบิก) มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล WoS/SJR ซึ่งได้รับการตีพิมพ์ไม่เกิน 2 ปี ก่อนการประชุม เมื่อ"
-                  disabled="true"
-                />
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <!-- 3 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <span class="text-blue-500 mr-2"
-                  >"*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน*</span
-                >
-                <p>หลักฐานเอกสาร Quartile ของ Paper ที่ใช้ประกอบการเบิก</p>
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <!-- 4 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <p>
-                  เอกสารประชาสัมพันธ์การจัดการประชุมทางวิชาการ (Call for paper)
-                </p>
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <!-- 5 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <p>จดหมายการตอบรับเข้าร่วมประชุม (Accepted)</p>
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <!-- 6 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <p>เอกสารแสดงค่าลงทะเบียน</p>
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <!-- 7 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <p>เอกสารแสดงอัตราแลกเปลี่ยน (ณ วันที่ยื่น)</p>
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <!-- 8 -->
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <p>หลักฐานการประชุมวิชาการอยู่ในฐาน Scopus</p>
-              </div>
-              <div class="">
-                <button class="btn bg-[#E85F19] text-white mr-5">
-                  ดูเอกสาร
-                </button>
-                <button class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
-              </div>
-            </div>
-          </div>
-          <CheckInput
-            v-model="formData.checkWorkedNo3NeverAbroad"
-            @input="handleCheckbox('checkWorkedNo3NeverAbroad', true)"
-            label="เป็นพนักงานสถาบันที่ปฏิบัติงานมาแล้วไม่เกิน 3 ปีนับตั้งแต่วันบรรจุและยังไม่เคยลาเข้าร่วมประชุมทางวิชาการ ณ ต่างประเทศ"
-          />
-          <p class="text-xl font-bold my-5">file other</p>
-        </SectionWrapper>
-      </Mainbox>
-      <Mainbox>
-        <SectionWrapper>
-          <p>ตรวจสอบความถูกต้องของข้อมูล</p>
+          <p>ตรวจสอบความถูกต้องของข้อมูล 903</p>
           <RadioInput
             label="ข้อมูลถูกต้อง"
             value="ถูกต้อง"
@@ -165,7 +28,7 @@
             :placeholder="formData.offic.c_reason"
           ></textarea>
         </SectionWrapper>
-      </Mainbox>
+      </Mainbox> -->
 
       <Mainbox>
         <SectionWrapper>
@@ -207,16 +70,15 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
-import { useRoute } from "vue-router";
-import axios from "axios";
+import { useRoute, useRouter } from "vue-router";
+import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
-import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
-import CheckInput from "@/components/Input/CheckInput.vue";
 import TextArea from "@/components/Input/TextArea.vue";
 import ConferenceData from "@/components/form/DataforOffice/Conference.vue";
+import HR from "@/components/form/DataforOffice/HR.vue";
 
 const formData = reactive({
   offic: [],
@@ -249,14 +111,15 @@ const handleInput = (key, value) => {
 };
 const isLoading = ref(true);
 // Access route parameters
+const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
 
 const fetchOfficerData = async () => {
   try {
-    const responseoffic = await axios.get(
-      `http://localhost:3000/opinionConf/${id}`
+    const responseoffic = await api.get(
+      `/opinionConf/${id}`
     );
     console.log("hr123", responseoffic);
     formData.offic = responseoffic.data;
@@ -289,12 +152,13 @@ const OfficerConfer = async () => {
     };
     console.log("post office confer: ", JSON.stringify(dataForBackend));
 
-    const response = await axios.put(
-      `http://localhost:3000/opinionConf/${id}`,
+    const response = await api.put(
+      `/opinionConf/${id}`,
       dataForBackend,
       { headers: { "Content-Type": "application/json" } }
     );
     alert("Have new OfficerConfer!");
+    router.push("/officer");
     console.log("res: ", response);
     console.log("allpostOfficerConfer: ", message.value);
     console.log("postOfficerConfer: ", response.data);
