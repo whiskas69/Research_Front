@@ -62,7 +62,7 @@
     </div>
 
     <!-- menu -->
-    <div class="flex-auto w-4/6">
+    <div class="flex-auto w-full">
       <ul class="menu menu-horizontal px-5 flex">
         <div v-if="userStore.user">
           <ul
@@ -127,11 +127,11 @@
     </div>
 
     <!-- end -->
-    <div class="flex-auto w-2/6 justify-end">
+    <div class="flex flex-auto w-2/6 justify-end">
       <div v-if="userStore.user">
         <div v-if="userStore.user.user_role == 'professor'">
           <div class="dropdown dropdown-bottom dropdown-end" @click="updateNotifications">
-            <div tabindex="0" role="button" class="btn m-1">
+            <div tabindex="0" role="button" class="btn">
               <span
                 v-if="filteredNotificationCount > 0"
                 class="absolute top-0 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-s font-bold text-white"

@@ -41,6 +41,8 @@ import offic_Kris from "@/views/form/Officer/Kris.vue";
 
 import Profile from "@/views/Profile.vue";
 
+import test from "@/views/test.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -201,6 +203,11 @@ const router = createRouter({
       name: "PageCPDF",
       component: PageCPDF,
       meta: { hideNavbar: true },
+    },
+    {
+      path: "/test",
+      name: "test",
+      component: test,
     },
   ],
 });
