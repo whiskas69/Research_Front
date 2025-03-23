@@ -280,12 +280,13 @@
             </div>
           </div>
           <div class="flex justify-end">
-            <button class="btn text-black btn-warning mr-5">คำนวณ</button>
+            <button
+              @click="showCreditLimit = true"
+              class="btn text-black btn-warning mr-5">
+              คำนวณ
+            </button>
           </div>
-          <p class="text-red-500 mr-5">
-              เหลือ RuleBase******
-            </p>
-          <div class="flex justify-end mt-5">
+          <div v-show="showCreditLimit" class="flex justify-end mt-5">
             <p class="text-red-500 mr-5">
               วงเงินที่สามารถเบิกได้ {{ formData.canWithdrawn }} บาท
             </p>
@@ -305,7 +306,7 @@
 <script setup>
 import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute } from "vue-router";
-import axios from "axios";
+import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
@@ -328,8 +329,8 @@ const formData = reactive({
   canWithdrawn: 0,
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
-  typeFile: "Conference",
   //satatus
+  form_id: 0,
   formStatus: "รองคณบดี",
 });
 console.log("conference", formData);
@@ -362,7 +363,7 @@ const caltotalFacultyNow = computed(() =>{
   formData.totalcreditLimit = parseFloat(formData.creditLimit) - parseFloat(formData.moneyConfer)
   return formData.totalcreditLimit
 });
-
+const showCreditLimit = ref(false);
 const isLoading = ref(true);
 // Access route parameters
 const route = useRoute();
@@ -371,15 +372,15 @@ console.log("params.id", id);
 
 const fetchOfficerData = async () => {
   try {
-    const responseoffic = await axios.get(
-      `http://localhost:3000/opinionConf/${id}`
+    const responseoffic = await api.get(
+      `/opinionConf/${id}`
     );
     console.log("offic123", responseoffic);
     formData.offic = responseoffic.data;
     console.log("offic", JSON.stringify(formData.offic));
 
-    const responseForm = await axios.get(
-      `http://localhost:3000/allForms`
+    const responseForm = await api.get(
+      `/allForms`
     )
     console.log("form 123", JSON.stringify(responseForm));
     // approveForm = responseForm.data.form_status
@@ -391,6 +392,9 @@ const fetchOfficerData = async () => {
     }
     console.log("numapprove", formData.numapprove)
     console.log("totalapprove", formData.totalapprove)
+    const responseFormConfer = await api.get(`/formConfer/${id}`);
+    console.log("responseFormConfer 123", responseFormConfer);
+    formData.form_id = responseFormConfer.data.form_id;
 
   } catch (error) {
     console.error("Error fetching Officer data:", error);
@@ -402,23 +406,22 @@ const fetchOfficerData = async () => {
 const OfficerConfer = async () => {
   try {
     const dataForBackend = {
-      conf_id: id,
+      form_id: formData.form_id,
       budget_year: formData.year,
       total_amount: formData.totalAll,
       num_expenses_approved: formData.numapprove,
       total_amount_approved: formData.totalapprove,
       remaining_credit_limit: formData.creditLimit,
-      amount_approval: formData.moneyConfer,
+      amount_approval: formData.approval,
       total_remaining_credit_limit: formData.totalcreditLimit,
       doc_submit_date: formData.docSubmitDate,
-      type: formData.typeFile,
       form_status: formData.formStatus,
       form_money: formData.canWithdrawn,
     };
     console.log("post office confer: ", JSON.stringify(dataForBackend));
 
-    const response = await axios.post(
-      `http://localhost:3000/budget`,
+    const response = await api.post(
+      `/budget`,
       dataForBackend,
       { headers: { "Content-Type": "application/json" } }
     );

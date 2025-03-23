@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container my-10 mx-auto">
-      <PageChageData :id="id"/>
+      <PageChageData :id="id" />
 
       <!-- เอกสารหลักฐานที่แนบ -->
       <Mainbox>
@@ -168,10 +168,18 @@
             </div>
           </div>
           <div class="flex justify-end">
-            <button class="btn text-black btn-warning mr-5">คำนวณ</button>
+            <button
+              @click="showCreditLimit = true"
+              class="btn text-black btn-warning mr-5"
+            >
+              คำนวณ
+            </button>
           </div>
-          <p class="text-red-500 mr-5">เหลือ RuleBase******</p>
-          <div class="flex justify-end mt-5">
+
+          <div
+            v-show="showCreditLimit"
+            class="creditLimit flex justify-end mt-5"
+          >
             <p class="text-red-500 mr-5">
               วงเงินที่สามารถเบิกได้ {{ formData.canWithdrawn }} บาท
             </p>
@@ -191,7 +199,7 @@
 <script setup>
 import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute } from "vue-router";
-import axios from "axios";
+import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
@@ -214,6 +222,7 @@ const formData = reactive({
   docSubmitDate: "",
   typeFile: "Page_Charge",
   //status
+  form_id: 0,
   formStatus: "รองคณบดี",
 });
 
@@ -249,6 +258,7 @@ const caltotalFacultyNow = computed(() => {
   return formData.totalcreditLimit;
 });
 
+const showCreditLimit = ref(false);
 //isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
 const isLoading = ref(true);
 // Access route parameters
@@ -259,15 +269,11 @@ console.log("params.id", id);
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
 const fetchProfessorData = async () => {
   try {
-    
-    const responseoffic = await axios.get(
-      `http://localhost:3000/opinionPC/${id}`
-    );
+    const responseoffic = await api.get(`/opinionPC/${id}`);
     console.log("offic123", responseoffic);
     formData.offic = responseoffic.data;
-    console.log("offic", JSON.stringify(formData.offic));
 
-    const responseForm = await axios.get(`http://localhost:3000/allForms`);
+    const responseForm = await api.get(`/allForms`);
     console.log("form 123", JSON.stringify(responseForm));
     for (let i = 0; i < responseForm.length; i++) {
       if (
@@ -280,6 +286,10 @@ const fetchProfessorData = async () => {
     }
     console.log("numapprove", formData.numapprove);
     console.log("totalapprove", formData.totalapprove);
+
+    const responseFormPC = await api.get(`/formPC/${id}`);
+    console.log("responseFormPC 123", responseFormPC);
+    formData.form_id = responseFormPC.data.form_id;
   } catch (error) {
     console.error("Error fetching professor data:", error);
   } finally {
@@ -290,9 +300,7 @@ const fetchProfessorData = async () => {
 
 const cal = async () => {
   try {
-    const responseCalPC = await axios.get(
-      `http://localhost:3000/page_charge/calc/${id}`
-    );
+    const responseCalPC = await api.get(`/page_charge/calc/${id}`);
     console.log("responseCalPC", responseCalPC);
     formData.canWithdrawn = responseCalPC.data.withdrawn;
     return formData.canWithdrawn;
@@ -307,7 +315,7 @@ const cal = async () => {
 const OfficerPC = async () => {
   try {
     const dataForBackend = {
-      pageC_id: id,
+      form_id: formData.form_id,
       budget_year: formData.year,
       total_amount: formData.totalAll,
       num_expenses_approved: formData.numapprove,
@@ -316,17 +324,14 @@ const OfficerPC = async () => {
       amount_approval: formData.approval,
       total_remaining_credit_limit: formData.totalcreditLimit,
       doc_submit_date: formData.docSubmitDate,
-      type: formData.typeFile,
       form_status: formData.formStatus,
       form_money: formData.canWithdrawn,
     };
     console.log("post office confer: ", JSON.stringify(dataForBackend));
 
-    const response = await axios.post(
-      `http://localhost:3000/budget`,
-      dataForBackend,
-      { headers: { "Content-Type": "application/json" } }
-    );
+    const response = await api.post(`/budget`, dataForBackend, {
+      headers: { "Content-Type": "application/json" },
+    });
     alert("Have new OfficerConfer!");
     console.log("res: ", response);
     console.log("allpostOfficerConfer: ", message.value);
