@@ -112,7 +112,6 @@
 
 <script setup>
 import { ref, onMounted, reactive, computed } from "vue";
-import { useRoute } from "vue-router";
 import axios from "axios";
 import { useRoute, useRouter } from "vue-router";
 import api from "@/setting/api";
