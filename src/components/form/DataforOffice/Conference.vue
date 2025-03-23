@@ -573,8 +573,6 @@
                   <p class="flex items-center pl-2">บาท</p>
                 </div>
                 <div class="flex flex-row">
-                  <p>ถ้าไปต่างประเทศแล้วต้องเดินทางไปอีกเมือง คิดยังไง</p>
-                  <p>ข้อนี้เฉพาะในประเทศ?</p>
                   <TextInputLabelLeft
                     label="• เดินทางระหว่างประเทศ กรุงเทพฯ -"
                     customLabel="w-96 pr-2"

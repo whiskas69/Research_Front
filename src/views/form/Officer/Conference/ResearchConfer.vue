@@ -3,9 +3,9 @@
     <div class="container my-10 mx-auto">
       <ConferenceData :id="id" />
       <HR :id="id"/>
-      <Mainbox>
+      <!-- <Mainbox>
         <SectionWrapper>
-          <p>ตรวจสอบความถูกต้องของข้อมูล</p>
+          <p>ตรวจสอบความถูกต้องของข้อมูล 903</p>
           <RadioInput
             label="ข้อมูลถูกต้อง"
             value="ถูกต้อง"
@@ -28,7 +28,7 @@
             :placeholder="formData.offic.c_reason"
           ></textarea>
         </SectionWrapper>
-      </Mainbox>
+      </Mainbox> -->
 
       <Mainbox>
         <SectionWrapper>
@@ -70,7 +70,7 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
@@ -111,6 +111,7 @@ const handleInput = (key, value) => {
 };
 const isLoading = ref(true);
 // Access route parameters
+const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
@@ -157,6 +158,7 @@ const OfficerConfer = async () => {
       { headers: { "Content-Type": "application/json" } }
     );
     alert("Have new OfficerConfer!");
+    router.push("/officer");
     console.log("res: ", response);
     console.log("allpostOfficerConfer: ", message.value);
     console.log("postOfficerConfer: ", response.data);
