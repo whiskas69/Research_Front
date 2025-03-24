@@ -180,7 +180,7 @@
                   class="w-full"
                   :options="countries"
                   v-model="formData.location"
-                  @input="handleInput('location', $event.target.value)"
+                  @change="handleInput('location', $event.target.value)"
                 ></v-select>
               </div>
             </div>
@@ -890,7 +890,7 @@
                   @input="handleInput('numTravelDays', $event.target.value)"
                 />
                 <TextInputLabelLeft
-                  label="คืน ๆ ละ"
+                  label="วัน ๆ ละ"
                   customLabel="w-auto pr-2"
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[20rem]"
@@ -1660,7 +1660,7 @@ onMounted(async () => {
   formData.name = user.value?.user_nameth || "";
   formData.position = user.value?.user_positionth || "";
 });
-
+console.log("formDatainterExpenses",formData.interExpenses)
 const handleInput = (key, value) => {
   formData[key] = value;
   console.log(`${key} updated to: ${value}`);

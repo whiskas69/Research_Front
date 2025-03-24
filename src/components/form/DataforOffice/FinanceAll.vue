@@ -152,9 +152,9 @@ const fetchOfficerData = async () => {
       console.log("formData.budget", formData.budget);
 
       const responseCalConfer = await api.get(`/confer/calc/${props.id}`);
-      console.log("responseCalConfer", responseCalConfer.data);
-      formData.canWithdrawn = responseCalConfer.data.withdrawn;
-      console.log("canWithdrawn",formData.canWithdrawn)
+    console.log("responseCalConfer", responseCalConfer.data);
+    formData.canWithdrawn = responseCalConfer.data;
+    console.log("responseCalConfer formData.canWithdrawn", formData.canWithdrawn);
 
     } else if (props.type == "Page_Charge") {
       const responsebudget = await api.get(`/budget/pageCharge/${props.id}`);
