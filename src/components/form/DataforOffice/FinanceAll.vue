@@ -2,7 +2,7 @@
   <div class="container my-10 mx-auto">
     <Mainbox>
       <SectionWrapper>
-        <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ 899</p>
+        <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
         <TextInputLabelLeft
           label="ปีงบประมาณ พ.ศ."
           customInput="max-w-max text-center"
@@ -151,9 +151,10 @@ const fetchOfficerData = async () => {
       console.log("finance");
       console.log("formData.budget", formData.budget);
 
-      const responseCalPC = await api.get(`/page_charge/calc/${props.id}`);
-      console.log("responseCalPC", responseCalPC.data);
-      formData.canWithdrawn = responseCalPC.data.withdrawn;
+      const responseCalConfer = await api.get(`/confer/calc/${props.id}`);
+      console.log("responseCalConfer", responseCalConfer.data);
+      formData.canWithdrawn = responseCalConfer.data.withdrawn;
+      console.log("canWithdrawn",formData.canWithdrawn)
 
     } else if (props.type == "Page_Charge") {
       const responsebudget = await api.get(`/budget/pageCharge/${props.id}`);

@@ -40,11 +40,16 @@ const getData = async () => {
     countKris.value = response.data[2].total_count || 0;
     allCount.value = countConfer.value + countConfer.value + countKris.value;
 
+    console.log("confer", countConfer.value);
+    console.log("pc", countPc.value);
+    console.log("kris", countKris.value);
+    console.log("sum", allCount.value);
+
     creatChart();
   } catch (error) {
-    console.log("Error fetching data:", error)
+    console.log("Error fetching data:", error);
   }
-}
+};
 
 const creatChart = () => {
   if (chartInstance) {
@@ -59,15 +64,15 @@ const creatChart = () => {
         {
           data: [countConfer.value, countPc.value, countKris.value],
           backgroundColor: ["#2557A1", "#E85F19", "#E5EAFC"],
-        }
-      ]
+        },
+      ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-    }
-  })
-}
+    },
+  });
+};
 
 onMounted(getData);
 </script>
