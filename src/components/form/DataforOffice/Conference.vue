@@ -664,7 +664,7 @@
                     :placeholder="formData.conference.num_travel_days"
                   />
                   <TextInputLabelLeft
-                    label="คืน ๆ ละ"
+                    label="วัน ๆ ละ"
                     customLabel="w-auto pr-2"
                     customDiv="max-w-[26rem]"
                     customInput="max-w-[20rem]"

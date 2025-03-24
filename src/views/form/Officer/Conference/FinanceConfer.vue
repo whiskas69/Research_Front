@@ -63,8 +63,8 @@
               <TextInputLabelLeft
                 label="จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้  เป็นจำนวนเงิน"
                 customInput="max-w-max text-center"
-                v-model="formData.approval"
-                @input="handleInput('approval', $event.target.value)"
+                disabled="true"
+                :placeholder="formData.canWithdrawn.money"
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
@@ -80,6 +80,7 @@
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
+          {{ formData.canWithdrawn }}
           <div class="flex justify-end">
             <button
               @click="showCreditLimit = true"
@@ -174,6 +175,7 @@ const caltotalFacultyNow = computed(() =>{
   formData.totalcreditLimit = parseFloat(formData.creditLimit) - parseFloat(formData.approval)
   return formData.totalcreditLimit
 });
+const showCreditLimit = ref(false);
 const isLoading = ref(true);
 // Access route parameters
 const router = useRouter();
@@ -186,31 +188,32 @@ const fetchOfficerData = async () => {
     const responseoffic = await api.get(
       `/opinionConf/${id}`
     );
-    console.log("offic123", responseoffic);
     formData.offic = responseoffic.data;
-    console.log("offic", JSON.stringify(formData.offic));
-
+    // console.log("offic", JSON.stringify(formData.offic));
+    const responsebudget = await api.get(`/budget/conference/${id}`);
+      console.log("responsebudget.data", responsebudget.data);
+      // formData.budget = responsebudget.data;
     const responseForm = await api.get(
       `/allForms`
     )
-    console.log("form 123", JSON.stringify(responseForm));
-    // approveForm = responseForm.data.form_status
+    // console.log("form 123", JSON.stringify(responseForm));
     for(let i = 0; i < responseForm.length; i++){
-      if (responseForm.data.form_status == 'อนุมัติ'  && responseForm.data.form_type == 'Conference'){
+      if (responseForm.data.form_type == 'Conference'){
         formData.numapprove++
-        formData.totalapprove += formData.totalapprove
+        formData.totalapprove += responsebudget.data.total_remaining_credit_limit
       }
     }
     console.log("numapprove", formData.numapprove)
     console.log("totalapprove", formData.totalapprove)
+
     const responseFormConfer = await api.get(`/formConfer/${id}`);
-    console.log("responseFormConfer 123", responseFormConfer);
+    // console.log("responseFormConfer 123", responseFormConfer);
     formData.form_id = responseFormConfer.data.form_id;
 
-    const responseCalPC = await api.get(`/confer/calc/${id}`);
-    console.log("responseCalPC", responseCalPC.data);
-    formData.canWithdrawn = responseCalPC.data;
-    console.log("responseCalPC formData.canWithdrawn", formData.canWithdrawn);
+    const responseCalConfer = await api.get(`/confer/calc/${id}`);
+    // console.log("responseCalConfer", responseCalConfer.data);
+    formData.canWithdrawn = responseCalConfer.data;
+    // console.log("responseCalConfer formData.canWithdrawn", formData.canWithdrawn);
 
   } catch (error) {
     console.error("Error fetching Officer data:", error);
@@ -224,7 +227,6 @@ const OfficerConfer = async () => {
     const dataForBackend = {
       form_id: formData.form_id,
       budget_year: formData.year,
-      Page_Charge_amount: 90,
       Conference_amount: formData.totalAll,
       num_expenses_approved: formData.numapprove,
       total_amount_approved: formData.totalapprove,
