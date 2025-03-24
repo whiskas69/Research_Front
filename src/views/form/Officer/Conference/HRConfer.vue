@@ -307,6 +307,8 @@ const handleInput = (key, value) => {
   // console.log("value: ", value);
   console.log("--------------------------------");
 };
+
+const isLoading = ref(true);
 const getDataConf = async () => {
   if (id == null || id == "") {
     alert("โปรดเข้าสู่ระบบใหม่อีกครั้ง");
@@ -335,6 +337,8 @@ const getDataConf = async () => {
     console.log("Success", response);
   } catch (error) {
     console.log("Error", error);
+  }finally {
+    isLoading.value = false;
   }
 };
 const getFile = async (fileUrl) => {
