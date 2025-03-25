@@ -2,7 +2,6 @@
   <div>
     <div class="container my-10 mx-auto">
       <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
-      <p class="text-xl font-bold my-5">in componant</p>
       <Mainbox>
         <SectionWrapper>
           <p>ตรวจหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ สจล. และประกาศคณะ</p>
