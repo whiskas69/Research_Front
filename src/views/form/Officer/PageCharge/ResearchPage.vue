@@ -158,7 +158,6 @@
 <script setup>
 import { ref, onMounted, reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import axios from "axios";
 import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
@@ -179,7 +178,6 @@ const formData = reactive({
   f_copy_article: "",
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
-  typeFile: "Page_Charge",
   //satatus
   statusForm: "ฝ่ายบริหารการเงิน",
   // ความเห้นเจ้าหน้าที่
@@ -263,17 +261,14 @@ const OfficerPC = async () => {
       pageC_id: id,
       p_research_admin: formData.radioAuthOffic,
       p_reason: formData.description,
-      p_date_accepted_approve: formData.dateAccep,
-      research_doc_submit_date: formData.docSubmitDate || null,
-
-      type: formData.typeFile,
+      p_date_accepted_approve: formData.dateAccep || null,
+      research_doc_submit_date: formData.docSubmitDate,
       form_status: formData.statusForm,
-      form_money: formData.moneyForm,
     };
     console.log("postPC: ", JSON.stringify(dataForBackend));
 
-    const response = await axios.post(
-      "http://localhost:3000/opinionPC",
+    const response = await api.post(
+      "/opinionPC",
       dataForBackend,
       {
         headers: {
@@ -281,14 +276,12 @@ const OfficerPC = async () => {
         },
       }
     );
-    alert("Have new OfficerPC!");
-    router.push("/officer");
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+    // router.push("/officer");
     console.log("res: ", response);
-    console.log("allpostOfficerPC: ", message.value);
     console.log("postOfficerPC: ", response.data);
   } catch (error) {
     console.error(error);
-    message.value = "Error adding page_charge. Please try again.";
   }
 };
 

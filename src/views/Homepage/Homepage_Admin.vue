@@ -152,7 +152,6 @@
                   </td>
                   <td class="text-center">
                     <TextInputLabelLeft
-                      v-if="user.user_role == 'professor'"
                       customLabel="w-auto min-w-fit"
                       customDiv="max-w-max mr-10"
                       :placeholder="user.user_moneyCF"
@@ -201,7 +200,7 @@
               <th class="text-center">{{ index + 1 }}</th>
               <td class="text-center">{{ user.user_nameth }}</td>
               <td class="text-center">{{ user.user_role }}</td>
-              <td class="text-center" v-if="user.user_role == 'professor'">
+              <td class="text-center">
                 {{ user.user_moneyCF }}
               </td>
             </tr>
