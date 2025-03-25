@@ -31,7 +31,7 @@
                 label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
                 customInput="max-w-max text-center"
                 disabled="true"
-                :placeholder="formData.numapprove"
+                :placeholder="formData.numapproved"
               />
               <p class="flex items-center w-12">รายการ</p>
             </div>
@@ -42,7 +42,7 @@
                 label="รวมเป็นเงิน"
                 customInput="max-w-max text-center"
                 disabled="true"
-                :placeholder="formData.totalapprove"
+                :placeholder="parseFloat(formData.totalapproved)"
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
@@ -89,18 +89,18 @@
             </button>
           </div>
         
-          <div class="flex justify-end mt-5">
+          <div class="text-red-500 flex justify-end mt-5 mr-5">
           <div v-show="showCreditLimit" class="flex flex-col items-end mt-5">
-            <p class="text-red-500 mr-5">
+            <p>
               วงเงินที่สามารถเบิกได้ {{ formData.canWithdrawn.money }} บาท
             </p>
-            <p class="text-red-500 mr-5">
+            <p>
               {{ formData.canWithdrawn.message }}
             </p>
-            <p class="text-red-500 mr-5">
+            <p>
               ค่าเบี้ยเลี้ยงเดินทางวันละไม่เกิน 3,500 บาท
             </p>
-            <p class="text-red-500 mr-5">
+            <p>
               ค่าที่พักวันละไม่เกิน 8,000 บาท
             </p>
           </div>
@@ -134,8 +134,8 @@ const formData = reactive({
   offic:[],
   year: "",
   totalAll: 0,
-  numapprove: 0,
-  totalapprove: 0,
+  numapproved: 0,
+  totalapproved: 0,
   creditLimit: 0,
   approval: 0,
   totalcreditLimit: 0,
@@ -167,7 +167,7 @@ const handleInput = (key, value) => {
 };
 
 const caltotalFaculty = computed(() =>{
-  formData.creditLimit = parseFloat(formData.totalAll) - parseFloat(formData.totalapprove)
+  formData.creditLimit = parseFloat(formData.totalAll) - parseFloat(formData.totalapproved)
   return formData.creditLimit
 });
 
@@ -190,21 +190,13 @@ const fetchOfficerData = async () => {
     );
     formData.offic = responseoffic.data;
     // console.log("offic", JSON.stringify(formData.offic));
-    const responsebudget = await api.get(`/budget/conference/${id}`);
-      console.log("responsebudget.data", responsebudget.data);
-      // formData.budget = responsebudget.data;
-    const responseForm = await api.get(
-      `/allForms`
-    )
-    // console.log("form 123", JSON.stringify(responseForm));
-    for(let i = 0; i < responseForm.length; i++){
-      if (responseForm.data.form_type == 'Conference'){
-        formData.numapprove++
-        formData.totalapprove += responsebudget.data.total_remaining_credit_limit
-      }
-    }
-    console.log("numapprove", formData.numapprove)
-    console.log("totalapprove", formData.totalapprove)
+    const responseBudget = await api.get(`/budgetsConfer`);
+    console.log("budgetsConfer:", responseBudget.data)
+    formData.numapproved = responseBudget.data.numapproved
+    formData.totalapproved = responseBudget.data.totalapproved == null ? 0 : responseBudget.data.totalapproved;
+    
+    console.log("numapprove", formData.numapproved)
+    console.log("totalapprove", formData.totalapproved)
 
     const responseFormConfer = await api.get(`/formConfer/${id}`);
     // console.log("responseFormConfer 123", responseFormConfer);
@@ -228,8 +220,8 @@ const OfficerConfer = async () => {
       form_id: formData.form_id,
       budget_year: formData.year,
       Conference_amount: formData.totalAll,
-      num_expenses_approved: formData.numapprove,
-      total_amount_approved: formData.totalapprove,
+      num_expenses_approved: formData.numapproved,
+      total_amount_approved: formData.totalapproved,
       remaining_credit_limit: formData.creditLimit,
       amount_approval: formData.approval,
       total_remaining_credit_limit: formData.totalcreditLimit,
