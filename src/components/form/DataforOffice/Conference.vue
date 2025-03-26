@@ -85,16 +85,6 @@
             />
             <div class="flex flex-row w-full">
             <p class="w-2/6 mr-4">การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
-
-            <RadioInput
-              label="ณ ต่างประเทศ"
-              name="Venue"
-              value="ณ ต่างประเทศ"
-              disabled="false"
-              :checked="
-                formData.conference.country_conf == 'ณ ต่างประเทศ' ? true : false
-              "
-            />
             <RadioInput
               label="ภายในประเทศ"
               name="Venue"
@@ -102,6 +92,15 @@
               disabled="false"
               :checked="
                 formData.conference.country_conf == 'ภายในประเทศ' ? true : false
+              "
+            />
+            <RadioInput
+              label="ณ ต่างประเทศ"
+              name="Venue"
+              value="ณ ต่างประเทศ"
+              disabled="false"
+              :checked="
+                formData.conference.country_conf == 'ณ ต่างประเทศ' ? true : false
               "
             />
           </div>
