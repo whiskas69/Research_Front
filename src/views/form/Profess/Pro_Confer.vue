@@ -128,19 +128,18 @@
 
           <div class="flex flex-row w-full">
             <p class="w-2/6 mr-4">การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
-
+            <RadioInput
+              label="ภายในประเทศ"
+              name="Venue"
+              value="ภายในประเทศ"
+              v-model="formData.venue"
+              @change="handleInput('venue', $event.target.value)"
+            />
             <RadioInput
               customDiv="max-w-36"
               label="ณ ต่างประเทศ"
               name="Venue"
               value="ณ ต่างประเทศ"
-              v-model="formData.venue"
-              @change="handleInput('venue', $event.target.value)"
-            />
-            <RadioInput
-              label="ภายในประเทศ"
-              name="Venue"
-              value="ภายในประเทศ"
               v-model="formData.venue"
               @change="handleInput('venue', $event.target.value)"
             />
