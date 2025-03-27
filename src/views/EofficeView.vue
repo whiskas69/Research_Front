@@ -1,112 +1,122 @@
 <template>
   <div class="container my-10 mx-auto">
-    <h1 class="text-xl font-bold p-5">เอกสารที่รออนุมัติใน E-Office หรือ รอเข้าที่ประชุม</h1>
+    <h1 class="text-xl font-bold p-5">
+      เอกสารที่รออนุมัติใน E-Office หรือ รอเข้าที่ประชุม
+    </h1>
     <div v-for="form in data.allForm" :key="form.form_id">
-      <div
-        class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
-        v-if="form.form_type == 'Research_KRIS'"
-      >
-        <router-link :to="`/history/kris/${form.kris_id}`">
-          <h2 class="text-lg font-bold">
-            แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ
-          </h2>
-          <div class="mt-2 ml-5">
-            <div>
-              <div class="flex">
-                <h4 class="mr-5">ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}</h4>
-              </div>
-              <div class="flex">
-                <h4 class="mr-5">
-                  ชื่อโครงการวิจัย : {{ form.article_title }}
-                </h4>
+      <div v-if="userStore.user.user_role == 'research'">
+        <div
+          class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
+          v-if="form.form_type == 'Research_KRIS'"
+        >
+          <router-link :to="`/history/kris/${form.kris_id}`">
+            <h2 class="text-lg font-bold">
+              แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ
+            </h2>
+            <div class="mt-2 ml-5">
+              <div>
+                <div class="flex">
+                  <h4 class="mr-5">
+                    ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}
+                  </h4>
+                </div>
+                <div class="flex">
+                  <h4 class="mr-5">
+                    ชื่อโครงการวิจัย : {{ form.article_title }}
+                  </h4>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="flex justify-end mr-5">
-          <button
-            @click="addapproved(form.form_id)"
-            class="btn btn-success text-white"
-          >
-            คลิกเมื่อเอกสารได้รับการอนุมัติ
-          </button>
+            <div class="flex justify-end mr-5">
+              <button
+                @click="addapproved(form.form_id)"
+                class="btn btn-success text-white"
+              >
+                คลิกเมื่อเอกสารได้รับการอนุมัติ
+              </button>
+            </div>
+          </router-link>
         </div>
-        </router-link>
 
-      </div>
-
-      <div
-        class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
-        v-if="form.form_type == 'Conference'"
-      >
-        <router-link :to="`/history/confer/${form.conf_id}`">
-          <h2 class="text-lg font-bold">
-            ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
-          </h2>
-          <div class="mt-2 ml-5">
-            <div>
-              <div class="flex">
-                <h4 class="mr-5">ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}</h4>
-              </div>
-              <div class="flex">
-                <h4 class="mr-5">ชื่องานประชุม : {{ form.article_name }}</h4>
-              </div>
-              <div class="flex">
-                <h4 class="mr-5">ชื่อบทความ : {{ form.article_title }}</h4>
-              </div>
-              <div class="flex">
-                <h4 class="mr-5">
-                  วงเงินที่เบิกได้ : {{ form.canWithdrawn }} บาท
-                </h4>
-              </div>
-              <div class="flex justify-end mr-5">
-                <button
-                  @click="addapproved(form.form_id)"
-                  class="btn btn-success text-white"
-                >
-                  คลิกเมื่อเอกสารได้รับการอนุมัติ
-                </button>
+        <div
+          class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
+          v-if="form.form_type == 'Page_Charge'"
+        >
+          <router-link :to="`/history/pageCharge/${form.pageC_id}`">
+            <h2 class="text-lg font-bold">
+              ขออนุมัติค่า Page
+              Chargeเพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
+            </h2>
+            <div class="mt-2 ml-5">
+              <div>
+                <div class="flex">
+                  <h4 class="mr-5">
+                    ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}
+                  </h4>
+                </div>
+                <div class="flex">
+                  <h4 class="mr-5">ชื่อวารสาร : {{ form.article_name }}</h4>
+                </div>
+                <div class="flex">
+                  <h4 class="mr-5">ชื่อบทความ : {{ form.article_title }}</h4>
+                </div>
+                <div class="flex">
+                  <h4 class="mr-5">
+                    วงเงินที่เบิกได้ : {{ form.amount_approval }} บาท
+                  </h4>
+                </div>
+                <div class="flex justify-end mr-5">
+                  <button
+                    @click="addapproved(form.form_id)"
+                    class="btn btn-success text-white"
+                  >
+                    คลิกเมื่อเอกสารได้รับการอนุมัติ
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </router-link>
+          </router-link>
+        </div>
       </div>
-
-      <div
-        class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
-        v-if="form.form_type == 'Page_Charge'"
-      >
-        <router-link :to="`/history/pageCharge/${form.pageC_id}`">
-          <h2 class="text-lg font-bold">
-            ขออนุมัติค่า Page
-            Chargeเพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
-          </h2>
-          <div class="mt-2 ml-5">
-            <div>
-              <div class="flex">
-                <h4 class="mr-5">ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}</h4>
-              </div>
-              <div class="flex">
-                <h4 class="mr-5">ชื่อวารสาร : {{ form.article_name }}</h4>
-              </div>
-              <div class="flex">
-                <h4 class="mr-5">ชื่อบทความ : {{ form.article_title }}</h4>
-              </div>
-              <div class="flex">
-                <h4 class="mr-5">
-                  วงเงินที่เบิกได้ : {{ form.canWithdrawn }} บาท
-                </h4>
-              </div>
-              <div class="flex justify-end mr-5">
-                <button
-                  @click="addapproved(form.form_id)"
-                  class="btn btn-success text-white"
-                >
-                  คลิกเมื่อเอกสารได้รับการอนุมัติ
-                </button>
+      <div v-if="userStore.user.user_role == 'hr'">
+        <div
+          class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
+          v-if="form.form_type == 'Conference'"
+        >
+          <router-link :to="`/history/confer/${form.conf_id}`">
+            <h2 class="text-lg font-bold">
+              ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
+            </h2>
+            <div class="mt-2 ml-5">
+              <div>
+                <div class="flex">
+                  <h4 class="mr-5">
+                    ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}
+                  </h4>
+                </div>
+                <div class="flex">
+                  <h4 class="mr-5">ชื่องานประชุม : {{ form.article_name }}</h4>
+                </div>
+                <div class="flex">
+                  <h4 class="mr-5">ชื่อบทความ : {{ form.article_title }}</h4>
+                </div>
+                <div class="flex">
+                  <h4 class="mr-5">
+                    วงเงินที่เบิกได้ : {{ form.amount_approval }} บาท
+                  </h4>
+                </div>
+                <div class="flex justify-end mr-5">
+                  <button
+                    @click="addapproved(form.form_id)"
+                    class="btn btn-success text-white"
+                  >
+                    คลิกเมื่อเอกสารได้รับการอนุมัติ
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </router-link>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -121,7 +131,6 @@ const data = reactive({
   userRole: "",
   allForm: [],
   status: "อนุมัติ",
-  canWithdrawn: 10000,
 });
 
 const userStore = useUserStore();
@@ -133,11 +142,24 @@ const pulldata = async () => {
     console.log("res", res.data);
 
     const filteredForms = res.data
-      .filter((form) => form.form_status === "รออนุมัติ" || form.form_status === "เข้าที่ประชุม")
+      .filter(
+        (form) =>
+          form.form_status === "รออนุมัติ" ||
+          form.form_status === "เข้าที่ประชุม"
+      )
       .sort((a, b) => b.form_id - a.form_id);
     console.log("filteredForms", filteredForms);
+    
+    data.allForm = filteredForms.map(form => {
+      return {
+        ...form, // คัดลอกทุกค่าในออบเจกต์ `form` มา
+        amount_approval: parseFloat(form.amount_approval).toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+        }) //แทนที่เฉพาะ `amount_approval`
+      };
+    });
+    console.log("Updated allForm:", data.allForm);
 
-    data.allForm = filteredForms;
   } catch (error) {
     console.log(error);
   }
@@ -168,7 +190,6 @@ const addapproved = async (formId) => {
       pageC_id: formData.pageC_id,
       kris_id: formData.kris_id,
       form_status: data.status,
-      form_money: formData.form_money,
     };
     console.log("updateStatus: ", updateStatus);
     console.log("Requesting URL: ", `http://localhost:3000/form/${formId}`);
