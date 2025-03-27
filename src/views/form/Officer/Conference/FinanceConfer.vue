@@ -223,11 +223,10 @@ const OfficerConfer = async () => {
       num_expenses_approved: formData.numapproved,
       total_amount_approved: formData.totalapproved,
       remaining_credit_limit: formData.creditLimit,
-      amount_approval: formData.approval,
+      amount_approval: formData.canWithdrawn.money,
       total_remaining_credit_limit: formData.totalcreditLimit,
       doc_submit_date: formData.docSubmitDate,
       form_status: formData.formStatus,
-      form_money: formData.canWithdrawn,
     };
     console.log("post office confer: ", JSON.stringify(dataForBackend));
 
