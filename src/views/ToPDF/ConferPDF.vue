@@ -18,12 +18,10 @@
         </p>
       </div>
       <div class="text-[12px]">
-      <div class="flex flex-row mx-8 pt-1">
-        <p>ข้าพเจ้า {{ formData.user.user_nameth }}</p>
-        <p class="pl-5">
-          ตำแหน่ง {{ formData.user.user_positionth }}
-        </p>
-      </div>
+        <div class="flex flex-row mx-8 pt-1">
+          <p>ข้าพเจ้า {{ formData.user.user_nameth }}</p>
+          <p class="pl-5">ตำแหน่ง {{ formData.user.user_positionth }}</p>
+        </div>
         <p>
           มีความประสงค์ขออนุมัติไปเผยแพร่ผลงานในการประชุมทางวิชาการ
           ซึ่งมีรายชื่ออยู่ใน List* ที่คณะได้ให้การรับรองแล้ว โดยมติคณะ ครั้งที่
@@ -420,10 +418,7 @@
             />
             <span>สำเนาบทความ (Full Paper)</span>
           </div>
-          <div
-            v-if="formData.file.published_journals == null"
-            class="flex flex-row gap-3"
-          >
+          <div class="flex flex-row gap-3">
             <input
               type="checkbox"
               class="pt-1 px-5"
@@ -437,18 +432,17 @@
               {{ formData.file.date_published_journals }}</span
             >
           </div>
-          <div
-            v-if="formData.file.q_proof == null"
-            class="flex flex-row gap-3"
-          >
+          <div class="flex flex-row gap-3">
             <input
               type="checkbox"
               class="pt-1 px-5"
               :checked="formData.file.q_proof != null ? true : false"
               disabled="false"
             />
-            <span class="mt-1"
-              > *กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* หลักฐานเอกสาร Q ของ Paper ที่ใช้ประกอบการเบิก</span>
+            <span class="mt-1">
+              *กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* หลักฐานเอกสาร Q ของ Paper
+              ที่ใช้ประกอบการเบิก</span
+            >
           </div>
           <div class="flex flex-row gap-3">
             <input
@@ -457,7 +451,10 @@
               :checked="formData.file.call_for_paper != null ? true : false"
               disabled="false"
             />
-            <span>เอกสารประชาสัมพันธ์การจัดการประชุมทางวิชาการ (Call for paper)</span>
+            <span
+              >เอกสารประชาสัมพันธ์การจัดการประชุมทางวิชาการ (Call for
+              paper)</span
+            >
           </div>
           <div class="flex flex-row gap-3">
             <input
@@ -495,7 +492,236 @@
             />
             <span>หลักฐานการประชุมวิชาการอยู่ในฐาน Scopus</span>
           </div>
-          <p></p>
+          <div class="flex flex-row gap-3">
+            <input
+              type="checkbox"
+              class="pt-1 px-5"
+              :checked="formData.user.user_confer == false ? true : false"
+              disabled="false"
+            />
+            <span
+              >เป็นพนักงานสถาบันที่ปฏิบัติงานมาแล้วไม่เกิน 3
+              ปีนับตั้งแต่วันบรรจุและยังไม่เคยลาเข้าร่วมประชุมทางวิชาการ ณ
+              ต่างประเทศ</span
+            >
+          </div>
+          <div class="flex flex-row gap-3">
+            <p>ผู้ขอรับการสนับสนุนเป็น</p>
+            <input
+              type="checkbox"
+              class="pt-1 px-5"
+              :checked="
+                formData.confer.presenter_type == 'First Author' ? true : false
+              "
+              disabled="false"
+            />
+            <span>First Author</span>
+            <input
+              type="checkbox"
+              class="pt-1 px-5"
+              :checked="
+                formData.confer.presenter_type == 'Corresponding Author'
+                  ? true
+                  : false
+              "
+              disabled="false"
+            />
+            <span>Corresponding Author</span>
+          </div>
+          <p>อื่น ๆ ต้องเพิ่มดาต้าเบส</p>
+          <div class="flex flex-col text-[13px] pt-3 items-end">
+            <div class="flex flex-row gap-1 py-3">
+              <p>ลงนาม</p>
+              <div
+                v-for="item in formData.signatureOffice"
+                :key="item"
+                class="-mt-4"
+              >
+                <img
+                  v-if="item.user_role == 'hr'"
+                  :src="`http://localhost:3000/uploads/${item.user_signature}`"
+                  class="h-[50px] w-[170px]"
+                  alt="hr signature"
+                />
+              </div>
+              <p>เจ้าหน้าที่บริหารทรัพยากรบุคคล</p>
+            </div>
+            <p>ลงวันที่</p>
+            <p>{{ formatThaiDate(formData.offic.hr_doc_submit_date) }}</p>
+          </div>
+        </div>
+        <div
+          class="grid grid-cols-2 divide-x divide-black border border-black mt-5 text-[12px]"
+        >
+          <div class="px-2 py-3">
+            <p class="underline">ขั้นตอนที่ 2 งานบริหารงานวิจัย</p>
+            <p>ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
+            <p>- คุณภาพของการประชุมฯ</p>
+            <div class="flex flex-row gap-2 pl-4">
+              <input
+                type="radio"
+                disabled="false"
+                :checked="
+                  formData.offic.c_meet_quality == 'มาตรฐาน' ? true : false
+                "
+              />
+              <span>ระดับมาตรฐาน</span>
+              <input
+                type="radio"
+                disabled="false"
+                :checked="
+                  formData.offic.c_meet_quality == 'ดีมาก' ? true : false
+                "
+              />
+              <span>ระดับดีมาก</span>
+            </div>
+              <p v-if="formData.offic.c_meet_quality != 'ดีมาก'">
+              - กรณีที่เป็นการประชุมวิชาการ <b>ระดับดีมาก</b> เลือกวิธีคิดค่าคะแนนคุณภาพ
+              และมีระดับคะแนน คุณภาพของการประชุมฯ ดังนี้ {{ formData.offic.c_good_reason }}
+            </p>
+            <div class="flex flex-col pt-3 items-end">
+              <div class="flex flex-row">
+                <p>ลงนาม</p>
+                <div
+                  v-for="item in formData.signatureOffice"
+                  :key="item"
+                  class="-mt-4"
+                >
+                  <img
+                    v-if="item.user_role == 'research'"
+                    :src="`http://localhost:3000/uploads/${item.user_signature}`"
+                    class="h-[50px] w-[170px] border"
+                    alt="research Image"
+                  />
+                </div>
+                <p>เจ้าหน้าที่บริหารงานวิจัย</p>
+              </div>
+
+              <p>
+                {{ formatThaiDate(formData.offic.research_doc_submit_date) }}
+              </p>
+            </div>
+          </div>
+          <div class="px-2 py-3">
+            <p class="underline">ขั้นตอนที่ 3 งานการเงิน</p>
+            <p>ตรวจสอบเงินงบประมาณประจำปีที่คณะจัดสรรในการเผยแพร่ผลงานวิชาการ</p>
+            <p>ปีงบประมาณ พ.ศ.  {{ formData.budget.budget_year }}</p>
+            <div class="flex flex-col items-end">
+          <div class="flex flex-row justify-between gap-3 pt-2">
+            <p>วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น</p>
+            <p>{{ formData.formattedBudget.Conference_amount }}</p>
+            <p>บาท</p>
+          </div>
+          <div class="flex flex-row justify-between gap-3 pt-2">
+            <p>โดยคณะได้อนุมัติค่าใช้จ่ายไปแล้ว จำนวน</p>
+            <p>{{ formData.budget.num_expenses_approved }}</p>
+            <p>รายการ</p>
+          </div>
+          <div class="flex flex-row justify-between gap-3 pt-2">
+            <p>รวมเป็นเงิน</p>
+            <p>{{ formData.formattedBudget.total_amount_approved }}</p>
+            <p>บาท</p>
+          </div>
+          <div class="flex flex-row justify-between gap-3 pt-2">
+            <p>วงเงินที่คณะจัดสรรไว้ คงเหลือ</p>
+            <p>{{ formData.formattedBudget.remaining_credit_limit }}</p>
+            <p>บาท</p>
+          </div>
+          <div class="flex flex-row justify-between gap-3 pt-2">
+            <p>จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวนเงิน</p>
+            <p>{{ formData.formattedBudget.amount_approval }}</p>
+            <p>บาท</p>
+          </div>
+          <div class="flex flex-row justify-between gap-3 pt-2">
+            <p>วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น</p>
+            <p>{{ formData.formattedBudget.total_remaining_credit_limit }}</p>
+            <p>บาท</p>
+          </div>
+        </div>
+            <div class="flex flex-col pt-3 items-end">
+              <div class="flex flex-row gap-1">
+                <p>ลงนาม</p>
+                <div
+                  v-for="item in formData.signatureOffice"
+                  :key="item"
+                  class="-mt-2"
+                >
+                  <img
+                    v-if="item.user_role == 'finance'"
+                    :src="`http://localhost:3000/uploads/${item.user_signature}`"
+                    class="h-[50px] w-[170px]"
+                    alt="finance Image"
+                  />
+                </div>
+                
+              </div>
+              <p>เจ้าหน้าที่การเงิน</p>
+              <p>
+                {{ formatThaiDate(formData.budget.doc_submit_date) }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="grid grid-cols-2 divide-x divide-black border border-black text-[12px]"
+        >
+          <div class="px-2 py-3">
+            <p class="underline">ความเห็นรองคณบดี (กำกับดูแลด้านงานวิจัย)</p>
+            <p class="pt-4">{{ formData.offic.p_deputy_dean }}</p>
+            <div class="flex flex-col pt-3 items-end">
+              <div class="flex flex-row gap-1">
+                <p>ลงนาม</p>
+                <div
+                  v-for="item in formData.signatureOffice"
+                  :key="item"
+                  class="-mt-3"
+                >
+                  <img
+                    v-if="item.user_role == 'associate'"
+                    :src="`http://localhost:3000/uploads/${item.user_signature}`"
+                    class="h-[50px] w-[170px]"
+                    alt="associate Image"
+                  />
+                </div>
+              </div>
+
+              <p>
+                {{ formatThaiDate(formData.offic.associate_doc_submit_date) }}
+              </p>
+            </div>
+          </div>
+          <div class="px-2 py-3">
+            <p class="font-bold">เรียน คณบดีคณะเทคโนโลยีสารสนเทศ</p>
+            <p class="pt-1 px-8">
+              เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความจากผู้จัด
+            </p>
+            <p
+              v-if="formData.offic.c_approve_result != 'รับทราบ'"
+              class="flex font-bold justify-end"
+            >
+              รับทราบ
+            </p>
+            <div class="flex flex-col mt-5 items-end">
+              <div class="flex flex-row gap-1">
+                <p>ลงนาม</p>
+                <div
+                  v-for="item in formData.signatureOffice"
+                  :key="item"
+                  class="-mt-4"
+                >
+                  <img
+                    v-if="item.user_role == 'dean'"
+                    :src="`http://localhost:3000/uploads/${item.user_signature}`"
+                    class="h-[50px] w-[170px]"
+                    alt="Dean Image"
+                  />
+                </div>
+                <p>คณบดี</p>
+              </div>
+              <p>(รองศาสตราจารย์ ดร.ศิริเดช บุญแสง)</p>
+              <p>{{ formatThaiDate(formData.offic.dean_doc_submit_date) }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -525,14 +751,14 @@ const formData = reactive({
   user: [],
   offic: [],
   budget: [],
-  // formattedNumbers: "",
-  // formattedBudget: "",
+  formattedBudget: "",
   file: [],
   signatureOffice: [],
 });
 
 const formatThaiDate = (dateString) => {
-  const date = new Date(dateString);
+  if(dateString != null){
+    const date = new Date(dateString);
   const months = [
     "ม.ค.",
     "ก.พ.",
@@ -551,6 +777,10 @@ const formatThaiDate = (dateString) => {
   const month = months[date.getMonth()];
   const year = date.getFullYear() + 543;
   return `${day} ${month} ${year}`;
+  } else {
+    return "ไม่พบวันที่"
+  }
+  
 };
 
 //isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
@@ -572,30 +802,27 @@ const fetchProfessorData = async () => {
     const responseScore = await api.get(`/score/${id}`);
     console.log("score123", responseScore);
     formData.score = responseScore.data;
-    // formData.formattedNumbers = {
-    //   support_limit: Number(formData.pageChange.support_limit).toLocaleString(),
-    //   request_support: Number(
-    //     formData.pageChange.request_support
-    //   ).toLocaleString(),
-    // };
-    const responseoffic = await api.get(`/opinionPC/${id}`);
+
+    const responseoffic = await api.get(`/opinionConf/${id}`);
+    console.log("responseoffic", responseoffic.data);
     formData.offic = responseoffic.data;
 
-    const responsebudget = await api.get(`/budget/pageCharge/${id}`);
+    const responsebudget = await api.get(`/budget/conference/${id}`);
+    console.log("responsebudget", responsebudget.data);
     formData.budget = responsebudget.data;
-    // formData.formattedBudget = {
-    //   total_amount: Number(formData.budget.total_amount).toLocaleString(),
-    //   total_amount_approved: Number(
-    //     formData.budget.total_amount_approved
-    //   ).toLocaleString(),
-    //   remaining_credit_limit: Number(
-    //     formData.budget.remaining_credit_limit
-    //   ).toLocaleString(),
-    //   amount_approval: Number(formData.budget.amount_approval).toLocaleString(),
-    //   total_remaining_credit_limit: Number(
-    //     formData.budget.total_remaining_credit_limit
-    //   ).toLocaleString(),
-    // };
+    formData.formattedBudget = {
+      Conference_amount: Number(formData.budget.Conference_amount).toLocaleString(),
+      total_amount_approved: Number(
+        formData.budget.total_amount_approved
+      ).toLocaleString(),
+      remaining_credit_limit: Number(
+        formData.budget.remaining_credit_limit
+      ).toLocaleString(),
+      amount_approval: Number(formData.budget.amount_approval).toLocaleString(),
+      total_remaining_credit_limit: Number(
+        formData.budget.total_remaining_credit_limit
+      ).toLocaleString(),
+    };
 
     const responseFile = await api.get(`/pdfConfer/${id}`);
     formData.file = responseFile.data;
@@ -606,7 +833,7 @@ const fetchProfessorData = async () => {
     for (let i = 0; i < responseSignature.data.length; i++) {
       // console.log("i", i);
       if (
-        ["research", "finance", "associate", "dean"].includes(
+        ["hr", "research", "finance", "associate", "dean"].includes(
           responseSignature.data[i].user_role
         )
       ) {
@@ -618,7 +845,7 @@ const fetchProfessorData = async () => {
         formData.signatureOffice.push(signature);
       }
     }
-  }catch (error) {
+  } catch (error) {
     console.error("Error fetching professor data:", error);
   } finally {
     isLoading.value = false;
