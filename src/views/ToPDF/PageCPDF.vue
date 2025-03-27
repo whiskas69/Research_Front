@@ -363,7 +363,7 @@
               <img v-if="item.user_role == 'research' "
               :src="`http://localhost:3000/uploads/${item.user_signature}`"
               class="h-[50px] w-[170px]"
-              alt="My Image"
+              alt="research Image"
             />
             </div>
             <p>เจ้าหน้าที่บริหารงานวิจัย</p>
@@ -382,7 +382,7 @@
         <div class="flex flex-col items-end">
           <div class="flex flex-row justify-between gap-3 pt-2">
             <p>วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น</p>
-            <p>{{ formData.formattedBudget.total_amount }}</p>
+            <p>{{ formData.formattedBudget.Page_Charge_amount }}</p>
             <p>บาท</p>
           </div>
           <div class="flex flex-row justify-between gap-3 pt-2">
@@ -417,7 +417,7 @@
               <img v-if="item.user_role == 'finance' "
               :src="`http://localhost:3000/uploads/${item.user_signature}`"
               class="h-[50px] w-[170px] "
-              alt="My Image"
+              alt="finance Image"
             />
             </div>
             <p>เจ้าหน้าที่การเงิน</p>
@@ -609,12 +609,14 @@ const fetchProfessorData = async () => {
       ).toLocaleString(),
     };
     const responseoffic = await api.get(`/opinionPC/${id}`);
+    console.log("responseoffic", responseoffic.data)
     formData.offic = responseoffic.data;
 
     const responsebudget = await api.get(`/budget/pageCharge/${id}`);
+    console.log("responsebudget", responsebudget.data)
     formData.budget = responsebudget.data;
     formData.formattedBudget = {
-      total_amount: Number(formData.budget.total_amount).toLocaleString(),
+      Page_Charge_amount: Number(formData.budget.Page_Charge_amount).toLocaleString(),
       total_amount_approved: Number(
         formData.budget.total_amount_approved
       ).toLocaleString(),
