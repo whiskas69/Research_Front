@@ -47,7 +47,7 @@
               </div>
               <div class="flex">
                 <h4 class="mr-5">
-                  วงเงินที่เบิกได้ : {{ form.form_money }} บาท
+                  วงเงินที่เบิกได้ : {{ form.amount_approval }} บาท
                 </h4>
               </div>
               <div class="flex justify-end h-20 items-center">
@@ -82,7 +82,7 @@
               </div>
               <div class="flex">
                 <h4 class="mr-5">
-                  วงเงินที่เบิกได้ : {{ form.form_money }} บาท
+                  วงเงินที่เบิกได้ : {{ form.amount_approval }} บาท
                 </h4>
               </div>
               <div class="flex justify-end h-20 items-center">
@@ -114,7 +114,7 @@ const data = reactive({
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
-//pull data
+//pull data of profess
 const pulldata = async () => {
   try {
     const res = await api.get(`/form/${data.userID}`);
@@ -125,7 +125,16 @@ const pulldata = async () => {
     );
     console.log("filteredForms", filteredForms);
 
-    data.allForm = filteredForms;
+    
+    data.allForm = filteredForms.map(form => {
+      return {
+        ...form, // คัดลอกทุกค่าในออบเจกต์ `form` มา
+        amount_approval: parseFloat(form.amount_approval).toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+        }) //แทนที่เฉพาะ `amount_approval`
+      };
+    });
+    console.log("Updated allForm:", data.allForm);
   } catch (error) {
     console.log(error);
   }
