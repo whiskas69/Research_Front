@@ -627,7 +627,7 @@ const fetchProfessorData = async () => {
       ).toLocaleString(),
     };
 
-    const responseFile = await api.get(`/pdf/${id}`);
+    const responseFile = await api.get(`/pdfPC/${id}`);
     formData.file = responseFile.data;
 
     const responseSignature = await api.get("/users");

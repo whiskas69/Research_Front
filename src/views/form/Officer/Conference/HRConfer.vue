@@ -189,7 +189,7 @@
           <textarea
             placeholder="อื่น ๆ"
             class="textarea textarea-bordered w-full"
-            @input="handleInput('description', $event.target.value)"
+            @input="handleInput('noteHR', $event.target.value)"
           ></textarea>
         </SectionWrapper>
       </Mainbox>
@@ -266,7 +266,7 @@ const formData = reactive({
   //satatus
   statusForm: "ฝ่ายบริหารงานวิจัย",
   // ความเห้นเจ้าหน้าที่
-  // descriptionOther: "",
+  noteHR: "",
   profes3y: "",//ถ้าเป้นค่าว่าให้ == f
   radioAuthOffic: "",
   description: "",
