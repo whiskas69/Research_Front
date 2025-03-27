@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white p-5 rounded-lg shadow h-[420px] w-[400px]">
-    <h2 class="text-lg font-semibold">งบประมาณคงเหลือของการประชุมวิชาการ</h2>
+    <h2 class="text-lg font-semibold">งบประมาณคงเหลือของ Page Charge</h2>
     <p class="font-bold text-[#9291A5]">ปี {{ currentYear }}</p>
     <hr />
     <div class="mt-4 text-center">
@@ -31,10 +31,10 @@ let chartInstance = null;
 
 const getData = async () => {
   try {
-    const response = await api.get("/remainingConference");
+    const response = await api.get("/remainingPc");
     
-    Budget.value = response.data[0].Conference_amount || 0;
-    remainingBudget.value = response.data[0].total_remaining_credit_limit || 0;
+    Budget.value = response.data[0]?.Page_Charge_amount || 0;
+    remainingBudget.value = response.data[0]?.total_remaining_credit_limit || 0;
     usedBudget.value = Budget.value - remainingBudget.value;
 
     creatChart();
@@ -44,9 +44,18 @@ const getData = async () => {
 }
 
 const creatChart = () => {
+  if (!chartCanvas.value) {
+    console.log("Canvas not found!");
+    return;
+  }
+
   if (chartInstance) {
     chartInstance.destroy();
   }
+
+  const dataValues = 
+  usedBudget.value === 0 && remainingBudget.value === 0
+  ? [1, 1] : [usedBudget.value, remainingBudget.value];
 
   chartInstance = new Chart(chartCanvas.value, {
     type: "doughnut",
@@ -57,7 +66,7 @@ const creatChart = () => {
       ],
       datasets: [
         {
-          data: [usedBudget.value, remainingBudget.value],
+          data: dataValues,
           backgroundColor: ['#2557A1', "#E85F19"],
         },
       ],
@@ -65,7 +74,19 @@ const creatChart = () => {
     options: {
       responsive: true,
       maintainAspectRatio: false,
-    }
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function (tooltipItem) {
+              if (dataValues[tooltipItem.dataIndex] === 1 && usedBudget.value === 0) {
+                return "ไม่มีข้อมูล";
+              }
+              return `${tooltipItem.label}: ${dataValues[tooltipItem.dataIndex].toLocaleString("en-US")} บาท`;
+            },
+          },
+        },
+      },
+    },
   })
 }
 

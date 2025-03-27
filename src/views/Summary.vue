@@ -12,9 +12,120 @@
         checked="checked"
       />
       <div class="tab-content bg-base-100 border-base-300 p-6">
-        <h2>ข้อมูลทั้งหมดของ Conference</h2>
+        <h2>ข้อมูลทั้งหมดของ Conference (คิดใหม่)</h2>
         <div class="overflow-x-auto mt-5">
           <table class="table w-full">
+            <thead>
+              <tr class="text-center">
+                <th class="border px-3 py-2">ขอเบิก</th>
+                <th class="border px-3 py-2">จำนวน</th>
+                <th class="border px-3 py-2">ค่าลงทะเบียน</th>
+                <th class="border px-3 py-2">ค่าตั๋วเครื่องบิน</th>
+                <th class="border px-3 py-2">ค่าที่พัก</th>
+                <th class="border px-3 py-2">ค่าเบี้ยเลี้ยง</th>
+                <th class="border px-3 py-2">ค่าใช้จ่ายอื่น ๆ</th>
+                <th class="border px-3 py-2">รวม</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr>
+                <th class="border px-3 py-2">50%</th>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw50?.total_withdraws || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw50?.total_registration || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw50?.total_ticket || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw50?.total_room || 0).toLocaleString("en-US")
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw50?.total_allowance || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw50?.total_other || 0).toLocaleString("en-US")
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw50?.all_total || 0).toLocaleString("en-US")
+                  }}
+                </td>
+              </tr>
+              <tr>
+                <th class="border px-3 py-2">100%</th>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw100?.total_withdraws || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw100?.total_registration || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw100?.total_ticket || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw100?.total_room || 0).toLocaleString("en-US")
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw100?.total_allowance || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw100?.total_other || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw100?.all_total || 0).toLocaleString("en-US")
+                  }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="table w-full mt-5">
             <thead>
               <tr class="text-center">
                 <th class="border px-3 py-2">ลำดับที่</th>
@@ -22,13 +133,16 @@
                 <th class="border px-3 py-2">ชื่อผลงานวิจัย</th>
                 <th class="border px-3 py-2">ชื่อการประชุม</th>
                 <th class="border px-3 py-2">จังหวัด/ประเทศ</th>
-                <th class="border px-3 py-2">คณะร่วมจัด/อยู่ใน Scopus</th>
+                <!-- <th class="border px-3 py-2">คณะร่วมจัด/อยู่ใน Scopus</th> -->
                 <th class="border px-3 py-2">คุณภาพการประชุม</th>
-                <th class="border px-3 py-2">ลาครั้งที่</th>
                 <th class="border px-3 py-2">ขอเบิก</th>
                 <th class="border px-3 py-2">ค่าลงทะเบียน</th>
-                <th class="border px-3 py-2">ค่าใช้จ่ายอื่น ๆ</th>
-                <th class="border px-3 py-2">ค่าใช้จ่ายทั้งหมด</th>
+                <th class="border px-3 py-2">ค่าตั๋วเครื่องบิน</th>
+                <th class="border px-3 py-2">ค่าที่พัก</th>
+                <th class="border px-3 py-2">ค่าเบี้ยเลี้ยง</th>
+                <th class="border px-3 py-2">ค่าอื่น ๆ</th>
+                <th class="border px-3 py-2">รวม</th>
+                <th class="border px-3 py-2">สิทธิ์ที่ได้</th>
               </tr>
             </thead>
             <tbody>
@@ -37,22 +151,21 @@
                 :key="index"
                 class="text-center"
               >
-                <td class="border px-3 py-2">{{ row.conf_id }}</td>
+                <td class="border px-3 py-2">{{ index+1 }}</td>
                 <td class="border px-3 py-2">{{ row.user_nameth }}</td>
                 <td class="border px-3 py-2">{{ row.conf_name }}</td>
                 <td class="border px-3 py-2">{{ row.conf_research }}</td>
                 <td class="border px-3 py-2">{{ row.location }}</td>
-                <td class="border px-3 py-2">{{ row.meeting_type }}</td>
-                <td class="border px-3 py-2">{{ row.quality_meeting }}</td>
-                <td class="border px-3 py-2">{{ row.time_of_leave }}</td>
+                <!-- <td class="border px-3 py-2">{{ row.meeting_type }}</td> -->
+                <td class="border px-3 py-2">{{ row.meeting_type }} {{ row.quality_meeting ? `, ${row.quality_meeting}` : "" }} </td>
                 <td class="border px-3 py-2">{{ row.withdraw }}</td>
-                <td class="border px-3 py-2">
-                  {{ row.num_register_articles }}
-                </td>
-                <td class="border px-3 py-2">
-                  {{ row.all_money - row.num_register_articles }}
-                </td>
-                <td class="border px-3 py-2">{{ row.all_money }}</td>
+                <td class="border px-3 py-2">{{ Number(row.total_amount || 0).toLocaleString("en-US") }}</td>
+                <td class="border px-3 py-2">{{ Number(row.inter_expenses || 0).toLocaleString("en-US") }}</td>
+                <td class="border px-3 py-2">{{ Number(row.total_room || 0).toLocaleString("en-US") }}</td>
+                <td class="border px-3 py-2">{{ Number(row.total_allowance || 0).toLocaleString("en-US") }}</td>
+                <td class="border px-3 py-2">{{ Number(row.total_other || 0).toLocaleString("en-US") }}</td>
+                <td class="border px-3 py-2">{{ Number(row.all_money || 0).toLocaleString("en-US") }}</td>
+                <td class="border px-3 py-2">{{ Number(row.amount_approval || 0).toLocaleString("en-US") }}</td>
               </tr>
             </tbody>
           </table>
@@ -83,20 +196,52 @@
             <tbody class="text-center">
               <tr>
                 <td class="border px-3 py-2">จำนวน</td>
-                <td class="border px-3 py-2">{{ CountPc[0]?.count_qt_1 || "0" }}</td>
-                <td class="border px-3 py-2">{{ CountPc[0]?.count_qt_2 || "0" }}</td>
-                <td class="border px-3 py-2">{{ CountPc[0]?.count_qt_3 || "0" }}</td>
-                <td class="border px-3 py-2">{{ CountPc[0]?.count_qt_4 || "0" }}</td>
-                <td class="border px-3 py-2">{{ CountPc[0]?.count_nature || "0" }}</td>
+                <td class="border px-3 py-2">
+                  {{ CountPc[0]?.count_qt_1 || "0" }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ CountPc[0]?.count_qt_2 || "0" }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ CountPc[0]?.count_qt_3 || "0" }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ CountPc[0]?.count_qt_4 || "0" }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ CountPc[0]?.count_nature || "0" }}
+                </td>
                 <td class="border px-3 py-2">{{ totalCount }}</td>
               </tr>
               <tr>
                 <td class="border px-3 py-2">งบ (บาท)</td>
-                <td class="border px-3 py-2">{{ Number(CountPc[0]?.money_qt_1 || 0).toLocaleString("en-US") }}</td>
-                <td class="border px-3 py-2">{{ Number(CountPc[0]?.money_qt_2 || 0).toLocaleString("en-US") }}</td>
-                <td class="border px-3 py-2">{{ Number(CountPc[0]?.money_qt_3 || 0).toLocaleString("en-US") }}</td>
-                <td class="border px-3 py-2">{{ Number(CountPc[0]?.money_qt_4 || 0).toLocaleString("en-US") }}</td>
-                <td class="border px-3 py-2">{{ Number(CountPc[0]?.money_nature || 0).toLocaleString("en-US") }}</td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(CountPc[0]?.money_qt_1 || 0).toLocaleString("en-US")
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(CountPc[0]?.money_qt_2 || 0).toLocaleString("en-US")
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(CountPc[0]?.money_qt_3 || 0).toLocaleString("en-US")
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(CountPc[0]?.money_qt_4 || 0).toLocaleString("en-US")
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(CountPc[0]?.money_nature || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
                 <td class="border px-3 py-2">{{ totalMoney }}</td>
               </tr>
             </tbody>
@@ -159,9 +304,15 @@
                 </td>
                 <td class="border px-3 py-2">{{ row.month }} {{ row.year }}</td>
                 <td class="border px-3 py-2">
-                  {{ row.article_research_ject ? `${row.article_research_ject}` : "-" }}
+                  {{
+                    row.article_research_ject
+                      ? `${row.article_research_ject}`
+                      : "-"
+                  }}
                 </td>
-                <td class="border px-3 py-2">{{ row.research_type ? `${row.research_type}` : "-" }}</td>
+                <td class="border px-3 py-2">
+                  {{ row.research_type ? `${row.research_type}` : "-" }}
+                </td>
                 <td class="border px-3 py-2">{{ row.request_support }}</td>
               </tr>
             </tbody>
@@ -250,6 +401,8 @@ const conferenceData = ref([]);
 const SummaryPc = ref([]);
 const CountPc = ref([]);
 const krisData = ref([]);
+const withdraw50 = ref([]);
+const withdraw100 = ref([]);
 
 const totalCount = computed(() => {
   if (CountPc.value.length === 0) return 0;
@@ -262,7 +415,8 @@ const totalMoney = computed(() => {
   if (CountPc.value.length === 0) return 0;
   return Object.keys(CountPc.value[0])
     .filter((key) => key.startsWith("money_"))
-    .reduce((sum, key) => sum + Number(CountPc.value[0][key] || 0), 0).toLocaleString("en-US");;
+    .reduce((sum, key) => sum + Number(CountPc.value[0][key] || 0), 0)
+    .toLocaleString("en-US");
 });
 
 const getConferenceData = async () => {
@@ -296,9 +450,19 @@ const getKrisData = async () => {
   }));
 };
 
+const getConfer_countwithdraw = async () => {
+  const response = await api.get("/count_confer_withdraw");
+
+  withdraw50.value = response.data[0];
+  withdraw100.value = response.data[1];
+
+  console.log("res", response);
+};
+
 onMounted(() => {
   getConferenceData();
   getPageChargeData();
   getKrisData();
+  getConfer_countwithdraw();
 });
 </script>

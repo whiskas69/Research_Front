@@ -1,11 +1,13 @@
 <template>
   <div class="bg-white p-5 rounded-lg shadow h-[420px] w-[400px]">
-    <h2 class="text-lg font-semibold">งบประมาณคงเหลือของ Page Charge</h2>
+    <h2 class="text-lg font-semibold">งบประมาณคงเหลือของการประชุมวิชาการ</h2>
     <p class="font-bold text-[#9291A5]">ปี {{ currentYear }}</p>
     <hr />
     <div class="mt-4 text-center">
       <p class="text-sm">งบประมาณทั้งหมด</p>
-      <span class="text-xl font-bold"> {{ Number(Budget)?.toLocaleString("en-US") ||  0 }} บาท</span>
+      <span class="text-xl font-bold">
+        {{ Number(Budget)?.toLocaleString("en-US") || 0 }} บาท</span
+      >
     </div>
     <div class="flex justify-center w-full h-[250px]">
       <canvas ref="chartCanvas" style="width: 100%; height: 100%"></canvas>
@@ -31,22 +33,32 @@ let chartInstance = null;
 
 const getData = async () => {
   try {
-    const response = await api.get("/remainingPc");
-    
-    Budget.value = response.data[0].Page_Charge_amount || 0;
-    remainingBudget.value = response.data[0].total_remaining_credit_limit || 0;
+    const response = await api.get("/remainingConference");
+
+    Budget.value = response.data[0]?.Conference_amount || 0;
+    remainingBudget.value = response.data[0]?.total_remaining_credit_limit || 0;
     usedBudget.value = Budget.value - remainingBudget.value;
 
     creatChart();
   } catch (error) {
     console.log("Error fetching data: ", error);
   }
-}
+};
 
 const creatChart = () => {
+  if (!chartCanvas.value) {
+    console.log("Canvas not found!");
+    return;
+  }
+
   if (chartInstance) {
     chartInstance.destroy();
   }
+
+  const dataValues =
+    usedBudget.value === 0 && remainingBudget.value === 0
+      ? [1, 1]
+      : [usedBudget.value, remainingBudget.value];
 
   chartInstance = new Chart(chartCanvas.value, {
     type: "doughnut",
@@ -57,17 +69,30 @@ const creatChart = () => {
       ],
       datasets: [
         {
-          data: [usedBudget.value, remainingBudget.value],
-          backgroundColor: ['#2557A1', "#E85F19"],
+          data: dataValues,
+          backgroundColor: ["#2557A1", "#E85F19"],
         },
       ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-    }
-  })
-}
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function (tooltipItem) {
+              if (dataValues[tooltipItem.dataIndex] === 1 && usedBudget.value === 0) {
+                return "ไม่มีข้อมูล";
+              }
+              return `${tooltipItem.label}: ${dataValues[tooltipItem.dataIndex].toLocaleString("en-US")} บาท`;
+            },
+          },
+        },
+      },
+    },
+  });
+};
+
 
 onMounted(getData);
 

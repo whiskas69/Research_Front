@@ -127,11 +127,12 @@
           </span>
 
           <div class="flex flex-row w-full">
-            <p class="w-2/6 mr-4">การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
+            <p class="w-1/4">การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
             <RadioInput
               label="ภายในประเทศ"
               name="Venue"
               value="ภายในประเทศ"
+              customDiv="w-max mr-4"
               v-model="formData.venue"
               @change="handleInput('venue', $event.target.value)"
             />
@@ -791,7 +792,10 @@
               <div class="flex flex-row">
                 <div class="max-w-[30rem] flex justify-center items-center">
                   <div class="flex flex-row w-full">
-                    <span class="w-[31rem] pr-2 flex justify-center items-center">• เดินทางระหว่างประเทศ กรุงเทพฯ -</span>
+                    <span
+                      class="w-[31rem] pr-2 flex justify-center items-center"
+                      >• เดินทางระหว่างประเทศ กรุงเทพฯ -</span
+                    >
                     <v-select
                       class="w-full"
                       :options="countries"
@@ -1187,13 +1191,21 @@ const afterDatenoteqal = (value, date) => {
 const rules = computed(() => ({
   textOther1: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลครั้งที่ *", required),
-    numeric: helpers.withMessage("* กรุณากรอกข้อมูลครั้งที่เป็นตัวเลข *", numeric),
+    numeric: helpers.withMessage(
+      "* กรุณากรอกข้อมูลครั้งที่เป็นตัวเลข *",
+      numeric
+    ),
     integer: helpers.withMessage("* กรุณากรอกเป็นจำนวนเต็ม *", integer),
-    minValue: helpers.withMessage("* ครั้งที่ไม่สามารถต่ำกว่า 1 ได้ *", minValue(1)),
+    minValue: helpers.withMessage(
+      "* ครั้งที่ไม่สามารถต่ำกว่า 1 ได้ *",
+      minValue(1)
+    ),
   },
   textOther2: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลวันที่ *", required),
-    beforeDate: helpers.withMessage("* วันที่ต้องไม่เกินวันนี้ *", (value) => beforeDate(value, currentDate.value)),
+    beforeDate: helpers.withMessage("* วันที่ต้องไม่เกินวันนี้ *", (value) =>
+      beforeDate(value, currentDate.value)
+    ),
   },
   travelStart: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลเดินทาง *", required),
@@ -1482,16 +1494,27 @@ const rules = computed(() => ({
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
     minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
+    required: helpers.withMessage(
+      "* กรุณากรอกค่าพาหนะเดินทาง *",
+      requiredIf(() => formData.venue == "ภายในประเทศ")
+    ),
   },
   overseasExpenses: {
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
     minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
+    required: helpers.withMessage(
+      "* กรุณากรอกค่าพาหนะเดินทาง *",
+      requiredIf(() => formData.venue == 'ณ ต่างประเทศ')
+    )
   },
   travelCountry: {
     required: helpers.withMessage(
       "* กรุณาเลือกประเทศ *",
-      requiredIf(() => formData.venue == 'ณ ต่างประเทศ')
+      requiredIf(() => formData.venue == "ณ ต่างประเทศ")
+    ),
+    sameAs: helpers.withMessage(
+      "* กรุณาเลือกประเทศให้ตรงกับที่จัดงาน *", sameAs(formData.location)
     )
   },
   interExpenses: {
@@ -1659,7 +1682,7 @@ onMounted(async () => {
   formData.name = user.value?.user_nameth || "";
   formData.position = user.value?.user_positionth || "";
 });
-console.log("formDatainterExpenses",formData.interExpenses)
+console.log("formDatainterExpenses", formData.interExpenses);
 const handleInput = (key, value) => {
   formData[key] = value;
   console.log(`${key} updated to: ${value}`);

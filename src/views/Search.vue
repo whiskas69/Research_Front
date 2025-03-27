@@ -1,11 +1,5 @@
 <template>
   <div class="container my-10 mx-auto">
-    <!-- <div class="flex justify-end mt-5">
-      <router-link to="/summary">
-        <button class="btn btn-neutral">ไปหน้าสรุปผลเป็นตาราง</button>
-      </router-link>
-    </div> -->
-
     <div class="flex flex-row justify-between m-2 h-1/2 w-full bg-slate-200">
       <RemainingConfer />
       <RemainingPC />
@@ -122,12 +116,12 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { Chart, registerables } from "chart.js";
-import RemainingConfer from "./Dashboard/RemainingConfer.vue";
-import RemainingPC from "./Dashboard/RemainingPC.vue";
+import RemainingConfer from "@/components/Dashboard/RemainingConfer.vue";
+import RemainingPC from "@/components/Dashboard/RemainingPC.vue";
 
-import DisbursementApproval from "./Dashboard/DisbursementApproval.vue";
-import TotalDocuments from "./Dashboard/TotalDocuments.vue";
-import DisbursementEachYear from "./Dashboard/DisbursementEachYear.vue";
+import DisbursementApproval from "@/components/Dashboard/DisbursementApproval.vue";
+import TotalDocuments from "@/components/Dashboard/TotalDocuments.vue";
+import DisbursementEachYear from "@/components/Dashboard/DisbursementEachYear.vue";
 
 Chart.register(...registerables);
 </script>

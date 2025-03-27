@@ -62,7 +62,7 @@
     </div>
 
     <!-- menu -->
-    <div class="flex-auto w-full">
+    <div class="flex-auto w-full flex-row">
       <ul class="menu menu-horizontal px-5 flex">
         <div v-if="userStore.user" class="flex flex-row">
           <li
@@ -93,6 +93,7 @@
               userStore.user.user_role == 'hr' ||
               userStore.user.user_role == 'research'
             "
+            class="flex flex-row"
           >
             <li class="justify-center">
               <router-link to="/allstatus">สถานะเอกสารที่รับผิดชอบ</router-link>
@@ -122,11 +123,11 @@
               <router-link to="/">แก้เงื่อนไขการพิจารณา</router-link>
             </li>
           </div>
-
-          <li class="justify-center">
-            <router-link to="/">สรุปผลแบบสถิติ</router-link>
-          </li>
         </div>
+
+        <li class="justify-center">
+          <router-link to="/">สรุปผลแบบสถิติ</router-link>
+        </li>
       </ul>
     </div>
     <!-- end -->

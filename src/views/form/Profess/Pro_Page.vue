@@ -305,7 +305,7 @@
             <TextInputLabelLeft
               label="ฉบับที่ (Issue)"
               customLabel="w-[50%]"
-              customInput="w-[50%]"
+              customInput="w-[49%]"
               customDiv="max-w-[15%]"
               v-model="formData.issue"
               @input="handleInput('issue', $event)"
@@ -346,7 +346,7 @@
 
             <TextInputLabelLeft
               label="เลขที่ ISSN/ISBN (อื่นๆ)"
-              customLabel="w-[50%]"
+              customLabel="w-[60%]"
               customInput="w-[50%]"
               customDiv="max-w-[30%]"
               v-model="formData.ISSN"

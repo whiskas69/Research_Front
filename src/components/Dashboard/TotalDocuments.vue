@@ -35,15 +35,10 @@ const getData = async () => {
     const response = await api.get("/count");
 
     console.log(response.data);
-    countConfer.value = response.data[0].total_count || 0;
-    countPc.value = response.data[1].total_count || 0;
-    countKris.value = response.data[2].total_count || 0;
+    countConfer.value = response.data[0]?.total_count || 0;
+    countPc.value = response.data[1]?.total_count || 0;
+    countKris.value = response.data[2]?.total_count || 0;
     allCount.value = countConfer.value + countConfer.value + countKris.value;
-
-    console.log("confer", countConfer.value);
-    console.log("pc", countPc.value);
-    console.log("kris", countKris.value);
-    console.log("sum", allCount.value);
 
     creatChart();
   } catch (error) {
@@ -52,9 +47,19 @@ const getData = async () => {
 };
 
 const creatChart = () => {
+  if (!chartCanvas.value) {
+    console.log("Canvas not found!");
+    return;
+  }
+
   if (chartInstance) {
     chartInstance.destroy();
   }
+
+  const dataValues =
+    countConfer.value === 0 && countPc.value === 0 && countKris.value === 0
+      ? [1, 1, 1]
+      : [countConfer.value, countPc.value, countKris.value];
 
   chartInstance = new Chart(chartCanvas.value, {
     type: "pie",
@@ -62,7 +67,7 @@ const creatChart = () => {
       labels: ["การประชุมวิชาการ", "Page Change", "ขอทุนโครงการวิจัย"],
       datasets: [
         {
-          data: [countConfer.value, countPc.value, countKris.value],
+          data: dataValues,
           backgroundColor: ["#2557A1", "#E85F19", "#E5EAFC"],
         },
       ],
@@ -70,6 +75,23 @@ const creatChart = () => {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function (tooltipItem) {
+              if (
+                dataValues[tooltipItem.dataIndex] === 1 &&
+                countConfer.value === 0
+              ) {
+                return "ไม่มีข้อมูล";
+              }
+              return `${tooltipItem.label}: ${dataValues[
+                tooltipItem.dataIndex
+              ].toLocaleString("en-US")} บาท`;
+            },
+          },
+        },
+      },
     },
   });
 };
