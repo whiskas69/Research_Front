@@ -64,15 +64,19 @@
     <!-- menu -->
     <div class="flex-auto w-full">
       <ul class="menu menu-horizontal px-5 flex">
-        <div v-if="userStore.user">
-          <ul
-            class="menu menu-horizontal"
-            v-if="userStore.user.user_role == 'professor'"
+        <div v-if="userStore.user" class="flex flex-row">
+          <li
+            v-if="userStore.user.user_role != 'professor'"
+            class="justify-center"
           >
-            <li class="justify-center">
+            <router-link to="/homepage">ยื่นเอกสาร</router-link>
+          </li>
+
+          <ul class="menu menu-horizontal">
+            <li>
               <details>
-                <summary>สถานะและประวัติ</summary>
-                <ul class="bg-base-100 rounded-t-none">
+                <summary>สถานะเอกสาร</summary>
+                <ul class="bg-base-100 rounded-t-none px-1 w-full">
                   <li>
                     <router-link to="/allstatus">สถานะเอกสาร</router-link>
                   </li>
@@ -85,22 +89,20 @@
           </ul>
 
           <div
-            class="flex flex-row"
-            v-else-if="
+            v-if="
               userStore.user.user_role == 'hr' ||
               userStore.user.user_role == 'research'
             "
           >
             <li class="justify-center">
-              <router-link to="/allstatus">สถานะเอกสาร</router-link>
+              <router-link to="/allstatus">สถานะเอกสารที่รับผิดชอบ</router-link>
             </li>
-
             <li class="justify-center">
-              <router-link to="/eoffice">เอกสารที่รออนุมัติ</router-link>
+              <router-link to="/eoffice">เอกสารที่รอการอนุมัติ</router-link>
             </li>
           </div>
 
-          <li
+          <div
             class="justify-center"
             v-else-if="
               userStore.user.user_role == 'hr' ||
@@ -110,27 +112,31 @@
               userStore.user.user_role == 'dean'
             "
           >
-            <router-link to="/eoffice">เอกสารที่อนุมัติแล้ว</router-link>
-          </li>
+            <li class="justify-center">
+              <router-link to="/eoffice">เอกสารที่อนุมัติแล้ว</router-link>
+            </li>
+          </div>
 
-          <li
-            class="justify-center"
-            v-else-if="userStore.user.user_role == 'admin'"
-          >
-            <router-link to="/">แก้เงื่อนไขการพิจารณา</router-link>
+          <div class="flex" v-else-if="userStore.user.user_role == 'admin'">
+            <li class="justify-center">
+              <router-link to="/">แก้เงื่อนไขการพิจารณา</router-link>
+            </li>
+          </div>
+
+          <li class="justify-center">
+            <router-link to="/">สรุปผลแบบสถิติ</router-link>
           </li>
         </div>
-        <li class="justify-center">
-          <router-link to="/">สรุปผลแบบสถิติ</router-link>
-        </li>
       </ul>
     </div>
-
     <!-- end -->
-    <div class="flex flex-auto w-2/6 justify-end">
+    <div class="flex flex-auto justify-end">
       <div v-if="userStore.user">
         <div v-if="userStore.user.user_role == 'professor'">
-          <div class="dropdown dropdown-bottom dropdown-end" @click="updateNotifications">
+          <div
+            class="dropdown dropdown-bottom dropdown-end"
+            @click="updateNotifications"
+          >
             <div tabindex="0" role="button" class="btn">
               <span
                 v-if="filteredNotificationCount > 0"
@@ -256,12 +262,6 @@
               class="bg-[#4285F4] hover:bg-[#4285F4] py-[13px] text-white min-w-32"
             >
               {{ userStore.user.user_nameth }}
-            </summary>
-            <summary
-              v-else-if="userStore.user.user_nameeng"
-              class="bg-[#4285F4] hover:bg-[#4285F4] py-[13px] text-white min-w-32"
-            >
-              {{ userStore.user.user_nameeng }}
             </summary>
             <ul class="bg-base-100 rounded-t-none p-2 w-full">
               <li><router-link to="/profile">ข้อมูลส่วนตัว</router-link></li>

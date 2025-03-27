@@ -29,12 +29,24 @@
                   customInput="max-w-1/2"
                   @input="handleInputUser('nameth', $event)"
                 />
+                <span
+                  v-if="v$.nameth.$error"
+                  class="text-base font-bold text-red-500 text-left"
+                >
+                  {{ v$.nameth.$errors[0].$message }}
+                </span>
                 <TextInputLabelLeft
                   label="ชื่อ (ภาษาอังกฤษ)"
                   customLabel="mr-2 w-1/4"
                   customInput="max-w-1/2"
                   @input="handleInputUser('nameeng', $event)"
                 />
+                <span
+                  v-if="v$.nameeng.$error"
+                  class="text-base font-bold text-red-500 text-left"
+                >
+                  {{ v$.nameeng.$errors[0].$message }}
+                </span>
                 <div class="form-control w-full">
                   <label class="w-full flex items-center">
                     <span class="mr-2 w-1/4">หน้าที่</span>
@@ -55,24 +67,48 @@
                     </select>
                   </label>
                 </div>
+                <span
+                  v-if="v$.role.$error"
+                  class="text-base font-bold text-red-500 text-left"
+                >
+                  {{ v$.role.$errors[0].$message }}
+                </span>
                 <TextInputLabelLeft
                   label="อีเมล"
                   customLabel="mr-2 w-1/4"
                   customInput="max-w-1/2"
                   @input="handleInputUser('email', $event)"
                 />
+                <span
+                  v-if="v$.email.$error"
+                  class="text-base font-bold text-red-500 text-left"
+                >
+                  {{ v$.email.$errors[0].$message }}
+                </span>
                 <TextInputLabelLeft
                   label="ตำแหน่ง (ภาษาไทย)"
                   customLabel="mr-2 w-1/4"
                   customInput="max-w-1/2"
                   @input="handleInputUser('positionth', $event)"
                 />
+                <span
+                  v-if="v$.positionth.$error"
+                  class="text-base font-bold text-red-500 text-left"
+                >
+                  {{ v$.positionth.$errors[0].$message }}
+                </span>
                 <TextInputLabelLeft
                   label="ตำแหน่ง (ภาษาอังกฤษ)"
                   customLabel="mr-2 w-1/4"
                   customInput="max-w-1/2"
                   @input="handleInputUser('positioneng', $event)"
                 />
+                <span
+                  v-if="v$.positioneng.$error"
+                  class="text-base font-bold text-red-500 text-left"
+                >
+                  {{ v$.positioneng.$errors[0].$message }}
+                </span>
                 <TextInputLabelLeft
                   label="วันที่เริ่มทำงาน"
                   type="date"
@@ -80,18 +116,36 @@
                   customInput="max-w-1/2"
                   @input="handleInputUser('startwork', $event)"
                 />
+                <span
+                  v-if="v$.startwork.$error"
+                  class="text-base font-bold text-red-500 text-left"
+                >
+                  {{ v$.startwork.$errors[0].$message }}
+                </span>
                 <TextInputLabelLeft
                   label="จำนวนปีที่เริ่มทำงาน"
                   customLabel="mr-2 w-1/4"
                   customInput="max-w-1/2"
                   @input="handleInputUser('year', $event)"
                 />
+                <span
+                  v-if="v$.year.$error"
+                  class="text-base font-bold text-red-500 text-left"
+                >
+                  {{ v$.year.$errors[0].$message }}
+                </span>
                 <TextInputLabelLeft
                   label="ยอดเงินการขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมวิชาการ"
                   customLabel="mr-2 w-1/2"
                   customInput="max-w-max"
                   @input="handleInputUser('moneyCF', $event)"
                 />
+                <span
+                  v-if="v$.moneyCF.$error"
+                  class="text-base font-bold text-red-500 text-left"
+                >
+                  {{ v$.moneyCF.$errors[0].$message }}
+                </span>
                 <div class="modal-action">
                   <button
                     @click="addUser"
@@ -140,9 +194,7 @@
                         <th>ชื่อผู้ใช้</th>
                         <th>หน้าที่ของผู้ใช้เดิม</th>
                         <th>แก้ไขหน้าที่ของผู้ใช้</th>
-                        <th>
-                          ยอดเงินในการประชุมวิชาการ
-                        </th>
+                        <th>ยอดเงินในการประชุมวิชาการ</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -216,7 +268,9 @@
       </div>
 
       <!-- หน้าจอ -->
-      <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mt-5">
+      <div
+        class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mt-5"
+      >
         <table class="table text-center">
           <thead>
             <tr class="text-base text-black">
@@ -232,8 +286,12 @@
               <th class="text-center">{{ index + 1 }}</th>
               <td class="text-center">{{ user.user_nameth }}</td>
               <td class="text-center">{{ user.user_role }}</td>
-              <td class="text-center">{{ Number(user.user_moneyCF).toLocaleString("en-US") }}</td>
-              <td class="text-center">{{ Number(user.user_moneyPC).toLocaleString("en-US") }}</td>
+              <td class="text-center">
+                {{ Number(user.user_moneyCF).toLocaleString("en-US") }}
+              </td>
+              <td class="text-center">
+                {{ Number(user.user_moneyPC).toLocaleString("en-US") }}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -243,11 +301,21 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, computed } from "vue";
 import axios from "axios";
+import {
+  required,
+  numeric,
+  minValue,
+  integer,
+  helpers,
+  decimal,
+  email,
+} from "@vuelidate/validators";
 import api from "@/setting/api";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
+import useVuelidate from "@vuelidate/core";
 
 const formData = reactive({
   users: [],
@@ -276,6 +344,91 @@ const inputTypes = {
   startwork: "date",
   year: "number",
 };
+
+const thaiOnly = helpers.withMessage(
+  "* กรุณากรอกเป็นภาษาไทย ไม่มีอักขระพิเศษนอกจาก ' ' *",
+  (value) => {
+    return /^[ก-๛\s]+$/.test(value);
+  }
+);
+
+const englishOnly = helpers.withMessage(
+  "* กรุณากรอกเป็นภาษาอังกฤษ ไม่มีอักขระพิเศษนอกจาก ' ' *",
+  (value) => {
+    return /^[A-Za-z\s]+$/.test(value); // ตรวจสอบว่าเป็นตัวอักษรอังกฤษเท่านั้นและช่องว่าง
+  }
+);
+
+const emailDomain = helpers.withMessage(
+  "* อีเมลต้องเป็น @it.kmitl.ac.th เท่านั้น *",
+  (value) => {
+    return /^[a-zA-Z0-9._%+-]+@it\.kmitl\.ac\.th$/.test(value);
+  }
+);
+
+const rules = computed(() => ({
+  role: {
+    required: helpers.withMessage("* กรุณาเลือกหน้าที่ *", required),
+  },
+  nameth: {
+    required: helpers.withMessage(
+      "* กรุณากรอกข้อมูลชื่อ (ภาษาไทย) *",
+      required
+    ),
+    thaiOnly,
+  },
+  nameeng: {
+    required: helpers.withMessage(
+      "* กรุณากรอกข้อมูลชื่อ (ภาษาอังกฤษ) *",
+      required
+    ),
+    englishOnly,
+  },
+  email: {
+    required: helpers.withMessage("* กรุณากรอกอีเมล *", required),
+    email: helpers.withMessage("* กรุณากรอกเป็นอีเมล *", email),
+    emailDomain,
+  },
+  moneyCF: {
+    required: helpers.withMessage(
+      "* กรุณากรอกยอดที่สามารถเบิกขอไปประชุมวิชาการ *",
+      required
+    ),
+    numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
+    decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
+    minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
+  },
+  positionth: {
+    required: helpers.withMessage(
+      "* กรุณากรอกข้อมูลตำแหน่ง (ภาษาไทย) *",
+      required
+    ),
+    thaiOnly,
+  },
+  positioneng: {
+    required: helpers.withMessage(
+      "* กรุณากรอกข้อมูลตำแหน่ง (ภาษาอังกฤษ) *",
+      required
+    ),
+    englishOnly,
+  },
+  startwork: {
+    required: helpers.withMessage(
+      "* กรุณากรอกข้อมูลวันที่เริ่มงาน *",
+      required
+    ),
+  },
+  year: {
+    required: helpers.withMessage(
+      "* กรุณากรอกข้อมูลจำนวนปีที่ทำงาน *",
+      required
+    ),
+    numeric: helpers.withMessage("* กรุณากรอกเป็นตัวเลข *", numeric),
+    integer: helpers.withMessage("* กรอกได้แต่จำนวนเต็ม *", integer),
+  },
+}));
+
+const v$ = useVuelidate(rules, formData);
 
 const handleInputUser = (key, event) => {
   const value = event.target.value.trim();
@@ -342,27 +495,34 @@ const updateUserRoles = async () => {
   }
 };
 const addUser = async () => {
-  try {
-    const dataForBackend = {
-      user_role: formData.role,
-      user_nameth: formData.nameth,
-      user_nameeng: formData.nameeng,
-      user_email: formData.email,
-      user_moneyCF: formData.moneyCF,
-      user_positionth: formData.positionth,
-      user_positioneng: formData.positioneng,
-      user_startwork: formData.startwork,
-      user_year: formData.year,
-    };
-    await api.post("/user", dataForBackend, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-  } catch (error) {
-    console.log("Error saving code : ", error);
-    alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+  const result = await v$.value.$validate();
+
+  if (result) {
+    try {
+      const dataForBackend = {
+        user_role: formData.role,
+        user_nameth: formData.nameth,
+        user_nameeng: formData.nameeng,
+        user_email: formData.email,
+        user_moneyCF: formData.moneyCF,
+        user_positionth: formData.positionth,
+        user_positioneng: formData.positioneng,
+        user_startwork: formData.startwork,
+        user_year: formData.year,
+      };
+      await api.post("/user", dataForBackend, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+    } catch (error) {
+      console.log("Error saving code : ", error);
+      alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+    }
+  } else {
+    alert("โปรดกรอกข้อมูลให้ครบถ้วน");
+    console.log(v$.value.$errors);
   }
 };
 

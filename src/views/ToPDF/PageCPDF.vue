@@ -312,7 +312,7 @@
       <img
         :src="`http://localhost:3000/uploads/${formData.user.user_signature}`"
         class="h-[50px] w-[170px]"
-        alt="My Image"
+        alt="user signature"
       />
 
       <p>{{ formatThaiDate(formData.pageChange.doc_submit_date) }}</p>

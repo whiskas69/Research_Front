@@ -1,4 +1,3 @@
-
 <template>
   <div class="container my-10 mx-auto">
     <p class="text-2xl font-bold text-center no-print">export pdf confer</p>
@@ -19,10 +18,12 @@
         </p>
       </div>
       <div class="text-[12px]">
-        <div class="flex flex-row mx-8 pt-1">
-          <p>ข้าพเจ้า {{ formData.user.user_nameth }}</p>
-          <p class="pl-5">ตำแหน่ง {{ formData.user.user_positionth }}</p>
-        </div>
+      <div class="flex flex-row mx-8 pt-1">
+        <p>ข้าพเจ้า {{ formData.user.user_nameth }}</p>
+        <p class="pl-5">
+          ตำแหน่ง {{ formData.user.user_positionth }}
+        </p>
+      </div>
         <p>
           มีความประสงค์ขออนุมัติไปเผยแพร่ผลงานในการประชุมทางวิชาการ
           ซึ่งมีรายชื่ออยู่ใน List* ที่คณะได้ให้การรับรองแล้ว โดยมติคณะ ครั้งที่
@@ -622,6 +623,34 @@ const fetchProfessorData = async () => {
   } finally {
     isLoading.value = false;
   }
-}
-
+  // console.log("Fetching professor data...");
+};
+// ดึงข้อมูลเมื่อ component ถูกโหลด
+onMounted(async () => {
+  await fetchProfessorData();
+});
 </script>
+
+<style>
+@media print {
+  img {
+    object-fit: cover;
+  }
+  .no-print {
+    display: none !important;
+  }
+  @page {
+    margin: 0;
+  }
+  body {
+    margin: 0;
+  }
+  header,
+  footer {
+    display: none;
+  }
+  .page-break {
+    page-break-before: always;
+  }
+}
+</style>

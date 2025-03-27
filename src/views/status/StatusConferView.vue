@@ -165,7 +165,8 @@
         <div v-else>
           <FileInput
             label="(Full Paper ประกอบการเบิก) มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล WoS/SJR ซึ่งได้รับการตีพิมพ์ไม่เกิน 2 ปี ก่อนการประชุม"
-            name="published_journals" type="file" @change="handleFile($event, 'published_journals')" />
+            name="published_journals" type="file" @change="handleFile($event, 'published_journals')" 
+            disabled="data.withdraw == '50%' ? true: false"/>
           <span v-if="v$.published_journals.$error" class="text-base ml-2 text-red-500">
             {{ v$.published_journals.$errors[0].$message }}
           </span>
@@ -193,7 +194,8 @@
 
         <div v-else>
           <FileInput label="*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* หลักฐานเอกสาร Quartile ของ Paper ที่ใช้ประกอบการเบิก"
-            name="q_proof" type="file" @change="handleFile($event, 'q_proof')" />
+            name="q_proof" type="file" @change="handleFile($event, 'q_proof')" 
+            disabled="data.withdraw == '50%' ? true: false"/>
           <span v-if="v$.q_proof.$error" class="text-base ml-2 text-red-500">
             {{ v$.q_proof.$errors[0].$message }}
           </span>
@@ -370,6 +372,7 @@ const data = reactive({
   conf: "",
   name: "",
   confer_name: "",
+  withdraw: "",
 
   //file
   full_page: null,
@@ -510,6 +513,7 @@ const getDataConf = async () => {
     data.conf = response.data.conf;
     data.confer_name = response.data.confer_name;
     data.name = response.data.name;
+    data.withdraw = response.data.withdraw;
 
     data.full_page = response.data.conf.full_page;
     data.published_journals = response.data.conf.published_journals;
@@ -531,7 +535,7 @@ const getDataConf = async () => {
     data.f_fx_rate_document = responsefile.data.file_fx_rate_document;
     data.f_conf_proof = responsefile.data.file_conf_proof;
 
-    console.log("Success", response);
+    console.log("Success status confer:", response.data);
   } catch (error) {
     console.log("Error", error);
   }
