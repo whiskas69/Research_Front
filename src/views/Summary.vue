@@ -8,11 +8,14 @@
         type="radio"
         name="mytabs"
         class="tab"
-        aria-label="การประชุมวิชาการนานาชาติ"
+        aria-label="การประชุมวิชาการนานาชาติ 1"
         checked="checked"
       />
       <div class="tab-content bg-base-100 border-base-300 p-6">
-        <h2>ข้อมูลทั้งหมดของ Conference (คิดใหม่)</h2>
+        <h2>
+          ข้อมูลการประชุมวิชาการ แยกการขอเบิก
+          และแสดงเอกสารทั้งหมดที่ได้รับอนุมัติ
+        </h2>
         <div class="overflow-x-auto mt-5">
           <table class="table w-full">
             <thead>
@@ -151,21 +154,395 @@
                 :key="index"
                 class="text-center"
               >
-                <td class="border px-3 py-2">{{ index+1 }}</td>
+                <td class="border px-3 py-2">{{ index + 1 }}</td>
                 <td class="border px-3 py-2">{{ row.user_nameth }}</td>
                 <td class="border px-3 py-2">{{ row.conf_name }}</td>
                 <td class="border px-3 py-2">{{ row.conf_research }}</td>
                 <td class="border px-3 py-2">{{ row.location }}</td>
                 <!-- <td class="border px-3 py-2">{{ row.meeting_type }}</td> -->
-                <td class="border px-3 py-2">{{ row.meeting_type }} {{ row.quality_meeting ? `, ${row.quality_meeting}` : "" }} </td>
+                <td class="border px-3 py-2">
+                  {{ row.meeting_type }}
+                  {{ row.quality_meeting ? `, ${row.quality_meeting}` : "" }}
+                </td>
                 <td class="border px-3 py-2">{{ row.withdraw }}</td>
-                <td class="border px-3 py-2">{{ Number(row.total_amount || 0).toLocaleString("en-US") }}</td>
-                <td class="border px-3 py-2">{{ Number(row.inter_expenses || 0).toLocaleString("en-US") }}</td>
-                <td class="border px-3 py-2">{{ Number(row.total_room || 0).toLocaleString("en-US") }}</td>
-                <td class="border px-3 py-2">{{ Number(row.total_allowance || 0).toLocaleString("en-US") }}</td>
-                <td class="border px-3 py-2">{{ Number(row.total_other || 0).toLocaleString("en-US") }}</td>
-                <td class="border px-3 py-2">{{ Number(row.all_money || 0).toLocaleString("en-US") }}</td>
-                <td class="border px-3 py-2">{{ Number(row.amount_approval || 0).toLocaleString("en-US") }}</td>
+                <td class="border px-3 py-2">
+                  {{ Number(row.total_amount || 0).toLocaleString("en-US") }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ Number(row.inter_expenses || 0).toLocaleString("en-US") }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ Number(row.total_room || 0).toLocaleString("en-US") }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ Number(row.total_allowance || 0).toLocaleString("en-US") }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ Number(row.total_other || 0).toLocaleString("en-US") }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ Number(row.all_money || 0).toLocaleString("en-US") }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ Number(row.amount_approval || 0).toLocaleString("en-US") }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <input
+        type="radio"
+        name="mytabs"
+        class="tab"
+        aria-label="การประชุมวิชาการนานาชาติ 2"
+      />
+      <div class="tab-content bg-base-100 border-base-300 p-6">
+        <h2>ข้อมูลการประชุมวิชาการ (ต่างประเทศ)</h2>
+        <div class="overflow-x-auto mt-5">
+          {{ countryData }}
+          <table class="table w-full">
+            <thead>
+              <tr class="text-center">
+                <th class="border px-3 py-2" rowspan="2">ทวีป</th>
+                <th class="border px-3 py-2" rowspan="2">จำนวน</th>
+                <th class="border px-3 py-2" rowspan="2">ประเทศ</th>
+                <th class="border px-3 py-2" colspan="6">50%</th>
+                <th class="border px-3 py-2" colspan="6">100%</th>
+              </tr>
+              <tr class="text-center">
+                <!-- 50% columns -->
+                <th class="border px-3 py-2">ค่าลงทะเบียน</th>
+                <th class="border px-3 py-2">ค่าตั๋วเครื่องบิน</th>
+                <th class="border px-3 py-2">ค่าที่พัก</th>
+                <th class="border px-3 py-2">ค่าเบี้ยเลี้ยง</th>
+                <th class="border px-3 py-2">อื่น ๆ</th>
+                <th class="border px-3 py-2">รวม</th>
+                <!-- 100% columns -->
+                <th class="border px-3 py-2">ค่าลงทะเบียน</th>
+                <th class="border px-3 py-2">ค่าตั๋วเครื่องบิน</th>
+                <th class="border px-3 py-2">ค่าที่พัก</th>
+                <th class="border px-3 py-2">ค่าเบี้ยเลี้ยง</th>
+                <th class="border px-3 py-2">อื่น ๆ</th>
+                <th class="border px-3 py-2">รวม</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <!-- ASIA Row -->
+              <template v-if="countryData.ASIA == 0">
+                <tr>
+                  <td class="border px-3 py-2">ASIA</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                </tr>
+              </template>
+              <template v-if="countryData.ASIA > 0">
+                <td class="border px-3 py-2" :rowspan="countryData.ASIA">
+                  ASIA
+                </td>
+                <td class="border px-3 py-2" :rowspan="countryData.ASIA">
+                  {{ countryData.ASIA }}
+                </td>
+                <tr v-for="(row, index) in countryData.ASIA_data" :key="index">
+                  <td class="border px-3 py-2">{{ row.location }}</td>
+                  <td class="border px-3 py-2">{{ row.total_registration }}</td>
+                  <td class="border px-3 py-2">{{ row.total_ticket }}</td>
+                  <td class="border px-3 py-2">{{ row.total_room }}</td>
+                  <td class="border px-3 py-2">{{ row.total_allowance }}</td>
+                  <td class="border px-3 py-2">{{ row.total_other }}</td>
+                  <td class="border px-3 py-2">{{ row.all_total }}</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                </tr>
+              </template>
+
+              <!-- SEA Row -->
+              <template v-if="countryData.SEA == 0">
+                <tr>
+                  <td class="border px-3 py-2">SEA</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                </tr>
+              </template>
+              <template v-if="countryData.SEA > 0">
+                <td class="border px-3 py-2" :rowspan="countryData.SEA">
+                  SEA
+                </td>
+                <td class="border px-3 py-2" :rowspan="countryData.SEA">
+                  {{ countryData.SEA }}
+                </td>
+                <tr v-for="(row, index) in countryData.SEA_data" :key="index">
+                  <td class="border px-3 py-2">{{ row.location }}</td>
+                  <td class="border px-3 py-2">{{ row.details[0].total_registration }}</td>
+                  <td class="border px-3 py-2">{{ row.details[0].total_ticket }}</td>
+                  <td class="border px-3 py-2">{{ row.details[0].total_room }}</td>
+                  <td class="border px-3 py-2">{{ row.details[0].total_allowance }}</td>
+                  <td class="border px-3 py-2">{{ row.details[0].total_other }}</td>
+                  <td class="border px-3 py-2">{{ row.details[0].all_total }}</td>
+                  <td class="border px-3 py-2">{{ row.details[1].total_registration }}</td>
+                  <td class="border px-3 py-2">{{ row.details[1].total_ticket }}</td>
+                  <td class="border px-3 py-2">{{ row.details[1].total_room }}</td>
+                  <td class="border px-3 py-2">{{ row.details[1].total_allowance }}</td>
+                  <td class="border px-3 py-2">{{ row.details[1].total_other }}</td>
+                  <td class="border px-3 py-2">{{ row.details[1].all_total }}</td>
+                </tr>
+              </template>
+
+              <!-- EUA Row -->
+              <template v-if="countryData.EUA == 0">
+                <tr>
+                  <td class="border px-3 py-2">EUA</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                  <td class="border px-3 py-2">-</td>
+                </tr>
+              </template>
+              <template v-if="countryData.EUA > 0">
+                <td class="border px-3 py-2" :rowspan="countryData.EUA">
+                  EUA
+                </td>
+                <td class="border px-3 py-2" :rowspan="countryData.EUA">
+                  {{ countryData.EUA }}
+                </td>
+                <tr v-for="(row, index) in countryData.EUA_data" :key="index">
+                  <td class="border px-3 py-2">{{ row.location }}</td>
+                  <td class="border px-3 py-2">{{ row.details[0].total_registration }}</td>
+                  <td class="border px-3 py-2">{{ row.details[0].total_ticket }}</td>
+                  <td class="border px-3 py-2">{{ row.details[0].total_room }}</td>
+                  <td class="border px-3 py-2">{{ row.details[0].total_allowance }}</td>
+                  <td class="border px-3 py-2">{{ row.details[0].total_other }}</td>
+                  <td class="border px-3 py-2">{{ row.details[0].all_total }}</td>
+                  <td class="border px-3 py-2">{{ row.details[1].total_registration }}</td>
+                  <td class="border px-3 py-2">{{ row.details[1].total_ticket }}</td>
+                  <td class="border px-3 py-2">{{ row.details[1].total_room }}</td>
+                  <td class="border px-3 py-2">{{ row.details[1].total_allowance }}</td>
+                  <td class="border px-3 py-2">{{ row.details[1].total_other }}</td>
+                  <td class="border px-3 py-2">{{ row.details[1].all_total }}</td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <input
+        type="radio"
+        name="mytabs"
+        class="tab"
+        aria-label="การประชุมวิชาการนานาชาติ 3"
+        checked="checked"
+      />
+      <div class="tab-content bg-base-100 border-base-300 p-6">
+        <h2>ข้อมูลการประชุมวิชาการ (ในประเทศ)</h2>
+        <div class="overflow-x-auto mt-5">
+          <table class="table w-full">
+            <thead>
+              <tr class="text-center">
+                <th class="border px-3 py-2">จำนวน</th>
+                <th class="border px-3 py-2">ประเทศ/จังหวัด</th>
+                <th class="border px-3 py-2">ค่าลงทะเบียน</th>
+                <th class="border px-3 py-2">ค่าตั๋วเครื่องบิน</th>
+                <th class="border px-3 py-2">ค่าที่พัก</th>
+                <th class="border px-3 py-2">ค่าเบี้ยเลี้ยง</th>
+                <th class="border px-3 py-2">ค่าใช้จ่ายอื่น ๆ</th>
+                <th class="border px-3 py-2">รวม</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr>
+                <th class="border px-3 py-2">50%</th>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw50?.total_withdraws || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw50?.total_registration || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw50?.total_ticket || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw50?.total_room || 0).toLocaleString("en-US")
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw50?.total_allowance || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw50?.total_other || 0).toLocaleString("en-US")
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw50?.all_total || 0).toLocaleString("en-US")
+                  }}
+                </td>
+              </tr>
+              <tr>
+                <th class="border px-3 py-2">100%</th>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw100?.total_withdraws || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw100?.total_registration || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw100?.total_ticket || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw100?.total_room || 0).toLocaleString("en-US")
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw100?.total_allowance || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw100?.total_other || 0).toLocaleString(
+                      "en-US"
+                    )
+                  }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{
+                    Number(withdraw100?.all_total || 0).toLocaleString("en-US")
+                  }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="table w-full mt-5">
+            <thead>
+              <tr class="text-center">
+                <th class="border px-3 py-2">ลำดับที่</th>
+                <th class="border px-3 py-2">ชื่อ</th>
+                <th class="border px-3 py-2">ชื่อผลงานวิจัย</th>
+                <th class="border px-3 py-2">ชื่อการประชุม</th>
+                <th class="border px-3 py-2">จังหวัด/ประเทศ</th>
+                <!-- <th class="border px-3 py-2">คณะร่วมจัด/อยู่ใน Scopus</th> -->
+                <th class="border px-3 py-2">คุณภาพการประชุม</th>
+                <th class="border px-3 py-2">ขอเบิก</th>
+                <th class="border px-3 py-2">ค่าลงทะเบียน</th>
+                <th class="border px-3 py-2">ค่าตั๋วเครื่องบิน</th>
+                <th class="border px-3 py-2">ค่าที่พัก</th>
+                <th class="border px-3 py-2">ค่าเบี้ยเลี้ยง</th>
+                <th class="border px-3 py-2">ค่าอื่น ๆ</th>
+                <th class="border px-3 py-2">รวม</th>
+                <th class="border px-3 py-2">สิทธิ์ที่ได้</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(row, index) in conferenceData"
+                :key="index"
+                class="text-center"
+              >
+                <td class="border px-3 py-2">{{ index + 1 }}</td>
+                <td class="border px-3 py-2">{{ row.user_nameth }}</td>
+                <td class="border px-3 py-2">{{ row.conf_name }}</td>
+                <td class="border px-3 py-2">{{ row.conf_research }}</td>
+                <td class="border px-3 py-2">{{ row.location }}</td>
+                <!-- <td class="border px-3 py-2">{{ row.meeting_type }}</td> -->
+                <td class="border px-3 py-2">
+                  {{ row.meeting_type }}
+                  {{ row.quality_meeting ? `, ${row.quality_meeting}` : "" }}
+                </td>
+                <td class="border px-3 py-2">{{ row.withdraw }}</td>
+                <td class="border px-3 py-2">
+                  {{ Number(row.total_amount || 0).toLocaleString("en-US") }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ Number(row.inter_expenses || 0).toLocaleString("en-US") }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ Number(row.total_room || 0).toLocaleString("en-US") }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ Number(row.total_allowance || 0).toLocaleString("en-US") }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ Number(row.total_other || 0).toLocaleString("en-US") }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ Number(row.all_money || 0).toLocaleString("en-US") }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ Number(row.amount_approval || 0).toLocaleString("en-US") }}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -393,7 +770,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref, computed, reactive } from "vue";
 import api from "@/setting/api";
 import { DateTime } from "luxon";
 
@@ -403,6 +780,14 @@ const CountPc = ref([]);
 const krisData = ref([]);
 const withdraw50 = ref([]);
 const withdraw100 = ref([]);
+const countryData = reactive({
+  ASIA: 0,
+  ASIA_data: "",
+  SEA: 0,
+  SEA_data: "",
+  EUA: 0,
+  EUA_data: "",
+});
 
 const totalCount = computed(() => {
   if (CountPc.value.length === 0) return 0;
@@ -455,14 +840,54 @@ const getConfer_countwithdraw = async () => {
 
   withdraw50.value = response.data[0];
   withdraw100.value = response.data[1];
-
-  console.log("res", response);
 };
+
+const getConfer_country = async () => {
+  try {
+    const response = await api.get("/count_confer_country");
+    const data = response.data; // JSON ที่ได้จาก API
+
+    // ฟังก์ชันจัดกลุ่มข้อมูลตาม location และลบ location ออกจาก details
+    const groupByLocation = (regionData) => {
+      const grouped = {};
+      regionData.data.forEach((item) => {
+        const { location, ...detailWithoutLocation } = item; // ลบ location ออกจาก details
+
+        if (!grouped[location]) {
+          grouped[location] = {
+            location: location,
+            count: 0,
+            details: []
+          };
+        }
+        grouped[location].count += 1;
+        grouped[location].details.push(detailWithoutLocation);
+      });
+
+      return Object.values(grouped);
+    };
+
+    countryData.ASIA = data.ASIA?.count || 0;
+    countryData.ASIA_data = data.ASIA ? groupByLocation(data.ASIA) : [];
+
+    countryData.SEA = data.SEA?.count || 0;
+    countryData.SEA_data = data.SEA ? groupByLocation(data.SEA) : [];
+
+    countryData.EUA = data.EUA?.count || 0;
+    countryData.EUA_data = data.EUA ? groupByLocation(data.EUA) : [];
+
+  } catch (error) {
+    console.log("Failed to fetch country data:", error);
+  }
+};
+
+
 
 onMounted(() => {
   getConferenceData();
   getPageChargeData();
   getKrisData();
   getConfer_countwithdraw();
+  getConfer_country();
 });
 </script>

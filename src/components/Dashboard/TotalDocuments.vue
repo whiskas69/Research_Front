@@ -38,7 +38,7 @@ const getData = async () => {
     countConfer.value = response.data[0]?.total_count || 0;
     countPc.value = response.data[1]?.total_count || 0;
     countKris.value = response.data[2]?.total_count || 0;
-    allCount.value = countConfer.value + countConfer.value + countKris.value;
+    allCount.value = countConfer.value + countPc.value + countKris.value;
 
     creatChart();
   } catch (error) {
