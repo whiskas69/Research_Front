@@ -1425,7 +1425,7 @@ const rules = computed(() => ({
   coreConf: {
     required: helpers.withMessage(
       "* กรุณากรอกค่า CORE Conference Ranking *",
-      requiredIf(() => formData.score.includes("CIF"))
+      requiredIf(() => formData.score.includes("CORE"))
     ),
     value: helpers.withMessage(
       "* กรุณากรอกค่าเป็น A หรือ A* เท่านั้น *",
