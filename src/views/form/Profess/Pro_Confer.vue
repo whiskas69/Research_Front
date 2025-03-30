@@ -1513,10 +1513,10 @@ const rules = computed(() => ({
       "* กรุณาเลือกประเทศ *",
       requiredIf(() => formData.venue == "ณ ต่างประเทศ")
     ),
-    sameAs: helpers.withMessage(
-      "* กรุณาเลือกประเทศให้ตรงกับที่จัดงาน *", sameAs(formData.location)
-    )
   },
+  // sameAs: helpers.withMessage(
+  //     "* กรุณาเลือกประเทศให้ตรงกับที่จัดงาน *", sameAs(formData.location)
+  //   )
   interExpenses: {
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
