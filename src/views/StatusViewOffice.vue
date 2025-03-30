@@ -1,0 +1,142 @@
+<template>
+  <div class="container my-10 mx-auto">
+    <h1 class="text-xl font-bold mb-5">สถานะเอกสารทั้งหมด</h1>
+    <div v-for="form in data.allForm" :key="form.form_id">
+      <div v-if="userStore.user.user_role == 'research'">
+        <div
+          class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
+          v-if="form.form_type == 'Research_KRIS'"
+        >
+          <router-link :to="`/status/Kris/${form.kris_id}`">
+            <h2 class="text-lg font-bold">
+              แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ
+            </h2>
+            <div class="columns-2 mt-2 ml-5">
+              <div>
+                <div class="flex">
+                  <h4 class="mr-5">
+                    ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}
+                  </h4>
+                </div>
+                <div class="flex">
+                  <h4 class="mr-5">
+                    ชื่อโครงการวิจัย : {{ form.article_title }}
+                  </h4>
+                </div>
+                <div class="flex justify-end items-center">
+                  <p class="text-yellow-500 mr-5">
+                    สถานะ{{ form.form_status }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </router-link>
+        </div>
+
+        <div
+          class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
+          v-if="form.form_type == 'Page_Charge'"
+        >
+          <router-link :to="`/status/PageCharge/${form.pageC_id}`">
+            <h2 class="text-lg font-bold">
+              ขออนุมัติค่า Page
+              Chargeเพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
+            </h2>
+            <div class="columns-2 mt-2 ml-5">
+              <div>
+                <div class="flex">
+                  <h4 class="mr-5">
+                    ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}
+                  </h4>
+                </div>
+                <div class="flex">
+                  <h4 class="mr-5">ชื่อวารสาร : {{ form.article_name }}</h4>
+                </div>
+                <div class="flex">
+                  <h4 class="mr-5">ชื่อบทความ : {{ form.article_title }}</h4>
+                </div>
+                <div class="flex justify-end h-20 items-center">
+                  <p class="text-yellow-500 mr-5">
+                    สถานะ{{ form.form_status }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </router-link>
+        </div>
+      </div>
+      <div v-if="userStore.user.user_role == 'hr'">
+        <div
+          class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
+          v-if="form.form_type == 'Conference'"
+        >
+          <router-link :to="`/status/Conference/${form.conf_id}`">
+            <h2 class="text-lg font-bold">
+              ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
+            </h2>
+            <div class="columns-2 mt-2 ml-5">
+              <div>
+                <div class="flex">
+                  <h4 class="mr-5">
+                    ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}
+                  </h4>
+                </div>
+                <div class="flex">
+                  <h4 class="mr-5">ชื่องานประชุม : {{ form.article_name }}</h4>
+                </div>
+                <div class="flex">
+                  <h4 class="mr-5">ชื่อบทความ : {{ form.article_title }}</h4>
+                </div>
+                <div class="flex justify-end h-20 items-center">
+                  <p class="text-yellow-500 mr-5">
+                    สถานะ{{ form.form_status }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </router-link>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { computed, onMounted, reactive } from "vue";
+import { useUserStore } from "@/store/userStore";
+import api from "@/setting/api";
+
+const data = reactive({
+  userID: "",
+  userRole: "",
+  allForm: "",
+});
+
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
+
+//pull data
+const pulldata = async () => {
+  try {
+    const res = await api.get(`/allForms`);
+
+    const filteredForms = res.data.filter(
+      (form) =>
+        form.form_status != "อนุมัติ" && form.form_status != "ไม่อนุมัติ"
+    );
+    console.log("filteredForms", filteredForms);
+
+    data.allForm = filteredForms;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+onMounted(async () => {
+  await userStore.fetchUser();
+
+  data.userID = user.value?.user_id;
+
+  pulldata();
+});
+</script>

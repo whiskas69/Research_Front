@@ -16,13 +16,7 @@
                 </h4>
               </div>
               <div class="flex justify-end items-center">
-                <p class="text-red-500 mr-5" v-if="form.form_status == 'ไม่อนุมัติ'">
-                  สถานะ{{ form.form_status }}
-                </p>
-                <p class="text-green-500 mr-5" v-else-if="form.form_status == 'อนุมัติ'">
-                  สถานะ{{ form.form_status }}
-                </p>
-                <p class="text-yellow-500 mr-5" v-else>
+                <p class="text-yellow-500 mr-5">
                   สถานะ{{ form.form_status }}
                 </p>
               </div>
@@ -49,13 +43,7 @@
                 </h4>
               </div>
               <div class="flex justify-end h-20 items-center">
-                <p class="text-red-500 mr-5" v-if="form.form_status == 'ไม่อนุมัติ'">
-                  สถานะ{{ form.form_status }}
-                </p>
-                <p class="text-green-500 mr-5" v-else-if="form.form_status == 'อนุมัติ'">
-                  สถานะ{{ form.form_status }}
-                </p>
-                <p class="text-yellow-500 mr-5" v-else>
+                <p class="text-yellow-500 mr-5">
                   สถานะ{{ form.form_status }}
                 </p>
               </div>
@@ -82,13 +70,7 @@
                 </h4>
               </div>
               <div class="flex justify-end h-20 items-center">
-                <p class="text-red-500 mr-5" v-if="form.form_status == 'ไม่อนุมัติ'">
-                  สถานะ{{ form.form_status }}
-                </p>
-                <p class="text-green-500 mr-5" v-else-if="form.form_status == 'อนุมัติ'">
-                  สถานะ{{ form.form_status }}
-                </p>
-                <p class="text-yellow-500 mr-5" v-else>
+                <p class="text-yellow-500 mr-5">
                   สถานะ{{ form.form_status }}
                 </p>
               </div>
@@ -118,9 +100,12 @@ const user = computed(() => userStore.user);
 const pulldata = async () => {
   try {
     const res = await api.get(`/form/${data.userID}`);
+    const filteredForms = res.data.filter(
+      (form) => form.form_status != "อนุมัติ" && form.form_status != "ไม่อนุมัติ"
+    );
+    console.log("filteredForms", filteredForms);
 
-    console.log("res, ", res.data);
-    data.allForm = res.data;
+    data.allForm = filteredForms;
   } catch (error) {
     console.log(error);
   }

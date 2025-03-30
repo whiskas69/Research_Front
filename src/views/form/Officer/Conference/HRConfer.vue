@@ -8,10 +8,6 @@
           <p>ตรวจหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ สจล. และประกาศคณะ</p>
           <!-- เอกสารหลักฐานที่แนบ -->
           <!-- 1 -->
-          <!-- <CheckInput
-            v-model="formData.checkFullPaper"
-            @input="handleCheckbox('checkFullPaper', true)"
-          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -26,10 +22,6 @@
             </div>
           </div>
           <!-- 2 -->
-          <!-- <CheckInput
-            v-model="formData.checkPubJournal"
-            @input="handleCheckbox('checkPubJournal', true)"
-          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -40,6 +32,7 @@
                   customInput="max-w-24"
                   label="(Full Paper ประกอบการเบิก) มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล WoS/SJR ซึ่งได้รับการตีพิมพ์ไม่เกิน 2 ปี ก่อนการประชุม เมื่อ"
                   disabled="true"
+                  :placeholder="formData.date_journals"
                 />
               </div>
               <div class="">
@@ -54,10 +47,6 @@
             </div>
           </div>
           <!-- 3 -->
-          <!-- <CheckInput
-            v-model="formData.checkQProof"
-            @input="handleCheckbox('checkQProof', true)"
-          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -77,10 +66,6 @@
             </div>
           </div>
           <!-- 4 -->
-          <!-- <CheckInput
-            v-model="formData.checkCallPaper"
-            @input="handleCheckbox('checkCallPaper', true)"
-          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -102,10 +87,6 @@
             </div>
           </div>
           <!-- 5 -->
-          <!-- <CheckInput
-            v-model="formData.checkAccepted"
-            @input="handleCheckbox('checkAccepted', true)"
-          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -120,10 +101,6 @@
             </div>
           </div>
           <!-- 6 -->
-          <!-- <CheckInput
-            v-model="formData.checkFeeReceipt"
-            @input="handleCheckbox('checkFeeReceipt', true)"
-          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -138,10 +115,6 @@
             </div>
           </div>
           <!-- 7 -->
-          <!-- <CheckInput
-            v-model="formData.checkRateDocument"
-            @input="handleCheckbox('checkRateDocument', true)"
-          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -158,10 +131,6 @@
             </div>
           </div>
           <!-- 8 -->
-          <!-- <CheckInput
-            v-model="formData.checkConfProof"
-            @input="handleCheckbox('checkConfProof', true)"
-          /> -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -226,8 +195,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useUserStore } from "@/store/userStore";
 import axios from "axios";
 import api from "@/setting/api";
 
@@ -235,13 +205,13 @@ import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
-import CheckInput from "@/components/Input/CheckInput.vue";
 import ConferenceData from "@/components/form/DataforOffice/Conference.vue";
 
 const formData = reactive({
   file: "",
   name: "",
   user: "",
+  date_journals: "",
   //url
   f_full_page: null,
   f_published_journals: null,
@@ -252,14 +222,6 @@ const formData = reactive({
   f_fx_rate_document: null,
   f_conf_proof: null,
 
-  checkFullPaper: "",
-  checkPubJournal: "",
-  checkQProof: "",
-  checkCallPaper: "",
-  checkAccepted: "",
-  checkFeeReceipt: "",
-  checkRateDocument: "",
-  checkConfProof: "",
   checkWorkedNo3NeverAbroad: "",
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
@@ -280,23 +242,6 @@ const month = String(datetime.getMonth() + 1).padStart(2, "0"); // Months are 0-
 const day = String(datetime.getDate()).padStart(2, "0");
 // Combine in YYYY-MM-DD format
 formData.docSubmitDate = `${year}-${month}-${day}`;
-console.log(formData.docSubmitDate);
-
-const handleCheckbox = (key, value) => {
-  if (formData[key]) {
-    // If the checkbox is checked, uncheck it and remove the value from the array
-    formData[key] = "";
-    console.log("1");
-    formData.check = formData.check.filter((item) => item !== value);
-  } else {
-    // If the checkbox is unchecked, check it and add the value to the array
-    formData[key] = value;
-    console.log("12");
-    formData.check.push(value);
-  }
-  console.log(`${key} is now ${formData[key]}`);
-  console.log("Updated formData.check:", formData.check);
-};
 
 const handleInput = (key, value) => {
   formData[key] = value;
@@ -325,6 +270,7 @@ const getDataConf = async () => {
       formData.user = responseUser.data.user_confer;
 
     const responsefile = await api.get(`/getFileConf?conf_id=${id}`);
+    formData.date_journals = responsefile.data.date_published_journals,
     formData.f_full_page = responsefile.data.file_full_page;
     formData.f_published_journals = responsefile.data.file_published_journals;
     formData.f_q_proof = responsefile.data.file_q_proof;
@@ -367,13 +313,18 @@ const router = useRouter();
 // Access route parameters
 const route = useRoute();
 const id = route.params.id;
-console.log("params.id", id);
+
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
+console.log("user id hr:", user)
 const OfficerConfer = async () => {
   try {
     const dataForBackend = {
+      hr_id: user.value?.user_id,
       conf_id: id,
       c_research_hr: formData.radioAuthOffic,
       c_reason: formData.description,
+      c_noteOther: formData.noteHR,
       hr_doc_submit_date: formData.docSubmitDate,
     };
     console.log("postPC: ", JSON.stringify(dataForBackend));
@@ -387,7 +338,7 @@ const OfficerConfer = async () => {
         },
       }
     );
-    alert("Have new OfficerConfer!");
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
     router.push("/officer");
     console.log("res: ", response);
     console.log("allpostOfficerConfer: ", message.value);
@@ -397,7 +348,8 @@ const OfficerConfer = async () => {
     message.value = "Error adding page_charge. Please try again.";
   }
 };
-onMounted(() => {
-  getDataConf();
+onMounted(async () => {
+  await getDataConf();
+  await userStore.fetchUser();
 });
 </script>

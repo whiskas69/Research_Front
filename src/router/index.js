@@ -3,11 +3,13 @@ import LoginPage from "@/views/LoginPage.vue";
 import Search from "@/views/Search.vue";
 
 import StatusView from "@/views/StatusView.vue";
+import StatusViewOffice from "@/views/StatusViewOffice.vue";
 import StatusConferView from "@/views/status/StatusConferView.vue";
 import StatusPCView from "@/views/status/StatusPCView.vue";
 import StatusKRISView from "@/views/status/StatusKRISView.vue";
 
 import HistoryView from "@/views/HistoryView.vue";
+import HistoryViewOffice from "@/views/HistoryViewOffice.vue";
 import his_confer from '@/views/history/Confer.vue'
 import his_pageCharge from '@/views/history/Page.vue'
 import his_kris from '@/views/history/Kris.vue'
@@ -83,9 +85,20 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path: "/allstatusOffice",
+      name: "StatusofOffice",
+      component: StatusViewOffice,
+      meta: { requiresAuth: true },
+    },
+    {
       path: "/allhistory",
       name: "History",
       component: HistoryView,
+    },
+    {
+      path: "/allhistoryOffice",
+      name: "HistoryofOffice",
+      component: HistoryViewOffice
     },
     {
       path: "/formConfer",

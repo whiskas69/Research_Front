@@ -3,33 +3,6 @@
     <div class="container my-10 mx-auto">
       <ConferenceData :id="id" />
       <HR :id="id"/>
-      <!-- <Mainbox>
-        <SectionWrapper>
-          <p>ตรวจสอบความถูกต้องของข้อมูล 903</p>
-          <RadioInput
-            label="ข้อมูลถูกต้อง"
-            value="ถูกต้อง"
-            name="re"
-            disabled="false"
-            :checked="formData.offic.c_research_hr == 'ถูกต้อง' ? true : false"
-          />
-          <RadioInput
-            label="ข้อมูลไม่ถูกต้อง"
-            value="ไม่ถูกต้อง"
-            name="re"
-            disabled="false"
-            :checked="
-              formData.offic.c_research_hr == 'ไม่ถูกต้อง' ? true : false
-            "
-          />
-          <textarea
-            class="textarea textarea-bordered w-full"
-            disabled="true"
-            :placeholder="formData.offic.c_reason"
-          ></textarea>
-        </SectionWrapper>
-      </Mainbox> -->
-
       <Mainbox>
         <SectionWrapper>
           <p>ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>

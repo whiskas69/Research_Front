@@ -4,6 +4,7 @@
       <Research :id="id" :type="'Page_Charge'"/>
       <FinanceAll :id="id" :type="'Page_Charge'"/>
       <Assosiate :id="id" :type="'Page_Charge'"/>
+      <Dean :id="id" :type="'Page_Charge'"/>
   <div class="container my-10 mx-auto">
     <div class="flex justify-end no-print">
       <router-link :to="`/pdf/pageCharge/${id}`">
@@ -25,6 +26,7 @@ import PageChageData from "@/components/form/DataforOffice/PageChage.vue";
 import Research from "@/components/form/DataforOffice/Research.vue";
 import FinanceAll from "@/components/form/DataforOffice/FinanceAll.vue";
 import Assosiate from "@/components/form/DataforOffice/Assosiate.vue";
+import Dean from "@/components/form/DataforOffice/Dean.vue";
 
 // Access route parameters
 const route = useRoute();
