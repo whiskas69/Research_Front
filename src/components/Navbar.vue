@@ -96,10 +96,13 @@
             class="flex flex-row"
           >
             <li class="justify-center">
-              <router-link to="/allstatus">สถานะเอกสารที่รับผิดชอบ</router-link>
+              <router-link to="/allstatusOffice">สถานะเอกสารที่รับผิดชอบ</router-link>
             </li>
             <li class="justify-center">
               <router-link to="/eoffice">เอกสารที่รอการอนุมัติ</router-link>
+            </li>
+            <li class="justify-center">
+              <router-link to="/allhistoryOffice">ประวัติเอกสารเอกสารที่รับผิดชอบ</router-link>
             </li>
           </div>
 
@@ -115,12 +118,6 @@
           >
             <li class="justify-center">
               <router-link to="/eoffice">เอกสารที่อนุมัติแล้ว</router-link>
-            </li>
-          </div>
-
-          <div class="flex" v-else-if="userStore.user.user_role == 'admin'">
-            <li class="justify-center">
-              <router-link to="/">แก้เงื่อนไขการพิจารณา</router-link>
             </li>
           </div>
         </div>
