@@ -2,6 +2,7 @@
   <div class="bg-white p-5 rounded-lg shadow h-[500px] w-[700px]">
     <h2 class="text-lg font-semibold">สถิติการอนุมัติการเบิกจ่าย</h2>
     <p class="font-bold text-gray-700">ปีงบประมาณ 2560 - 2571</p>
+    <hr />
     <canvas ref="chartCanvas"></canvas>
   </div>
 </template>

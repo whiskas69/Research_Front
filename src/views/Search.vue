@@ -2,9 +2,12 @@
   <div class="container my-10 mx-auto">
     <div class="flex flex-row justify-between m-2 h-1/2 w-full bg-slate-200">
       <RemainingConfer />
+      <DisbursementEachYear />
       <RemainingPC />
+    </div>
+    <div class="flex flex-row justify-between m-2 h-1/2 w-full bg-slate-200">
+      <DisbursementApproval />
       <TotalDocuments />
-      <!-- <DisbursementEachYear /> -->
     </div>
     <!-- <div class="flex flex-row justify-between m-2 h-1/2">
       <TotalDocuments />

@@ -4,13 +4,7 @@
       <button class="btn btn-success text-white">Export to Excel.CSV</button>
     </div> -->
     <div class="tabs tabs-lift">
-      <input
-        type="radio"
-        name="mytabs"
-        class="tab"
-        aria-label="การประชุมวิชาการนานาชาติ 1"
-        checked="checked"
-      />
+      <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการนานาชาติ 1" checked="checked" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>
           ข้อมูลการประชุมวิชาการ แยกการขอเบิก
@@ -35,23 +29,17 @@
                 <th class="border px-3 py-2">50%</th>
                 <td class="border px-3 py-2">
                   {{
-                    Number(withdraw50?.total_withdraws || 0).toLocaleString(
-                      "en-US"
-                    )
+                    Number(withdraw50?.total_withdraws || 0).toLocaleString("en-US")
                   }}
                 </td>
                 <td class="border px-3 py-2">
                   {{
-                    Number(withdraw50?.total_registration || 0).toLocaleString(
-                      "en-US"
-                    )
+                    Number(withdraw50?.total_registration || 0).toLocaleString("en-US")
                   }}
                 </td>
                 <td class="border px-3 py-2">
                   {{
-                    Number(withdraw50?.total_ticket || 0).toLocaleString(
-                      "en-US"
-                    )
+                    Number(withdraw50?.total_ticket || 0).toLocaleString("en-US")
                   }}
                 </td>
                 <td class="border px-3 py-2">
@@ -61,9 +49,7 @@
                 </td>
                 <td class="border px-3 py-2">
                   {{
-                    Number(withdraw50?.total_allowance || 0).toLocaleString(
-                      "en-US"
-                    )
+                    Number(withdraw50?.total_allowance || 0).toLocaleString("en-US")
                   }}
                 </td>
                 <td class="border px-3 py-2">
@@ -81,23 +67,17 @@
                 <th class="border px-3 py-2">100%</th>
                 <td class="border px-3 py-2">
                   {{
-                    Number(withdraw100?.total_withdraws || 0).toLocaleString(
-                      "en-US"
-                    )
+                    Number(withdraw100?.total_withdraws || 0).toLocaleString("en-US")
                   }}
                 </td>
                 <td class="border px-3 py-2">
                   {{
-                    Number(withdraw100?.total_registration || 0).toLocaleString(
-                      "en-US"
-                    )
+                    Number(withdraw100?.total_registration || 0).toLocaleString("en-US")
                   }}
                 </td>
                 <td class="border px-3 py-2">
                   {{
-                    Number(withdraw100?.total_ticket || 0).toLocaleString(
-                      "en-US"
-                    )
+                    Number(withdraw100?.total_ticket || 0).toLocaleString("en-US")
                   }}
                 </td>
                 <td class="border px-3 py-2">
@@ -107,16 +87,12 @@
                 </td>
                 <td class="border px-3 py-2">
                   {{
-                    Number(withdraw100?.total_allowance || 0).toLocaleString(
-                      "en-US"
-                    )
+                    Number(withdraw100?.total_allowance || 0).toLocaleString("en-US")
                   }}
                 </td>
                 <td class="border px-3 py-2">
                   {{
-                    Number(withdraw100?.total_other || 0).toLocaleString(
-                      "en-US"
-                    )
+                    Number(withdraw100?.total_other || 0).toLocaleString("en-US")
                   }}
                 </td>
                 <td class="border px-3 py-2">
@@ -136,7 +112,6 @@
                 <th class="border px-3 py-2">ชื่อผลงานวิจัย</th>
                 <th class="border px-3 py-2">ชื่อการประชุม</th>
                 <th class="border px-3 py-2">จังหวัด/ประเทศ</th>
-                <!-- <th class="border px-3 py-2">คณะร่วมจัด/อยู่ใน Scopus</th> -->
                 <th class="border px-3 py-2">คุณภาพการประชุม</th>
                 <th class="border px-3 py-2">ขอเบิก</th>
                 <th class="border px-3 py-2">ค่าลงทะเบียน</th>
@@ -149,17 +124,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="(row, index) in conferenceData"
-                :key="index"
-                class="text-center"
-              >
+              <tr v-for="(row, index) in conferenceData" :key="index" class="text-center">
                 <td class="border px-3 py-2">{{ index + 1 }}</td>
                 <td class="border px-3 py-2">{{ row.user_nameth }}</td>
                 <td class="border px-3 py-2">{{ row.conf_name }}</td>
                 <td class="border px-3 py-2">{{ row.conf_research }}</td>
                 <td class="border px-3 py-2">{{ row.location }}</td>
-                <!-- <td class="border px-3 py-2">{{ row.meeting_type }}</td> -->
                 <td class="border px-3 py-2">
                   {{ row.meeting_type }}
                   {{ row.quality_meeting ? `, ${row.quality_meeting}` : "" }}
@@ -192,12 +162,7 @@
         </div>
       </div>
 
-      <input
-        type="radio"
-        name="mytabs"
-        class="tab"
-        aria-label="การประชุมวิชาการนานาชาติ 2"
-      />
+      <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการนานาชาติ 2" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>ข้อมูลการประชุมวิชาการ (ต่างประเทศ)</h2>
         <div class="overflow-x-auto mt-5">
@@ -258,10 +223,7 @@
                 <tr>
                   <td class="border px-3 py-2">ASIA</td>
                   <td class="border px-3 py-2">{{ countryData.ASIA }}</td>
-                  <template
-                    v-for="(row, index) in countryData.ASIA_data"
-                    :key="index"
-                  >
+                  <template v-for="(row, index) in countryData.ASIA_data" :key="index">
                     <td class="border px-3 py-2">{{ row.location }}</td>
                     <td class="border px-3 py-2">{{ row.count }}</td>
                     <template v-for="(row, index) in row.details" :key="index">
@@ -400,10 +362,7 @@
                 <tr>
                   <td class="border px-3 py-2">SEA</td>
                   <td class="border px-3 py-2">{{ countryData.SEA }}</td>
-                  <template
-                    v-for="(row, index) in countryData.SEA_data"
-                    :key="index"
-                  >
+                  <template v-for="(row, index) in countryData.SEA_data" :key="index">
                     <td class="border px-3 py-2">{{ row.location }}</td>
                     <td class="border px-3 py-2">{{ row.count }}</td>
                     <template v-for="(row, index) in row.details" :key="index">
@@ -542,10 +501,7 @@
                 <tr>
                   <td class="border px-3 py-2">EUA</td>
                   <td class="border px-3 py-2">{{ countryData.EUA }}</td>
-                  <template
-                    v-for="(row, index) in countryData.EUA_data"
-                    :key="index"
-                  >
+                  <template v-for="(row, index) in countryData.EUA_data" :key="index">
                     <td class="border px-3 py-2">{{ row.location }}</td>
                     <td class="border px-3 py-2">{{ row.count }}</td>
                     <template v-for="(row, index) in row.details" :key="index">
@@ -661,12 +617,7 @@
         </div>
       </div>
 
-      <input
-        type="radio"
-        name="mytabs"
-        class="tab"
-        aria-label="การประชุมวิชาการนานาชาติ 3"
-      />
+      <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการนานาชาติ 3" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>ข้อมูลการประชุมวิชาการ (ในประเทศ)</h2>
         <div class="overflow-x-auto mt-5">
@@ -695,7 +646,9 @@
                   <td class="border px-3 py-2">{{ row.total_allowance }}</td>
                   <td class="border px-3 py-2">{{ row.total_other }}</td>
                   <td class="border px-3 py-2">{{ row.all_total }}</td>
-                  <td class="border px-3 py-2">{{ row.total_amount_approval }}</td>
+                  <td class="border px-3 py-2">
+                    {{ row.total_amount_approval }}
+                  </td>
                 </tr>
               </template>
             </tbody>
@@ -807,11 +760,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="(row, index) in SummaryPc"
-                :key="index"
-                class="text-center"
-              >
+              <tr v-for="(row, index) in SummaryPc" :key="index" class="text-center">
                 <td class="border px-3 py-2">{{ index + 1 }}</td>
                 <td class="border px-3 py-2">{{ row.user_nameth }}</td>
                 <td class="border px-3 py-2">{{ row.journal_name }}</td>
@@ -828,7 +777,7 @@
                 <td class="border px-3 py-2">
                   {{
                     row.quality_journal &&
-                    row.quality_journal.includes("nature")
+                      row.quality_journal.includes("nature")
                       ? "✔"
                       : "-"
                   }}
@@ -851,12 +800,7 @@
         </div>
       </div>
 
-      <input
-        type="radio"
-        name="mytabs"
-        class="tab"
-        aria-label="โครงงานวิชาการ"
-      />
+      <input type="radio" name="mytabs" class="tab" aria-label="โครงงานวิชาการ" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>ข้อมูลทั้งหมดของโครงงานวิชาการ</h2>
         <div class="overflow-x-auto mt-5">
@@ -875,11 +819,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="(row, index) in krisData"
-                :key="index"
-                class="text-center"
-              >
+              <tr v-for="(row, index) in krisData" :key="index" class="text-center">
                 <td class="border px-3 py-2">{{ row.kris_id }}</td>
                 <td class="border px-3 py-2">{{ row.user_nameth }}</td>
                 <td class="border px-3 py-2">{{ row.name_research_th }}</td>
@@ -890,25 +830,16 @@
                 <td class="border px-3 py-2 w-1/6">
                   {{ row.formattedres_standard }}
                 </td>
-                <td
-                  class="border px-3 py-2"
-                  v-if="row.res_standard_trade == '52'"
-                >
+                <td class="border px-3 py-2" v-if="row.res_standard_trade == '52'">
                   มาตรา 52 (เพื่อประโยชน์ทางการค้า)
                 </td>
-                <td
-                  class="border px-3 py-2"
-                  v-if="row.res_standard_trade == '53'"
-                >
+                <td class="border px-3 py-2" v-if="row.res_standard_trade == '53'">
                   มาตรา 53 (ไม่มีวัตถุประสงค์เพื่อประโยชน์ทางการค้า)
                 </td>
-                <td
-                  class="border px-3 py-2"
-                  v-if="
-                    row.res_standard_trade == '' ||
-                    row.res_standard_trade == null
-                  "
-                >
+                <td class="border px-3 py-2" v-if="
+                  row.res_standard_trade == '' ||
+                  row.res_standard_trade == null
+                ">
                   {{ row.res_standard_trade }}
                 </td>
                 <td class="border px-3 py-2">{{ row.year }}</td>
@@ -1039,7 +970,7 @@ const getConfer_thai = async () => {
   const response = await api.get("/count_confer_thai");
 
   inThai.value = response.data;
-}
+};
 
 onMounted(() => {
   getConferenceData();
