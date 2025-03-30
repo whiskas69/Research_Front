@@ -384,29 +384,6 @@
                 disabled="false"
                 :checked="formData.conference.time_of_leave == 1 ? true : false"
               />
-              <div
-                v-if="formData.conference.time_of_leave == 1"
-                class="flex flex-row px-7 mt-1"
-              >
-                <RadioInput
-                  label="สถานที่จัดภายในประเทศ"
-                  name="thai"
-                  value="ในประเทศ"
-                  disabled="false"
-                  :checked="
-                    formData.conference.location_1 == 'ในประเทศ' ? true : false
-                  "
-                />
-                <RadioInput
-                  label="สถานที่จัด ณ ต่างประเทศ"
-                  name="thai"
-                  value="ต่างประเทศ"
-                  disabled="false"
-                  :checked="
-                    formData.conference.location_1 == 'ต่างประเทศ' ? true : false
-                  "
-                />
-              </div>
             </SectionWrapper>
   
             <SectionWrapper>

@@ -39,6 +39,7 @@
                   customInput="max-w-24"
                   label="(Full Paper ประกอบการเบิก) มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล WoS/SJR ซึ่งได้รับการตีพิมพ์ไม่เกิน 2 ปี ก่อนการประชุม เมื่อ"
                   disabled="true"
+                  :placeholder="formData.date_journals"
                 />
               </div>
               <div class="">
@@ -230,9 +231,10 @@
             :checked="formData.offic.user_confer == 0"
           />
           <textarea
-            placeholder="อื่น ๆ"
+          v-if="formData.offic.c_noteOther != null"
+            :placeholder="formData.offic.c_noteOther"
             class="textarea textarea-bordered w-full"
-            @input="handleInput('description', $event.target.value)"
+            disabled="true"
           ></textarea>
         </SectionWrapper>
       </Mainbox>
@@ -267,7 +269,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive } from "vue";
+import { ref, onMounted, reactive } from "vue";
 import { useRoute } from "vue-router";
 import api from "@/setting/api";
 
@@ -280,6 +282,7 @@ const formData = reactive({
   offic: [],
   file: "",
   name: "",
+  date_journals: "",
   //url
   f_full_page: null,
   f_published_journals: null,
@@ -313,6 +316,7 @@ const downloadFile = async (fileUrl, fileName) => {
     console.error("Error downloading file:", error);
   }
 };
+const isLoading = ref(true);
 // Access route parameters
 const route = useRoute();
 const id = route.params.id;
@@ -325,6 +329,7 @@ const fetchOfficerData = async () => {
     console.log("data office", formData.offic.c_reason)
 
     const responsefile = await api.get(`/getFileConf?conf_id=${id}`);
+    formData.date_journals = responsefile.data.date_published_journals,
     formData.f_full_page = responsefile.data.file_full_page;
     formData.f_published_journals = responsefile.data.file_published_journals;
     formData.f_q_proof = responsefile.data.file_q_proof;
