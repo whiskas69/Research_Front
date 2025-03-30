@@ -29,14 +29,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import axios from "axios";
+import { useUserStore } from "@/store/userStore";
+import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
-import TextArea from "@/components/Input/TextArea.vue";
 import ConferenceData from "@/components/form/DataforOffice/Conference.vue";
 import HR from "@/components/form/DataforOffice/HR.vue";
 import Research from "@/components/form/DataforOffice/Research.vue";
@@ -46,15 +46,6 @@ import Assosiate from "@/components/form/DataforOffice/Assosiate.vue";
 const formData = reactive({
   offic: [],
   budget: [],
-  // ความเห้นเจ้าหน้าที่
-  year: "",
-  totalAll: 0,
-  numapprove: 0,
-  totalapprove: 0,
-  creditLimit: 0,
-  moneyConfer: 0,
-  totalcreditLimit: 0,
-  canWithdrawn: 0,
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
   // ความเห้นเจ้าหน้าที่
@@ -62,7 +53,6 @@ const formData = reactive({
   //satatus
   formStatus: "รออนุมัติ",
 });
-console.log("conference", formData);
 //วันที่ส่งเอกสาร
 const datetime = new Date();
 // Extract year, month, and day
@@ -87,19 +77,18 @@ const isLoading = ref(true);
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
+console.log("user id hr:", user)
 
 const fetchOfficerData = async () => {
   try {
-    const responseoffic = await axios.get(
-      `http://localhost:3000/opinionConf/${id}`
-    );
+    const responseoffic = await api.get(`/opinionConf/${id}`);
     console.log("offic123", responseoffic);
     formData.offic = responseoffic.data;
     console.log("offic", JSON.stringify(formData.offic));
 
-    const responsebudget = await axios.get(
-      `http://localhost:3000/budget/conference/${id}`
-    );
+    const responsebudget = await api.get(`/budget/conference/${id}`);
     console.log("budget 123", responsebudget);
     formData.budget = responsebudget.data;
     console.log("budget", JSON.stringify(formData.budget));
@@ -113,6 +102,9 @@ const fetchOfficerData = async () => {
 const OfficerConfer = async () => {
   try {
     const dataForBackend = {
+      hr_id: formData.offic.hr_id,
+      research_id: formData.offic.research_id,
+      associate_id: formData.offic.associate_id,
       conf_id: id,
       //hr
       c_research_hr: formData.offic.c_research_hr,
@@ -139,6 +131,7 @@ const OfficerConfer = async () => {
         .slice(0, 19)
         .replace("T", " "),
       //kanabodee
+      dean_id: user.value?.user_id,
       c_approve_result: formData.acknowledge,
       dean_doc_submit_date: formData.docSubmitDate,
       //form
@@ -146,12 +139,12 @@ const OfficerConfer = async () => {
     };
     console.log("post office confer: ", JSON.stringify(dataForBackend));
 
-    const response = await axios.put(
-      `http://localhost:3000/opinionConf/${id}`,
+    const response = await api.put(
+      `/opinionConf/${id}`,
       dataForBackend,
       { headers: { "Content-Type": "application/json" } }
     );
-    alert("Have new OfficerConfer!");
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
     router.push("/officer");
     console.log("res: ", response);
     console.log("allpostOfficerConfer: ", message.value);

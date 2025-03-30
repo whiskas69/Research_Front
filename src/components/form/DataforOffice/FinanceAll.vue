@@ -12,14 +12,14 @@
         <div class="flex justify-end">
           <div class="flex flex-row justify-between">
             <TextInputLabelLeft
-            v-if="props.type == 'Conference'"
+              v-if="props.type == 'Conference'"
               label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น"
               customInput="max-w-max text-center"
               disabled="true"
               :placeholder="formData.budget.Conference_amount"
             />
             <TextInputLabelLeft
-            v-if="props.type == 'Page_Charge'"
+              v-if="props.type == 'Page_Charge'"
               label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น"
               customInput="max-w-max text-center"
               disabled="true"
@@ -99,33 +99,44 @@
             <p class="flex items-center w-12">บาท</p>
           </div>
         </div>
-        <div v-if="props.type == 'Conference'" class="flex flex-col items-end mt-5">
-            <p class="text-red-500 mr-5">
-              วงเงินที่สามารถเบิกได้ {{ formData.canWithdrawn.money }} บาท
-            </p>
-            <p class="text-red-500 mr-5">
-              {{ formData.canWithdrawn.message }}
-            </p>
-            <p class="text-red-500 mr-5">
-              ค่าเบี้ยเลี้ยงเดินทางวันละไม่เกิน 3,500 บาท
-            </p>
-            <p class="text-red-500 mr-5">
-              ค่าที่พักวันละไม่เกิน 8,000 บาท
-            </p>
+        <div
+          v-if="props.type == 'Conference'"
+          class="flex flex-col items-end mt-5"
+        >
+          <div class="text-red-500 flex justify-end mt-5 mr-5">
+            <div class="flex flex-col items-end">
+              <p v-if="formData.canWithdrawn.inOutC == 'Out_Country'">
+                วงเงินที่สามารถเบิกได้ {{ expenses.withdrawn }} บาท
+              </p>
+              <div v-if="formData.canWithdrawn.inOutC == 'In_Country'" class="flex flex-col items-end">
+                <p>วงเงินที่สามารถเบิกได้ 8,000 บาท</p>
+                <p>{{ formData.canWithdrawn.inthai }}</p>
+              </div>
+              <p>
+                {{ formData.canWithdrawn.message }}
+              </p>
+              <div v-if="formData.canWithdrawn.inOutC == 'Out_Country'" class="flex flex-col items-end">
+                <p>ค่าเบี้ยเลี้ยงเดินทางไม่เกิน {{ expenses.allowance }} บาท</p>
+                <p>ค่าที่พักวันละไม่เกิน {{ expenses.accom }} บาท</p>
+              </div>
+            </div>
           </div>
-          <div v-if="props.type == 'Page_Charge'" class="flex flex-col items-end mt-5">
-            <p class="text-red-500 mr-5">
-              วงเงินที่สามารถเบิกได้ {{ formData.canWithdrawn }} บาท
-            </p>
-
-          </div>
+        </div>
+        <div
+          v-if="props.type == 'Page_Charge'"
+          class="flex flex-col items-end mt-5"
+        >
+          <p class="text-red-500 mr-5">
+            วงเงินที่สามารถเบิกได้ {{ formData.canWithdrawn }} บาท
+          </p>
+        </div>
       </SectionWrapper>
     </Mainbox>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
@@ -133,8 +144,30 @@ import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 
 const formData = reactive({
+  conference: [],
   budget: [],
   canWithdrawn: "",
+});
+
+const expenses = computed(() => {
+  const withdrawn = parseFloat(formData.canWithdrawn.money).toLocaleString(
+    "en-US",
+    {
+      minimumFractionDigits: 2,
+    }
+  );
+  const allowance = parseFloat(
+    3500 * formData.conference.num_travel_days
+  ).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+  });
+  const accom = parseFloat(
+    8000 * formData.conference.num_days_room
+  ).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+  });
+
+  return { withdrawn, allowance, accom };
 });
 
 const props = defineProps(["id", "type"]);
@@ -152,10 +185,16 @@ const fetchOfficerData = async () => {
       console.log("formData.budget", formData.budget);
 
       const responseCalConfer = await api.get(`/confer/calc/${props.id}`);
-    console.log("responseCalConfer", responseCalConfer.data);
-    formData.canWithdrawn = responseCalConfer.data;
-    console.log("responseCalConfer formData.canWithdrawn", formData.canWithdrawn);
+      console.log("responseCalConfer", responseCalConfer.data);
+      formData.canWithdrawn = responseCalConfer.data;
+      console.log(
+        "responseCalConfer formData.canWithdrawn",
+        formData.canWithdrawn
+      );
 
+      const responseConfer = await api.get(`/conference/${props.id}`);
+      console.log("conference123", responseConfer);
+      formData.conference = responseConfer.data;
     } else if (props.type == "Page_Charge") {
       const responsebudget = await api.get(`/budget/pageCharge/${props.id}`);
       formData.budget = responsebudget.data;
@@ -163,8 +202,8 @@ const fetchOfficerData = async () => {
       console.log("formData.budget", formData.budget);
 
       const responseCalPC = await api.get(`/page_charge/calc/${props.id}`);
-    console.log("responseCalPC", responseCalPC);
-    formData.canWithdrawn = responseCalPC.data.withdrawn;
+      console.log("responseCalPC", responseCalPC);
+      formData.canWithdrawn = responseCalPC.data.withdrawn;
     }
   } catch (error) {
     console.error("Error fetching Officer data:", error);

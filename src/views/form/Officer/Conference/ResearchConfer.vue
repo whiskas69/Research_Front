@@ -42,8 +42,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
@@ -88,6 +89,9 @@ const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
+console.log("user id hr:", user)
 
 const fetchOfficerData = async () => {
   try {
@@ -108,6 +112,7 @@ const fetchOfficerData = async () => {
 const OfficerConfer = async () => {
   try {
     const dataForBackend = {
+      hr_id: formData.offic.hr_id,
       conf_id: id,
       //hr
       c_research_hr: formData.offic.c_research_hr,
@@ -117,6 +122,7 @@ const OfficerConfer = async () => {
         .slice(0, 19)
         .replace("T", " "),
       //research
+      research_id: user.value?.user_id,
       c_meet_quality: formData.radioAuthOffic,
       c_good_reason: formData.description,
       research_doc_submit_date: formData.docSubmitDate,
@@ -130,7 +136,7 @@ const OfficerConfer = async () => {
       dataForBackend,
       { headers: { "Content-Type": "application/json" } }
     );
-    alert("Have new OfficerConfer!");
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
     router.push("/officer");
     console.log("res: ", response);
     console.log("allpostOfficerConfer: ", message.value);
