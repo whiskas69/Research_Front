@@ -198,7 +198,6 @@
 import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useUserStore } from "@/store/userStore";
-import axios from "axios";
 import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
@@ -329,8 +328,8 @@ const OfficerConfer = async () => {
     };
     console.log("postPC: ", JSON.stringify(dataForBackend));
 
-    const response = await axios.post(
-      "http://localhost:3000/opinionConf",
+    const response = await api.post(
+      "/opinionConf",
       dataForBackend,
       {
         headers: {

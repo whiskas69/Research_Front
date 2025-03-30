@@ -217,7 +217,7 @@ const fetchOfficerData = async () => {
       if (userStore.user.user_role === "associate") {
         return form.form_status === "รองคณบดี";
       }
-      if (userStore.user.user_role === "approver") {
+      if (userStore.user.user_role === "dean") {
         return form.form_status === "คณบดี";
       }
       return false;

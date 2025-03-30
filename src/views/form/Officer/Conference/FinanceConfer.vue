@@ -2,8 +2,8 @@
   <div>
     <div class="container my-10 mx-auto">
       <ConferenceData :id="id" />
-      <HR :id="id"/>
-      <Research :id="id" :type="'Conference'"/>
+      <HR :id="id" />
+      <Research :id="id" :type="'Conference'" />
       <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
       <Mainbox>
         <SectionWrapper>
@@ -80,31 +80,33 @@
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
-          {{ formData.canWithdrawn }}
           <div class="flex justify-end">
             <button
               @click="showCreditLimit = true"
-              class="btn text-black btn-warning mr-5">
+              class="btn text-black btn-warning mr-5"
+            >
               คำนวณ
             </button>
           </div>
-        
+
           <div class="text-red-500 flex justify-end mt-5 mr-5">
-          <div v-show="showCreditLimit" class="flex flex-col items-end mt-5">
-            <p>
-              วงเงินที่สามารถเบิกได้ {{ formData.canWithdrawn.money }} บาท
-            </p>
-            <p>
-              {{ formData.canWithdrawn.message }}
-            </p>
-            <p>
-              ค่าเบี้ยเลี้ยงเดินทางวันละไม่เกิน 3,500 บาท
-            </p>
-            <p>
-              ค่าที่พักวันละไม่เกิน 8,000 บาท
-            </p>
+            <div v-show="showCreditLimit" class="flex flex-col items-end">
+              <p v-if="formData.canWithdrawn.inOutC == 'Out_Country'">
+                วงเงินที่สามารถเบิกได้ {{ expenses.withdrawn }} บาท
+              </p>
+              <div v-if="formData.canWithdrawn.inOutC == 'In_Country'" class="flex flex-col items-end">
+                <p>วงเงินที่สามารถเบิกได้ 8,000 บาท</p>
+                <p>{{formData.canWithdrawn.inthai}}</p>
+              </div>
+              <p>
+                {{ formData.canWithdrawn.message }}
+              </p>
+              <div v-if="formData.canWithdrawn.inOutC == 'Out_Country'" >class="flex flex-col items-end"
+                <p>ค่าเบี้ยเลี้ยงเดินทางไม่เกิน {{ expenses.allowance }} บาท</p>
+                <p>ค่าที่พักวันละไม่เกิน  {{ expenses.accom }} บาท</p>
+              </div>
+            </div>
           </div>
-        </div>
         </SectionWrapper>
       </Mainbox>
 
@@ -120,6 +122,7 @@
 <script setup>
 import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
@@ -131,13 +134,13 @@ import Research from "@/components/form/DataforOffice/Research.vue";
 
 const formData = reactive({
   // ความเห้นเจ้าหน้าที่
-  offic:[],
+  conference: [],
+  offic: [],
   year: "",
   totalAll: 0,
   numapproved: 0,
   totalapproved: 0,
   creditLimit: 0,
-  approval: 0,
   totalcreditLimit: 0,
   canWithdrawn: "",
   //วันที่ส่งเอกสาร
@@ -166,14 +169,35 @@ const handleInput = (key, value) => {
   console.log("--------------------------------");
 };
 
-const caltotalFaculty = computed(() =>{
-  formData.creditLimit = parseFloat(formData.totalAll) - parseFloat(formData.totalapproved)
-  return formData.creditLimit
+const caltotalFaculty = computed(() => {
+  formData.creditLimit =
+    parseFloat(formData.totalAll) - parseFloat(formData.totalapproved);
+  return formData.creditLimit;
 });
 
-const caltotalFacultyNow = computed(() =>{
-  formData.totalcreditLimit = parseFloat(formData.creditLimit) - parseFloat(formData.approval)
-  return formData.totalcreditLimit
+const caltotalFacultyNow = computed(() => {
+  formData.totalcreditLimit =
+    parseFloat(formData.creditLimit) - parseFloat(formData.canWithdrawn.money);
+  return formData.totalcreditLimit;
+});
+
+const expenses = computed(() => {
+  const withdrawn = parseFloat(formData.canWithdrawn.money
+  ).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+  });
+  const allowance = parseFloat(
+    3500 * formData.conference.num_travel_days
+  ).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+  });
+  const accom = parseFloat(
+    8000 * formData.conference.num_days_room
+  ).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+  });
+
+  return {withdrawn, allowance, accom };
 });
 const showCreditLimit = ref(false);
 const isLoading = ref(true);
@@ -182,31 +206,36 @@ const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
+console.log("user id hr:", user)
 
 const fetchOfficerData = async () => {
   try {
-    const responseoffic = await api.get(
-      `/opinionConf/${id}`
-    );
+    const responseoffic = await api.get(`/opinionConf/${id}`);
     formData.offic = responseoffic.data;
-    // console.log("offic", JSON.stringify(formData.offic));
     const responseBudget = await api.get(`/budgetsConfer`);
-    console.log("budgetsConfer:", responseBudget.data)
-    formData.numapproved = responseBudget.data.numapproved
-    formData.totalapproved = responseBudget.data.totalapproved == null ? 0 : responseBudget.data.totalapproved;
-    
-    console.log("numapprove", formData.numapproved)
-    console.log("totalapprove", formData.totalapproved)
+    console.log("budgetsConfer:", responseBudget.data);
+    formData.numapproved = responseBudget.data.numapproved;
+    formData.totalapproved =
+      responseBudget.data.totalapproved == null
+        ? 0
+        : responseBudget.data.totalapproved;
+
+    console.log("numapprove", formData.numapproved);
+    console.log("totalapprove", formData.totalapproved);
 
     const responseFormConfer = await api.get(`/formConfer/${id}`);
-    // console.log("responseFormConfer 123", responseFormConfer);
+    console.log("responseFormConfer 123", responseFormConfer.data);
     formData.form_id = responseFormConfer.data.form_id;
 
     const responseCalConfer = await api.get(`/confer/calc/${id}`);
-    // console.log("responseCalConfer", responseCalConfer.data);
     formData.canWithdrawn = responseCalConfer.data;
-    // console.log("responseCalConfer formData.canWithdrawn", formData.canWithdrawn);
+    console.log("canWithdrawn", formData.canWithdrawn);
 
+    const responseConfer = await api.get(`/conference/${id}`);
+    console.log("conference123", responseConfer);
+    formData.conference = responseConfer.data;
   } catch (error) {
     console.error("Error fetching Officer data:", error);
   } finally {
@@ -217,6 +246,7 @@ const fetchOfficerData = async () => {
 const OfficerConfer = async () => {
   try {
     const dataForBackend = {
+      user_id: user.value?.user_id,
       form_id: formData.form_id,
       budget_year: formData.year,
       Conference_amount: formData.totalAll,
@@ -230,12 +260,10 @@ const OfficerConfer = async () => {
     };
     console.log("post office confer: ", JSON.stringify(dataForBackend));
 
-    const response = await api.post(
-      `/budget`,
-      dataForBackend,
-      { headers: { "Content-Type": "application/json" } }
-    );
-    alert("Have new OfficerConfer!");
+    const response = await api.post(`/budget`, dataForBackend, {
+      headers: { "Content-Type": "application/json" },
+    });
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
     router.push("/officer");
     console.log("res: ", response);
     console.log("allpostOfficerConfer: ", message.value);
