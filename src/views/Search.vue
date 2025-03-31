@@ -1,20 +1,18 @@
 <template>
-  <div class="container my-10 mx-auto">
-    <div class="flex flex-row justify-between m-2 h-1/2 w-full bg-slate-200">
+  <div class="container my-5 mx-auto">
+    <div class="flex flex-row justify-center mx-2 max-h-fit w-full gap-5">
       <RemainingConfer />
-      <DisbursementEachYear />
+      <TotalDocuments />
       <RemainingPC />
     </div>
-    <div class="flex flex-row justify-between m-2 h-1/2 w-full bg-slate-200">
+    <div class="flex flex-row justify-center m-2 max-h-fit w-full gap-5">
       <DisbursementApproval />
-      <TotalDocuments />
+      <DisbursementEachYear />
     </div>
-    <!-- <div class="flex flex-row justify-between m-2 h-1/2">
-      <TotalDocuments />
-      <DisbursementApproval />
-    </div> -->
 
-    <div class="flex justify-end mt-5">
+
+
+    <div class="flex justify-end mt-5" v-if="userStore.user">
       <router-link to="/summary">
         <button class="btn btn-neutral">ไปหน้าสรุปผลเป็นตาราง</button>
       </router-link>
@@ -118,13 +116,16 @@
 </template>
 <script setup>
 import { ref, onMounted } from "vue";
+import { useUserStore } from "@/store/userStore";
 import { Chart, registerables } from "chart.js";
+
 import RemainingConfer from "@/components/Dashboard/RemainingConfer.vue";
 import RemainingPC from "@/components/Dashboard/RemainingPC.vue";
-
 import DisbursementApproval from "@/components/Dashboard/DisbursementApproval.vue";
 import TotalDocuments from "@/components/Dashboard/TotalDocuments.vue";
 import DisbursementEachYear from "@/components/Dashboard/DisbursementEachYear.vue";
 
 Chart.register(...registerables);
+
+const userStore = useUserStore();
 </script>

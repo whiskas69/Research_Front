@@ -39,7 +39,12 @@
           </router-link>
         </div>
 
-        <div v-else-if="userStore.user.user_role == 'approver'">
+        <div
+          v-else-if="
+            userStore.user.user_role == 'associate' ||
+            userStore.user.user_role == 'dean'
+          "
+        >
           <router-link to="/Officer">
             <img
               class="flex-auto max-w-14 w-24"
@@ -72,7 +77,7 @@
             <router-link to="/homepage">ยื่นเอกสาร</router-link>
           </li>
 
-          <ul class="menu menu-horizontal">
+          <ul class="menu menu-horizontal justify-center">
             <li>
               <details>
                 <summary>สถานะเอกสาร</summary>
@@ -95,20 +100,30 @@
             "
             class="flex flex-row"
           >
-            <li class="justify-center">
-              <router-link to="/allstatusOffice">สถานะเอกสารที่รับผิดชอบ</router-link>
-            </li>
-            <li class="justify-center">
-              <router-link to="/eoffice">เอกสารที่รอการอนุมัติ</router-link>
-            </li>
-            <li class="justify-center">
-              <router-link to="/allhistoryOffice">ประวัติเอกสารเอกสารที่รับผิดชอบ</router-link>
-            </li>
+            <ul class="menu menu-horizontal justify-center">
+              <li>
+                <details>
+                  <summary>สถานะเอกสารที่รับผิดชอบ</summary>
+                  <ul class="bg-base-100 rounded-t-none px-1 w-full">
+                    <li>
+                      <router-link to="/allstatusOffice"
+                        >สถานะเอกสาร</router-link
+                      >
+                    </li>
+                    <li>
+                      <router-link to="/allhistoryOffice"
+                        >ประวัติการยื่น</router-link
+                      >
+                    </li>
+                  </ul>
+                </details>
+              </li>
+            </ul>
           </div>
 
           <div
-            class="justify-center"
-            v-else-if="
+            class="flex justify-center"
+            v-if="
               userStore.user.user_role == 'hr' ||
               userStore.user.user_role == 'research' ||
               userStore.user.user_role == 'finance' ||
@@ -116,7 +131,7 @@
               userStore.user.user_role == 'dean'
             "
           >
-            <li class="justify-center">
+            <li class="flex justify-center items-center">
               <router-link to="/eoffice">เอกสารที่อนุมัติแล้ว</router-link>
             </li>
           </div>
