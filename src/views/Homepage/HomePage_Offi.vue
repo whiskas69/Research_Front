@@ -102,6 +102,9 @@
                     >ขออนุมัติค่า Page Charge</span
                   >
                 </p>
+                <p class="text-base px-5 py-1">{{
+                    getFileById(listForm.nameP, form.pageC_id)
+                  }}</p>
               </div>
             </router-link>
           </div>
@@ -229,6 +232,7 @@ const fetchOfficerData = async () => {
       listForm.nameP = responseOffice.data.pageC;
       listForm.nameK = responseOffice.data.kris;
     }
+    console.log("listForm.nameP", listForm.nameP)
   } catch (error) {
     console.error("Error fetching Officer data:", error);
   } finally {
@@ -241,7 +245,11 @@ const getNameById = (nameList, id) => {
   const nameObj = nameList.find((item) => item[0] === id);
   return nameObj ? nameObj[1].user_nameth : "ไม่พบชื่อ";
 };
-
+const getFileById = (file, id) => {
+  const fileObj = file.find((item) => item[0] === id);
+  console.log("fileObj",fileObj)
+  return fileObj[1].accepted ? "มีจดหมายตอบรับ" : "ไม่มีจดหมายตอบรับ";
+};
 onMounted(async () => {
   fetchOfficerData();
   if (!userStore.user) {

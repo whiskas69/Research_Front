@@ -8,28 +8,36 @@
           <p>ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
 
           <p>• คุณภาพของการประชุม ฯ</p>
-
           <div class="px-5">
-            <RadioInput
-              label="ระดับมาตรฐาน"
-              name="Sub1"
-              value="มาตรฐาน"
-              v-model="formData.radioAuthOffic"
-              @change="handleInput('radioAuthOffic', $event.target.value)"
-            />
-            <RadioInput
-              label="ระดับดีมาก"
-              name="Sub1"
-              value="ดีมาก"
-              v-model="formData.radioAuthOffic"
-              @change="handleInput('radioAuthOffic', $event.target.value)"
-            />
+            <div v-if="formData.conference.quality_meeting == 'ดีมาก'">
+              <p>อยู่ในระดับ{{ formData.conference.quality_meeting }}</p>
+              <div class="flex flex-row gap-2">
+                <p>คำนวณจาก {{ formData.score.score_type }}</p>
+                <p v-if="formData.score.score_type == 'CORE'">มีค่าคะแนน {{ formData.score.core_rank }}</p>
+                <p v-else>มีค่าคะแนน {{ formData.score.score_result }}</p>
+              </div>
+            </div>
+            <p v-else-if="formData.conference.quality_meeting == 'มาตรฐาน'">อยู่ในระดับ{{ formData.conference.quality_meeting }}</p>
+            <p v-else-if="formData.conference.quality_meeting == ''">ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ  และไม่อยู่ในฐานข้อมูลสากล SCOPUS</p>
           </div>
-
-          <TextArea
-            label="• กรณี ที่เป็นการประชุมวิชาการระดับดีมาก เลือกวิธีคิดค่าคะแนนคุณภาพ และมีระดับคะแนนคุณภาพของการประชุมฯ ดังนี้"
-            @input="handleInput('description', $event.target.value)"
+          <RadioInput
+            label="ข้อมูลถูกต้อง"
+            value="ถูกต้อง"
+            name="re"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
           />
+          <RadioInput
+            label="ข้อมูลไม่ถูกต้อง"
+            value="ไม่ถูกต้อง"
+            name="re"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
+          />
+          <textarea
+            class="textarea textarea-bordered w-full"
+            @input="handleInput('description', $event.target.value)"
+          ></textarea>
         </SectionWrapper>
       </Mainbox>
       <div class="flex justify-end">
@@ -56,6 +64,8 @@ import HR from "@/components/form/DataforOffice/HR.vue";
 
 const formData = reactive({
   offic: [],
+  conference: [],
+  score: [],
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
   // ความเห้นเจ้าหน้าที่
@@ -95,6 +105,13 @@ console.log("user id hr:", user)
 
 const fetchOfficerData = async () => {
   try {
+    const responseConfer = await api.get(`/conference/${id}`);
+      console.log("conference123", responseConfer);
+      formData.conference = responseConfer.data;
+
+      const responseScore = await api.get(`/score/${id}`);
+      console.log("score123", responseScore);
+      formData.score = responseScore.data;
     const responseoffic = await api.get(
       `/opinionConf/${id}`
     );
@@ -124,7 +141,7 @@ const OfficerConfer = async () => {
       //research
       research_id: user.value?.user_id,
       c_meet_quality: formData.radioAuthOffic,
-      c_good_reason: formData.description,
+      c_quality_reason: formData.description,
       research_doc_submit_date: formData.docSubmitDate,
       //form
       form_status: formData.formStatus,
