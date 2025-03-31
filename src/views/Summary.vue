@@ -205,7 +205,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -228,7 +228,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -253,7 +253,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -272,7 +272,7 @@
                         <template v-if="row.withdraw === '100%'">
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
-                          <td cltdass="border px-3 py-2">-</td>
+                          <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
@@ -283,7 +283,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -344,7 +344,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -367,7 +367,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -392,7 +392,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -411,7 +411,7 @@
                         <template v-if="row.withdraw === '100%'">
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
-                          <td cltdass="border px-3 py-2">-</td>
+                          <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
@@ -422,7 +422,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -483,7 +483,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -506,7 +506,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -531,7 +531,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -550,7 +550,7 @@
                         <template v-if="row.withdraw === '100%'">
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
-                          <td cltdass="border px-3 py-2">-</td>
+                          <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
@@ -561,7 +561,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
