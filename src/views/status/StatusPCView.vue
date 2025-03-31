@@ -8,25 +8,31 @@
       <p class="ml-5">ชื่อวารสาร : {{ data.journal }}</p>
       <p class="ml-5">ชื่อบทความ : {{ data.name }}</p>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'ไม่อนุมัติ'">
+      <div
+        class="flex justify-center"
+        v-if="data.form.form_status == 'ไม่อนุมัติ'"
+      >
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="" class="step w-40">ฝ่ายบริหารงานวิจัย</li>
           <li data-content="" class="step w-40">ฝ่ายบริหารการเงิน</li>
           <li data-content="" class="step w-40">รองคณบดี</li>
           <li data-content="" class="step w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
-          <li data-content="✗" class="step step-error w-40">
-            ไม่อนุมัติ
-          </li>
+          <li data-content="✗" class="step step-error w-40">ไม่อนุมัติ</li>
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'รออนุมัติ'">
+      <div
+        class="flex justify-center"
+        v-if="data.form.form_status == 'รออนุมัติ'"
+      >
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="✓" class="step step-primary w-40">ฝ่ายบริหารการเงิน</li>
+          <li data-content="✓" class="step step-primary w-40">
+            ฝ่ายบริหารการเงิน
+          </li>
           <li data-content="✓" class="step step-primary w-40">รองคณบดี</li>
           <li data-content="✓" class="step step-primary w-40">คณบดี</li>
           <li data-content="✓" class="step step-primary w-40">รออนุมัติ</li>
@@ -34,12 +40,17 @@
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'อนุมัติ'">
+      <div
+        class="flex justify-center"
+        v-if="data.form.form_status == 'อนุมัติ'"
+      >
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="✓" class="step step-primary w-40">ฝ่ายบริหารการเงิน</li>
+          <li data-content="✓" class="step step-primary w-40">
+            ฝ่ายบริหารการเงิน
+          </li>
           <li data-content="✓" class="step step-primary w-40">รองคณบดี</li>
           <li data-content="✓" class="step step-primary w-40">คณบดี</li>
           <li data-content="✓" class="step step-primary w-40">รออนุมัติ</li>
@@ -52,7 +63,9 @@
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="✓" class="step step-primary w-40">ฝ่ายบริหารการเงิน</li>
+          <li data-content="✓" class="step step-primary w-40">
+            ฝ่ายบริหารการเงิน
+          </li>
           <li data-content="✓" class="step step-primary w-40">รองคณบดี</li>
           <li data-content="✓" class="step step-primary w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
@@ -60,12 +73,17 @@
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'รองคณบดี'">
+      <div
+        class="flex justify-center"
+        v-if="data.form.form_status == 'รองคณบดี'"
+      >
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="✓" class="step step-primary w-40">ฝ่ายบริหารการเงิน</li>
+          <li data-content="✓" class="step step-primary w-40">
+            ฝ่ายบริหารการเงิน
+          </li>
           <li data-content="✓" class="step step-primary w-40">รองคณบดี</li>
           <li data-content="" class="step w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
@@ -73,12 +91,17 @@
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'ฝ่ายบริหารการเงิน'">
+      <div
+        class="flex justify-center"
+        v-if="data.form.form_status == 'ฝ่ายบริหารการเงิน'"
+      >
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
           </li>
-          <li data-content="✓" class="step step-primary w-40">ฝ่ายบริหารการเงิน</li>
+          <li data-content="✓" class="step step-primary w-40">
+            ฝ่ายบริหารการเงิน
+          </li>
           <li data-content="" class="step w-40">รองคณบดี</li>
           <li data-content="" class="step w-40">คณบดี</li>
           <li data-content="" class="step w-40">รออนุมัติ</li>
@@ -86,7 +109,10 @@
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'ฝ่ายบริหารงานวิจัย'">
+      <div
+        class="flex justify-center"
+        v-if="data.form.form_status == 'ฝ่ายบริหารงานวิจัย'"
+      >
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
@@ -102,24 +128,34 @@
 
     <Mainbox>
       <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
-      <span class="text-s font-bold text-red-500 ml-5 mt-2" v-if="!data.check">ส่งเอกสารเพิ่มเติมได้เพียงครั้งเดียวเท่านั้น
-        และจำเป็นต้องกรอกทุกช่อง</span>
+      <span class="text-s font-bold text-red-500 ml-5 mt-2" v-if="!data.check"
+        >ส่งเอกสารเพิ่มเติมได้เพียงครั้งเดียวเท่านั้น
+        และจำเป็นต้องกรอกทุกช่อง</span
+      >
 
       <div class="px-5 mb-3">
-        <div class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.page_c.pc_proof && data.page_c.pc_proof !== ''">
+        <div
+          class="flex flex-rowitems-center mt-2 justify-between"
+          v-if="data.page_c.pc_proof && data.page_c.pc_proof !== ''"
+        >
           <p class="w-3/5 min-w-64 flex place-items-center">
             หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ
             Nature
           </p>
 
           <div class="ml-5">
-            <button @click="getFile(data.f_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
+            <button
+              @click="getFile(data.f_pc_proof)"
+              class="btn bg-[#E85F19] text-white mr-5"
+            >
               ดูเอกสาร
             </button>
-            <button @click="
-              downloadFile(data.f_pc_proof, 'หลักฐานการอยู่ในฐานข้อมูลสากล')
-              " class="btn bg-[#4285F4] text-white">
+            <button
+              @click="
+                downloadFile(data.f_pc_proof, 'หลักฐานการอยู่ในฐานข้อมูลสากล')
+              "
+              class="btn bg-[#4285F4] text-white"
+            >
               โหลดเอกสาร
             </button>
           </div>
@@ -127,27 +163,39 @@
       </div>
 
       <div class="px-5 mb-3">
-        <div class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.page_c.q_pc_proof && data.page_c.q_pc_proof !== ''">
+        <div
+          class="flex flex-rowitems-center mt-2 justify-between"
+          v-if="data.page_c.q_pc_proof && data.page_c.q_pc_proof !== ''"
+        >
           <p class="w-3/5 min-w-64 flex place-items-center">
             หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ
             Scopus หรือ Nature
           </p>
           <div class="ml-5">
-            <button @click="getFile(data.f_q_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
+            <button
+              @click="getFile(data.f_q_pc_proof)"
+              class="btn bg-[#E85F19] text-white mr-5"
+            >
               ดูเอกสาร
             </button>
-            <button @click="
-              downloadFile(data.f_q_pc_proof, 'หลักฐานการจัดลำดับ Quartile')
-              " class="btn bg-[#4285F4] text-white">
+            <button
+              @click="
+                downloadFile(data.f_q_pc_proof, 'หลักฐานการจัดลำดับ Quartile')
+              "
+              class="btn bg-[#4285F4] text-white"
+            >
               โหลดเอกสาร
             </button>
           </div>
         </div>
 
         <div v-else>
-          <FileInput label="หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature"
-            name="q_pc_proof" type="file" @change="handleFile($event, 'q_pc_proof')" />
+          <FileInput
+            label="หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature"
+            name="q_pc_proof"
+            type="file"
+            @change="handleFile($event, 'q_pc_proof')"
+          />
           <span v-if="v$.q_pc_proof.$error" class="text-base ml-2 text-red-500">
             {{ v$.q_pc_proof.$errors[0].$message }}
           </span>
@@ -155,52 +203,79 @@
       </div>
 
       <div class="px-5 mb-3">
-        <div class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.page_c.invoice_public && data.page_c.invoice_public != ''">
+        <div
+          class="flex flex-rowitems-center mt-2 justify-between"
+          v-if="data.page_c.invoice_public && data.page_c.invoice_public != ''"
+        >
           <p class="w-3/5 min-w-64 flex place-items-center">
             ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์
             /อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์
           </p>
           <div class="ml-5">
-            <button @click="getFile(data.f_invoice_public)" class="btn bg-[#E85F19] text-white mr-5">
+            <button
+              @click="getFile(data.f_invoice_public)"
+              class="btn bg-[#E85F19] text-white mr-5"
+            >
               ดูเอกสาร
             </button>
-            <button @click="
-              downloadFile(data.f_invoice_public, 'ใบแจ้งหนี้ค่าใช้จ่าย')
-              " class="btn bg-[#4285F4] text-white">
+            <button
+              @click="
+                downloadFile(data.f_invoice_public, 'ใบแจ้งหนี้ค่าใช้จ่าย')
+              "
+              class="btn bg-[#4285F4] text-white"
+            >
               โหลดเอกสาร
             </button>
           </div>
         </div>
 
         <div v-else>
-          <FileInput label="ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์/อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์"
-            name="invoice_public" type="file" @change="handleFile($event, 'invoice_public')" />
-          <span v-if="v$.invoice_public.$error" class="text-base ml-2 text-red-500">
+          <FileInput
+            label="ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์/อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์"
+            name="invoice_public"
+            type="file"
+            @change="handleFile($event, 'invoice_public')"
+          />
+          <span
+            v-if="v$.invoice_public.$error"
+            class="text-base ml-2 text-red-500"
+          >
             {{ v$.invoice_public.$errors[0].$message }}
           </span>
         </div>
       </div>
 
       <div class="px-5 mb-3">
-        <div class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.page_c.accepted && data.page_c.accepted != ''">
+        <div
+          class="flex flex-rowitems-center mt-2 justify-between"
+          v-if="data.page_c.accepted && data.page_c.accepted != ''"
+        >
           <p class="w-3/5 min-w-64 flex place-items-center">
             หลักฐานการส่งบทความ หนังสือตอบรับบทความ
           </p>
           <div class="ml-5">
-            <button @click="getFile(data.f_accepted)" class="btn bg-[#E85F19] text-white mr-5">
+            <button
+              @click="getFile(data.f_accepted)"
+              class="btn bg-[#E85F19] text-white mr-5"
+            >
               ดูเอกสาร
             </button>
-            <button @click="downloadFile(data.f_accepted, 'หนังสือตอบรับบทความ')" class="btn bg-[#4285F4] text-white">
+            <button
+              @click="downloadFile(data.f_accepted, 'หนังสือตอบรับบทความ')"
+              class="btn bg-[#4285F4] text-white"
+            >
               โหลดเอกสาร
             </button>
           </div>
         </div>
 
         <div v-else>
-          <FileInput label="หลักฐานการส่งบทความ หนังสือตอบรับบทความ" name="accepted" type="file"
-            @change="handleFile($event, 'accepted')" />
+          <FileInput
+            label="หลักฐานการส่งบทความ หนังสือตอบรับบทความ"
+            name="accepted"
+            type="file"
+            @change="handleFile($event, 'accepted')"
+          />
           <span v-if="v$.accepted.$error" class="text-base ml-2 text-red-500">
             {{ v$.accepted.$errors[0].$message }}
           </span>
@@ -208,30 +283,45 @@
       </div>
 
       <div class="px-5 mb-3">
-        <div class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.page_c.copy_article && data.page_c.copy_article != ''">
+        <div
+          class="flex flex-rowitems-center mt-2 justify-between"
+          v-if="data.page_c.copy_article && data.page_c.copy_article != ''"
+        >
           <p class="w-3/5 min-w-64 flex place-items-center">
             สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar
           </p>
           <div class="ml-5">
-            <button @click="getFile(data.f_copy_article)" class="btn bg-[#E85F19] text-white mr-5">
+            <button
+              @click="getFile(data.f_copy_article)"
+              class="btn bg-[#E85F19] text-white mr-5"
+            >
               ดูเอกสาร
             </button>
-            <button @click="
-              downloadFile(
-                data.f_copy_article,
-                'สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar'
-              )
-              " class="btn bg-[#4285F4] text-white">
+            <button
+              @click="
+                downloadFile(
+                  data.f_copy_article,
+                  'สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar'
+                )
+              "
+              class="btn bg-[#4285F4] text-white"
+            >
               โหลดเอกสาร
             </button>
           </div>
         </div>
 
         <div v-else>
-          <FileInput label="สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar" name="copy_article" type="file"
-            @change="handleFile($event, 'copy_article')" />
-          <span v-if="v$.copy_article.$error" class="text-base ml-2 text-red-500">
+          <FileInput
+            label="สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar"
+            name="copy_article"
+            type="file"
+            @change="handleFile($event, 'copy_article')"
+          />
+          <span
+            v-if="v$.copy_article.$error"
+            class="text-base ml-2 text-red-500"
+          >
             {{ v$.copy_article.$errors[0].$message }}
           </span>
         </div>
@@ -252,7 +342,7 @@ import FileInput from "@/components/Input/FileInput.vue";
 
 import api from "@/setting/api";
 import { useVuelidate } from "@vuelidate/core";
-import { helpers } from "@vuelidate/validators";
+import { helpers, requiredIf } from "@vuelidate/validators";
 
 import { onMounted, reactive } from "vue";
 import { useRoute } from "vue-router";
@@ -286,46 +376,44 @@ const data = reactive({
   check: false,
 });
 
+const isPDF = (value) => {
+  if (!value) return false; // ถ้าไม่มีไฟล์ให้ return false (ไม่ผ่าน)
+  console.log("pass", value)
+  return value.type === "application/pdf"; // ตรวจสอบว่าเป็นไฟล์ PDF หรือไม่
+};
+
 //validate rule
 const rules = {
   q_pc_proof: {
-    fileType: helpers.withMessage(
-      "* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
-      (value) => {
-        if (!value) return false;
-        const allowedTypes = ["application/pdf"];
-        return allowedTypes.includes(value.type);
-      }
+    requiredIf: helpers.withMessage(
+      "* กรุณาอัปโหลดไฟล์ *",
+      requiredIf(function () {
+        return !this.q_pc_proof; // ถ้าไม่มี q_pc_proof_data ต้องอัปโหลดไฟล์
+      })
     ),
   },
   invoice_public: {
-    fileType: helpers.withMessage(
-      "* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
-      (value) => {
-        if (!value) return false;
-        const allowedTypes = ["application/pdf"];
-        return allowedTypes.includes(value.type);
-      }
+    requiredIf: helpers.withMessage(
+      "* กรุณาอัปโหลดไฟล์ *",
+      requiredIf(function () {
+        return !this.invoice_public; // ถ้าไม่มี q_pc_proof_data ต้องอัปโหลดไฟล์
+      })
     ),
   },
   accepted: {
-    fileType: helpers.withMessage(
-      "* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
-      (value) => {
-        if (!value) return false;
-        const allowedTypes = ["application/pdf"];
-        return allowedTypes.includes(value.type);
-      }
+    requiredIf: helpers.withMessage(
+      "* กรุณาอัปโหลดไฟล์ *",
+      requiredIf(function () {
+        return !this.accepted; // ถ้าไม่มี q_pc_proof_data ต้องอัปโหลดไฟล์
+      })
     ),
   },
   copy_article: {
-    fileType: helpers.withMessage(
-      "* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
-      (value) => {
-        if (!value) return false;
-        const allowedTypes = ["application/pdf"];
-        return allowedTypes.includes(value.type);
-      }
+    requiredIf: helpers.withMessage(
+      "* กรุณาอัปโหลดไฟล์ *",
+      requiredIf(function () {
+        return !this.copy_article; // ถ้าไม่มี q_pc_proof_data ต้องอัปโหลดไฟล์
+      })
     ),
   },
 };
@@ -393,6 +481,8 @@ const getDataPc = async () => {
 
 //update file
 const updateFile = async () => {
+  console.log("data", data);
+
   const result = await v$.value.$validate();
 
   // ตรวจสอบว่าทุกค่ามีข้อมูล ไม่ใช่ "" หรือ null
@@ -421,7 +511,9 @@ const updateFile = async () => {
         copy_article: data.copy_article,
       };
 
-      const response = await api.put("updateFilePage_C", dataforupdate, {
+      console.log("data for  : ", dataforupdate)
+
+      const response = await api.put("/updateFilePage_C", dataforupdate, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -431,13 +523,14 @@ const updateFile = async () => {
 
       alert("บันทึกข้อมูลเรียบร้อย");
 
-      location.reload();
+      // location.reload();
     } catch (error) {
       console.log(error);
       alert("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
     }
   } else {
     alert("กรุณาอัปโหลดไฟล์ PDF");
+    console.log("ddd", v$.value);
   }
 };
 
