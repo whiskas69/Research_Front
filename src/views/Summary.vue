@@ -6,9 +6,7 @@
     <div class="tabs tabs-lift">
       <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการนานาชาติ 1" checked="checked" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
-        <h2>
-          ข้อมูลการประชุมวิชาการ แยกการขอเบิก
-          และแสดงเอกสารทั้งหมดที่ได้รับอนุมัติ
+        <h2>ข้อมูลการประชุมวิชาการ แยกการขอเบิกและแสดงเอกสารทั้งหมดที่ได้รับอนุมัติ
         </h2>
         <div class="overflow-x-auto mt-5">
           <table class="table w-full">
@@ -28,77 +26,49 @@
               <tr>
                 <th class="border px-3 py-2">50%</th>
                 <td class="border px-3 py-2">
-                  {{
-                    Number(withdraw50?.total_withdraws || 0).toLocaleString("en-US")
-                  }}
+                  {{ Number(withdraw50?.total_withdraws || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2">
-                  {{
-                    Number(withdraw50?.total_registration || 0).toLocaleString("en-US")
-                  }}
+                  {{ Number(withdraw50?.total_registration || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2">
-                  {{
-                    Number(withdraw50?.total_ticket || 0).toLocaleString("en-US")
-                  }}
+                  {{ Number(withdraw50?.total_ticket || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2">
-                  {{
-                    Number(withdraw50?.total_room || 0).toLocaleString("en-US")
-                  }}
+                  {{ Number(withdraw50?.total_room || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2">
-                  {{
-                    Number(withdraw50?.total_allowance || 0).toLocaleString("en-US")
-                  }}
+                  {{ Number(withdraw50?.total_allowance || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2">
-                  {{
-                    Number(withdraw50?.total_other || 0).toLocaleString("en-US")
-                  }}
+                  {{ Number(withdraw50?.total_other || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2">
-                  {{
-                    Number(withdraw50?.all_total || 0).toLocaleString("en-US")
-                  }}
+                  {{ Number(withdraw50?.all_total || 0).toLocaleString("en-US") }}
                 </td>
               </tr>
               <tr>
                 <th class="border px-3 py-2">100%</th>
                 <td class="border px-3 py-2">
-                  {{
-                    Number(withdraw100?.total_withdraws || 0).toLocaleString("en-US")
-                  }}
+                  {{ Number(withdraw100?.total_withdraws || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2">
-                  {{
-                    Number(withdraw100?.total_registration || 0).toLocaleString("en-US")
-                  }}
+                  {{ Number(withdraw100?.total_registration || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2">
-                  {{
-                    Number(withdraw100?.total_ticket || 0).toLocaleString("en-US")
-                  }}
+                  {{ Number(withdraw100?.total_ticket || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2">
-                  {{
-                    Number(withdraw100?.total_room || 0).toLocaleString("en-US")
-                  }}
+                  {{ Number(withdraw100?.total_room || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2">
-                  {{
-                    Number(withdraw100?.total_allowance || 0).toLocaleString("en-US")
-                  }}
+                  {{ Number(withdraw100?.total_allowance || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2">
-                  {{
-                    Number(withdraw100?.total_other || 0).toLocaleString("en-US")
-                  }}
+                  {{ Number(withdraw100?.total_other || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2">
-                  {{
-                    Number(withdraw100?.all_total || 0).toLocaleString("en-US")
-                  }}
+                  {{ Number(withdraw100?.all_total || 0).toLocaleString("en-US") }}
                 </td>
               </tr>
             </tbody>
@@ -235,7 +205,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -258,7 +228,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -283,7 +253,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -302,7 +272,7 @@
                         <template v-if="row.withdraw === '100%'">
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
-                          <td cltdass="border px-3 py-2">-</td>
+                          <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
@@ -313,7 +283,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -374,7 +344,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -397,7 +367,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -422,7 +392,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -441,7 +411,7 @@
                         <template v-if="row.withdraw === '100%'">
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
-                          <td cltdass="border px-3 py-2">-</td>
+                          <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
@@ -452,7 +422,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -513,7 +483,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -536,7 +506,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -561,7 +531,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">
@@ -580,7 +550,7 @@
                         <template v-if="row.withdraw === '100%'">
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
-                          <td cltdass="border px-3 py-2">-</td>
+                          <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
                           <td class="border px-3 py-2">-</td>
@@ -591,7 +561,7 @@
                           <td class="border px-3 py-2">
                             {{ row.total_ticket }}
                           </td>
-                          <td cltdass="border px-3 py-2">
+                          <td class="border px-3 py-2">
                             {{ row.total_room }}
                           </td>
                           <td class="border px-3 py-2">

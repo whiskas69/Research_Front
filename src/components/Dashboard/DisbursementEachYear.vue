@@ -1,9 +1,11 @@
 <template>
-  <div class="bg-white p-5 rounded-lg shadow h-[420px] w-[700px]">
+  <div class="bg-white p-5 rounded-lg shadow h-[400px] w-[700px]">
     <h2 class="text-lg font-semibold">สถิติการเบิกจ่ายในแต่ละปี</h2>
-    <p class="font-bold text-[#9291A5]">ปีงบประมาณ {{ currentYear - 2 }} - {{ currentYear + 2 }}</p>
+    <p class="font-bold text-[#9291A5]">
+      ปีงบประมาณ {{ currentYear-3 }} - {{ currentYear }}
+    </p>
     <hr />
-    <div class="flex justify-center w-full h-[345px]">
+    <div class="flex justify-center w-full h-[325px]">
       <canvas ref="chartCanvas" style="width: 100%; height: 100%"></canvas>
     </div>
   </div>
@@ -23,10 +25,49 @@ import { DateTime } from "luxon";
 import api from "@/setting/api";
 
 const currentYear = DateTime.now().year + 543;
+const year_now = ref(0);
+const year_x = ref(0);
+const year_y = ref(0);
+const year_z = ref(0);
 
 Chart.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 const chartCanvas = ref(null);
 let chartInstance = null;
+
+const getData = async () => {
+  try {
+    const response = await api.get("/eachyears");
+
+    year_now.value = response.data[0] ? response.data[0]
+        : {
+            budget_year: currentYear,
+            total_conferences: "0",
+            total_pagecharge: "0"
+          };
+    year_x.value = response.data[1] ? response.data[1]
+        : {
+            budget_year: currentYear - 1,
+            total_conferences: "0",
+            total_pagecharge: "0"
+          };
+    year_y.value = response.data[2] ? response.data[2]
+        : {
+            budget_year: currentYear - 2,
+            total_conferences: "0",
+            total_pagecharge: "0"
+          };
+    year_z.value = response.data[3] ? response.data[3]
+        : {
+            budget_year: currentYear - 3,
+            total_conferences: "0",
+            total_pagecharge: "0"
+          };
+
+    creatChart();
+  } catch (error) {
+    console.log("Error fetching data: ", error);
+  }
+};
 
 const creatChart = () => {
   if (!chartCanvas.value) {
@@ -41,42 +82,19 @@ const creatChart = () => {
   chartInstance = new Chart(chartCanvas.value, {
     type: "bar",
     data: {
-      labels: [2564, 2565, 2566, 2567],
+      labels: [year_z.value.budget_year, year_y.value.budget_year, year_x.value.budget_year, year_now.value.budget_year],
       datasets: [
         {
           label: "การประชุมวิชาการ",
-          data: [1, 2, 3, 7],
+          data: [year_z.value.total_conferences, year_y.value.total_conferences, year_x.value.total_conferences, year_now.value.total_conferences],
           backgroundColor: "#4A3AFF",
+          borderRadius: 8
         },
         {
           label: "Page Change",
-          data: [0, 1, 4, 6],
+          data: [year_z.value.total_pagecharge, year_y.value.total_pagecharge, year_x.value.total_pagecharge, year_now.value.total_pagecharge],
           backgroundColor: "#C893FD",
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-    },
-  })
-}
-
-onMounted(() => {
-  new Chart(chartCanvas.value, {
-    type: "bar",
-    data: {
-      labels: [2564, 2565, 2566, 2567],
-      datasets: [
-        {
-          label: "การประชุมวิชาการ",
-          data: [1, 2, 3, 7],
-          backgroundColor: "#4A3AFF",
-        },
-        {
-          label: "Page Change",
-          data: [0, 1, 4, 6],
-          backgroundColor: "#C893FD",
+          borderRadius: 8
         },
       ],
     },
@@ -85,5 +103,11 @@ onMounted(() => {
       maintainAspectRatio: false,
     },
   });
+};
+
+onMounted(getData);
+
+watch([year_now, year_x, year_y, year_z], () => {
+  creatChart();
 });
 </script>

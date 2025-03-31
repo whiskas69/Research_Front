@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white p-5 rounded-lg shadow h-[420px] w-[400px]">
+  <div class="bg-white p-5 rounded-lg shadow h-[400px] w-[400px]">
     <h2 class="text-lg font-semibold">จำนวนเอกสารทั้งหมด</h2>
     <p class="font-bold text-[#9291A5]">ปี {{ currentYear }}</p>
     <hr />

@@ -40,9 +40,7 @@ import offic_associatePage from "@/views/form/Officer/PageCharge/AssociatePage.v
 import offic_deanPage from "@/views/form/Officer/PageCharge/DeanPage.vue";
 
 import offic_Kris from "@/views/form/Officer/Kris.vue";
-
 import Profile from "@/views/Profile.vue";
-
 import summary from "@/views/Summary.vue";
 
 const router = createRouter({

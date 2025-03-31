@@ -1,6 +1,6 @@
 <template>
   <div class="container my-10 mx-auto">
-    <h1 class="text-xl font-bold p-5">
+    <h1 class="text-xl font-bold pb-5">
       เอกสารที่รออนุมัติใน E-Office หรือ รอเข้าที่ประชุม
     </h1>
     <div v-for="form in data.allForm" :key="form.form_id">
