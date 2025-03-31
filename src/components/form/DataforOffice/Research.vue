@@ -7,28 +7,41 @@
           <p>ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
           <p>• คุณภาพของการประชุม ฯ</p>
           <div class="px-5">
-            <RadioInput
-              label="ระดับมาตรฐาน"
-              name="Sub1"
-              value="มาตรฐาน"
-              disabled="false"
-              :checked="
-                formData.offic.c_meet_quality == 'มาตรฐาน' ? true : false
+            <div class="px-5">
+            <div v-if="formData.conference.quality_meeting == 'ดีมาก'">
+              <p>อยู่ในระดับ{{ formData.conference.quality_meeting }}</p>
+              <div class="flex flex-row gap-2">
+                <p>คำนวณจาก {{ formData.score.score_type }}</p>
+                <p v-if="formData.score.score_type == 'CORE'">มีค่าคะแนน {{ formData.score.core_rank }}</p>
+                <p v-else>มีค่าคะแนน {{ formData.score.score_result }}</p>
+              </div>
+            </div>
+            <p v-else-if="formData.conference.quality_meeting == 'มาตรฐาน'">อยู่ในระดับ{{ formData.conference.quality_meeting }}</p>
+            <p v-else-if="formData.conference.quality_meeting == ''">ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ  และไม่อยู่ในฐานข้อมูลสากล SCOPUS</p>
+          </div>
+          <RadioInput
+            label="ข้อมูลถูกต้อง"
+            value="ถูกต้อง"
+            name="re"
+            disabled="false"
+            :checked="
+                formData.offic.c_meet_quality == 'ถูกต้อง' ? true : false
               "
-            />
-            <RadioInput
-              label="ระดับดีมาก"
-              name="Sub1"
-              value="ดีมาก"
-              disabled="false"
-              :checked="formData.offic.c_meet_quality == 'ดีมาก' ? true : false"
-            />
+          />
+          <RadioInput
+            label="ข้อมูลไม่ถูกต้อง"
+            value="ไม่ถูกต้อง"
+            name="re"
+            disabled="false"
+            :checked="
+                formData.offic.c_meet_quality == 'ไม่ถูกต้อง' ? true : false
+              "
+          />
           </div>
 
           <TextArea
-            label="• กรณี ที่เป็นการประชุมวิชาการระดับดีมาก เลือกวิธีคิดค่าคะแนนคุณภาพ และมีระดับคะแนนคุณภาพของการประชุมฯ ดังนี้"
             disabled="true"
-            :placeholder="formData.offic.c_good_reason"
+            :placeholder="formData.offic.c_quality_reason"
           />
         </SectionWrapper>
       </Mainbox>
@@ -99,7 +112,8 @@
                 <div class="flex flex-row">
                   <p>หลักฐานการส่งบทความ หนังสือตอบรับบทความ</p>
                 </div>
-                <div>
+                <p v-if="formData.page_c.accepted == null" class="text-red-500">ไม่มีหนังสือตอบรับบทความ</p>
+                <div v-if="formData.page_c.accepted != null">
                   <button @click="getFile(formData.f_accepted)" class="btn bg-[#E85F19] text-white mr-5">
                     ดูเอกสาร
                   </button>
@@ -231,6 +245,9 @@ import TextArea from "@/components/Input/TextArea.vue";
 
 const formData = reactive({
   offic: [],
+  conference: [],
+  score: [],
+  page_c: [],
   //urlfile
   f_pc_proof: null,
   f_q_pc_proof: null,
@@ -273,10 +290,17 @@ const fetchOfficerData = async () => {
     if (props.type == "Conference") {
       const responseoffic = await api.get(`/opinionConf/${props.id}`);
       formData.offic = responseoffic.data;
+      const responseConfer = await api.get(`/conference/${props.id}`);
+      console.log("conference123", responseConfer);
+      formData.conference = responseConfer.data;
+      const responseScore = await api.get(`/score/${props.id}`);
+      console.log("score123", responseScore);
+      formData.score = responseScore.data;
     } else if (props.type == "Page_Charge") {
       const responseoffic = await api.get(`/opinionPC/${props.id}`);
       formData.offic = responseoffic.data;
-
+      const response = await api.get(`/form/Pc/${id}`);
+      formData.page_c = response.data.page_c;
       const responsefile = await api.get(`/getFilepage_c?pageC_id=${props.id}`);
       formData.f_pc_proof = responsefile.data.file_pc_proof;
       formData.f_q_pc_proof = responsefile.data.file_q_pc_proof;
