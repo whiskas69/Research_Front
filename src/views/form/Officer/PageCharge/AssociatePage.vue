@@ -28,14 +28,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import axios from "axios";
+import { ref, reactive, onMounted, computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { useUserStore } from "@/store/userStore";
+import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
-import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
-import RadioInput from "@/components/Input/RadioInput.vue";
 import TextArea from "@/components/Input/TextArea.vue";
 import PageChageData from "@/components/form/DataforOffice/PageChage.vue";
 import Research from "@/components/form/DataforOffice/Research.vue";
@@ -43,7 +42,6 @@ import FinanceAll from "@/components/form/DataforOffice/FinanceAll.vue";
 // จัดการข้อมูลหลัก
 const formData = reactive({
   offic: [],
-  budget: [],
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
   //satatus
@@ -79,25 +77,18 @@ const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
+console.log("user id hr:", user)
+
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
 const fetchProfessorData = async () => {
   try {
     
-    const responseoffic = await axios.get(
-      `http://localhost:3000/opinionPC/${id}`
-    );
+    const responseoffic = await api.get(`/opinionPC/${id}`);
     console.log("offic123", responseoffic);
     formData.offic = responseoffic.data;
-    console.log("offic", JSON.stringify(formData.offic));
 
-    const responsebudget = await axios.get(
-      `http://localhost:3000/budget/pageCharge/${id}`
-    );
-    console.log("budget 123", responsebudget);
-    formData.budget = responsebudget.data;
-    console.log("budget", JSON.stringify(formData.budget));
-
-    console.log("PDF JAAAA: ", pdfData);
   } catch (error) {
     console.error("Error fetching professor data:", error);
   } finally {
@@ -109,16 +100,23 @@ const fetchProfessorData = async () => {
 const OfficerPC = async () => {
   try {
     const dataForBackend = {
+      research_id: formData.offic.research_id,
       pageC_id: id,
       //research
       p_research_admin: formData.offic.p_research_admin,
       p_reason: formData.offic.p_reason,
+      p_date_accepted_approve: (() => {
+        const researchDate = new Date(formData.offic.p_date_accepted_approve);
+        researchDate.setDate(researchDate.getDate() + 1);
+        return researchDate.toISOString().slice(0, 19).replace("T", " ");
+      })(),
       research_doc_submit_date: (() => {
         const researchDate = new Date(formData.offic.research_doc_submit_date);
         researchDate.setDate(researchDate.getDate() + 1);
         return researchDate.toISOString().slice(0, 19).replace("T", " ");
       })(),
       //long ka na bo dee
+      associate_id: user.value?.user_id,
       p_deputy_dean: formData.description,
       associate_doc_submit_date: formData.docSubmitDate,
       //form
@@ -126,8 +124,8 @@ const OfficerPC = async () => {
     };
     console.log("postPC: ", JSON.stringify(dataForBackend));
 
-    const response = await axios.put(
-      `http://localhost:3000/opinionPC/${id}`,
+    const response = await api.put(
+      `/opinionPC/${id}`,
       dataForBackend,
       {
         headers: {
@@ -135,7 +133,7 @@ const OfficerPC = async () => {
         },
       }
     );
-    alert("Have new OfficerPC!");
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
     router.push("/officer");
     console.log("res: ", response);
     console.log("allpostOfficerPC: ", message.value);

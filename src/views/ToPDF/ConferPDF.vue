@@ -538,7 +538,7 @@
                 class="-mt-4"
               >
                 <img
-                  v-if="item.user_role == 'hr'"
+                  v-if="item.user_role == 'hr' && item.user_id == formData.offic.hr_id"
                   :src="`http://localhost:3000/uploads/${item.user_signature}`"
                   class="h-[50px] w-[170px]"
                   alt="hr signature"
@@ -588,7 +588,7 @@
                   class="-mt-4"
                 >
                   <img
-                    v-if="item.user_role == 'research'"
+                    v-if="item.user_role == 'research' && item.user_id == formData.offic.research_id"
                     :src="`http://localhost:3000/uploads/${item.user_signature}`"
                     class="h-[50px] w-[170px] border"
                     alt="research Image"
@@ -647,7 +647,7 @@
                   class="-mt-2"
                 >
                   <img
-                    v-if="item.user_role == 'finance'"
+                    v-if="item.user_role == 'finance'  && item.user_id == formData.budget.user_id"
                     :src="`http://localhost:3000/uploads/${item.user_signature}`"
                     class="h-[50px] w-[170px]"
                     alt="finance Image"
@@ -677,7 +677,7 @@
                   class="-mt-3"
                 >
                   <img
-                    v-if="item.user_role == 'associate'"
+                    v-if="item.user_role == 'associate' && item.user_id == formData.offic.associate_id"
                     :src="`http://localhost:3000/uploads/${item.user_signature}`"
                     class="h-[50px] w-[170px]"
                     alt="associate Image"
@@ -710,7 +710,7 @@
                   class="-mt-4"
                 >
                   <img
-                    v-if="item.user_role == 'dean'"
+                    v-if="item.user_role == 'dean' && item.user_id == formData.offic.dean_id"
                     :src="`http://localhost:3000/uploads/${item.user_signature}`"
                     class="h-[50px] w-[170px]"
                     alt="Dean Image"
@@ -838,6 +838,7 @@ const fetchProfessorData = async () => {
         )
       ) {
         const signature = {
+          user_id: responseSignature.data[i].user_id,
           user_role: responseSignature.data[i].user_role,
           user_signature: responseSignature.data[i].user_signature,
         };

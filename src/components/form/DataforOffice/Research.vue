@@ -60,12 +60,9 @@
             <div class="flex flex-row items-center w-full">
               <div class="flex flex-row items-center w-full justify-between">
                 <div class="flex flex-row">
-                  <TextInputLabelLeft
-                    customLabel="w-auto min-w-fit"
-                    customInput="max-w-fit ml-2"
-                    label="หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus"
-                    disabled="ture"
-                  />
+                  <p>
+                    หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus
+                  </p>
                 </div>
                 <div>
                   <button @click="getFile(formData.f_q_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">

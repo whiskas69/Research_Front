@@ -156,8 +156,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { ref, reactive, onMounted, computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
@@ -209,12 +210,9 @@ const getDataPc = async () => {
     alert("โปรดเข้าสู่ระบบใหม่อีกครั้ง");
   }
   try {
-    console.log("wineyu");
     const response = await api.get(`/form/Pc/${id}`);
     formData.name = response.data.name;
     const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
-    console.log("response", responsefile);
-    console.log("responsedata", responsefile.data);
     // formData.file = responsefile.data;
     formData.f_pc_proof = responsefile.data.file_pc_proof;
     formData.f_q_pc_proof = responsefile.data.file_q_pc_proof;
@@ -231,6 +229,10 @@ const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
+console.log("user id hr:", user)
+
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
 const getFile = async (fileUrl) => {
   formData.file = fileUrl;
@@ -258,6 +260,7 @@ const downloadFile = async (fileUrl, fileName) => {
 const OfficerPC = async () => {
   try {
     const dataForBackend = {
+      research_id: user.value?.user_id,
       pageC_id: id,
       p_research_admin: formData.radioAuthOffic,
       p_reason: formData.description,
@@ -277,7 +280,7 @@ const OfficerPC = async () => {
       }
     );
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-    // router.push("/officer");
+    router.push("/officer");
     console.log("res: ", response);
     console.log("postOfficerPC: ", response.data);
   } catch (error) {
@@ -287,6 +290,5 @@ const OfficerPC = async () => {
 
 onMounted(() => {
   getDataPc();
-  // checkfile();
 });
 </script>

@@ -302,7 +302,6 @@
 
 <script setup>
 import { ref, reactive, onMounted, computed } from "vue";
-import axios from "axios";
 import {
   required,
   numeric,
@@ -468,7 +467,7 @@ const isLoading = ref(true);
 
 const fetchOfficerData = async () => {
   try {
-    const responseUser = await axios.get(`http://localhost:3000/users`);
+    const responseUser = await api.get(`/users`);
     formData.users = responseUser.data;
   } catch (error) {
     console.error("Error fetching Officer data:", error);
@@ -481,7 +480,7 @@ const updateUserRoles = async () => {
   try {
     const mergedData = [...formData.userRoles, ...formData.userMoneyCF];
     console.log("mergedData", mergedData);
-    const response = await axios.put("http://localhost:3000/updateRoles", {
+    const response = await api.put("/updateRoles", {
       userUpdates: mergedData, // ส่ง userRoles [{ id: 1, value: 'admin' }, ...]
     });
 

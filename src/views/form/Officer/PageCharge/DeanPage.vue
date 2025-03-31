@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container my-10 mx-auto">
-      <!-- <PageChageData :id="id"/> -->
+      <PageChageData :id="id"/>
       <Research :id="id" :type="'Page_Charge'"/>
       <FinanceAll :id="id" :type="'Page_Charge'"/>
       <Assosiate :id="id" :type="'Page_Charge'"/>
@@ -81,9 +81,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import axios from "axios";
+import { ref, reactive, onMounted, computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { useUserStore } from "@/store/userStore";
+import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
@@ -148,12 +149,14 @@ const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
+console.log("user id hr:", user)
+
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
 const fetchProfessorData = async () => {
   try {
-    const responseoffic = await axios.get(
-      `http://localhost:3000/opinionPC/${id}`
-    );
+    const responseoffic = await api.get(`/opinionPC/${id}`);
     console.log("offic123", responseoffic);
     formData.offic = responseoffic.data;
     console.log("offic", JSON.stringify(formData.offic));
@@ -168,10 +171,17 @@ const fetchProfessorData = async () => {
 const OfficerPC = async () => {
   try {
     const dataForBackend = {
+      research_id: formData.offic.research_id,
+      associate_id: formData.offic.associate_id,
       pageC_id: id,
       //research
       p_research_admin: formData.offic.p_research_admin,
       p_reason: formData.offic.p_reason,
+      p_date_accepted_approve: (() => {
+        const researchDate = new Date(formData.offic.p_date_accepted_approve);
+        researchDate.setDate(researchDate.getDate() + 1);
+        return researchDate.toISOString().slice(0, 19).replace("T", " ");
+      })(),
       research_doc_submit_date: (() => {
         const researchDate = new Date(formData.offic.research_doc_submit_date);
         researchDate.setDate(researchDate.getDate() + 1);
@@ -185,7 +195,7 @@ const OfficerPC = async () => {
         return researchDate.toISOString().slice(0, 19).replace("T", " ");
       })(),
       //ka na bo dee
-      p_date_accepted_approve: "2001-02-10", //fake
+      dean_id: user.value?.user_id,
       p_acknowledge: formData.acknowledge,
       p_approve_result: formData.radioAuthOffic,
       p_reason_dean_appeove: formData.description,
@@ -195,8 +205,8 @@ const OfficerPC = async () => {
     };
     console.log("postPC: ", JSON.stringify(dataForBackend));
 
-    const response = await axios.put(
-      `http://localhost:3000/opinionPC/${id}`,
+    const response = await api.put(
+      `/opinionPC/${id}`,
       dataForBackend,
       {
         headers: {
@@ -204,7 +214,7 @@ const OfficerPC = async () => {
         },
       }
     );
-    alert("Have new OfficerPC!");
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
     router.push("/officer");
     console.log("res: ", response);
     console.log("allpostOfficerPC: ", message.value);

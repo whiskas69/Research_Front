@@ -427,7 +427,7 @@
   <script setup>
   import { ref, onMounted, reactive } from "vue";
   import { useRoute } from "vue-router";
-  import axios from "axios";
+  import api from "@/setting/api";
   
   import Mainbox from "@/components/form/Mainbox.vue";
   import SectionWrapper from "@/components/form/SectionWrapper.vue";
@@ -470,13 +470,9 @@
   // ตัวแปรสำหรับเก็บข้อมูลจาก backend
   const fetchProfessorData = async () => {
     try {
-      const responsePC = await axios.get(
-        `http://localhost:3000/page_charge/${id}`
-      );
+      const responsePC = await api.get(`/page_charge/${id}`);
       const userID = responsePC.data.user_id;
-      const responseUser = await axios.get(
-        `http://localhost:3000/user/${userID}`
-      );
+      const responseUser = await api.get(`/user/${userID}`);
       formData.user = responseUser.data;
   
       console.log("get user: ", formData.user);

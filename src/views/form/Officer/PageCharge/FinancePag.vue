@@ -115,6 +115,7 @@
 <script setup>
 import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
@@ -184,6 +185,9 @@ const isLoading = ref(true);
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id in fain", id);
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
+console.log("user id hr:", user)
 
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
 const fetchProfessorData = async () => {
@@ -195,7 +199,9 @@ const fetchProfessorData = async () => {
     const responseBudget = await api.get(`/budgetsPC`);
     console.log("budgetsPC:", responseBudget.data)
     formData.numapproved = responseBudget.data.numapproved
-    formData.totalapproved = responseBudget.data.totalapproved
+    formData.totalapproved = responseBudget.data.totalapproved == null
+        ? 0
+        : responseBudget.data.totalapproved;
     
     const responseFormPC = await api.get(`/formPC/${id}`);
     formData.form_id = responseFormPC.data.form_id;
@@ -223,6 +229,7 @@ const cal = async () => {
 const OfficerPC = async () => {
   try {
     const dataForBackend = {
+      user_id: user.value?.user_id,
       form_id: formData.form_id,
       budget_year: formData.year,
       Page_Charge_amount: formData.totalAll,
@@ -239,7 +246,7 @@ const OfficerPC = async () => {
     const response = await api.post(`/budget`, dataForBackend, {
       headers: { "Content-Type": "application/json" },
     });
-    alert("Have new OfficerPC !");
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
     router.push("/officer");
     console.log("res: ", response);
     console.log("allpostOfficerConfer: ", message.value);

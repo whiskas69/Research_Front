@@ -666,7 +666,7 @@
   <script setup>
   import { ref, onMounted, reactive } from "vue";
   import { useRoute } from "vue-router";
-  import axios from "axios";
+  import api from "@/setting/api";
   
   import Mainbox from "@/components/form/Mainbox.vue";
   import SectionWrapper from "@/components/form/SectionWrapper.vue";
@@ -700,24 +700,20 @@
   
   const fetchOfficerData = async () => {
     try {
-      const responseConfer = await axios.get(
-        `http://localhost:3000/conference/${id}`
-      );
+      const responseConfer = await api.get(`/conference/${id}`);
       console.log("conference123", responseConfer);
       formData.conference = responseConfer.data;
       console.log("conference123", formData.conference);
       console.log("conf_research", formData.conference.conf_research);
   
       const userID = responseConfer.data.user_id;
-      const responseUser = await axios.get(
-        `http://localhost:3000/user/${userID}`
-      );
+      const responseUser = await api.get(`/user/${userID}`);
       console.log("get user: ", responseUser.data);
       formData.user = responseUser.data;
       console.log("user123", formData.user);
       console.log("user_nameth", formData.user.user_nameth);
   
-      const responseScore = await axios.get(`http://localhost:3000/score/${id}`);
+      const responseScore = await api.get(`/score/${id}`);
       console.log("score123", responseScore);
       formData.score = responseScore.data;
       console.log("score", formData.score);

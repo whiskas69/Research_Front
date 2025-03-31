@@ -360,7 +360,7 @@
           <div class="flex flex-row gap-1 ">
             <p>ลงนาม</p>
             <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
-              <img v-if="item.user_role == 'research' "
+              <img v-if="item.user_role == 'research' && item.user_id == formData.offic.research_id"
               :src="`http://localhost:3000/uploads/${item.user_signature}`"
               class="h-[50px] w-[170px]"
               alt="research Image"
@@ -414,7 +414,7 @@
           <div class="flex flex-row gap-1">
             <p>ลงนาม</p>
             <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
-              <img v-if="item.user_role == 'finance' "
+              <img v-if="item.user_role == 'finance' && item.user_id == formData.budget.user_id"
               :src="`http://localhost:3000/uploads/${item.user_signature}`"
               class="h-[50px] w-[170px] "
               alt="finance Image"
@@ -437,7 +437,7 @@
           <div class="flex flex-row gap-1">
             <p>ลงนาม</p>
             <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
-              <img v-if="item.user_role == 'associate' "
+              <img v-if="item.user_role == 'associate' && item.user_id == formData.offic.associate_id"
               :src="`http://localhost:3000/uploads/${item.user_signature}`"
               class="h-[50px] w-[170px] "
               alt="My Image"
@@ -461,7 +461,7 @@
           <div class="flex flex-row gap-1 py-3">
             <p>ลงนาม</p>
             <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
-              <img v-if="item.user_role == 'dean' "
+              <img v-if="item.user_role == 'dean' && item.user_id == formData.offic.dean_id"
               :src="`http://localhost:3000/uploads/${item.user_signature}`"
               class="h-[50px] w-[170px]"
               alt="My Image"
@@ -517,7 +517,7 @@
       <div class="flex flex-row gap-1 py-3">
         <p>ลงนาม</p>
         <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
-              <img v-if="item.user_role == 'dean' "
+              <img v-if="item.user_role == 'dean' && item.user_id == formData.offic.dean_id"
               :src="`http://localhost:3000/uploads/${item.user_signature}`"
               class="h-[50px] w-[170px] "
               alt="My Image"
@@ -643,6 +643,7 @@ const fetchProfessorData = async () => {
         )
       ) {
         const signature = {
+          user_id: responseSignature.data[i].user_id,
           user_role: responseSignature.data[i].user_role,
           user_signature: responseSignature.data[i].user_signature,
         };

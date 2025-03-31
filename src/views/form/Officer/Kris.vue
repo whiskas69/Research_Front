@@ -44,9 +44,11 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
+
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
@@ -88,6 +90,9 @@ const handleInput = (key, value) => {
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
+console.log("user id hr:", user)
 
 const getFile = async () => {
   window.open(formData.file, "_blank");
@@ -116,6 +121,7 @@ const router = useRouter();
 const OfficerKris = async () => {
   try {
     const dataForBackend = {
+      user_id: user.value?.user_id,
       kris_id: id,
       research_admin: formData.radioAuthOffic,
       doc_submit_date: formData.docSubmitDate,
