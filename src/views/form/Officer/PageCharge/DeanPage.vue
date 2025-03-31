@@ -22,7 +22,7 @@
           />
         </SectionWrapper>
       </Mainbox>
-      <Mainbox>
+      <Mainbox v-if="formData.offic.p_research_admin == 'อนุมัติ'">
         <SectionWrapper>
           <p class="text-lg font-bold">
             เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 2)
@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, computed } from "vue";
+import { ref, reactive, onMounted, computed, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
@@ -98,6 +98,7 @@ import Assosiate from "@/components/form/DataforOffice/Assosiate.vue";
 // จัดการข้อมูลหลัก
 const formData = reactive({
   offic: [],
+  page_c: [],
   //วันที่ส่งเอกสาร
   docSubmitDate: "",
   //satatus
@@ -106,6 +107,10 @@ const formData = reactive({
   acknowledge: "",
   radioAuthOffic: "",
   description: "",
+});
+
+watch(() => formData.offic.p_research_admin, (newValue) => {
+  formData.formStatus = newValue === "อนุมัติ" ? "รออนุมัติ" : "ฝ่ายบริหารงานวิจัย";
 });
 
 //วันที่ส่งเอกสาร
@@ -160,6 +165,8 @@ const fetchProfessorData = async () => {
     console.log("offic123", responseoffic);
     formData.offic = responseoffic.data;
     console.log("offic", JSON.stringify(formData.offic));
+    const response = await api.get(`/form/Pc/${id}`);
+      formData.page_c = response.data.page_c;
   } catch (error) {
     console.error("Error fetching professor data:", error);
   } finally {
@@ -228,5 +235,7 @@ const OfficerPC = async () => {
 // ดึงข้อมูลเมื่อ component ถูกโหลด
 onMounted(async () => {
   await fetchProfessorData();
+  // await status();
+  // console.log("status fgtayw",status)
 });
 </script>

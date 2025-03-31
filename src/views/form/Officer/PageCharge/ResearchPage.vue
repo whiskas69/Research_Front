@@ -16,11 +16,23 @@
                 </p>
               </div>
               <div class="">
-                <button @click="getFile(formData.f_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
+                <button
+                  @click="getFile(formData.f_pc_proof)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
                   ดูเอกสาร
                 </button>
-                <button @click="
-              downloadFile(formData.f_pc_proof, 'หลักฐานการอยู่ในฐานข้อมูลสากล')" class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button
+                  @click="
+                    downloadFile(
+                      formData.f_pc_proof,
+                      'หลักฐานการอยู่ในฐานข้อมูลสากล'
+                    )
+                  "
+                  class="btn bg-[#4285F4] text-white"
+                >
+                  โหลดเอกสาร
+                </button>
               </div>
             </div>
           </div>
@@ -29,16 +41,28 @@
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
                 <p>
-                  หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus
+                  หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR
+                  หรือ Scopus
                 </p>
               </div>
               <div class="">
-                <button @click="getFile(formData.f_q_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
+                <button
+                  @click="getFile(formData.f_q_pc_proof)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
                   ดูเอกสาร
                 </button>
-                <button @click="
-              downloadFile(formData.f_q_pc_proof, 'หลักฐานการจัดลำดับ Quartile')
-              " class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button
+                  @click="
+                    downloadFile(
+                      formData.f_q_pc_proof,
+                      'หลักฐานการจัดลำดับ Quartile'
+                    )
+                  "
+                  class="btn bg-[#4285F4] text-white"
+                >
+                  โหลดเอกสาร
+                </button>
               </div>
             </div>
           </div>
@@ -52,26 +76,50 @@
                 </p>
               </div>
               <div class="">
-                <button @click="getFile(formData.f_invoice_public)" class="btn bg-[#E85F19] text-white mr-5">
+                <button
+                  @click="getFile(formData.f_invoice_public)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
                   ดูเอกสาร
                 </button>
-                <button @click="
-              downloadFile(formData.f_invoice_public, 'ใบแจ้งหนี้ค่าใช้จ่าย')
-              " class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button
+                  @click="
+                    downloadFile(
+                      formData.f_invoice_public,
+                      'ใบแจ้งหนี้ค่าใช้จ่าย'
+                    )
+                  "
+                  class="btn bg-[#4285F4] text-white"
+                >
+                  โหลดเอกสาร
+                </button>
               </div>
             </div>
           </div>
           <!-- 4 -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
-              <div class="flex flex-row">
-                <p>หลักฐานการส่งบทความ หนังสือตอบรับบทความ</p>
-              </div>
-              <div class="">
-                <button  @click="getFile(formData.f_accepted)" class="btn bg-[#E85F19] text-white mr-5">
+              <p class="flex flex-row">
+                หลักฐานการส่งบทความ หนังสือตอบรับบทความ
+              </p>
+              <p v-if="formData.page_c.accepted == null" class="text-red-500">
+                ไม่มีหนังสือตอบรับบทความ
+              </p>
+              <div v-if="formData.page_c.accepted != null">
+                <button
+                  @click="getFile(formData.f_accepted)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
                   ดูเอกสาร
                 </button>
-                <button @click="downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')" class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button
+                  @click="
+                    downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')
+                  "
+                  class="btn bg-[#4285F4] text-white"
+                >
+                  โหลดเอกสาร
+                </button>
               </div>
             </div>
           </div>
@@ -82,15 +130,23 @@
                 <p>สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar</p>
               </div>
               <div class="">
-                <button @click="getFile(formData.f_copy_article)" class="btn bg-[#E85F19] text-white mr-5">
+                <button
+                  @click="getFile(formData.f_copy_article)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
                   ดูเอกสาร
                 </button>
-                <button @click="
-              downloadFile(
-                formData.f_copy_article,
-                'สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar'
-              )
-              " class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button
+                  @click="
+                    downloadFile(
+                      formData.f_copy_article,
+                      'สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar'
+                    )
+                  "
+                  class="btn bg-[#4285F4] text-white"
+                >
+                  โหลดเอกสาร
+                </button>
               </div>
             </div>
           </div>
@@ -156,7 +212,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, computed } from "vue";
+import { ref, reactive, onMounted, computed, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
@@ -170,7 +226,9 @@ import PageChageData from "@/components/form/DataforOffice/PageChage.vue";
 // จัดการข้อมูลหลัก
 const formData = reactive({
   file: "",
+  offic: [],
   name: [],
+  page_c: [],
   //urlfile
   f_pc_proof: "",
   f_q_pc_proof: "",
@@ -185,6 +243,16 @@ const formData = reactive({
   radioAuthOffic: "",
   description: "",
   dateAccep: "",
+});
+
+watch(() => {
+  if (formData.offic.associate_id != null) {
+    formData.formStatus = "รองคณบดี";
+  } else if (formData.offic.dean_id != null) {
+    formData.formStatus = "คณบดี";
+  } else {
+    formData.formStatus = "ฝ่ายบริหารการเงิน";
+  }
 });
 
 //วันที่ส่งเอกสาร
@@ -210,8 +278,13 @@ const getDataPc = async () => {
     alert("โปรดเข้าสู่ระบบใหม่อีกครั้ง");
   }
   try {
+    const responseoffic = await api.get(`/opinionPC/${id}`);
+    responseoffic != null ? (formData.offic = responseoffic.data) : null;
+    console.log("offic123", responseoffic).data;
+
     const response = await api.get(`/form/Pc/${id}`);
     formData.name = response.data.name;
+    formData.page_c = response.data.page_c;
     const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
     // formData.file = responsefile.data;
     formData.f_pc_proof = responsefile.data.file_pc_proof;
@@ -231,7 +304,7 @@ const id = route.params.id;
 console.log("params.id", id);
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
-console.log("user id hr:", user)
+console.log("user id hr:", user);
 
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
 const getFile = async (fileUrl) => {
@@ -259,19 +332,62 @@ const downloadFile = async (fileUrl, fileName) => {
 
 const OfficerPC = async () => {
   try {
-    const dataForBackend = {
+    if (formData.offic == null) {
+      const dataForBackend = {
+        research_id: user.value?.user_id,
+        pageC_id: id,
+        p_research_admin: formData.radioAuthOffic,
+        p_reason: formData.description,
+        p_date_accepted_approve: formData.dateAccep || null,
+        research_doc_submit_date: formData.docSubmitDate,
+        form_status: formData.statusForm,
+      };
+      console.log("postPC: ", JSON.stringify(dataForBackend));
+
+      const response = await api.post("/opinionPC", dataForBackend, {
+        headers: {
+          "Content-Type": "application/json", // Required for file uploads
+        },
+      });
+      alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+      router.push("/officer");
+      console.log("res: ", response);
+      console.log("postOfficerPC: ", response.data);
+    }
+    else{
+      const dataForBackend = {
       research_id: user.value?.user_id,
+      associate_id: formData.offic.associate_id,
+      dean_id: formData.offic.dean_id,
       pageC_id: id,
+      //research
       p_research_admin: formData.radioAuthOffic,
       p_reason: formData.description,
-      p_date_accepted_approve: formData.dateAccep || null,
-      research_doc_submit_date: formData.docSubmitDate,
-      form_status: formData.statusForm,
+      p_date_accepted_approve:formData.dateAccep,
+      research_doc_submit_date:formData.docSubmitDate,
+      //long ka na bo dee
+      p_deputy_dean: formData.offic.p_deputy_dean,
+      associate_doc_submit_date: (() => {
+        const researchDate = new Date(formData.offic.associate_doc_submit_date);
+        researchDate.setDate(researchDate.getDate() + 1);
+        return researchDate.toISOString().slice(0, 19).replace("T", " ");
+      })(),
+      //ka na bo dee
+      p_acknowledge: formData.offic.p_acknowledge,
+      p_approve_result: formData.offic.p_approve_result,
+      p_reason_dean_appeove: formData.offic.p_reason_dean_appeove,
+      dean_doc_submit_date: (() => {
+        const researchDate = new Date(formData.offic.dean_doc_submit_date);
+        researchDate.setDate(researchDate.getDate() + 1);
+        return researchDate.toISOString().slice(0, 19).replace("T", " ");
+      })(),
+      //form
+      form_status: formData.formStatus,
     };
     console.log("postPC: ", JSON.stringify(dataForBackend));
 
-    const response = await api.post(
-      "/opinionPC",
+    const response = await api.put(
+      `/opinionPC/${id}`,
       dataForBackend,
       {
         headers: {
@@ -282,7 +398,9 @@ const OfficerPC = async () => {
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
     router.push("/officer");
     console.log("res: ", response);
+    console.log("allpostOfficerPC: ", message.value);
     console.log("postOfficerPC: ", response.data);
+    }
   } catch (error) {
     console.error(error);
   }
