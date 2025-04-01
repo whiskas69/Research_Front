@@ -22,7 +22,8 @@
     "vue-router": "^4.4.5",
     "vue-select": "^4.0.0-beta.6",
     "vue3-google-login": "^2.0.33",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "xlsx-style": "^0.8.13"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",

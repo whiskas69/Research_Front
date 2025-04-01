@@ -10,14 +10,14 @@ import StatusKRISView from "@/views/status/StatusKRISView.vue";
 
 import HistoryView from "@/views/HistoryView.vue";
 import HistoryViewOffice from "@/views/HistoryViewOffice.vue";
-import his_confer from '@/views/history/Confer.vue'
-import his_pageCharge from '@/views/history/Page.vue'
-import his_kris from '@/views/history/Kris.vue'
+import his_confer from "@/views/history/Confer.vue";
+import his_pageCharge from "@/views/history/Page.vue";
+import his_kris from "@/views/history/Kris.vue";
 
 import ConferPDF from "@/views/ToPDF/ConferPDF.vue";
 import PageCPDF from "@/views/ToPDF/PageCPDF.vue";
 
-import eOffice from "@/views/EofficeView.vue"
+import eOffice from "@/views/EofficeView.vue";
 
 import HomePage_Profes from "@/views/Homepage/HomePage_Profes.vue";
 import HomePage_Offi from "@/views/Homepage/HomePage_Offi.vue";
@@ -42,9 +42,6 @@ import offic_deanPage from "@/views/form/Officer/PageCharge/DeanPage.vue";
 import offic_Kris from "@/views/form/Officer/Kris.vue";
 import Profile from "@/views/Profile.vue";
 import summary from "@/views/Summary.vue";
-
-
-import test from "@/views/test.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -99,7 +96,7 @@ const router = createRouter({
     {
       path: "/allhistoryOffice",
       name: "HistoryofOffice",
-      component: HistoryViewOffice
+      component: HistoryViewOffice,
     },
     {
       path: "/formConfer",
@@ -222,11 +219,7 @@ const router = createRouter({
       path: "/summary",
       name: "summary",
       component: summary,
-    },{
-      path: "/test",
-      name: "test",
-      component: test
-    }
+    },
   ],
 });
 
