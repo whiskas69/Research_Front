@@ -102,25 +102,15 @@
               <p class="flex flex-row">
                 หลักฐานการส่งบทความ หนังสือตอบรับบทความ
               </p>
-              <p v-if="formData.page_c.accepted == null" class="text-red-500">
-                ไม่มีหนังสือตอบรับบทความ
-              </p>
-              <div v-if="formData.page_c.accepted != null">
-                <button
-                  @click="getFile(formData.f_accepted)"
-                  class="btn bg-[#E85F19] text-white mr-5"
-                >
-                  ดูเอกสาร
-                </button>
-                <button
-                  @click="
-                    downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                >
-                  โหลดเอกสาร
-                </button>
-              </div>
+              <div>
+                  <button @click="getFile(formData.f_accepted)" class="btn bg-[#E85F19] text-white mr-5" :disabled="!isValidFile(formData.f_accepted)">
+                    ดูเอกสาร
+                  </button>
+                  <button @click="downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')" class="btn bg-[#4285F4] text-white" :disabled="!isValidFile(formData.f_accepted)">
+                    โหลดเอกสาร
+                  </button>
+                  <p v-if="formData.page_c.accepted == null" class="text-red-500 pt-1"> ** ไม่มีหนังสือตอบรับบทความ **</p>
+                </div>
             </div>
           </div>
           <!-- 5 -->
@@ -278,13 +268,10 @@ const getDataPc = async () => {
     alert("โปรดเข้าสู่ระบบใหม่อีกครั้ง");
   }
   try {
-    const responseoffic = await api.get(`/opinionPC/${id}`);
-    responseoffic != null ? (formData.offic = responseoffic.data) : null;
-    console.log("offic123", responseoffic).data;
-
     const response = await api.get(`/form/Pc/${id}`);
     formData.name = response.data.name;
     formData.page_c = response.data.page_c;
+    console.log("formData.page_c",response.data)
     const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
     // formData.file = responsefile.data;
     formData.f_pc_proof = responsefile.data.file_pc_proof;
@@ -293,6 +280,17 @@ const getDataPc = async () => {
     formData.f_accepted = responsefile.data.file_accepted;
     formData.f_copy_article = responsefile.data.file_copy_article;
     console.log("Success", response);
+
+    try {
+        const responseoffic = await api.get(`/opinionPC/${id}`);
+        formData.offic = responseoffic.data;
+    } catch (error) {
+        if (error.response && error.response.status === 404) {
+            formData.offic = null;
+        } else {
+            throw error;
+        }
+    }
   } catch (error) {
     console.log("Error", error);
   }
@@ -311,7 +309,9 @@ const getFile = async (fileUrl) => {
   formData.file = fileUrl;
   window.open(formData.file, "_blank");
 };
-
+const isValidFile = (fileUrl) => {
+  return fileUrl && !fileUrl.includes("/uploads/null");
+};
 const downloadFile = async (fileUrl, fileName) => {
   try {
     const response = await fetch(fileUrl);
@@ -332,7 +332,7 @@ const downloadFile = async (fileUrl, fileName) => {
 
 const OfficerPC = async () => {
   try {
-    if (formData.offic == null) {
+    if (!formData.offic) {
       const dataForBackend = {
         research_id: user.value?.user_id,
         pageC_id: id,

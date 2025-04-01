@@ -46,6 +46,7 @@
                 <button
                   @click="getFile(formData.f_published_journals)"
                   class="btn bg-[#E85F19] text-white mr-5"
+                  :disabled="!isValidFile(formData.f_published_journals)"
                 >
                   ดูเอกสาร
                 </button>
@@ -57,6 +58,7 @@
                     )
                   "
                   class="btn bg-[#4285F4] text-white"
+                  :disabled="!isValidFile(formData.f_published_journals)"
                 >
                   โหลดเอกสาร
                 </button>
@@ -76,6 +78,7 @@
                 <button
                   @click="getFile(formData.f_q_proof)"
                   class="btn bg-[#E85F19] text-white mr-5"
+                  :disabled="!isValidFile(formData.f_q_proof)"
                 >
                   ดูเอกสาร
                 </button>
@@ -87,6 +90,7 @@
                     )
                   "
                   class="btn bg-[#4285F4] text-white"
+                  :disabled="!isValidFile(formData.f_q_proof)"
                 >
                   โหลดเอกสาร
                 </button>
@@ -244,14 +248,14 @@
           <RadioInput
             label="ข้อมูลถูกต้อง"
             value="ถูกต้อง"
-            name="re"
+            name="redi"
             disabled="false"
             :checked="formData.offic.c_research_hr == 'ถูกต้อง' ? true : false"
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
             value="ไม่ถูกต้อง"
-            name="re"
+            name="redi"
             disabled="false"
             :checked="
               formData.offic.c_research_hr == 'ไม่ถูกต้อง' ? true : false
@@ -298,7 +302,9 @@ const getFile = async (fileUrl) => {
   formData.file = fileUrl;
   window.open(formData.file, "_blank");
 };
-
+const isValidFile = (fileUrl) => {
+  return fileUrl && !fileUrl.includes("/uploads/null");
+};
 const downloadFile = async (fileUrl, fileName) => {
   try {
     const response = await fetch(fileUrl);
