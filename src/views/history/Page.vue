@@ -7,8 +7,15 @@
   <Dean :id="id" :type="'Page_Charge'" />
 
   <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
-    <div class="flex no-print">
+    <div v-if="userStore.user.user_role == 'professor'" class="flex no-print">
       <router-link :to="`/allhistory`">
+        <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
+          ไปยังหน้าประวัติทั้งหมด
+        </button>
+      </router-link>
+    </div>
+    <div v-else class="flex no-print">
+      <router-link :to="`/allhistoryOffice`">
         <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
           ไปยังหน้าประวัติทั้งหมด
         </button>
@@ -30,6 +37,7 @@
 <script setup>
 import { reactive, onMounted } from "vue";
 import { useRoute } from "vue-router";
+import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
 
 import PageChageData from "@/components/form/DataforOffice/PageChage.vue";
@@ -41,6 +49,9 @@ import Dean from "@/components/form/DataforOffice/Dean.vue";
 // Access route parameters
 const route = useRoute();
 const id = route.params.id;
+//ดึงข้อมูล user
+const userStore = useUserStore();
+
 const formData = reactive({
   form: [],
 });
