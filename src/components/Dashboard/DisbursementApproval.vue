@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white p-5 rounded-lg shadow h-[400px] w-[700px]">
-    <h2 class="text-lg font-semibold">สถิติการอนุมัติการเบิกจ่าย</h2>
+    <h2 class="text-lg font-semibold">สถิติการเบิกจ่ายในแต่ละปี</h2>
     <p class="font-bold text-[#9291A5]">
       ปีงบประมาณ {{ currentYear - 3 }} - {{ currentYear }}
     </p>

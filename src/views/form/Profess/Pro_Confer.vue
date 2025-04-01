@@ -375,7 +375,7 @@
                   @input="handleInput('hIndexYear', $event.target.value)"
                 />
                 <span v-if="formData.score == 'SJR'" class="place-self-center">
-                  มีค่าคะแนน = {{ totalScore }} คะแนน</span
+                  มีค่าคะแนน ={{ totalScore.total }} คะแนน  และระดับ {{ totalScore.result }}</span
                 >
               </div>
 
@@ -435,7 +435,7 @@
                   @input="handleInput('hIndex', $event.target.value)"
                 />
                 <span v-if="formData.score == 'CIF'" class="place-self-center"
-                  >มีค่าคะแนน = {{ totalScore }} คะแนน</span
+                  >มีค่าคะแนน = {{ totalScore.total }} คะแนน  และระดับ {{ totalScore.result }}</span
                 >
               </div>
 
@@ -474,8 +474,12 @@
                   @input="handleInput('coreConf', $event.target.value)"
                 />
                 <span class="place-self-center"
-                  >(ตั้งแต่ A ขึ้นไป หากเป็น A+ ต้องพิมพ์เป็น A*)</span
+                  >(ตั้งแต่ A ขึ้นไป)</span
                 >
+                <span v-if="formData.score == 'CORE'" class="place-self-center">
+                  ระดับ {{ totalScore.result }}</span
+                >
+
               </div>
               <p class="px-7 text-sm text-red-500">
                 เช็คคะแนนได้จาก http://portal.core.edu.au/conf-ranks
@@ -790,7 +794,15 @@
                 {{ v$.overseasExpenses.$errors[0].$message }}
               </span>
               <div class="flex flex-row">
-                <div class="max-w-[30rem] flex justify-center items-center">
+                <TextInputLabelLeft
+                  label="• เดินทางระหว่างประเทศ กรุงเทพฯ -"
+                  customLabel="w-22 pr-2"
+                  customDiv="max-w-[31rem]"
+                  customInput="max-w-[14rem]"
+                  :disabled="true"
+                  :placeholder="computedPlaceholder"
+                />
+                <!-- <div class="max-w-[30rem] flex justify-center items-center">
                   <div class="flex flex-row w-full">
                     <span
                       class="w-[31rem] pr-2 flex justify-center items-center"
@@ -803,10 +815,10 @@
                       @input="handleInput('travelCountry', $event.target.value)"
                     ></v-select>
                   </div>
-                </div>
+                </div> -->
                 <TextInputLabelLeft
                   label="- กรุงเทพฯ"
-                  customLabel="w-22 px-2"
+                  customLabel="w-22 pr-2"
                   customDiv="max-w-[20rem]"
                   customInput="max-w-[14rem]"
                   v-model="formData.interExpenses"
@@ -815,12 +827,9 @@
                 <p class="flex items-center pl-2">บาท</p>
               </div>
             </div>
-            <span
-              v-if="v$.travelCountry.$error"
-              class="text-base font-bold text-red-500 text-left"
-            >
+            <!-- <span v-if="v$.travelCountry.$error" class="text-base font-bold text-red-500 text-left">
               {{ v$.travelCountry.$errors[0].$message }}
-            </span>
+            </span> -->
             <span
               v-if="v$.interExpenses.$error"
               class="text-base font-bold text-red-500 text-left"
@@ -1139,7 +1148,7 @@ const formData = reactive({
   numTravelDays: "",
   dailyAllowance: "",
   totalAllowance: "",
-  all_money: "", //แก้ด้วย
+  all_money: "",
 
   file1: "",
   file2: null,
@@ -1150,6 +1159,41 @@ const formData = reactive({
   file6: "",
   file7: "",
   file8: "",
+});
+
+const totalScore = computed(() => {
+  if (formData.score == "SJR") {
+    if (formData.sjr !== null && formData.sjrhIndex !== null) {
+      const total = formData.sjr * formData.sjrhIndex;
+      let result = "ระดับมาตรฐาน"; // ค่าเริ่มต้น
+
+      if (total >= 4) {
+        result = "ระดับดีมาก";
+      }
+
+      return { total, result };
+    }
+
+    return null;
+  } else if (formData.score == "CIF") {
+    if (formData.Citation != null && formData.hIndex != null) {
+      const total = 0.5 * (formData.Citation / 200 + formData.hIndex);
+      let result = "ระดับมาตรฐาน"; // ค่าเริ่มต้น
+
+      if (total >= 9.38) {
+        result = "ระดับดีมาก";
+      }
+
+      return { total, result };
+    }
+    return null;
+  }
+  return null;
+});
+
+//score
+watch(totalScore, (newValue) => {
+  formData.total = newValue;
 });
 
 // ตรวจสอบปีและวันที่นี้
@@ -1187,6 +1231,10 @@ const afterDatenoteqal = (value, date) => {
     DateTime.fromISO(value).toISODate() > DateTime.fromISO(date).toISODate()
   );
 };
+
+const computedPlaceholder = computed(() => {
+  return formData.venue === "ณ ต่างประเทศ" ? formData.location : "";
+});
 
 const rules = computed(() => ({
   textOther1: {
@@ -1397,7 +1445,6 @@ const rules = computed(() => ({
       maxValue(currentYear.value)
     ),
   },
-  //total
   Citation: {
     required: helpers.withMessage(
       "* กรุณากรอกค่า SJR *",
@@ -1429,7 +1476,7 @@ const rules = computed(() => ({
     ),
     value: helpers.withMessage(
       "* กรุณากรอกค่าเป็น A หรือ A* เท่านั้น *",
-      helpers.regex(/^A\*?$/)
+      helpers.regex(/^A[\*\+]?$/)
     ),
   },
   radioAuth: {
@@ -1489,7 +1536,7 @@ const rules = computed(() => ({
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
     minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
-  }, //totalAmount
+  },
   domesticExpenses: {
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
@@ -1505,18 +1552,9 @@ const rules = computed(() => ({
     minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
     required: helpers.withMessage(
       "* กรุณากรอกค่าพาหนะเดินทาง *",
-      requiredIf(() => formData.venue == 'ณ ต่างประเทศ')
-    )
-  },
-  travelCountry: {
-    required: helpers.withMessage(
-      "* กรุณาเลือกประเทศ *",
       requiredIf(() => formData.venue == "ณ ต่างประเทศ")
     ),
   },
-  // sameAs: helpers.withMessage(
-  //     "* กรุณาเลือกประเทศให้ตรงกับที่จัดงาน *", sameAs(formData.location)
-  //   )
   interExpenses: {
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
@@ -1528,34 +1566,22 @@ const rules = computed(() => ({
     minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
   },
   numberDaysRoom: {
-    required: helpers.withMessage(
-      "* กรุณากรอกจำนวนวันที่เช่าที่พัก*",
-      required
-    ),
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     integer: helpers.withMessage("* กรุณาระบุเป็นจำนวนจริง *", integer),
     minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
   },
   roomCostPerNight: {
-    required: helpers.withMessage(
-      "* กรุณากรอกจำนวนค่าเช่าที่พัก 1 คืน *",
-      required
-    ),
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
     minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
   },
+
   numTravelDays: {
-    required: helpers.withMessage("* กรุณากรอกจำนวนวันที่เดินทาง*", required),
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     integer: helpers.withMessage("* กรุณาระบุเป็นจำนวนจริง *", integer),
     minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
   },
   dailyAllowance: {
-    required: helpers.withMessage(
-      "* กรุณากรอกจำนวนค่าเบี้ยเลี้ยงเดินทาง 1 วัน *",
-      required
-    ),
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
     minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
@@ -1682,61 +1708,30 @@ onMounted(async () => {
   formData.name = user.value?.user_nameth || "";
   formData.position = user.value?.user_positionth || "";
 });
-console.log("formDatainterExpenses", formData.interExpenses);
+
 const handleInput = (key, value) => {
   formData[key] = value;
-  console.log(`${key} updated to: ${value}`);
 };
 
 const handleFile = (event, fieldName) => {
   const file = event.target.files[0];
   if (file) {
     formData[fieldName] = file;
-    console.log(`File assigned to ${fieldName}:`, formData[fieldName]);
-    console.log("Updated formData:", formData);
   } else {
-    console.error(`No file selected for ${fieldName}.`);
+    console.log(`No file selected for ${fieldName}.`);
   }
 };
 
-const totalScore = computed(() => {
-  console.log("totalScore");
-  if (formData.score == "SJR") {
-    console.log("SJR");
-    if (formData.sjr != null && formData.sjrhIndex != null) {
-      return formData.sjr * formData.sjrhIndex;
-    }
-    return null;
-  } else if (formData.score == "CIF") {
-    console.log("CIF");
-    if (formData.Citation != null && formData.hIndex != null) {
-      return 0.5 * (formData.Citation / 200 + formData.hIndex);
-    }
-    return null;
-  }
-  return null; // Make sure to return a value
-});
-
-// If you need to store total in formData, do this inside a watcher
-watch(totalScore, (newValue) => {
-  formData.total = newValue;
-  console.log("Updated formData.total: ", formData.total);
-  console.log("all", JSON.stringify(formData));
-});
-
 const totalAmount = computed(() => {
   formData.totalAmount = formData.numberArticles * formData.amount1article;
-  console.log("tt amout", formData.totalAmount);
   return formData.totalAmount;
 });
 const totalRoom = computed(() => {
   formData.totalRoom = formData.numberDaysRoom * formData.roomCostPerNight;
-  console.log("tt room", formData.totalRoom);
   return formData.totalRoom;
 });
 const totalAllowance = computed(() => {
   formData.totalAllowance = formData.numTravelDays * formData.dailyAllowance;
-  console.log("tt totalAllowance", formData.totalAllowance);
   return formData.totalAllowance;
 });
 
@@ -1750,24 +1745,14 @@ const allTotal = computed(() => {
     (parseFloat(formData.totalRoom) || 0) +
     (parseFloat(formData.totalAllowance) || 0);
 
-  console.log("tt all_money", formData.all_money);
   return formData.all_money;
 });
 
 const newConfer = async () => {
-  console.log("before postPC: ", formData);
-
   const result = await v$.value.$validate();
-
-  console.log("Validation Result:", result);
-  console.log("Form Data:", formData.value);
 
   if (result) {
     try {
-      console.log("before postPC: ", formData);
-      console.log("formData as JSON:", JSON.stringify(formData, null, 2));
-      console.log("before userID: ", JSON.stringify(formData));
-
       const dataForBackend = {
         user_id: formData.user_id,
         conf_times: formData.textOther1,
@@ -1797,7 +1782,7 @@ const newConfer = async () => {
         total_amount: formData.totalAmount,
         domestic_expenses: formData.domesticExpenses,
         overseas_expenses: formData.overseasExpenses,
-        travel_country: formData.travelCountry,
+        travel_country: formData.location, //ดูตรงนี้
         inter_expenses: formData.interExpenses,
         airplane_tax: formData.airplaneTax,
         num_days_room: formData.numberDaysRoom,
@@ -1814,7 +1799,7 @@ const newConfer = async () => {
         hindex_score: formData.sjrhIndex || formData.hIndex,
         hindex_year: formData.hIndexYear,
         Citation: formData.Citation,
-        score_result: formData.total,
+        score_result: formData.total.total,
         core_rank: formData.coreConf,
 
         type: formData.typeFile,
@@ -1836,18 +1821,13 @@ const newConfer = async () => {
       });
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
       router.push("/allstatus");
-
-      console.log("res: ", response);
-
-      console.log("postConfer: ", response.data);
     } catch (error) {
       console.log("Error saving code : ", error);
 
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
     }
   } else {
-    alert("โปรดกรอกข้อมูลให้ครบถ้วน");
-    console.log(v$.value.$errors);
+    alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");
   }
 };
 </script>

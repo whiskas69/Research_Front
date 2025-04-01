@@ -84,7 +84,7 @@ const creatChart = () => {
               if (dataValues[tooltipItem.dataIndex] === 1 && usedBudget.value === 0) {
                 return "ไม่มีข้อมูล";
               }
-              return `${tooltipItem.label}: ${dataValues[tooltipItem.dataIndex].toLocaleString("en-US")} บาท`;
+              return `${tooltipItem.label}`;
             },
           },
         },
