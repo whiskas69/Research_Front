@@ -14,10 +14,18 @@
                 <p>สำเนาบทความ (Full Paper)</p>
               </div>
               <div class="">
-                <button @click="getFile(formData.f_full_page)" class="btn bg-[#E85F19] text-white mr-5">
+                <button
+                  @click="getFile(formData.f_full_page)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
                   ดูเอกสาร
                 </button>
-                <button @click="downloadFile(formData.f_full_page, 'สำเนาบทความ')" class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button
+                  @click="downloadFile(formData.f_full_page, 'สำเนาบทความ')"
+                  class="btn bg-[#4285F4] text-white"
+                >
+                  โหลดเอกสาร
+                </button>
               </div>
             </div>
           </div>
@@ -36,13 +44,25 @@
                 />
               </div>
               <div class="">
-                <button @click="getFile(formData.f_published_journals)" class="btn bg-[#E85F19] text-white mr-5">
+                <button
+                  @click="getFile(formData.f_published_journals)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                  :disabled="!isValidFile(formData.f_published_journals)"
+                >
                   ดูเอกสาร
                 </button>
-                <button @click="downloadFile(
-                formData.f_published_journals,
-                'Full Paper ประกอบการเบิก'
-              )" class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button
+                  @click="
+                    downloadFile(
+                      formData.f_published_journals,
+                      'Full Paper ประกอบการเบิก'
+                    )
+                  "
+                  class="btn bg-[#4285F4] text-white"
+                  :disabled="!isValidFile(formData.f_published_journals)"
+                >
+                  โหลดเอกสาร
+                </button>
               </div>
             </div>
           </div>
@@ -56,12 +76,25 @@
                 <p>หลักฐานเอกสาร Quartile ของ Paper ที่ใช้ประกอบการเบิก</p>
               </div>
               <div class="">
-                <button @click="getFile(formData.f_q_proof)" class="btn bg-[#E85F19] text-white mr-5">
+                <button
+                  @click="getFile(formData.f_q_proof)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                  :disabled="!isValidFile(formData.f_q_proof)"
+                >
                   ดูเอกสาร
                 </button>
-                <button @click="
-              downloadFile(formData.f_q_proof, 'หลักฐานเอกสาร Quartile ของ Paper')
-              " class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button
+                  @click="
+                    downloadFile(
+                      formData.f_q_proof,
+                      'หลักฐานเอกสาร Quartile ของ Paper'
+                    )
+                  "
+                  class="btn bg-[#4285F4] text-white"
+                  :disabled="!isValidFile(formData.f_q_proof)"
+                >
+                  โหลดเอกสาร
+                </button>
               </div>
             </div>
           </div>
@@ -74,15 +107,23 @@
                 </p>
               </div>
               <div class="">
-                <button  @click="getFile(formData.f_call_for_paper)" class="btn bg-[#E85F19] text-white mr-5">
+                <button
+                  @click="getFile(formData.f_call_for_paper)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
                   ดูเอกสาร
                 </button>
-                <button  @click="
-              downloadFile(
-                formData.f_call_for_paper,
-                'เอกสารประชาสัมพันธ์การจัดการประชุม'
-              )
-              " class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button
+                  @click="
+                    downloadFile(
+                      formData.f_call_for_paper,
+                      'เอกสารประชาสัมพันธ์การจัดการประชุม'
+                    )
+                  "
+                  class="btn bg-[#4285F4] text-white"
+                >
+                  โหลดเอกสาร
+                </button>
               </div>
             </div>
           </div>
@@ -93,10 +134,18 @@
                 <p>จดหมายการตอบรับเข้าร่วมประชุม (Accepted)</p>
               </div>
               <div class="">
-                <button @click="getFile(formData.f_accepted)" class="btn bg-[#E85F19] text-white mr-5">
+                <button
+                  @click="getFile(formData.f_accepted)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
                   ดูเอกสาร
                 </button>
-                <button @click="downloadFile(formData.f_accepted, 'จดหมายการตอบรับ')" class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button
+                  @click="downloadFile(formData.f_accepted, 'จดหมายการตอบรับ')"
+                  class="btn bg-[#4285F4] text-white"
+                >
+                  โหลดเอกสาร
+                </button>
               </div>
             </div>
           </div>
@@ -107,10 +156,23 @@
                 <p>เอกสารแสดงค่าลงทะเบียน</p>
               </div>
               <div class="">
-                <button  @click="getFile(formData.f_fee_receipt)" class="btn bg-[#E85F19] text-white mr-5">
+                <button
+                  @click="getFile(formData.f_fee_receipt)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
                   ดูเอกสาร
                 </button>
-                <button  @click="downloadFile(formData.f_fee_receipt, 'เอกสารแสดงค่าลงทะเบียน')" class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button
+                  @click="
+                    downloadFile(
+                      formData.f_fee_receipt,
+                      'เอกสารแสดงค่าลงทะเบียน'
+                    )
+                  "
+                  class="btn bg-[#4285F4] text-white"
+                >
+                  โหลดเอกสาร
+                </button>
               </div>
             </div>
           </div>
@@ -121,12 +183,23 @@
                 <p>เอกสารแสดงอัตราแลกเปลี่ยน (ณ วันที่ยื่น)</p>
               </div>
               <div class="">
-                <button @click="getFile(formData.f_fx_rate_document)" class="btn bg-[#E85F19] text-white mr-5">
+                <button
+                  @click="getFile(formData.f_fx_rate_document)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
                   ดูเอกสาร
                 </button>
-                <button @click="
-              downloadFile(formData.f_fx_rate_document, 'เอกสารแสดงอัตราแลกเปลี่ยน')
-              " class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button
+                  @click="
+                    downloadFile(
+                      formData.f_fx_rate_document,
+                      'เอกสารแสดงอัตราแลกเปลี่ยน'
+                    )
+                  "
+                  class="btn bg-[#4285F4] text-white"
+                >
+                  โหลดเอกสาร
+                </button>
               </div>
             </div>
           </div>
@@ -137,15 +210,23 @@
                 <p>หลักฐานการประชุมวิชาการอยู่ในฐาน Scopus</p>
               </div>
               <div class="">
-                <button  @click="getFile(formData.f_conf_proof)" class="btn bg-[#E85F19] text-white mr-5">
+                <button
+                  @click="getFile(formData.f_conf_proof)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
                   ดูเอกสาร
                 </button>
-                <button  @click="
-              downloadFile(
-                formData.f_conf_proof,
-                'หลักฐานการประชุมวิชาการอยู่ในฐาน Scopus'
-              )
-              " class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+                <button
+                  @click="
+                    downloadFile(
+                      formData.f_conf_proof,
+                      'หลักฐานการประชุมวิชาการอยู่ในฐาน Scopus'
+                    )
+                  "
+                  class="btn bg-[#4285F4] text-white"
+                >
+                  โหลดเอกสาร
+                </button>
               </div>
             </div>
           </div>
@@ -228,7 +309,7 @@ const formData = reactive({
   statusForm: "ฝ่ายบริหารงานวิจัย",
   // ความเห้นเจ้าหน้าที่
   noteHR: "",
-  profes3y: "",//ถ้าเป้นค่าว่าให้ == f
+  profes3y: "", //ถ้าเป้นค่าว่าให้ == f
   radioAuthOffic: "",
   description: "",
 });
@@ -261,16 +342,14 @@ const getDataConf = async () => {
     const response = await api.get(`/conference/${id}`);
     formData.form = response.data.form;
     formData.name = response.data.name;
-    const user_id = response.data.user_id
-    console.log("user_id9089",user_id)
-    const responseUser = await api.get(
-        `/user/${user_id}`
-      );
-      formData.user = responseUser.data.user_confer;
+    const user_id = response.data.user_id;
+    console.log("user_id9089", user_id);
+    const responseUser = await api.get(`/user/${user_id}`);
+    formData.user = responseUser.data.user_confer;
 
     const responsefile = await api.get(`/getFileConf?conf_id=${id}`);
-    formData.date_journals = responsefile.data.date_published_journals,
-    formData.f_full_page = responsefile.data.file_full_page;
+    (formData.date_journals = responsefile.data.date_published_journals),
+      (formData.f_full_page = responsefile.data.file_full_page);
     formData.f_published_journals = responsefile.data.file_published_journals;
     formData.f_q_proof = responsefile.data.file_q_proof;
     formData.f_call_for_paper = responsefile.data.file_call_for_paper;
@@ -282,7 +361,7 @@ const getDataConf = async () => {
     console.log("Success", response);
   } catch (error) {
     console.log("Error", error);
-  }finally {
+  } finally {
     isLoading.value = false;
   }
 };
@@ -290,7 +369,9 @@ const getFile = async (fileUrl) => {
   formData.file = fileUrl;
   window.open(formData.file, "_blank");
 };
-
+const isValidFile = (fileUrl) => {
+  return fileUrl && !fileUrl.includes("/uploads/null");
+};
 const downloadFile = async (fileUrl, fileName) => {
   try {
     const response = await fetch(fileUrl);
@@ -315,7 +396,7 @@ const id = route.params.id;
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
-console.log("user id hr:", user)
+console.log("user id hr:", user);
 const OfficerConfer = async () => {
   try {
     const dataForBackend = {
@@ -328,15 +409,11 @@ const OfficerConfer = async () => {
     };
     console.log("postPC: ", JSON.stringify(dataForBackend));
 
-    const response = await api.post(
-      "/opinionConf",
-      dataForBackend,
-      {
-        headers: {
-          "Content-Type": "application/json", // Required for file uploads
-        },
-      }
-    );
+    const response = await api.post("/opinionConf", dataForBackend, {
+      headers: {
+        "Content-Type": "application/json", // Required for file uploads
+      },
+    });
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
     router.push("/officer");
     console.log("res: ", response);

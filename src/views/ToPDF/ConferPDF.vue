@@ -551,7 +551,7 @@
           </div>
         </div>
         <div
-          class="grid grid-cols-2 divide-x divide-black border border-black mt-5 text-[12px]"
+          class="grid grid-cols-2 divide-x divide-black border border-black mt-5 text-[11px]"
         >
           <div class="px-2 py-3">
             <p class="underline">ขั้นตอนที่ 2 งานบริหารงานวิจัย</p>
@@ -628,7 +628,7 @@
             <p>บาท</p>
           </div>
           <div class="flex flex-row justify-between gap-3 pt-2">
-            <p>จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวนเงิน</p>
+            <p>จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวน</p>
             <p>{{ formData.formattedBudget.amount_approval }}</p>
             <p>บาท</p>
           </div>
@@ -726,8 +726,15 @@
       </div>
     </div>
 
-    <div class="container my-10 mx-auto">
-      <div class="flex justify-end no-print">
+    <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
+      <div class="flex no-print">
+      <router-link :to="`/allhistory`">
+        <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
+          ไปยังหน้าประวัติทั้งหมด
+        </button>
+      </router-link>
+    </div>
+      <div class="flex no-print">
         <button
           onclick="window.print()"
           class="btn text-white bg-[#4285F4] hover:bg-[#4285F4]"

@@ -101,9 +101,9 @@
               <p>
                 {{ formData.canWithdrawn.message }}
               </p>
-              <div v-if="formData.canWithdrawn.inOutC == 'Out_Country'" >class="flex flex-col items-end"
-                <p>ค่าเบี้ยเลี้ยงเดินทางไม่เกิน {{ expenses.allowance }} บาท</p>
-                <p>ค่าที่พักวันละไม่เกิน  {{ expenses.accom }} บาท</p>
+              <div v-if="formData.canWithdrawn.inOutC == 'Out_Country'" class="flex flex-col items-end">
+                <p>ค่าเบี้ยเลี้ยงเดินทางไม่เกิน {{ expenses.allowance }} บาท </p>
+                <p>ค่าที่พักไม่เกิน  {{ expenses.accom }} บาท</p>
               </div>
             </div>
           </div>

@@ -7,8 +7,15 @@
   <Assosiate :id="id" :type="'Conference'" />
   <Dean :id="id" :type="'Conference'" />
 
-  <div class="container my-10 mx-auto">
-    <div class="flex justify-end">
+  <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
+    <div class="flex no-print">
+      <router-link :to="`/allhistory`">
+        <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
+          ไปยังหน้าประวัติทั้งหมด
+        </button>
+      </router-link>
+    </div>
+    <div v-if="formData.form.form_status == 'อนุมัติ'" class="flex no-print">
       <router-link :to="`/pdf/confer/${id}`">
         <button class="btn text-white bg-[#4285F4] hover:bg-[#4285F4]">
           พิมพ์แบบฟอร์ม
@@ -19,7 +26,9 @@
 </template>
 
 <script setup>
+import { reactive, onMounted } from "vue";
 import { useRoute } from "vue-router";
+import api from "@/setting/api";
 
 import ConferenceData from "@/components/form/DataforOffice/Conference.vue";
 import HR from "@/components/form/DataforOffice/HR.vue";
@@ -30,4 +39,16 @@ import Dean from "@/components/form/DataforOffice/Dean.vue";
 // Access route parameters
 const route = useRoute();
 const id = route.params.id;
+
+const formData = reactive({
+  form: [],
+});
+const getDataPc = async () => {
+  const response = await api.get(`/form/confer/${id}`);
+  formData.form = response.data.form;
+  console.log("formData.form", formData.form.form_status);
+};
+onMounted(() => {
+  getDataPc();
+});
 </script>

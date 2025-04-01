@@ -528,8 +528,15 @@
       <p>(รองศาสตราจารย์ ดร.ศิริเดช บุญแสง)</p>
       <p>{{ formatThaiDate(formData.offic.dean_doc_submit_date) }}</p>
     </div>
-    <div class="container my-10 mx-auto">
-      <div class="flex justify-end no-print">
+    <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
+      <div class="flex no-print">
+      <router-link :to="`/allhistory`">
+        <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
+          ไปยังหน้าประวัติทั้งหมด
+        </button>
+      </router-link>
+    </div>
+      <div class="flex no-print">
         <button
           onclick="window.print()"
           class="btn text-white bg-[#4285F4] hover:bg-[#4285F4]"

@@ -2,7 +2,6 @@
   <div>
     <div class="container my-10 mx-auto">
       <Mainbox v-if="props.type == 'Conference'">
-        <p>Conference ja</p>
         <SectionWrapper>
           <p>ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
           <p>• คุณภาพของการประชุม ฯ</p>
@@ -112,14 +111,14 @@
                 <div class="flex flex-row">
                   <p>หลักฐานการส่งบทความ หนังสือตอบรับบทความ</p>
                 </div>
-                <p v-if="formData.page_c.accepted == null" class="text-red-500">ไม่มีหนังสือตอบรับบทความ</p>
-                <div v-if="formData.page_c.accepted != null">
-                  <button @click="getFile(formData.f_accepted)" class="btn bg-[#E85F19] text-white mr-5">
+                <div>
+                  <button @click="getFile(formData.f_accepted)" class="btn bg-[#E85F19] text-white mr-5" :disabled="!isValidFile(formData.f_accepted)">
                     ดูเอกสาร
                   </button>
-                  <button @click="downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')" class="btn bg-[#4285F4] text-white">
+                  <button @click="downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')" class="btn bg-[#4285F4] text-white" :disabled="!isValidFile(formData.f_accepted)">
                     โหลดเอกสาร
                   </button>
+                  <p v-if="formData.page_c.accepted == null" class="text-red-500 pt-1"> ** ไม่มีหนังสือตอบรับบทความ **</p>
                 </div>
               </div>
             </div>
@@ -261,7 +260,9 @@ const getFile = async (fileUrl) => {
   formData.file = fileUrl;
   window.open(formData.file, "_blank");
 };
-
+const isValidFile = (fileUrl) => {
+  return fileUrl && !fileUrl.includes("/uploads/null");
+};
 const downloadFile = async (fileUrl, fileName) => {
   try {
     const response = await fetch(fileUrl);
