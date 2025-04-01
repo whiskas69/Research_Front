@@ -523,7 +523,7 @@ const updateFile = async () => {
 
       alert("บันทึกข้อมูลเรียบร้อย");
 
-      // location.reload();
+      location.reload();
     } catch (error) {
       console.log(error);
       alert("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
