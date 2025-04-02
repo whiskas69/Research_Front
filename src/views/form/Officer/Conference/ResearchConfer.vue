@@ -2,23 +2,32 @@
   <div>
     <div class="container my-10 mx-auto">
       <ConferenceData :id="id" />
-      <HR :id="id"/>
+      <HR :id="id" />
       <Mainbox>
         <SectionWrapper>
-          <p>ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
-
-          <p>• คุณภาพของการประชุม ฯ</p>
-          <div class="px-5">
-            <div v-if="formData.conference.quality_meeting == 'ดีมาก'">
-              <p>อยู่ในระดับ{{ formData.conference.quality_meeting }}</p>
+          <p class="font-bold">ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
+          <div>
+            <p>• คุณภาพของการประชุม ฯ</p>
+            <div
+              v-if="formData.conference.quality_meeting == 'ดีมาก'"
+              class="px-2"
+            >
+              <p>• อยู่ในระดับ{{ formData.conference.quality_meeting }}</p>
               <div class="flex flex-row gap-2">
-                <p>คำนวณจาก {{ formData.score.score_type }}</p>
-                <p v-if="formData.score.score_type == 'CORE'">มีค่าคะแนน {{ formData.score.core_rank }}</p>
+                <p>• คำนวณจาก {{ formData.score.score_type }}</p>
+                <p v-if="formData.score.score_type == 'CORE'">
+                  มีค่าคะแนน {{ formData.score.core_rank }}
+                </p>
                 <p v-else>มีค่าคะแนน {{ formData.score.score_result }}</p>
               </div>
             </div>
-            <p v-else-if="formData.conference.quality_meeting == 'มาตรฐาน'">อยู่ในระดับ{{ formData.conference.quality_meeting }}</p>
-            <p v-else-if="formData.conference.quality_meeting == ''">ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ  และไม่อยู่ในฐานข้อมูลสากล SCOPUS</p>
+            <p v-else-if="formData.conference.quality_meeting == 'มาตรฐาน'">
+              • อยู่ในระดับ{{ formData.conference.quality_meeting }}
+            </p>
+            <p v-else-if="formData.conference.quality_meeting == ''">
+              • ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ
+              และไม่อยู่ในฐานข้อมูลสากล SCOPUS
+            </p>
           </div>
           <RadioInput
             label="ข้อมูลถูกต้อง"
@@ -38,6 +47,13 @@
             class="textarea textarea-bordered w-full"
             @input="handleInput('description', $event.target.value)"
           ></textarea>
+
+          <span
+            v-if="v$.radioAuthOffic.$error"
+            class="text-base font-bold text-red-500 text-left"
+          >
+            {{ v$.radioAuthOffic.$errors[0].$message }}
+          </span>
         </SectionWrapper>
       </Mainbox>
       <div class="flex justify-end">
@@ -52,13 +68,16 @@
 <script setup>
 import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useVuelidate } from "@vuelidate/core";
+import { required, helpers } from "@vuelidate/validators";
+import { DateTime } from "luxon";
+
 import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
-import TextArea from "@/components/Input/TextArea.vue";
 import ConferenceData from "@/components/form/DataforOffice/Conference.vue";
 import HR from "@/components/form/DataforOffice/HR.vue";
 
@@ -66,101 +85,81 @@ const formData = reactive({
   offic: [],
   conference: [],
   score: [],
-  //วันที่ส่งเอกสาร
-  docSubmitDate: "",
-  // ความเห้นเจ้าหน้าที่
+  docSubmitDate: DateTime.now().toISODate(),
   radioAuthOffic: "",
   description: "",
   formStatus: "ฝ่ายบริหารการเงิน",
 });
-console.log("conference", formData);
-//วันที่ส่งเอกสาร
-const datetime = new Date();
-// Extract year, month, and day
-const year = datetime.getFullYear();
-const month = String(datetime.getMonth() + 1).padStart(2, "0"); // Months are 0-based
-const day = String(datetime.getDate()).padStart(2, "0");
-// Combine in YYYY-MM-DD format
-formData.docSubmitDate = `${year}-${month}-${day}`;
-console.log(formData.docSubmitDate);
 
 const handleInput = (key, value) => {
   formData[key] = value;
-  console.log("0000000000000000000000000000000");
-  // console.log(JSON.stringify(formData));
-  console.log(`${key} updated to: ${value}`);
-  // console.log("key: ", key);
-  // console.log("value: ", value);
-  console.log("--------------------------------");
 };
+
+const rules = computed(() => ({
+  radioAuthOffic: {
+    required: helpers.withMessage("* กรุณาเลือกข้อมูล *", required),
+  },
+}));
+
+const v$ = useVuelidate(rules, formData);
+
 const isLoading = ref(true);
-// Access route parameters
+
 const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
-console.log("params.id", id);
+
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
-console.log("user id hr:", user)
 
 const fetchOfficerData = async () => {
   try {
     const responseConfer = await api.get(`/conference/${id}`);
-      console.log("conference123", responseConfer);
-      formData.conference = responseConfer.data;
+    formData.conference = responseConfer.data;
 
-      const responseScore = await api.get(`/score/${id}`);
-      console.log("score123", responseScore);
-      formData.score = responseScore.data;
-    const responseoffic = await api.get(
-      `/opinionConf/${id}`
-    );
-    console.log("hr123", responseoffic);
+    const responseScore = await api.get(`/score/${id}`);
+    formData.score = responseScore.data;
+
+    const responseoffic = await api.get(`/opinionConf/${id}`);
     formData.offic = responseoffic.data;
-    console.log("hr", formData.offic);
-    // console.log("hr", formData.score.score_type);
   } catch (error) {
-    console.error("Error fetching Officer data:", error);
+    console.log("Error fetching Officer data:", error);
   } finally {
     isLoading.value = false;
   }
 };
 
 const OfficerConfer = async () => {
-  try {
-    const dataForBackend = {
-      hr_id: formData.offic.hr_id,
-      conf_id: id,
-      //hr
-      c_research_hr: formData.offic.c_research_hr,
-      c_reason: formData.offic.c_reason,
-      hr_doc_submit_date: new Date(formData.offic.hr_doc_submit_date)
-        .toISOString()
-        .slice(0, 19)
-        .replace("T", " "),
-      //research
-      research_id: user.value?.user_id,
-      c_meet_quality: formData.radioAuthOffic,
-      c_quality_reason: formData.description,
-      research_doc_submit_date: formData.docSubmitDate,
-      //form
-      form_status: formData.formStatus,
-    };
-    console.log("post office confer: ", JSON.stringify(dataForBackend));
+  const result = await v$.value.$validate();
 
-    const response = await api.put(
-      `/opinionConf/${id}`,
-      dataForBackend,
-      { headers: { "Content-Type": "application/json" } }
-    );
-    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-    router.push("/officer");
-    console.log("res: ", response);
-    console.log("allpostOfficerConfer: ", message.value);
-    console.log("postOfficerConfer: ", response.data);
-  } catch (error) {
-    console.error(error);
-    message.value = "Error adding page_charge. Please try again.";
+  if (result) {
+    if (confirm("ยืนยันข้อมูลถูกต้อง") == false) {
+      return false;
+    }
+
+    try {
+      const dataForBackend = {
+        hr_id: formData.offic.hr_id,
+        conf_id: id,
+        c_research_hr: formData.offic.c_research_hr,
+        c_reason: formData.offic.c_reason,
+        hr_doc_submit_date: DateTime.fromISO(formData.offic.hr_doc_submit_date).toISODate(),
+        research_id: user.value?.user_id,
+        c_meet_quality: formData.radioAuthOffic,
+        c_quality_reason: formData.description,
+        research_doc_submit_date: formData.docSubmitDate,
+        form_status: formData.formStatus,
+      };
+
+      const response = await api.put(`/opinionConf/${id}`, dataForBackend);
+      router.push("/officer");
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");
+
+    console.log("Validation failed:", v$.value.$errors);
   }
 };
 

@@ -2,11 +2,9 @@
   <div>
     <div class="container my-10 mx-auto">
       <PageChageData :id="id" />
-      <!-- เอกสารหลักฐานที่แนบ -->
       <Mainbox>
         <SectionWrapper>
           <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
-          <!-- 1 -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -15,7 +13,7 @@
                   หรือ Nature
                 </p>
               </div>
-              <div class="">
+              <div>
                 <button
                   @click="getFile(formData.f_pc_proof)"
                   class="btn bg-[#E85F19] text-white mr-5"
@@ -36,7 +34,6 @@
               </div>
             </div>
           </div>
-          <!-- 2 -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -45,7 +42,7 @@
                   หรือ Scopus
                 </p>
               </div>
-              <div class="">
+              <div>
                 <button
                   @click="getFile(formData.f_q_pc_proof)"
                   class="btn bg-[#E85F19] text-white mr-5"
@@ -66,7 +63,6 @@
               </div>
             </div>
           </div>
-          <!-- 3 -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -75,7 +71,7 @@
                   อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์
                 </p>
               </div>
-              <div class="">
+              <div>
                 <button
                   @click="getFile(formData.f_invoice_public)"
                   class="btn bg-[#E85F19] text-white mr-5"
@@ -96,30 +92,43 @@
               </div>
             </div>
           </div>
-          <!-- 4 -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <p class="flex flex-row">
                 หลักฐานการส่งบทความ หนังสือตอบรับบทความ
               </p>
               <div>
-                  <button @click="getFile(formData.f_accepted)" class="btn bg-[#E85F19] text-white mr-5" :disabled="!isValidFile(formData.f_accepted)">
-                    ดูเอกสาร
-                  </button>
-                  <button @click="downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')" class="btn bg-[#4285F4] text-white" :disabled="!isValidFile(formData.f_accepted)">
-                    โหลดเอกสาร
-                  </button>
-                  <p v-if="formData.page_c.accepted == null" class="text-red-500 pt-1"> ** ไม่มีหนังสือตอบรับบทความ **</p>
-                </div>
+                <button
+                  @click="getFile(formData.f_accepted)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                  :disabled="!isValidFile(formData.f_accepted)"
+                >
+                  ดูเอกสาร
+                </button>
+                <button
+                  @click="
+                    downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')
+                  "
+                  class="btn bg-[#4285F4] text-white"
+                  :disabled="!isValidFile(formData.f_accepted)"
+                >
+                  โหลดเอกสาร
+                </button>
+                <p
+                  v-if="formData.page_c.accepted == null"
+                  class="text-red-500 pt-1"
+                >
+                  ** ไม่มีหนังสือตอบรับบทความ **
+                </p>
+              </div>
             </div>
           </div>
-          <!-- 5 -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
                 <p>สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar</p>
               </div>
-              <div class="">
+              <div>
                 <button
                   @click="getFile(formData.f_copy_article)"
                   class="btn bg-[#E85F19] text-white mr-5"
@@ -190,6 +199,19 @@
             class="textarea textarea-bordered w-full"
             @input="handleInput('description', $event.target.value)"
           ></textarea>
+
+          <span
+            v-if="v$.radioAuthOffic.$error"
+            class="text-base font-bold text-red-500 text-left"
+          >
+            {{ v$.radioAuthOffic.$errors[0].$message }}
+          </span>
+          <span
+            v-if="v$.dateAccep.$error"
+            class="text-base font-bold text-red-500 text-left"
+          >
+            {{ v$.dateAccep.$errors[0].$message }}
+          </span>
         </SectionWrapper>
       </Mainbox>
       <div class="flex justify-end">
@@ -202,8 +224,12 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, computed, watch } from "vue";
+import { reactive, onMounted, computed, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import { useVuelidate } from "@vuelidate/core";
+import { required, helpers, requiredIf, maxValue } from "@vuelidate/validators";
+import { DateTime } from "luxon";
+
 import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
 
@@ -213,23 +239,18 @@ import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 import PageChageData from "@/components/form/DataforOffice/PageChage.vue";
 
-// จัดการข้อมูลหลัก
 const formData = reactive({
   file: "",
   offic: [],
   name: [],
   page_c: [],
-  //urlfile
   f_pc_proof: "",
   f_q_pc_proof: "",
   f_invoice_public: "",
   f_accepted: "",
   f_copy_article: "",
-  //วันที่ส่งเอกสาร
-  docSubmitDate: "",
-  //satatus
+  docSubmitDate: DateTime.now().toISODate(),
   statusForm: "ฝ่ายบริหารการเงิน",
-  // ความเห้นเจ้าหน้าที่
   radioAuthOffic: "",
   description: "",
   dateAccep: "",
@@ -245,24 +266,35 @@ watch(() => {
   }
 });
 
-//วันที่ส่งเอกสาร
-const datetime = new Date();
-// Extract year, month, and day
-const year = datetime.getFullYear();
-const month = String(datetime.getMonth() + 1).padStart(2, "0"); // Months are 0-based
-const day = String(datetime.getDate()).padStart(2, "0");
-// Combine in YYYY-MM-DD format
-formData.docSubmitDate = `${year}-${month}-${day}`;
-console.log(formData.docSubmitDate);
 const handleInput = (key, value) => {
   formData[key] = value;
-  console.log("0000000000000000000000000000000");
-  // console.log(JSON.stringify(formData));
-  console.log(`${key} updated to: ${value}`);
-  // console.log("key: ", key);
-  // console.log("value: ", value);
-  console.log("--------------------------------");
 };
+
+const today = DateTime.now().toISODate();
+
+const maxDateToday = helpers.withMessage(
+  "* วันที่ต้องไม่เกินวันนี้ *",
+  (value) => {
+    if (!value) return false; // ถ้ายังไม่ได้กรอก ให้ error
+    return DateTime.fromISO(value) <= DateTime.fromISO(today);
+  }
+);
+
+const rules = computed(() => ({
+  radioAuthOffic: {
+    required: helpers.withMessage("* กรุณาเลือกข้อมูล *", required),
+  },
+  dateAccep: {
+    required: helpers.withMessage(
+      "* กรุณากรอกวันที่อนุมัติ *",
+      requiredIf(() => formData.radioAuthOffic === "อนุมัติ")
+    ),
+    maxDateToday,
+  },
+}));
+
+const v$ = useVuelidate(rules, formData);
+
 const getDataPc = async () => {
   if (id == null || id == "") {
     alert("โปรดเข้าสู่ระบบใหม่อีกครั้ง");
@@ -271,25 +303,23 @@ const getDataPc = async () => {
     const response = await api.get(`/form/Pc/${id}`);
     formData.name = response.data.name;
     formData.page_c = response.data.page_c;
-    console.log("formData.page_c",response.data)
+
     const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
-    // formData.file = responsefile.data;
     formData.f_pc_proof = responsefile.data.file_pc_proof;
     formData.f_q_pc_proof = responsefile.data.file_q_pc_proof;
     formData.f_invoice_public = responsefile.data.file_invoice_public;
     formData.f_accepted = responsefile.data.file_accepted;
     formData.f_copy_article = responsefile.data.file_copy_article;
-    console.log("Success", response);
 
     try {
-        const responseoffic = await api.get(`/opinionPC/${id}`);
-        formData.offic = responseoffic.data;
+      const responseoffic = await api.get(`/opinionPC/${id}`);
+      formData.offic = responseoffic.data;
     } catch (error) {
-        if (error.response && error.response.status === 404) {
-            formData.offic = null;
-        } else {
-            throw error;
-        }
+      if (error.response && error.response.status === 404) {
+        formData.offic = null;
+      } else {
+        throw error;
+      }
     }
   } catch (error) {
     console.log("Error", error);
@@ -299,10 +329,9 @@ const getDataPc = async () => {
 const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
-console.log("params.id", id);
+
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
-console.log("user id hr:", user);
 
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
 const getFile = async (fileUrl) => {
@@ -326,83 +355,69 @@ const downloadFile = async (fileUrl, fileName) => {
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
   } catch (error) {
-    console.error("Error downloading file:", error);
+    console.log("Error downloading file:", error);
   }
 };
 
 const OfficerPC = async () => {
-  try {
-    if (!formData.offic) {
-      const dataForBackend = {
-        research_id: user.value?.user_id,
-        pageC_id: id,
-        p_research_admin: formData.radioAuthOffic,
-        p_reason: formData.description,
-        p_date_accepted_approve: formData.dateAccep || null,
-        research_doc_submit_date: formData.docSubmitDate,
-        form_status: formData.statusForm,
-      };
-      console.log("postPC: ", JSON.stringify(dataForBackend));
+  console.log("date", formData.dateAccep)
 
-      const response = await api.post("/opinionPC", dataForBackend, {
-        headers: {
-          "Content-Type": "application/json", // Required for file uploads
-        },
-      });
-      alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      router.push("/officer");
-      console.log("res: ", response);
-      console.log("postOfficerPC: ", response.data);
+  const result = await v$.value.$validate();
+
+  if (result) {
+    if (confirm("ยืนยันข้อมูลถูกต้อง") == false) {
+      return false;
     }
-    else{
-      const dataForBackend = {
-      research_id: user.value?.user_id,
-      associate_id: formData.offic.associate_id,
-      dean_id: formData.offic.dean_id,
-      pageC_id: id,
-      //research
-      p_research_admin: formData.radioAuthOffic,
-      p_reason: formData.description,
-      p_date_accepted_approve:formData.dateAccep,
-      research_doc_submit_date:formData.docSubmitDate,
-      //long ka na bo dee
-      p_deputy_dean: formData.offic.p_deputy_dean,
-      associate_doc_submit_date: (() => {
-        const researchDate = new Date(formData.offic.associate_doc_submit_date);
-        researchDate.setDate(researchDate.getDate() + 1);
-        return researchDate.toISOString().slice(0, 19).replace("T", " ");
-      })(),
-      //ka na bo dee
-      p_acknowledge: formData.offic.p_acknowledge,
-      p_approve_result: formData.offic.p_approve_result,
-      p_reason_dean_appeove: formData.offic.p_reason_dean_appeove,
-      dean_doc_submit_date: (() => {
-        const researchDate = new Date(formData.offic.dean_doc_submit_date);
-        researchDate.setDate(researchDate.getDate() + 1);
-        return researchDate.toISOString().slice(0, 19).replace("T", " ");
-      })(),
-      //form
-      form_status: formData.formStatus,
-    };
-    console.log("postPC: ", JSON.stringify(dataForBackend));
 
-    const response = await api.put(
-      `/opinionPC/${id}`,
-      dataForBackend,
-      {
-        headers: {
-          "Content-Type": "application/json", // Required for file uploads
-        },
+    try {
+      if (!formData.offic) {
+        const dataForBackend = {
+          research_id: user.value?.user_id,
+          pageC_id: id,
+          p_research_admin: formData.radioAuthOffic,
+          p_reason: formData.description,
+          p_date_accepted_approve: formData.dateAccep || null,
+          research_doc_submit_date: formData.docSubmitDate,
+          form_status: formData.statusForm,
+        };
+
+        const response = await api.post("/opinionPC", dataForBackend);
+        alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+        router.push("/officer");
+      } else {
+        const dataForBackend = {
+          research_id: user.value?.user_id,
+          associate_id: formData.offic.associate_id,
+          dean_id: formData.offic.dean_id,
+          pageC_id: id,
+          p_research_admin: formData.radioAuthOffic,
+          p_reason: formData.description,
+          p_date_accepted_approve: formData.dateAccep,
+          research_doc_submit_date: formData.docSubmitDate,
+          p_deputy_dean: formData.offic.p_deputy_dean,
+          associate_doc_submit_date: DateTime.fromISO(
+            formData.offic.associate_doc_submit_date
+          ).toISODate(),
+          p_acknowledge: formData.offic.p_acknowledge,
+          p_approve_result: formData.offic.p_approve_result,
+          p_reason_dean_appeove: formData.offic.p_reason_dean_appeove,
+          dean_doc_submit_date: DateTime.fromISO(
+            formData.offic.dean_doc_submit_date
+          ).toISODate(),
+          form_status: formData.formStatus,
+        };
+
+        const response = await api.put(`/opinionPC/${id}`);
+        alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+        router.push("/officer");
       }
-    );
-    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-    router.push("/officer");
-    console.log("res: ", response);
-    console.log("allpostOfficerPC: ", message.value);
-    console.log("postOfficerPC: ", response.data);
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.error(error);
+  } else {
+    alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");
+
+    console.log("Validation failed:", v$.value.$errors);
   }
 };
 

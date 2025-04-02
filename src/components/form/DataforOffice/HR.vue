@@ -46,7 +46,7 @@
                 <button
                   @click="getFile(formData.f_published_journals)"
                   class="btn bg-[#E85F19] text-white mr-5"
-                  :disabled="!isValidFile(formData.f_published_journals)"
+                  disabled="!isValidFile(formData.f_published_journals)"
                 >
                   ดูเอกสาร
                 </button>
@@ -58,7 +58,7 @@
                     )
                   "
                   class="btn bg-[#4285F4] text-white"
-                  :disabled="!isValidFile(formData.f_published_journals)"
+                  disabled="!isValidFile(formData.f_published_journals)"
                 >
                   โหลดเอกสาร
                 </button>
@@ -78,7 +78,7 @@
                 <button
                   @click="getFile(formData.f_q_proof)"
                   class="btn bg-[#E85F19] text-white mr-5"
-                  :disabled="!isValidFile(formData.f_q_proof)"
+                  disabled="!isValidFile(formData.f_q_proof)"
                 >
                   ดูเอกสาร
                 </button>
@@ -90,7 +90,7 @@
                     )
                   "
                   class="btn bg-[#4285F4] text-white"
-                  :disabled="!isValidFile(formData.f_q_proof)"
+                  disabled="!isValidFile(formData.f_q_proof)"
                 >
                   โหลดเอกสาร
                 </button>
@@ -319,20 +319,18 @@ const downloadFile = async (fileUrl, fileName) => {
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
   } catch (error) {
-    console.error("Error downloading file:", error);
+    console.log("Error downloading file:", error);
   }
 };
 const isLoading = ref(true);
 // Access route parameters
 const route = useRoute();
 const id = route.params.id;
-console.log("params.id", id);
+
 const fetchOfficerData = async () => {
   try {
     const responseoffic = await api.get(`/opinionConf/${id}`);
     formData.offic = responseoffic.data;
-    console.log("data office", formData.offic)
-    console.log("data office", formData.offic.c_reason)
 
     const responsefile = await api.get(`/getFileConf?conf_id=${id}`);
     formData.date_journals = responsefile.data.date_published_journals,
@@ -345,7 +343,7 @@ const fetchOfficerData = async () => {
     formData.f_fx_rate_document = responsefile.data.file_fx_rate_document;
     formData.f_conf_proof = responsefile.data.file_conf_proof;
   } catch (error) {
-    console.error("Error fetching Officer data:", error);
+    console.log("Error fetching Officer data:", error);
   } finally {
     isLoading.value = false;
   }
