@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="container my-10 mx-auto">
-      <p class="text-xl font-bold mb-5">
-        ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
-      </p>
+      <p class="text-xl font-bold mb-5"> ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ </p>
       <Mainbox>
         <SectionWrapper>
           <TextInputLabelLeft
@@ -38,32 +36,21 @@
               @input="handleInput('textOther2', $event)"
             />
           </div>
-          <span
-            v-if="v$.textOther1.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.textOther1.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.textOther1.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.textOther2.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.textOther2.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.textOther2.$errors[0].$message }}
           </span>
 
           <p class="text-red-500 text-sm">
-            สามารถตรวจสอบรายชื่อ List ของคณะได้ที่เว็บไซต์คณะที่ Share
-            online-การวิจัย และ
-            <a href="https://erp.it.kmitl.ac.th/journal_conf_list"
-              >https://erp.it.kmitl.ac.th/journal_conf_list</a
-            >
+            สามารถตรวจสอบรายชื่อ List ของคณะได้ที่เว็บไซต์คณะที่ Share online-การวิจัย และ
+            <a href="https://erp.it.kmitl.ac.th/journal_conf_list">https://erp.it.kmitl.ac.th/journal_conf_list</a>
           </p>
         </SectionWrapper>
       </Mainbox>
       <Mainbox>
-        <p class="leading-9 text-lg font-bold">
-          1.  รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์
-        </p>
+        <p class="leading-9 text-lg font-bold"> 1.  รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์ </p>
 
         <SectionWrapper>
           <TextInputLabelLeft
@@ -72,10 +59,7 @@
             v-model="formData.nameJournal"
             @input="handleInput('nameJournal', $event)"
           />
-          <span
-            v-if="v$.nameJournal.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.nameJournal.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.nameJournal.$errors[0].$message }}
           </span>
 
@@ -112,22 +96,13 @@
               @input="handleInput('scoreISI', $event)"
             />
           </div>
-          <span
-            v-if="v$.yearISI.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.yearISI.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.yearISI.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.quartileISI.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.quartileISI.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.quartileISI.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.scoreISI.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.scoreISI.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.scoreISI.$errors[0].$message }}
           </span>
 
@@ -163,22 +138,13 @@
               @input="handleInput('scoreSJR', $event)"
             />
           </div>
-          <span
-            v-if="v$.yearSJR.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.yearSJR.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.yearSJR.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.quartileSJR.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.quartileSJR.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.quartileSJR.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.scoreSJR.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.scoreSJR.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.scoreSJR.$errors[0].$message }}
           </span>
 
@@ -214,24 +180,16 @@
               @input="handleInput('scoreScopus', $event)"
             />
           </div>
-          <span
-            v-if="v$.yearScopus.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.yearScopus.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.yearScopus.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.quartileScopus.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.quartileScopus.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.quartileScopus.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.scoreScopus.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.scoreScopus.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.scoreScopus.$errors[0].$message }}
           </span>
+
           <div class="flex flex-row">
             <CheckInput
               label="Nature"
@@ -240,18 +198,13 @@
               @input="handleCheckbox('nature', 'nature')"
             />
           </div>
-          <span
-            v-if="v$.check.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.check.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.check.$errors[0].$message }}
           </span>
 
           <label class="form-control">
             <div class="flex flex-row">
-              <span class="flex mr-2 items-center">
-                วงเงินตามเกณฑ์การให้การสนับสนุนไม่เกิน
-              </span>
+              <span class="flex mr-2 items-center"> วงเงินตามเกณฑ์การให้การสนับสนุนไม่เกิน </span>
               <select
                 class="select select-bordered w-3/12"
                 v-model="formData.moneyOp"
@@ -266,19 +219,14 @@
               </select>
             </div>
           </label>
-          <span
-            v-if="v$.moneyOp.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.moneyOp.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.moneyOp.$errors[0].$message }}
           </span>
         </SectionWrapper>
       </Mainbox>
 
       <Mainbox>
-        <p class="leading-9 text-lg font-bold">
-          2. รายละเอียดผลงานวิจัยที่ส่งเสนอพิจารณา / ได้รับการตอบรับให้ตีพิมพ์
-        </p>
+        <p class="leading-9 text-lg font-bold">2. รายละเอียดผลงานวิจัยที่ส่งเสนอพิจารณา / ได้รับการตอบรับให้ตีพิมพ์</p>
         <SectionWrapper>
           <TextInputLabelLeft
             label="ชื่อบทความ"
@@ -286,12 +234,10 @@
             v-model="formData.nameReach"
             @input="handleInput('nameReach', $event)"
           />
-          <span
-            v-if="v$.nameReach.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.nameReach.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.nameReach.$errors[0].$message }}
           </span>
+
           <p>กำหนดการที่คาดว่าจะได้รับการลงตีพิมพ์ในวารสาร</p>
           <div class="flex flex-row mt-2 justify-between">
             <TextInputLabelLeft
@@ -354,34 +300,19 @@
             />
           </div>
 
-          <span
-            v-if="v$.schedule.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.schedule.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.schedule.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.issue.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.issue.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.issue.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.months.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.months.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.months.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.year.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.year.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.year.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.ISSN.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.ISSN.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.ISSN.$errors[0].$message }}
           </span>
 
@@ -412,22 +343,13 @@
               @input="handleInput('latePay', $event)"
             />
           </div>
-          <span
-            v-if="v$.submitReach.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.submitReach.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.submitReach.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.announce.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.announce.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.announce.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.latePay.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.latePay.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.latePay.$errors[0].$message }}
           </span>
 
@@ -487,16 +409,10 @@
               </div>
             </div>
 
-            <span
-              v-if="v$.radioResearch.$error"
-              class="text-base font-bold text-red-500 text-left"
-            >
+            <span v-if="v$.radioResearch.$error" class="text-base font-bold text-red-500 text-left">
               {{ v$.radioResearch.$errors[0].$message }}
             </span>
-            <span
-              v-if="v$.otherInput.$error"
-              class="text-base font-bold text-red-500 text-left"
-            >
+            <span v-if="v$.otherInput.$error" class="text-base font-bold text-red-500 text-left">
               {{ v$.otherInput.$errors[0].$message }}
             </span>
 
@@ -506,10 +422,7 @@
               v-model="formData.source"
               @input="handleInput('source', $event)"
             />
-            <span
-              v-if="v$.source.$error"
-              class="text-base font-bold text-red-500 text-left"
-            >
+            <span v-if="v$.source.$error" class="text-base font-bold text-red-500 text-left">
               {{ v$.source.$errors[0].$message }}
             </span>
 
@@ -529,16 +442,10 @@
                 @input="handleInput('inYears', $event)"
               />
             </div>
-            <span
-              v-if="v$.credit.$error"
-              class="text-base font-bold text-red-500 text-left"
-            >
+            <span v-if="v$.credit.$error" class="text-base font-bold text-red-500 text-left">
               {{ v$.credit.$errors[0].$message }}
             </span>
-            <span
-              v-if="v$.inYears.$error"
-              class="text-base font-bold text-red-500 text-left"
-            >
+            <span v-if="v$.inYears.$error" class="text-base font-bold text-red-500 text-left">
               {{ v$.inYears.$errors[0].$message }}
             </span>
           </SectionWrapper>
@@ -562,19 +469,14 @@
             v-model="formData.radioAuth"
             @change="handleInput('radioAuth', $event)"
           />
-          <span
-            v-if="v$.radioAuth.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.radioAuth.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.radioAuth.$errors[0].$message }}
           </span>
         </SectionWrapper>
       </Mainbox>
 
       <Mainbox>
-        <p class="leading-9 text-lg font-bold">
-          4. ขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge)
-        </p>
+        <p class="leading-9 text-lg font-bold">4. ขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge)</p>
         <SectionWrapper>
           <TextInputLabelLeft
             label="จำนวนเงิน"
@@ -583,14 +485,12 @@
             v-model="formData.moneyPG"
             @input="handleInput('moneyPG', $event)"
           />
-          <span
-            v-if="v$.moneyPG.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.moneyPG.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.moneyPG.$errors[0].$message }}
           </span>
         </SectionWrapper>
       </Mainbox>
+
       <Mainbox>
         <SectionWrapper>
           <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
@@ -600,66 +500,53 @@
             type="file"
             @change="handleFile($event, 'file1')"
           />
-          <span
-            v-if="v$.file1.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.file1.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.file1.$errors[0].$message }}
           </span>
+
           <FileInput
             label="หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus"
             name="Second"
             type="file"
             @change="handleFile($event, 'file2')"
           />
-          <span
-            v-if="v$.file2.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.file2.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.file2.$errors[0].$message }}
           </span>
+
           <FileInput
             label="ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ / อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์"
             name="Third"
             type="file"
             @change="handleFile($event, 'file3')"
           />
-          <span
-            v-if="v$.file3.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.file3.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.file3.$errors[0].$message }}
           </span>
+
           <FileInput
             label="หลักฐานการส่งบทความ หนังสือตอบรับบทความ"
             name="Fourth"
             type="file"
             @change="handleFile($event, 'file4')"
           />
-          <span
-            v-if="v$.file4.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.file4.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.file4.$errors[0].$message }}
           </span>
+
           <FileInput
             label="สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar"
             name="Fifth"
             type="file"
             @change="handleFile($event, 'file5')"
           />
-          <span
-            v-if="v$.file5.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.file5.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.file5.$errors[0].$message }}
           </span>
         </SectionWrapper>
       </Mainbox>
       <div class="flex justify-end">
-        <button @click="NewPC" class="btn btn-success text-white">
-          บันทึกข้อมูล
-        </button>
+        <button @click="NewPC" class="btn btn-success text-white">บันทึกข้อมูล</button>
       </div>
     </div>
   </div>
@@ -674,7 +561,6 @@ import { DateTime } from "luxon";
 
 import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
-
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
@@ -691,20 +577,18 @@ const formData = reactive({
   position: null,
   textOther1: null,
   textOther2: null,
-  // PageDetail
   nameJournal: null,
   check: [],
   yearISI: null,
   quartileISI: null,
-  scoreISI: null, //isi
+  scoreISI: null,
   yearSJR: null,
   quartileSJR: null,
-  scoreSJR: null, //sjr
+  scoreSJR: null,
   yearScopus: null,
   quartileScopus: null,
-  scoreScopus: null, //scopus
+  scoreScopus: null,
   moneyOp: null,
-  //ResearchDetail
   nameReach: null,
   schedule: null,
   issue: null,
@@ -714,18 +598,14 @@ const formData = reactive({
   submitReach: null,
   announce: null,
   latePay: null,
-
   reachOther: null,
   radioResearch: null,
   otherInput: null,
   source: null,
   credit: null,
   inYears: null,
-  //AuthForm
   radioAuth: null,
-  //MoneyPG
   moneyPG: null,
-  //FileForm
   file1: null,
   file2: null,
   file3: null,
@@ -739,20 +619,18 @@ const inputTypes = {
   position: "string",
   textOther1: "number",
   textOther2: "date",
-  // PageDetail
   nameJournal: "string",
   check: "array",
   yearISI: "number",
   quartileISI: "number",
-  scoreISI: "number", //isi
+  scoreISI: "number",
   yearSJR: "number",
   quartileSJR: "number",
-  scoreSJR: "number", //sjr
+  scoreSJR: "number",
   yearScopus: "number",
   quartileScopus: "number",
-  scoreScopus: "number", //scopus
+  scoreScopus: "number",
   moneyOp: "number",
-  //ResearchDetail
   nameReach: "string",
   schedule: "number",
   issue: "number",
@@ -762,18 +640,14 @@ const inputTypes = {
   submitReach: "date",
   announce: "date",
   latePay: "date",
-
   reachOther: "string",
   radioResearch: "string",
   otherInput: "string",
   source: "string",
   credit: "number",
   inYears: "number",
-  //AuthForm
   radioAuth: "string",
-  //MoneyPG
   moneyPG: "number",
-  //FileForm
   file1: "string",
   file2: "string",
   file3: "string",
@@ -784,10 +658,6 @@ const inputTypes = {
 // ตรวจสอบปีและวันที่นี้
 const currentYear = computed(() => DateTime.now().year);
 const currentDate = computed(() => DateTime.now().toISODate());
-
-// ตรวจเงื่อนไข 2 อัน
-const isRequiredForWos = () =>
-  formData.timeLeave.includes("2") && formData.venue.includes("ณ ต่างประเทศ");
 
 // ตรวจว่าวันที่ไม่อยู่หลัง value <= x
 const beforeDate = (value, date) => {
@@ -802,23 +672,6 @@ const afterDate = (value, date) => {
     DateTime.fromISO(value).toISODate() >= DateTime.fromISO(date).toISODate()
   );
 };
-
-// ตรวจว่าวันที่ไม่อยู่หลัง value < x
-const beforeDatenoteqal = (value, date) => {
-  return (
-    DateTime.fromISO(value).toISODate() < DateTime.fromISO(date).toISODate()
-  );
-};
-
-//ตรวจว่าวันที่ไม่เกิดก่อน value > x
-const afterDatenoteqal = (value, date) => {
-  return (
-    DateTime.fromISO(value).toISODate() > DateTime.fromISO(date).toISODate()
-  );
-};
-
-// ฟังก์ชันตรวจสอบว่าเป็นวันที่ในอดีตหรือไม่
-const pastDate = (value) => !value || value <= currentDate.value;
 
 //validate rule
 const rules = computed(() => ({
@@ -842,105 +695,51 @@ const rules = computed(() => ({
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
     maxValue: helpers.withMessage("* ปีไม่สามารถมากกว่าปีปัจจุบันได้ *", maxValue(currentYear.value)),
     minValue: helpers.withMessage("* ปีไม่สามารถย้อนหลังเกิน 6 ปี *", minValue(currentYear.value-6)),
-    required: helpers.withMessage(
-      "* กรุณากรอกข้อมูลปีที่ได้รับการจัดลำดับ Quartile *",
-      requiredIf(() => formData.check.includes("ISI"))
-    ),
+    required: helpers.withMessage("* กรุณากรอกข้อมูลปีที่ได้รับการจัดลำดับ Quartile *", requiredIf(() => formData.check.includes("ISI"))),
   },
   quartileISI: {
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    between: helpers.withMessage(
-      "* Quartile สามารถเลือกได้เพียง 1-4 *",
-      between(1, 4)
-    ),
-    required: helpers.withMessage(
-      "* กรุณากรอกข้อมูลลำดับ Quartile *",
-      requiredIf(() => formData.check.includes("ISI"))
-    ),
+    between: helpers.withMessage("* Quartile สามารถเลือกได้เพียง 1-4 *", between(1, 4)),
+    required: helpers.withMessage("* กรุณากรอกข้อมูลลำดับ Quartile *", requiredIf(() => formData.check.includes("ISI"))),
   },
   scoreISI: {
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    minValue: helpers.withMessage(
-      "* กรุณาตรวจสอบคะแนน คะแนนไม่สามารถต่ำกว่า 0 ได้ *",
-      minValue(0.1)
-    ),
-    required: helpers.withMessage(
-      "* กรุณากรอกข้อมูลคะแนน Impact Factor *",
-      requiredIf(() => formData.check.includes("ISI"))
-    ),
+    minValue: helpers.withMessage("* กรุณาตรวจสอบคะแนน คะแนนไม่สามารถต่ำกว่า 0 ได้ *", minValue(0.1)),
+    required: helpers.withMessage("* กรุณากรอกข้อมูลคะแนน Impact Factor *", requiredIf(() => formData.check.includes("ISI"))),
   },
   yearSJR: {
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
     minValue: helpers.withMessage("* ปีไม่สามารถย้อนหลังเกิน 6 ปี *", minValue(currentYear.value-6)),
-    maxValue: helpers.withMessage(
-      "* ปีไม่สามารถมากกว่าปีปัจจุบันได้ *",
-      maxValue(currentYear.value)
-    ),
-    required: helpers.withMessage(
-      "* กรุณากรอกข้อมูลปีที่ได้รับการจัดลำดับ Quartile *",
-      requiredIf(() => formData.check.includes("SJR"))
-    ),
+    maxValue: helpers.withMessage("* ปีไม่สามารถมากกว่าปีปัจจุบันได้ *", maxValue(currentYear.value)),
+    required: helpers.withMessage("* กรุณากรอกข้อมูลปีที่ได้รับการจัดลำดับ Quartile *", requiredIf(() => formData.check.includes("SJR"))),
   },
   quartileSJR: {
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    between: helpers.withMessage(
-      "* Quartile สามารถเบือกได้เพียง 1-4 *",
-      between(1, 4)
-    ),
-    required: helpers.withMessage(
-      "* กรุณากรอกข้อมูลลำดับ Quartile *",
-      requiredIf(() => formData.check.includes("SJR"))
-    ),
+    between: helpers.withMessage("* Quartile สามารถเบือกได้เพียง 1-4 *", between(1, 4)),
+    required: helpers.withMessage("* กรุณากรอกข้อมูลลำดับ Quartile *", requiredIf(() => formData.check.includes("SJR"))),
   },
   scoreSJR: {
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    minValue: helpers.withMessage(
-      "* กรุณาตรวจสอบคะแนน คะแนนไม่สามารถต่ำกว่า 0 ได้ *",
-      minValue(0.1)
-    ),
-    required: helpers.withMessage(
-      "* กรุณากรอกข้อมูลคะแนน SJR Score *",
-      requiredIf(() => formData.check.includes("SJR"))
-    ),
+    minValue: helpers.withMessage("* กรุณาตรวจสอบคะแนน คะแนนไม่สามารถต่ำกว่า 0 ได้ *", minValue(0.1)),
+    required: helpers.withMessage("* กรุณากรอกข้อมูลคะแนน SJR Score *", requiredIf(() => formData.check.includes("SJR"))),
   },
   yearScopus: {
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    maxValue: helpers.withMessage(
-      "* ปีไม่สามารถมากกว่าปีปัจจุบันได้ *",
-      maxValue(currentYear.value)
-    ),
-    required: helpers.withMessage(
-      "* กรุณากรอกข้อมูลปีที่ได้รับการจัดลำดับ Quartile *",
-      requiredIf(() => formData.check.includes("Scopus"))
-    ),
+    maxValue: helpers.withMessage("* ปีไม่สามารถมากกว่าปีปัจจุบันได้ *", maxValue(currentYear.value)),
+    required: helpers.withMessage("* กรุณากรอกข้อมูลปีที่ได้รับการจัดลำดับ Quartile *", requiredIf(() => formData.check.includes("Scopus"))),
   },
   quartileScopus: {
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    between: helpers.withMessage(
-      "* Quartile สามารถเบือกได้เพียง 1-4 *",
-      between(1, 4)
-    ),
-    required: helpers.withMessage(
-      "* กรุณากรอกข้อมูลลำดับ Quartile *",
-      requiredIf(() => formData.check.includes("Scopus"))
-    ),
+    between: helpers.withMessage("* Quartile สามารถเบือกได้เพียง 1-4 *", between(1, 4)),
+    required: helpers.withMessage("* กรุณากรอกข้อมูลลำดับ Quartile *", requiredIf(() => formData.check.includes("Scopus"))),
   },
   scoreScopus: {
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    minValue: helpers.withMessage(
-      "* กรุณาตรวจสอบคะแนน คะแนนไม่สามารถต่ำกว่า 0 ได้ *",
-      minValue(0.1)
-    ),
-    required: helpers.withMessage(
-      "* กรุณากรอกข้อมูลคะแนน Cite Score *",
-      requiredIf(() => formData.check.includes("Scopus"))
-    ),
+    minValue: helpers.withMessage("* กรุณาตรวจสอบคะแนน คะแนนไม่สามารถต่ำกว่า 0 ได้ *", minValue(0.1)),
+    required: helpers.withMessage("* กรุณากรอกข้อมูลคะแนน Cite Score *", requiredIf(() => formData.check.includes("Scopus"))),
   },
   moneyOp: {
-    required: helpers.withMessage(
-      "* กรุณาเลือกวงเงินตามเกณฑ์การให้การสนับสนุน *",
-      required
-    ),
+    required: helpers.withMessage("* กรุณาเลือกวงเงินตามเกณฑ์การให้การสนับสนุน *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
   },
   nameReach: {
@@ -949,21 +748,12 @@ const rules = computed(() => ({
   schedule: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลปีที่ (Vol.) *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    minValue: helpers.withMessage(
-      "* ปีไม่สามารถน้อยกว่าปีปัจจุบันได้ *",
-      minValue(currentYear.value)
-    ),
+    minValue: helpers.withMessage("* ปีไม่สามารถน้อยกว่าปีปัจจุบันได้ *", minValue(currentYear.value)),
   },
   issue: {
-    required: helpers.withMessage(
-      "* กรุณากรอกข้อมูลฉบับที่ (Issue) *",
-      required
-    ),
+    required: helpers.withMessage("* กรุณากรอกข้อมูลฉบับที่ (Issue) *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    minValue: helpers.withMessage(
-      "* ฉบับที่ไม่สามารถน้อยกว่า 1 *",
-      minValue(1)
-    ),
+    minValue: helpers.withMessage("* ฉบับที่ไม่สามารถน้อยกว่า 1 *", minValue(1)),
   },
   months: {
     required: helpers.withMessage("* กรุณาเลือกข้อมูลเดือน *", required),
@@ -971,86 +761,47 @@ const rules = computed(() => ({
   year: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลปี ค.ศ. *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    minValue: helpers.withMessage(
-      "* ปีไม่สามารถน้อยกว่าปีปัจจุบันได้ *",
-      minValue(currentYear.value)
-    ),
+    minValue: helpers.withMessage("* ปีไม่สามารถน้อยกว่าปีปัจจุบันได้ *", minValue(currentYear.value)),
   },
   ISSN: {
-    required: helpers.withMessage(
-      "* กรุณากรอกข้อมูลเลขที่ ISSN/ISBN (อื่นๆ) *",
-      required
-    ),
+    required: helpers.withMessage("* กรุณากรอกข้อมูลเลขที่ ISSN/ISBN (อื่นๆ) *", required),
   },
   submitReach: {
-    required: helpers.withMessage(
-      "* กรุณากรอกวันที่ส่งบทความไปยังสำนักพิมพ์เจ้าของวารสาร *",
-      required
-    ),
+    required: helpers.withMessage("* กรุณากรอกวันที่ส่งบทความไปยังสำนักพิมพ์เจ้าของวารสาร *", required),
     afterDate: helpers.withMessage("วันที่ไม่สามารถเกิดก่อนวันที่ส่งงานวิจัยได้", (value) => afterDate(value, formData.submitReach))
   },
   announce: {
-    required: helpers.withMessage(
-      "* กรุณากรอกวันประกาศผลการพิจารณา *",
-      required
-    ),
+    required: helpers.withMessage("* กรุณากรอกวันประกาศผลการพิจารณา *", required),
     afterDate: helpers.withMessage("วันที่ไม่สามารถเกิดก่อนวันที่ส่งงานวิจัยได้", (value) => afterDate(value, formData.submitReach))
   },
   latePay: {
-    required: helpers.withMessage(
-      "* กรุณากรอกวันสุดท้ายของการจ่ายค่าตีพิมพ์ *",
-      required
-    ),
+    required: helpers.withMessage("* กรุณากรอกวันสุดท้ายของการจ่ายค่าตีพิมพ์ *", required),
     afterDate: helpers.withMessage("วันที่ไม่สามารถเกิดก่อนวันที่ส่งงานวิจัย และวันประกาศผลได้", (value) => afterDate(value, DateTime.min(
-            DateTime.fromISO(formData.announce),
-            DateTime.fromISO(currentDate.value)
-          )))
-    ,
+            DateTime.fromISO(formData.announce), DateTime.fromISO(currentDate.value))))
   },
   radioResearch: {
-    required: helpers.withMessage(
-      "* กรุณาเลือกประเภทโครงการวิจัย*",
-      requiredIf(() => formData.reachOther && formData.reachOther.trim() !== "")
-    ),
+    required: helpers.withMessage("* กรุณาเลือกประเภทโครงการวิจัย*", requiredIf(() => formData.reachOther && formData.reachOther.trim() !== "")),
   },
   otherInput: {
-    required: helpers.withMessage(
-      "* กรุณากรอกประเภทงานวิจัย *",
-      requiredIf(() => formData.radioResearch === "อื่นๆ")
-    ),
+    required: helpers.withMessage("* กรุณากรอกประเภทงานวิจัย *", requiredIf(() => formData.radioResearch === "อื่นๆ")),
   },
   source: {
-    required: helpers.withMessage(
-      "* กรุณากรอกชื่อแหล่งทุนวิจัย *",
-      requiredIf(() => formData.reachOther && formData.reachOther.trim() !== "")
-    ),
+    required: helpers.withMessage("* กรุณากรอกชื่อแหล่งทุนวิจัย *", requiredIf(() => formData.reachOther && formData.reachOther.trim() !== "")),
   },
   credit: {
-    required: helpers.withMessage(
-      "* กรุณากรอกวงเงินงบประมาณการวิจัย *",
-      requiredIf(() => formData.reachOther && formData.reachOther.trim() !== "")
-    ),
+    required: helpers.withMessage("* กรุณากรอกวงเงินงบประมาณการวิจัย *", requiredIf(() => formData.reachOther && formData.reachOther.trim() !== "")),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
   },
   inYears: {
-    required: helpers.withMessage(
-      "* กรุณากรอกปี *",
-      requiredIf(() => formData.reachOther && formData.reachOther.trim() !== "")
-    ),
+    required: helpers.withMessage("* กรุณากรอกปี *", requiredIf(() => formData.reachOther && formData.reachOther.trim() !== "")),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    maxValue: helpers.withMessage(
-      "* ปีไม่สามารถมากกว่าปีปัจจุบันได้ *",
-      maxValue(currentYear.value)
-    ),
+    maxValue: helpers.withMessage("* ปีไม่สามารถมากกว่าปีปัจจุบันได้ *", maxValue(currentYear.value)),
   },
   radioAuth: {
     required: helpers.withMessage("* กรุณากรอกผู้ขอรับการสนับสนุน *", required),
   },
   moneyPG: {
-    required: helpers.withMessage(
-      "* กรุณากรอกขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge) *",
-      required
-    ),
+    required: helpers.withMessage("* กรุณากรอกขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge) *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
   },
 
@@ -1189,7 +940,6 @@ const NewPC = async () => {
         annual: formData.inYears,
         presenter_type: formData.radioAuth,
         request_support: formData.moneyPG,
-
         pc_proof: formData.file1,
         q_pc_proof: formData.file2,
         invoice_public: formData.file3,
@@ -1203,7 +953,6 @@ const NewPC = async () => {
           "Content-Type": "multipart/form-data", // Required for file uploads
         },
       });
-      console.log(response)
       
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
       router.push("/allstatus");

@@ -395,19 +395,12 @@ import FileInput from "@/components/Input/FileInput.vue";
 const router = useRouter();
 
 const formData = reactive({
-  //project
   projectTH: "",
   projectENG: "",
-
-  //Research Cluster
   resCluster: [],
   resClusterOther: "",
-
-  //Research Standards
   resStandards: [],
   resStandardsTrade: "",
-
-  // Professor
   userID: "",
   positionTH: "",
   nameTH: "",
@@ -419,12 +412,9 @@ const formData = reactive({
   periodYear: "",
   periodStart: "",
   periodEnd: "",
-
-  //FileForm
   file: null,
 });
 
-//Validate Section
 const isThai = helpers.withMessage(
   "* กรุณากรอกข้อมูลเป็นภาษาไทย สามารถมีตัวเลขและอักขระพิเศษได้ *",
   (value) =>
@@ -447,12 +437,10 @@ const validDate = helpers.withMessage(
 //validate rule
 const rules = {
   projectTH: {
-    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
-    isThai,
+    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required), isThai,
   },
   projectENG: {
-    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
-    isEng,
+    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required), isEng,
   },
   resCluster: {
     required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
@@ -464,26 +452,20 @@ const rules = {
     required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
   },
   resStandardsTrade: {
-    required: requiredIf(() =>
-      formData.resStandards.includes("มีการใช้พันธุ์พืช")
-    ),
+    required: requiredIf(() => formData.resStandards.includes("มีการใช้พันธุ์พืช")),
   },
   Hindex: {
     required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    minValue: helpers.withMessage(
-      "* กรุณาตรวจสอบคะแนน คะแนนไม่สามารถต่ำกว่า 0 ได้ *",
-      minValue(0)
-    ),
+    minValue: helpers.withMessage("* กรุณาตรวจสอบคะแนน คะแนนไม่สามารถต่ำกว่า 0 ได้ *", minValue(0)),
   },
-  invention: { required: helpers.withMessage("* กรุณากรอกข้อมูล *", required) },
+  invention: { 
+    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required) 
+  },
   participation: {
     required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    maxValue: helpers.withMessage(
-      "* กรุณาตรวจสอบ การมีส่วนร่วมไม่สามารถกรอกได้มากกว่า 100 *",
-      maxValue(100)
-    ),
+    maxValue: helpers.withMessage("* กรุณาตรวจสอบ การมีส่วนร่วมไม่สามารถกรอกได้มากกว่า 100 *", maxValue(100)),
   },
   periodYear: {
     required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
@@ -496,12 +478,9 @@ const rules = {
     required: helpers.withMessage("* กรุณากรอกวันที่สิ้นสุด *", required),
     validDate,
   },
-
-  //FileForm
   file: {
     required: helpers.withMessage("* กรุณาอัปโหลดไฟล์ *", required),
-    fileType: helpers.withMessage(
-      "* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
+    fileType: helpers.withMessage("* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
       (value) => {
         if (!value) return false;
         const allowedTypes = ["application/pdf"];
@@ -513,14 +492,12 @@ const rules = {
 
 const v$ = useVuelidate(rules, formData);
 
-//ดึงข้อมูล user
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
 onMounted(async () => {
   await userStore.fetchUser();
 
-  //อัปเดตค่า
   formData.userID = user.value?.user_id;
   formData.nameTH = user.value?.user_nameth || "";
   formData.nameENG = user.value?.user_nameeng || "";
@@ -599,11 +576,9 @@ const NewKris = async () => {
 
       const response = await api.post("/kris", Dataforbackend, {
         headers: {
-          "Content-Type": "multipart/form-data", // Required for file uploads
+          "Content-Type": "multipart/form-data",
         },
       });
-
-      console.log("response : ", response);
 
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
       router.push("/allstatus");
