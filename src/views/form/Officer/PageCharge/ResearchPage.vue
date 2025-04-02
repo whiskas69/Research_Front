@@ -227,7 +227,7 @@
 import { reactive, onMounted, computed, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
-import { required, helpers, requiredIf, maxValue } from "@vuelidate/validators";
+import { required, helpers, requiredIf } from "@vuelidate/validators";
 import { DateTime } from "luxon";
 
 import { useUserStore } from "@/store/userStore";
@@ -360,8 +360,6 @@ const downloadFile = async (fileUrl, fileName) => {
 };
 
 const OfficerPC = async () => {
-  console.log("date", formData.dateAccep)
-
   const result = await v$.value.$validate();
 
   if (result) {
@@ -412,7 +410,8 @@ const OfficerPC = async () => {
         router.push("/officer");
       }
     } catch (error) {
-      console.log(error);
+      console.log("Error saving code : ", error);
+      alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
     }
   } else {
     alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");

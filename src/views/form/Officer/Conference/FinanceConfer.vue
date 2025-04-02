@@ -8,96 +8,68 @@
       <Mainbox>
         <SectionWrapper>
           <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
-          <TextInputLabelLeft
-            label="ปีงบประมาณ พ.ศ."
-            customInput="max-w-max text-center"
-            v-model="formData.year"
-            @input="handleInput('year', $event.target.value)"
-          />
+          <TextInputLabelLeft label="ปีงบประมาณ พ.ศ." customInput="max-w-max text-center" v-model="formData.year"
+            @input="handleInput('year', $event.target.value)" />
           <div class="flex justify-end">
             <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น"
-                customInput="max-w-max text-center"
-                v-model="formData.totalAll"
-                @input="handleInput('totalAll', $event.target.value)"
-              />
+              <TextInputLabelLeft label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น" customInput="max-w-max text-center"
+                v-model="formData.totalAll" @input="handleInput('totalAll', $event.target.value)" />
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
           <div class="flex justify-end">
             <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
-                customInput="max-w-max text-center"
-                disabled="true"
-                :placeholder="
-                  parseFloat(formData.numapproved).toLocaleString('en-US', {
-                    minimumFractionDigits: 0,
-                  })
-                "
-              />
+              <TextInputLabelLeft label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
+                customInput="max-w-max text-center" disabled="true" :placeholder="parseFloat(formData.numapproved).toLocaleString('en-US', {
+                  minimumFractionDigits: 0,
+                })
+                  " />
               <p class="flex items-center w-12">รายการ</p>
             </div>
           </div>
           <div class="flex justify-end">
             <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="รวมเป็นเงิน"
-                customInput="max-w-max
-              text-center"
-                disabled="true"
-                :placeholder="
-                  parseFloat(formData.totalapproved).toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                  })
-                "
-              />
+              <TextInputLabelLeft label="รวมเป็นเงิน" customInput="max-w-max
+              text-center" disabled="true" :placeholder="parseFloat(formData.totalapproved).toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+              })
+                " />
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
           <div class="flex justify-end">
             <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="วงเงินที่คณะจัดสรรไว้ คงเหลือ"
-                customInput="max-w-max text-center"
-                disabled="true"
-                :placeholder="caltotalFaculty"
-              />
+              <TextInputLabelLeft label="วงเงินที่คณะจัดสรรไว้ คงเหลือ" customInput="max-w-max text-center"
+                disabled="true" :placeholder="caltotalFaculty" />
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
           <div class="flex justify-end">
             <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวนเงิน"
-                customInput="max-w-max text-center"
-                disabled="true"
-                :placeholder="
-                  parseFloat(moneyRequested).toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                  })
-                "
-              />
+              <TextInputLabelLeft label="จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวนเงิน"
+                customInput="max-w-max text-center" disabled="true" :placeholder="parseFloat(moneyRequested).toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                })
+                  " />
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
           <div class="flex justify-end">
             <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น"
-                customInput="max-w-max text-center"
-                disabled="true"
-                :placeholder="caltotalFacultyNow"
-              />
+              <TextInputLabelLeft label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น" customInput="max-w-max text-center"
+                disabled="true" :placeholder="caltotalFacultyNow" />
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
+          <span v-if="v$.year.$error" class="text-base font-bold text-red-500 text-left">
+            {{ v$.year.$errors[0].$message }}
+          </span>
+          <span v-if="v$.totalAll.$error" class="text-base font-bold text-red-500 text-left">
+            {{ v$.totalAll.$errors[0].$message }}
+          </span>
+
           <div class="flex justify-end">
-            <button
-              @click="showCreditLimit = true"
-              class="btn text-black btn-warning mr-5"
-            >
+            <button @click="showCreditLimit = true" class="btn text-black btn-warning mr-5">
               คำนวณ
             </button>
           </div>
@@ -107,10 +79,7 @@
               <p v-if="formData.canWithdrawn.inOutC == 'Out_Country'">
                 วงเงินที่สามารถเบิกได้ {{ expenses.withdrawn }} บาท
               </p>
-              <div
-                v-if="formData.canWithdrawn.inOutC == 'In_Country'"
-                class="flex flex-col items-end"
-              >
+              <div v-if="formData.canWithdrawn.inOutC == 'In_Country'" class="flex flex-col items-end">
                 <p>วงเงินที่สามารถเบิกได้ 8,000 บาท</p>
                 <p>{{ formData.canWithdrawn.inthai }}</p>
               </div>
@@ -118,10 +87,7 @@
                 {{ formData.canWithdrawn.message }} ค่าลงทะเบียน
                 {{ expenses.regits }} บาท
               </p>
-              <div
-                v-if="formData.canWithdrawn.inOutC == 'Out_Country'"
-                class="flex flex-col items-end"
-              >
+              <div v-if="formData.canWithdrawn.inOutC == 'Out_Country'" class="flex flex-col items-end">
                 <p>ค่าเบี้ยเลี้ยงเดินทางไม่เกิน {{ expenses.allowance }} บาท</p>
                 <p>ค่าที่พักไม่เกิน {{ expenses.accom }} บาท</p>
               </div>
@@ -142,6 +108,17 @@
 <script setup>
 import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useVuelidate } from "@vuelidate/core";
+import {
+  required,
+  helpers,
+  maxValue,
+  minValue,
+  numeric,
+  decimal,
+} from "@vuelidate/validators";
+import { DateTime } from "luxon";
+
 import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
 
@@ -153,7 +130,6 @@ import HR from "@/components/form/DataforOffice/HR.vue";
 import Research from "@/components/form/DataforOffice/Research.vue";
 
 const formData = reactive({
-  // ความเห้นเจ้าหน้าที่
   conference: [],
   offic: [],
   year: "",
@@ -163,30 +139,13 @@ const formData = reactive({
   creditLimit: 0,
   totalcreditLimit: 0,
   canWithdrawn: "",
-  //วันที่ส่งเอกสาร
-  docSubmitDate: "",
-  //satatus
+  docSubmitDate: DateTime.now().toISODate(),
   form_id: 0,
   formStatus: "รองคณบดี",
 });
-console.log("conference", formData);
-//วันที่ส่งเอกสาร
-const datetime = new Date();
-// Extract year, month, and day
-const year = datetime.getFullYear();
-const month = String(datetime.getMonth() + 1).padStart(2, "0"); // Months are 0-based
-const day = String(datetime.getDate()).padStart(2, "0");
-// Combine in YYYY-MM-DD format
-formData.docSubmitDate = `${year}-${month}-${day}`;
 
 const handleInput = (key, value) => {
   formData[key] = value;
-  console.log("0000000000000000000000000000000");
-  // console.log(JSON.stringify(formData));
-  console.log(`${key} updated to: ${value}`);
-  // console.log("key: ", key);
-  // console.log("value: ", value);
-  console.log("--------------------------------");
 };
 
 const caltotalFaculty = computed(() => {
@@ -205,6 +164,7 @@ const caltotalFacultyNow = computed(() => {
     minimumFractionDigits: 2,
   });
 });
+
 const moneyRequested = computed(() => {
   return (
     parseFloat(formData.canWithdrawn.money) +
@@ -240,14 +200,13 @@ const expenses = computed(() => {
 });
 const showCreditLimit = ref(false);
 const isLoading = ref(true);
-// Access route parameters
+
 const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
-console.log("params.id", id);
+
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
-console.log("user id hr:", user);
 
 const fetchOfficerData = async () => {
   try {
@@ -276,40 +235,74 @@ const fetchOfficerData = async () => {
     console.log("conference123", responseConfer);
     formData.conference = responseConfer.data;
   } catch (error) {
-    console.error("Error fetching Officer data:", error);
+    console.log("Error fetching Officer data:", error);
   } finally {
     isLoading.value = false;
   }
 };
 
-const OfficerConfer = async () => {
-  try {
-    const dataForBackend = {
-      user_id: user.value?.user_id,
-      form_id: formData.form_id,
-      budget_year: formData.year,
-      Conference_amount: formData.totalAll,
-      num_expenses_approved: formData.numapproved,
-      total_amount_approved: formData.totalapproved,
-      remaining_credit_limit: formData.creditLimit,
-      amount_approval: moneyRequested.value,
-      total_remaining_credit_limit: formData.totalcreditLimit,
-      doc_submit_date: formData.docSubmitDate,
-      form_status: formData.formStatus,
-    };
-    console.log("post office confer: ", JSON.stringify(dataForBackend));
+const currentYear = computed(() => DateTime.now().year + 543);
 
-    const response = await api.post(`/budget`, dataForBackend, {
-      headers: { "Content-Type": "application/json" },
-    });
-    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-    router.push("/officer");
-    console.log("res: ", response);
-    console.log("allpostOfficerConfer: ", message.value);
-    console.log("postOfficerConfer: ", response.data);
-  } catch (error) {
-    console.error(error);
-    message.value = "Error adding page_charge. Please try again.";
+const rules = computed(() => ({
+  year: {
+    required: helpers.withMessage(
+      "* กรุณากรอกข้อมูลปีงบประมาณเป็นพ.ศ. *",
+      required
+    ),
+    minValue: helpers.withMessage(
+      `* ปีงบประมาณต้องไม่ต่ำกว่า ${currentYear.value - 1} *`,
+      minValue(currentYear.value - 1)
+    ),
+    maxValue: helpers.withMessage(
+      `* ปีงบประมาณต้องไม่เกิน ${currentYear.value} *`,
+      maxValue(currentYear.value)
+    ),
+  },
+  totalAll: {
+    required: helpers.withMessage("* กรุณากรอกจำนวนเงิน *", required),
+    numeric: helpers.withMessage("* กรุณากรอกตัวเลข *", numeric),
+    decimal: helpers.withMessage("* กรุณากรอกตัวเลข *", decimal),
+    minValue: helpers.withMessage("* ไม่ต่ำกว่า 1 *", minValue(1)),
+  },
+}));
+
+const v$ = useVuelidate(rules, formData);
+
+const OfficerConfer = async () => {
+  const result = await v$.value.$validate();
+
+  if (result) {
+    if (confirm("ยืนยันข้อมูลถูกต้อง") == false) {
+      return false;
+    }
+
+    try {
+      const dataForBackend = {
+        user_id: user.value?.user_id,
+        form_id: formData.form_id,
+        budget_year: formData.year,
+        Conference_amount: formData.totalAll,
+        num_expenses_approved: formData.numapproved,
+        total_amount_approved: formData.totalapproved,
+        remaining_credit_limit: formData.creditLimit,
+        amount_approval: moneyRequested.value,
+        total_remaining_credit_limit: formData.totalcreditLimit,
+        doc_submit_date: formData.docSubmitDate,
+        form_status: formData.formStatus,
+      };
+      console.log("post office confer: ", JSON.stringify(dataForBackend));
+
+      const response = await api.post(`/budget`, dataForBackend);
+      alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+      router.push("/officer");
+    } catch (error) {
+      console.log("Error saving code : ", error);
+      alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+    }
+  } else {
+    alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");
+
+    console.log("Validation failed:", v$.value.$errors);
   }
 };
 

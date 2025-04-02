@@ -316,7 +316,8 @@ const OfficerConfer = async () => {
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
       router.push("/officer");
     } catch (error) {
-      console.log(error);
+      console.log("Error saving code : ", error);
+      alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
     }
   } else {
     alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");

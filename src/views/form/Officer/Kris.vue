@@ -131,7 +131,8 @@ const OfficerKris = async () => {
       router.push("/allstatus");
       
     } catch (error) {
-      console.log(error);
+      console.log("Error saving code : ", error);
+      alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
     }
   } else {
     alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");
