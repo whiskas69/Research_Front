@@ -1131,6 +1131,7 @@ import { onMounted, ref, computed, reactive } from "vue";
 import api from "@/setting/api";
 import { DateTime } from "luxon";
 import * as XLSX from "xlsx";
+import { saveAs } from 'file-saver';
 
 const conferenceData = ref([]);
 const SummaryPc = ref([]);
