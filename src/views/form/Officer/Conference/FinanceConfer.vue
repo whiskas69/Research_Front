@@ -31,7 +31,11 @@
                 label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
                 customInput="max-w-max text-center"
                 disabled="true"
-                :placeholder="formData.numapproved"
+                :placeholder="
+                  parseFloat(formData.numapproved).toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                  })
+                "
               />
               <p class="flex items-center w-12">รายการ</p>
             </div>
@@ -40,9 +44,14 @@
             <div class="flex flex-row justify-between">
               <TextInputLabelLeft
                 label="รวมเป็นเงิน"
-                customInput="max-w-max text-center"
+                customInput="max-w-max
+              text-center"
                 disabled="true"
-                :placeholder="parseFloat(formData.totalapproved)"
+                :placeholder="
+                  parseFloat(formData.totalapproved).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                  })
+                "
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
@@ -61,10 +70,14 @@
           <div class="flex justify-end">
             <div class="flex flex-row justify-between">
               <TextInputLabelLeft
-                label="จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้  เป็นจำนวนเงิน"
+                label="จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวนเงิน"
                 customInput="max-w-max text-center"
                 disabled="true"
-                :placeholder="formData.canWithdrawn.money"
+                :placeholder="
+                  parseFloat(moneyRequested).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                  })
+                "
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
@@ -94,16 +107,23 @@
               <p v-if="formData.canWithdrawn.inOutC == 'Out_Country'">
                 วงเงินที่สามารถเบิกได้ {{ expenses.withdrawn }} บาท
               </p>
-              <div v-if="formData.canWithdrawn.inOutC == 'In_Country'" class="flex flex-col items-end">
+              <div
+                v-if="formData.canWithdrawn.inOutC == 'In_Country'"
+                class="flex flex-col items-end"
+              >
                 <p>วงเงินที่สามารถเบิกได้ 8,000 บาท</p>
-                <p>{{formData.canWithdrawn.inthai}}</p>
+                <p>{{ formData.canWithdrawn.inthai }}</p>
               </div>
               <p>
-                {{ formData.canWithdrawn.message }}
+                {{ formData.canWithdrawn.message }} ค่าลงทะเบียน
+                {{ expenses.regits }} บาท
               </p>
-              <div v-if="formData.canWithdrawn.inOutC == 'Out_Country'" class="flex flex-col items-end">
-                <p>ค่าเบี้ยเลี้ยงเดินทางไม่เกิน {{ expenses.allowance }} บาท </p>
-                <p>ค่าที่พักไม่เกิน  {{ expenses.accom }} บาท</p>
+              <div
+                v-if="formData.canWithdrawn.inOutC == 'Out_Country'"
+                class="flex flex-col items-end"
+              >
+                <p>ค่าเบี้ยเลี้ยงเดินทางไม่เกิน {{ expenses.allowance }} บาท</p>
+                <p>ค่าที่พักไม่เกิน {{ expenses.accom }} บาท</p>
               </div>
             </div>
           </div>
@@ -172,20 +192,39 @@ const handleInput = (key, value) => {
 const caltotalFaculty = computed(() => {
   formData.creditLimit =
     parseFloat(formData.totalAll) - parseFloat(formData.totalapproved);
-  return formData.creditLimit;
+  return formData.creditLimit.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+  });
 });
 
 const caltotalFacultyNow = computed(() => {
+  console.log("moneyRequested", moneyRequested.value);
   formData.totalcreditLimit =
-    parseFloat(formData.creditLimit) - parseFloat(formData.canWithdrawn.money);
-  return formData.totalcreditLimit;
+    parseFloat(formData.creditLimit) - parseFloat(moneyRequested.value);
+  return formData.totalcreditLimit.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+  });
+});
+const moneyRequested = computed(() => {
+  return (
+    parseFloat(formData.canWithdrawn.money) +
+    parseFloat(formData.conference.total_amount)
+  );
 });
 
 const expenses = computed(() => {
-  const withdrawn = parseFloat(formData.canWithdrawn.money
-  ).toLocaleString("en-US", {
-    minimumFractionDigits: 2,
-  });
+  const withdrawn = parseFloat(formData.canWithdrawn.money).toLocaleString(
+    "en-US",
+    {
+      minimumFractionDigits: 2,
+    }
+  );
+  const regits = parseFloat(formData.conference.total_amount).toLocaleString(
+    "en-US",
+    {
+      minimumFractionDigits: 2,
+    }
+  );
   const allowance = parseFloat(
     3500 * formData.conference.num_travel_days
   ).toLocaleString("en-US", {
@@ -197,7 +236,7 @@ const expenses = computed(() => {
     minimumFractionDigits: 2,
   });
 
-  return {withdrawn, allowance, accom };
+  return { withdrawn, regits, allowance, accom };
 });
 const showCreditLimit = ref(false);
 const isLoading = ref(true);
@@ -208,7 +247,7 @@ const id = route.params.id;
 console.log("params.id", id);
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
-console.log("user id hr:", user)
+console.log("user id hr:", user);
 
 const fetchOfficerData = async () => {
   try {
@@ -253,7 +292,7 @@ const OfficerConfer = async () => {
       num_expenses_approved: formData.numapproved,
       total_amount_approved: formData.totalapproved,
       remaining_credit_limit: formData.creditLimit,
-      amount_approval: formData.canWithdrawn.money,
+      amount_approval: moneyRequested.value,
       total_remaining_credit_limit: formData.totalcreditLimit,
       doc_submit_date: formData.docSubmitDate,
       form_status: formData.formStatus,

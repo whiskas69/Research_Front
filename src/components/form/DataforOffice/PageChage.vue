@@ -187,7 +187,9 @@
                   customInput="max-w-max"
                   customDiv="max-w-max"
                   disabled="true"
-                  :placeholder="formData.pageChange.support_limit"
+                  :placeholder="parseFloat(formData.pageChange.support_limit).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                  })"
                 />
                 <span class="flex items-center">บาท</span>
               </div>
@@ -416,7 +418,9 @@
               customLabel="w-auto min-w-fit"
               customInput="max-w-fit"
               disabled="true"
-              :placeholder="formData.pageChange.request_support"
+              :placeholder="parseFloat(formData.pageChange.request_support).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                  })"
             />
           </SectionWrapper>
         </Mainbox>
