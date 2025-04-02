@@ -866,7 +866,7 @@ const router = useRouter();
 
 // จัดการข้อมูลหลัก
 const formData = reactive({
-  user_id: 0,
+  user_id: null,
   name: "",
   position: "",
   textOther1: 0,
@@ -952,6 +952,17 @@ const totalScore = computed(() => {
     }
     return null;
 
+  } else if (formData.score == "CORE") {
+    if (formData.coreConf) {
+      const total = 0;
+      let result = "ระดับมาตรฐาน";
+      if (formData.coreConf == "A" || formData.coreConf == "A+" || formData.coreConf == "A*") {
+        result = "ระดับดีมาก";
+      }
+      formData.result = result;
+      return { total, result};
+    }
+    return null;
   }
   return null;
 });
@@ -1388,7 +1399,6 @@ const newConfer = async () => {
         fx_rate_document: formData.file7,
         conf_proof: formData.file8,
       };
-      console.log("post confer: ", JSON.stringify(dataForBackend));
       const response = await api.post("/conference", dataForBackend, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -1402,6 +1412,8 @@ const newConfer = async () => {
     }
   } else {
     alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");
+
+    console.log("Validation failed:", v$.value.$errors);
   }
 };
 </script>
