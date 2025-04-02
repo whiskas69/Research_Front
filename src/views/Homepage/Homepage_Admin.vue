@@ -358,12 +358,12 @@ const englishOnly = helpers.withMessage(
   }
 );
 
-const emailDomain = helpers.withMessage(
-  "* อีเมลต้องเป็น @it.kmitl.ac.th เท่านั้น *",
-  (value) => {
-    return /^[a-zA-Z0-9._%+-]+@it\.kmitl\.ac\.th$/.test(value);
-  }
-);
+// const emailDomain = helpers.withMessage(
+//   "* อีเมลต้องเป็น @it.kmitl.ac.th เท่านั้น *",
+//   (value) => {
+//     return /^[a-zA-Z0-9._%+-]+@it\.kmitl\.ac\.th$/.test(value);
+//   }
+// );
 
 const rules = computed(() => ({
   role: {
@@ -386,7 +386,7 @@ const rules = computed(() => ({
   email: {
     required: helpers.withMessage("* กรุณากรอกอีเมล *", required),
     email: helpers.withMessage("* กรุณากรอกเป็นอีเมล *", email),
-    emailDomain,
+    // emailDomain,
   },
   moneyCF: {
     required: helpers.withMessage(

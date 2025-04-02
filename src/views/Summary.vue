@@ -146,6 +146,8 @@
                 <th class="border px-3 py-2">ค่าอื่น ๆ</th>
                 <th class="border px-3 py-2">รวม</th>
                 <th class="border px-3 py-2">สิทธิ์ที่ได้</th>
+                <th class="border px-3 py-2">ส่วนต่าง</th>
+                <th class="border px-3 py-2">ยอดคงเหลือ</th>
               </tr>
             </thead>
             <tbody>
@@ -180,6 +182,9 @@
                 </td>
                 <td class="border px-3 py-2">
                   {{ Number(row.amount_approval || 0).toLocaleString("en-US") }}
+                </td>
+                <td class="border px-3 py-2">
+                  {{ Number(row.amount_approval - row.inter_expenses - row.total_room - row.total_allowance - row.total_other || 0).toLocaleString("en-US") }}
                 </td>
               </tr>
             </tbody>

@@ -476,10 +476,6 @@
                 <span class="place-self-center"
                   >(ตั้งแต่ A ขึ้นไป)</span
                 >
-                <span v-if="formData.score == 'CORE'" class="place-self-center">
-                  ระดับ {{ totalScore.result }}</span
-                >
-
               </div>
               <p class="px-7 text-sm text-red-500">
                 เช็คคะแนนได้จาก http://portal.core.edu.au/conf-ranks
