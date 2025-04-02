@@ -530,7 +530,9 @@
                     customDiv="max-w-max"
                     customInput="max-w-max"
                     disabled="true"
-                    :placeholder="formData.conference.num_register_articles"
+                    :placeholder="parseFloat(formData.conference.num_register_articles).toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                  })"
                   />
                   <TextInputLabelLeft
                     label="บทความ ๆ ละ"
@@ -538,12 +540,16 @@
                     customDiv="max-w-max"
                     customInput="max-w-max"
                     disabled="true"
-                    :placeholder="formData.conference.regist_amount_1_article"
+                    :placeholder="parseFloat(formData.conference.regist_amount_1_article).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                  })"
                   />
                   <p class="flex items-center pl-2">บาท</p>
                 </div>
                 <p class="flex items-center">
-                  รวม {{ formData.conference.total_amount }} บาท
+                  รวม {{ parseFloat(formData.conference.total_amount).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                  }) }} บาท
                 </p>
               </div>
   
@@ -556,7 +562,9 @@
                     customDiv="max-w-[50rem]"
                     customInput="max-w-[50rem]"
                     disabled="true"
-                    :placeholder="formData.conference.domestic_expenses"
+                    :placeholder="formData.conference.domestic_expenses == null ? 0 : parseFloat(formData.conference.domestic_expenses).toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                  })"
                   />
                   <p class="flex items-center pl-2">บาท</p>
                 </div>
@@ -567,7 +575,9 @@
                     customDiv="max-w-[50rem]"
                     customInput="max-w-[50rem]"
                     disabled="true"
-                    :placeholder="formData.conference.overseas_expenses"
+                    :placeholder="formData.conference.overseas_expenses == null ? 0 : parseFloat(formData.conference.overseas_expenses).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                  })"
                   />
                   <p class="flex items-center pl-2">บาท</p>
                 </div>
@@ -578,7 +588,7 @@
                     customDiv="max-w-[30rem]"
                     customInput="max-w-[14rem]"
                     disabled="true"
-                    :placeholder="formData.conference.travel_country"
+                    :placeholder="formData.conference.travel_country == null ? '-' : formData.conference.travel_country"
                   />
                   <TextInputLabelLeft
                     label="- กรุงเทพฯ"
@@ -586,7 +596,9 @@
                     customDiv="max-w-[20rem]"
                     customInput="max-w-[14rem]"
                     disabled="true"
-                    :placeholder="formData.conference.inter_expenses"
+                    :placeholder="formData.conference.inter_expenses == null ? 0 : parseFloat(formData.conference.inter_expenses).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                  })"
                   />
                   <p class="flex items-center pl-2">บาท</p>
                 </div>
@@ -599,7 +611,9 @@
                   customDiv="max-w-[52rem]"
                   customInput="max-w-[40rem]"
                   disabled="true"
-                  :placeholder="formData.conference.airplane_tax"
+                  :placeholder="formData.conference.airplane_tax == null ? 0 : parseFloat(formData.conference.airplane_tax).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                  })"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -612,7 +626,9 @@
                     customDiv="max-w-[26rem]"
                     customInput="max-w-[19rem]"
                     disabled="true"
-                    :placeholder="formData.conference.num_days_room"
+                    :placeholder="formData.conference.num_days_room == null ? 0 : parseFloat(formData.conference.num_days_room).toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                  })"
                   />
                   <TextInputLabelLeft
                     label="คืน ๆ ละ"
@@ -620,12 +636,16 @@
                     customDiv="max-w-[26rem]"
                     customInput="max-w-[20rem]"
                     disabled="true"
-                    :placeholder="formData.conference.room_cost_per_night"
+                    :placeholder="formData.conference.room_cost_per_night == null ? 0 : parseFloat(formData.conference.room_cost_per_night).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                  })"
                   />
                   <p class="flex items-center pl-2">บาท</p>
                 </div>
                 <p class="flex items-center">
-                  รวม {{ formData.conference.total_room }} บาท
+                  รวม {{ formData.conference.total_room == null ? 0 : parseFloat(formData.conference.total_room).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                  }) }} บาท
                 </p>
               </div>
   
@@ -637,7 +657,9 @@
                     customDiv="max-w-[26rem]"
                     customInput="max-w-[16rem]"
                     disabled="true"
-                    :placeholder="formData.conference.num_travel_days"
+                    :placeholder="formData.conference.num_travel_days == null ? 0 : parseFloat(formData.conference.num_travel_days).toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                  })"
                   />
                   <TextInputLabelLeft
                     label="วัน ๆ ละ"
@@ -645,16 +667,22 @@
                     customDiv="max-w-[26rem]"
                     customInput="max-w-[20rem]"
                     disabled="true"
-                    :placeholder="formData.conference.daily_allowance"
+                    :placeholder="formData.conference.daily_allowance == null ? 0 : parseFloat(formData.conference.daily_allowance).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                  })"
                   />
                   <p class="flex items-center pl-2">บาท</p>
                 </div>
                 <p class="flex items-center">
-                  รวม {{ formData.conference.total_allowance }} บาท
+                  รวม {{ formData.conference.total_allowance == null ? 0 : parseFloat(formData.conference.total_allowance).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                  })}} บาท
                 </p>
               </div>
               <p class="font-bold text-2xl pt-5 text-right">
-                รวมทั้งสิ้น {{ formData.conference.all_money }} บาท
+                รวมทั้งสิ้น {{ parseFloat(formData.conference.all_money).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                  })}} บาท
               </p>
             </SectionWrapper>
           </SectionWrapper>

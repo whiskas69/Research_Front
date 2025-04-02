@@ -363,22 +363,22 @@
         <div class="flex flex-row justify-between my-1">
           <div class="flex flex-row max-w-max">
             <p>4) ค่าเช่าที่พัก</p>
-            <p class="px-2">{{ formData.confer.num_days_room }}</p>
+            <p class="px-2">{{ formData.confer.num_days_room ?? 0 }}</p>
             <p>คืน ๆ ละ</p>
-            <p class="px-2">{{ formData.confer.room_cost_per_night }}</p>
+            <p class="px-2">{{ formData.confer.room_cost_per_night ?? 0 }}</p>
             <p class="flex pl-2">บาท</p>
           </div>
-          <p>รวม {{ formData.confer.total_room }} บาท</p>
+          <p>รวม {{ formData.confer.total_room ?? 0 }} บาท</p>
         </div>
         <div class="flex flex-row justify-between my-1">
           <div class="flex flex-row max-w-max">
             <p>5) ค่าเบี้ยเลี้ยงเดินทาง</p>
-            <p class="px-2">{{ formData.confer.num_travel_days }}</p>
+            <p class="px-2">{{ formData.confer.num_travel_days ?? 0 }}</p>
             <p>วัน ๆ ละ</p>
-            <p class="px-2">{{ formData.confer.daily_allowance }}</p>
+            <p class="px-2">{{ formData.confer.daily_allowance ?? 0 }}</p>
             <p class="flex pl-2">บาท</p>
           </div>
-          <p>รวม {{ formData.confer.total_allowance }} บาท</p>
+          <p>รวม {{ formData.confer.total_allowance ?? 0 }} บาท</p>
         </div>
         <div class="flex flex-row pt-1 justify-end gap-3">
           <p>รวมทั้งสิ้น</p>
