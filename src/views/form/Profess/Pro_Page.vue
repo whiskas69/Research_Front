@@ -306,14 +306,8 @@
           <span v-if="v$.issue.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.issue.$errors[0].$message }}
           </span>
-          <span v-if="v$.months.$error" class="text-base font-bold text-red-500 text-left">
-            {{ v$.months.$errors[0].$message }}
-          </span>
           <span v-if="v$.year.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.year.$errors[0].$message }}
-          </span>
-          <span v-if="v$.ISSN.$error" class="text-base font-bold text-red-500 text-left">
-            {{ v$.ISSN.$errors[0].$message }}
           </span>
 
           <div class="flex flex-row mt-2 justify-between w-[100%]">
@@ -746,25 +740,16 @@ const rules = computed(() => ({
     required: helpers.withMessage("* กรุณากรอกชื่อบทความ *", required),
   },
   schedule: {
-    required: helpers.withMessage("* กรุณากรอกข้อมูลปีที่ (Vol.) *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
     minValue: helpers.withMessage("* ปีไม่สามารถน้อยกว่าปีปัจจุบันได้ *", minValue(currentYear.value)),
   },
   issue: {
-    required: helpers.withMessage("* กรุณากรอกข้อมูลฉบับที่ (Issue) *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
     minValue: helpers.withMessage("* ฉบับที่ไม่สามารถน้อยกว่า 1 *", minValue(1)),
   },
-  months: {
-    required: helpers.withMessage("* กรุณาเลือกข้อมูลเดือน *", required),
-  },
   year: {
-    required: helpers.withMessage("* กรุณากรอกข้อมูลปี ค.ศ. *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
     minValue: helpers.withMessage("* ปีไม่สามารถน้อยกว่าปีปัจจุบันได้ *", minValue(currentYear.value)),
-  },
-  ISSN: {
-    required: helpers.withMessage("* กรุณากรอกข้อมูลเลขที่ ISSN/ISBN (อื่นๆ) *", required),
   },
   submitReach: {
     required: helpers.withMessage("* กรุณากรอกวันที่ส่งบทความไปยังสำนักพิมพ์เจ้าของวารสาร *", required),
@@ -804,7 +789,6 @@ const rules = computed(() => ({
     required: helpers.withMessage("* กรุณากรอกขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge) *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
   },
-
   file1: {
     required: helpers.withMessage("* กรุณาอัปโหลดไฟล์ *", required),
     fileType: helpers.withMessage(
@@ -924,11 +908,11 @@ const NewPC = async () => {
         qt_scopus: formData.quartileScopus,
         support_limit: formData.moneyOp,
         article_title: formData.nameReach,
-        vol_journal: formData.schedule,
-        issue_journal: formData.issue,
-        month: formData.months,
-        year: formData.year,
-        ISSN_ISBN: formData.ISSN,
+        vol_journal: formData.schedule || null,
+        issue_journal: formData.issue || null,
+        month: formData.months || null,
+        year: formData.year || null,
+        ISSN_ISBN: formData.ISSN || null,
         submission_date: formData.submitReach,
         date_review_announce: formData.announce,
         final_date: formData.latePay,
