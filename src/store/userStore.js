@@ -32,7 +32,7 @@ export const useUserStore = defineStore("user", {
         console.log("Userstore", error.response.data.message)
         alert(error.response.data.message);
 
-        console.error("Error fetching user: ", error);
+        console.log("Error fetching user: ", error);
         this.user = null;
         localStorage.removeItem("loggedIn");
       }
@@ -45,7 +45,7 @@ export const useUserStore = defineStore("user", {
         localStorage.removeItem("loggedIn");
       } catch (error) {
         alert(error.response.data.message);
-        console.error("logout error:", error);
+        console.log("logout error:", error);
       }
     },
   },

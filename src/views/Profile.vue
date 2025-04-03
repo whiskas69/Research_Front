@@ -179,7 +179,7 @@ const handleFile = (event, fieldName) => {
     console.log(`File assigned to ${fieldName}:`, data[fieldName]);
     console.log("Updated data:", data);
   } else {
-    console.error(`No file selected for ${fieldName}.`);
+    console.log(`No file selected for ${fieldName}.`);
   }
 };
 

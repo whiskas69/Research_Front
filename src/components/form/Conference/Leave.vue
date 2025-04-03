@@ -85,10 +85,10 @@ const submitForm = async () => {
         if (response.ok) {
             console.log("Data saved successfully!");
         } else {
-            console.error("Failed to save data");
+            console.log("Failed to save data");
         }
     } catch (error) {
-        console.error("Error:", error);
+        console.log("Error:", error);
     }
 };
 </script>

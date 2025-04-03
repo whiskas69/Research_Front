@@ -55,7 +55,7 @@ const fetchOfficerData = async () => {
       
     }
   } catch (error) {
-    console.error("Error fetching Officer data:", error);
+    console.log("Error fetching Officer data:", error);
   } finally {
     isLoading.value = false;
   }

@@ -1282,7 +1282,7 @@ const exportExcel = (tableRefName) => {
   }
 
   if (!table || !(table instanceof HTMLElement)) {
-    console.error("Table reference is invalid:", tableRefName);
+    console.log("Table reference is invalid:", tableRefName);
     return;
   }
 

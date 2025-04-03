@@ -122,7 +122,7 @@ const downloadFile = async () => {
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
   } catch (error) {
-    console.error("Error downloading file:", error);
+    console.log("Error downloading file:", error);
   }
 };
 

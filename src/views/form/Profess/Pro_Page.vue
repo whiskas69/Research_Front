@@ -882,7 +882,7 @@ const handleFile = (event, fieldName) => {
   if (file) {
     formData[fieldName] = file;
   } else {
-    console.error(`No file selected for ${fieldName}.`);
+    console.log(`No file selected for ${fieldName}.`);
   }
 };
 

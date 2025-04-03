@@ -427,7 +427,7 @@ const handleFile = (event, fieldName) => {
   if (file) {
     data[fieldName] = file;
   } else {
-    console.error(`No file selected for ${fieldName}`);
+    console.log(`No file selected for ${fieldName}`);
   }
 };
 
@@ -553,7 +553,7 @@ const downloadFile = async (fileUrl, fileName) => {
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
   } catch (error) {
-    console.error("Error downloading file:", error);
+    console.log("Error downloading file:", error);
   }
 };
 onMounted(async () => {

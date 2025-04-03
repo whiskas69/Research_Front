@@ -340,13 +340,11 @@ const fetchNotificationbyID = async () => {
           )
       );
     } else {
-      console.error("API response is not an array:", mynotification.data);
+      console.log("API response is not an array:", mynotification.data);
       list_notification.Pro_noti = [];
     }
-
-    console.log("Pro_noti: ", list_notification.Pro_noti);
   } catch (error) {
-    console.error("Error fetching notifications:", error);
+    console.log("Error fetching notifications:", error);
   }
 };
 
@@ -382,7 +380,7 @@ const fetchNotificationbyStatus = async () => {
 
     list_notification.Off_noti = mynotification.data;
   } catch (error) {
-    console.error("Error fetching notifications:", error);
+    console.log("Error fetching notifications:", error);
   }
 };
 
@@ -407,7 +405,7 @@ const updateNotificationsPro = async () => {
       list_notification.Pro_noti
     );
   } catch (error) {
-    console.error("เกิดข้อผิดพลาดในการอัปเดต Notification:", error);
+    console.log("เกิดข้อผิดพลาดในการอัปเดต Notification:", error);
   }
 };
 
@@ -432,7 +430,7 @@ const updateNotificationsOff = async () => {
       list_notification.Off_noti
     );
   } catch (error) {
-    console.error("เกิดข้อผิดพลาดในการอัปเดต Notification:", error);
+    console.log("เกิดข้อผิดพลาดในการอัปเดต Notification:", error);
   }
 };
 

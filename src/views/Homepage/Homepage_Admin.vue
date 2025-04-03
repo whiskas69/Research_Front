@@ -470,7 +470,7 @@ const fetchOfficerData = async () => {
     const responseUser = await api.get(`/users`);
     formData.users = responseUser.data;
   } catch (error) {
-    console.error("Error fetching Officer data:", error);
+    console.log("Error fetching Officer data:", error);
   } finally {
     isLoading.value = false;
   }
@@ -489,7 +489,7 @@ const updateUserRoles = async () => {
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
     location.reload();
   } catch (error) {
-    console.error("Error updating user roles:", error);
+    console.log("Error updating user roles:", error);
     alert("เกิดข้อผิดพลาดในการอัปเดตข้อมูล");
   }
 };
@@ -532,7 +532,7 @@ const deleteUser = async (id) => {
     alert("ลบผู้ใช้เรียบร้อย");
     location.reload();
   } catch (error) {
-    console.error("Error updating user roles:", error);
+    console.log("Error updating user roles:", error);
     alert("เกิดข้อผิดพลาดในการอัปเดตข้อมูล");
   }
 };

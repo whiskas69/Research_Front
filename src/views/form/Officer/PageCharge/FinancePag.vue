@@ -184,7 +184,7 @@ const fetchProfessorData = async () => {
     const responseFormPC = await api.get(`/formPC/${id}`);
     formData.form_id = responseFormPC.data.form_id;
   } catch (error) {
-    console.error("Error fetching professor data:", error);
+    console.log("Error fetching professor data:", error);
   } finally {
     isLoading.value = false;
   }
@@ -196,7 +196,7 @@ const cal = async () => {
     formData.canWithdrawn = responseCalPC.data.withdrawn;
     return formData.canWithdrawn;
   } catch (error) {
-    console.error("Error fetching professor data:", error);
+    console.log("Error fetching professor data:", error);
   } finally {
     isLoading.value = false;
   }

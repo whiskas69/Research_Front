@@ -224,7 +224,7 @@ const fetchOfficerData = async () => {
       formData.canWithdrawn = responseCalPC.data.withdrawn;
     }
   } catch (error) {
-    console.error("Error fetching Officer data:", error);
+    console.log("Error fetching Officer data:", error);
   } finally {
     isLoading.value = false;
   }

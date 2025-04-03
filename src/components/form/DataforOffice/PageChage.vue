@@ -487,7 +487,7 @@
       console.log("pageChange", formData.pageChange);
       formData.check = formData.pageChange.quality_journal;
     } catch (error) {
-      console.error("Error fetching professor data:", error);
+      console.log("Error fetching professor data:", error);
     } finally {
       isLoading.value = false;
     }
