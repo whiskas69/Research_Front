@@ -7,7 +7,7 @@
   <Dean :id="id" :type="'Page_Charge'" />
 
   <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
-    <div v-if="formData.form.form_status == 'อนุมัติ'" class="flex no-print">
+    <div v-if="formData.form.form_status == 'รออนุมัติ' || formData.form.form_status == 'อนุมัติ'" class="flex no-print">
       <router-link :to="`/pdf/pageCharge/${id}`">
         <button class="btn text-white bg-[#4285F4] hover:bg-[#4285F4]">
           พิมพ์แบบฟอร์ม

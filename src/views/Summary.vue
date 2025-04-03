@@ -147,7 +147,6 @@
                 <th class="border px-3 py-2">รวม</th>
                 <th class="border px-3 py-2">สิทธิ์ที่ได้</th>
                 <th class="border px-3 py-2">ส่วนต่าง</th>
-                <th class="border px-3 py-2">ยอดคงเหลือ</th>
               </tr>
             </thead>
             <tbody>
@@ -161,7 +160,7 @@
                   {{ row.meeting_type }}
                   {{ row.quality_meeting ? `, ${row.quality_meeting}` : "" }}
                 </td>
-                <td class="border px-3 py-2">{{ row.withdraw }}</td>
+                <td class="border px-3 py-2">{{ row.withdraw ? `${row.withdraw}` : "-" }}</td>
                 <td class="border px-3 py-2">
                   {{ Number(row.total_amount || 0).toLocaleString("en-US") }}
                 </td>
@@ -181,10 +180,10 @@
                   {{ Number(row.all_money || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2">
-                  {{ Number(row.amount_approval || 0).toLocaleString("en-US") }}
+                  {{ Number(row.amount_approval - row.total_amount || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2">
-                  {{ Number(row.amount_approval - row.inter_expenses - row.total_room - row.total_allowance - row.total_other || 0).toLocaleString("en-US") }}
+                  {{ Number(row.amount_approval - row.all_money || 0).toLocaleString("en-US") }}
                 </td>
               </tr>
             </tbody>
@@ -896,14 +895,14 @@
                 <tr>
                   <th class="border px-3 py-2">{{ row.location }}</th>
                   <td class="border px-3 py-2">{{ row.total_count }}</td>
-                  <td class="border px-3 py-2">{{ row.total_registration }}</td>
-                  <td class="border px-3 py-2">{{ row.total_ticket }}</td>
-                  <td class="border px-3 py-2">{{ row.total_room }}</td>
-                  <td class="border px-3 py-2">{{ row.total_allowance }}</td>
-                  <td class="border px-3 py-2">{{ row.total_other }}</td>
-                  <td class="border px-3 py-2">{{ row.all_total }}</td>
+                  <td class="border px-3 py-2">{{ Number(row.total_registration || 0).toLocaleString("en-US") }}</td>
+                  <td class="border px-3 py-2">{{ Number(row.total_ticket || 0).toLocaleString("en-US") }}</td>
+                  <td class="border px-3 py-2">{{ Number(row.total_room || 0).toLocaleString("en-US") }}</td>
+                  <td class="border px-3 py-2">{{ Number(row.total_allowance || 0).toLocaleString("en-US") }}</td>
+                  <td class="border px-3 py-2">{{ Number(row.total_other || 0).toLocaleString("en-US") }}</td>
+                  <td class="border px-3 py-2">{{ Number(row.all_total - row.total_registration || 0).toLocaleString("en-US") }}</td>
                   <td class="border px-3 py-2">
-                    {{ row.total_amount_approval }}
+                    {{ Number(row.total_amount_approval - row.total_registration || 0).toLocaleString("en-US") }}
                   </td>
                 </tr>
               </template>
@@ -1120,6 +1119,54 @@
           </table>
         </div>
       </div>
+
+      <input type="radio" name="mytabs" class="tab" aria-label="ยอดการขอสนับสนุนและคงเหลือของผู้ใช้ในระบบ"/>
+      <div class="tab-content bg-base-100 border-base-300 p-6">
+        <h2>ข้อมูลทั้งหมดของยอดการขอสนับสนุนและคงเหลือของผู้ใช้ในระบบ</h2>
+        <div class="flex justify-end mt-2">
+          <button class="btn bg-[#E85F19] text-white" @click="exportExcel('datauser')">
+            Export to Excel
+          </button>
+        </div>
+        <div class="overflow-x-auto mt-2">
+          <table class="table w-full" ref="datauser">
+            <thead>
+              <tr class="text-center">
+                <th class="border px-3 py-2">ลำดับที่</th>
+                <th class="border px-3 py-2">ชื่อ</th>
+                <th class="border px-3 py-2">หน้าที่</th>
+                <th class="border px-3 py-2">ยอดการประชุมวิชาการ</th>
+                <th class="border px-3 py-2">ยอดขอสนับสนุนการประชุมวิชาการ</th>
+                <th class="border px-3 py-2">ยอดคงเหลือการประชุมวิชาการ</th>
+                <th class="border px-3 py-2">ยอดขอสนับสนุนการตีพิมพ์</th>
+                <th class="border px-3 py-2">ยอดขอสนับสนุนทั้งหมด</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(row, index) in moneyuser" :key="index" class="text-center">
+                <td class="border px-3 py-2">{{ index + 1 }}</td>
+                <td class="border px-3 py-2">{{ row.user_nameth }}</td>
+                <td class="border px-3 py-2" v-if="row.user_role == 'professor'">อาจารย์</td>
+                <td class="border px-3 py-2" v-if="row.user_role == 'admin'">ผู้ดูแลระบบ</td>
+                <td class="border px-3 py-2" v-if="row.user_role == 'hr'">ฝ่ายบริหารทรัพยากรบุคคล</td>
+                <td class="border px-3 py-2" v-if="row.user_role == 'research'">ฝ่ายบริหารงานวิจัย</td>
+                <td class="border px-3 py-2" v-if="row.user_role == 'finance'">ฝ่ายบริหารการเงิน</td>
+                <td class="border px-3 py-2" v-if="row.user_role == 'associate'">รองคณบดี</td>
+                <td class="border px-3 py-2" v-if="row.user_role == 'dean'">คณบดี</td>
+                <td class="border px-3 py-2">{{ Number(row.user_moneyCF || 0).toLocaleString("en-US") }}</td>
+                <td class="border px-3 py-2">
+                  {{ row.total_conference }}
+                </td>
+                <td class="border px-3 py-2 w-1/6">
+                  {{ row.user_moneyCF - row.total_conference }}
+                </td>
+                <td class="border px-3 py-2">{{ row.total_pc }}</td>
+                <td class="border px-3 py-2">{{ row.total_pc + row.total_conference }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -1138,6 +1185,7 @@ const krisData = ref([]);
 const withdraw50 = ref([]);
 const withdraw100 = ref([]);
 const inThai = ref([]);
+const moneyuser = ref([]);
 const countryData = reactive({
   ASIA: 0,
   ASIA_data: "",
@@ -1252,6 +1300,12 @@ const getConfer_thai = async () => {
   inThai.value = response.data;
 };
 
+const getUser_money = async () => {
+  const response = await api.get("/money_user");
+
+  moneyuser.value = response.data;
+}
+
 const exportExcel = (tableRefName) => {
   let table = null;
   let name = null
@@ -1277,6 +1331,9 @@ const exportExcel = (tableRefName) => {
   } else if (tableRefName === "datakris") {
     table = datakris.value;
     name = "ข้อมูลโครงงานวิชาการทั้งหมด"
+  } else if (tableRefName === "datauser") {
+    table = datauser.value;
+    name = "ข้อมูลทั้งหมดของยอดการขอสนับสนุนและคงเหลือของผู้ใช้ในระบบ"
   }
 
   if (!table || !(table instanceof HTMLElement)) {
@@ -1313,5 +1370,6 @@ onMounted(() => {
   getConfer_countwithdraw();
   getConfer_country();
   getConfer_thai();
+  getUser_money();
 });
 </script>
