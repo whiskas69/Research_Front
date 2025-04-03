@@ -728,7 +728,7 @@
 
     <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
       <div class="flex no-print">
-      <router-link :to="`/allhistory`">
+      <router-link :to="`/myhistory`">
         <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
           ไปยังหน้าประวัติทั้งหมด
         </button>

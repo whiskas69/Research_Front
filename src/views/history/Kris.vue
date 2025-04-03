@@ -4,14 +4,14 @@
   <Research :id="id" :type="'Research_KRIS'"/>
   <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
     <div v-if="userStore.user.user_role == 'professor'" class="flex no-print">
-      <router-link :to="`/allhistory`">
+      <router-link :to="`/myhistory`">
         <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
           ไปยังหน้าประวัติทั้งหมด
         </button>
       </router-link>
     </div>
     <div v-else class="flex no-print">
-      <router-link :to="`/allhistoryOffice`">
+      <router-link :to="`/historyOffice`">
         <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
           ไปยังหน้าประวัติทั้งหมด
         </button>

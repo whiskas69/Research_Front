@@ -86,7 +86,7 @@
                     <router-link to="/allstatus">สถานะเอกสาร</router-link>
                   </li>
                   <li>
-                    <router-link to="/allhistory">ประวัติการยื่น</router-link>
+                    <router-link to="/myhistory">ประวัติการยื่น</router-link>
                   </li>
                 </ul>
               </details>
@@ -111,12 +111,15 @@
                       >
                     </li>
                     <li>
-                      <router-link to="/allhistoryOffice"
-                        >ประวัติการยื่น</router-link
+                      <router-link to="/historyOffice"
+                        >ประวัติเอกสาร</router-link
                       >
                     </li>
                   </ul>
                 </details>
+              </li>
+              <li class="flex justify-center items-center">
+                <router-link to="/eoffice">เอกสารที่รอการอนุมัติ</router-link>
               </li>
             </ul>
           </div>
@@ -132,7 +135,9 @@
             "
           >
             <li class="flex justify-center items-center">
-              <router-link to="/eoffice">เอกสารที่อนุมัติแล้ว</router-link>
+              <router-link to="/allhistory"
+                >เอกสารที่อนุมัติแล้ว</router-link
+              >
             </li>
           </div>
         </div>

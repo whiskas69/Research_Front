@@ -8,8 +8,9 @@ import StatusConferView from "@/views/status/StatusConferView.vue";
 import StatusPCView from "@/views/status/StatusPCView.vue";
 import StatusKRISView from "@/views/status/StatusKRISView.vue";
 
-import HistoryView from "@/views/HistoryView.vue";
-import HistoryViewOffice from "@/views/HistoryViewOffice.vue";
+import HistoryView from "@/views/HistoryView/MyHistory.vue";
+import HistoryViewOffice from "@/views/HistoryView/HistoryOffice.vue";
+import AllHistory from "@/views/HistoryView/AllHistory.vue";
 import his_confer from "@/views/history/Confer.vue";
 import his_pageCharge from "@/views/history/Page.vue";
 import his_kris from "@/views/history/Kris.vue";
@@ -88,12 +89,12 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: "/allhistory",
+      path: "/myhistory",
       name: "History",
       component: HistoryView,
     },
     {
-      path: "/allhistoryOffice",
+      path: "/historyOffice",
       name: "HistoryofOffice",
       component: HistoryViewOffice,
     },
@@ -214,6 +215,11 @@ const router = createRouter({
       name: "summary",
       component: summary,
     },
+    {
+      path: "/allhistory",
+      name: "allhistory",
+      component: AllHistory
+    }
   ],
 });
 
