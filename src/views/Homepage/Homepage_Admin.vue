@@ -345,18 +345,19 @@ const inputTypes = {
 };
 
 const thaiOnly = helpers.withMessage(
-  "* กรุณากรอกเป็นภาษาไทย ไม่มีอักขระพิเศษนอกจาก ' ' *",
+  "* กรุณากรอกเป็นภาษาไทย ไม่มีอักขระพิเศษนอกจาก ' ' และ '.' *",
   (value) => {
-    return /^[ก-๛\s]+$/.test(value);
+    return /^[ก-๛\s.]+$/.test(value);
   }
 );
 
 const englishOnly = helpers.withMessage(
-  "* กรุณากรอกเป็นภาษาอังกฤษ ไม่มีอักขระพิเศษนอกจาก ' ' *",
+  "* กรุณากรอกเป็นภาษาอังกฤษ ไม่มีอักขระพิเศษนอกจาก ' ' และ '.' *",
   (value) => {
-    return /^[A-Za-z\s]+$/.test(value); // ตรวจสอบว่าเป็นตัวอักษรอังกฤษเท่านั้นและช่องว่าง
+    return /^[A-Za-z\s.]+$/.test(value);
   }
 );
+
 
 // const emailDomain = helpers.withMessage(
 //   "* อีเมลต้องเป็น @it.kmitl.ac.th เท่านั้น *",
@@ -509,12 +510,9 @@ const addUser = async () => {
         user_startwork: formData.startwork,
         user_year: formData.year,
       };
-      await api.post("/user", dataForBackend, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      await api.post("/user", dataForBackend);
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+      location.reload()
     } catch (error) {
       console.log("Error saving code : ", error);
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");

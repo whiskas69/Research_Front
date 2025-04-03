@@ -4,63 +4,44 @@
     <div class="start mr-5">
       <div v-if="!userStore.user">
         <router-link to="/">
-          <img
-            class="flex-auto max-w-14 w-24"
-            src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-            alt="IT KMITL"
-          />
+          <img class="flex-auto max-w-14 w-24" src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
+            alt="IT KMITL" />
         </router-link>
       </div>
 
       <div v-else-if="userStore.user">
         <div v-if="userStore.user.user_role == 'professor'">
           <router-link to="/homepage">
-            <img
-              class="flex-auto max-w-14 w-24"
-              src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-              alt="IT KMITL"
-            />
+            <img class="flex-auto max-w-14 w-24" src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
+              alt="IT KMITL" />
           </router-link>
         </div>
 
-        <div
-          v-else-if="
-            userStore.user.user_role == 'hr' ||
-            userStore.user.user_role == 'research' ||
-            userStore.user.user_role == 'finance'
-          "
-        >
+        <div v-else-if="
+          userStore.user.user_role == 'hr' ||
+          userStore.user.user_role == 'research' ||
+          userStore.user.user_role == 'finance'
+        ">
           <router-link to="/Officer">
-            <img
-              class="flex-auto max-w-14 w-24"
-              src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-              alt="IT KMITL"
-            />
+            <img class="flex-auto max-w-14 w-24" src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
+              alt="IT KMITL" />
           </router-link>
         </div>
 
-        <div
-          v-else-if="
-            userStore.user.user_role == 'associate' ||
-            userStore.user.user_role == 'dean'
-          "
-        >
+        <div v-else-if="
+          userStore.user.user_role == 'associate' ||
+          userStore.user.user_role == 'dean'
+        ">
           <router-link to="/Officer">
-            <img
-              class="flex-auto max-w-14 w-24"
-              src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-              alt="IT KMITL"
-            />
+            <img class="flex-auto max-w-14 w-24" src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
+              alt="IT KMITL" />
           </router-link>
         </div>
 
         <div v-else-if="userStore.user.user_role == 'admin'">
           <router-link to="/admin">
-            <img
-              class="flex-auto max-w-14 w-24"
-              src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-              alt="IT KMITL"
-            />
+            <img class="flex-auto max-w-14 w-24" src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
+              alt="IT KMITL" />
           </router-link>
         </div>
       </div>
@@ -70,14 +51,12 @@
     <div class="flex-auto w-full flex-row">
       <ul class="menu menu-horizontal px-5 flex">
         <div v-if="userStore.user" class="flex flex-row">
-          <li
-            v-if="userStore.user.user_role != 'professor'"
-            class="justify-center"
-          >
+          <li v-if="userStore.user.user_role != 'professor' && userStore.user.user_role != 'admin'"
+            class="justify-center">
             <router-link to="/homepage">ยื่นเอกสาร</router-link>
           </li>
 
-          <ul class="menu menu-horizontal justify-center">
+          <ul class="menu menu-horizontal justify-center" v-if="userStore.user.user_role != 'admin'">
             <li>
               <details>
                 <summary>สถานะเอกสาร</summary>
@@ -93,27 +72,20 @@
             </li>
           </ul>
 
-          <div
-            v-if="
-              userStore.user.user_role == 'hr' ||
-              userStore.user.user_role == 'research'
-            "
-            class="flex flex-row"
-          >
+          <div v-if="
+            userStore.user.user_role == 'hr' ||
+            userStore.user.user_role == 'research'
+          " class="flex flex-row">
             <ul class="menu menu-horizontal justify-center">
               <li>
                 <details>
                   <summary>สถานะเอกสารที่รับผิดชอบ</summary>
                   <ul class="bg-base-100 rounded-t-none px-1 w-full">
                     <li>
-                      <router-link to="/statusOffice"
-                        >สถานะเอกสาร</router-link
-                      >
+                      <router-link to="/statusOffice">สถานะเอกสาร</router-link>
                     </li>
                     <li>
-                      <router-link to="/historyOffice"
-                        >ประวัติเอกสาร</router-link
-                      >
+                      <router-link to="/historyOffice">ประวัติเอกสาร</router-link>
                     </li>
                   </ul>
                 </details>
@@ -124,20 +96,15 @@
             </ul>
           </div>
 
-          <div
-            class="flex justify-center"
-            v-if="
-              userStore.user.user_role == 'hr' ||
-              userStore.user.user_role == 'research' ||
-              userStore.user.user_role == 'finance' ||
-              userStore.user.user_role == 'associate' ||
-              userStore.user.user_role == 'dean'
-            "
-          >
+          <div class="flex justify-center" v-if="
+            userStore.user.user_role == 'hr' ||
+            userStore.user.user_role == 'research' ||
+            userStore.user.user_role == 'finance' ||
+            userStore.user.user_role == 'associate' ||
+            userStore.user.user_role == 'dean'
+          ">
             <li class="flex justify-center items-center">
-              <router-link to="/allhistory"
-                >เอกสารที่อนุมัติแล้ว</router-link
-              >
+              <router-link to="/allhistory">เอกสารที่อนุมัติแล้ว</router-link>
             </li>
           </div>
         </div>
@@ -147,52 +114,34 @@
         </li>
       </ul>
     </div>
+
     <!-- end -->
     <div class="flex flex-auto justify-end">
-      <div v-if="userStore.user">
+      <div v-if="userStore.user && userStore.user.user_role != 'admin'">
         <div v-if="userStore.user.user_role == 'professor'">
-          <div
-            class="dropdown dropdown-bottom dropdown-end"
-            @click="updateNotifications"
-          >
+          <div class="dropdown dropdown-bottom dropdown-end" @click="updateNotificationsPro">
             <div tabindex="0" role="button" class="btn">
               <span
-                v-if="filteredNotificationCount > 0"
                 class="absolute top-0 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-s font-bold text-white"
-              >
+                v-if="filteredNotificationCount > 0">
                 {{ filteredNotificationCount }}
               </span>
               <i class="color-black text-xl fa fa-bell"></i>
             </div>
 
-            <ul
-              tabindex="0"
-              class="dropdown-content menu bg-base-100 rounded-box z-1 w-max p-2 shadow-sm"
-            >
-              <li
-                v-for="item in list_notification.Pro_noti"
-                :key="item.noti_id"
-              >
-                <div
-                  class="flex flex-col items-start"
-                  v-if="item.form_type == 'Research_KRIS'"
-                >
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-max p-2 shadow-sm">
+              <li v-for="item in list_notification.Pro_noti" :key="item.noti_id">
+                <div class="flex flex-col items-start border border-gray-200 my-1" v-if="item.form_type == 'Research_KRIS'">
                   <p>แบบเสนอโครงการวิจัย</p>
                   <p>ชื่องานวิจัย : {{ item.name_form }}</p>
                   <p>สถานะ : {{ item.form_status }}</p>
                 </div>
-                <div
-                  class="flex flex-col items-start"
-                  v-if="item.form_type == 'Conference'"
-                >
+                <div class="flex flex-col items-start border border-gray-200 my-1" v-if="item.form_type == 'Conference'">
                   <p>ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ</p>
                   <p>ชื่อบทความ : {{ item.name_form }}</p>
                   <p>สถานะ : {{ item.form_status }}</p>
                 </div>
-                <div
-                  class="flex flex-col items-start"
-                  v-if="item.form_type == 'Page_Charge'"
-                >
+                <div class="flex flex-col items-start border border-gray-200 my-1" v-if="item.form_type == 'Page_Charge'">
                   <p>
                     ขออนุมัติค่า Page Charge
                     เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
@@ -206,48 +155,49 @@
         </div>
 
         <div v-if="userStore.user.user_role != 'professor'">
-          <div
-            class="dropdown dropdown-bottom dropdown-end"
-            @click="updateNotificationsOff"
-          >
+          <div class="dropdown dropdown-bottom dropdown-end" @click="updateNotificationsOff">
             <div tabindex="0" role="button" class="btn m-1">
-              <span
-                v-if="filteredNotificationOfficerCount > 0"
-                class="absolute top-0 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-s font-bold text-white"
-              >
+              <span v-if="(filteredNotificationOfficerCount + filteredNotificationCount) > 0"
+                class="absolute top-0 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-s font-bold text-white">
                 {{ filteredNotificationOfficerCount }}
               </span>
               <i class="color-black text-xl fa fa-bell"></i>
             </div>
 
-            <ul
-              tabindex="0"
-              class="dropdown-content menu bg-base-100 rounded-box z-1 w-max p-2 shadow-sm"
-            >
-              <li
-                v-for="item in list_notification.Off_noti"
-                :key="item.noti_id"
-              >
-                <div
-                  class="flex flex-col items-start"
-                  v-if="item.form_type == 'Research_KRIS'"
-                >
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-max p-2 shadow-sm">
+              <li v-for="item in list_notification.Pro_noti" :key="item.noti_id">
+                <div class="flex flex-col items-start border border-gray-200 my-1" v-if="item.form_type == 'Research_KRIS'">
+                  <p>แบบเสนอโครงการวิจัย</p>
+                  <p>ชื่องานวิจัย : {{ item.name_form }}</p>
+                  <p>สถานะ : {{ item.form_status }}</p>
+                </div>
+                <div class="flex flex-col items-start border border-gray-200 my-1" v-if="item.form_type == 'Conference'">
+                  <p>ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ</p>
+                  <p>ชื่อบทความ : {{ item.name_form }}</p>
+                  <p>สถานะ : {{ item.form_status }}</p>
+                </div>
+                <div class="flex flex-col items-start border border-gray-200 my-1" v-if="item.form_type == 'Page_Charge'">
+                  <p>
+                    ขออนุมัติค่า Page Charge
+                    เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
+                  </p>
+                  <p>ชื่อบทความ : {{ item.name_form }}</p>
+                  <p>สถานะ : {{ item.form_status }}</p>
+                </div>
+              </li>
+
+              <li v-for="item in list_notification.Off_noti" :key="item.noti_id">
+                <div class="flex flex-col items-start border border-gray-200 my-1" v-if="item.form_type == 'Research_KRIS'">
                   <p>แบบเสนอโครงการวิจัย</p>
                   <p>ผู้ส่ง : {{ item.user_nameth }}</p>
                   <p>ชื่องานวิจัย : {{ item.name_form }}</p>
                 </div>
-                <div
-                  class="flex flex-col items-start"
-                  v-if="item.form_type == 'Conference'"
-                >
+                <div class="flex flex-col items-start border border-gray-200 my-1" v-if="item.form_type == 'Conference'">
                   <p>ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ</p>
                   <p>ผู้ส่ง : {{ item.user_nameth }}</p>
                   <p>ชื่อบทความ : {{ item.name_form }}</p>
                 </div>
-                <div
-                  class="flex flex-col items-start"
-                  v-if="item.form_type == 'Page_Charge'"
-                >
+                <div class="flex flex-col items-start border border-gray-200 my-1" v-if="item.form_type == 'Page_Charge'">
                   <p>
                     ขออนุมัติค่า Page Charge
                     เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
@@ -263,10 +213,7 @@
     </div>
 
     <div v-if="!userStore.user">
-      <router-link
-        to="/login"
-        class="btn w-full bg-[#4285F4] hover:bg-[#4285F4] text-white ml-10"
-      >
+      <router-link to="/login" class="btn w-full bg-[#4285F4] hover:bg-[#4285F4] text-white ml-10">
         เข้าสู่ระบบ
       </router-link>
     </div>
@@ -275,14 +222,12 @@
       <ul class="menu menu-horizontal">
         <li>
           <details>
-            <summary
-              v-if="userStore.user.user_nameth"
-              class="bg-[#4285F4] hover:bg-[#4285F4] py-[13px] text-white min-w-32"
-            >
+            <summary v-if="userStore.user.user_nameth"
+              class="bg-[#4285F4] hover:bg-[#4285F4] py-[13px] text-white min-w-32">
               {{ userStore.user.user_nameth }}
             </summary>
             <ul class="bg-base-100 rounded-t-none p-2 w-full">
-              <li><router-link to="/profile">ข้อมูลส่วนตัว</router-link></li>
+              <li v-if="userStore.user.user_role != 'admin'"><router-link to="/profile">ข้อมูลส่วนตัว</router-link></li>
               <li @click="logout">
                 <router-link to="/">ออกจากระบบ</router-link>
               </li>
@@ -324,9 +269,7 @@ const filteredNotificationOfficerCount = computed(() => {
 
 const fetchNotificationbyID = async () => {
   try {
-    const mynotification = await api.get(
-      `/notification/${userStore.user.user_id}`
-    );
+    const mynotification = await api.get(`/notification/${userStore.user.user_id}`);
 
     // ตรวจสอบว่าข้อมูลเป็น Array ก่อนกรอง
     if (Array.isArray(mynotification.data)) {

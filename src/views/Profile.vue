@@ -122,7 +122,6 @@
         name="mytabs"
         class="tab"
         aria-label="วงเงินที่ใช้ไปแล้ว"
-        checked="checked"
       />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <div class="overflow-x-auto mt-2">
@@ -140,12 +139,11 @@
                 <td class="border px-3 py-2">{{ index + 1 }}</td>
                 <td class="border px-3 py-2">{{ data.money }}</td>
               </tr>
-              
-            </tbody>
-            <tr>
+              <tr>
                 <td class="border px-3 py-2 text-center font-bold">รวม</td>
                 <td class="border px-3 py-2 text-center">{{ data.totalConfer }}</td>
               </tr>
+            </tbody>
           </table>
 
           <p>Page Charge</p>
@@ -161,12 +159,12 @@
                 <td class="border px-3 py-2">{{ index + 1 }}</td>
                 <td class="border px-3 py-2">{{ data.money }}</td>
               </tr>
-              
-            </tbody>
-            <tr>
+
+              <tr>
                 <td class="border px-3 py-2 text-center font-bold">รวม</td>
                 <td class="border px-3 py-2 text-center">{{ data.totalPC }}</td>
               </tr>
+            </tbody>
           </table>
         </div>
       </div>
