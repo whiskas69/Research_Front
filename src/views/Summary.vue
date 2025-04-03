@@ -192,8 +192,7 @@
         </div>
       </div>
 
-      <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการนานาชาติ 2"
-        @click="activeTab = 'confer2'" />
+      <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการนานาชาติ 2"/>
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>ข้อมูลการประชุมวิชาการ (ต่างประเทศ)</h2>
         <div class="flex justify-end mt-2">
@@ -869,8 +868,7 @@
         </div>
       </div>
 
-      <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการนานาชาติ 3"
-        @click="activeTab = 'confer3'" />
+      <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการนานาชาติ 3"/>
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>ข้อมูลการประชุมวิชาการ (ในประเทศ)</h2>
         <div class="flex justify-end mt-2">
@@ -914,7 +912,7 @@
         </div>
       </div>
 
-      <input type="radio" name="mytabs" class="tab" aria-label="Page Charge" @click="activeTab = 'pc'" />
+      <input type="radio" name="mytabs" class="tab" aria-label="Page Charge"/>
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>ข้อมูลทั้งหมดของ Page Charge</h2>
         <div class="flex justify-end mt-2">
@@ -1067,7 +1065,7 @@
         </div>
       </div>
 
-      <input type="radio" name="mytabs" class="tab" aria-label="โครงงานวิชาการ" @click="activeTab = 'kris'" />
+      <input type="radio" name="mytabs" class="tab" aria-label="โครงงานวิชาการ"/>
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>ข้อมูลทั้งหมดของโครงงานวิชาการ</h2>
         <div class="flex justify-end mt-2">

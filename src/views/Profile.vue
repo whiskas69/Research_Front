@@ -1,74 +1,118 @@
 <template>
   <div class="container my-10 mx-auto">
-    <h1 class="text-xl font-bold">ข้อมูลส่วนตัว</h1>
-    <div class="my-5">
-      <TextInputLabelLeft
-        label="ชื่อ (ภาษาไทย)"
-        customLabel="w-4/12"
-        customInput="w-full"
-        :placeholder="user.user_nameth"
-        disabled="true"
+    <div role="tablist" class="tabs tabs-lift">
+      <input
+        type="radio"
+        name="mytabs"
+        class="tab"
+        aria-label="ข้อมูลส่วนตัว"
+        checked="checked"
       />
-    </div>
+      <div class="tab-content bg-base-100 border-base-300 p-6">
+        <div class="my-5">
+          <TextInputLabelLeft
+            label="ชื่อ (ภาษาไทย)"
+            customLabel="w-4/12"
+            customInput="w-full"
+            :placeholder="user.user_nameth"
+            disabled="true"
+          />
+        </div>
 
-    <div class="my-5">
-      <TextInputLabelLeft
-        label="ชื่อ (ภาษาอังกฤษ)"
-        customLabel="w-4/12"
-        customInput="w-full"
-        :placeholder="user.user_nameeng"
-        disabled="true"
-      />
-    </div>
+        <div class="my-5">
+          <TextInputLabelLeft
+            label="ชื่อ (ภาษาอังกฤษ)"
+            customLabel="w-4/12"
+            customInput="w-full"
+            :placeholder="user.user_nameeng"
+            disabled="true"
+          />
+        </div>
 
-    <div class="my-5">
-      <TextInputLabelLeft
-        label="ตำแหน่ง (ภาษาไทย)"
-        customLabel="w-4/12"
-        customInput="w-full"
-        :placeholder="user.user_positionth"
-        disabled="true"
-      />
-    </div>
+        <div class="my-5">
+          <TextInputLabelLeft
+            label="ตำแหน่ง (ภาษาไทย)"
+            customLabel="w-4/12"
+            customInput="w-full"
+            :placeholder="user.user_positionth"
+            disabled="true"
+          />
+        </div>
 
-    <div class="my-5">
-      <TextInputLabelLeft
-        label="ตำแหน่ง (ภาษาอังกฤษ)"
-        customLabel="w-4/12"
-        customInput="w-full"
-        :placeholder="user.user_positioneng"
-        disabled="true"
-      />
-    </div>
+        <div class="my-5">
+          <TextInputLabelLeft
+            label="ตำแหน่ง (ภาษาอังกฤษ)"
+            customLabel="w-4/12"
+            customInput="w-full"
+            :placeholder="user.user_positioneng"
+            disabled="true"
+          />
+        </div>
 
-    <div class="my-5">
-      <TextInputLabelLeft
-        label="อีเมล"
-        customLabel="w-4/12"
-        customInput="w-full"
-        :placeholder="user.user_email"
-        disabled="true"
-      />
-    </div>
+        <div class="my-5">
+          <TextInputLabelLeft
+            label="อีเมล"
+            customLabel="w-4/12"
+            customInput="w-full"
+            :placeholder="user.user_email"
+            disabled="true"
+          />
+        </div>
+      </div>
 
-    <div class="my-5">
-      <TextInputLabelLeft
-        label="ยอดคงเหลือของการขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมวิชาการ"
-        customLabel="w-full max-w-fit mr-5"
-        customInput="w-full"
-        :placeholder="user.user_moneyCF"
-        disabled="true"
+      <input
+        type="radio"
+        name="mytabs"
+        class="tab"
+        aria-label="วงเงินที่ใช้ไปแล้ว"
+        checked="checked"
       />
-    </div>
+      <div class="tab-content bg-base-100 border-base-300 p-6">
+        <div class="overflow-x-auto mt-2">
+          <p>วงเงินที่ใช้ไปแล้วทั้งหมด {{ data.totalAll }} บาท</p>
+          <p>การประชุมวิชาการ</p>
+          <table class="table w-full" ref="dataconfer2">
+            <thead>
+              <tr class="text-center">
+                <th class="border px-3 py-2">ครั้งที่</th>
+                <th class="border px-3 py-2">รวม</th>
+              </tr>
+            </thead>
+            <tbody v-for="(data, index) in data.approvedConfer" :key="data.form_id" class="text-center">
+              <tr>
+                <td class="border px-3 py-2">{{ index + 1 }}</td>
+                <td class="border px-3 py-2">{{ data.money }}</td>
+              </tr>
+              
+            </tbody>
+            <tr>
+                <td class="border px-3 py-2 text-center font-bold">รวม</td>
+                <td class="border px-3 py-2 text-center">{{ data.totalConfer }}</td>
+              </tr>
+          </table>
 
-    <div class="my-5">
-      <TextInputLabelLeft
-        label="ยอดที่ใช้ของการขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ"
-        customLabel="w-full max-w-fit mr-5"
-        customInput="w-full"
-        :placeholder="user.user_moneyPC"
-        disabled="true"
-      />
+          <p>Page Charge</p>
+          <table class="table w-full" ref="dataconfer2">
+            <thead>
+              <tr class="text-center">
+                <th class="border px-3 py-2">ครั้งที่</th>
+                <th class="border px-3 py-2">รวม</th>
+              </tr>
+            </thead>
+            <tbody v-for="(data, index) in data.approvedPC" :key="data.form_id" class="text-center">
+              <tr>
+                <td class="border px-3 py-2">{{ index + 1 }}</td>
+                <td class="border px-3 py-2">{{ data.money }}</td>
+              </tr>
+              
+            </tbody>
+            <tr>
+                <td class="border px-3 py-2 text-center font-bold">รวม</td>
+                <td class="border px-3 py-2 text-center">{{ data.totalPC }}</td>
+              </tr>
+          </table>
+        </div>
+      </div>
     </div>
 
     <div class="my-10 flex flex-col">
@@ -147,6 +191,11 @@ const user = computed(() => userStore.user);
 const data = reactive({
   id: "",
   signature: null,
+  approvedConfer: [],
+  approvedPC: [],
+  totalAll: 0,
+  totalPC: 0,
+  totalConfer: 0,
 });
 
 //validate rule
@@ -166,9 +215,21 @@ const rules = {
 
 const v$ = useVuelidate(rules, data);
 
+const getDataMoney = async () => {
+  console.log("id", data.id)
+  const res = await api.get(`/sumBudgets/${user.value?.user_id}`)
+  console.log("res", res.data)
+  data.approvedPC = res.data.sumPC;
+  data.approvedConfer = res.data.sumConfer;
+  data.totalAll = res.data.totalMoney;
+  data.totalPC = res.data.totalPC;
+  data.totalConfer = res.data.totalConfer;
+
+}
+
 onMounted(async () => {
   await userStore.fetchUser();
-
+  await getDataMoney();
   data.id = user.value?.user_id;
 });
 
@@ -201,7 +262,7 @@ const updatesignature = async () => {
         },
       });
 
-      console.log(response)
+      console.log(response);
 
       alert("อัปโหลดลายเซ็นเรียบร้อยแล้ว");
 

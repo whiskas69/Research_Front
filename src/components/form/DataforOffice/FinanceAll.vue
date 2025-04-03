@@ -121,17 +121,18 @@
           v-if="props.type == 'Conference'"
           class="flex flex-col items-end mt-5"
         >
-          <div class="text-red-500 flex justify-end mt-5 mr-5">
+          <div class="text-red-500 flex justify-end mr-5">
             <div class="flex flex-col items-end">
               <p v-if="formData.canWithdrawn.inOutC == 'Out_Country'">
                 วงเงินที่สามารถเบิกได้ {{ expenses.withdrawn }} บาท
               </p>
               <div v-if="formData.canWithdrawn.inOutC == 'In_Country'" class="flex flex-col items-end">
-                <p>วงเงินที่สามารถเบิกได้ 8,000 บาท</p>
+                <p>วงเงินที่สามารถเบิกได้ {{ expenses.withdrawn }} บาท</p>
                 <p>{{ formData.canWithdrawn.inthai }}</p>
               </div>
               <p>
-                {{ formData.canWithdrawn.message }}
+                {{ formData.canWithdrawn.message }} ค่าลงทะเบียน
+                {{ expenses.regits }} บาท
               </p>
               <div v-if="formData.canWithdrawn.inOutC == 'Out_Country'" class="flex flex-col items-end">
                 <p>ค่าเบี้ยเลี้ยงเดินทางไม่เกิน {{ expenses.allowance }} บาท</p>
@@ -174,6 +175,12 @@ const expenses = computed(() => {
       minimumFractionDigits: 2,
     }
   );
+  const regits = parseFloat(formData.conference.total_amount).toLocaleString(
+    "en-US",
+    {
+      minimumFractionDigits: 2,
+    }
+  );
   const allowance = parseFloat(
     3500 * formData.conference.num_travel_days
   ).toLocaleString("en-US", {
@@ -185,7 +192,7 @@ const expenses = computed(() => {
     minimumFractionDigits: 2,
   });
 
-  return { withdrawn, allowance, accom };
+  return { withdrawn, regits, allowance, accom };
 });
 
 const props = defineProps(["id", "type"]);
