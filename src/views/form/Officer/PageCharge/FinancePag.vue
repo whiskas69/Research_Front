@@ -86,24 +86,6 @@
           <span v-if="v$.totalAll.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.totalAll.$errors[0].$message }}
           </span>
-          <!-- <div class="flex justify-end">
-            <button
-              @click="showCreditLimit = true"
-              class="btn text-black btn-warning mr-5"
-            >
-              คำนวณ
-            </button>
-          </div> -->
-
-          <!-- ควรที่จะแสดงมั้ย เพราะแสดงตรงช่อง จำนวนเงินที่ขออนุมัติค่า Page Charge ในครั้งนี้  -->
-          <!-- <div
-            v-show="showCreditLimit"
-            class="creditLimit flex justify-end mt-5"
-          >
-            <p class="text-red-500 mr-5">
-              วงเงินที่สามารถเบิกได้ {{ formData.canWithdrawn }} บาท
-            </p>
-          </div> -->
         </SectionWrapper>
       </Mainbox>
 
@@ -173,7 +155,6 @@ const caltotalFacultyNow = computed(() => {
   return formData.totalcreditLimit;
 });
 
-const showCreditLimit = ref(false);
 //isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
 const router = useRouter();
 const isLoading = ref(true);
@@ -279,7 +260,6 @@ const OfficerPC = async () => {
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
       router.push("/officer");
       console.log("res: ", response);
-      console.log("allpostOfficerConfer: ", message.value);
       console.log("postOfficerConfer: ", response.data);
     } catch (error) {
       console.log("Error saving code : ", error);
