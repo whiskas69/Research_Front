@@ -581,7 +581,7 @@ const NewKris = async () => {
       });
 
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      router.push("/allstatus");
+      router.push("/mystatus");
     } catch (error) {
       console.log("Error saving code : ", error.response?.data || error.message);
 

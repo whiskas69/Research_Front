@@ -83,7 +83,7 @@
                 <summary>สถานะเอกสาร</summary>
                 <ul class="bg-base-100 rounded-t-none px-1 w-full">
                   <li>
-                    <router-link to="/allstatus">สถานะเอกสาร</router-link>
+                    <router-link to="/mystatus">สถานะเอกสาร</router-link>
                   </li>
                   <li>
                     <router-link to="/myhistory">ประวัติการยื่น</router-link>
@@ -106,7 +106,7 @@
                   <summary>สถานะเอกสารที่รับผิดชอบ</summary>
                   <ul class="bg-base-100 rounded-t-none px-1 w-full">
                     <li>
-                      <router-link to="/allstatusOffice"
+                      <router-link to="/mystatusOffice"
                         >สถานะเอกสาร</router-link
                       >
                     </li>

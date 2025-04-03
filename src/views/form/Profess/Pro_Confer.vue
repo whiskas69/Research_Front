@@ -1405,7 +1405,7 @@ const newConfer = async () => {
         },
       });
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      router.push("/allstatus");
+      router.push("/mystatus");
     } catch (error) {
       console.log("Error saving code : ", error);
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");

@@ -63,13 +63,16 @@ const login = async () => {
             const currentUser = userStore.user;
 
             if (currentUser?.user_role == "professor") {
+              // location.reload();
               router.push("/homepage");
             } else if (
-              currentUser?.user_role == "insecter" ||
-              currentUser?.user_role == "approver"
+              currentUser?.user_role !== "professor" ||
+              currentUser?.user_role !== "admin"
             ) {
+              // location.reload();
               router.push("/Officer");
             } else if (currentUser?.user_role == "admin") {
+              // location.reload();
               router.push("/admin");
             }
           } catch (error) {

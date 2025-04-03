@@ -7,21 +7,13 @@ export const useUserStore = defineStore("user", {
     loggedIn: localStorage.getItem("loggedIn") === "true",
   }),
 
+  getters: {
+    isAuthenticated: (state) => state.user !== null, // เช็คว่ามี user หรือไม่
+    userRole: (state) => state.user?.user_role || null, // ดึง role ของ user
+  },
+
   actions: {
     async fetchUser() {
-      //check user login
-      if (!this.loggedIn) {
-        console.log("User not logged in.");
-
-        alert("กรุณาทำการเข้าสู่ระบบ");
-
-        if (window.location.pathname !== "/login") {
-          window.location.href = "/login";
-        }
-
-        return;
-      }
-
       try {
         const response = await api.get("/me", {
           withCredentials: true,
@@ -30,9 +22,8 @@ export const useUserStore = defineStore("user", {
         this.user = response.data.user;
       } catch (error) {
         console.log("Userstore", error.response.data.message)
-        alert(error.response.data.message);
+        alert(error.response?.data?.message || "เกิดข้อผิดพลาด");
 
-        console.log("Error fetching user: ", error);
         this.user = null;
         localStorage.removeItem("loggedIn");
       }
@@ -44,7 +35,7 @@ export const useUserStore = defineStore("user", {
         this.user = null;
         localStorage.removeItem("loggedIn");
       } catch (error) {
-        alert(error.response.data.message);
+        alert(error.response?.data?.message || "เกิดข้อผิดพลาด");
         console.log("logout error:", error);
       }
     },

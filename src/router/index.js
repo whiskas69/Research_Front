@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useUserStore } from "@/store/userStore";
+
 import LoginPage from "@/views/LoginPage.vue";
 import Search from "@/views/Search.vue";
 
@@ -50,6 +52,7 @@ const router = createRouter({
       path: "/eoffice",
       name: "eOffice",
       component: eOffice,
+      meta: { requiresAuth: true, role: ["hr", "research"] },
     },
     {
       path: "/",
@@ -60,16 +63,19 @@ const router = createRouter({
       path: "/homepage",
       name: "HomePageProfes",
       component: HomePage_Profes,
+      meta: { requiresAuth: true },
     },
     {
       path: "/officer",
       name: "HomePageOfficer",
       component: HomePage_Offi,
+      meta: { requiresAuth: true, role: ["hr", "research", "finance", "associate", "dean"] },
     },
     {
       path: "/admin",
       name: "HomepageAdmin",
       component: Homepage_Admin,
+      meta: { requiresAuth: true, role: ["admin"] },
     },
     {
       path: "/login",
@@ -77,159 +83,191 @@ const router = createRouter({
       component: LoginPage,
     },
     {
-      path: "/allstatus",
+      path: "/mystatus",
       name: "Status",
       component: StatusView,
       meta: { requiresAuth: true },
     },
     {
-      path: "/allstatusOffice",
+      path: "/statusOffice",
       name: "StatusofOffice",
       component: StatusViewOffice,
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true, role: ["hr", "research"] },
     },
     {
       path: "/myhistory",
       name: "History",
       component: HistoryView,
+      meta: { requiresAuth: true },
     },
     {
       path: "/historyOffice",
       name: "HistoryofOffice",
       component: HistoryViewOffice,
+      meta: { requiresAuth: true, role: ["hr", "research"] },
+    },
+    {
+      path: "/allhistory",
+      name: "allhistory",
+      component: AllHistory,
+      meta: { requiresAuth: true, role: ["hr", "research", "finance", "associate", "dean"] },
     },
     {
       path: "/formConfer",
       name: "Form_Confer",
       component: Pro_Confer,
+      meta: { requiresAuth: true },
     },
     {
       path: "/formPC",
       name: "FormPC",
       component: Pro_Page,
+      meta: { requiresAuth: true },
     },
     {
       path: "/formKris",
       name: "FormKris",
       component: Pro_Kris,
+      meta: { requiresAuth: true },
     },
     {
       path: "/officFormConfer/hr/:id",
       name: "officFormConferHr",
       component: offic_hrConfer,
+      meta: { requiresAuth: true, role: ["hr"] },
     },
     {
       path: "/officFormConfer/research/:id",
       name: "officFormConferRes",
       component: offic_resConfer,
+      meta: { requiresAuth: true, role: ["research"] },
     },
     {
       path: "/officFormConfer/finance/:id",
       name: "officFormConferFinc",
       component: offic_fincConfer,
+      meta: { requiresAuth: true, role: ["finance"] },
     },
     {
       path: "/officFormConfer/associate/:id",
       name: "officFormConferAssoc",
       component: offic_associateConfer,
+      meta: { requiresAuth: true, role: ["associate"] },
     },
     {
       path: "/officFormConfer/dean/:id",
       name: "officFormConferDean",
       component: offic_deanConfer,
+      meta: { requiresAuth: true, role: ["dean"] },
     },
     {
       path: "/officFormPC/research/:id",
       name: "OfficFormPCRes",
       component: offic_resPage,
+      meta: { requiresAuth: true, role: ["research"] },
     },
     {
       path: "/officFormPC/finance/:id",
       name: "OfficFormPCFin",
       component: offic_financePage,
+      meta: { requiresAuth: true, role: ["finance"] },
     },
     {
       path: "/officFormPC/associate/:id",
       name: "OfficFormPCAssoc",
       component: offic_associatePage,
+      meta: { requiresAuth: true, role: ["associate"] },
     },
     {
       path: "/officFormPC/dean/:id",
       name: "OfficFormPCDean",
       component: offic_deanPage,
+      meta: { requiresAuth: true, role: ["dean"] },
     },
     {
       path: "/officFormKris/research/:id",
       name: "OfficFormKris",
       component: offic_Kris,
+      meta: { requiresAuth: true, role: ["research"] },
     },
     {
       path: "/status/Conference/:id",
       name: "StatusConfer",
       component: StatusConferView,
+      meta: { requiresAuth: true },
     },
     {
       path: "/status/PageCharge/:id",
       name: "StatusPC",
       component: StatusPCView,
+      meta: { requiresAuth: true },
     },
     {
       path: "/status/Kris/:id",
       name: "StatusKris",
       component: StatusKRISView,
+      meta: { requiresAuth: true },
     },
     {
       path: "/profile",
       name: "Profile",
       component: Profile,
+      meta: { requiresAuth: true },
     },
     {
       path: "/history/confer/:id",
       name: "HistoryConfer",
       component: his_confer,
+      meta: { requiresAuth: true },
     },
     {
       path: "/history/pageCharge/:id",
       name: "HistoryPageCharge",
       component: his_pageCharge,
+      meta: { requiresAuth: true },
     },
     {
       path: "/history/kris/:id",
       name: "HistoryKris",
       component: his_kris,
+      meta: { requiresAuth: true },
     },
     {
       path: "/pdf/confer/:id",
       name: "ConferPDF",
       component: ConferPDF,
-      meta: { hideNavbar: true },
+      meta: { hideNavbar: true, requiresAuth: true },
     },
     {
       path: "/pdf/pageCharge/:id",
       name: "PageCPDF",
       component: PageCPDF,
-      meta: { hideNavbar: true },
+      meta: { hideNavbar: true, requiresAuth: true },
     },
     {
       path: "/summary",
       name: "summary",
       component: summary,
+      meta: { requiresAuth: true, role: ["hr", "research", "finance", "associate", "dean", "admin"] },
     },
-    {
-      path: "/allhistory",
-      name: "allhistory",
-      component: AllHistory
-    }
   ],
 });
 
 //check login
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem("loggedIn");
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next("/login");
-  } else {
-    next();
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore();
+  console.log("User isAuthenticated:", userStore.isAuthenticated);
+
+   // ถ้าต้องการล็อกอิน และ user ยังไม่ได้ล็อกอิน
+   if (to.meta.requiresAuth && !userStore.isAuthenticated) {
+    return next("/login");
   }
+
+  // ถ้ามี role ที่กำหนด และ user ไม่มี role หรือ role ไม่อยู่ในรายการที่อนุญาต
+  if (to.meta.role && !to.meta.role.includes(userStore.userRole)) {
+    return next("/");
+  }
+
+  next(); // อนุญาตให้เข้าหน้า
 });
 export default router;
