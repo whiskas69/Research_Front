@@ -159,7 +159,7 @@
             <div tabindex="0" role="button" class="btn m-1">
               <span v-if="(filteredNotificationOfficerCount + filteredNotificationCount) > 0"
                 class="absolute top-0 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-s font-bold text-white">
-                {{ filteredNotificationOfficerCount }}
+                {{ filteredNotificationOfficerCount + filteredNotificationCount }}
               </span>
               <i class="color-black text-xl fa fa-bell"></i>
             </div>
@@ -354,6 +354,7 @@ const updateNotificationsPro = async () => {
 
 const updateNotificationsOff = async () => {
   if (list_notification.Off_noti.length === 0) return;
+  if (list_notification.Pro_noti.length === 0) return;
 
   try {
     const notiIds = list_notification.Off_noti.map((noti) => noti.noti_id);
