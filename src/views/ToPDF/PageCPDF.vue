@@ -360,7 +360,7 @@
           <div class="flex flex-row gap-1 ">
             <p>ลงนาม</p>
             <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
-              <img v-if="item.user_role == 'research' && item.user_id == formData.offic.research_id"
+              <img v-if="item.user_role == 'research' && (item.user_id == formData.offic.research_id)"
               :src="`http://localhost:3000/uploads/${item.user_signature}`"
               class="h-[50px] w-[170px]"
               alt="research Image"

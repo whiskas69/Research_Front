@@ -58,6 +58,63 @@
             disabled="true"
           />
         </div>
+
+        <div class="my-10 flex flex-col">
+      <h1 class="text-xl font-bold">ลายเซ็น</h1>
+
+      <div v-if="user.user_signature == null || user.user_signature == ''">
+        <p class="text-red-600">
+          สามารถอัปโหลดลายเซ็นได้เพียง 1 ครั้งเท่านั้น และสกุลไฟล์เป็น png
+          กรุณาตรวจสอบความถูกต้องก่อนกดยืนยัน
+        </p>
+
+        <div class="my-5">
+          <input
+            type="file"
+            class="file-input file-input-bordered w-full max-w-xs"
+            @change="handleFile($event, 'signature')"
+          />
+        </div>
+
+        <span v-if="v$.signature.$error" class="text-base ml-2 text-red-500">
+          {{ v$.signature.$errors[0].$message }}
+        </span>
+
+        <div class="flex justify-end mr-5">
+          <button @click="updatesignature" class="btn bg-blue-500 text-white">
+            ตกลง
+          </button>
+        </div>
+      </div>
+
+      <div v-else>
+        <p class="text-red-600">
+          หากมีข้อผิดพลาดโปรดติดต่อเจ้าหน้าที่ที่เกี่ยวข้อง เพื่อแก้ไข
+        </p>
+        <div class="flex flex-row items-center w-full">
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row">
+              <p>ดูลายเซ็นที่อัปโหลด</p>
+            </div>
+            <div class="">
+              <button
+                @click="getSignature"
+                class="btn bg-[#E85F19] text-white ml-10"
+              >
+                ดูเอกสาร
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <img
+          v-if="data.signature"
+          :src="data.signature"
+          alt="signature"
+          class="w-64 h-64 mt-5"
+        />
+      </div>
+    </div>
       </div>
 
       <input
@@ -112,63 +169,6 @@
               </tr>
           </table>
         </div>
-      </div>
-    </div>
-
-    <div class="my-10 flex flex-col">
-      <h1 class="text-xl font-bold">ลายเซ็น</h1>
-
-      <div v-if="user.user_signature == null || user.user_signature == ''">
-        <p class="text-red-600">
-          สามารถอัปโหลดลายเซ็นได้เพียง 1 ครั้งเท่านั้น และสกุลไฟล์เป็น png
-          กรุณาตรวจสอบความถูกต้องก่อนกดยืนยัน
-        </p>
-
-        <div class="my-5">
-          <input
-            type="file"
-            class="file-input file-input-bordered w-full max-w-xs"
-            @change="handleFile($event, 'signature')"
-          />
-        </div>
-
-        <span v-if="v$.signature.$error" class="text-base ml-2 text-red-500">
-          {{ v$.signature.$errors[0].$message }}
-        </span>
-
-        <div class="flex justify-end mr-5">
-          <button @click="updatesignature" class="btn bg-blue-500 text-white">
-            ตกลง
-          </button>
-        </div>
-      </div>
-
-      <div v-else>
-        <p class="text-red-600">
-          หากมีข้อผิดพลาดโปรดติดต่อเจ้าหน้าที่ที่เกี่ยวข้อง เพื่อแก้ไข
-        </p>
-        <div class="flex flex-row items-center w-full">
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row">
-              <p>ดูลายเซ็นที่อัปโหลด</p>
-            </div>
-            <div class="">
-              <button
-                @click="getSignature"
-                class="btn bg-[#E85F19] text-white ml-10"
-              >
-                ดูเอกสาร
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <img
-          v-if="data.signature"
-          :src="data.signature"
-          alt="signature"
-          class="w-64 h-64 mt-5"
-        />
       </div>
     </div>
   </div>

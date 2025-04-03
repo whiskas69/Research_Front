@@ -657,6 +657,7 @@
                   :key="item"
                   class="-mt-2"
                 >
+                <p>{{ item.user_id }}</p>
                   <img
                     v-if="
                       item.user_role == 'finance' &&
@@ -882,6 +883,7 @@ const fetchProfessorData = async () => {
         formData.signatureOffice.push(signature);
       }
     }
+    console.log("formData.signatureOffice",formData.signatureOffice)
   } catch (error) {
     console.log("Error fetching professor data:", error);
   } finally {
