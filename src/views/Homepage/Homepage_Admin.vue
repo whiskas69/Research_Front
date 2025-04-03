@@ -402,14 +402,14 @@ const rules = computed(() => ({
       "* กรุณากรอกข้อมูลตำแหน่ง (ภาษาไทย) *",
       required
     ),
-    thaiOnly,
+    // thaiOnly,
   },
   positioneng: {
     required: helpers.withMessage(
       "* กรุณากรอกข้อมูลตำแหน่ง (ภาษาอังกฤษ) *",
       required
     ),
-    englishOnly,
+    // englishOnly,
   },
   startwork: {
     required: helpers.withMessage(

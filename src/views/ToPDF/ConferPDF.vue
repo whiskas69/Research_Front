@@ -882,6 +882,7 @@ const fetchProfessorData = async () => {
         formData.signatureOffice.push(signature);
       }
     }
+    console.log("formData.signatureOffice",formData.signatureOffice)
   } catch (error) {
     console.log("Error fetching professor data:", error);
   } finally {

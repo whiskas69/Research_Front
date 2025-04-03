@@ -1281,7 +1281,13 @@ const rules = computed(() => ({
     ),
   },
   result: {
-    notStandard: helpers.withMessage("* กรอกคะแนนไม่ถูกต้อง ระดับต้องเป็นระดับดีมาก *", (value) => value !== "ระดับมาตรฐาน"),
+    notStandard: helpers.withMessage(
+      "* กรอกคะแนนไม่ถูกต้อง ระดับต้องเป็นระดับดีมาก *",
+      (value) => {
+        // ถ้า qualityMeeting เป็น "ดีมาก" แต่ result เป็น "ได้ระดับมาตรฐาน" -> Error
+        return !(formData.qualityMeeting === "ดีมาก" && value === "ได้ระดับมาตรฐาน");
+      }
+    ),
   },
 }));
 
