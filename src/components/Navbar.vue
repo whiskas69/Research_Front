@@ -106,7 +106,7 @@
                   <summary>สถานะเอกสารที่รับผิดชอบ</summary>
                   <ul class="bg-base-100 rounded-t-none px-1 w-full">
                     <li>
-                      <router-link to="/mystatusOffice"
+                      <router-link to="/statusOffice"
                         >สถานะเอกสาร</router-link
                       >
                     </li>
