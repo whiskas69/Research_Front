@@ -333,6 +333,7 @@ const formData = reactive({
   conference: [],
   score: [],
   page_c: [],
+  name: "",
   //urlfile
   f_pc_proof: null,
   f_q_pc_proof: null,
@@ -386,8 +387,9 @@ const fetchOfficerData = async () => {
     } else if (props.type == "Page_Charge") {
       const responseoffic = await api.get(`/opinionPC/${props.id}`);
       formData.offic = responseoffic.data;
-      const response = await api.get(`/form/Pc/${id}`);
+      const response = await api.get(`/form/Pc/${props.id}`);
       formData.page_c = response.data.page_c;
+      formData.name = response.data.name;
       const responsefile = await api.get(`/getFilepage_c?pageC_id=${props.id}`);
       formData.f_pc_proof = responsefile.data.file_pc_proof;
       formData.f_q_pc_proof = responsefile.data.file_q_pc_proof;
