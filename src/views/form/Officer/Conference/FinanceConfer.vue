@@ -80,7 +80,7 @@
                 วงเงินที่สามารถเบิกได้ {{ expenses.withdrawn }} บาท
               </p>
               <div v-if="formData.canWithdrawn.inOutC == 'In_Country'" class="flex flex-col items-end">
-                <p>วงเงินที่สามารถเบิกได้ 8,000 บาท</p>
+                <p>วงเงินที่สามารถเบิกได้ {{ expenses.withdrawn }} บาท</p>
                 <p>{{ formData.canWithdrawn.inthai }}</p>
               </div>
               <p>

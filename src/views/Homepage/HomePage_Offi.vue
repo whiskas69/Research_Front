@@ -86,7 +86,10 @@
             <router-link :to="`/officFormPC/finance/${form.pageC_id}`">
               <div class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer">
                 <p class="flex justify-between px-5 py-1 text-left">
-                  <span class="text-base">{{ getNameById(listForm.nameP, form.pageC_id) }}</span>
+                  <span>
+                    <span class="text-base">{{ getNameById(listForm.nameP, form.pageC_id) }}</span>
+                    <span class="text-sm px-2 text-red-900"> ({{ getFileById(listForm.nameP, form.pageC_id) }})</span>
+                  </span>
                   <span class="text-base text-[#868181]">ขออนุมัติค่า Page Charge</span>
                 </p>
               </div>
@@ -97,7 +100,10 @@
             <router-link :to="`/officFormPC/associate/${form.pageC_id}`">
               <div class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer">
                 <p class="flex justify-between px-5 py-1 text-left">
-                  <span class="text-base">{{ getNameById(listForm.nameP, form.pageC_id) }}</span>
+                  <span>
+                    <span class="text-base">{{ getNameById(listForm.nameP, form.pageC_id) }}</span>
+                    <span class="text-sm px-2 text-red-900"> ({{ getFileById(listForm.nameP, form.pageC_id) }})</span>
+                  </span>
                   <span class="text-base text-[#868181]">ขออนุมัติค่า Page Charge</span>
                 </p>
               </div>
@@ -108,7 +114,10 @@
             <router-link :to="`/officFormPC/dean/${form.pageC_id}`">
               <div class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer">
                 <p class="flex justify-between px-5 py-1 text-left">
-                  <span class="text-base">{{ getNameById(listForm.nameP, form.pageC_id) }}</span>
+                  <span>
+                    <span class="text-base">{{ getNameById(listForm.nameP, form.pageC_id) }}</span>
+                    <span class="text-sm px-2 text-red-900"> ({{ getFileById(listForm.nameP, form.pageC_id) }})</span>
+                  </span>
                   <span class="text-base text-[#868181]">ขออนุมัติค่า Page Charge</span>
                 </p>
               </div>

@@ -21,10 +21,10 @@
                 <p v-else>มีค่าคะแนน {{ formData.score.score_result }}</p>
               </div>
             </div>
-            <p v-else-if="formData.conference.quality_meeting == 'มาตรฐาน'">
+            <p v-else-if="formData.conference.quality_meeting == 'มาตรฐาน'" class="px-2">
               • อยู่ในระดับ{{ formData.conference.quality_meeting }}
             </p>
-            <p v-else-if="formData.conference.quality_meeting == ''">
+            <p v-else-if="formData.conference.quality_meeting == ''" class="px-2">
               • ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ
               และไม่อยู่ในฐานข้อมูลสากล SCOPUS
             </p>

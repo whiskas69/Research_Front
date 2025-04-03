@@ -11,6 +11,7 @@
   "dependencies": {
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
+    "autoprefixer": "^10.4.21",
     "axios": "^1.8.4",
     "chart.js": "^3.9.1",
     "file-saver": "^2.0.5",
@@ -22,14 +23,11 @@
     "vue-router": "^4.4.5",
     "vue-select": "^4.0.0-beta.6",
     "vue3-google-login": "^2.0.33",
-    "xlsx": "^0.18.5",
-    "xlsx-style": "^0.8.13"
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",
-    "autoprefixer": "^10.4.20",
     "daisyui": "^5.0.9",
-    "pdfmake-font-generator": "^1.0.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
     "vite": "^5.4.10",

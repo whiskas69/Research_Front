@@ -14,21 +14,15 @@
                 </p>
               </div>
               <div>
-                <button
-                  @click="getFile(formData.f_pc_proof)"
-                  class="btn bg-[#E85F19] text-white mr-5"
-                >
+                <button @click="getFile(formData.f_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
                   ดูเอกสาร
                 </button>
-                <button
-                  @click="
-                    downloadFile(
-                      formData.f_pc_proof,
-                      'หลักฐานการอยู่ในฐานข้อมูลสากล'
-                    )
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                >
+                <button @click="
+                  downloadFile(
+                    formData.f_pc_proof,
+                    'หลักฐานการอยู่ในฐานข้อมูลสากล'
+                  )
+                  " class="btn bg-[#4285F4] text-white">
                   โหลดเอกสาร
                 </button>
               </div>
@@ -43,21 +37,15 @@
                 </p>
               </div>
               <div>
-                <button
-                  @click="getFile(formData.f_q_pc_proof)"
-                  class="btn bg-[#E85F19] text-white mr-5"
-                >
+                <button @click="getFile(formData.f_q_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
                   ดูเอกสาร
                 </button>
-                <button
-                  @click="
-                    downloadFile(
-                      formData.f_q_pc_proof,
-                      'หลักฐานการจัดลำดับ Quartile'
-                    )
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                >
+                <button @click="
+                  downloadFile(
+                    formData.f_q_pc_proof,
+                    'หลักฐานการจัดลำดับ Quartile'
+                  )
+                  " class="btn bg-[#4285F4] text-white">
                   โหลดเอกสาร
                 </button>
               </div>
@@ -72,21 +60,15 @@
                 </p>
               </div>
               <div>
-                <button
-                  @click="getFile(formData.f_invoice_public)"
-                  class="btn bg-[#E85F19] text-white mr-5"
-                >
+                <button @click="getFile(formData.f_invoice_public)" class="btn bg-[#E85F19] text-white mr-5">
                   ดูเอกสาร
                 </button>
-                <button
-                  @click="
-                    downloadFile(
-                      formData.f_invoice_public,
-                      'ใบแจ้งหนี้ค่าใช้จ่าย'
-                    )
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                >
+                <button @click="
+                  downloadFile(
+                    formData.f_invoice_public,
+                    'ใบแจ้งหนี้ค่าใช้จ่าย'
+                  )
+                  " class="btn bg-[#4285F4] text-white">
                   โหลดเอกสาร
                 </button>
               </div>
@@ -98,26 +80,16 @@
                 หลักฐานการส่งบทความ หนังสือตอบรับบทความ
               </p>
               <div>
-                <button
-                  @click="getFile(formData.f_accepted)"
-                  class="btn bg-[#E85F19] text-white mr-5"
-                  :disabled="!isValidFile(formData.f_accepted)"
-                >
+                <button @click="getFile(formData.f_accepted)" class="btn bg-[#E85F19] text-white mr-5"
+                  :disabled="!isValidFile(formData.f_accepted)">
                   ดูเอกสาร
                 </button>
-                <button
-                  @click="
-                    downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                  :disabled="!isValidFile(formData.f_accepted)"
-                >
+                <button @click="
+                  downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')
+                  " class="btn bg-[#4285F4] text-white" :disabled="!isValidFile(formData.f_accepted)">
                   โหลดเอกสาร
                 </button>
-                <p
-                  v-if="formData.page_c.accepted == null"
-                  class="text-red-500 pt-1"
-                >
+                <p v-if="formData.page_c.accepted == null" class="text-red-500 pt-1">
                   ** ไม่มีหนังสือตอบรับบทความ **
                 </p>
               </div>
@@ -129,21 +101,15 @@
                 <p>สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar</p>
               </div>
               <div>
-                <button
-                  @click="getFile(formData.f_copy_article)"
-                  class="btn bg-[#E85F19] text-white mr-5"
-                >
+                <button @click="getFile(formData.f_copy_article)" class="btn bg-[#E85F19] text-white mr-5">
                   ดูเอกสาร
                 </button>
-                <button
-                  @click="
-                    downloadFile(
-                      formData.f_copy_article,
-                      'สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar'
-                    )
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                >
+                <button @click="
+                  downloadFile(
+                    formData.f_copy_article,
+                    'สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar'
+                  )
+                  " class="btn bg-[#4285F4] text-white">
                   โหลดเอกสาร
                 </button>
               </div>
@@ -156,60 +122,26 @@
       <Mainbox>
         <SectionWrapper>
           <p>ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
-          <RadioInput
-            label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้"
-            value="อนุมัติ"
-            name="re"
-            v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)"
-          />
-          <TextInputLabelLeft
-            v-if="formData.radioAuthOffic == 'อนุมัติ'"
-            label="ได้รับหนังสือตอบรับบทความ เมื่อวันที่"
-            customLabel="mx-2 w-full "
-            customInput="max-w-max"
-            customDiv="max-w-max"
-            type="date"
-            v-model="formData.dateAccep"
-            @input="handleInput('dateAccep', $event.target.value)"
-          />
-          <textarea
-            class="textarea textarea-bordered w-full"
-            @input="handleInput('description', $event.target.value)"
-          ></textarea>
-          <RadioInput
-            label="ถูกต้องตามเงื่อนไขการสนับสนุน กรณีส่งหนังสือตอบรับย้อนหลัง ดังนี้"
-            value="รอหนังสือตอบรับ"
-            name="re"
-            v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)"
-          />
-          <textarea
-            class="textarea textarea-bordered w-full"
-            @input="handleInput('description', $event.target.value)"
-          ></textarea>
-          <RadioInput
-            label="อื่น ๆ"
-            value="อื่น ๆ"
-            name="re"
-            v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)"
-          />
-          <textarea
-            class="textarea textarea-bordered w-full"
-            @input="handleInput('description', $event.target.value)"
-          ></textarea>
+          <RadioInput label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้" value="อนุมัติ" name="re"
+            v-model="formData.radioAuthOffic" @change="handleInput('radioAuthOffic', $event.target.value)" />
+          <TextInputLabelLeft v-if="formData.radioAuthOffic == 'อนุมัติ'" label="ได้รับหนังสือตอบรับบทความ เมื่อวันที่"
+            customLabel="mx-2 w-full " customInput="max-w-max" customDiv="max-w-max" type="date"
+            v-model="formData.dateAccep" @input="handleInput('dateAccep', $event.target.value)" />
+          <textarea class="textarea textarea-bordered w-full"
+            @input="handleInput('description', $event.target.value)"></textarea>
+          <RadioInput label="ถูกต้องตามเงื่อนไขการสนับสนุน กรณีส่งหนังสือตอบรับย้อนหลัง ดังนี้" value="รอหนังสือตอบรับ"
+            name="re" v-model="formData.radioAuthOffic" @change="handleInput('radioAuthOffic', $event.target.value)" />
+          <textarea class="textarea textarea-bordered w-full"
+            @input="handleInput('description', $event.target.value)"></textarea>
+          <RadioInput label="อื่น ๆ" value="อื่น ๆ" name="re" v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)" />
+          <textarea class="textarea textarea-bordered w-full"
+            @input="handleInput('description', $event.target.value)"></textarea>
 
-          <span
-            v-if="v$.radioAuthOffic.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.radioAuthOffic.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.radioAuthOffic.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.dateAccep.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.dateAccep.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.dateAccep.$errors[0].$message }}
           </span>
         </SectionWrapper>
@@ -275,7 +207,7 @@ const today = DateTime.now().toISODate();
 const maxDateToday = helpers.withMessage(
   "* วันที่ต้องไม่เกินวันนี้ *",
   (value) => {
-    if (!value) return false; // ถ้ายังไม่ได้กรอก ให้ error
+    if (!value) return false;
     return DateTime.fromISO(value) <= DateTime.fromISO(today);
   }
 );
@@ -283,11 +215,23 @@ const maxDateToday = helpers.withMessage(
 const rules = computed(() => ({
   radioAuthOffic: {
     required: helpers.withMessage("* กรุณาเลือกข้อมูล *", required),
+    validSelection: helpers.withMessage(
+      "* ไม่สามารถเลือกตัวเลือกนี้ได้ *",
+      (value) => {
+        if (
+          (value === "รอหนังสือตอบรับ" && (formData.f_accepted !== null || formData.f_accepted !== "")) ||
+          (value === "อนุมัติ" && (formData.f_accepted === null || formData.f_accepted === ""))
+        ) {
+          return false;
+        }
+        return true;
+      }
+    ),
   },
   dateAccep: {
     required: helpers.withMessage(
       "* กรุณากรอกวันที่อนุมัติ *",
-      requiredIf(() => formData.radioAuthOffic === "อนุมัติ")
+      requiredIf(() => formData.radioAuthOffic === "อนุมัติ" && formData.f_accepted !== null || formData.f_accepted !== "")
     ),
     maxDateToday,
   },
@@ -405,7 +349,7 @@ const OfficerPC = async () => {
           form_status: formData.formStatus,
         };
 
-        const response = await api.put(`/opinionPC/${id}`);
+        const response = await api.put(`/opinionPC/${id}`, dataForBackend);
         alert("บันทึกข้อมูลเรียบร้อยแล้ว");
         router.push("/officer");
       }

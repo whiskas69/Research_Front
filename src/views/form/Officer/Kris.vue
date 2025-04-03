@@ -22,20 +22,14 @@
         <p class="text-lg font-bold">ตรวจสอบ และรับทราบเอกสาร</p>
 
         <SectionWrapper>
-          <RadioInput
-            label="รับทราบ"
-            name="noted"
-            value="รับทราบ"
-            v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)"
-          />
-          <RadioInput
-            label="ไม่รับทราบ"
-            name="noted"
-            value="ไม่รับทราบ"
-            v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)"
-          />
+          <RadioInput label="รับทราบ" name="noted" value="รับทราบ" v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)" />
+          <RadioInput label="ไม่รับทราบ" name="noted" value="ไม่รับทราบ" v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)" />
+
+          <span v-if="v$.radioAuthOffic.$error" class="text-base font-bold text-red-500 text-left">
+            {{ v$.radioAuthOffic.$errors[0].$message }}
+          </span>
         </SectionWrapper>
       </Mainbox>
       <div class="flex justify-end">
@@ -129,7 +123,6 @@ const OfficerKris = async () => {
       const response = await api.post(`/opinionKris`, dataForBackend);
       alert("บันทึกข้อมูลเรียบร้อย");
       router.push("/allstatus");
-      
     } catch (error) {
       console.log("Error saving code : ", error);
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");

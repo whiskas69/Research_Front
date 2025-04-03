@@ -3,29 +3,43 @@
     <div class="container my-10 mx-auto">
       <Mainbox v-if="props.type == 'Conference'">
         <SectionWrapper>
-          <p>ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
-          <p>• คุณภาพของการประชุม ฯ</p>
-          <div class="px-5">
-            <div class="px-5">
-            <div v-if="formData.conference.quality_meeting == 'ดีมาก'">
-              <p>อยู่ในระดับ{{ formData.conference.quality_meeting }}</p>
+          <p class="font-bold">ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
+
+          <div>
+            <p>• คุณภาพของการประชุม ฯ</p>
+            <div
+              v-if="formData.conference.quality_meeting == 'ดีมาก'"
+              class="px-2"
+            >
+              <p>• อยู่ในระดับ{{ formData.conference.quality_meeting }}</p>
               <div class="flex flex-row gap-2">
-                <p>คำนวณจาก {{ formData.score.score_type }}</p>
-                <p v-if="formData.score.score_type == 'CORE'">มีค่าคะแนน {{ formData.score.core_rank }}</p>
+                <p>• คำนวณจาก {{ formData.score.score_type }}</p>
+                <p v-if="formData.score.score_type == 'CORE'">
+                  มีค่าคะแนน {{ formData.score.core_rank }}
+                </p>
                 <p v-else>มีค่าคะแนน {{ formData.score.score_result }}</p>
               </div>
             </div>
-            <p v-else-if="formData.conference.quality_meeting == 'มาตรฐาน'">อยู่ในระดับ{{ formData.conference.quality_meeting }}</p>
-            <p v-else-if="formData.conference.quality_meeting == ''">ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ  และไม่อยู่ในฐานข้อมูลสากล SCOPUS</p>
+            <p
+              v-else-if="formData.conference.quality_meeting == 'มาตรฐาน'"
+              class="px-2"
+            >
+              • อยู่ในระดับ{{ formData.conference.quality_meeting }}
+            </p>
+            <p
+              v-else-if="formData.conference.quality_meeting == ''"
+              class="px-2"
+            >
+              • ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ
+              และไม่อยู่ในฐานข้อมูลสากล SCOPUS
+            </p>
           </div>
           <RadioInput
             label="ข้อมูลถูกต้อง"
             value="ถูกต้อง"
             name="re"
             disabled="false"
-            :checked="
-                formData.offic.c_meet_quality == 'ถูกต้อง' ? true : false
-              "
+            :checked="formData.offic.c_meet_quality == 'ถูกต้อง' ? true : false"
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
@@ -33,11 +47,9 @@
             name="re"
             disabled="false"
             :checked="
-                formData.offic.c_meet_quality == 'ไม่ถูกต้อง' ? true : false
-              "
+              formData.offic.c_meet_quality == 'ไม่ถูกต้อง' ? true : false
+            "
           />
-          </div>
-
           <TextArea
             disabled="true"
             :placeholder="formData.offic.c_quality_reason"
@@ -59,10 +71,21 @@
                   </p>
                 </div>
                 <div class="">
-                  <button @click="getFile(formData.f_q_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
+                  <button
+                    @click="getFile(formData.f_q_pc_proof)"
+                    class="btn bg-[#E85F19] text-white mr-5"
+                  >
                     ดูเอกสาร
                   </button>
-                  <button @click="downloadFile(formData.f_q_pc_proof, 'หลักฐานการจัดลำดับ Quartile')" class="btn bg-[#4285F4] text-white">
+                  <button
+                    @click="
+                      downloadFile(
+                        formData.f_q_pc_proof,
+                        'หลักฐานการจัดลำดับ Quartile'
+                      )
+                    "
+                    class="btn bg-[#4285F4] text-white"
+                  >
                     โหลดเอกสาร
                   </button>
                 </div>
@@ -73,14 +96,26 @@
               <div class="flex flex-row items-center w-full justify-between">
                 <div class="flex flex-row">
                   <p>
-                    หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus
+                    หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ
+                    SJR หรือ Scopus
                   </p>
                 </div>
                 <div>
-                  <button @click="getFile(formData.f_q_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
+                  <button
+                    @click="getFile(formData.f_q_pc_proof)"
+                    class="btn bg-[#E85F19] text-white mr-5"
+                  >
                     ดูเอกสาร
                   </button>
-                  <button @click="downloadFile(formData.f_q_pc_proof, 'หลักฐานการจัดลำดับ Quartile')" class="btn bg-[#4285F4] text-white">
+                  <button
+                    @click="
+                      downloadFile(
+                        formData.f_q_pc_proof,
+                        'หลักฐานการจัดลำดับ Quartile'
+                      )
+                    "
+                    class="btn bg-[#4285F4] text-white"
+                  >
                     โหลดเอกสาร
                   </button>
                 </div>
@@ -96,10 +131,21 @@
                   </p>
                 </div>
                 <div>
-                  <button @click="getFile(formData.f_invoice_public)" class="btn bg-[#E85F19] text-white mr-5">
+                  <button
+                    @click="getFile(formData.f_invoice_public)"
+                    class="btn bg-[#E85F19] text-white mr-5"
+                  >
                     ดูเอกสาร
                   </button>
-                  <button  @click="downloadFile(formData.f_invoice_public, 'ใบแจ้งหนี้ค่าใช้จ่าย')" class="btn bg-[#4285F4] text-white">
+                  <button
+                    @click="
+                      downloadFile(
+                        formData.f_invoice_public,
+                        'ใบแจ้งหนี้ค่าใช้จ่าย'
+                      )
+                    "
+                    class="btn bg-[#4285F4] text-white"
+                  >
                     โหลดเอกสาร
                   </button>
                 </div>
@@ -112,13 +158,28 @@
                   <p>หลักฐานการส่งบทความ หนังสือตอบรับบทความ</p>
                 </div>
                 <div>
-                  <button @click="getFile(formData.f_accepted)" class="btn bg-[#E85F19] text-white mr-5" :disabled="!isValidFile(formData.f_accepted)">
+                  <button
+                    @click="getFile(formData.f_accepted)"
+                    class="btn bg-[#E85F19] text-white mr-5"
+                    :disabled="!isValidFile(formData.f_accepted)"
+                  >
                     ดูเอกสาร
                   </button>
-                  <button @click="downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')" class="btn bg-[#4285F4] text-white" :disabled="!isValidFile(formData.f_accepted)">
+                  <button
+                    @click="
+                      downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')
+                    "
+                    class="btn bg-[#4285F4] text-white"
+                    :disabled="!isValidFile(formData.f_accepted)"
+                  >
                     โหลดเอกสาร
                   </button>
-                  <p v-if="formData.page_c.accepted == null" class="text-red-500 pt-1"> ** ไม่มีหนังสือตอบรับบทความ **</p>
+                  <p
+                    v-if="formData.page_c.accepted == null"
+                    class="text-red-500 pt-1"
+                  >
+                    ** ไม่มีหนังสือตอบรับบทความ **
+                  </p>
                 </div>
               </div>
             </div>
@@ -129,10 +190,21 @@
                   <p>สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar</p>
                 </div>
                 <div>
-                  <button  @click="getFile(formData.f_copy_article)" class="btn bg-[#E85F19] text-white mr-5">
+                  <button
+                    @click="getFile(formData.f_copy_article)"
+                    class="btn bg-[#E85F19] text-white mr-5"
+                  >
                     ดูเอกสาร
                   </button>
-                  <button @click="downloadFile(formData.f_copy_article,'สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar')" class="btn bg-[#4285F4] text-white">
+                  <button
+                    @click="
+                      downloadFile(
+                        formData.f_copy_article,
+                        'สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar'
+                      )
+                    "
+                    class="btn bg-[#4285F4] text-white"
+                  >
                     โหลดเอกสาร
                   </button>
                 </div>
@@ -201,12 +273,22 @@
           <div class="flex flex-rowitems-center">
             <p>แบบเสนอโครงการวิจัย (Research Project)</p>
             <div class="ml-80">
-              <button  @click="getFile(formData.file)" class="btn bg-[#E85F19] text-white mr-5">ดูเอกสาร</button>
-              <button @click="downloadFile(formData.file, 'แบบเสนอโครงการวิจัย')" class="btn bg-[#4285F4] text-white">โหลดเอกสาร</button>
+              <button
+                @click="getFile(formData.file)"
+                class="btn bg-[#E85F19] text-white mr-5"
+              >
+                ดูเอกสาร
+              </button>
+              <button
+                @click="downloadFile(formData.file, 'แบบเสนอโครงการวิจัย')"
+                class="btn bg-[#4285F4] text-white"
+              >
+                โหลดเอกสาร
+              </button>
             </div>
           </div>
         </Mainbox>
-  
+
         <p class="text-xl font-bold pb-5">ตรวจสอบข้อมูลและหลักฐาน</p>
         <Mainbox>
           <p class="text-lg font-bold">ตรวจสอบ และรับทราบเอกสาร</p>
@@ -216,14 +298,18 @@
               name="noted"
               value="รับทราบ"
               disabled="true"
-              :checked="formData.offic.research_admin == 'รับทราบ' ? true : false"
+              :checked="
+                formData.offic.research_admin == 'รับทราบ' ? true : false
+              "
             />
             <RadioInput
               label="ไม่รับทราบ"
               name="noted"
               value="ไม่รับทราบ"
               disabled="true"
-              :checked="formData.offic.research_admin == 'ไม่รับทราบ' ? true : false"
+              :checked="
+                formData.offic.research_admin == 'ไม่รับทราบ' ? true : false
+              "
             />
           </SectionWrapper>
         </Mainbox>
