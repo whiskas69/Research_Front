@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import LoginPage from "@/views/LoginPage.vue";
 import Search from "@/views/Search.vue";
 
-import StatusView from "@/views/StatusView.vue";
-import StatusViewOffice from "@/views/StatusViewOffice.vue";
+import StatusView from "@/views/StatusView/StatusView.vue";
+import StatusViewOffice from "@/views/StatusView/StatusViewOffice.vue";
 import StatusConferView from "@/views/status/StatusConferView.vue";
 import StatusPCView from "@/views/status/StatusPCView.vue";
 import StatusKRISView from "@/views/status/StatusKRISView.vue";
@@ -18,7 +18,7 @@ import his_kris from "@/views/history/Kris.vue";
 import ConferPDF from "@/views/ToPDF/ConferPDF.vue";
 import PageCPDF from "@/views/ToPDF/PageCPDF.vue";
 
-import eOffice from "@/views/EofficeView.vue";
+import eOffice from "@/views/StatusView/EofficeView.vue";
 
 import HomePage_Profes from "@/views/Homepage/HomePage_Profes.vue";
 import HomePage_Offi from "@/views/Homepage/HomePage_Offi.vue";

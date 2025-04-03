@@ -9,14 +9,14 @@
             <TextInputLabelLeft
               label="ชื่อ"
               customLabel="w-2/12 text-lg font-bold"
-              disabled="true"
+              :disabled="true"
               :placeholder="formData.user.user_nameth"
             />
             <TextInputLabelLeft
               label="ตำแหน่ง"
               customLabel="w-2/12 text-lg font-bold"
               :placeholder="formData.user.user_positionth"
-              disabled="true"
+              :disabled="true"
             />
             <div class="flex flex-row">
               <TextInputLabelLeft
@@ -24,14 +24,14 @@
                 customLabel="w-auto"
                 customInput="max-w-max"
                 customDiv="max-w-max"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formData.pageChange.pageC_times"
               />
               <TextInputLabelLeft
                 label="วันที่"
                 customLabel="ml-2 w-10"
                 customInput="max-w-max"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formatThaiDate(formData.pageChange.pageC_days)"
               />
             </div>
@@ -54,7 +54,7 @@
               label="ชื่อวารสาร"
               name="Input"
               customLabel="w-24"
-              disabled="true"
+              :disabled="true"
               :placeholder="formData.pageChange.journal_name"
             />
             <p>เป็นวารสารที่อยู่ในฐานข้อมูลสากล</p>
@@ -65,7 +65,7 @@
                 customDiv="max-w-72 flex items-center"
                 v-model="formData.checkISI"
                 :checked="formData.checkISI == 'ISI' ? true : false"
-                disabled="false"
+                :disabled="true"
               />
               <TextInputLabelLeft
                 v-if="formData.checkISI == 'ISI'"
@@ -73,7 +73,7 @@
                 customLabel="mr-2"
                 customInput="max-w-max"
                 customDiv="max-w-max"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formData.pageChange.pc_isi_year"
               />
               <TextInputLabelLeft
@@ -82,7 +82,7 @@
                   customLabel="mr-2"
                   customInput="max-w-max"
                   customDiv="max-w-max"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="formData.pageChange.qt_isi"
                 />
               <TextInputLabelLeft
@@ -91,7 +91,7 @@
                 customLabel="w-28 mx-2"
                 customInput="max-w-max"
                 customDiv="max-w-max"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formData.pageChange.impact_factor"
               />
             </div>
@@ -102,7 +102,7 @@
                 customDiv="max-w-72 flex items-center"
                 v-model="formData.checkSJR"
                 :checked="formData.checkSJR == 'SJR' ? true : false"
-                disabled="false"
+                :disabled="true"
               />
               <TextInputLabelLeft
                 v-if="formData.checkSJR == 'SJR'"
@@ -110,7 +110,7 @@
                 customLabel="mr-2"
                 customInput="max-w-max"
                 customDiv="max-w-max"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formData.pageChange.pc_sjr_year"
               />
               <TextInputLabelLeft
@@ -119,7 +119,7 @@
                   customLabel="mr-2"
                   customInput="max-w-max"
                   customDiv="max-w-max"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="formData.pageChange.qt_sjr"
                 />
               <TextInputLabelLeft
@@ -128,7 +128,7 @@
                 customLabel="w-28 mx-2"
                 customInput="max-w-max"
                 customDiv="max-w-max"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formData.pageChange.sjr_score"
               />
             </div>
@@ -139,7 +139,7 @@
                 customDiv="max-w-72 flex items-center"
                 v-model="formData.checkScopus"
                 :checked="formData.checkScopus == 'Scopus' ? true : false"
-                disabled="false"
+                :disabled="true"
               />
               <TextInputLabelLeft
                 v-if="formData.checkScopus == 'Scopus'"
@@ -147,7 +147,7 @@
                 customLabel="mr-2"
                 customInput="max-w-max"
                 customDiv="max-w-max"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formData.pageChange.pc_scopus_year"
               />
               <TextInputLabelLeft
@@ -156,7 +156,7 @@
                   customLabel="mr-2"
                   customInput="max-w-max"
                   customDiv="max-w-max"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="formData.pageChange.qt_scopus"
                 />
               <TextInputLabelLeft
@@ -165,7 +165,7 @@
                 customLabel="w-28 mx-2"
                 customInput="max-w-max"
                 customDiv="max-w-max"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formData.pageChange.cite_score"
               />
             </div>
@@ -176,7 +176,7 @@
                 customDiv="max-w-72 flex items-center"
                 v-model="formData.nature"
                 :checked="formData.nature == 'nature' ? true : false"
-                disabled="false"
+                :disabled="true"
               />
             </div>
             <label class="form-control">
@@ -186,7 +186,7 @@
                   customLabel="w-auto mx-2"
                   customInput="max-w-max"
                   customDiv="max-w-max"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="parseFloat(formData.pageChange.support_limit).toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                   })"
@@ -206,7 +206,7 @@
             <TextInputLabelLeft
               label="ชื่อบทความ"
               customLabel="w-auto min-w-fit"
-              disabled="true"
+              :disabled="true"
               :placeholder="formData.pageChange.article_title"
             />
           </SectionWrapper>
@@ -217,21 +217,21 @@
                 label="ปีที่ (Vol.)"
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-fit"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formData.pageChange.vol_journal"
               />
               <TextInputLabelLeft
                 label="ฉบับที่ (Issue)"
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-fit"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formData.pageChange.issue_journal"
               />
               <TextInputLabelLeft
                 label="เดือน"
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-fit"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formData.pageChange.month"
               />
               <div class="flex flex-row">
@@ -239,14 +239,14 @@
                   label="ปี ค.ศ./พ.ศ."
                   customLabel="w-auto min-w-fit"
                   customDiv="max-w-fit"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="formData.pageChange.year"
                 />
                 <TextInputLabelLeft
                   label="เลขที่ ISSN/ISBN (อื่นๆ)"
                   customLabel="w-auto min-w-fit"
                   customDiv="max-w-fit"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="formData.pageChange.ISSN_ISBN"
                 />
               </div>
@@ -257,21 +257,21 @@
                 label="วันที่ส่งบทความไปยังสำนักพิมพ์เจ้าของวารสาร"
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-fit"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formatThaiDate(formData.pageChange.submission_date)"
               />
               <TextInputLabelLeft
                 label="วันประกาศผลการพิจารณา"
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-fit"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formatThaiDate(formData.pageChange.date_review_announce)"
               />
               <TextInputLabelLeft
                 label="วันสุดท้ายของการจ่ายค่าตีพิมพ์"
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-fit"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formatThaiDate(formData.pageChange.final_date)"
               />
             </div>
@@ -283,7 +283,7 @@
                   label="บทความวิจัยนี้เป็นผลงานจากโครงการวิจัยเรื่อง"
                   customLabel="w-auto min-w-fit"
                   customDiv="max-w-fit"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="formData.pageChange.article_research_ject"
                 />
               </div>
@@ -294,7 +294,7 @@
                   value="วิจัยพื้นฐาน"
                   name="type"
                   customDiv="max-w-fit mr-10 flex items-center"
-                  disabled="false"
+                  :disabled="true"
                   :checked="
                     formData.pageChange.research_type == 'วิจัยพื้นฐาน'
                       ? true
@@ -307,7 +307,7 @@
                   value="วิจัยประยุกต์"
                   name="type"
                   customDiv="max-w-fit mr-10 flex items-center"
-                  disabled="false"
+                  :disabled="true"
                   :checked="
                     formData.pageChange.research_type == 'วิจัยประยุกต์'
                       ? true
@@ -320,7 +320,7 @@
                   value="วิจัยและพัฒนา"
                   name="type"
                   customDiv="max-w-fit mr-10 flex items-center"
-                  disabled="false"
+                  :disabled="true"
                   :checked="
                     formData.pageChange.research_type == 'วิจัยและพัฒนา'
                       ? true
@@ -334,7 +334,7 @@
                     value="วิจัยอื่น ๆ"
                     name="type"
                     customDiv="max-w-fit mr-2 flex items-center"
-                    disabled="false"
+                    :disabled="true"
                     :checked="
                       formData.pageChange.research_type == 'วิจัยอื่น ๆ'
                         ? true
@@ -355,7 +355,7 @@
               <TextInputLabelLeft
                 label="ชื่อแหล่งทุนวิจัย"
                 customLabel="w-auto min-w-fit"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formData.pageChange.name_funding_source"
               />
               <div class="flex flex-row">
@@ -363,14 +363,14 @@
                   label="วงเงินงบประมาณการวิจัย"
                   customLabel="w-auto min-w-fit"
                   customDiv="max-w-max mr-10"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="formData.pageChange.budget_limit"
                 />
                 <TextInputLabelLeft
                   label="ประจำปี"
                   customLabel="w-auto min-w-fit"
                   customDiv="max-w-max mr-10"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="formData.pageChange.annual"
                 />
               </div>
@@ -385,7 +385,7 @@
               label="ผู้ประพันธ์อันดับแรก First Author"
               value="First Author"
               name="Author"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.pageChange.presenter_type == 'First Author'
                   ? true
@@ -397,7 +397,7 @@
               label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
               value="Corresponding Author"
               name="Author"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.pageChange.presenter_type == 'Corresponding Author'
                   ? true
@@ -417,7 +417,7 @@
               label="จำนวนเงิน"
               customLabel="w-auto min-w-fit"
               customInput="max-w-fit"
-              disabled="true"
+              :disabled="true"
               :placeholder="parseFloat(formData.pageChange.request_support).toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                   })"

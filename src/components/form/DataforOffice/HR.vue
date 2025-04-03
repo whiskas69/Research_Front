@@ -38,7 +38,7 @@
                 <TextInputLabelLeft
                   customInput="max-w-24"
                   label="(Full Paper ประกอบการเบิก) มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล WoS/SJR ซึ่งได้รับการตีพิมพ์ไม่เกิน 2 ปี ก่อนการประชุม เมื่อ"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="formData.date_journals"
                 />
               </div>
@@ -238,7 +238,7 @@
           v-if="formData.offic.c_noteOther != null"
             :placeholder="formData.offic.c_noteOther"
             class="textarea textarea-bordered w-full"
-            disabled="true"
+            :disabled="true"
           ></textarea>
         </SectionWrapper>
       </Mainbox>
@@ -249,21 +249,21 @@
             label="ข้อมูลถูกต้อง"
             value="ถูกต้อง"
             name="redi"
-            disabled="false"
+            :disabled="true"
             :checked="formData.offic.c_research_hr == 'ถูกต้อง' ? true : false"
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
             value="ไม่ถูกต้อง"
             name="redi"
-            disabled="false"
+            :disabled="true"
             :checked="
               formData.offic.c_research_hr == 'ไม่ถูกต้อง' ? true : false
             "
           />
           <textarea
             class="textarea textarea-bordered w-full"
-            disabled="true"
+            :disabled="true"
             :placeholder="formData.offic.c_reason"
           ></textarea>
         </SectionWrapper>

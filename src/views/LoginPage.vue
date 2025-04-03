@@ -41,7 +41,6 @@ const login = async () => {
       scope: "openid profile email",
       ux_mode: "popup",
       callback: async (response) => {
-        console.log("google auth response: ", response);
 
         if (response.code) {
           try {
@@ -56,7 +55,6 @@ const login = async () => {
               }
             );
 
-            console.log("login success :", res.data);
             localStorage.setItem("loggedIn", "true");
             userStore.loggedIn = true;
 

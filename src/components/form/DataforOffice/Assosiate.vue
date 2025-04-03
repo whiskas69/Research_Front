@@ -5,8 +5,8 @@
           <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
           <TextArea
             label="ความคิดเห็น"
-            disabled="true"
-              :placeholder="formData.offic.c_deputy_dean"
+            :disabled="true"
+            :placeholder="formData.offic.c_deputy_dean"
           />
         </SectionWrapper>
       </Mainbox>
@@ -17,7 +17,7 @@
           <div>
             <TextArea
               label="ความคิดเห็น"
-              disabled="true"
+              :disabled="true"
               :placeholder="formData.offic.p_deputy_dean"
             />
           </div>

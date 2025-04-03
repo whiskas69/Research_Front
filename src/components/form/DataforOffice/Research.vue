@@ -1,16 +1,14 @@
 <template>
   <div>
     <div class="container my-10 mx-auto">
+      <!-- Conference -->
       <Mainbox v-if="props.type == 'Conference'">
         <SectionWrapper>
           <p class="font-bold">ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
 
           <div>
             <p>• คุณภาพของการประชุม ฯ</p>
-            <div
-              v-if="formData.conference.quality_meeting == 'ดีมาก'"
-              class="px-2"
-            >
+            <div class="px-2" v-if="formData.conference.quality_meeting == 'ดีมาก'">
               <p>• อยู่ในระดับ{{ formData.conference.quality_meeting }}</p>
               <div class="flex flex-row gap-2">
                 <p>• คำนวณจาก {{ formData.score.score_type }}</p>
@@ -20,16 +18,10 @@
                 <p v-else>มีค่าคะแนน {{ formData.score.score_result }}</p>
               </div>
             </div>
-            <p
-              v-else-if="formData.conference.quality_meeting == 'มาตรฐาน'"
-              class="px-2"
-            >
+            <p class="px-2" v-else-if="formData.conference.quality_meeting == 'มาตรฐาน'">
               • อยู่ในระดับ{{ formData.conference.quality_meeting }}
             </p>
-            <p
-              v-else-if="formData.conference.quality_meeting == ''"
-              class="px-2"
-            >
+            <p class="px-2" v-else-if="formData.conference.quality_meeting == ''">
               • ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ
               และไม่อยู่ในฐานข้อมูลสากล SCOPUS
             </p>
@@ -38,152 +30,107 @@
             label="ข้อมูลถูกต้อง"
             value="ถูกต้อง"
             name="re"
-            disabled="false"
+            :disabled="true"
             :checked="formData.offic.c_meet_quality == 'ถูกต้อง' ? true : false"
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
             value="ไม่ถูกต้อง"
             name="re"
-            disabled="false"
-            :checked="
-              formData.offic.c_meet_quality == 'ไม่ถูกต้อง' ? true : false
-            "
+            :disabled="true"
+            :checked="formData.offic.c_meet_quality == 'ไม่ถูกต้อง' ? true : false"
           />
           <TextArea
-            disabled="true"
+            :disabled="true"
             :placeholder="formData.offic.c_quality_reason"
           />
         </SectionWrapper>
       </Mainbox>
 
+      <!-- PC -->
       <div v-if="props.type == 'Page_Charge'">
         <Mainbox>
           <SectionWrapper>
             <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
-            <!-- 1 -->
             <div class="flex flex-row items-center w-full">
               <div class="flex flex-row items-center w-full justify-between">
                 <div class="flex flex-row">
-                  <p>
-                    หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus
-                    หรือ Nature
-                  </p>
+                  <p>หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature</p>
                 </div>
-                <div class="">
-                  <button
-                    @click="getFile(formData.f_q_pc_proof)"
-                    class="btn bg-[#E85F19] text-white mr-5"
-                  >
+                <div>
+                  <button @click="getFile(formData.f_q_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
                     ดูเอกสาร
                   </button>
-                  <button
-                    @click="
-                      downloadFile(
-                        formData.f_q_pc_proof,
-                        'หลักฐานการจัดลำดับ Quartile'
-                      )
-                    "
-                    class="btn bg-[#4285F4] text-white"
-                  >
+                  <button @click="downloadFile(formData.f_q_pc_proof, 'หลักฐานการจัดลำดับ Quartile')" class="btn bg-[#4285F4] text-white">
                     โหลดเอกสาร
                   </button>
                 </div>
               </div>
             </div>
-            <!-- 2 -->
+            
             <div class="flex flex-row items-center w-full">
               <div class="flex flex-row items-center w-full justify-between">
                 <div class="flex flex-row">
                   <p>
-                    หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ
-                    SJR หรือ Scopus
+                    หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus
                   </p>
                 </div>
                 <div>
-                  <button
-                    @click="getFile(formData.f_q_pc_proof)"
-                    class="btn bg-[#E85F19] text-white mr-5"
-                  >
+                  <button @click="getFile(formData.f_q_pc_proof)"
+                    class="btn bg-[#E85F19] text-white mr-5">
                     ดูเอกสาร
                   </button>
-                  <button
-                    @click="
-                      downloadFile(
-                        formData.f_q_pc_proof,
-                        'หลักฐานการจัดลำดับ Quartile'
-                      )
-                    "
-                    class="btn bg-[#4285F4] text-white"
-                  >
+                  <button @click="downloadFile(formData.f_q_pc_proof, 'หลักฐานการจัดลำดับ Quartile')"
+                    class="btn bg-[#4285F4] text-white">
                     โหลดเอกสาร
                   </button>
                 </div>
               </div>
             </div>
-            <!-- 3 -->
+            
             <div class="flex flex-row items-center w-full">
               <div class="flex flex-row items-center w-full justify-between">
                 <div class="flex flex-row">
                   <p>
-                    ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ /
-                    อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์
+                    ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ / อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์
                   </p>
                 </div>
                 <div>
-                  <button
-                    @click="getFile(formData.f_invoice_public)"
-                    class="btn bg-[#E85F19] text-white mr-5"
-                  >
+                  <button @click="getFile(formData.f_invoice_public)"
+                    class="btn bg-[#E85F19] text-white mr-5">
                     ดูเอกสาร
                   </button>
-                  <button
-                    @click="
-                      downloadFile(
-                        formData.f_invoice_public,
-                        'ใบแจ้งหนี้ค่าใช้จ่าย'
-                      )
-                    "
-                    class="btn bg-[#4285F4] text-white"
-                  >
+                  <button @click="downloadFile(formData.f_invoice_public, 'ใบแจ้งหนี้ค่าใช้จ่าย')"
+                    class="btn bg-[#4285F4] text-white">
                     โหลดเอกสาร
                   </button>
                 </div>
               </div>
             </div>
-            <!-- 4 -->
+            
             <div class="flex flex-row items-center w-full">
               <div class="flex flex-row items-center w-full justify-between">
                 <div class="flex flex-row">
                   <p>หลักฐานการส่งบทความ หนังสือตอบรับบทความ</p>
                 </div>
                 <div>
-                  <button
-                    @click="getFile(formData.f_accepted)"
+                  <button @click="getFile(formData.f_accepted)"
                     class="btn bg-[#E85F19] text-white mr-5"
-                    :disabled="!isValidFile(formData.f_accepted)"
-                  >
+                    :disabled="!isValidFile(formData.f_accepted)">
                     ดูเอกสาร
                   </button>
-                  <button
-                    @click="
-                      downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')
-                    "
+                  <button @click="downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')"
                     class="btn bg-[#4285F4] text-white"
-                    :disabled="!isValidFile(formData.f_accepted)"
-                  >
+                    :disabled="!isValidFile(formData.f_accepted)">
                     โหลดเอกสาร
                   </button>
-                  <p
-                    v-if="formData.page_c.accepted == null"
-                    class="text-red-500 pt-1"
-                  >
+                  <p v-if="formData.page_c.accepted == null" class="text-red-500 pt-1">
                     ** ไม่มีหนังสือตอบรับบทความ **
                   </p>
                 </div>
               </div>
             </div>
-            <!-- 5 -->
+            
             <div class="flex flex-row items-center w-full">
               <div class="flex flex-row items-center w-full justify-between">
                 <div class="flex flex-row">
@@ -220,7 +167,7 @@
               label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้"
               value="อนุมัติ"
               name="re"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.offic.p_research_admin == 'อนุมัติ' ? true : false
               "
@@ -228,14 +175,14 @@
             <textarea
               v-if="formData.offic.p_research_admin == 'อนุมัติ'"
               class="textarea textarea-bordered w-full"
-              disabled="true"
+              :disabled="true"
               :placeholder="formData.offic.p_reason"
             ></textarea>
             <RadioInput
               label="ถูกต้องตามเงื่อนไขการสนับสนุน กรณีส่งหนังสือตอบรับย้อนหลัง ดังนี้"
               value="รอหนังสือตอบรับ"
               name="re"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.offic.p_research_admin == 'รอหนังสือตอบรับ'
                   ? true
@@ -245,14 +192,14 @@
             <textarea
               v-if="formData.offic.p_research_admin == 'รอหนังสือตอบรับ'"
               class="textarea textarea-bordered w-full"
-              disabled="true"
+              :disabled="true"
               :placeholder="formData.offic.p_reason"
             ></textarea>
             <RadioInput
               label="อื่น ๆ"
               value="อื่น ๆ"
               name="re"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.offic.p_research_admin == 'อื่น ๆ' ? true : false
               "
@@ -260,13 +207,14 @@
             <textarea
               v-if="formData.offic.p_research_admin == 'อื่น ๆ'"
               class="textarea textarea-bordered w-full"
-              disabled="true"
+              :disabled="true"
               :placeholder="formData.offic.p_reason"
             ></textarea>
           </SectionWrapper>
         </Mainbox>
       </div>
 
+      <!-- Kris -->
       <div v-if="props.type == 'Research_KRIS'">
         <Mainbox>
           <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
@@ -297,7 +245,7 @@
               label="รับทราบ"
               name="noted"
               value="รับทราบ"
-              disabled="true"
+              :disabled="true"
               :checked="
                 formData.offic.research_admin == 'รับทราบ' ? true : false
               "
@@ -306,7 +254,7 @@
               label="ไม่รับทราบ"
               name="noted"
               value="ไม่รับทราบ"
-              disabled="true"
+              :disabled="true"
               :checked="
                 formData.offic.research_admin == 'ไม่รับทราบ' ? true : false
               "
@@ -320,11 +268,11 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
+import { useRoute } from "vue-router";
 import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
-import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 import TextArea from "@/components/Input/TextArea.vue";
 
@@ -334,7 +282,6 @@ const formData = reactive({
   score: [],
   page_c: [],
   name: "",
-  //urlfile
   f_pc_proof: null,
   f_q_pc_proof: null,
   f_invoice_public: null,
@@ -368,43 +315,46 @@ const downloadFile = async (fileUrl, fileName) => {
   }
 };
 
-const props = defineProps(["id", "type"]);
+const props = defineProps(["type"]);
+const route = useRoute();
+const id = route.params.id;
+
+console.log("id", id)
+
 const isLoading = ref(true);
-console.log("params.id", props.id);
-console.log("params.type", props.type);
 
 const fetchOfficerData = async () => {
   try {
     if (props.type == "Conference") {
-      const responseoffic = await api.get(`/opinionConf/${props.id}`);
+      const responseoffic = await api.get(`/opinionConf/${id}`);
       formData.offic = responseoffic.data;
-      const responseConfer = await api.get(`/conference/${props.id}`);
+      const responseConfer = await api.get(`/conference/${id}`);
       console.log("conference123", responseConfer);
       formData.conference = responseConfer.data;
-      const responseScore = await api.get(`/score/${props.id}`);
+      const responseScore = await api.get(`/score/${id}`);
       console.log("score123", responseScore);
       formData.score = responseScore.data;
     } else if (props.type == "Page_Charge") {
-      const responseoffic = await api.get(`/opinionPC/${props.id}`);
+      const responseoffic = await api.get(`/opinionPC/${id}`);
       formData.offic = responseoffic.data;
-      const response = await api.get(`/form/Pc/${props.id}`);
+      const response = await api.get(`/form/Pc/${id}`);
       formData.page_c = response.data.page_c;
       formData.name = response.data.name;
-      const responsefile = await api.get(`/getFilepage_c?pageC_id=${props.id}`);
+      const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
       formData.f_pc_proof = responsefile.data.file_pc_proof;
       formData.f_q_pc_proof = responsefile.data.file_q_pc_proof;
       formData.f_invoice_public = responsefile.data.file_invoice_public;
       formData.f_accepted = responsefile.data.file_accepted;
       formData.f_copy_article = responsefile.data.file_copy_article;
     } else if (props.type == "Research_KRIS") {
-      const responseOffic = await api.get(`/opinionkris/${props.id}`);
-      formData.offic = responseOffic.data;
+      const responsedata = await api.get(`/opinionkris/${id}`);
+      formData.offic = responsedata.data
 
       const responsefile = await api.get(`/getFilekris?kris_id=${props.id}`);
       formData.file = responsefile.data.fileUrl;
     }
   } catch (error) {
-    console.error("Error fetching Officer data:", error);
+    console.log("Error fetching Officer data:", error);
   } finally {
     isLoading.value = false;
   }

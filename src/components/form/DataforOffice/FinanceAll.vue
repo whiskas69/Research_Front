@@ -6,7 +6,7 @@
         <TextInputLabelLeft
           label="ปีงบประมาณ พ.ศ."
           customInput="max-w-max text-center"
-          disabled="true"
+          :disabled="true"
           :placeholder="formData.budget.budget_year"
         />
         <div class="flex justify-end">
@@ -15,7 +15,7 @@
               v-if="props.type == 'Conference'"
               label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น"
               customInput="max-w-max text-center"
-              disabled="true"
+              :disabled="true"
               :placeholder="parseFloat(formData.budget.Conference_amount).toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                   })"
@@ -24,7 +24,7 @@
               v-if="props.type == 'Page_Charge'"
               label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น"
               customInput="max-w-max text-center"
-              disabled="true"
+              :disabled="true"
               :placeholder="parseFloat(formData.budget.Page_Charge_amount).toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                   })"
@@ -38,7 +38,7 @@
               v-if="props.type == 'Conference'"
               label="โดยคณะได้อนุมัติค่าใช้จ่ายไปแล้ว จำนวน"
               customInput="max-w-max text-center"
-              disabled="true"
+              :disabled="true"
               :placeholder="parseFloat(formData.budget.num_expenses_approved).toLocaleString('en-US', {
                     minimumFractionDigits: 0,
                   })"
@@ -47,7 +47,7 @@
               v-if="props.type == 'Page_Charge'"
               label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
               customInput="max-w-max text-center"
-              disabled="true"
+              :disabled="true"
               :placeholder="parseFloat(formData.budget.num_expenses_approved).toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                   })"
@@ -60,7 +60,7 @@
             <TextInputLabelLeft
               label="รวมเป็นเงิน"
               customInput="max-w-max text-center"
-              disabled="true"
+              :disabled="true"
               :placeholder="parseFloat(formData.budget.total_amount_approved).toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                   })"
@@ -73,7 +73,7 @@
             <TextInputLabelLeft
               label="วงเงินที่คณะจัดสรรไว้ คงเหลือ"
               customInput="max-w-max text-center"
-              disabled="true"
+              :disabled="true"
               :placeholder="parseFloat(formData.budget.remaining_credit_limit).toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                   })"
@@ -87,7 +87,7 @@
               v-if="props.type == 'Conference'"
               label="จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวนเงิน"
               customInput="max-w-max text-center"
-              disabled="true"
+              :disabled="true"
               :placeholder="parseFloat(formData.budget.amount_approval).toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                   })"
@@ -96,7 +96,7 @@
               v-if="props.type == 'Page_Charge'"
               label="จำนวนเงินที่ขออนุมัติจค่า Page Charge ในครั้งนี้ เป็นจำนวนเงิน"
               customInput="max-w-max text-center"
-              disabled="true"
+              :disabled="true"
               :placeholder="parseFloat(formData.budget.amount_approval).toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                   })"
@@ -109,7 +109,7 @@
             <TextInputLabelLeft
               label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น"
               customInput="max-w-max text-center"
-              disabled="true"
+              :disabled="true"
               :placeholder="parseFloat(formData.budget.total_remaining_credit_limit).toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                   })"

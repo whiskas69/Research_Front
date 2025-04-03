@@ -9,14 +9,14 @@
           <TextInputLabelLeft
             label="ชื่อ"
             customLabel="w-2/12 text-lg font-bold"
-            disabled="true"
+            :disabled="true"
             :placeholder="formData.user.user_nameth"
           />
           <TextInputLabelLeft
             label="ตำแหน่ง"
             customLabel="w-2/12 text-lg font-bold"
             :placeholder="formData.user.user_positionth"
-            disabled="true"
+            :disabled="true"
           />
 
           <div class="flex flex-row">
@@ -25,14 +25,14 @@
               customLabel="w-auto"
               customInput="max-w-max"
               customDiv="max-w-max"
-              disabled="true"
+              :disabled="true"
               :placeholder="formData.conference.conf_times"
             />
             <TextInputLabelLeft
               label="วันที่"
               customLabel="ml-2 w-10"
               customInput="max-w-max"
-              disabled="true"
+              :disabled="true"
               :placeholder="formatThaiDate(formData.conference.conf_days)"
             />
           </div>
@@ -58,7 +58,7 @@
               customLabel="w-auto mr-1"
               customDiv="max-w-max"
               customInput="max-w-max"
-              disabled="true"
+              :disabled="true"
               :placeholder="formatThaiDate(formData.conference.trav_dateStart)"
             />
             <TextInputLabelLeft
@@ -66,7 +66,7 @@
               customLabel="w-auto mr-8"
               customDiv="max-w-max ml-36"
               customInput="max-w-max"
-              disabled="true"
+              :disabled="true"
               :placeholder="formatThaiDate(formData.conference.trav_dateEnd)"
             />
           </div>
@@ -74,13 +74,13 @@
           <TextInputLabelLeft
             label="ชื่อผลงานวิจัยที่นำเสนอ"
             customLabel="w-1/6"
-            disabled="true"
+            :disabled="true"
             :placeholder="formData.conference.conf_research"
           />
           <TextInputLabelLeft
             label="ชื่อการประชุมทางวิชาการ"
             customLabel="w-1/6"
-            disabled="true"
+            :disabled="true"
             :placeholder="formData.conference.conf_name"
           />
           <div class="flex flex-row w-full">
@@ -90,7 +90,7 @@
               name="Venue"
               value="ภายในประเทศ"
               customDiv="w-max mr-4"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.conference.country_conf == 'ภายในประเทศ' ? true : false
               "
@@ -100,7 +100,7 @@
               name="Venue"
               value="ณ ต่างประเทศ"
               customDiv="max-w-36"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.conference.country_conf == 'ณ ต่างประเทศ'
                   ? true
@@ -114,13 +114,13 @@
               customLabel="w-auto mr-9"
               customDiv="max-w-max mr-10"
               customInput="max-w-max"
-              disabled="true"
+              :disabled="true"
               :placeholder="formatThaiDate(formData.conference.meeting_date)"
             />
             <TextInputLabelLeft
               label="สถานที่จัด"
               customLabel="w-24"
-              disabled="true"
+              :disabled="true"
               :placeholder="formData.conference.meeting_venue"
             />
             <div
@@ -131,7 +131,7 @@
                 <TextInputLabelLeft
                   label="ประเทศ"
                   customLabel="w-24"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="formData.conference.location"
                 />
               </div>
@@ -145,7 +145,7 @@
                 <TextInputLabelLeft
                   label="จังหวัด"
                   customLabel="w-24"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="formData.conference.location"
                 />
               </div>
@@ -157,7 +157,7 @@
               customLabel="w-auto mr-1"
               customDiv="max-w-max"
               customInput="max-w-max"
-              disabled="true"
+              :disabled="true"
               :placeholder="
                 formatThaiDate(formData.conference.date_submit_organizer)
               "
@@ -167,7 +167,7 @@
               customLabel="w-auto mr-1"
               customDiv="max-w-max"
               customInput="max-w-max"
-              disabled="true"
+              :disabled="true"
               :placeholder="
                 formatThaiDate(formData.conference.argument_date_review)
               "
@@ -177,7 +177,7 @@
               customLabel="w-auto mr-1"
               customDiv="max-w-max"
               customInput="max-w-max"
-              disabled="true"
+              :disabled="true"
               :placeholder="
                 formatThaiDate(formData.conference.last_day_register)
               "
@@ -196,7 +196,7 @@
             label="การประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ และไม่อยู่ในฐานข้อมูลสากล SCOPUS"
             name="Scopus"
             value="คณะจัด ไม่อยู่scopus"
-            disabled="false"
+            :disabled="true"
             :checked="
               formData.conference.meeting_type == 'คณะจัด ไม่อยู่scopus'
                 ? true
@@ -207,7 +207,7 @@
             label="การประชุมทางวิชาการที่อยู่ในฐานข้อมูลสากล SCOPUS โดยมีการกำหนดคุณภาพแบ่งเป็น 2 ระดับ "
             name="Scopus"
             value="อยู่ในscopus"
-            disabled="false"
+            :disabled="true"
             :checked="
               formData.conference.meeting_type == 'อยู่ในscopus' ? true : false
             "
@@ -218,7 +218,7 @@
               label="ระดับมาตรฐาน"
               name="Level"
               value="มาตรฐาน"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.conference.quality_meeting == 'มาตรฐาน' ? true : false
               "
@@ -227,7 +227,7 @@
               label="ระดับดีมาก"
               name="Level"
               value="ดีมาก"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.conference.quality_meeting == 'ดีมาก' ? true : false
               "
@@ -237,7 +237,7 @@
                 label="ใช้คะแนนที่คำนวณจาก SJR indicator และ H Index ที่ได้มาจาก SCImago Journal & Country Rank"
                 name="Score"
                 value="SJR"
-                disabled="false"
+                :disabled="true"
                 :checked="formData.score.score_type == 'SJR' ? true : false"
               />
               <div v-if="formData.score.score_type == 'SJR'">
@@ -247,7 +247,7 @@
                     customLabel="w-auto mr-1"
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
-                    disabled="true"
+                    :disabled="true"
                     :placeholder="formData.score.sjr_score"
                   />
                   <TextInputLabelLeft
@@ -255,7 +255,7 @@
                     customLabel="w-auto mr-1"
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
-                    disabled="true"
+                    :disabled="true"
                     :placeholder="formData.score.sjr_year"
                   />
                   <TextInputLabelLeft
@@ -263,7 +263,7 @@
                     customLabel="w-auto mr-1"
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
-                    disabled="true"
+                    :disabled="true"
                     :placeholder="formData.score.hindex_score"
                   />
                   <TextInputLabelLeft
@@ -271,7 +271,7 @@
                     customLabel="w-auto mr-1"
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
-                    disabled="true"
+                    :disabled="true"
                     :placeholder="formData.score.hindex_year"
                   />
                 </div>
@@ -284,7 +284,7 @@
                 label="ใช้ผลการจัดระดับ CIF (Conference Impact Factor)"
                 name="Score"
                 value="CIF"
-                disabled="false"
+                :disabled="true"
                 :checked="formData.score.score_type == 'CIF' ? true : false"
               />
               <div v-if="formData.score.score_type == 'CIF'">
@@ -294,7 +294,7 @@
                     customLabel="w-auto mr-1"
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
-                    disabled="true"
+                    :disabled="true"
                     :placeholder="formData.score.Citation"
                   />
                   <TextInputLabelLeft
@@ -302,7 +302,7 @@
                     customLabel="w-auto mr-1"
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
-                    disabled="true"
+                    :disabled="true"
                     :placeholder="formData.score.hindex_score"
                   />
                 </div>
@@ -314,7 +314,7 @@
                 label="ใช้ผลการจัดระดับ CORE Conference Ranking"
                 name="Score"
                 value="CORE"
-                disabled="false"
+                :disabled="true"
                 :checked="formData.score.score_type == 'CORE' ? true : false"
               />
               <div v-if="formData.score.score_type == 'CORE'">
@@ -324,7 +324,7 @@
                     customLabel="w-auto mr-1"
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
-                    disabled="true"
+                    :disabled="true"
                     :placeholder="
                       formData.score.core_rank
                         ? formData.score.core_rank.toUpperCase()
@@ -350,7 +350,7 @@
             label="ผู้ประพันธ์อันดับแรก First Author"
             value="First Author"
             name="Author"
-            disabled="false"
+            :disabled="true"
             :checked="
               formData.conference.presenter_type == 'First Author'
                 ? true
@@ -361,7 +361,7 @@
             label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
             value="Corresponding Author"
             name="Author"
-            disabled="false"
+            :disabled="true"
             :checked="
               formData.conference.presenter_type == 'Corresponding Author'
                 ? true
@@ -384,7 +384,7 @@
               label="ครั้งที่ 1"
               name="TimeLeave"
               value="1"
-              disabled="false"
+              :disabled="true"
               :checked="formData.conference.time_of_leave == 1 ? true : false"
             />
           </SectionWrapper>
@@ -394,7 +394,7 @@
               label="ครั้งที่ 2"
               name="TimeLeave"
               value="2"
-              disabled="false"
+              :disabled="true"
               :checked="formData.conference.time_of_leave == 2 ? true : false"
             />
             <p class="py-1 px-7">
@@ -409,7 +409,7 @@
                 label="WoS-Q1"
                 name="WoS"
                 value="WoS-Q1"
-                disabled="false"
+                :disabled="true"
                 :checked="
                   formData.conference.wos_2_leave == 'WoS-Q1' ? true : false
                 "
@@ -418,7 +418,7 @@
                 label="WoS-Q2"
                 name="WoS"
                 value="WoS-Q2"
-                disabled="false"
+                :disabled="true"
                 :checked="
                   formData.conference.wos_2_leave == 'WoS-Q2' ? true : false
                 "
@@ -431,7 +431,7 @@
               <TextInputLabelLeft
                 label="เรื่อง"
                 customLabel="pr-2"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formData.conference.name_2_leave"
               />
             </div>
@@ -446,14 +446,14 @@
               label="ไม่เกิน 50%"
               name="withdraw"
               value="50%"
-              disabled="false"
+              :disabled="true"
               :checked="formData.conference.withdraw == '50%' ? true : false"
             />
             <RadioInput
               label="ไม่เกิน 100% มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล"
               name="withdraw"
               value="100%"
-              disabled="false"
+              :disabled="true"
               :checked="formData.conference.withdraw == '100%' ? true : false"
             />
             <div
@@ -464,7 +464,7 @@
                 label="WoS-Q1"
                 name="WoS"
                 value="WoS-Q1"
-                disabled="false"
+                :disabled="true"
                 :checked="
                   formData.conference.wd_100_quality == 'WoS-Q1' ? true : false
                 "
@@ -473,7 +473,7 @@
                 label="WoS-Q2"
                 name="WoS"
                 value="WoS-Q2"
-                disabled="false"
+                :disabled="true"
                 :checked="
                   formData.conference.wd_100_quality == 'WoS-Q2' ? true : false
                 "
@@ -482,7 +482,7 @@
                 label="WoS-Q3"
                 name="WoS"
                 value="WoS-Q3"
-                disabled="false"
+                :disabled="true"
                 :checked="
                   formData.conference.wd_100_quality == 'WoS-Q3' ? true : false
                 "
@@ -491,7 +491,7 @@
                 label="SJR-Q1"
                 name="WoS"
                 value="SJR-Q1"
-                disabled="false"
+                :disabled="true"
                 :checked="
                   formData.conference.wd_100_quality == 'SJR-Q1' ? true : false
                 "
@@ -500,7 +500,7 @@
                 label="SJR-Q2"
                 name="WoS"
                 value="SJR-Q2"
-                disabled="false"
+                :disabled="true"
                 :checked="
                   formData.conference.wd_100_quality == 'SJR-Q2' ? true : false
                 "
@@ -510,7 +510,7 @@
               <TextInputLabelLeft
                 label="เรื่อง"
                 customLabel="pr-2"
-                disabled="true"
+                :disabled="true"
                 :placeholder="formData.conference.wd_name_100"
               />
             </div>
@@ -532,7 +532,7 @@
                   customLabel="w-auto pr-2"
                   customDiv="max-w-max"
                   customInput="max-w-max"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="
                     parseFloat(
                       formData.conference.num_register_articles
@@ -546,7 +546,7 @@
                   customLabel="w-auto px-2"
                   customDiv="max-w-max"
                   customInput="max-w-max"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="
                     parseFloat(
                       formData.conference.regist_amount_1_article
@@ -579,7 +579,7 @@
                   customLabel="w-64 pr-2"
                   customDiv="max-w-[50rem]"
                   customInput="max-w-[50rem]"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="
                     formData.conference.domestic_expenses == null
                       ? 0
@@ -598,7 +598,7 @@
                   customLabel="w-64 pr-2"
                   customDiv="max-w-[50rem]"
                   customInput="max-w-[50rem]"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="
                     formData.conference.overseas_expenses == null
                       ? 0
@@ -617,7 +617,7 @@
                   customLabel="w-96 pr-2"
                   customDiv="max-w-[30rem]"
                   customInput="max-w-[14rem]"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="
                     formData.conference.travel_country == null
                       ? '-'
@@ -629,7 +629,7 @@
                   customLabel="w-22 px-2"
                   customDiv="max-w-[20rem]"
                   customInput="max-w-[14rem]"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="
                     formData.conference.inter_expenses == null
                       ? 0
@@ -650,7 +650,7 @@
                 customLabel="w-auto pr-2"
                 customDiv="max-w-[52rem]"
                 customInput="max-w-[40rem]"
-                disabled="true"
+                :disabled="true"
                 :placeholder="
                   formData.conference.airplane_tax == null
                     ? 0
@@ -671,7 +671,7 @@
                   customLabel="w-auto pr-2"
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[19rem]"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="
                     formData.conference.num_days_room == null
                       ? 0
@@ -687,7 +687,7 @@
                   customLabel="w-auto pr-2"
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[20rem]"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="
                     formData.conference.room_cost_per_night == null
                       ? 0
@@ -723,7 +723,7 @@
                   customLabel="w-auto pr-2"
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[16rem]"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="
                     formData.conference.num_travel_days == null
                       ? 0
@@ -739,7 +739,7 @@
                   customLabel="w-auto pr-2"
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[20rem]"
-                  disabled="true"
+                  :disabled="true"
                   :placeholder="
                     formData.conference.daily_allowance == null
                       ? 0

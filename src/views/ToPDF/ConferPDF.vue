@@ -39,7 +39,7 @@
           <p>3. การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
           <input
             type="radio"
-            disabled="false"
+            :disabled="true"
             :checked="
               formData.confer.country_conf == 'ภายในประเทศ' ? true : false
             "
@@ -47,7 +47,7 @@
           <span>ภายในประเทศ</span>
           <input
             type="radio"
-            disabled="false"
+            :disabled="true"
             :checked="
               formData.confer.country_conf == 'ณ ต่างประเทศ' ? true : false
             "
@@ -85,7 +85,7 @@
           <div class="flex flex-row gap-3">
             <input
               type="radio"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.confer.meeting_type == 'คณะจัด ไม่อยู่scopus'
                   ? true
@@ -100,7 +100,7 @@
           <div class="flex flex-row gap-3">
             <input
               type="radio"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.confer.meeting_type == 'อยู่ในscopus' ? true : false
               "
@@ -116,7 +116,7 @@
           <div class="flex flex-row gap-3">
             <input
               type="radio"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.confer.quality_meeting == 'มาตรฐาน' ? true : false
               "
@@ -126,7 +126,7 @@
           <div class="flex flex-row gap-3">
             <input
               type="radio"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.confer.quality_meeting == 'ดีมาก' ? true : false
               "
@@ -138,7 +138,7 @@
           <div class="flex flex-row gap-3">
             <input
               type="radio"
-              disabled="false"
+              :disabled="true"
               :checked="formData.score.score_type == 'SJR' ? true : false"
             />
             <span
@@ -163,7 +163,7 @@
           <div class="flex flex-row gap-3">
             <input
               type="radio"
-              disabled="false"
+              :disabled="true"
               :checked="formData.score.score_type == 'CIF' ? true : false"
             />
             <span>ใช้ผลการจัดระดับ CIF (Conference Impact Factor)</span>
@@ -179,7 +179,7 @@
           <div class="flex flex-row gap-3">
             <input
               type="radio"
-              disabled="false"
+              :disabled="true"
               :checked="formData.score.score_type == 'CORE' ? true : false"
             />
             <span>ใช้ผลการจัดระดับ CORE Conference Ranking</span>
@@ -196,7 +196,7 @@
           <p>8. ผู้ขอรับการสนับสนุนเป็นผู้นำเสนอผลงานและผู้วิจัยหลัก</p>
           <input
             type="radio"
-            disabled="false"
+            :disabled="true"
             :checked="
               formData.confer.presenter_type == 'First Author' ? true : false
             "
@@ -204,7 +204,7 @@
           <span>First Author</span>
           <input
             type="radio"
-            disabled="false"
+            :disabled="true"
             :checked="
               formData.confer.presenter_type == 'Corresponding Author'
                 ? true
@@ -218,13 +218,13 @@
           <p class="ml-4">9.1 ครั้งที่ในการลา</p>
           <input
             type="radio"
-            disabled="false"
+            :disabled="true"
             :checked="formData.confer.time_of_leave == '1' ? true : false"
           />
           <span>ครั้งที่ 1</span>
           <input
             type="radio"
-            disabled="false"
+            :disabled="true"
             :checked="formData.confer.time_of_leave == '2' ? true : false"
           />
           <span>ครั้งที่ 2</span>
@@ -243,13 +243,13 @@
           <div class="flex flex-row gap-3 ml-4">
             <input
               type="radio"
-              disabled="false"
+              :disabled="true"
               :checked="formData.confer.wos_2_leave == 'WoS-Q1' ? true : false"
             />
             <span>WoS-Q1</span>
             <input
               type="radio"
-              disabled="false"
+              :disabled="true"
               :checked="formData.confer.wos_2_leave == 'WoS-Q2' ? true : false"
             />
             <span>WoS-Q2</span>
@@ -263,7 +263,7 @@
         <div class="flex flex-row gap-3 ml-10">
           <input
             type="radio"
-            disabled="false"
+            :disabled="true"
             :checked="formData.confer.withdraw == '50%' ? true : false"
           />
           <span>ไม่เกิน 50%</span>
@@ -271,7 +271,7 @@
         <div class="flex flex-row gap-3 ml-10">
           <input
             type="radio"
-            disabled="false"
+            :disabled="true"
             :checked="formData.confer.withdraw == '100%' ? true : false"
           />
           <span>ไม่เกิน 100%</span>
@@ -281,7 +281,7 @@
           <div class="flex flex-row gap-3">
             <input
               type="radio"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.confer.wd_100_quality == 'WoS-Q1' ? true : false
               "
@@ -289,7 +289,7 @@
             <span>WoS-Q1</span>
             <input
               type="radio"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.confer.wd_100_quality == 'WoS-Q2' ? true : false
               "
@@ -297,7 +297,7 @@
             <span>WoS-Q2</span>
             <input
               type="radio"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.confer.wd_100_quality == 'WoS-Q3' ? true : false
               "
@@ -305,7 +305,7 @@
             <span>WoS-Q3</span>
             <input
               type="radio"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.confer.wd_100_quality == 'SJR-Q1' ? true : false
               "
@@ -313,7 +313,7 @@
             <span>SJR-Q1</span>
             <input
               type="radio"
-              disabled="false"
+              :disabled="true"
               :checked="
                 formData.confer.wd_100_quality == 'SJR-Q2' ? true : false
               "
@@ -414,7 +414,7 @@
               type="checkbox"
               class="pt-1 px-5"
               :checked="formData.file.full_page != null ? true : false"
-              disabled="false"
+              :disabled="true"
             />
             <span>สำเนาบทความ (Full Paper)</span>
           </div>
@@ -423,7 +423,7 @@
               type="checkbox"
               class="pt-1 px-5"
               :checked="formData.file.published_journals != null ? true : false"
-              disabled="false"
+              :disabled="true"
             />
             <span class="mt-2"
               >*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* (Full Paper ประกอบการเบิก)
@@ -437,7 +437,7 @@
               type="checkbox"
               class="pt-1 px-5"
               :checked="formData.file.q_proof != null ? true : false"
-              disabled="false"
+              :disabled="true"
             />
             <span class="mt-1">
               *กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* หลักฐานเอกสาร Q ของ Paper
@@ -449,7 +449,7 @@
               type="checkbox"
               class="pt-1 px-5"
               :checked="formData.file.call_for_paper != null ? true : false"
-              disabled="false"
+              :disabled="true"
             />
             <span
               >เอกสารประชาสัมพันธ์การจัดการประชุมทางวิชาการ (Call for
@@ -461,7 +461,7 @@
               type="checkbox"
               class="pt-1 px-5"
               :checked="formData.file.accepted != null ? true : false"
-              disabled="false"
+              :disabled="true"
             />
             <span>จดหมายการตอบรับเข้าร่วมประชุม (Accepted)</span>
           </div>
@@ -470,7 +470,7 @@
               type="checkbox"
               class="pt-1 px-5"
               :checked="formData.file.fee_receipt != null ? true : false"
-              disabled="false"
+              :disabled="true"
             />
             <span>เอกสารแสดงค่าลงทะเบียน</span>
           </div>
@@ -479,7 +479,7 @@
               type="checkbox"
               class="pt-1 px-5"
               :checked="formData.file.fx_rate_document != null ? true : false"
-              disabled="false"
+              :disabled="true"
             />
             <span>เอกสารแสดงอัตราแลกเปลี่ยน (ณ วันที่ยื่น)</span>
           </div>
@@ -488,7 +488,7 @@
               type="checkbox"
               class="pt-1 px-5"
               :checked="formData.file.conf_proof != null ? true : false"
-              disabled="false"
+              :disabled="true"
             />
             <span>หลักฐานการประชุมวิชาการอยู่ในฐาน Scopus</span>
           </div>
@@ -497,7 +497,7 @@
               type="checkbox"
               class="pt-1 px-5"
               :checked="formData.user.user_confer == false ? true : false"
-              disabled="false"
+              :disabled="true"
             />
             <span
               >เป็นพนักงานสถาบันที่ปฏิบัติงานมาแล้วไม่เกิน 3
@@ -513,7 +513,7 @@
               :checked="
                 formData.confer.presenter_type == 'First Author' ? true : false
               "
-              disabled="false"
+              :disabled="true"
             />
             <span>First Author</span>
             <input
@@ -524,7 +524,7 @@
                   ? true
                   : false
               "
-              disabled="false"
+              :disabled="true"
             />
             <span>Corresponding Author</span>
           </div>
@@ -538,7 +538,10 @@
                 class="-mt-4"
               >
                 <img
-                  v-if="item.user_role == 'hr' && item.user_id == formData.offic.hr_id"
+                  v-if="
+                    item.user_role == 'hr' &&
+                    item.user_id == formData.offic.hr_id
+                  "
                   :src="`http://localhost:3000/uploads/${item.user_signature}`"
                   class="h-[50px] w-[170px]"
                   alt="hr signature"
@@ -560,7 +563,7 @@
             <div class="flex flex-row gap-2 pl-4">
               <input
                 type="radio"
-                disabled="false"
+                :disabled="true"
                 :checked="
                   formData.offic.c_meet_quality == 'มาตรฐาน' ? true : false
                 "
@@ -568,16 +571,17 @@
               <span>ระดับมาตรฐาน</span>
               <input
                 type="radio"
-                disabled="false"
+                :disabled="true"
                 :checked="
                   formData.offic.c_meet_quality == 'ดีมาก' ? true : false
                 "
               />
               <span>ระดับดีมาก</span>
             </div>
-              <p v-if="formData.offic.c_meet_quality != 'ดีมาก'">
-              - กรณีที่เป็นการประชุมวิชาการ <b>ระดับดีมาก</b> เลือกวิธีคิดค่าคะแนนคุณภาพ
-              และมีระดับคะแนน คุณภาพของการประชุมฯ ดังนี้ {{ formData.offic.c_good_reason }}
+            <p v-if="formData.offic.c_meet_quality != 'ดีมาก'">
+              - กรณีที่เป็นการประชุมวิชาการ
+              <b>ระดับดีมาก</b> เลือกวิธีคิดค่าคะแนนคุณภาพ และมีระดับคะแนน
+              คุณภาพของการประชุมฯ ดังนี้ {{ formData.offic.c_good_reason }}
             </p>
             <div class="flex flex-col pt-3 items-end">
               <div class="flex flex-row">
@@ -588,7 +592,10 @@
                   class="-mt-4"
                 >
                   <img
-                    v-if="item.user_role == 'research' && item.user_id == formData.offic.research_id"
+                    v-if="
+                      item.user_role == 'research' &&
+                      item.user_id == formData.offic.research_id
+                    "
                     :src="`http://localhost:3000/uploads/${item.user_signature}`"
                     class="h-[50px] w-[170px] border"
                     alt="research Image"
@@ -604,40 +611,44 @@
           </div>
           <div class="px-2 py-3">
             <p class="underline">ขั้นตอนที่ 3 งานการเงิน</p>
-            <p>ตรวจสอบเงินงบประมาณประจำปีที่คณะจัดสรรในการเผยแพร่ผลงานวิชาการ</p>
-            <p>ปีงบประมาณ พ.ศ.  {{ formData.budget.budget_year }}</p>
+            <p>
+              ตรวจสอบเงินงบประมาณประจำปีที่คณะจัดสรรในการเผยแพร่ผลงานวิชาการ
+            </p>
+            <p>ปีงบประมาณ พ.ศ. {{ formData.budget.budget_year }}</p>
             <div class="flex flex-col items-end">
-          <div class="flex flex-row justify-between gap-3 pt-2">
-            <p>วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น</p>
-            <p>{{ formData.formattedBudget.Conference_amount }}</p>
-            <p>บาท</p>
-          </div>
-          <div class="flex flex-row justify-between gap-3 pt-2">
-            <p>โดยคณะได้อนุมัติค่าใช้จ่ายไปแล้ว จำนวน</p>
-            <p>{{ formData.budget.num_expenses_approved }}</p>
-            <p>รายการ</p>
-          </div>
-          <div class="flex flex-row justify-between gap-3 pt-2">
-            <p>รวมเป็นเงิน</p>
-            <p>{{ formData.formattedBudget.total_amount_approved }}</p>
-            <p>บาท</p>
-          </div>
-          <div class="flex flex-row justify-between gap-3 pt-2">
-            <p>วงเงินที่คณะจัดสรรไว้ คงเหลือ</p>
-            <p>{{ formData.formattedBudget.remaining_credit_limit }}</p>
-            <p>บาท</p>
-          </div>
-          <div class="flex flex-row justify-between gap-3 pt-2">
-            <p>จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวน</p>
-            <p>{{ formData.formattedBudget.amount_approval }}</p>
-            <p>บาท</p>
-          </div>
-          <div class="flex flex-row justify-between gap-3 pt-2">
-            <p>วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น</p>
-            <p>{{ formData.formattedBudget.total_remaining_credit_limit }}</p>
-            <p>บาท</p>
-          </div>
-        </div>
+              <div class="flex flex-row justify-between gap-3 pt-2">
+                <p>วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น</p>
+                <p>{{ formData.formattedBudget.Conference_amount }}</p>
+                <p>บาท</p>
+              </div>
+              <div class="flex flex-row justify-between gap-3 pt-2">
+                <p>โดยคณะได้อนุมัติค่าใช้จ่ายไปแล้ว จำนวน</p>
+                <p>{{ formData.budget.num_expenses_approved }}</p>
+                <p>รายการ</p>
+              </div>
+              <div class="flex flex-row justify-between gap-3 pt-2">
+                <p>รวมเป็นเงิน</p>
+                <p>{{ formData.formattedBudget.total_amount_approved }}</p>
+                <p>บาท</p>
+              </div>
+              <div class="flex flex-row justify-between gap-3 pt-2">
+                <p>วงเงินที่คณะจัดสรรไว้ คงเหลือ</p>
+                <p>{{ formData.formattedBudget.remaining_credit_limit }}</p>
+                <p>บาท</p>
+              </div>
+              <div class="flex flex-row justify-between gap-3 pt-2">
+                <p>จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวน</p>
+                <p>{{ formData.formattedBudget.amount_approval }}</p>
+                <p>บาท</p>
+              </div>
+              <div class="flex flex-row justify-between gap-3 pt-2">
+                <p>วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น</p>
+                <p>
+                  {{ formData.formattedBudget.total_remaining_credit_limit }}
+                </p>
+                <p>บาท</p>
+              </div>
+            </div>
             <div class="flex flex-col pt-3 items-end">
               <div class="flex flex-row gap-1">
                 <p>ลงนาม</p>
@@ -647,13 +658,15 @@
                   class="-mt-2"
                 >
                   <img
-                    v-if="item.user_role == 'finance'  && item.user_id == formData.budget.user_id"
+                    v-if="
+                      item.user_role == 'finance' &&
+                      item.user_id == formData.budget.user_id
+                    "
                     :src="`http://localhost:3000/uploads/${item.user_signature}`"
                     class="h-[50px] w-[170px]"
                     alt="finance Image"
                   />
                 </div>
-                
               </div>
               <p>เจ้าหน้าที่การเงิน</p>
               <p>
@@ -677,7 +690,10 @@
                   class="-mt-3"
                 >
                   <img
-                    v-if="item.user_role == 'associate' && item.user_id == formData.offic.associate_id"
+                    v-if="
+                      item.user_role == 'associate' &&
+                      item.user_id == formData.offic.associate_id
+                    "
                     :src="`http://localhost:3000/uploads/${item.user_signature}`"
                     class="h-[50px] w-[170px]"
                     alt="associate Image"
@@ -710,7 +726,10 @@
                   class="-mt-4"
                 >
                   <img
-                    v-if="item.user_role == 'dean' && item.user_id == formData.offic.dean_id"
+                    v-if="
+                      item.user_role == 'dean' &&
+                      item.user_id == formData.offic.dean_id
+                    "
                     :src="`http://localhost:3000/uploads/${item.user_signature}`"
                     class="h-[50px] w-[170px]"
                     alt="Dean Image"
@@ -728,12 +747,21 @@
 
     <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
       <div class="flex no-print">
-      <router-link :to="`/myhistory`">
-        <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
-          ไปยังหน้าประวัติทั้งหมด
-        </button>
-      </router-link>
-    </div>
+        <div v-if="userStore.user.user_role == 'professor'">
+          <router-link :to="`/myhistory`">
+            <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
+              ไปยังหน้าประวัติ
+            </button>
+          </router-link>
+        </div>
+        <div v-if="userStore.user.user_role == 'professor'">
+          <router-link :to="`/allhistory`">
+            <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
+              ไปยังหน้าประวัติทั้งหมด
+            </button>
+          </router-link>
+        </div>
+      </div>
       <div class="flex no-print">
         <button
           onclick="window.print()"
@@ -747,9 +775,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute } from "vue-router";
+
+import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
+
+const userStore = useUserStore();
+
+const user = computed(() => userStore.user);
 
 // จัดการข้อมูลหลัก
 const formData = reactive({
@@ -764,30 +798,29 @@ const formData = reactive({
 });
 
 const formatThaiDate = (dateString) => {
-  if(dateString != null){
+  if (dateString != null) {
     const date = new Date(dateString);
-  const months = [
-    "ม.ค.",
-    "ก.พ.",
-    "มี.ค.",
-    "เม.ย.",
-    "พ.ค.",
-    "มิ.ย.",
-    "ก.ค.",
-    "ส.ค.",
-    "ก.ย.",
-    "ต.ค.",
-    "พ.ย.",
-    "ธ.ค.",
-  ];
-  const day = date.getDate();
-  const month = months[date.getMonth()];
-  const year = date.getFullYear() + 543;
-  return `${day} ${month} ${year}`;
+    const months = [
+      "ม.ค.",
+      "ก.พ.",
+      "มี.ค.",
+      "เม.ย.",
+      "พ.ค.",
+      "มิ.ย.",
+      "ก.ค.",
+      "ส.ค.",
+      "ก.ย.",
+      "ต.ค.",
+      "พ.ย.",
+      "ธ.ค.",
+    ];
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear() + 543;
+    return `${day} ${month} ${year}`;
   } else {
-    return "ไม่พบวันที่"
+    return "ไม่พบวันที่";
   }
-  
 };
 
 //isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
@@ -795,7 +828,7 @@ const isLoading = ref(true);
 // Access route parameters
 const route = useRoute();
 const id = route.params.id;
-console.log("params.id", id);
+
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
 const fetchProfessorData = async () => {
   try {
@@ -807,18 +840,17 @@ const fetchProfessorData = async () => {
     formData.user = responseUser.data;
 
     const responseScore = await api.get(`/score/${id}`);
-    console.log("score123", responseScore);
     formData.score = responseScore.data;
 
     const responseoffic = await api.get(`/opinionConf/${id}`);
-    console.log("responseoffic", responseoffic.data);
     formData.offic = responseoffic.data;
 
     const responsebudget = await api.get(`/budget/conference/${id}`);
-    console.log("responsebudget", responsebudget.data);
     formData.budget = responsebudget.data;
     formData.formattedBudget = {
-      Conference_amount: Number(formData.budget.Conference_amount).toLocaleString(),
+      Conference_amount: Number(
+        formData.budget.Conference_amount
+      ).toLocaleString(),
       total_amount_approved: Number(
         formData.budget.total_amount_approved
       ).toLocaleString(),
@@ -835,10 +867,8 @@ const fetchProfessorData = async () => {
     formData.file = responseFile.data;
 
     const responseSignature = await api.get("/users");
-    console.log("responseSignature 123", responseSignature.data);
 
     for (let i = 0; i < responseSignature.data.length; i++) {
-      // console.log("i", i);
       if (
         ["hr", "research", "finance", "associate", "dean"].includes(
           responseSignature.data[i].user_role
@@ -849,20 +879,19 @@ const fetchProfessorData = async () => {
           user_role: responseSignature.data[i].user_role,
           user_signature: responseSignature.data[i].user_signature,
         };
-        console.log("signature office", signature);
         formData.signatureOffice.push(signature);
       }
     }
   } catch (error) {
-    console.error("Error fetching professor data:", error);
+    console.log("Error fetching professor data:", error);
   } finally {
     isLoading.value = false;
   }
-  // console.log("Fetching professor data...");
 };
 // ดึงข้อมูลเมื่อ component ถูกโหลด
 onMounted(async () => {
   await fetchProfessorData();
+  await userStore.fetchUser();
 });
 </script>
 

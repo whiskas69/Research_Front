@@ -7,7 +7,7 @@
         </p>
         <RadioInput
           label="รับทราบ"
-          disabled="true"
+          :disabled="true"
           :checked="formData.offic.c_approve_result == 'รับทราบ' ? true : false"
         />
       </SectionWrapper>
@@ -25,7 +25,7 @@
           <RadioInput
             label="รับทราบ"
             value="รับทราบ"
-            disabled="true"
+            :disabled="true"
             :checked="formData.offic.p_acknowledge == 'รับทราบ' ? true : false"
           />
         </SectionWrapper>
@@ -46,7 +46,7 @@
               label="อนุมัติ"
               value="อนุมัติ"
               name="comment"
-              disabled="true"
+              :disabled="true"
               :checked="
                 formData.offic.p_approve_result == 'อนุมัติ' ? true : false
               "
@@ -57,7 +57,7 @@
               label="ไม่อนุมัติ"
               value="ไม่อนุมัติ"
               name="comment"
-              disabled="true"
+              :disabled="true"
               :checked="
                 formData.offic.p_approve_result == 'ไม่อนุมัติ' ? true : false
               "
@@ -66,7 +66,7 @@
           <div>
             <TextArea
               label="เนื่องจาก"
-              disabled="true"
+              :disabled="true"
               :placeholder="formData.offic.p_reason_dean_appeove"
             />
           </div>
@@ -75,7 +75,7 @@
               label="อื่น ๆ"
               value="อื่น ๆ"
               name="comment"
-              disabled="true"
+              :disabled="true"
               :checked="
                 formData.offic.p_approve_result == 'อื่น ๆ' ? true : false
               "
@@ -84,7 +84,7 @@
           <div>
             <TextArea
               label="เนื่องจาก"
-              disabled="true"
+              :disabled="true"
               :placeholder="formData.offic.p_reason_dean_appeove"
             />
           </div>
