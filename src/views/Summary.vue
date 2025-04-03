@@ -1046,7 +1046,7 @@
                       : "-"
                   }}
                 </td>
-                <td class="border px-3 py-2">{{ row.month }} {{ row.year }}</td>
+                <td class="border px-3 py-2">{{ (row.month && row.year) ? `${row.month}${row.year}` : "-" }}</td>
                 <td class="border px-3 py-2">
                   {{
                     row.article_research_ject
@@ -1155,13 +1155,13 @@
                 <td class="border px-3 py-2" v-if="row.user_role == 'dean'">คณบดี</td>
                 <td class="border px-3 py-2">{{ Number(row.user_moneyCF || 0).toLocaleString("en-US") }}</td>
                 <td class="border px-3 py-2">
-                  {{ row.total_conference }}
+                  {{ Number(row.total_conference || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2 w-1/6">
-                  {{ row.user_moneyCF - row.total_conference }}
+                  {{ Number((row.user_moneyCF || 0) - (row.total_conference || 0)).toLocaleString("en-US") }}
                 </td>
-                <td class="border px-3 py-2">{{ row.total_pc }}</td>
-                <td class="border px-3 py-2">{{ row.total_pc + row.total_conference }}</td>
+                <td class="border px-3 py-2">{{ Number(row.total_pc || 0).toLocaleString("en-US") }}</td>
+                <td class="border px-3 py-2">{{ Number((Number(row.total_pc) || 0) + (Number(row.total_conference) || 0)).toLocaleString("en-US") }}</td>
               </tr>
             </tbody>
           </table>
