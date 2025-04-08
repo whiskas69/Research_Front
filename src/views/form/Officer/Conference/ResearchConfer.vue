@@ -148,7 +148,7 @@ const OfficerConfer = async () => {
         c_meet_quality: formData.radioAuthOffic,
         c_quality_reason: formData.description,
         research_doc_submit_date: formData.docSubmitDate,
-        form_status: formData.formStatus,
+        form_status: formData.radioAuthOffic == "ไม่ถูกต้อง" ? "ไม่อนุมัติ" : formData.formStatus,
       };
 
       const response = await api.put(`/opinionConf/${id}`, dataForBackend);

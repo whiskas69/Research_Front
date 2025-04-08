@@ -237,6 +237,14 @@
                         </td>
                         <td>
                           <button
+                            @click="deleteSignat(user.user_id)"
+                            class="btn btn-error text-base text-white"
+                          >
+                            ลบลายเซ็นผู้ใช้
+                          </button>
+                        </td>
+                        <td>
+                          <button
                             @click="deleteUser(user.user_id)"
                             class="btn btn-error text-base text-white"
                           >
@@ -520,6 +528,18 @@ const addUser = async () => {
   } else {
     alert("โปรดกรอกข้อมูลให้ครบถ้วน");
     console.log(v$.value.$errors);
+  }
+};
+
+const deleteSignat = async (id) => {
+  try {
+    await api.put(`/userSignat/${id}`);
+
+    alert("ลบลายเซ็นผู้ใช้เรียบร้อย");
+    location.reload();
+  } catch (error) {
+    console.log("Error updating user roles:", error);
+    alert("เกิดข้อผิดพลาดในการอัปเดตข้อมูล");
   }
 };
 

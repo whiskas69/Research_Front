@@ -564,6 +564,15 @@ import FileInput from "@/components/Input/FileInput.vue";
 
 const router = useRouter();
 
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
+
+if (!userStore.user.user_signature) {
+  alert("กรุณาอัปโหลดลายเซ้นต์");
+  router.push("/profile");
+}
+
+
 // จัดการข้อมูลหลัก
 const formData = reactive({
   userID: null,
@@ -844,8 +853,6 @@ const rules = computed(() => ({
 
 const v$ = useVuelidate(rules, formData);
 
-const userStore = useUserStore();
-const user = computed(() => userStore.user);
 
 onMounted(async () => {
   await userStore.fetchUser();

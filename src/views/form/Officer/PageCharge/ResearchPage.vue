@@ -320,7 +320,7 @@ const OfficerPC = async () => {
           p_reason: formData.description,
           p_date_accepted_approve: formData.dateAccep || null,
           research_doc_submit_date: formData.docSubmitDate,
-          form_status: formData.statusForm,
+          form_status: formData.radioAuthOffic == "อื่น ๆ" ? "ไม่อนุมัติ" : formData.statusForm,
         };
 
         const response = await api.post("/opinionPC", dataForBackend);
@@ -346,7 +346,7 @@ const OfficerPC = async () => {
           dean_doc_submit_date: DateTime.fromISO(
             formData.offic.dean_doc_submit_date
           ).toISODate(),
-          form_status: formData.formStatus,
+          form_status: formData.radioAuthOffic == "อื่น ๆ" ? "ไม่อนุมัติ" : formData.formStatus,
         };
 
         const response = await api.put(`/opinionPC/${id}`, dataForBackend);

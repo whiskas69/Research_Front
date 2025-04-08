@@ -70,6 +70,7 @@ const handleInput = (key, value) => {
 
 const route = useRoute();
 const id = route.params.id;
+console.log("id",id)
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);

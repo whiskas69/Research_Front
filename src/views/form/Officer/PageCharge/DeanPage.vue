@@ -248,7 +248,7 @@ const OfficerPC = async () => {
         p_approve_result: formData.radioAuthOffic,
         p_reason_dean_appeove: formData.description1 || formData.description2,
         dean_doc_submit_date: formData.docSubmitDate,
-        form_status: formData.formStatus,
+        form_status: formData.radioAuthOffic == "ไม่อนุมัติ" ? "ไม่อนุมัติ" : formData.formStatus,
       };
 
       const response = await api.put(`/opinionPC/${id}`, dataForBackend);

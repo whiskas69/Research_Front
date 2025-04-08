@@ -183,7 +183,7 @@
                   {{ Number(row.amount_approval - row.total_amount || 0).toLocaleString("en-US") }}
                 </td>
                 <td class="border px-3 py-2">
-                  {{ Number(row.amount_approval - row.all_money || 0).toLocaleString("en-US") }}
+                  {{ Number(row.amount_approval - row.total_amount - row.all_money || 0).toLocaleString("en-US") }}
                 </td>
               </tr>
             </tbody>

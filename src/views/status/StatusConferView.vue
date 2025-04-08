@@ -36,6 +36,22 @@
         </ul>
       </div>
 
+      <div class="flex justify-center" v-if="data.form.form_status == 'รออนุมัติ'">
+        <ul class="steps steps-vertical lg:steps-horizontal">
+          <li data-content="✓" class="step step-primary w-40">
+            ฝ่ายบริหารทรัพยากรบุคคล
+          </li>
+          <li data-content="✓" class="step step-primary w-40">
+            ฝ่ายบริหารงานวิจัย
+          </li>
+          <li data-content="✓" class="step step-primary w-40">ฝ่ายบริหารการเงิน</li>
+          <li data-content="✓" class="step step-primary w-40">รองคณบดี</li>
+          <li data-content="✓" class="step step-primary w-40">คณบดี</li>
+          <li data-content="✓" class="step step-primary w-40">รออนุมัติ</li>
+          <li data-content="" class="step  w-40">อนุมัติ</li>
+        </ul>
+      </div>
+
       <div class="flex justify-center" v-if="data.form.form_status == 'คณบดี'">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">

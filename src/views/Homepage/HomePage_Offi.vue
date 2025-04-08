@@ -145,6 +145,9 @@
 import { ref, onMounted, reactive } from "vue";
 import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const userStore = useUserStore();
 const listForm = reactive({
@@ -153,6 +156,13 @@ const listForm = reactive({
   nameP: [],
   nameK: [],
 });
+
+// console.log("user", userStore.user)
+
+if (!userStore.user.user_signature) {
+  alert("กรุณาอัปโหลดลายเซ้นต์");
+  router.push("/profile");
+}
 
 const isLoading = ref(true);
 const fetchOfficerData = async () => {
