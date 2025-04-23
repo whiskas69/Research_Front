@@ -134,7 +134,7 @@ const OfficerConfer = async () => {
         dean_id: user.value?.user_id,
         c_approve_result: formData.acknowledge,
         dean_doc_submit_date: formData.docSubmitDate,
-        form_status: formData.formStatus,
+        form_status: formData.acknowledge == "ไม่ถูกต้อง" ? "ไม่อนุมัติ" : formData.formStatus,
       };
 
       const response = await api.put(`/opinionConf/${id}`, dataForBackend);

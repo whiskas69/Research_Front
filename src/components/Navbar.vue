@@ -71,13 +71,19 @@
       <ul class="menu menu-horizontal px-5 flex">
         <div v-if="userStore.user" class="flex flex-row">
           <li
-            v-if="userStore.user.user_role != 'professor'"
+            v-if="
+              userStore.user.user_role != 'professor' &&
+              userStore.user.user_role != 'admin'
+            "
             class="justify-center"
           >
             <router-link to="/homepage">ยื่นเอกสาร</router-link>
           </li>
 
-          <ul class="menu menu-horizontal justify-center">
+          <ul
+            class="menu menu-horizontal justify-center"
+            v-if="userStore.user.user_role != 'admin'"
+          >
             <li>
               <details>
                 <summary>สถานะเอกสาร</summary>
@@ -106,9 +112,7 @@
                   <summary>สถานะเอกสารที่รับผิดชอบ</summary>
                   <ul class="bg-base-100 rounded-t-none px-1 w-full">
                     <li>
-                      <router-link to="/statusOffice"
-                        >สถานะเอกสาร</router-link
-                      >
+                      <router-link to="/statusOffice">สถานะเอกสาร</router-link>
                     </li>
                     <li>
                       <router-link to="/historyOffice"
@@ -135,9 +139,7 @@
             "
           >
             <li class="flex justify-center items-center">
-              <router-link to="/allhistory"
-                >เอกสารที่อนุมัติแล้ว</router-link
-              >
+              <router-link to="/allhistory">เอกสารที่อนุมัติแล้ว</router-link>
             </li>
           </div>
         </div>
@@ -147,18 +149,19 @@
         </li>
       </ul>
     </div>
+
     <!-- end -->
     <div class="flex flex-auto justify-end">
-      <div v-if="userStore.user">
+      <div v-if="userStore.user && userStore.user.user_role != 'admin'">
         <div v-if="userStore.user.user_role == 'professor'">
           <div
             class="dropdown dropdown-bottom dropdown-end"
-            @click="updateNotifications"
+            @click="updateNotificationsPro"
           >
             <div tabindex="0" role="button" class="btn">
               <span
-                v-if="filteredNotificationCount > 0"
                 class="absolute top-0 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-s font-bold text-white"
+                v-if="filteredNotificationCount > 0"
               >
                 {{ filteredNotificationCount }}
               </span>
@@ -174,7 +177,7 @@
                 :key="item.noti_id"
               >
                 <div
-                  class="flex flex-col items-start"
+                  class="flex flex-col items-start border border-gray-200 my-1"
                   v-if="item.form_type == 'Research_KRIS'"
                 >
                   <p>แบบเสนอโครงการวิจัย</p>
@@ -182,7 +185,7 @@
                   <p>สถานะ : {{ item.form_status }}</p>
                 </div>
                 <div
-                  class="flex flex-col items-start"
+                  class="flex flex-col items-start border border-gray-200 my-1"
                   v-if="item.form_type == 'Conference'"
                 >
                   <p>ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ</p>
@@ -190,7 +193,7 @@
                   <p>สถานะ : {{ item.form_status }}</p>
                 </div>
                 <div
-                  class="flex flex-col items-start"
+                  class="flex flex-col items-start border border-gray-200 my-1"
                   v-if="item.form_type == 'Page_Charge'"
                 >
                   <p>
@@ -212,10 +215,15 @@
           >
             <div tabindex="0" role="button" class="btn m-1">
               <span
-                v-if="filteredNotificationOfficerCount > 0"
+                v-if="
+                  filteredNotificationOfficerCount >
+                  0
+                "
                 class="absolute top-0 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-s font-bold text-white"
               >
-                {{ filteredNotificationOfficerCount }}
+                {{
+                  filteredNotificationOfficerCount
+                }}
               </span>
               <i class="color-black text-xl fa fa-bell"></i>
             </div>
@@ -225,11 +233,44 @@
               class="dropdown-content menu bg-base-100 rounded-box z-1 w-max p-2 shadow-sm"
             >
               <li
+                v-for="item in list_notification.Pro_noti"
+                :key="item.noti_id"
+              >
+                <div
+                  class="flex flex-col items-start border border-gray-200 my-1"
+                  v-if="item.form_type == 'Research_KRIS'"
+                >
+                  <p>แบบเสนอโครงการวิจัย</p>
+                  <p>ชื่องานวิจัย : {{ item.name_form }}</p>
+                  <p>สถานะ : {{ item.form_status }}</p>
+                </div>
+                <div
+                  class="flex flex-col items-start border border-gray-200 my-1"
+                  v-if="item.form_type == 'Conference'"
+                >
+                  <p>ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ</p>
+                  <p>ชื่อบทความ : {{ item.name_form }}</p>
+                  <p>สถานะ : {{ item.form_status }}</p>
+                </div>
+                <div
+                  class="flex flex-col items-start border border-gray-200 my-1"
+                  v-if="item.form_type == 'Page_Charge'"
+                >
+                  <p>
+                    ขออนุมัติค่า Page Charge
+                    เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
+                  </p>
+                  <p>ชื่อบทความ : {{ item.name_form }}</p>
+                  <p>สถานะ : {{ item.form_status }}</p>
+                </div>
+              </li>
+
+              <li
                 v-for="item in list_notification.Off_noti"
                 :key="item.noti_id"
               >
                 <div
-                  class="flex flex-col items-start"
+                  class="flex flex-col items-start border border-gray-200 my-1"
                   v-if="item.form_type == 'Research_KRIS'"
                 >
                   <p>แบบเสนอโครงการวิจัย</p>
@@ -237,7 +278,7 @@
                   <p>ชื่องานวิจัย : {{ item.name_form }}</p>
                 </div>
                 <div
-                  class="flex flex-col items-start"
+                  class="flex flex-col items-start border border-gray-200 my-1"
                   v-if="item.form_type == 'Conference'"
                 >
                   <p>ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ</p>
@@ -245,7 +286,7 @@
                   <p>ชื่อบทความ : {{ item.name_form }}</p>
                 </div>
                 <div
-                  class="flex flex-col items-start"
+                  class="flex flex-col items-start border border-gray-200 my-1"
                   v-if="item.form_type == 'Page_Charge'"
                 >
                   <p>
@@ -282,7 +323,9 @@
               {{ userStore.user.user_nameth }}
             </summary>
             <ul class="bg-base-100 rounded-t-none p-2 w-full">
-              <li><router-link to="/profile">ข้อมูลส่วนตัว</router-link></li>
+              <li v-if="userStore.user.user_role != 'admin'">
+                <router-link to="/profile">ข้อมูลส่วนตัว</router-link>
+              </li>
               <li @click="logout">
                 <router-link to="/">ออกจากระบบ</router-link>
               </li>
@@ -410,7 +453,7 @@ const updateNotificationsPro = async () => {
 };
 
 const updateNotificationsOff = async () => {
-  if (list_notification.Off_noti.length === 0) return;
+  if (list_notification.Pro_noti.length === 0) return;
 
   try {
     const notiIds = list_notification.Off_noti.map((noti) => noti.noti_id);
@@ -429,6 +472,27 @@ const updateNotificationsOff = async () => {
       "list_notification.Off_noti หลังอัปเดต:",
       list_notification.Off_noti
     );
+
+    try {
+      if (list_notification.Off_noti.length === 0) return;
+
+      const notiIds = list_notification.Pro_noti.map((noti) => noti.noti_id);
+
+      await api.put("/notifications/update_read", { notiIds });
+
+      console.log("อัปเดตสถานะของทุก Notification สำเร็จ");
+
+      // อัปเดตข้อมูลบนหน้า UI ทันที
+      list_notification.Pro_noti = list_notification.Pro_noti.map((noti) => ({
+        ...noti,
+        is_read: 1,
+      }));
+
+      console.log(
+        "list_notification.Pro_noti หลังอัปเดต:",
+        list_notification.Pro_noti
+      );
+    } catch (error) {}
   } catch (error) {
     console.log("เกิดข้อผิดพลาดในการอัปเดต Notification:", error);
   }

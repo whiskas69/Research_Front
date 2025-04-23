@@ -1,4 +1,5 @@
 <template>
+  <!-- text input -->
   <div :class="`from-control w-full ${customDiv}`">
     <p :class="`${customLabel}`">{{ label }}</p>
     <textarea

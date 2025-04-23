@@ -60,67 +60,61 @@
         </div>
 
         <div class="my-10 flex flex-col">
-          <h1 class="text-xl font-bold">ลายเซ็น</h1>
+      <h1 class="text-xl font-bold">ลายเซ็น</h1>
 
-          <div v-if="user.user_signature == null || user.user_signature == ''">
-            <p class="text-red-600">
-              สามารถอัปโหลดลายเซ็นได้เพียง 1 ครั้งเท่านั้น และสกุลไฟล์เป็น png
-              กรุณาตรวจสอบความถูกต้องก่อนกดยืนยัน
-            </p>
+      <div v-if="user.user_signature == null || user.user_signature == ''">
+        <p class="text-red-600">
+          สามารถอัปโหลดลายเซ็นได้เพียง 1 ครั้งเท่านั้น และสกุลไฟล์เป็น png
+          กรุณาตรวจสอบความถูกต้องก่อนกดยืนยัน
+        </p>
 
-            <div class="my-5">
-              <input
-                type="file"
-                class="file-input file-input-bordered w-full max-w-xs"
-                @change="handleFile($event, 'signature')"
-              />
+        <div class="my-5">
+          <input
+            type="file"
+            class="file-input file-input-bordered w-full max-w-xs"
+            @change="handleFile($event, 'signature')"
+          />
+        </div>
+
+        <span v-if="v$.signature.$error" class="text-base ml-2 text-red-500">
+          {{ v$.signature.$errors[0].$message }}
+        </span>
+
+        <div class="flex justify-end mr-5">
+          <button @click="updatesignature" class="btn bg-blue-500 text-white">
+            ตกลง
+          </button>
+        </div>
+      </div>
+
+      <div v-else>
+        <p class="text-red-600">
+          หากมีข้อผิดพลาดโปรดติดต่อเจ้าหน้าที่ที่เกี่ยวข้อง เพื่อแก้ไข
+        </p>
+        <div class="flex flex-row items-center w-full">
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row">
+              <p>ดูลายเซ็นที่อัปโหลด</p>
             </div>
-
-            <span
-              v-if="v$.signature.$error"
-              class="text-base ml-2 text-red-500"
-            >
-              {{ v$.signature.$errors[0].$message }}
-            </span>
-
-            <div class="flex justify-end mr-5">
+            <div class="">
               <button
-                @click="updatesignature"
-                class="btn bg-blue-500 text-white"
+                @click="getSignature"
+                class="btn bg-[#E85F19] text-white ml-10"
               >
-                ตกลง
+                ดูเอกสาร
               </button>
             </div>
           </div>
-
-          <div v-else>
-            <p class="text-red-600">
-              หากมีข้อผิดพลาดโปรดติดต่อเจ้าหน้าที่ที่เกี่ยวข้อง เพื่อแก้ไข
-            </p>
-            <div class="flex flex-row items-center w-full">
-              <div class="flex flex-row items-center w-full">
-                <div class="flex flex-row">
-                  <p>ดูลายเซ็นที่อัปโหลด</p>
-                </div>
-                <div class="">
-                  <button
-                    @click="getSignature"
-                    class="btn bg-[#E85F19] text-white ml-10"
-                  >
-                    ดูเอกสาร
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <img
-              v-if="data.signature"
-              :src="data.signature"
-              alt="signature"
-              class="w-64 h-64 mt-5"
-            />
-          </div>
         </div>
+
+        <img
+          v-if="data.signature"
+          :src="data.signature"
+          alt="signature"
+          class="w-64 h-64 mt-5"
+        />
+      </div>
+    </div>
       </div>
 
       <input
@@ -128,60 +122,49 @@
         name="mytabs"
         class="tab"
         aria-label="วงเงินที่ใช้ไปแล้ว"
-        checked="checked"
       />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <div class="overflow-x-auto mt-2">
-          <p class="flex justify-end" >วงเงินที่ใช้ไปแล้วทั้งหมด<b>{{ parseFloat(data.totalAll).toLocaleString('en-US', {minimumFractionDigits: 2,}) }} </b> บาท</p>
-          
-          <p class="text-l font-bold">การประชุมวิชาการ</p>
-          <table class="table w-full my-3" ref="dataconfer2">
+          <p>วงเงินที่ใช้ไปแล้วทั้งหมด {{ data.totalAll }} บาท</p>
+          <p>การประชุมวิชาการ</p>
+          <table class="table w-full" ref="dataconfer2">
             <thead>
               <tr class="text-center">
                 <th class="border px-3 py-2">ครั้งที่</th>
                 <th class="border px-3 py-2">รวม</th>
               </tr>
             </thead>
-            <tbody
-              v-for="(data, index) in data.approvedConfer"
-              :key="data.form_id"
-              class="text-center"
-            >
+            <tbody v-for="(data, index) in data.approvedConfer" :key="data.form_id" class="text-center">
               <tr>
                 <td class="border px-3 py-2">{{ index + 1 }}</td>
-                <td class="border px-3 py-2">{{ parseFloat(data.money).toLocaleString('en-US', {minimumFractionDigits: 2,}) }}</td>
+                <td class="border px-3 py-2">{{ data.money }}</td>
+              </tr>
+              <tr>
+                <td class="border px-3 py-2 text-center font-bold">รวม</td>
+                <td class="border px-3 py-2 text-center">{{ data.totalConfer }}</td>
               </tr>
             </tbody>
-            <tr>
-              <td class="border px-3 py-2 text-center font-bold">รวม</td>
-              <td class="border px-3 py-2 text-center">
-                {{ parseFloat(data.totalConfer).toLocaleString('en-US', {minimumFractionDigits: 2,}) }}
-              </td>
-            </tr>
           </table>
 
-          <p class="text-l font-bold">Page Charge</p>
-          <table class="table w-full my-3" ref="dataconfer2">
+          <p>Page Charge</p>
+          <table class="table w-full" ref="dataconfer2">
             <thead>
               <tr class="text-center">
                 <th class="border px-3 py-2">ครั้งที่</th>
                 <th class="border px-3 py-2">รวม</th>
               </tr>
             </thead>
-            <tbody
-              v-for="(data, index) in data.approvedPC"
-              :key="data.form_id"
-              class="text-center"
-            >
+            <tbody v-for="(data, index) in data.approvedPC" :key="data.form_id" class="text-center">
               <tr>
                 <td class="border px-3 py-2">{{ index + 1 }}</td>
-                <td class="border px-3 py-2">{{ parseFloat(data.money).toLocaleString('en-US', {minimumFractionDigits: 2,}) }}</td>
+                <td class="border px-3 py-2">{{ data.money }}</td>
+              </tr>
+
+              <tr>
+                <td class="border px-3 py-2 text-center font-bold">รวม</td>
+                <td class="border px-3 py-2 text-center">{{ data.totalPC }}</td>
               </tr>
             </tbody>
-            <tr>
-              <td class="border px-3 py-2 text-center font-bold">รวม</td>
-              <td class="border px-3 py-2 text-center">{{ parseFloat(data.totalPC).toLocaleString('en-US', {minimumFractionDigits: 2,}) }}</td>
-            </tr>
           </table>
         </div>
       </div>

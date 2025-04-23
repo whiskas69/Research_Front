@@ -8,7 +8,7 @@ export const useUserStore = defineStore("user", {
   }),
 
   getters: {
-    isAuthenticated: (state) => state.user !== null, // เช็คว่ามี user หรือไม่
+    // isAuthenticated: (state) => state.user !== null, // เช็คว่ามี user หรือไม่
     userRole: (state) => state.user?.user_role || null, // ดึง role ของ user
   },
 

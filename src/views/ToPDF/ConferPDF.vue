@@ -565,7 +565,7 @@
                 type="radio"
                 :disabled="true"
                 :checked="
-                  formData.offic.c_meet_quality == 'มาตรฐาน' ? true : false
+                  formData.confer.quality_meeting == 'มาตรฐาน' ? true : false
                 "
               />
               <span>ระดับมาตรฐาน</span>
@@ -573,18 +573,31 @@
                 type="radio"
                 :disabled="true"
                 :checked="
-                  formData.offic.c_meet_quality == 'ดีมาก' ? true : false
+                  formData.confer.quality_meeting == 'ดีมาก' ? true : false
                 "
               />
               <span>ระดับดีมาก</span>
             </div>
-            <p v-if="formData.offic.c_meet_quality != 'ดีมาก'">
+            <div v-if="formData.confer.quality_meeting == 'ดีมาก'">
+              <p>
               - กรณีที่เป็นการประชุมวิชาการ
               <b>ระดับดีมาก</b> เลือกวิธีคิดค่าคะแนนคุณภาพ และมีระดับคะแนน
-              คุณภาพของการประชุมฯ ดังนี้ {{ formData.offic.c_good_reason }}
+              คุณภาพของการประชุมฯ ดังนี้
+            </p>
+            <p v-if="formData.score.score_type == 'CORE'" class="pl-3">
+              คำนวณจาก {{ formData.score.score_type }} มีค่าคะแนน {{ formData.score.core_rank }}
+                </p>
+            <p v-else class="pl-3"> คำนวณจาก {{ formData.score.score_type }} มีค่าคะแนน {{ formData.score.score_result }}</p>
+            </div>
+            <p v-else-if="formData.confer.quality_meeting == 'มาตรฐาน'" class="px-2">
+              • อยู่ในระดับ{{ formData.confer.quality_meeting }}
+            </p>
+            <p v-else-if="formData.confer.quality_meeting == ''" class="px-2">
+              • ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ
+              และไม่อยู่ในฐานข้อมูลสากล SCOPUS
             </p>
             <div class="flex flex-col pt-3 items-end">
-              <div class="flex flex-row">
+              <div class="flex flex-row gap-1 mt-3">
                 <p>ลงนาม</p>
                 <div
                   v-for="item in formData.signatureOffice"
@@ -597,13 +610,12 @@
                       item.user_id == formData.offic.research_id
                     "
                     :src="`http://localhost:3000/uploads/${item.user_signature}`"
-                    class="h-[50px] w-[170px] border"
+                    class="h-[50px] w-[170px]"
                     alt="research Image"
                   />
                 </div>
-                <p>เจ้าหน้าที่บริหารงานวิจัย</p>
               </div>
-
+              <p>เจ้าหน้าที่บริหารงานวิจัย</p>
               <p>
                 {{ formatThaiDate(formData.offic.research_doc_submit_date) }}
               </p>
@@ -649,16 +661,16 @@
                 <p>บาท</p>
               </div>
             </div>
-            <div class="flex flex-col pt-3 items-end">
+            <div class="flex flex-col mt-3 items-end">
               <div class="flex flex-row gap-1">
                 <p>ลงนาม</p>
                 <div
                   v-for="item in formData.signatureOffice"
-                  :key="item"
+                  :key="item.user_id"
                   class="-mt-2"
                 >
                   <img
-                    v-if="
+                    v-show="
                       item.user_role == 'finance' &&
                       item.user_id == formData.budget.user_id
                     "
@@ -680,7 +692,7 @@
         >
           <div class="px-2 py-3">
             <p class="underline">ความเห็นรองคณบดี (กำกับดูแลด้านงานวิจัย)</p>
-            <p class="pt-4">{{ formData.offic.p_deputy_dean }}</p>
+            <p class="pt-4 pl-3">{{ formData.offic.c_deputy_dean }}</p>
             <div class="flex flex-col pt-3 items-end">
               <div class="flex flex-row gap-1">
                 <p>ลงนาม</p>
@@ -712,7 +724,7 @@
               เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความจากผู้จัด
             </p>
             <p
-              v-if="formData.offic.c_approve_result != 'รับทราบ'"
+              v-if="formData.offic.c_approve_result == 'รับทราบ'"
               class="flex font-bold justify-end"
             >
               รับทราบ

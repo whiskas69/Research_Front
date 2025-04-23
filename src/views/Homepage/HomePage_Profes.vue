@@ -36,3 +36,26 @@
   </div>
 </template>
 
+
+<script setup>
+import { ref, onMounted, reactive } from "vue";
+import { useUserStore } from "@/store/userStore";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const userStore = useUserStore();
+
+if (!userStore.user.user_signature) {
+  alert("กรุณาอัปโหลดลายเซ้นต์");
+  router.push("/profile");
+
+}
+
+onMounted(async () => {
+  fetchOfficerData();
+  if (!userStore.user) {
+    await userStore.fetchUser();
+  }
+});
+</script>

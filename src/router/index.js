@@ -58,6 +58,7 @@ const router = createRouter({
       path: "/",
       name: "Search",
       component: Search,
+      meta: { requiresAuth: false },
     },
     {
       path: "/homepage",
@@ -81,6 +82,7 @@ const router = createRouter({
       path: "/login",
       name: "Login",
       component: LoginPage,
+      meta: { requiresAuth: false },
     },
     {
       path: "/mystatus",
@@ -253,21 +255,30 @@ const router = createRouter({
   ],
 });
 
-//check login
 router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore();
-  console.log("User isAuthenticated:", userStore.isAuthenticated);
 
-   // ถ้าต้องการล็อกอิน และ user ยังไม่ได้ล็อกอิน
-   if (to.meta.requiresAuth && !userStore.isAuthenticated) {
-    return next("/login");
+  // ตรวจสอบการล็อกอินก่อน โดยเช็คจาก localStorage หรือค่า loggedIn
+  if (to.meta.requiresAuth) {
+    // ถ้ายังไม่ได้ล็อกอิน (ไม่มี userRole หรือไม่มี token หรือสถานะอื่นๆ ที่ใช้ในการตรวจสอบการล็อกอิน)
+    if (!userStore.user) {
+      // ถ้ายังไม่ได้โหลดข้อมูลผู้ใช้ (จาก fetchUser) ให้เรียกใช้
+      await userStore.fetchUser();
+    }
+    
+    // เช็คว่า user ยังไม่ได้ล็อกอิน (ไม่พบ userRole)
+    if (!userStore.userRole) {
+      return next("/login"); // ถ้ายังไม่ได้ล็อกอิน ให้ไปหน้า login
+    }
   }
 
   // ถ้ามี role ที่กำหนด และ user ไม่มี role หรือ role ไม่อยู่ในรายการที่อนุญาต
   if (to.meta.role && !to.meta.role.includes(userStore.userRole)) {
-    return next("/");
+    return next("/"); // ถ้าไม่มีสิทธิ์เข้าถึง ให้ไปหน้า home
   }
 
   next(); // อนุญาตให้เข้าหน้า
 });
+
+
 export default router;

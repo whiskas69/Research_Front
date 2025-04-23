@@ -31,7 +31,9 @@
                 label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
                 customInput="max-w-max text-center"
                 disabled="true"
-                :placeholder="formData.numapproved"
+                :placeholder="parseFloat(formData.numapproved).toLocaleString('en-US', {
+                  minimumFractionDigits: 0,
+                })"
               />
               <p class="flex items-center w-12">รายการ</p>
             </div>
@@ -42,7 +44,9 @@
                 label="รวมเป็นเงิน"
                 customInput="max-w-max text-center"
                 disabled="true"
-                :placeholder="parseFloat(formData.totalapproved)"
+                :placeholder="parseFloat(formData.totalapproved).toLocaleString('en-US', {
+                  minimumFractionDigits: 0,
+                })"
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
@@ -53,7 +57,9 @@
                 label="วงเงินที่คณะจัดสรรไว้ คงเหลือ"
                 customInput="max-w-max text-center"
                 disabled="true"
-                :placeholder="caltotalFaculty"
+                :placeholder="parseFloat(caltotalFaculty).toLocaleString('en-US', {
+                  minimumFractionDigits: 0,
+                })"
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
@@ -64,7 +70,9 @@
                 label="จำนวนเงินที่ขออนุมัติค่า Page Charge ในครั้งนี้ เป็นจำนวนเงิน"
                 customInput="max-w-max text-center"
                 disabled="true"
-                :placeholder="formData.canWithdrawn"
+                :placeholder="parseFloat(formData.canWithdrawn).toLocaleString('en-US', {
+                  minimumFractionDigits: 0,
+                })"
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
@@ -75,7 +83,9 @@
                 label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น"
                 customInput="max-w-max text-center"
                 disabled="true"
-                :placeholder="caltotalFacultyNow"
+                :placeholder="parseFloat(caltotalFacultyNow).toLocaleString('en-US', {
+                  minimumFractionDigits: 0,
+                })"
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
