@@ -8,12 +8,13 @@
 
       <div class="py-2 px-5">
         <p class="font-bold">1. ชื่อโครงการวิจัย</p>
+        <input v-model="formData.projectTH" id="projectTH"
+        type="text"/>
         <SectionWrapper>
           <TextInputLabelLeft
             label="(ภาษาไทย)"
             customLabel="w-64"
             v-model="formData.projectTH"
-            @input="handleInput('projectTH', $event.target.value)"
           />
 
           <span v-if="v$.projectTH.$error" class="text-base ml-56 text-red-500">
@@ -291,6 +292,16 @@
             >
               {{ v$.participation.$errors[0].$message }}
             </span>
+            <div class="flex flex-row">
+              <TextInputLabelLeft
+                label="งบประมาณที่เสนอขอ"
+                customLabel="w-[530px]"
+                customDiv="max-w-[600px]"
+                customInput="w-32"
+                v-model="formData.proposedBudget"
+                @input="handleInput('proposedBudget', $event.target.value)"
+              />
+            </div>
           </div>
         </SectionWrapper>
       </div>
@@ -359,6 +370,9 @@
         </span>
       </SectionWrapper>
     </Mainbox>
+    <button @click="saveDraft" class="bg-blue-500 text-white px-4 py-2 rounded">
+      บันทึกแบบร่าง
+    </button>
 
     <div class="flex justify-end">
       <button @click="NewKris" class="btn btn-success text-white">
@@ -397,7 +411,6 @@ const router = useRouter();
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
-
 if (!userStore.user.user_signature) {
   alert("กรุณาอัปโหลดลายเซ้นต์");
   router.push("/profile");
@@ -418,6 +431,7 @@ const formData = reactive({
   Hindex: "",
   invention: "",
   participation: "",
+  proposedBudget: "",
   periodYear: "",
   periodStart: "",
   periodEnd: "",
@@ -446,10 +460,12 @@ const validDate = helpers.withMessage(
 //validate rule
 const rules = {
   projectTH: {
-    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required), isThai,
+    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
+    isThai,
   },
   projectENG: {
-    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required), isEng,
+    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
+    isEng,
   },
   resCluster: {
     required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
@@ -461,20 +477,28 @@ const rules = {
     required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
   },
   resStandardsTrade: {
-    required: requiredIf(() => formData.resStandards.includes("มีการใช้พันธุ์พืช")),
+    required: requiredIf(() =>
+      formData.resStandards.includes("มีการใช้พันธุ์พืช")
+    ),
   },
   Hindex: {
     required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    minValue: helpers.withMessage("* กรุณาตรวจสอบคะแนน คะแนนไม่สามารถต่ำกว่า 0 ได้ *", minValue(0)),
+    minValue: helpers.withMessage(
+      "* กรุณาตรวจสอบคะแนน คะแนนไม่สามารถต่ำกว่า 0 ได้ *",
+      minValue(0)
+    ),
   },
-  invention: { 
-    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required) 
+  invention: {
+    required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
   },
   participation: {
     required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
     numeric: helpers.withMessage("* กรุณากรอกข้อมูลเป็นตัวเลข *", numeric),
-    maxValue: helpers.withMessage("* กรุณาตรวจสอบ การมีส่วนร่วมไม่สามารถกรอกได้มากกว่า 100 *", maxValue(100)),
+    maxValue: helpers.withMessage(
+      "* กรุณาตรวจสอบ การมีส่วนร่วมไม่สามารถกรอกได้มากกว่า 100 *",
+      maxValue(100)
+    ),
   },
   periodYear: {
     required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
@@ -489,7 +513,8 @@ const rules = {
   },
   file: {
     required: helpers.withMessage("* กรุณาอัปโหลดไฟล์ *", required),
-    fileType: helpers.withMessage("* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
+    fileType: helpers.withMessage(
+      "* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
       (value) => {
         if (!value) return false;
         const allowedTypes = ["application/pdf"];
@@ -498,6 +523,20 @@ const rules = {
     ),
   },
 };
+
+const saveDraft = () => {
+  localStorage.setItem("formDraft", JSON.stringify(formData));
+  alert("บันทึกแบบร่างเรียบร้อยแล้ว");
+};
+
+onMounted(() => {
+  console.log("formDraft", localStorage.getItem("formDraft"));
+  const draft = localStorage.getItem("formDraft");
+  if (draft) {
+    console.log("have draft", JSON.parse(draft));
+    Object.assign(formData, JSON.parse(draft));
+  }
+});
 
 const v$ = useVuelidate(rules, formData);
 
@@ -557,6 +596,7 @@ const handleFile = (event, fieldName) => {
 };
 
 const NewKris = async () => {
+  console.log("NewKris",JSON.stringify(formData))
   const result = await v$.value.$validate();
 
   if (result) {
@@ -572,6 +612,7 @@ const NewKris = async () => {
         h_index: formData.Hindex,
         his_invention: formData.invention,
         participation_percent: formData.participation,
+        proposed_budget: formData.proposedBudget,
         year: formData.periodYear,
         project_periodStart: formData.periodStart,
         project_periodEnd: formData.periodEnd,
@@ -589,7 +630,10 @@ const NewKris = async () => {
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
       router.push("/mystatus");
     } catch (error) {
-      console.log("Error saving code : ", error.response?.data || error.message);
+      console.log(
+        "Error saving code : ",
+        error.response?.data || error.message
+      );
 
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
     }
