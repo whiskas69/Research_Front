@@ -8,9 +8,16 @@
           v-if="form.form_type == 'Research_KRIS'"
         >
           <router-link :to="`/status/Kris/${form.kris_id}`">
+            <div class="columns-2 mt-2 ml-5">
             <h2 class="text-lg font-bold">
               แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ
             </h2>
+            <div class="flex justify-end items-center">
+              <span :class="{ red: isLessThanOneDay(form.deadlineDate) }">
+                เหลือเวลา: {{ getCountdown(form.deadlineDate) }}
+              </span>
+            </div>
+          </div>
             <div class="columns-2 mt-2 ml-5">
               <div>
                 <div class="flex">
@@ -38,10 +45,17 @@
           v-if="form.form_type == 'Page_Charge'"
         >
           <router-link :to="`/status/PageCharge/${form.pageC_id}`">
+            <div class="columns-2 mt-2 ml-5">
             <h2 class="text-lg font-bold">
               ขออนุมัติค่า Page
-              Chargeเพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
+            Chargeเพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
             </h2>
+            <div class="flex justify-end items-center">
+              <span :class="{ red: isLessThanOneDay(form.deadlineDate) }">
+                เหลือเวลา: {{ getCountdown(form.deadlineDate) }}
+              </span>
+            </div>
+          </div>
             <div class="columns-2 mt-2 ml-5">
               <div>
                 <div class="flex">
@@ -71,9 +85,16 @@
           v-if="form.form_type == 'Conference'"
         >
           <router-link :to="`/status/Conference/${form.conf_id}`">
+            <div class="columns-2 mt-2 ml-5">
             <h2 class="text-lg font-bold">
               ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
             </h2>
+            <div class="flex justify-end items-center">
+              <span :class="{ red: isLessThanOneDay(form.deadlineDate) }">
+                เหลือเวลา: {{ getCountdown(form.deadlineDate) }}
+              </span>
+            </div>
+          </div>
             <div class="columns-2 mt-2 ml-5">
               <div>
                 <div class="flex">
@@ -124,19 +145,64 @@ const pulldata = async () => {
       (form) =>
         form.form_status != "อนุมัติ" && form.form_status != "ไม่อนุมัติ"
     );
-    console.log("filteredForms", filteredForms);
 
     data.allForm = filteredForms;
+    console.log("data.allForm", data.allForm);
+
+    for (let i = 0; i < data.allForm.length; i++) {
+      console.log("date", [i], data.allForm[i].doc_submit_date);
+      const originalDate = new Date(data.allForm[i].doc_submit_date);
+      console.log("originalDate", originalDate);
+      originalDate.setDate(originalDate.getDate() + 7);
+
+      const dd = String(originalDate.getDate()).padStart(2, "0");
+      const mm = String(originalDate.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+      const yy = String(originalDate.getFullYear() + 543);
+      console.log("daetline", `${dd}-${mm}-${yy}`);
+      data.allForm[i].daetline = `${dd}-${mm}-${yy}`;
+      data.allForm[i].deadlineDate = originalDate;
+    }
   } catch (error) {
     console.log(error);
   }
 };
 
+const getCountdown = (deadlineDate) => {
+  const now = new Date().getTime();
+  const distance = deadlineDate.getTime() - now;
+
+  if (distance <= 0) return "หมดเวลาแล้ว";
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((distance / (1000 * 60)) % 60);
+  const seconds = Math.floor((distance / 1000) % 60);
+
+  return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+};
+
+const isLessThanOneDay = (deadlineDate) => {
+  const now = new Date().getTime();
+  const distance = deadlineDate.getTime() - now;
+  return distance <= 24 * 60 * 60 * 1000 && distance > 0;
+};
+
 onMounted(async () => {
+  setInterval(() => {
+    if (Array.isArray(data.allForm)) {
+      data.allForm = [...data.allForm];
+    }
+  }, 1000);
+
   await userStore.fetchUser();
-
   data.userID = user.value?.user_id;
-
-  pulldata();
+  await pulldata();
 });
 </script>
+
+<style scoped>
+.red {
+  color: red;
+  font-weight: bold;
+}
+</style>

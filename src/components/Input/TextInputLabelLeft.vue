@@ -7,6 +7,8 @@
         :class="`input input-bordered mx-1 w-full ${customInput}`"
         :placeholder="placeholder"
         :disabled="disabled"
+        :value="modelValue"
+        @input="$emit('update:modelValue', $event.target.value)"
       />
     </label>
   </div>
@@ -14,6 +16,10 @@
 
 <script setup>
 const props = defineProps({
+  modelValue: {
+    type: [String, Number],
+    default: "",
+  },
   label: {
     type: String,
     required: true,
@@ -44,4 +50,5 @@ const props = defineProps({
   }
 });
 
+const emit = defineEmits(["update:modelValue"]);
 </script>

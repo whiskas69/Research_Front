@@ -222,7 +222,6 @@ const getDataMoney = async () => {
   data.totalAll = res.data.totalMoney;
   data.totalPC = res.data.totalPC;
   data.totalConfer = res.data.totalConfer;
-
 }
 
 onMounted(async () => {
