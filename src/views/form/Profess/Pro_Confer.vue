@@ -26,7 +26,6 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.textOther1"
-              @input="handleInput('textOther1', $event.target.value)"
             />
             <TextInputLabelLeft
               label="วันที่"
@@ -34,7 +33,6 @@
               customInput="max-w-max"
               type="date"
               v-model="formData.textOther2"
-              @input="handleInput('textOther2', $event.target.value)"
             />
           </div>
           <span
@@ -74,7 +72,6 @@
               customInput="max-w-max"
               type="date"
               v-model="formData.travelStart"
-              @input="handleInput('travelStart', $event.target.value)"
             />
             <TextInputLabelLeft
               label="ถึงวันที่"
@@ -83,7 +80,6 @@
               customInput="max-w-max"
               type="date"
               v-model="formData.travelEnd"
-              @input="handleInput('travelEnd', $event.target.value)"
             />
           </div>
           <span
@@ -103,7 +99,6 @@
             label="ชื่อผลงานวิจัยที่นำเสนอ"
             customLabel="w-1/6"
             v-model="formData.research"
-            @input="handleInput('research', $event.target.value)"
           />
           <span
             v-if="v$.research.$error"
@@ -116,7 +111,6 @@
             label="จำนวนนักวิจัยร่วม"
             customLabel="w-[10%]"
             v-model="formData.numcoResearchers"
-            @input="handleInput('numcoResearchers', $event.target.value)"
           />
 
           <div
@@ -130,14 +124,12 @@
                 customLabel="w-[100%]"
                 customDiv="max-w-[30%]"
                 v-model="formData.namecoResearchers"
-                @input="handleInputArray('namecoResearchers', $event.target.value)"
               />
               <TextInputLabelLeft
                 label="หลักสูตรของนักวิจัยร่วม"
                 customLabel="w-[100%]"
                 customDiv="max-w-[25%]"
                 v-model="formData.coursecoResearchers"
-                @input="handleInputArray('coursecoResearchers', $event.target.value)"
               />
             </div>
           </div>
@@ -146,7 +138,6 @@
             label="ชื่อการประชุมทางวิชาการ"
             customLabel="w-1/6"
             v-model="formData.conferenceName"
-            @input="handleInput('conferenceName', $event.target.value)"
           />
 
           <span
@@ -164,7 +155,6 @@
               value="ภายในประเทศ"
               customDiv="w-max mr-4"
               v-model="formData.venue"
-              @change="handleInput('venue', $event.target.value)"
             />
             <RadioInput
               customDiv="max-w-36"
@@ -172,7 +162,6 @@
               name="Venue"
               value="ณ ต่างประเทศ"
               v-model="formData.venue"
-              @change="handleInput('venue', $event.target.value)"
             />
           </div>
           <span
@@ -190,14 +179,12 @@
               customInput="max-w-max"
               type="date"
               v-model="formData.meetingDate"
-              @input="handleInput('meetingDate', $event.target.value)"
             />
             <TextInputLabelLeft
               label="สถานที่จัด"
               customLabel="w-24"
               customInput="w-full"
               v-model="formData.meetingVenue"
-              @input="handleInput('meetingVenue', $event.target.value)"
             />
 
             <div
@@ -210,7 +197,6 @@
                   class="w-full"
                   :options="countries"
                   v-model="formData.location"
-                  @change="handleInput('location', $event.target.value)"
                 ></v-select>
               </div>
             </div>
@@ -224,7 +210,6 @@
                   class="w-full"
                   :options="provinces"
                   v-model="formData.location"
-                  @input="handleInput('location', $event.target.value)"
                 ></v-select>
               </div>
             </div>
@@ -256,7 +241,6 @@
               customDiv="max-w-max"
               customInput="max-w-max"
               v-model="formData.dateSubmitToOrganizer"
-              @input="handleInput('dateSubmitToOrganizer', $event.target.value)"
             />
             <TextInputLabelLeft
               label="วันประกาศผลการพิจารณาบทความ"
@@ -264,7 +248,6 @@
               customDiv="max-w-max"
               customInput="max-w-max"
               v-model="formData.argumentDateReview"
-              @input="handleInput('argumentDateReview', $event.target.value)"
             />
             <TextInputLabelLeft
               label="วันสุดท้ายของการลงทะเบียน"
@@ -272,7 +255,6 @@
               customDiv="max-w-max"
               customInput="max-w-max"
               v-model="formData.lastDayRegister"
-              @input="handleInput('lastDayRegister', $event.target.value)"
             />
           </div>
           <span
@@ -307,14 +289,12 @@
             name="Scopus"
             value="คณะจัด ไม่อยู่scopus"
             v-model="formData.meetingType"
-            @change="handleInput('meetingType', $event.target.value)"
           />
           <RadioInput
             label="การประชุมทางวิชาการที่อยู่ในฐานข้อมูลสากล SCOPUS โดยมีการกำหนดคุณภาพแบ่งเป็น 2 ระดับ "
             name="Scopus"
             value="อยู่ในscopus"
             v-model="formData.meetingType"
-            @change="handleInput('meetingType', $event.target.value)"
           />
           <span
             v-if="v$.meetingType.$error"
@@ -332,7 +312,6 @@
               :disabled="
                 !formData.meetingType || formData.meetingType !== 'อยู่ในscopus'
               "
-              @change="handleInput('qualityMeeting', $event.target.value)"
             />
             <RadioInput
               label="ระดับดีมาก"
@@ -342,7 +321,6 @@
               :disabled="
                 !formData.meetingType || formData.meetingType !== 'อยู่ในscopus'
               "
-              @change="handleInput('qualityMeeting', $event.target.value)"
             />
             <span
               v-if="v$.qualityMeeting.$error"
@@ -361,7 +339,6 @@
                   !formData.qualityMeeting ||
                   formData.qualityMeeting !== 'ดีมาก'
                 "
-                @change="handleInput('score', $event.target.value)"
               />
               <div class="flex flex-row w-full px-7 my-2">
                 <TextInputLabelLeft
@@ -371,7 +348,6 @@
                   customInput="max-w-max mr-3"
                   v-model="formData.sjr"
                   :disabled="!formData.score || formData.score !== 'SJR'"
-                  @input="handleInput('sjr', $event.target.value)"
                 />
                 <TextInputLabelLeft
                   label="ปี"
@@ -380,7 +356,6 @@
                   customInput="max-w-max mr-3"
                   v-model="formData.sjrYear"
                   :disabled="!formData.score || formData.score !== 'SJR'"
-                  @input="handleInput('sjrYear', $event.target.value)"
                 />
                 <TextInputLabelLeft
                   label="x H-Index"
@@ -389,7 +364,6 @@
                   customInput="max-w-max mr-3"
                   v-model="formData.sjrhIndex"
                   :disabled="!formData.score || formData.score !== 'SJR'"
-                  @input="handleInput('sjrhIndex', $event.target.value)"
                 />
                 <TextInputLabelLeft
                   label="ปี"
@@ -398,7 +372,6 @@
                   customInput="max-w-max mr-3"
                   v-model="formData.hIndexYear"
                   :disabled="!formData.score || formData.score !== 'SJR'"
-                  @input="handleInput('hIndexYear', $event.target.value)"
                 />
                 <p v-if="formData.score == 'SJR'" class="place-self-center">
                   <span>มีค่าคะแนน {{ totalScore.total }} คะแนน และมี </span>
@@ -452,7 +425,6 @@
                   !formData.qualityMeeting ||
                   formData.qualityMeeting !== 'ดีมาก'
                 "
-                @change="handleInput('score', $event.target.value)"
               />
               <div class="flex flex-row w-full px-7 my-2">
                 <TextInputLabelLeft
@@ -462,7 +434,6 @@
                   customInput="max-w-max mr-3"
                   v-model="formData.Citation"
                   :disabled="!formData.score || formData.score !== 'CIF'"
-                  @input="handleInput('Citation', $event.target.value)"
                 />
                 <TextInputLabelLeft
                   label="x H-Index"
@@ -471,7 +442,6 @@
                   customInput="max-w-max mr-3"
                   v-model="formData.hIndex"
                   :disabled="!formData.score || formData.score !== 'CIF'"
-                  @input="handleInput('hIndex', $event.target.value)"
                 />
                 <p v-if="formData.score == 'CIF'" class="place-self-center">
                   <span>มีค่าคะแนน {{ totalScore.total }} คะแนน และมี </span>
@@ -513,7 +483,6 @@
                   !formData.qualityMeeting ||
                   formData.qualityMeeting !== 'ดีมาก'
                 "
-                @change="handleInput('score', $event.target.value)"
               />
               <div class="flex flex-row w-full px-7 my-2">
                 <TextInputLabelLeft
@@ -523,7 +492,6 @@
                   customInput="max-w-max mr-3"
                   v-model="formData.coreConf"
                   :disabled="!formData.score || formData.score !== 'CORE'"
-                  @input="handleInput('coreConf', $event.target.value)"
                 />
                 <span class="place-self-center">(ตั้งแต่ A ขึ้นไป)</span>
               </div>
@@ -557,14 +525,12 @@
             value="First Author"
             name="Author"
             v-model="formData.radioAuth"
-            @change="handleInput('radioAuth', $event.target.value)"
           />
           <RadioInput
             label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
             value="Corresponding Author"
             name="Author"
             v-model="formData.radioAuth"
-            @change="handleInput('radioAuth', $event.target.value)"
           />
           <span
             v-if="v$.radioAuth.$error"
@@ -588,14 +554,12 @@
               name="timeLeave"
               value="1"
               v-model="formData.timeLeave"
-              @change="handleInput('timeLeave', $event.target.value)"
             />
             <RadioInput
               label="ครั้งที่ 2"
               name="timeLeave"
               value="2"
               v-model="formData.timeLeave"
-              @change="handleInput('timeLeave', $event.target.value)"
             />
             <span
               v-if="v$.timeLeave.$error"
@@ -620,7 +584,6 @@
                     formData.venue === 'ณ ต่างประเทศ'
                   )
                 "
-                @change="handleInput('wos', $event.target.value)"
               />
               <RadioInput
                 label="WoS-Q2"
@@ -633,7 +596,6 @@
                     formData.venue === 'ณ ต่างประเทศ'
                   )
                 "
-                @change="handleInput('wos', $event.target.value)"
               />
             </div>
             <span
@@ -654,7 +616,6 @@
                     formData.venue === 'ณ ต่างประเทศ'
                   )
                 "
-                @input="handleInput('nameWos', $event.target.value)"
               />
               <span
                 v-if="v$.nameWos.$error"
@@ -676,7 +637,6 @@
               value="50%"
               v-model="formData.withdraw"
               :disabled="formData.venue !== 'ณ ต่างประเทศ'"
-              @change="handleInput('withdraw', $event.target.value)"
             />
             <RadioInput
               label="ไม่เกิน 100% มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล"
@@ -684,7 +644,6 @@
               value="100%"
               v-model="formData.withdraw"
               :disabled="formData.venue !== 'ณ ต่างประเทศ'"
-              @change="handleInput('withdraw', $event.target.value)"
             />
             <span
               v-if="v$.withdraw.$error"
@@ -700,7 +659,6 @@
                 value="WoS-Q1"
                 v-model="formData.quality100"
                 :disabled="formData.withdraw !== '100%'"
-                @change="handleInput('quality100', $event.target.value)"
               />
               <RadioInput
                 label="WoS-Q2"
@@ -708,7 +666,6 @@
                 value="WoS-Q2"
                 v-model="formData.quality100"
                 :disabled="formData.withdraw !== '100%'"
-                @change="handleInput('quality100', $event.target.value)"
               />
               <RadioInput
                 label="WoS-Q3"
@@ -716,7 +673,6 @@
                 value="WoS-Q3"
                 v-model="formData.quality100"
                 :disabled="formData.withdraw !== '100%'"
-                @change="handleInput('quality100', $event.target.value)"
               />
               <RadioInput
                 label="SJR-Q1"
@@ -724,7 +680,6 @@
                 value="SJR-Q1"
                 v-model="formData.quality100"
                 :disabled="formData.withdraw !== '100%'"
-                @change="handleInput('quality100', $event.target.value)"
               />
               <RadioInput
                 label="SJR-Q2"
@@ -732,7 +687,6 @@
                 value="SJR-Q2"
                 v-model="formData.quality100"
                 :disabled="formData.withdraw !== '100%'"
-                @change="handleInput('quality100', $event.target.value)"
               />
             </div>
             <span
@@ -747,7 +701,6 @@
                 customLabel="pr-2"
                 v-model="formData.name100"
                 :disabled="formData.withdraw !== '100%'"
-                @input="handleInput('name100', $event.target.value)"
               />
               <span
                 v-if="v$.name100.$error"
@@ -763,8 +716,8 @@
       <Mainbox class="collapse collapse-arrow">
         <input type="checkbox" />
         <p class="collapse-title leading-9 text-lg font-bold">
-            รายการค่าใช้จ่ายที่ขอเบิกจ่าย
-          </p>
+          รายการค่าใช้จ่ายที่ขอเบิกจ่าย
+        </p>
         <SectionWrapper class="collapse-content">
           <SectionWrapper>
             <div class="flex flex-row mb-2 justify-between">
@@ -775,7 +728,6 @@
                   customDiv="max-w-max"
                   customInput="max-w-max"
                   v-model="formData.numberArticles"
-                  @input="handleInput('numberArticles', $event.target.value)"
                 />
                 <TextInputLabelLeft
                   label="บทความ ๆ ละ"
@@ -783,7 +735,6 @@
                   customDiv="max-w-max"
                   customInput="max-w-max"
                   v-model="formData.amount1article"
-                  @input="handleInput('amount1article', $event.target.value)"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -811,7 +762,6 @@
                   customDiv="max-w-[50rem]"
                   customInput="max-w-[50rem]"
                   v-model="formData.domesticExpenses"
-                  @input="handleInput('domesticExpenses', $event.target.value)"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -829,7 +779,6 @@
                   customDiv="max-w-[50rem]"
                   customInput="max-w-[50rem]"
                   v-model="formData.overseasExpenses"
-                  @input="handleInput('overseasExpenses', $event.target.value)"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -854,7 +803,6 @@
                   customDiv="max-w-[20rem]"
                   customInput="max-w-[14rem]"
                   v-model="formData.interExpenses"
-                  @input="handleInput('interExpenses', $event.target.value)"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -873,7 +821,6 @@
                 customDiv="max-w-[52rem]"
                 customInput="max-w-[40rem]"
                 v-model="formData.airplaneTax"
-                @input="handleInput('airplaneTax', $event.target.value)"
               />
               <p class="flex items-center pl-2">บาท</p>
             </div>
@@ -892,7 +839,6 @@
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[19rem]"
                   v-model="formData.numberDaysRoom"
-                  @input="handleInput('numberDaysRoom', $event.target.value)"
                 />
                 <TextInputLabelLeft
                   label="คืน ๆ ละ"
@@ -900,7 +846,6 @@
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[20rem]"
                   v-model="formData.roomCostPerNight"
-                  @input="handleInput('roomCostPerNight', $event.target.value)"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -927,7 +872,6 @@
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[16rem]"
                   v-model="formData.numTravelDays"
-                  @input="handleInput('numTravelDays', $event.target.value)"
                 />
                 <TextInputLabelLeft
                   label="วัน ๆ ละ"
@@ -935,7 +879,6 @@
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[20rem]"
                   v-model="formData.dailyAllowance"
-                  @input="handleInput('dailyAllowance', $event.target.value)"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -982,7 +925,6 @@
             customLabel="w-[290%]"
             customInput="w-1/6"
             :disabled="formData.withdraw !== '100%'"
-            @input="handleInput('inputFile2', $event.target.value)"
           />
           <FileInput
             name="Second"
@@ -1085,6 +1027,12 @@
       </Mainbox>
 
       <div class="flex justify-end">
+        <button
+          @click="saveDraft"
+          class="bg-blue-500 text-white px-4 py-2 rounded mr-3"
+        >
+          บันทึกแบบร่าง
+        </button>
         <button @click="newConfer" class="btn btn-success text-white">
           บันทึกข้อมูล
         </button>
@@ -1766,14 +1714,28 @@ onMounted(async () => {
   formData.position = user.value?.user_positionth || "";
 });
 
+const saveDraft = () => {
+  localStorage.setItem("formDraft", JSON.stringify(formData));
+  alert("บันทึกแบบร่างเรียบร้อยแล้ว");
+};
+
+onMounted(() => {
+  console.log("formDraft", localStorage.getItem("formDraft"));
+  const draft = localStorage.getItem("formDraft");
+  if (draft) {
+    console.log("have draft", JSON.parse(draft));
+    Object.assign(formData, JSON.parse(draft));
+  }
+});
+
 const handleInput = (key, value) => {
- formData[key] = value;
+  formData[key] = value;
 };
 
 const handleInputArray = (key, value) => {
-  console.log("value",value)
+  console.log("value", value);
   formData[key].push(value);
-  console.log("value1",formData[key])
+  console.log("value1", formData[key]);
 };
 
 const handleFile = (event, fieldName) => {
@@ -1883,6 +1845,7 @@ const newConfer = async () => {
       });
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
       router.push("/mystatus");
+      localStorage.removeItem("formDraft");
     } catch (error) {
       console.log("Error saving code : ", error);
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");

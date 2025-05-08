@@ -5,7 +5,8 @@
         type="checkbox"
         :class="`checkbox mx-1 ml-2 ${customClass}`"
         :disabled="disabled"
-        @input="$emit('input, $event.target.value')"
+        :checked="isChecked"
+        @change="handleChange"
       />
       <span :class="`${customLabel}`"> {{ label }}</span>
     </label>
@@ -13,7 +14,16 @@
 </template>
 
 <script setup>
-defineProps({
+import { computed } from "vue";
+const props = defineProps({
+  modelValue: {
+    type: [Boolean, Array],
+    required: true,
+  },
+  value: {
+    type: [String, Number, Boolean],
+    default: true, // สำหรับ checkbox หลายตัว
+  },
   customDiv: {
     type: String,
     default: "",
@@ -35,4 +45,28 @@ defineProps({
     default: "",
   },
 });
+const emit = defineEmits(["update:modelValue"]);
+
+const isChecked = computed(() => {
+  if (Array.isArray(props.modelValue)) {
+    return props.modelValue.includes(props.value);
+  } else {
+    return props.modelValue === props.trueValue;
+  }
+});
+
+const handleChange = (e) => {
+  if (Array.isArray(props.modelValue)) {
+    const newVal = [...props.modelValue];
+    if (e.target.checked) {
+      if (!newVal.includes(props.value)) newVal.push(props.value);
+    } else {
+      const index = newVal.indexOf(props.value);
+      if (index > -1) newVal.splice(index, 1);
+    }
+    emit("update:modelValue", newVal);
+  } else {
+    emit("update:modelValue", e.target.checked ? props.trueValue : props.falseValue);
+  }
+};
 </script>

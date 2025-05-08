@@ -25,8 +25,7 @@
               customLabel="w-auto"
               customInput="max-w-max"
               customDiv="max-w-max"
-              v-model="formData.textOther1"
-              @input="handleInput('textOther1', $event)"
+              v-model="formData.textOther1pc"
             />
             <TextInputLabelLeft
               label="วันที่"
@@ -34,21 +33,20 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               type="date"
-              v-model="formData.textOther2"
-              @input="handleInput('textOther2', $event)"
+              v-model="formData.textOther2pc"
             />
           </div>
           <span
-            v-if="v$.textOther1.$error"
+            v-if="v$.textOther1pc.$error"
             class="text-base font-bold text-red-500 text-left"
           >
-            {{ v$.textOther1.$errors[0].$message }}
+            {{ v$.textOther1pc.$errors[0].$message }}
           </span>
           <span
-            v-if="v$.textOther2.$error"
+            v-if="v$.textOther2pc.$error"
             class="text-base font-bold text-red-500 text-left"
           >
-            {{ v$.textOther2.$errors[0].$message }}
+            {{ v$.textOther2pc.$errors[0].$message }}
           </span>
 
           <p class="text-red-500 text-sm">
@@ -70,7 +68,6 @@
             label="ชื่อวารสาร"
             customLabel="w-24"
             v-model="formData.nameJournal"
-            @input="handleInput('nameJournal', $event)"
           />
           <span
             v-if="v$.nameJournal.$error"
@@ -85,7 +82,7 @@
               label="ISI ได้รับการจัดลำดับ Quartile "
               customDiv="max-w-72 flex items-center"
               v-model="formData.checkISI"
-              @input="handleCheckbox('checkISI', 'ISI')"
+              value="ISI"
             />
             <TextInputLabelLeft
               label="ปี"
@@ -93,7 +90,6 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.yearISI"
-              @input="handleInput('yearISI', $event)"
             />
             <TextInputLabelLeft
               label="ลำดับ Quartile"
@@ -101,7 +97,6 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.quartileISI"
-              @input="handleInput('quartileISI', $event)"
             />
             <TextInputLabelLeft
               label="Impact Factor"
@@ -109,7 +104,6 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.scoreISI"
-              @input="handleInput('scoreISI', $event)"
             />
           </div>
           <span
@@ -136,7 +130,7 @@
               label="SJR ได้รับการจัดลำดับ Quartile "
               customDiv="max-w-72 flex items-center"
               v-model="formData.checkSJR"
-              @input="handleCheckbox('checkSJR', 'SJR')"
+              value="SJR"
             />
             <TextInputLabelLeft
               label="ปี"
@@ -144,7 +138,6 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.yearSJR"
-              @input="handleInput('yearSJR', $event)"
             />
             <TextInputLabelLeft
               label="ลำดับ Quartile"
@@ -152,7 +145,6 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.quartileSJR"
-              @input="handleInput('quartileSJR', $event)"
             />
             <TextInputLabelLeft
               label="SJR Score"
@@ -160,7 +152,6 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.scoreSJR"
-              @input="handleInput('scoreSJR', $event)"
             />
           </div>
           <span
@@ -187,7 +178,7 @@
               label="Scopus ได้รับการจัดลำดับ Quartile "
               customDiv="max-w-72 flex items-center"
               v-model="formData.checkScopus"
-              @input="handleCheckbox('checkScopus', 'Scopus')"
+              value="Scopus"
             />
             <TextInputLabelLeft
               label="ปี"
@@ -195,7 +186,6 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.yearScopus"
-              @input="handleInput('yearScopus', $event)"
             />
             <TextInputLabelLeft
               label="ลำดับ Quartile"
@@ -203,7 +193,6 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.quartileScopus"
-              @input="handleInput('quartileScopus', $event)"
             />
             <TextInputLabelLeft
               label="Cite Score"
@@ -211,7 +200,6 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.scoreScopus"
-              @input="handleInput('scoreScopus', $event)"
             />
           </div>
           <span
@@ -238,7 +226,7 @@
               label="Nature"
               customDiv="max-w-72 flex items-center"
               v-model="formData.nature"
-              @input="handleCheckbox('nature', 'nature')"
+              value="nature"
             />
           </div>
           <span
@@ -256,7 +244,6 @@
               <select
                 class="select select-bordered w-3/12"
                 v-model="formData.moneyOp"
-                @change="handleInput('moneyOp', $event)"
               >
                 <option disabled value="">เลือกวงเงินสนับสนุน</option>
                 <option :value="20000">20,000 บาท</option>
@@ -286,7 +273,6 @@
             label="ชื่อบทความ"
             customLabel="w-24"
             v-model="formData.nameReach"
-            @input="handleInput('nameReach', $event)"
           />
           <span
             v-if="v$.nameReach.$error"
@@ -299,7 +285,6 @@
             label="จำนวนนักวิจัยร่วม"
             customLabel="w-[10%]"
             v-model="formData.numcoResearchers"
-            @input="handleInput('numcoResearchers', $event)"
           />
 
           <div
@@ -313,14 +298,12 @@
                 customLabel="w-[100%]"
                 customDiv="max-w-[30%]"
                 v-model="formData.namecoResearchers"
-                @input="handleInputArray('namecoResearchers', $event)"
               />
               <TextInputLabelLeft
                 label="หลักสูตรของนักวิจัยร่วม"
                 customLabel="w-[100%]"
                 customDiv="max-w-[25%]"
                 v-model="formData.coursecoResearchers"
-                @input="handleInputArray('coursecoResearchers', $event)"
               />
             </div>
           </div>
@@ -332,7 +315,6 @@
               customInput="w-[50%]"
               customDiv="max-w-[15%]"
               v-model="formData.schedule"
-              @input="handleInput('schedule', $event)"
             />
             <TextInputLabelLeft
               label="ฉบับที่ (Issue)"
@@ -340,7 +322,6 @@
               customInput="w-[49%]"
               customDiv="max-w-[15%]"
               v-model="formData.issue"
-              @input="handleInput('issue', $event)"
             />
             <label class="form-control w-full max-w-[20%]">
               <div class="flex flex-row w-full">
@@ -348,7 +329,6 @@
                 <select
                   class="select select-bordered flex-1"
                   v-model="formData.months"
-                  @change="handleInput('months', $event)"
                 >
                   <option disabled value="">เลือกเดือน</option>
                   <option value="มกราคม">มกราคม</option>
@@ -373,7 +353,6 @@
               customInput="w-[50%]"
               customDiv="max-w-[15%]"
               v-model="formData.year"
-              @input="handleInput('year', $event)"
             />
 
             <TextInputLabelLeft
@@ -382,7 +361,6 @@
               customInput="w-[50%]"
               customDiv="max-w-[30%]"
               v-model="formData.ISSN"
-              @input="handleInput('ISSN', $event)"
             />
           </div>
 
@@ -413,7 +391,6 @@
               customInput="w-[35%]"
               customDiv="max-w-[35%]"
               v-model="formData.submitReach"
-              @input="handleInput('submitReach', $event)"
             />
             <TextInputLabelLeft
               label="วันประกาศผลการพิจารณา"
@@ -421,7 +398,6 @@
               customLabel="w-[100%]"
               customDiv="max-w-[30%]"
               v-model="formData.announce"
-              @input="handleInput('announce', $event)"
             />
             <TextInputLabelLeft
               label="วันสุดท้ายของการจ่ายค่าตีพิมพ์"
@@ -429,7 +405,6 @@
               customInput="w-[35%]"
               customDiv="max-w-[30%]"
               v-model="formData.latePay"
-              @input="handleInput('latePay', $event)"
             />
           </div>
           <span
@@ -458,7 +433,6 @@
                 label="บทความวิจัยนี้เป็นผลงานจากโครงการวิจัยเรื่อง"
                 customLabel="w-[30%]"
                 v-model="formData.reachOther"
-                @input="handleInput('reachOther', $event)"
               />
             </div>
 
@@ -470,7 +444,6 @@
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
                 v-model="formData.radioResearch"
-                @change="handleInput('radioResearch', $event)"
               />
               <RadioInput
                 label="วิจัยประยุกต์"
@@ -478,7 +451,6 @@
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
                 v-model="formData.radioResearch"
-                @change="handleInput('radioResearch', $event)"
               />
               <RadioInput
                 label="วิจัยและพัฒนา"
@@ -486,7 +458,6 @@
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
                 v-model="formData.radioResearch"
-                @change="handleInput('radioResearch', $event)"
               />
               <div class="flex flex-row">
                 <RadioInput
@@ -495,14 +466,12 @@
                   name="type"
                   customDiv="max-w-fit mr-2 flex items-center"
                   v-model="formData.radioResearch"
-                  @change="handleInput('radioResearch', $event)"
                 />
                 <TextInputLabelLeft
                   label="(ระบุ)"
                   name="type"
                   customDiv="max-w-fit flex items-center"
                   v-model="formData.otherInput"
-                  @input="handleInput('otherInput', $event)"
                 />
               </div>
             </div>
@@ -524,7 +493,6 @@
               label="ชื่อแหล่งทุนวิจัย"
               customLabel="w-auto min-w-fit"
               v-model="formData.source"
-              @input="handleInput('source', $event)"
             />
             <span
               v-if="v$.source.$error"
@@ -539,14 +507,12 @@
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-max mr-10"
                 v-model="formData.credit"
-                @input="handleInput('credit', $event)"
               />
               <TextInputLabelLeft
                 label="ประจำปี"
                 customLabel="w-auto min-w-fit"
                 customDiv="max-w-max mr-10"
                 v-model="formData.inYears"
-                @input="handleInput('inYears', $event)"
               />
             </div>
             <span
@@ -574,14 +540,12 @@
             value="First Author"
             name="Author"
             v-model="formData.radioAuth"
-            @change="handleInput('radioAuth', $event)"
           />
           <RadioInput
             label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
             value="Corresponding Author"
             name="Author"
             v-model="formData.radioAuth"
-            @change="handleInput('radioAuth', $event)"
           />
           <span
             v-if="v$.radioAuth.$error"
@@ -603,7 +567,6 @@
             customLabel="w-auto min-w-fit"
             customInput="max-w-fit"
             v-model="formData.moneyPG"
-            @input="handleInput('moneyPG', $event)"
           />
           <span
             v-if="v$.moneyPG.$error"
@@ -685,6 +648,12 @@
         </SectionWrapper>
       </Mainbox>
       <div class="flex justify-end">
+        <button
+          @click="saveDraft"
+          class="bg-blue-500 text-white px-4 py-2 rounded mr-3"
+        >
+          บันทึกแบบร่าง
+        </button>
         <button @click="NewPC" class="btn btn-success text-white">
           บันทึกข้อมูล
         </button>
@@ -733,8 +702,8 @@ const formData = reactive({
   userID: null,
   name: null,
   position: null,
-  textOther1: null,
-  textOther2: null,
+  textOther1pc: null,
+  textOther2pc: null,
   nameJournal: null,
   check: [],
   yearISI: null,
@@ -778,8 +747,8 @@ const inputTypes = {
   userID: "string",
   name: "string",
   position: "string",
-  textOther1: "number",
-  textOther2: "date",
+  textOther1pc: "number",
+  textOther2pc: "date",
   nameJournal: "string",
   check: "array",
   yearISI: "number",
@@ -839,7 +808,7 @@ const afterDate = (value, date) => {
 
 //validate rule
 const rules = computed(() => ({
-  textOther1: {
+  textOther1pc: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลครั้งที่ *", required),
     numeric: helpers.withMessage(
       "* กรุณากรอกข้อมูลครั้งที่เป็นตัวเลข *",
@@ -851,7 +820,7 @@ const rules = computed(() => ({
       minValue(1)
     ),
   },
-  textOther2: {
+  textOther2pc: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลวันที่ *", required),
     beforeDate: helpers.withMessage("* วันที่ต้องไม่เกินวันนี้ *", (value) =>
       beforeDate(value, currentDate.value)
@@ -1147,6 +1116,20 @@ onMounted(async () => {
   formData.position = user.value?.user_positionth || "";
 });
 
+const saveDraft = () => {
+  localStorage.setItem("formDraft", JSON.stringify(formData));
+  alert("บันทึกแบบร่างเรียบร้อยแล้ว");
+};
+
+onMounted(() => {
+  console.log("formDraft", localStorage.getItem("formDraft"));
+  const draft = localStorage.getItem("formDraft");
+  if (draft) {
+    console.log("have draft", JSON.parse(draft));
+    Object.assign(formData, JSON.parse(draft));
+  }
+});
+
 const handleInput = (key, event) => {
   const value = event.target.value.trim();
   const type = inputTypes[key];
@@ -1162,13 +1145,14 @@ const handleInputArray = (key, event) => {
   if (!Array.isArray(formData[key])) {
     formData[key] = [];
   }
-  console.log("key",formData[key])
-  console.log("value",value)
+  console.log("key", formData[key]);
+  console.log("value", value);
   formData[key].push(value);
-  console.log("value1",formData[key])
+  console.log("value1", formData[key]);
 };
 
-const handleCheckbox = (key, value) => {handleCheckbox
+const handleCheckbox = (key, value) => {
+  handleCheckbox;
   if (formData[key]) {
     // If the checkbox is checked, uncheck it and remove the value from the array
     formData[key] = "";
@@ -1196,8 +1180,8 @@ const NewPC = async () => {
     try {
       const dataForBackend = {
         user_id: formData.userID,
-        pageC_times: formData.textOther1,
-        pageC_days: formData.textOther2,
+        pageC_times: formData.textOther1pc,
+        pageC_days: formData.textOther2pc,
         journal_name: formData.nameJournal,
         quality_journal: formData.check,
         pc_isi_year: formData.yearISI,
@@ -1245,7 +1229,8 @@ const NewPC = async () => {
       });
 
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      // router.push("/mystatus");
+      router.push("/mystatus");
+      localStorage.removeItem("formDraft");
     } catch (error) {
       console.log("Error saving code : ", error);
 

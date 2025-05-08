@@ -7,8 +7,8 @@
         :value="value"
         :name="name"
         :disabled="disabled"
-        :checked="checked"
-        @input="$emit('input, $event.target.value')"
+        :checked="modelValue === value"
+        @change="$emit('update:modelValue', value)"
       />
       <span :class="`${customLabel}`"> {{ label }}</span>
     </label>
@@ -17,6 +17,14 @@
 
 <script setup>
 defineProps({
+  modelValue: {
+    type: [String, Number, Boolean],
+    required: true,
+  },
+  value: {
+    type: [String, Number, Boolean],
+    default: "",
+  },
   customDiv: {
     type: String,
     default: "",
@@ -28,10 +36,6 @@ defineProps({
   label: {
     type: String,
     required: true,
-  },
-  value: {
-    type: [String, Number],
-    default: "",
   },
   name: {
     type: String,

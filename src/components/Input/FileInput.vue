@@ -6,14 +6,18 @@
         <span :class="`mb-1 ${customLabel}`"> {{ label }}</span>
       </div>
 
-      <input type="file" :class="`file-input file-input-bordered w-full ${customInput}`" :value="value"
-        :disabled="disabled" @input="$emit('input, $event.target.value')" />
+      <input type="file" :class="`file-input file-input-bordered w-full ${customInput}`"
+        :disabled="disabled"  @change="$emit('update:modelValue', $event.target.files[0])" />
     </label>
   </div>
 </template>
 
 <script setup>
 defineProps({
+  modelValue: {
+    type: [File, null],
+    default: null,
+  },
   customDiv: {
     type: String,
     default: "",
@@ -33,10 +37,6 @@ defineProps({
   span: {
     type: String,
     required: false,
-  },
-  value: {
-    type: [String, Number],
-    default: "",
   },
   disabled: {
     type: Boolean,

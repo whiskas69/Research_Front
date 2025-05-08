@@ -8,8 +8,6 @@
 
       <div class="py-2 px-5">
         <p class="font-bold">1. ชื่อโครงการวิจัย</p>
-        <input v-model="formData.projectTH" id="projectTH"
-        type="text"/>
         <SectionWrapper>
           <TextInputLabelLeft
             label="(ภาษาไทย)"
@@ -25,7 +23,6 @@
             label="(ภาษาอังกฤษ)"
             customLabel="w-64"
             v-model="formData.projectENG"
-            @input="handleInput('projectENG', $event.target.value)"
           />
 
           <span
@@ -49,37 +46,35 @@
                 class="pb-3"
                 label="ICT: Robotics & Automation"
                 v-model="formData.resCluster"
-                @input="
-                  handleCheckbox('resCluster', 'ICT: Robotics & Automation')
-                "
+                value="ICT: Robotics & Automation"
               />
 
               <CheckInput
                 class="pb-3"
                 label="ICT: Smart City & IoT"
                 v-model="formData.resCluster"
-                @input="handleCheckbox('resCluster', 'ICT: Smart City & IoT')"
+                value="ICT: Smart City & IoT"
               />
 
               <CheckInput
                 class="pb-3"
                 label="Battery & EV"
                 v-model="formData.resCluster"
-                @input="handleCheckbox('resCluster', 'Battery & EV')"
+                value="Battery & EV"
               />
 
               <CheckInput
                 class="pb-3"
                 label="Renewable Energy"
                 v-model="formData.resCluster"
-                @input="handleCheckbox('resCluster', 'Renewable Energy')"
+                value="Renewable Energy"
               />
 
               <CheckInput
                 class="pb-3"
                 label="Biomedical"
                 v-model="formData.resCluster"
-                @input="handleCheckbox('resCluster', 'Biomedical')"
+                value="Biomedical"
               />
             </div>
 
@@ -88,30 +83,28 @@
                 class="pb-3"
                 label="Agriculture & Food"
                 v-model="formData.resCluster"
-                @input="handleCheckbox('resCluster', 'Agriculture & Food')"
+                value="Agriculture & Food"
               />
 
               <CheckInput
                 class="pb-3"
                 label="Future Mobility & Logistic"
                 v-model="formData.resCluster"
-                @input="
-                  handleCheckbox('resCluster', 'Future Mobility & Logistic')
-                "
+                value="Future Mobility & Logistic"
               />
 
               <CheckInput
                 class="pb-3"
                 label="Materials"
                 v-model="formData.resCluster"
-                @input="handleCheckbox('resCluster', 'Materials')"
+                value="Materials"
               />
 
               <CheckInput
                 class="pb-3"
                 label="Creative Economy"
                 v-model="formData.resCluster"
-                @input="handleCheckbox('resCluster', 'Creative Economy')"
+                value="Creative Economy"
               />
 
               <div class="flex flex-row items-center">
@@ -120,13 +113,12 @@
                   label="อื่น ๆ ระบุ"
                   customDiv="max-w-32"
                   v-model="formData.resCluster"
-                  @input="handleCheckbox('resCluster', 'อื่น ๆ')"
+                  value="อื่น ๆ"
                 />
                 <TextInputLabelLeft
                   label=""
                   v-model="formData.resClusterOther"
                   :disabled="!formData.resCluster.includes('อื่น ๆ')"
-                  @input="handleInput('resClusterOther', $event.target.value)"
                 />
               </div>
             </div>
@@ -156,37 +148,28 @@
               class="pb-3"
               label="มีการใช้สัตว์ทดลอง"
               v-model="formData.resStandards"
-              @input="
-                handleCheckStandards('resStandards', 'มีการใช้สัตว์ทดลอง')
-              "
+              value="มีการใช้สัตว์ทดลอง"
             />
 
             <CheckInput
               class="pb-3"
               label="มีการวิจัยในมนุษย์"
               v-model="formData.resStandards"
-              @input="
-                handleCheckStandards('resStandards', 'มีการวิจัยในมนุษย์')
-              "
+              value="มีการวิจัยในมนุษย์"
             />
 
             <CheckInput
               class="pb-3"
               label="มีการวิจัยด้านเทคโนโลยีชีวภาพสมัยใหม่หรือพันธุวิศวกรรม"
               v-model="formData.resStandards"
-              @input="
-                handleCheckStandards(
-                  'resStandards',
-                  'มีการวิจัยด้านเทคโนโลยีชีวภาพสมัยใหม่หรือพันธุวิศวกรรม'
-                )
-              "
+              value="มีการวิจัยด้านเทคโนโลยีชีวภาพสมัยใหม่หรือพันธุวิศวกรรม"
             />
 
             <CheckInput
               class="pb-3"
               label="มีการใช้พันธุ์พืช"
               v-model="formData.resStandards"
-              @input="handleCheckStandards('resStandards', 'มีการใช้พันธุ์พืช')"
+              value="มีการใช้พันธุ์พืช"
             />
 
             <div class="flex flex-row items-center ml-10">
@@ -197,7 +180,7 @@
                 name="trade"
                 v-model="formData.resStandardsTrade"
                 :disabled="!formData.resStandards.includes('มีการใช้พันธุ์พืช')"
-                @change="handleInput('resStandardsTrade', '52')"
+                value="52"
               />
               <RadioInput
                 class="flex items-center"
@@ -205,7 +188,7 @@
                 name="trade"
                 v-model="formData.resStandardsTrade"
                 :disabled="!formData.resStandards.includes('มีการใช้พันธุ์พืช')"
-                @change="handleInput('resStandardsTrade', '53')"
+                value="53"
               />
             </div>
           </div>
@@ -247,7 +230,6 @@
                 label="ดัชนี H-Index"
                 customLabel="w-64"
                 v-model="formData.Hindex"
-                @input="handleInput('Hindex', $event.target.value)"
               />
               <p class="text-sm text-blue-500 py-2 ml-[14rem]">
                 (search ชื่อตนเองในฐาน https://www.scopus.com/)
@@ -264,7 +246,6 @@
               label="ประวัติด้านสิ่งประดิษฐ์ หรือ นวัตกรรม"
               customLabel="w-3/12"
               v-model="formData.invention"
-              @input="handleInput('invention', $event.target.value)"
             />
             <span
               v-if="v$.invention.$error"
@@ -280,7 +261,6 @@
                 customDiv="max-w-[600px]"
                 customInput="w-32"
                 v-model="formData.participation"
-                @input="handleInput('participation', $event.target.value)"
               />
               <span class="text-sm text-red-500 w-1/6 flex items-center"
                 >(สัดส่วนการวิจัย)</span
@@ -299,7 +279,6 @@
                 customDiv="max-w-[600px]"
                 customInput="w-32"
                 v-model="formData.proposedBudget"
-                @input="handleInput('proposedBudget', $event.target.value)"
               />
             </div>
           </div>
@@ -315,13 +294,12 @@
 
         <SectionWrapper>
           <div class="flex flex-row w-full">
-            <TextInputLabelRight
-              label="ปี"
+            <TextInputLabelLeft
+              label="จำนวนปี"
               customLabel="w-fit"
-              customDiv="max-w-32"
+              customDiv="max-w-fit"
               customInput="max-w-24"
               v-model="formData.periodYear"
-              @input="handleInput('periodYear', $event.target.value)"
             />
             <TextInputLabelLeft
               label="เริ่ม"
@@ -330,7 +308,6 @@
               customDiv="max-w-fit"
               customInput="max-w-fit"
               v-model="formData.periodStart"
-              @input="handleInput('periodStart', $event.target.value)"
             />
             <TextInputLabelLeft
               label="สิ้นสุด"
@@ -339,7 +316,6 @@
               customDiv="max-w-fit"
               customInput="max-w-fit"
               v-model="formData.periodEnd"
-              @input="handleInput('periodEnd', $event.target.value)"
             />
           </div>
           <span v-if="v$.periodYear.$error" class="text-base ml-2 text-red-500">
@@ -370,12 +346,15 @@
         </span>
       </SectionWrapper>
     </Mainbox>
-    <button @click="saveDraft" class="bg-blue-500 text-white px-4 py-2 rounded">
-      บันทึกแบบร่าง
-    </button>
 
     <div class="flex justify-end">
-      <button @click="NewKris" class="btn btn-success text-white">
+      <button
+        @click="saveDraft"
+        class="bg-blue-500 text-white px-4 py-2 rounded mr-3"
+      >
+        บันทึกแบบร่าง
+      </button>
+      <button @click="NewKris" class="btn btn-success text-white rounded">
         บันทึกข้อมูล
       </button>
     </div>
@@ -524,6 +503,18 @@ const rules = {
   },
 };
 
+const v$ = useVuelidate(rules, formData);
+
+onMounted(async () => {
+  await userStore.fetchUser();
+
+  formData.userID = user.value?.user_id;
+  formData.nameTH = user.value?.user_nameth || "";
+  formData.nameENG = user.value?.user_nameeng || "";
+  formData.positionTH = user.value?.user_positionth || "";
+  formData.positionENG = user.value?.user_positioneng || "";
+});
+
 const saveDraft = () => {
   localStorage.setItem("formDraft", JSON.stringify(formData));
   alert("บันทึกแบบร่างเรียบร้อยแล้ว");
@@ -536,18 +527,6 @@ onMounted(() => {
     console.log("have draft", JSON.parse(draft));
     Object.assign(formData, JSON.parse(draft));
   }
-});
-
-const v$ = useVuelidate(rules, formData);
-
-onMounted(async () => {
-  await userStore.fetchUser();
-
-  formData.userID = user.value?.user_id;
-  formData.nameTH = user.value?.user_nameth || "";
-  formData.nameENG = user.value?.user_nameeng || "";
-  formData.positionTH = user.value?.user_positionth || "";
-  formData.positionENG = user.value?.user_positioneng || "";
 });
 
 const handleInput = (key, value) => {
@@ -596,7 +575,7 @@ const handleFile = (event, fieldName) => {
 };
 
 const NewKris = async () => {
-  console.log("NewKris",JSON.stringify(formData))
+  console.log("NewKris", JSON.stringify(formData));
   const result = await v$.value.$validate();
 
   if (result) {
@@ -629,6 +608,7 @@ const NewKris = async () => {
 
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
       router.push("/mystatus");
+      localStorage.removeItem("formDraft");
     } catch (error) {
       console.log(
         "Error saving code : ",

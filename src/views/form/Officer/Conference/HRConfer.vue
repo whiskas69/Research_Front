@@ -211,7 +211,7 @@ const formData = reactive({
   f_fx_rate_document: null,
   f_conf_proof: null,
   checkWorkedNo3NeverAbroad: "",
-  statusForm: "ฝ่ายบริหารงานวิจัย",
+  formStatus: "ฝ่ายบริหารงานวิจัย",
   noteHR: "",
   profes3y: "",
   radioAuthOffic: "",
@@ -309,6 +309,7 @@ const OfficerConfer = async () => {
         c_reason: formData.description,
         c_noteOther: formData.noteHR,
         hr_doc_submit_date: formData.docSubmitDate,
+        form_status: formData.radioAuthOffic == "ไม่ถูกต้อง" ? "ไม่อนุมัติ" : formData.formStatus,
       };
 
       const response = await api.post("/opinionConf", dataForBackend);
