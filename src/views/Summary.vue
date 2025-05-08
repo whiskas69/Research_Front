@@ -1,7 +1,7 @@
 <template>
   <div class="container my-10 mx-auto">
     <div class="tabs tabs-lift">
-      <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการนานาชาติ 1" checked="checked" />
+      <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการแยกขอเบิก และเอกสารทั้งหมด" checked="checked" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>
           ข้อมูลการประชุมวิชาการ
@@ -191,7 +191,7 @@
         </div>
       </div>
 
-      <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการนานาชาติ 2"/>
+      <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการ (ต่างประเทศ)" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>ข้อมูลการประชุมวิชาการ (ต่างประเทศ)</h2>
         <div class="flex justify-end mt-2">
@@ -867,7 +867,7 @@
         </div>
       </div>
 
-      <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการนานาชาติ 3"/>
+      <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการ (ในประเทศ)" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>ข้อมูลการประชุมวิชาการ (ในประเทศ)</h2>
         <div class="flex justify-end mt-2">
@@ -900,7 +900,8 @@
                   <td class="border px-3 py-2">{{ Number(row.total_room || 0).toLocaleString("en-US") }}</td>
                   <td class="border px-3 py-2">{{ Number(row.total_allowance || 0).toLocaleString("en-US") }}</td>
                   <td class="border px-3 py-2">{{ Number(row.total_other || 0).toLocaleString("en-US") }}</td>
-                  <td class="border px-3 py-2">{{ Number(row.all_total - row.total_registration || 0).toLocaleString("en-US") }}</td>
+                  <td class="border px-3 py-2">{{ Number(row.all_total - row.total_registration ||
+                    0).toLocaleString("en-US") }}</td>
                   <td class="border px-3 py-2">
                     {{ Number(row.total_amount_approval - row.total_registration || 0).toLocaleString("en-US") }}
                   </td>
@@ -911,7 +912,7 @@
         </div>
       </div>
 
-      <input type="radio" name="mytabs" class="tab" aria-label="Page Charge"/>
+      <!-- <input type="radio" name="mytabs" class="tab" aria-label="Page Charge" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>ข้อมูลทั้งหมดของ Page Charge</h2>
         <div class="flex justify-end mt-2">
@@ -990,6 +991,7 @@
               </tr>
             </tbody>
           </table>
+
           <div class="flex justify-end mt-5">
             <button class="btn bg-[#E85F19] text-white" @click="exportExcel('datapc2')">
               Export to Excel
@@ -1062,9 +1064,9 @@
             </tbody>
           </table>
         </div>
-      </div>
+      </div> -->
 
-      <input type="radio" name="mytabs" class="tab" aria-label="โครงงานวิชาการ"/>
+      <input type="radio" name="mytabs" class="tab" aria-label="โครงงานวิชาการ" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>ข้อมูลทั้งหมดของโครงงานวิชาการ</h2>
         <div class="flex justify-end mt-2">
@@ -1120,9 +1122,9 @@
         </div>
       </div>
 
-      <input type="radio" name="mytabs" class="tab" aria-label="ยอดการขอสนับสนุนและคงเหลือของผู้ใช้ในระบบ"/>
+      <!-- <input type="radio" name="mytabs" class="tab" aria-label="ยอดการขอสนับสนุนและคงเหลือของผู้ใช้ในระบบ"/>
       <div class="tab-content bg-base-100 border-base-300 p-6">
-        <h2>ข้อมูลทั้งหมดของยอดการขอสนับสนุนและคงเหลือของผู้ใช้ในระบบ</h2>
+        <h2></h2>
         <div class="flex justify-end mt-2">
           <button class="btn bg-[#E85F19] text-white" @click="exportExcel('datauser')">
             Export to Excel
@@ -1166,6 +1168,126 @@
             </tbody>
           </table>
         </div>
+      </div> -->
+
+      <input type="radio" name="mytabs" class="tab" aria-label="สรุปผลการขอสนับสนุนทั้งหมด" />
+      <div class="tab-content bg-base-100 border-base-300 p-6">
+        <h2>การสรุปผลภาพรวมการขอเบิกค่าสนับสนุนการประชุมวิชาการ และ Page Charge </h2>
+        <!-- must edit -->
+        <div class="flex justify-end mt-2">
+          <button class="btn bg-[#E85F19] text-white" @click="exportExcel('datauser')">
+            Export to Excel
+          </button>
+        </div>
+        <div class="overflow-x-auto mt-2">
+          <!-- must edit ref -->
+          <table class="table w-full" ref="datasumnat">
+            <thead>
+              <tr class="text-center">
+                <th class="border px-3 py-2" rowspan="2">ปีงบประมาณ</th>
+                <th class="border px-3 py-2" colspan="3">เบิกค่าสนับสนุน Conference</th>
+                <th class="border px-3 py-2" colspan="3">เบิกค่าสนับสนุน Page Charge</th>
+              </tr>
+              <tr class="text-center">
+                <th class="border px-3 py-2">จำนวนอาจารย์</th>
+                <th class="border px-3 py-2">จำนวนผลงาน</th>
+                <th class="border px-3 py-2">วงเงินสนับสนุน</th>
+
+                <th class="border px-3 py-2">จำนวนอาจารย์</th>
+                <th class="border px-3 py-2">จำนวนผลงาน</th>
+                <th class="border px-3 py-2">วงเงินสนับสนุน</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center" v-for="(row, index) in sumnat" :key="index">
+                <td class="border px-3 py-2">{{ row.budget_year }}</td>
+                <template v-for="(form, idx) in row.forms" :key="idx">
+                  <template v-if="form.form_type === 'Conference' || form.form_type === 'Page_Charge'">
+                    <td class="border px-3 py-2">{{ form.total_users_approved ? `${form.total_users_approved}` : "-" }}
+                    </td>
+                    <td class="border px-3 py-2">{{ form.total_forms_approved ? `${form.total_forms_approved}` : "-" }}
+                    </td>
+                    <td class="border px-3 py-2">{{ form.total_amount_approved ? `${form.total_amount_approved}` : "-"
+                      }}</td>
+                  </template>
+                </template>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <input type="radio" name="mytabs" class="tab" aria-label="ค่าใช้จ่ายสำหรับการนำเสนอบทความวิจัย" />
+      <div class="tab-content bg-base-100 border-base-300 p-6">
+        <h2>ค่าใช้จ่ายสำหรับการนำเสนอบทความวิจัยลงตีพิมพ์ในวารสารวิชาการระดับนานาชาติ</h2>
+        <div class="flex justify-end mt-2">
+          <button class="btn bg-[#E85F19] text-white" @click="exportExcel('datauser')">
+            Export to Excel
+          </button>
+        </div>
+        <div class="overflow-x-auto mt-2">
+          <table class="table w-full" ref="datauser">
+            <thead>
+              <tr class="text-center">
+                <th class="border px-3 py-2">ลำดับที่</th>
+                <th class="border px-3 py-2">ผู้เข้าร่วม</th>
+                <th class="border px-3 py-2">ชื่อบทความ</th>
+                <th class="border px-3 py-2">วันประกาศผลพิจารณา</th>
+                <th class="border px-3 py-2">Quartile</th>
+                <th class="border px-3 py-2">จำนวนเงิน/บ.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center" v-for="(row, index) in SummaryPc" :key="index">
+                <td class="border px-3 py-2">{{ index + 1 }}</td>
+                <td class="border px-3 py-2">{{ row.user_nameth }}</td>
+                <td class="border px-3 py-2">{{ row.article_title }}</td>
+                <td class="border px-3 py-2">{{ DateTime.fromISO(row.date_review_announce).toFormat("dd-MM-yyyy") }}
+                </td>
+                <td class="border px-3 py-2">{{ getBestQt(row) }}</td>
+                <td class="border px-3 py-2">{{ row.request_support }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <input type="radio" name="mytabs" class="tab" aria-label="การอบรม/สัมมนา/ดูงาน ทั้งภายในและต่างประเทศ" />
+      <div class="tab-content bg-base-100 border-base-300 p-6">
+        <h2>การอบรม/สัมมนา/ดูงาน ของเจ้าหน้าที่คณะเทคโนโลยีสารสนเทศ ทั้งภายในและต่างประเทศ</h2>
+<!-- 
+        {{ conferenceData }} -->
+
+        <div class="flex justify-end mt-2">
+          <button class="btn bg-[#E85F19] text-white" @click="exportExcel('datauser')">
+            Export to Excel
+          </button>
+        </div>
+        <div class="overflow-x-auto mt-2">
+          <table class="table w-full" ref="datauser">
+            <thead>
+              <tr class="text-center">
+                <th class="border px-3 py-2">ลำดับที่</th>
+                <th class="border px-3 py-2">ผู้เข้าร่วม</th>
+                <th class="border px-3 py-2">หัวข้อ</th>
+                <th class="border px-3 py-2">วดป.</th>
+                <th class="border px-3 py-2">ผู้จัด/สถานที่</th>
+                <th class="border px-3 py-2">จำนวนเงิน/บ.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center" v-for="(row, index) in conferenceData" :key="index">
+                <td class="border px-3 py-2">{{ index + 1 }}</td>
+                <td class="border px-3 py-2">{{ row.user_nameth }}</td>
+                <td class="border px-3 py-2">{{ row.conf_research }}</td>
+                <td class="border px-3 py-2">{{ DateTime.fromISO(row.trav_dateStart).toFormat("dd-MM-yyyy") + " ถึง " +
+                  DateTime.fromISO(row.trav_dateEnd).toFormat("dd-MM-yyyy") }}</td>
+                <td class="border px-3 py-2">{{ row.location }}</td>
+                <td class="border px-3 py-2">{{ Number(row.all_money || 0).toLocaleString("en-US") }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -1195,6 +1317,8 @@ const countryData = reactive({
   EUA_data: "",
 });
 
+const sumnat = ref([]);
+
 const dataconfer1_1 = ref(null);
 const dataconfer1_2 = ref(null);
 const dataconfer2 = ref(null);
@@ -1203,20 +1327,20 @@ const datapc1 = ref(null);
 const datapc2 = ref(null);
 const datakris = ref(null);
 
-const totalCount = computed(() => {
-  if (CountPc.value.length === 0) return 0;
-  return Object.keys(CountPc.value[0])
-    .filter((key) => key.startsWith("count_"))
-    .reduce((sum, key) => sum + CountPc.value[0][key], 0);
-});
+// const totalCount = computed(() => {
+//   if (CountPc.value.length === 0) return 0;
+//   return Object.keys(CountPc.value[0])
+//     .filter((key) => key.startsWith("count_"))
+//     .reduce((sum, key) => sum + CountPc.value[0][key], 0);
+// });
 
-const totalMoney = computed(() => {
-  if (CountPc.value.length === 0) return 0;
-  return Object.keys(CountPc.value[0])
-    .filter((key) => key.startsWith("money_"))
-    .reduce((sum, key) => sum + Number(CountPc.value[0][key] || 0), 0)
-    .toLocaleString("en-US");
-});
+// const totalMoney = computed(() => {
+//   if (CountPc.value.length === 0) return 0;
+//   return Object.keys(CountPc.value[0])
+//     .filter((key) => key.startsWith("money_"))
+//     .reduce((sum, key) => sum + Number(CountPc.value[0][key] || 0), 0)
+//     .toLocaleString("en-US");
+// });
 
 const getConferenceData = async () => {
   const response = await api.get("/all_summary_conference");
@@ -1306,6 +1430,33 @@ const getUser_money = async () => {
   moneyuser.value = response.data;
 }
 
+const getSumnat = async () => {
+  const response = await api.get("/all_sum");
+
+  sumnat.value = response.data;
+  console.log("sumnat", sumnat.value);
+};
+
+const getBestQt = (row) => {
+  if (row.quality_journal.includes("nature")) {
+    return "nature";
+  }
+
+  const qtOptions = [
+    { name: "ISI", value: row.qt_isi },
+    { name: "SJR", value: row.qt_sjr },
+    { name: "Scopus", value: row.qt_scopus }
+  ];
+
+  // กรองเฉพาะค่าที่มี (ไม่ null หรือ 0)
+  const valid = qtOptions
+    .filter(opt => opt.value !== null && opt.value !== undefined)
+    .sort((a, b) => a.value - b.value); // เรียงจากน้อยไปมาก
+
+  return valid.length > 0 ? `${valid[0].name} (${valid[0].value})` : "-";
+};
+
+
 const exportExcel = (tableRefName) => {
   let table = null;
   let name = null
@@ -1371,5 +1522,6 @@ onMounted(() => {
   getConfer_country();
   getConfer_thai();
   getUser_money();
+  getSumnat();
 });
 </script>
