@@ -7,14 +7,15 @@
         :class="`input input-bordered mx-1 w-full ${customInput}`"
         :placeholder="placeholder"
         :disabled="disabled"
-        :value="modelValue"
-        @input="$emit('update:modelValue', $event.target.value)"
+        :value="formattedValue"
+        @input="handleInput"
       />
     </label>
   </div>
 </template>
 
 <script setup>
+import { computed } from 'vue'
 const props = defineProps({
   modelValue: {
     type: [String, Number],
@@ -51,4 +52,18 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["update:modelValue"]);
+
+const formattedValue = computed(() => {
+  if (props.type === 'date' && typeof props.modelValue === 'string') {
+    // รับ ISO string เช่น 2025-04-28T00:00:00.000Z และตัดให้เหลือ yyyy-MM-dd
+    return props.modelValue.split('T')[0];
+  }
+  return props.modelValue;
+});
+
+function handleInput(event) {
+  let value = event.target.value; // ค่าเป็น yyyy-MM-dd เช่น "2025-04-28"
+  // ถ้าเป็น date ไม่ต้องแปลง ISO, ส่งเป็น yyyy-MM-dd ตรงๆ
+  emit('update:modelValue', value);
+}
 </script>

@@ -166,7 +166,7 @@ const pulldata = async () => {
     console.log(error);
   }
 };
-
+//คืนเวลานับถอยหลังในรูปแบบ Xd Xh Xm Xs
 const getCountdown = (deadlineDate) => {
   const now = new Date().getTime();
   const distance = deadlineDate.getTime() - now;
@@ -180,7 +180,7 @@ const getCountdown = (deadlineDate) => {
 
   return `${days}d ${hours}h ${minutes}m ${seconds}s`;
 };
-
+//ตรวจสอบว่าเหลือเวลาน้อยกว่า 1 วัน
 const isLessThanOneDay = (deadlineDate) => {
   const now = new Date().getTime();
   const distance = deadlineDate.getTime() - now;
@@ -188,6 +188,7 @@ const isLessThanOneDay = (deadlineDate) => {
 };
 
 onMounted(async () => {
+  //setInterval อัปเดต countdown ทุกวินาที
   setInterval(() => {
     if (Array.isArray(data.allForm)) {
       data.allForm = [...data.allForm];
