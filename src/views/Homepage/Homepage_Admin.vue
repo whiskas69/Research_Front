@@ -293,13 +293,19 @@
             <tr>
               <th class="text-center">{{ index + 1 }}</th>
               <td class="text-center">{{ user.user_nameth }}</td>
-              <td class="text-center">{{ user.user_role }}</td>
+
               <td class="text-center">
-                {{ Number(user.user_moneyCF).toLocaleString("en-US") }}
+                <span v-if="user.user_role == 'professor'">อาจารย์</span>
+                <span v-else-if="user.user_role == 'hr'">เจ้าหน้าที่บริหารทรัพยากรบุคคล</span>
+                <span v-else-if="user.user_role == 'research'">เจ้าหน้าที่งานวิจัย</span>
+                <span v-else-if="user.user_role == 'finance'">เจ้าหน้าที่การเงิน</span>
+                <span v-else-if="user.user_role == 'associate'">รองคณบดี</span>
+                <span v-else-if="user.user_role == 'dean'">คณบดี</span>
+                <span v-else-if="user.user_role == 'admin'">ผู้ดูแล</span>
+                <span v-else>-</span>
               </td>
-              <td class="text-center">
-                {{ Number(user.user_moneyPC).toLocaleString("en-US") }}
-              </td>
+              <td class="text-center">{{ Number(user.user_moneyCF).toLocaleString("en-US") }}</td>
+              <td class="text-center">{{ Number(user.user_moneyPC).toLocaleString("en-US") }}</td>
             </tr>
           </tbody>
         </table>
@@ -365,7 +371,6 @@ const englishOnly = helpers.withMessage(
     return /^[A-Za-z\s.]+$/.test(value);
   }
 );
-
 
 // const emailDomain = helpers.withMessage(
 //   "* อีเมลต้องเป็น @it.kmitl.ac.th เท่านั้น *",
@@ -520,7 +525,7 @@ const addUser = async () => {
       };
       await api.post("/user", dataForBackend);
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      location.reload()
+      location.reload();
     } catch (error) {
       console.log("Error saving code : ", error);
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
