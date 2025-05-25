@@ -25,15 +25,19 @@
               customLabel="w-auto"
               customInput="max-w-max"
               customDiv="max-w-max"
+              name="conf_times"
               :disabled="true"
               :placeholder="formData.conference.conf_times"
+              :class="isFieldEdited('conf_times') ? 'text-red-500' : ''"
             />
             <TextInputLabelLeft
               label="วันที่"
               customLabel="ml-2 w-10"
               customInput="max-w-max"
+              name="conf_days"
               :disabled="true"
               :placeholder="formatThaiDate(formData.conference.conf_days)"
+              :class="isFieldEdited('conf_days') ? 'text-red-500' : ''"
             />
           </div>
           <p class="text-red-500 text-sm">
@@ -58,16 +62,20 @@
               customLabel="w-auto mr-1"
               customDiv="max-w-max"
               customInput="max-w-max"
+              name="trav_dateStart"
               :disabled="true"
               :placeholder="formatThaiDate(formData.conference.trav_dateStart)"
+              :class="isFieldEdited('trav_dateStart') ? 'text-red-500' : ''"
             />
             <TextInputLabelLeft
               label="ถึงวันที่"
               customLabel="w-auto mr-8"
               customDiv="max-w-max ml-36"
               customInput="max-w-max"
+              name="trav_dateEnd"
               :disabled="true"
               :placeholder="formatThaiDate(formData.conference.trav_dateEnd)"
+              :class="isFieldEdited('trav_dateEnd') ? 'text-red-500' : ''"
             />
           </div>
 
@@ -77,6 +85,7 @@
             name="conf_research"
             :disabled="true"
             :placeholder="formData.conference.conf_research"
+            :class="isFieldEdited('conf_research') ? 'text-red-500' : ''"
           />
           <TextInputLabelLeft
             label="ชื่อการประชุมทางวิชาการ"
@@ -84,6 +93,7 @@
             name="conf_name"
             :disabled="true"
             :placeholder="formData.conference.conf_name"
+            :class="isFieldEdited('conf_name') ? 'text-red-500' : ''"
           />
           <div class="flex flex-row w-full">
             <p class="w-1/4">การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
@@ -788,7 +798,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, toRaw } from "vue";
 import { useRoute } from "vue-router";
 import api from "@/setting/api";
 
@@ -859,7 +869,11 @@ const fetchOfficerData = async () => {
   }
 };
 const isFieldEdited = (field) => {
-  return editData.some(item => item.field === field)
+  const editDataArray = toRaw(formData.editForm[0] || [])
+  console.log("test edit", editDataArray )
+  console.log("test1", field  )
+  console.log("test", editDataArray.some(item => item.field === field)  )
+  return editDataArray.some(item => item.field === field)
 }
 
 onMounted(() => {
