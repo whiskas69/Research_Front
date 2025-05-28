@@ -49,7 +49,7 @@
             {{ v$.textOther2pc.$errors[0].$message }}
           </span>
 
-          <p class="text-red-500 text-sm">
+          <p class="text-blue-500 text-sm">
             สามารถตรวจสอบรายชื่อ List ของคณะได้ที่เว็บไซต์คณะที่ Share
             online-การวิจัย และ
             <a href="https://erp.it.kmitl.ac.th/journal_conf_list"
