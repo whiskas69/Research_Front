@@ -4,9 +4,6 @@
       <p class="text-xl font-bold mb-5">
         ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
       </p>
-      <p class="text-xl font-bold mb-5">
-        ของ อีดิดนะจ้ะ 678
-      </p>
       <Mainbox>
         <SectionWrapper>
           <TextInputLabelLeft
@@ -38,7 +35,7 @@
               v-model="data.conference.conf_days"
             />
           </div>
-          <p class="text-red-500 text-sm">
+          <p class="text-blue-500 text-sm">
             สามารถตรวจสอบรายชื่อ List ของคณะได้ที่เว็บไซต์คณะที่ Share
             online-การวิจัย และ
             <a href="https://erp.it.kmitl.ac.th/journal_conf_list"
@@ -632,29 +629,6 @@ const data = reactive({
   score: [],
 });
 
-const formatThaiDate = (dateString) => {
-  if (!dateString) return "";
-  const date = new Date(dateString);
-  const months = [
-    "ม.ค.",
-    "ก.พ.",
-    "มี.ค.",
-    "เม.ย.",
-    "พ.ค.",
-    "มิ.ย.",
-    "ก.ค.",
-    "ส.ค.",
-    "ก.ย.",
-    "ต.ค.",
-    "พ.ย.",
-    "ธ.ค.",
-  ];
-  const day = date.getDate();
-  const month = months[date.getMonth()];
-  const year = date.getFullYear() + 543;
-  return `${day} ${month} ${year}`;
-};
-
 const isLoading = ref(true);
 // Access route parameters
 const route = useRoute();
@@ -703,6 +677,7 @@ const handleSubmit = async() => {
     }
     console.log("dataForBackend: ",dataForBackend)
     await api.put(`/editForm/${id}`, dataForBackend)
+    await api.put(`/editFormConfer/${id}`, dataForBackend)
     alert("บันทึกข้อมูลเรียบร้อยแล้ว editForm");
   }catch (error) {
       console.log("Error saving code : ", error);
