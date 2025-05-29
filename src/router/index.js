@@ -45,6 +45,8 @@ import offic_Kris from "@/views/form/Officer/Kris.vue";
 import Profile from "@/views/Profile.vue";
 import summary from "@/views/Summary.vue";
 
+import ChangePage from '@/views/ChangePage.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -252,6 +254,12 @@ const router = createRouter({
       component: summary,
       meta: { requiresAuth: true, role: ["hr", "research", "finance", "associate", "dean", "admin"] },
     },
+    {
+      path: "/changePage",
+      name: "ChangePage",
+      component: ChangePage,
+      meta: { requiresAuth: true, role: ["admin"] },
+    }
   ],
 });
 
