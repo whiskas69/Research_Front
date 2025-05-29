@@ -2,6 +2,7 @@
   <div>
     <div class="container my-10 mx-auto">
       <PageChageData :id="id" />
+      <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
       <Mainbox>
         <SectionWrapper>
           <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
@@ -118,7 +119,6 @@
         </SectionWrapper>
       </Mainbox>
 
-      <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
       <Mainbox>
         <SectionWrapper>
           <p>ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
@@ -169,7 +169,7 @@ import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
-import PageChageData from "@/components/form/DataforOffice/PageChage.vue";
+import PageChageData from "@/components/form/DataforOffice/EditPageChage.vue";
 
 const formData = reactive({
   file: "",

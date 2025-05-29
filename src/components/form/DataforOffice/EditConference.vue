@@ -4,6 +4,7 @@
       <p class="text-xl font-bold mb-5">
         ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
       </p>
+      <p>uiuyi</p>
       <Mainbox>
         <SectionWrapper>
           <TextInputLabelLeft
@@ -33,7 +34,6 @@
               customLabel="ml-2 w-10"
               customInput="max-w-max"
               v-model="data.conference.conf_days"
-              :placeholder="formatThaiDate(data.conference.conf_days)"
             />
           </div>
           <p class="text-blue-500 text-sm">
@@ -55,6 +55,7 @@
           <div class="flex flex-row">
             <TextInputLabelLeft
               label="เดินทางวันที่"
+              type="date"
               customLabel="w-auto mr-1"
               customDiv="max-w-max"
               customInput="max-w-max"
@@ -62,6 +63,7 @@
             />
             <TextInputLabelLeft
               label="ถึงวันที่"
+              type="date"
               customLabel="w-auto mr-8"
               customDiv="max-w-max ml-36"
               customInput="max-w-max"
@@ -99,6 +101,7 @@
           <div class="flex flex-row">
             <TextInputLabelLeft
               label="วันที่จัด"
+              type="date"
               customLabel="w-auto mr-9"
               customDiv="max-w-max mr-10"
               customInput="max-w-max"
@@ -138,6 +141,7 @@
           <div class="flex flex-row justify-between">
             <TextInputLabelLeft
               label="วันที่ส่งบทความไปยังผู้จัด"
+              type="date"
               customLabel="w-auto mr-1"
               customDiv="max-w-max"
               customInput="max-w-max"
@@ -145,6 +149,7 @@
             />
             <TextInputLabelLeft
               label="วันประกาศผลการพิจารณาบทความ"
+              type="date"
               customLabel="w-auto mr-1"
               customDiv="max-w-max"
               customInput="max-w-max"
@@ -152,6 +157,7 @@
             />
             <TextInputLabelLeft
               label="วันสุดท้ายของการลงทะเบียน"
+              type="date"
               customLabel="w-auto mr-1"
               customDiv="max-w-max"
               customInput="max-w-max"
@@ -171,19 +177,13 @@
             label="การประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ และไม่อยู่ในฐานข้อมูลสากล SCOPUS"
             name="Scopus"
             value="คณะจัด ไม่อยู่scopus"
-            :checked="
-              data.conference.meeting_type == 'คณะจัด ไม่อยู่scopus'
-                ? true
-                : false
-            "
+            v-model="data.conference.meeting_type"
           />
           <RadioInput
             label="การประชุมทางวิชาการที่อยู่ในฐานข้อมูลสากล SCOPUS โดยมีการกำหนดคุณภาพแบ่งเป็น 2 ระดับ "
             name="Scopus"
             value="อยู่ในscopus"
-            :checked="
-              data.conference.meeting_type == 'อยู่ในscopus' ? true : false
-            "
+            v-model="data.conference.meeting_type"
           />
 
           <SectionWrapper>
@@ -191,24 +191,20 @@
               label="ระดับมาตรฐาน"
               name="Level"
               value="มาตรฐาน"
-              :checked="
-                data.conference.quality_meeting == 'มาตรฐาน' ? true : false
-              "
+              v-model="data.conference.quality_meeting"
             />
             <RadioInput
               label="ระดับดีมาก"
               name="Level"
               value="ดีมาก"
-              :checked="
-                data.conference.quality_meeting == 'ดีมาก' ? true : false
-              "
+              v-model="data.conference.quality_meeting"
             />
             <SectionWrapper>
               <RadioInput
                 label="ใช้คะแนนที่คำนวณจาก SJR indicator และ H Index ที่ได้มาจาก SCImago Journal & Country Rank"
                 name="Score"
                 value="SJR"
-                :checked="data.score.score_type == 'SJR' ? true : false"
+                v-model="data.score.score_type"
               />
               <div v-if="data.score.score_type == 'SJR'">
                 <div class="flex flex-row w-full px-7 my-2">
@@ -250,7 +246,7 @@
                 label="ใช้ผลการจัดระดับ CIF (Conference Impact Factor)"
                 name="Score"
                 value="CIF"
-                :checked="data.score.score_type == 'CIF' ? true : false"
+                v-model="data.score.score_type"
               />
               <div v-if="data.score.score_type == 'CIF'">
                 <div class="flex flex-row w-full px-7 my-2">
@@ -277,7 +273,7 @@
                 label="ใช้ผลการจัดระดับ CORE Conference Ranking"
                 name="Score"
                 value="CORE"
-                :checked="data.score.score_type == 'CORE' ? true : false"
+                v-model="data.score.score_type"
               />
               <div v-if="data.score.score_type == 'CORE'">
                 <div class="flex flex-row w-full px-7 my-2">
@@ -311,19 +307,13 @@
             label="ผู้ประพันธ์อันดับแรก First Author"
             value="First Author"
             name="Author"
-            :checked="
-              data.conference.presenter_type == 'First Author' ? true : false
-            "
+            v-model="data.conference.presenter_type"
           />
           <RadioInput
             label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
             value="Corresponding Author"
             name="Author"
-            :checked="
-              data.conference.presenter_type == 'Corresponding Author'
-                ? true
-                : false
-            "
+            v-model="data.conference.presenter_type"
           />
         </SectionWrapper>
       </Mainbox>
@@ -341,7 +331,7 @@
               label="ครั้งที่ 1"
               name="TimeLeave"
               value="1"
-              :checked="data.conference.time_of_leave == 1 ? true : false"
+              v-model="data.conference.time_of_leave"
             />
           </SectionWrapper>
 
@@ -350,7 +340,7 @@
               label="ครั้งที่ 2"
               name="TimeLeave"
               value="2"
-              :checked="data.conference.time_of_leave == 2 ? true : false"
+              v-model="data.conference.time_of_leave"
             />
             <p class="py-1 px-7">
               ในกรณีลาครั้งที่ 2 (การประชุมฯ ณ ต่างประเทศ)
@@ -364,17 +354,13 @@
                 label="WoS-Q1"
                 name="WoS"
                 value="WoS-Q1"
-                :checked="
-                  data.conference.wos_2_leave == 'WoS-Q1' ? true : false
-                "
+                v-model="data.conference.wos_2_leave"
               />
               <RadioInput
                 label="WoS-Q2"
                 name="WoS"
                 value="WoS-Q2"
-                :checked="
-                  data.conference.wos_2_leave == 'WoS-Q2' ? true : false
-                "
+                v-model="data.conference.wos_2_leave"
               />
             </div>
             <div v-if="data.conference.time_of_leave == 2" class="px-7 py-2">
@@ -395,13 +381,13 @@
               label="ไม่เกิน 50%"
               name="withdraw"
               value="50%"
-              :checked="data.conference.withdraw == '50%' ? true : false"
+              v-model="data.conference.withdraw"
             />
             <RadioInput
               label="ไม่เกิน 100% มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล"
               name="withdraw"
               value="100%"
-              :checked="data.conference.withdraw == '100%' ? true : false"
+              v-model="data.conference.withdraw"
             />
             <div
               v-if="data.conference.withdraw == '100%'"
@@ -411,41 +397,31 @@
                 label="WoS-Q1"
                 name="WoS"
                 value="WoS-Q1"
-                :checked="
-                  data.conference.wd_100_quality == 'WoS-Q1' ? true : false
-                "
+                v-model="data.conference.wd_100_quality"
               />
               <RadioInput
                 label="WoS-Q2"
                 name="WoS"
                 value="WoS-Q2"
-                :checked="
-                  data.conference.wd_100_quality == 'WoS-Q2' ? true : false
-                "
+                v-model="data.conference.wd_100_quality"
               />
               <RadioInput
                 label="WoS-Q3"
                 name="WoS"
                 value="WoS-Q3"
-                :checked="
-                  data.conference.wd_100_quality == 'WoS-Q3' ? true : false
-                "
+                v-model="data.conference.wd_100_quality"
               />
               <RadioInput
                 label="SJR-Q1"
                 name="WoS"
                 value="SJR-Q1"
-                :checked="
-                  data.conference.wd_100_quality == 'SJR-Q1' ? true : false
-                "
+                v-model="data.conference.wd_100_quality"
               />
               <RadioInput
                 label="SJR-Q2"
                 name="WoS"
                 value="SJR-Q2"
-                :checked="
-                  data.conference.wd_100_quality == 'SJR-Q2' ? true : false
-                "
+                v-model="data.conference.wd_100_quality"
               />
             </div>
             <div class="px-7 py-2">
@@ -473,26 +449,14 @@
                   customLabel="w-auto pr-2"
                   customDiv="max-w-max"
                   customInput="max-w-max"
-                  :placeholder="
-                    parseFloat(
-                      data.conference.num_register_articles
-                    ).toLocaleString('en-US', {
-                      minimumFractionDigits: 0,
-                    })
-                  "
+                  v-model="data.conference.num_register_articles"
                 />
                 <TextInputLabelLeft
                   label="บทความ ๆ ละ"
                   customLabel="w-auto px-2"
                   customDiv="max-w-max"
                   customInput="max-w-max"
-                  :placeholder="
-                    parseFloat(
-                      data.conference.regist_amount_1_article
-                    ).toLocaleString('en-US', {
-                      minimumFractionDigits: 2,
-                    })
-                  "
+                  v-model="data.conference.regist_amount_1_article"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -518,15 +482,7 @@
                   customLabel="w-64 pr-2"
                   customDiv="max-w-[50rem]"
                   customInput="max-w-[50rem]"
-                  :placeholder="
-                    data.conference.domestic_expenses == null
-                      ? 0
-                      : parseFloat(
-                          data.conference.domestic_expenses
-                        ).toLocaleString('en-US', {
-                          minimumFractionDigits: 0,
-                        })
-                  "
+                  v-model="data.conference.domestic_expenses"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -536,15 +492,7 @@
                   customLabel="w-64 pr-2"
                   customDiv="max-w-[50rem]"
                   customInput="max-w-[50rem]"
-                  :placeholder="
-                    data.conference.overseas_expenses == null
-                      ? 0
-                      : parseFloat(
-                          data.conference.overseas_expenses
-                        ).toLocaleString('en-US', {
-                          minimumFractionDigits: 2,
-                        })
-                  "
+                  v-model="data.conference.overseas_expenses"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -554,26 +502,14 @@
                   customLabel="w-96 pr-2"
                   customDiv="max-w-[30rem]"
                   customInput="max-w-[14rem]"
-                  :placeholder="
-                    data.conference.travel_country == null
-                      ? '-'
-                      : data.conference.travel_country
-                  "
+                  v-model="data.conference.travel_country"
                 />
                 <TextInputLabelLeft
                   label="- กรุงเทพฯ"
                   customLabel="w-22 px-2"
                   customDiv="max-w-[20rem]"
                   customInput="max-w-[14rem]"
-                  :placeholder="
-                    data.conference.inter_expenses == null
-                      ? 0
-                      : parseFloat(
-                          data.conference.inter_expenses
-                        ).toLocaleString('en-US', {
-                          minimumFractionDigits: 2,
-                        })
-                  "
+                  v-model="data.conference.inter_expenses"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -585,16 +521,7 @@
                 customLabel="w-auto pr-2"
                 customDiv="max-w-[52rem]"
                 customInput="max-w-[40rem]"
-                :placeholder="
-                  data.conference.airplane_tax == null
-                    ? 0
-                    : parseFloat(data.conference.airplane_tax).toLocaleString(
-                        'en-US',
-                        {
-                          minimumFractionDigits: 2,
-                        }
-                      )
-                "
+                v-model="data.conference.airplane_tax"
               />
               <p class="flex items-center pl-2">บาท</p>
             </div>
@@ -606,30 +533,14 @@
                   customLabel="w-auto pr-2"
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[19rem]"
-                  :placeholder="
-                    data.conference.num_days_room == null
-                      ? 0
-                      : parseFloat(
-                          data.conference.num_days_room
-                        ).toLocaleString('en-US', {
-                          minimumFractionDigits: 0,
-                        })
-                  "
+                  v-model="data.conference.num_days_room"
                 />
                 <TextInputLabelLeft
                   label="คืน ๆ ละ"
                   customLabel="w-auto pr-2"
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[20rem]"
-                  :placeholder="
-                    data.conference.room_cost_per_night == null
-                      ? 0
-                      : parseFloat(
-                          data.conference.room_cost_per_night
-                        ).toLocaleString('en-US', {
-                          minimumFractionDigits: 2,
-                        })
-                  "
+                  v-model="data.conference.room_cost_per_night"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -656,30 +567,14 @@
                   customLabel="w-auto pr-2"
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[16rem]"
-                  :placeholder="
-                    data.conference.num_travel_days == null
-                      ? 0
-                      : parseFloat(
-                          data.conference.num_travel_days
-                        ).toLocaleString('en-US', {
-                          minimumFractionDigits: 0,
-                        })
-                  "
+                  v-model="data.conference.num_travel_days"
                 />
                 <TextInputLabelLeft
                   label="วัน ๆ ละ"
                   customLabel="w-auto pr-2"
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[20rem]"
-                  :placeholder="
-                    data.conference.daily_allowance == null
-                      ? 0
-                      : parseFloat(
-                          data.conference.daily_allowance
-                        ).toLocaleString('en-US', {
-                          minimumFractionDigits: 2,
-                        })
-                  "
+                  v-model="data.conference.daily_allowance"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -710,9 +605,11 @@
         </SectionWrapper>
       </Mainbox>
     </div>
-    <button @click="handleSubmit" class="btn btn-success text-white">
-      บันทึกข้อมูล
-    </button>
+    <div class="flex justify-end">
+        <button @click="handleSubmit" class="btn btn-success text-white">
+          บันทึกข้อมูลที่แก้ไข
+        </button>
+      </div>
   </div>
 </template>
 
@@ -730,38 +627,15 @@ const data = reactive({
   conference: {},
   originCofer: {},
   user: [],
-  score: [],
+  score: {},
+  originScore: {},
 });
-
-const formatThaiDate = (dateString) => {
-  if (!dateString) return "";
-  const date = new Date(dateString);
-  const months = [
-    "ม.ค.",
-    "ก.พ.",
-    "มี.ค.",
-    "เม.ย.",
-    "พ.ค.",
-    "มิ.ย.",
-    "ก.ค.",
-    "ส.ค.",
-    "ก.ย.",
-    "ต.ค.",
-    "พ.ย.",
-    "ธ.ค.",
-  ];
-  const day = date.getDate();
-  const month = months[date.getMonth()];
-  const year = date.getFullYear() + 543;
-  return `${day} ${month} ${year}`;
-};
 
 const isLoading = ref(true);
 // Access route parameters
 const route = useRoute();
 const id = route.params.id;
 
-// ฟังก์ชันตรวจสอบว่า field ไหนเปลี่ยนแปลง
 const getChangedFields = () => {
   const current = toRaw(data.conference);
   const originalConference = data.originCofer;
@@ -780,20 +654,47 @@ const getChangedFields = () => {
   }
   return changedFields;
 };
+const getChangedFieldsScore = () => {
+  const current = toRaw(data.score);
+  const originalScore = data.originScore;
+  const changedFields = [];
+  console.log("changedFields", changedFields);
+  console.log("current", current);
+  console.log("originalConference", originalScore);
+  for (const key in current) {
+    if (current[key] !== originalScore[key]) {
+      changedFields.push({
+        field: key,
+        oldValue: originalScore[key],
+        newValue: current[key],
+      });
+    }
+  }
+  return changedFields;
+};
 
 const handleSubmit = async() => {
   const changed = getChangedFields();
+  const changedScore = getChangedFieldsScore();
 
   if (changed.length === 0) {
     alert("ไม่มีการเปลี่ยนแปลงข้อมูล");
     return;
   }
+  if (changedScore.length === 0) {
+    alert("ไม่มีการเปลี่ยนแปลงข้อมูล");
+    return;
+  }
 
   console.log("ฟิลด์ที่ถูกแก้ไข:", changed);
+  console.log("ฟิลด์ที่ถูกแก้ไข changedScore:", changedScore);
 
   // ถ้าต้องการส่งเฉพาะที่เปลี่ยน:
   const payload = {};
   changed.forEach((item) => {
+    payload[item.field] = item.newValue;
+  });
+  changedScore.forEach((item) => {
     payload[item.field] = item.newValue;
   });
 
@@ -801,9 +702,10 @@ const handleSubmit = async() => {
     const dataForBackend = {
       conf_id: id,
       edit_data: changed,
+      score: changedScore,
     }
     console.log("dataForBackend: ",dataForBackend)
-    await api.put(`/editForm/${id}`, dataForBackend)
+    await api.put(`/editedFormConfer/${id}`, dataForBackend)
     alert("บันทึกข้อมูลเรียบร้อยแล้ว editForm");
   }catch (error) {
       console.log("Error saving code : ", error);
@@ -815,7 +717,7 @@ const fetchOfficerData = async () => {
   try {
     const responseConfer = await api.get(`/conference/${id}`);
     data.conference = responseConfer.data;
-    data.originCofer = JSON.parse(JSON.stringify(responseConfer.data));;
+    data.originCofer = JSON.parse(JSON.stringify(responseConfer.data));
 
     const userID = responseConfer.data.user_id;
     const responseUser = await api.get(`/user/${userID}`);
@@ -823,10 +725,7 @@ const fetchOfficerData = async () => {
 
     const responseScore = await api.get(`/score/${id}`);
     data.score = responseScore.data;
-
-    const originConference = JSON.parse(JSON.stringify(data.originCofer));
-    console.log("conference", data.conference);
-    console.log("originConference", originConference);
+    data.originScore = JSON.parse(JSON.stringify(responseScore.data));
   } catch (error) {
     console.log("Error fetching Officer data:", error);
   } finally {

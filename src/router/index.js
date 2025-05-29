@@ -30,6 +30,10 @@ import Pro_Confer from "@/views/form/Profess/Pro_Confer.vue";
 import Pro_Page from "@/views/form/Profess/Pro_Page.vue";
 import Pro_Kris from "@/views/form/Profess/Pro_Kris.vue";
 
+import Modi_Confer from "@/components/form/ModifiedForm/ConferenceModi.vue"
+import Modi_Page from "@/components/form/ModifiedForm/PageChangeModi.vue"
+import Modi_Kris from "@/components/form/ModifiedForm/KrisModi.vue"
+
 import offic_hrConfer from "@/views/form/Officer/Conference/HRConfer.vue";
 import offic_resConfer from "@/views/form/Officer/Conference/ResearchConfer.vue";
 import offic_fincConfer from "@/views/form/Officer/Conference/FinanceConfer.vue";
@@ -132,6 +136,24 @@ const router = createRouter({
       path: "/formKris",
       name: "FormKris",
       component: Pro_Kris,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/modifiedConfer/:id",
+      name: "ModifiedConfer",
+      component: Modi_Confer,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/modifiedPage/:id",
+      name: "ModifiedPage",
+      component: Modi_Page,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/modifiedKris/:id",
+      name: "ModifiedKris",
+      component: Modi_Kris,
       meta: { requiresAuth: true },
     },
     {
