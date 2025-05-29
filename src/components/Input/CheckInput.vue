@@ -49,8 +49,10 @@ const emit = defineEmits(["update:modelValue"]);
 
 const isChecked = computed(() => {
   if (Array.isArray(props.modelValue)) {
+    console.log("lll", props.modelValue.includes(props.value))
     return props.modelValue.includes(props.value);
   } else {
+    console.log("3456", props.modelValue === props.trueValue)
     return props.modelValue === props.trueValue;
   }
 });
@@ -58,10 +60,13 @@ const isChecked = computed(() => {
 const handleChange = (e) => {
   if (Array.isArray(props.modelValue)) {
     const newVal = [...props.modelValue];
+    console.log("newVal",newVal)
     if (e.target.checked) {
+      console.log("e.target.checked", e.target.checked)
       if (!newVal.includes(props.value)) newVal.push(props.value);
     } else {
       const index = newVal.indexOf(props.value);
+      console.log("index", index)
       if (index > -1) newVal.splice(index, 1);
     }
     emit("update:modelValue", newVal);

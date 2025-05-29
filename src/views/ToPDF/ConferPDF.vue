@@ -388,7 +388,7 @@
         <div class="flex flex-row pt-3 justify-end gap-2">
           <p>ลงนาม</p>
           <img
-            :src="`http://10.0.15.37:3002/uploads/${formData.user.user_signature}`"
+            :src="`http://localhost:3002/uploads/${formData.user.user_signature}`"
             class="h-[50px] w-[170px]"
             alt="user signature"
           />
@@ -542,7 +542,7 @@
                     item.user_role == 'hr' &&
                     item.user_id == formData.offic.hr_id
                   "
-                  :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
+                  :src="`http://localhost:3002/uploads/${item.user_signature}`"
                   class="h-[50px] w-[170px]"
                   alt="hr signature"
                 />
@@ -609,7 +609,7 @@
                       item.user_role == 'research' &&
                       item.user_id == formData.offic.research_id
                     "
-                    :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
+                    :src="`http://localhost:3002/uploads/${item.user_signature}`"
                     class="h-[50px] w-[170px]"
                     alt="research Image"
                   />
@@ -674,7 +674,7 @@
                       item.user_role == 'finance' &&
                       item.user_id == formData.budget.user_id
                     "
-                    :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
+                    :src="`http://localhost:3002/uploads/${item.user_signature}`"
                     class="h-[50px] w-[170px]"
                     alt="finance Image"
                   />
@@ -706,7 +706,7 @@
                       item.user_role == 'associate' &&
                       item.user_id == formData.offic.associate_id
                     "
-                    :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
+                    :src="`http://localhost:3002/uploads/${item.user_signature}`"
                     class="h-[50px] w-[170px]"
                     alt="associate Image"
                   />
@@ -742,7 +742,7 @@
                       item.user_role == 'dean' &&
                       item.user_id == formData.offic.dean_id
                     "
-                    :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
+                    :src="`http://localhost:3002/uploads/${item.user_signature}`"
                     class="h-[50px] w-[170px]"
                     alt="Dean Image"
                   />

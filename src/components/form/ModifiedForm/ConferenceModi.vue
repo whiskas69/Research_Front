@@ -4,16 +4,19 @@
       <p class="text-xl font-bold mb-5">
         ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
       </p>
+      <p>9090 put router!!!!! </p>
       <Mainbox>
         <SectionWrapper>
           <TextInputLabelLeft
             label="ชื่อ"
             customLabel="w-2/12 text-lg font-bold"
+            :disabled="true"
             v-model="formData.user.user_nameth"
           />
           <TextInputLabelLeft
             label="ตำแหน่ง"
             customLabel="w-2/12 text-lg font-bold"
+            :disabled="true"
             v-model="formData.user.user_positionth"
           />
 
@@ -98,6 +101,7 @@
               value="ภายในประเทศ"
               customDiv="w-max mr-4"
               v-model="formData.conference.country_conf"
+              :class="isFieldEdited('country_conf') ? 'text-red-500' : ''"
             />
             <RadioInput
               label="ณ ต่างประเทศ"
@@ -105,6 +109,7 @@
               value="ณ ต่างประเทศ"
               customDiv="max-w-36"
               v-model="formData.conference.country_conf"
+              :class="isFieldEdited('country_conf') ? 'text-red-500' : ''"
             />
           </div>
           <div class="flex flex-row">
@@ -115,11 +120,13 @@
               customDiv="max-w-max mr-10"
               customInput="max-w-max"
               v-model="formData.conference.meeting_date"
+              :class="isFieldEdited('meeting_date') ? 'text-red-500' : ''"
             />
             <TextInputLabelLeft
               label="สถานที่จัด"
               customLabel="w-24"
               v-model="formData.conference.meeting_venue"
+              :class="isFieldEdited('meeting_venue') ? 'text-red-500' : ''"
             />
             <div
               class="ml-10 w-full flex justify-center items-center"
@@ -130,6 +137,7 @@
                   label="ประเทศ"
                   customLabel="w-24"
                   v-model="formData.conference.location"
+                  :class="isFieldEdited('location') ? 'text-red-500' : ''"
                 />
               </div>
             </div>
@@ -143,6 +151,7 @@
                   label="จังหวัด"
                   customLabel="w-24"
                   v-model="formData.conference.location"
+                  :class="isFieldEdited('location') ? 'text-red-500' : ''"
                 />
               </div>
             </div>
@@ -155,6 +164,9 @@
               customDiv="max-w-max"
               customInput="max-w-max"
               v-model="formData.conference.date_submit_organizer"
+              :class="
+                isFieldEdited('date_submit_organizer') ? 'text-red-500' : ''
+              "
             />
             <TextInputLabelLeft
               label="วันประกาศผลการพิจารณาบทความ"
@@ -163,6 +175,9 @@
               customDiv="max-w-max"
               customInput="max-w-max"
               v-model="formData.conference.argument_date_review"
+              :class="
+                isFieldEdited('argument_date_review') ? 'text-red-500' : ''
+              "
             />
             <TextInputLabelLeft
               label="วันสุดท้ายของการลงทะเบียน"
@@ -171,6 +186,7 @@
               customDiv="max-w-max"
               customInput="max-w-max"
               v-model="formData.conference.last_day_register"
+              :class="isFieldEdited('last_day_register') ? 'text-red-500' : ''"
             />
           </div>
         </SectionWrapper>
@@ -187,12 +203,14 @@
             name="Scopus"
             value="คณะจัด ไม่อยู่scopus"
             v-model="formData.conference.meeting_type"
+            :class="isFieldEdited('meeting_type') ? 'text-red-500' : ''"
           />
           <RadioInput
             label="การประชุมทางวิชาการที่อยู่ในฐานข้อมูลสากล SCOPUS โดยมีการกำหนดคุณภาพแบ่งเป็น 2 ระดับ "
             name="Scopus"
             value="อยู่ในscopus"
             v-model="formData.conference.meeting_type"
+            :class="isFieldEdited('meeting_type') ? 'text-red-500' : ''"
           />
 
           <SectionWrapper>
@@ -201,12 +219,14 @@
               name="Level"
               value="มาตรฐาน"
               v-model="formData.conference.quality_meeting"
+              :class="isFieldEdited('quality_meeting') ? 'text-red-500' : ''"
             />
             <RadioInput
               label="ระดับดีมาก"
               name="Level"
               value="ดีมาก"
               v-model="formData.conference.quality_meeting"
+              :class="isFieldEdited('quality_meeting') ? 'text-red-500' : ''"
             />
             <SectionWrapper>
               <RadioInput
@@ -214,6 +234,7 @@
                 name="Score"
                 value="SJR"
                 v-model="formData.score.score_type"
+                :class="isFieldEdited('score_type') ? 'text-red-500' : ''"
               />
               <div v-if="formData.score.score_type == 'SJR'">
                 <div class="flex flex-row w-full px-7 my-2">
@@ -223,6 +244,7 @@
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
                     v-model="formData.score.sjr_score"
+                    :class="isFieldEdited('sjr_score') ? 'text-red-500' : ''"
                   />
                   <TextInputLabelLeft
                     label="ปี"
@@ -230,6 +252,7 @@
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
                     v-model="formData.score.sjr_year"
+                    :class="isFieldEdited('sjr_year') ? 'text-red-500' : ''"
                   />
                   <TextInputLabelLeft
                     label="x H-Index"
@@ -237,6 +260,7 @@
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
                     v-model="formData.score.hindex_score"
+                    :class="isFieldEdited('hindex_score') ? 'text-red-500' : ''"
                   />
                   <TextInputLabelLeft
                     label="ปี"
@@ -244,6 +268,7 @@
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
                     v-model="formData.score.hindex_year"
+                    :class="isFieldEdited('hindex_year') ? 'text-red-500' : ''"
                   />
                 </div>
                 <span class="place-self-center"
@@ -256,6 +281,7 @@
                 name="Score"
                 value="CIF"
                 v-model="formData.score.score_type"
+                :class="isFieldEdited('score_type') ? 'text-red-500' : ''"
               />
               <div v-if="formData.score.score_type == 'CIF'">
                 <div class="flex flex-row w-full px-7 my-2">
@@ -265,6 +291,7 @@
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
                     v-model="formData.score.Citation"
+                    :class="isFieldEdited('Citation') ? 'text-red-500' : ''"
                   />
                   <TextInputLabelLeft
                     label="x H-Index"
@@ -272,6 +299,7 @@
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
                     v-model="formData.score.hindex_score"
+                    :class="isFieldEdited('hindex_score') ? 'text-red-500' : ''"
                   />
                 </div>
                 <span class="place-self-center"
@@ -283,6 +311,7 @@
                 name="Score"
                 value="CORE"
                 v-model="formData.score.score_type"
+                :class="isFieldEdited('score_type') ? 'text-red-500' : ''"
               />
               <div v-if="formData.score.score_type == 'CORE'">
                 <div class="flex flex-row w-full px-7 my-2">
@@ -292,6 +321,7 @@
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
                     v-model="formData.score.core_rank"
+                    :class="isFieldEdited('core_rank') ? 'text-red-500' : ''"
                   />
                   <span class="place-self-center">(ตั้งแต่ A ขึ้นไป)</span>
                 </div>
@@ -313,12 +343,14 @@
             value="First Author"
             name="Author"
             v-model="formData.conference.presenter_type"
+            :class="isFieldEdited('presenter_type') ? 'text-red-500' : ''"
           />
           <RadioInput
             label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
             value="Corresponding Author"
             name="Author"
             v-model="formData.conference.presenter_type"
+            :class="isFieldEdited('presenter_type') ? 'text-red-500' : ''"
           />
         </SectionWrapper>
       </Mainbox>
@@ -337,6 +369,7 @@
               name="TimeLeave"
               value="1"
               v-model="formData.conference.time_of_leave"
+              :class="isFieldEdited('time_of_leave') ? 'text-red-500' : ''"
             />
           </SectionWrapper>
 
@@ -360,12 +393,14 @@
                 name="WoS"
                 value="WoS-Q1"
                 v-model="formData.conference.wos_2_leave"
+                :class="isFieldEdited('wos_2_leave') ? 'text-red-500' : ''"
               />
               <RadioInput
                 label="WoS-Q2"
                 name="WoS"
                 value="WoS-Q2"
                 v-model="formData.conference.wos_2_leave"
+                :class="isFieldEdited('wos_2_leave') ? 'text-red-500' : ''"
               />
             </div>
             <div
@@ -376,6 +411,7 @@
                 label="เรื่อง"
                 customLabel="pr-2"
                 v-model="formData.conference.name_2_leave"
+                :class="isFieldEdited('name_2_leave') ? 'text-red-500' : ''"
               />
             </div>
           </SectionWrapper>
@@ -390,12 +426,14 @@
               name="withdraw"
               value="50%"
               v-model="formData.conference.withdraw"
+              :class="isFieldEdited('withdraw') ? 'text-red-500' : ''"
             />
             <RadioInput
               label="ไม่เกิน 100% มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล"
               name="withdraw"
               value="100%"
               v-model="formData.conference.withdraw"
+              :class="isFieldEdited('withdraw') ? 'text-red-500' : ''"
             />
             <div
               v-if="formData.conference.withdraw == '100%'"
@@ -406,30 +444,35 @@
                 name="WoS"
                 value="WoS-Q1"
                 v-model="formData.conference.wd_100_quality"
+                :class="isFieldEdited('wd_100_quality') ? 'text-red-500' : ''"
               />
               <RadioInput
                 label="WoS-Q2"
                 name="WoS"
                 value="WoS-Q2"
                 v-model="formData.conference.wd_100_quality"
+                :class="isFieldEdited('wd_100_quality') ? 'text-red-500' : ''"
               />
               <RadioInput
                 label="WoS-Q3"
                 name="WoS"
                 value="WoS-Q3"
                 v-model="formData.conference.wd_100_quality"
+                :class="isFieldEdited('wd_100_quality') ? 'text-red-500' : ''"
               />
               <RadioInput
                 label="SJR-Q1"
                 name="WoS"
                 value="SJR-Q1"
                 v-model="formData.conference.wd_100_quality"
+                :class="isFieldEdited('wd_100_quality') ? 'text-red-500' : ''"
               />
               <RadioInput
                 label="SJR-Q2"
                 name="WoS"
                 value="SJR-Q2"
                 v-model="formData.conference.wd_100_quality"
+                :class="isFieldEdited('wd_100_quality') ? 'text-red-500' : ''"
               />
             </div>
             <div class="px-7 py-2">
@@ -437,6 +480,7 @@
                 label="เรื่อง"
                 customLabel="pr-2"
                 v-model="formData.conference.wd_name_100"
+                :class="isFieldEdited('wd_100_quality') ? 'text-red-500' : ''"
               />
             </div>
           </SectionWrapper>
@@ -458,6 +502,9 @@
                   customDiv="max-w-max"
                   customInput="max-w-max"
                   v-model="formData.conference.num_register_articles"
+                  :class="
+                    isFieldEdited('num_register_articles') ? 'text-red-500' : ''
+                  "
                 />
                 <TextInputLabelLeft
                   label="บทความ ๆ ละ"
@@ -465,6 +512,11 @@
                   customDiv="max-w-max"
                   customInput="max-w-max"
                   v-model="formData.conference.regist_amount_1_article"
+                  :class="
+                    isFieldEdited('regist_amount_1_article')
+                      ? 'text-red-500'
+                      : ''
+                  "
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -491,6 +543,9 @@
                   customDiv="max-w-[50rem]"
                   customInput="max-w-[50rem]"
                   v-model="formData.conference.domestic_expenses"
+                  :class="
+                    isFieldEdited('domestic_expenses') ? 'text-red-500' : ''
+                  "
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -501,6 +556,9 @@
                   customDiv="max-w-[50rem]"
                   customInput="max-w-[50rem]"
                   v-model="formData.conference.overseas_expenses"
+                  :class="
+                    isFieldEdited('overseas_expenses') ? 'text-red-500' : ''
+                  "
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -511,6 +569,7 @@
                   customDiv="max-w-[30rem]"
                   customInput="max-w-[14rem]"
                   v-model="formData.conference.travel_country"
+                  :class="isFieldEdited('travel_country') ? 'text-red-500' : ''"
                 />
                 <TextInputLabelLeft
                   label="- กรุงเทพฯ"
@@ -518,6 +577,7 @@
                   customDiv="max-w-[20rem]"
                   customInput="max-w-[14rem]"
                   v-model="formData.conference.inter_expenses"
+                  :class="isFieldEdited('inter_expenses') ? 'text-red-500' : ''"
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -530,6 +590,7 @@
                 customDiv="max-w-[52rem]"
                 customInput="max-w-[40rem]"
                 v-model="formData.conference.airplane_tax"
+                :class="isFieldEdited('airplane_tax') ? 'text-red-500' : ''"
               />
               <p class="flex items-center pl-2">บาท</p>
             </div>
@@ -542,6 +603,7 @@
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[19rem]"
                   v-model="formData.conference.num_days_room"
+                  :class="isFieldEdited('num_days_room') ? 'text-red-500' : ''"
                 />
                 <TextInputLabelLeft
                   label="คืน ๆ ละ"
@@ -549,6 +611,9 @@
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[20rem]"
                   v-model="formData.conference.room_cost_per_night"
+                  :class="
+                    isFieldEdited('room_cost_per_night') ? 'text-red-500' : ''
+                  "
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -576,6 +641,9 @@
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[16rem]"
                   v-model="formData.conference.num_travel_days"
+                  :class="
+                    isFieldEdited('num_travel_days') ? 'text-red-500' : ''
+                  "
                 />
                 <TextInputLabelLeft
                   label="วัน ๆ ละ"
@@ -583,6 +651,9 @@
                   customDiv="max-w-[26rem]"
                   customInput="max-w-[20rem]"
                   v-model="formData.conference.daily_allowance"
+                  :class="
+                    isFieldEdited('daily_allowance') ? 'text-red-500' : ''
+                  "
                 />
                 <p class="flex items-center pl-2">บาท</p>
               </div>
@@ -616,7 +687,7 @@
         </SectionWrapper>
       </Mainbox>
       <div class="flex justify-end gap-4 mb-70">
-      <button @click="handleSubmit" class="btn btn-info text-white">
+        <button @click="handleSubmitHaveEdit" class="btn btn-info text-white">
           มีการเปลี่ยนข้อมูลที่ถูกแก้ไข
         </button>
         <button @click="handleSubmit" class="btn btn-success text-white">
@@ -638,10 +709,13 @@ import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 
 const formData = reactive({
-  conference: [],
+  conference: {},
+  originCofer: {},
   user: [],
-  score: [],
+  score: {},
+  originScore: {},
   editForm: [],
+  status: "",
 });
 
 const isLoading = ref(true);
@@ -649,17 +723,119 @@ const isLoading = ref(true);
 const route = useRoute();
 const id = route.params.id;
 
+const getChangedFields = () => {
+  const current = toRaw(formData.conference);
+  const originalConference = formData.originCofer;
+  const changedFields = [];
+  console.log("current", current);
+  console.log("originalConference", originalConference);
+  for (const key in current) {
+    if (JSON.stringify(current[key]) !== JSON.stringify(originalConference[key])) {
+      changedFields.push({
+        field: key,
+        oldValue: originalConference[key],
+        newValue: current[key],
+      });
+    }
+  }
+  return changedFields;
+};
+const getChangedFieldsScore = () => {
+  const current = toRaw(formData.score);
+  const originalScore = formData.originScore;
+  const changedFields = [];
+  console.log("current", current);
+  console.log("originalConference", originalScore);
+  for (const key in current) {
+    if (JSON.stringify(current[key]) !== JSON.stringify(originalScore[key])) {
+      changedFields.push({
+        field: key,
+        oldValue: originalScore[key],
+        newValue: current[key],
+      });
+    }
+  }
+  return changedFields;
+};
+
+const handleSubmitHaveEdit = async () => {
+  const changed = getChangedFields();
+  const changedScore = getChangedFieldsScore();
+  if (changed.length === 0) {
+    alert("ไม่มีการเปลี่ยนแปลงข้อมูล");
+    return;
+  }
+  if (changedScore.length === 0) {
+    alert("ไม่มีการเปลี่ยนแปลงข้อมูล");
+    return;
+  }
+
+  console.log("ฟิลด์ที่ถูกแก้ไข:", changed);
+  console.log("ฟิลด์ที่ถูกแก้ไข changedScore:", changedScore);
+
+  // ถ้าต้องการส่งเฉพาะที่เปลี่ยน:
+  const payload = {};
+  changed.forEach((item) => {
+    payload[item.field] = item.newValue;
+  });
+  changedScore.forEach((item) => {
+    payload[item.field] = item.newValue;
+  });
+
+  try {
+    const dataForBackend = {
+      conf_id: id,
+      edit_data: changed,
+      score: changedScore,
+    };
+    console.log("dataForBackend: ", dataForBackend);
+    await api.put(`/editedFormConfer/${id}`, dataForBackend);
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว editForm");
+  } catch (error) {
+    console.log("Error saving code : ", error);
+    alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+  }
+};
+
+const handleSubmit = async () => {
+  console.log("go to next step ")
+  let form_status = "";
+  if (formData.status == "ฝ่ายบริหารทรัพยากรบุคคล") {
+    form_status = "ฝ่ายบริหารงานวิจัย";
+  } else if (formData.status == "ฝ่ายบริหารงานวิจัย") {
+    form_status = "ฝ่ายบริหารการเงิน";
+  } else if (formData.status == "ฝ่ายบริหารการเงิน") {
+    form_status = "รองคณบดี";
+  }
+  console.log("form_status", form_status)
+  try {
+    const dataForBackend = {
+      conf_id: id,
+      form_status: form_status,
+    };
+    console.log("dataForBackend: ", dataForBackend);
+    await api.put(`/confirmEditedForm/${id}`, dataForBackend);
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว check editForm");
+  } catch (error) {
+    console.log("Error saving code : ", error);
+    alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+  }
+};
+
 const fetchOfficerData = async () => {
   try {
     const responseConfer = await api.get(`/conference/${id}`);
     formData.conference = responseConfer.data;
+    formData.originCofer = JSON.parse(JSON.stringify(responseConfer.data));
 
     const userID = responseConfer.data.user_id;
     const responseUser = await api.get(`/user/${userID}`);
     formData.user = responseUser.data;
+    console.log("formData.user", formData.user);
 
     const responseScore = await api.get(`/score/${id}`);
     formData.score = responseScore.data;
+    formData.originScore = JSON.parse(JSON.stringify(responseScore.data));
 
     const resEdit = await api.get(`/form/${userID}`);
     console.log("data", resEdit.data);
@@ -670,6 +846,8 @@ const fetchOfficerData = async () => {
         resEdit.data[i].conf_id == id
       ) {
         console.log("have edit ja", resEdit.data[i]);
+        console.log("have edit ja", resEdit.data[i].form_status);
+        formData.status = resEdit.data[i].form_status;
         formData.editForm.push(resEdit.data[i].edit_data);
       }
     }
@@ -682,13 +860,11 @@ const fetchOfficerData = async () => {
 };
 const isFieldEdited = (field) => {
   const editDataArray = toRaw(formData.editForm[0] || []);
-  console.log("test edit", editDataArray);
-  console.log("test1", field);
-  console.log(
-    "test",
-    editDataArray.some((item) => item.field === field)
-  );
-  return editDataArray.some((item) => item.field === field);
+  const allEdit = [
+    ...(editDataArray.edit_data || []),
+    ...(editDataArray.score || []),
+  ];
+  return allEdit.some((item) => item.field === field);
 };
 
 onMounted(() => {

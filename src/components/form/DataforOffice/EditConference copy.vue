@@ -728,7 +728,7 @@ import RadioInput from "@/components/Input/RadioInput.vue";
 
 const data = reactive({
   conference: {},
-  oricofer: {},
+  originCofer: {},
   user: [],
   score: [],
 });
@@ -764,7 +764,7 @@ const id = route.params.id;
 // ฟังก์ชันตรวจสอบว่า field ไหนเปลี่ยนแปลง
 const getChangedFields = () => {
   const current = toRaw(data.conference);
-  const originalConference = data.oricofer;
+  const originalConference = data.originCofer;
   const changedFields = [];
   console.log("changedFields", changedFields);
   console.log("current", current);
@@ -815,7 +815,7 @@ const fetchOfficerData = async () => {
   try {
     const responseConfer = await api.get(`/conference/${id}`);
     data.conference = responseConfer.data;
-    data.oricofer = JSON.parse(JSON.stringify(responseConfer.data));;
+    data.originCofer = JSON.parse(JSON.stringify(responseConfer.data));;
 
     const userID = responseConfer.data.user_id;
     const responseUser = await api.get(`/user/${userID}`);
@@ -824,7 +824,7 @@ const fetchOfficerData = async () => {
     const responseScore = await api.get(`/score/${id}`);
     data.score = responseScore.data;
 
-    const originConference = JSON.parse(JSON.stringify(data.oricofer));
+    const originConference = JSON.parse(JSON.stringify(data.originCofer));
     console.log("conference", data.conference);
     console.log("originConference", originConference);
   } catch (error) {

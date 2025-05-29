@@ -81,7 +81,7 @@
             <CheckInput
               label="ISI ได้รับการจัดลำดับ Quartile "
               customDiv="max-w-72 flex items-center"
-              v-model="formData.checkISI"
+              v-model="formData.check"
               value="ISI"
             />
             <TextInputLabelLeft
@@ -129,7 +129,7 @@
             <CheckInput
               label="SJR ได้รับการจัดลำดับ Quartile "
               customDiv="max-w-72 flex items-center"
-              v-model="formData.checkSJR"
+              v-model="formData.check"
               value="SJR"
             />
             <TextInputLabelLeft
@@ -177,7 +177,7 @@
             <CheckInput
               label="Scopus ได้รับการจัดลำดับ Quartile "
               customDiv="max-w-72 flex items-center"
-              v-model="formData.checkScopus"
+              v-model="formData.check"
               value="Scopus"
             />
             <TextInputLabelLeft
@@ -225,7 +225,7 @@
             <CheckInput
               label="Nature"
               customDiv="max-w-72 flex items-center"
-              v-model="formData.nature"
+              v-model="formData.check"
               value="nature"
             />
           </div>
@@ -1151,18 +1151,18 @@ const handleInputArray = (key, event) => {
   console.log("value1", formData[key]);
 };
 
-const handleCheckbox = (key, value) => {
-  handleCheckbox;
-  if (formData[key]) {
-    // If the checkbox is checked, uncheck it and remove the value from the array
-    formData[key] = "";
-    formData.check = formData.check.filter((item) => item !== value);
-  } else {
-    // If the checkbox is unchecked, check it and add the value to the array
-    formData[key] = value;
-    formData.check.push(value);
-  }
-};
+// const handleCheckbox = (key, value) => {
+//   handleCheckbox;
+//   if (formData[key]) {
+//     // If the checkbox is checked, uncheck it and remove the value from the array
+//     formData[key] = "";
+//     formData.check = formData.check.filter((item) => item !== value);
+//   } else {
+//     // If the checkbox is unchecked, check it and add the value to the array
+//     formData[key] = value;
+//     formData.check.push(value);
+//   }
+// };
 
 const handleFile = (event, fieldName) => {
   const file = event.target.files[0];

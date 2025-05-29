@@ -4,6 +4,7 @@
       <p class="text-xl font-bold mb-5">
         ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
       </p>
+      <p>uiuyi</p>
       <Mainbox>
         <SectionWrapper>
           <TextInputLabelLeft
@@ -624,9 +625,10 @@ import RadioInput from "@/components/Input/RadioInput.vue";
 
 const data = reactive({
   conference: {},
-  oricofer: {},
+  originCofer: {},
   user: [],
-  score: [],
+  score: {},
+  originScore: {},
 });
 
 const isLoading = ref(true);
@@ -634,10 +636,9 @@ const isLoading = ref(true);
 const route = useRoute();
 const id = route.params.id;
 
-// ฟังก์ชันตรวจสอบว่า field ไหนเปลี่ยนแปลง
 const getChangedFields = () => {
   const current = toRaw(data.conference);
-  const originalConference = data.oricofer;
+  const originalConference = data.originCofer;
   const changedFields = [];
   console.log("changedFields", changedFields);
   console.log("current", current);
@@ -653,20 +654,47 @@ const getChangedFields = () => {
   }
   return changedFields;
 };
+const getChangedFieldsScore = () => {
+  const current = toRaw(data.score);
+  const originalScore = data.originScore;
+  const changedFields = [];
+  console.log("changedFields", changedFields);
+  console.log("current", current);
+  console.log("originalConference", originalScore);
+  for (const key in current) {
+    if (current[key] !== originalScore[key]) {
+      changedFields.push({
+        field: key,
+        oldValue: originalScore[key],
+        newValue: current[key],
+      });
+    }
+  }
+  return changedFields;
+};
 
 const handleSubmit = async() => {
   const changed = getChangedFields();
+  const changedScore = getChangedFieldsScore();
 
   if (changed.length === 0) {
     alert("ไม่มีการเปลี่ยนแปลงข้อมูล");
     return;
   }
+  if (changedScore.length === 0) {
+    alert("ไม่มีการเปลี่ยนแปลงข้อมูล");
+    return;
+  }
 
   console.log("ฟิลด์ที่ถูกแก้ไข:", changed);
+  console.log("ฟิลด์ที่ถูกแก้ไข changedScore:", changedScore);
 
   // ถ้าต้องการส่งเฉพาะที่เปลี่ยน:
   const payload = {};
   changed.forEach((item) => {
+    payload[item.field] = item.newValue;
+  });
+  changedScore.forEach((item) => {
     payload[item.field] = item.newValue;
   });
 
@@ -674,10 +702,10 @@ const handleSubmit = async() => {
     const dataForBackend = {
       conf_id: id,
       edit_data: changed,
+      score: changedScore,
     }
     console.log("dataForBackend: ",dataForBackend)
-    await api.put(`/editForm/${id}`, dataForBackend)
-    await api.put(`/editFormConfer/${id}`, dataForBackend)
+    await api.put(`/editedFormConfer/${id}`, dataForBackend)
     alert("บันทึกข้อมูลเรียบร้อยแล้ว editForm");
   }catch (error) {
       console.log("Error saving code : ", error);
@@ -689,7 +717,7 @@ const fetchOfficerData = async () => {
   try {
     const responseConfer = await api.get(`/conference/${id}`);
     data.conference = responseConfer.data;
-    data.oricofer = JSON.parse(JSON.stringify(responseConfer.data));;
+    data.originCofer = JSON.parse(JSON.stringify(responseConfer.data));
 
     const userID = responseConfer.data.user_id;
     const responseUser = await api.get(`/user/${userID}`);
@@ -697,10 +725,7 @@ const fetchOfficerData = async () => {
 
     const responseScore = await api.get(`/score/${id}`);
     data.score = responseScore.data;
-
-    const originConference = JSON.parse(JSON.stringify(data.oricofer));
-    console.log("conference", data.conference);
-    console.log("originConference", originConference);
+    data.originScore = JSON.parse(JSON.stringify(responseScore.data));
   } catch (error) {
     console.log("Error fetching Officer data:", error);
   } finally {

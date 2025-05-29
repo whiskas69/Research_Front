@@ -262,7 +262,8 @@ const fetchOfficerData = async () => {
       return false;
     });
     for (let i = 0; i < filteredForms.length; i++) {
-      if (filteredForms.length > 0 && filteredForms[i].edit_data == null) {
+      //&& filteredForms[i].edit_data == null
+      if (filteredForms.length > 0 ) {
         listForm.forms = filteredForms;
         listForm.nameC = responseOffice.data.confer;
         listForm.nameP = responseOffice.data.pageC;
