@@ -85,15 +85,15 @@
           <SectionWrapper>
             <p></p>
             <TextInputLabelLeft
-              label="ปประเทศใกล้เคียง (ASEAN) ได้เบิก"
+              label="ประเทศใกล้เคียง (ASEAN) ได้เบิก"
               customLabel="w-4/12 mr-2"
             />
             <TextInputLabelLeft
-              label="ปประเทศเอเชีย ได้เบิก"
+              label="ประเทศเอเชีย ได้เบิก"
               customLabel="w-4/12 mr-2"
             />
             <TextInputLabelLeft
-              label="ปประเทศประเทศในโซนยุโรป หรือ อเมริกาเหนือ หรือ อเมริกาใต้ หรือ ออสเตรเลีย หรือ แอฟริกา ได้เบิก"
+              label="ประเทศประเทศในโซนยุโรป หรือ อเมริกาเหนือ หรือ อเมริกาใต้ หรือ ออสเตรเลีย หรือ แอฟริกา ได้เบิก"
               customLabel="w-4/12 mr-2"
             />
           </SectionWrapper>
@@ -104,15 +104,15 @@
           <SectionWrapper>
             <p></p>
             <TextInputLabelLeft
-              label="ปประเทศใกล้เคียง (ASEAN) ได้เบิก"
+              label="ประเทศใกล้เคียง (ASEAN) ได้เบิก"
               customLabel="w-4/12 mr-2"
             />
             <TextInputLabelLeft
-              label="ปประเทศเอเชีย ได้เบิก"
+              label="ประเทศเอเชีย ได้เบิก"
               customLabel="w-4/12 mr-2"
             />
             <TextInputLabelLeft
-              label="ปประเทศประเทศในโซนยุโรป หรือ อเมริกาเหนือ หรือ อเมริกาใต้ หรือ ออสเตรเลีย หรือ แอฟริกา ได้เบิก"
+              label="ประเทศประเทศในโซนยุโรป หรือ อเมริกาเหนือ หรือ อเมริกาใต้ หรือ ออสเตรเลีย หรือ แอฟริกา ได้เบิก"
               customLabel="w-4/12 mr-2"
             />
           </SectionWrapper>
