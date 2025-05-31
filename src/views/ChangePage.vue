@@ -8,6 +8,7 @@
         <TextInputLabelLeft
           label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Nature"
           customLabel="w-4/12 mr-2"
+          v-model="formData.pageChange.natureAmount"
         />
         <SectionWrapper>
           <p>วารสารอยู่ในฐานข้อมูลสากล ISI, SJR หรือ Scopus</p>
@@ -16,10 +17,12 @@
             <TextInputLabelLeft
               label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 1"
               customLabel="w-4/12 mr-2"
+              v-model="formData.pageChange.mdpiFrontiersHindawi.quartile1"
             />
             <TextInputLabelLeft
               label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 2"
               customLabel="w-4/12 mr-2"
+              v-model="formData.pageChange.mdpiFrontiersHindawi.quartile2"
             />
           </SectionWrapper>
           <SectionWrapper>
@@ -27,21 +30,30 @@
             <TextInputLabelLeft
               label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 1"
               customLabel="w-4/12 mr-2"
+              v-model="formData.pageChange.otherPublisher.quartile1"
             />
             <TextInputLabelLeft
               label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 2"
               customLabel="w-4/12 mr-2"
+              v-model="formData.pageChange.otherPublisher.quartile2"
             />
             <TextInputLabelLeft
               label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 3"
               customLabel="w-4/12 mr-2"
+              v-model="formData.pageChange.otherPublisher.quartile3"
             />
             <TextInputLabelLeft
               label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 4"
               customLabel="w-4/12 mr-2"
+              v-model="formData.pageChange.otherPublisher.quartile4"
             />
           </SectionWrapper>
         </SectionWrapper>
+        <div class="flex justify-end mx-10">
+          <button @click="submitPC" class="btn btn-success text-white">
+            บันทึกข้อมูล
+          </button>
+        </div>
       </SectionWrapper>
     </Mainbox>
 
@@ -52,14 +64,17 @@
         <TextInputLabelLeft
           label="จำนวนครั้งในการลามากที่สุด"
           customLabel="w-4/12 mr-2"
+          v-model="formData.conference.maxLeave"
         />
         <TextInputLabelLeft
-          label="พนักงานที่ม่เคยไปประชุมวิชาการ ต้องทำงานไม่เกินกี่ปี"
+          label="พนักงานที่ไม่เคยไปประชุมวิชาการ ต้องทำงานไม่เกินกี่ปี"
           customLabel="w-4/12 mr-2"
+          v-model="formData.conference.firstTimeYears"
         />
         <TextInputLabelLeft
           label="วารสารใน WOS Q1 ,2 ,3 หรือ SJR Q1, 2 ไม่เกินกี่ปี"
           customLabel="w-4/12 mr-2"
+          v-model="formData.conference.journalYears"
         />
         <SectionWrapper>
           <p>ระดับคะแนนคุณภาพของการประชุมวิชาการ (ดีมาก)</p>
@@ -68,14 +83,17 @@
             <TextInputLabelLeft
               label="คำนวณแบบ SJR ได้คะแนนไม่ต่ำกว่า"
               customLabel="w-4/12 mr-2"
+              v-model="formData.conference.qualityScoreSJR"
             />
             <TextInputLabelLeft
               label="คำนวณแบบ CIF ได้คะแนนไม่ต่ำกว่า"
               customLabel="w-4/12 mr-2"
+              v-model="formData.conference.qualityScoreCIF"
             />
             <TextInputLabelLeft
               label="คำนวณแบบ CORE ได้คะแนนไม่ต่ำกว่า"
               customLabel="w-4/12 mr-2"
+              v-model="formData.conference.qualityScoreCORE"
             />
           </SectionWrapper>
         </SectionWrapper>
@@ -87,14 +105,17 @@
             <TextInputLabelLeft
               label="ประเทศใกล้เคียง (ASEAN) ได้เบิก"
               customLabel="w-4/12 mr-2"
+              v-model="formData.conference.expense100ASEAN"
             />
             <TextInputLabelLeft
               label="ประเทศเอเชีย ได้เบิก"
               customLabel="w-4/12 mr-2"
+              v-model="formData.conference.expense100Asia"
             />
             <TextInputLabelLeft
               label="ประเทศประเทศในโซนยุโรป หรือ อเมริกาเหนือ หรือ อเมริกาใต้ หรือ ออสเตรเลีย หรือ แอฟริกา ได้เบิก"
               customLabel="w-4/12 mr-2"
+              v-model="formData.conference.expense100EuropeAmericaAustraliaAfrica"
             />
           </SectionWrapper>
         </SectionWrapper>
@@ -106,27 +127,89 @@
             <TextInputLabelLeft
               label="ประเทศใกล้เคียง (ASEAN) ได้เบิก"
               customLabel="w-4/12 mr-2"
+              v-model="formData.conference.expense50ASEAN"
             />
             <TextInputLabelLeft
               label="ประเทศเอเชีย ได้เบิก"
               customLabel="w-4/12 mr-2"
+              v-model="formData.conference.expense50Asia"
             />
             <TextInputLabelLeft
-              label="ประเทศประเทศในโซนยุโรป หรือ อเมริกาเหนือ หรือ อเมริกาใต้ หรือ ออสเตรเลีย หรือ แอฟริกา ได้เบิก"
+              label="ประเทศประเทศในโซนยุโรป, อเมริกาเหนือ, อเมริกาใต้, ออสเตรเลีย หรือ แอฟริกา ได้เบิก"
               customLabel="w-4/12 mr-2"
+              v-model="formData.conference.expense50EuropeAmericaAustraliaAfrica"
             />
           </SectionWrapper>
         </SectionWrapper>
+        <div class="flex justify-end mx-10">
+          <button @click="submitCF" class="btn btn-success text-white">
+            บันทึกข้อมูล
+          </button>
+        </div>
       </SectionWrapper>
     </Mainbox>
   </div>
 </template>
 
 <script setup>
+import { computed, onMounted, reactive } from "vue";
+import api from "@/setting/api";
+
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
-import RadioInput from "@/components/Input/RadioInput.vue";
-import FileInput from "@/components/Input/FileInput.vue";
-import location from "@/location.json";
+
+//manage data
+const formData = reactive({
+  pageChange: {
+    natureAmount: "",
+    mdpiFrontiersHindawi: {
+      quartile1: "",
+      quartile2: "",
+    },
+    otherPublisher: {
+      quartile1: "",
+      quartile2: "",
+      quartile3: "",
+      quartile4: "",
+    },
+  },
+
+  conference: {
+    maxLeave: "",
+    workTimeYears: "",
+    journalYears: "",
+    qualityScoreSJR: "",
+    qualityScoreCIF: "",
+    qualityScoreCORE: "",
+    expense100ASEAN: "",
+    expense100Asia: "",
+    expense100EuropeAmericaAustraliaAfrica: "",
+    expense50ASEAN: "",
+    expense50Asia: "",
+    expense50EuropeAmericaAustraliaAfrica: "",
+  },
+});
+
+const submitPC = async () => {
+  try {
+    const dataForBackend = {
+      natureAmount: parseInt(formData.pageChange.natureAmount) || 0,
+      mdpiQuartile1: parseInt(formData.pageChange.mdpiFrontiersHindawi.quartile1) || 0,
+      mdpiQuartile2: parseInt(formData.pageChange.mdpiFrontiersHindawi.quartile2) || 0,
+      otherQuartile1: parseInt(formData.pageChange.otherPublisher.quartile1) || 0,
+      otherQuartile2: parseInt(formData.pageChange.otherPublisher.quartile2) || 0,
+      otherQuartile3: parseInt(formData.pageChange.otherPublisher.quartile3) || 0,
+      otherQuartile4: parseInt(formData.pageChange.otherPublisher.quartile4) || 0,
+    };
+
+    console.log("Submitting page change data:", dataForBackend);
+    
+    const response = await api.post("/ConditionPC", dataForBackend);
+    alert("บันทึกข้อมูลสำเร็จ");
+  } catch (error) {
+    console.error("Error submitting page change:", error);
+    alert("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+  }
+};
 </script>
