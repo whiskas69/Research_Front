@@ -282,11 +282,7 @@
                     customLabel="w-auto mr-1"
                     customDiv="max-w-max"
                     customInput="max-w-max mr-3"
-                    :placeholder="
-                      data.score.core_rank
-                        ? data.score.core_rank.toUpperCase()
-                        : ''
-                    "
+                    v-model="data.score.core_rank"
                   />
                   <span class="place-self-center">(ตั้งแต่ A ขึ้นไป)</span>
                 </div>
@@ -614,7 +610,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, watch, toRaw } from "vue";
+import { ref, onMounted, reactive, toRaw } from "vue";
 import { useRoute } from "vue-router";
 import api from "@/setting/api";
 
@@ -676,12 +672,10 @@ const getChangedFieldsScore = () => {
 const handleSubmit = async() => {
   const changed = getChangedFields();
   const changedScore = getChangedFieldsScore();
+  console.log("changed confer", changed)
+  console.log("changed score", changedScore)
 
-  if (changed.length === 0) {
-    alert("ไม่มีการเปลี่ยนแปลงข้อมูล");
-    return;
-  }
-  if (changedScore.length === 0) {
+  if (changed.length === 0 && changedScore.length === 0) {
     alert("ไม่มีการเปลี่ยนแปลงข้อมูล");
     return;
   }

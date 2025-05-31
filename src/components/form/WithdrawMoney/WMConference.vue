@@ -1,9 +1,9 @@
 <template>
   <div class="container my-10 mx-auto">
+    <p class="text-2xl font-bold text-center my-10">ขออนุมัติเบิกเงินรายได้</p>
     <p class="text-xl font-bold mb-5">
-      ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
+      การเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
     </p>
-    <p>uiuyi</p>
     <Mainbox>
       <SectionWrapper>
         <TextInputLabelLeft
@@ -46,7 +46,6 @@
         </p>
       </SectionWrapper>
     </Mainbox>
-
     <!-- 1.  รายละเอียดการขออนุมัติเดินทาง -->
     <Mainbox>
       <p class="leading-9 text-lg font-bold">
@@ -180,300 +179,6 @@
         </div>
       </SectionWrapper>
     </Mainbox>
-
-    <!-- 2.  รายละเอียดการขออนุมัติเดินทาง -->
-    <Mainbox>
-      <p class="leading-9 text-lg font-bold">
-        2.  รายละเอียดการขออนุมัติเดินทาง
-      </p>
-      <SectionWrapper>
-        <RadioInput
-          label="การประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ และไม่อยู่ในฐานข้อมูลสากล SCOPUS"
-          name="Scopus"
-          value="คณะจัด ไม่อยู่scopus"
-          :disabled="true"
-          v-model="data.conference.meeting_type"
-        />
-        <RadioInput
-          label="การประชุมทางวิชาการที่อยู่ในฐานข้อมูลสากล SCOPUS โดยมีการกำหนดคุณภาพแบ่งเป็น 2 ระดับ "
-          name="Scopus"
-          value="อยู่ในscopus"
-          :disabled="true"
-          v-model="data.conference.meeting_type"
-        />
-
-        <SectionWrapper>
-          <RadioInput
-            label="ระดับมาตรฐาน"
-            name="Level"
-            value="มาตรฐาน"
-            :disabled="true"
-            v-model="data.conference.quality_meeting"
-          />
-          <RadioInput
-            label="ระดับดีมาก"
-            name="Level"
-            value="ดีมาก"
-            :disabled="true"
-            v-model="data.conference.quality_meeting"
-          />
-          <SectionWrapper>
-            <RadioInput
-              label="ใช้คะแนนที่คำนวณจาก SJR indicator และ H Index ที่ได้มาจาก SCImago Journal & Country Rank"
-              name="Score"
-              value="SJR"
-              :disabled="true"
-              v-model="data.score.score_type"
-            />
-            <div v-if="data.score.score_type == 'SJR'">
-              <div class="flex flex-row w-full px-7 my-2">
-                <TextInputLabelLeft
-                  label="• ค่า SJR"
-                  customLabel="w-auto mr-1"
-                  customDiv="max-w-max"
-                  customInput="max-w-max mr-3"
-                  :disabled="true"
-                  v-model="data.score.sjr_score"
-                />
-                <TextInputLabelLeft
-                  label="ปี"
-                  customLabel="w-auto mr-1"
-                  customDiv="max-w-max"
-                  customInput="max-w-max mr-3"
-                  :disabled="true"
-                  v-model="data.score.sjr_year"
-                />
-                <TextInputLabelLeft
-                  label="x H-Index"
-                  customLabel="w-auto mr-1"
-                  customDiv="max-w-max"
-                  customInput="max-w-max mr-3"
-                  :disabled="true"
-                  v-model="data.score.hindex_score"
-                />
-                <TextInputLabelLeft
-                  label="ปี"
-                  customLabel="w-auto mr-1"
-                  customDiv="max-w-max"
-                  customInput="max-w-max mr-3"
-                  :disabled="true"
-                  v-model="data.score.hindex_year"
-                />
-              </div>
-              <span class="place-self-center"
-                >มีค่าคะแนน = {{ data.score.score_result }} คะแนน</span
-              >
-            </div>
-
-            <RadioInput
-              label="ใช้ผลการจัดระดับ CIF (Conference Impact Factor)"
-              name="Score"
-              value="CIF"
-              :disabled="true"
-              v-model="data.score.score_type"
-            />
-            <div v-if="data.score.score_type == 'CIF'">
-              <div class="flex flex-row w-full px-7 my-2">
-                <TextInputLabelLeft
-                  label="• ค่า citation total"
-                  customLabel="w-auto mr-1"
-                  customDiv="max-w-max"
-                  customInput="max-w-max mr-3"
-                  :disabled="true"
-                  v-model="data.score.Citation"
-                />
-                <TextInputLabelLeft
-                  label="x H-Index"
-                  customLabel="w-auto mr-1"
-                  customDiv="max-w-max"
-                  customInput="max-w-max mr-3"
-                  :disabled="true"
-                  v-model="data.score.hindex_score"
-                />
-              </div>
-              <span class="place-self-center"
-                >มีค่าคะแนน = {{ data.score.score_result }} คะแนน</span
-              >
-            </div>
-            <RadioInput
-              label="ใช้ผลการจัดระดับ CORE Conference Ranking"
-              name="Score"
-              value="CORE"
-              :disabled="true"
-              v-model="data.score.score_type"
-            />
-            <div v-if="data.score.score_type == 'CORE'">
-              <div class="flex flex-row w-full px-7 my-2">
-                <TextInputLabelLeft
-                  label="• ค่า"
-                  customLabel="w-auto mr-1"
-                  customDiv="max-w-max"
-                  customInput="max-w-max mr-3"
-                  :disabled="true"
-                  v-model="data.score.core_rank"
-                />
-                <span class="place-self-center">(ตั้งแต่ A ขึ้นไป)</span>
-              </div>
-              <p class="px-7 text-sm text-red-500">
-                เช็คคะแนนได้จาก http://portal.core.edu.au/conf-ranks
-              </p>
-            </div>
-          </SectionWrapper>
-        </SectionWrapper>
-      </SectionWrapper>
-    </Mainbox>
-
-    <!-- 3. ผู้ขอรับการสนับสนุน -->
-    <Mainbox>
-      <p class="text-lg font-bold">3. ผู้ขอรับการสนับสนุน</p>
-      <SectionWrapper>
-        <RadioInput
-          label="ผู้ประพันธ์อันดับแรก First Author"
-          value="First Author"
-          name="Author"
-          :disabled="true"
-          v-model="data.conference.presenter_type"
-        />
-        <RadioInput
-          label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
-          value="Corresponding Author"
-          name="Author"
-          :disabled="true"
-          v-model="data.conference.presenter_type"
-        />
-      </SectionWrapper>
-    </Mainbox>
-
-    <!-- 4.  การลาและการขอเบิกค่าลงทะเบียนและค่าใช้จ่ายอื่น ๆ -->
-    <Mainbox>
-      <p class="text-lg font-bold">
-        4.  การลาและการขอเบิกค่าลงทะเบียนและค่าใช้จ่ายอื่น ๆ
-      </p>
-
-      <SectionWrapper>
-        <p class="font-bold text-base pt-3">4.1 ครั้งที่ในการลา</p>
-        <SectionWrapper>
-          <RadioInput
-            label="ครั้งที่ 1"
-            name="TimeLeave"
-            value="1"
-            :disabled="true"
-            v-model="data.conference.time_of_leave"
-          />
-        </SectionWrapper>
-
-        <SectionWrapper>
-          <RadioInput
-            label="ครั้งที่ 2"
-            name="TimeLeave"
-            value="2"
-            :disabled="true"
-            v-model="data.conference.time_of_leave"
-          />
-          <p class="py-1 px-7">
-            ในกรณีลาครั้งที่ 2 (การประชุมฯ ณ ต่างประเทศ)
-            มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล
-          </p>
-          <div
-            v-if="data.conference.time_of_leave == 2"
-            class="flex flex-row px-7 mt-1"
-          >
-            <RadioInput
-              label="WoS-Q1"
-              name="WoS"
-              value="WoS-Q1"
-              :disabled="true"
-              v-model="data.conference.wos_2_leave"
-            />
-            <RadioInput
-              label="WoS-Q2"
-              name="WoS"
-              value="WoS-Q2"
-              :disabled="true"
-              v-model="data.conference.wos_2_leave"
-            />
-          </div>
-          <div v-if="data.conference.time_of_leave == 2" class="px-7 py-2">
-            <TextInputLabelLeft
-              label="เรื่อง"
-              customLabel="pr-2"
-              :disabled="true"
-              v-model="data.conference.name_2_leave"
-            />
-          </div>
-        </SectionWrapper>
-
-        <p class="font-bold text-base pt-3">
-          4.2 กรณีที่จัดการประชุมฯ ณ ต่างประเทศ
-        </p>
-        <SectionWrapper>
-          <p>ขอเบิกค่าลงทะเบียนตามที่จ่ายจริง และค่าใช้จ่ายอื่น ๆ</p>
-          <RadioInput
-            label="ไม่เกิน 50%"
-            name="withdraw"
-            value="50%"
-            :disabled="true"
-            v-model="data.conference.withdraw"
-          />
-          <RadioInput
-            label="ไม่เกิน 100% มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล"
-            name="withdraw"
-            value="100%"
-            :disabled="true"
-            v-model="data.conference.withdraw"
-          />
-          <div
-            v-if="data.conference.withdraw == '100%'"
-            class="flex flex-row px-7 mt-1"
-          >
-            <RadioInput
-              label="WoS-Q1"
-              name="WoS"
-              value="WoS-Q1"
-              :disabled="true"
-              v-model="data.conference.wd_100_quality"
-            />
-            <RadioInput
-              label="WoS-Q2"
-              name="WoS"
-              value="WoS-Q2"
-              :disabled="true"
-              v-model="data.conference.wd_100_quality"
-            />
-            <RadioInput
-              label="WoS-Q3"
-              name="WoS"
-              value="WoS-Q3"
-              :disabled="true"
-              v-model="data.conference.wd_100_quality"
-            />
-            <RadioInput
-              label="SJR-Q1"
-              name="WoS"
-              value="SJR-Q1"
-              :disabled="true"
-              v-model="data.conference.wd_100_quality"
-            />
-            <RadioInput
-              label="SJR-Q2"
-              name="WoS"
-              value="SJR-Q2"
-              :disabled="true"
-              v-model="data.conference.wd_100_quality"
-            />
-          </div>
-          <div class="px-7 py-2">
-            <TextInputLabelLeft
-              label="เรื่อง"
-              customLabel="pr-2"
-              :disabled="true"
-              v-model="data.conference.wd_name_100"
-            />
-          </div>
-        </SectionWrapper>
-      </SectionWrapper>
-    </Mainbox>
-
     <!-- รายการค่าใช้จ่ายที่ขอเบิกจ่าย -->
     <Mainbox>
       <SectionWrapper>
@@ -653,6 +358,27 @@
         </SectionWrapper>
       </SectionWrapper>
     </Mainbox>
+    <!-- ตั้งเบิก -->
+     <Mainbox>
+        <SectionWrapper>
+            <TextInputLabelLeft
+            label="ขออนุมัติเป็นจำนวนเงิน"
+            />
+            <TextInputLabelLeft
+            label="เบิกได้"
+            />
+            <p>ค่าใช้จ่าย</p>
+            <TextInputLabelLeft
+            label="ค่าเดินทาง"
+            />
+            <TextInputLabelLeft
+            label="ค่าเบี้ยเลี้ยง"
+            />
+            <TextInputLabelLeft
+            label="รวมเป็นเงิน"
+            />
+        </SectionWrapper>
+     </Mainbox>
   </div>
 </template>
 
