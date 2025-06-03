@@ -9,7 +9,7 @@
           label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Nature"
           customLabel="w-4/12 mr-2"
           v-model="formData.pageChange.natureAmount"
-        />
+          />
         <SectionWrapper>
           <p>วารสารอยู่ในฐานข้อมูลสากล ISI, SJR หรือ Scopus</p>
           <SectionWrapper>
@@ -69,7 +69,7 @@
         <TextInputLabelLeft
           label="พนักงานที่ไม่เคยไปประชุมวิชาการ ต้องทำงานไม่เกินกี่ปี"
           customLabel="w-4/12 mr-2"
-          v-model="formData.conference.firstTimeYears"
+          v-model="formData.conference.workTimeYears"
         />
         <TextInputLabelLeft
           label="วารสารใน WOS Q1 ,2 ,3 หรือ SJR Q1, 2 ไม่เกินกี่ปี"
@@ -191,16 +191,56 @@ const formData = reactive({
   },
 });
 
+const fetchData = async () => {
+  try {
+    const response = await api.get("/getConditionPC");
+    const data = response.data[0] || {};
+    formData.pageChange.natureAmount = data.natureAmount || "";
+    formData.pageChange.mdpiFrontiersHindawi.quartile1 =
+      data.mdpiQuartile1 || "";
+    formData.pageChange.mdpiFrontiersHindawi.quartile2 =
+      data.mdpiQuartile2 || "";
+    formData.pageChange.otherPublisher.quartile1 =
+      data.otherQuartile1 || "";
+    formData.pageChange.otherPublisher.quartile2 =
+      data.otherQuartile2 || "";
+    formData.pageChange.otherPublisher.quartile3 =
+      data.otherQuartile3 || "";
+    formData.pageChange.otherPublisher.quartile4 =
+      data.otherQuartile4 || "";
+
+    const responseCF = await api.get("/getConditionCF");
+    const dataCF = responseCF.data[0] || {};
+    formData.conference.maxLeave = dataCF.maxLeave || "";
+    formData.conference.workTimeYears = dataCF.workTimeYears || "";
+    formData.conference.journalYears = dataCF.journalYears || "";
+    formData.conference.qualityScoreSJR = dataCF.qualityScoreSJR || "";
+    formData.conference.qualityScoreCIF = dataCF.qualityScoreCIF || "";
+    formData.conference.qualityScoreCORE = dataCF.qualityScoreCORE || "";
+    formData.conference.expense100ASEAN = dataCF.expense100ASEAN || "";
+    formData.conference.expense100Asia = dataCF.expense100Asia || "";
+    formData.conference.expense100EuropeAmericaAustraliaAfrica =
+      dataCF.expense100EuropeAmericaAustraliaAfrica || "";
+    formData.conference.expense50ASEAN = dataCF.expense50ASEAN || "";
+    formData.conference.expense50Asia = dataCF.expense50Asia || "";
+    formData.conference.expense50EuropeAmericaAustraliaAfrica =
+      dataCF.expense50EuropeAmericaAustraliaAfrica || "";
+
+  } catch (error) {
+    console.error("Error fetching condition data:", error);
+  }
+};
+
 const submitPC = async () => {
   try {
     const dataForBackend = {
-      natureAmount: parseInt(formData.pageChange.natureAmount) || 0,
-      mdpiQuartile1: parseInt(formData.pageChange.mdpiFrontiersHindawi.quartile1) || 0,
-      mdpiQuartile2: parseInt(formData.pageChange.mdpiFrontiersHindawi.quartile2) || 0,
-      otherQuartile1: parseInt(formData.pageChange.otherPublisher.quartile1) || 0,
-      otherQuartile2: parseInt(formData.pageChange.otherPublisher.quartile2) || 0,
-      otherQuartile3: parseInt(formData.pageChange.otherPublisher.quartile3) || 0,
-      otherQuartile4: parseInt(formData.pageChange.otherPublisher.quartile4) || 0,
+      natureAmount: parseInt(formData.pageChange.natureAmount),
+      mdpiQuartile1: parseInt(formData.pageChange.mdpiFrontiersHindawi.quartile1),
+      mdpiQuartile2: parseInt(formData.pageChange.mdpiFrontiersHindawi.quartile2),
+      otherQuartile1: parseInt(formData.pageChange.otherPublisher.quartile1),
+      otherQuartile2: parseInt(formData.pageChange.otherPublisher.quartile2),
+      otherQuartile3: parseInt(formData.pageChange.otherPublisher.quartile3),
+      otherQuartile4: parseInt(formData.pageChange.otherPublisher.quartile4),
     };
 
     console.log("Submitting page change data:", dataForBackend);
@@ -212,4 +252,40 @@ const submitPC = async () => {
     alert("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
   }
 };
+const submitCF = async () => {
+  try {
+    const dataForBackend = {
+      maxLeave: parseInt(formData.conference.maxLeave),
+      workTimeYears: parseInt(formData.conference.workTimeYears),
+      journalYears: parseInt(formData.conference.journalYears),
+      qualityScoreSJR: parseFloat(formData.conference.qualityScoreSJR),
+      qualityScoreCIF: parseFloat(formData.conference.qualityScoreCIF),
+      qualityScoreCORE: parseFloat(formData.conference.qualityScoreCORE),
+      expense100ASEAN: parseFloat(formData.conference.expense100ASEAN),
+      expense100Asia: parseFloat(formData.conference.expense100Asia),
+      expense100EuropeAmericaAustraliaAfrica: parseFloat(
+        formData.conference.expense100EuropeAmericaAustraliaAfrica
+      ),
+      expense50ASEAN: parseFloat(formData.conference.expense50ASEAN),
+      expense50Asia: parseFloat(formData.conference.expense50Asia),
+      expense50EuropeAmericaAustraliaAfrica: parseFloat(
+        formData.conference.expense50EuropeAmericaAustraliaAfrica
+      ),
+    };
+
+    
+    console.log("Submitting page change data:", dataForBackend);
+    
+    const response = await api.post("/ConditionCF", dataForBackend);
+    alert("บันทึกข้อมูลสำเร็จ");
+  } catch (error) {
+    console.error("Error submitting conference data:", error);
+    alert("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+    
+  }
+}
+
+onMounted(() => {
+  fetchData();
+});
 </script>

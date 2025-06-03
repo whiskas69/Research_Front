@@ -76,7 +76,7 @@
     <!-- menu -->
     <div class="flex-auto w-full flex-row">
       <ul class="menu menu-horizontal px-5 flex">
-        <div v-if="user" class="flex flex-row">
+        <template v-if="user">
           <li v-if="!isAdmin && !isProfessor" class="justify-center">
             <router-link to="/homepage">ยื่นเอกสาร</router-link>
           </li>
@@ -84,7 +84,7 @@
           <li v-if="!isAdmin" class="justify-center">
             <details>
               <summary>สถานะเอกสาร</summary>
-              <ul class="bg-base-100 rounded-t-none px-1 -full">
+              <ul class="bg-base-100 rounded-t-none px-1">
                 <li><router-link to="/mystatus">สถานะเอกสาร</router-link></li>
                 <li>
                   <router-link to="/myhistory">ประวัติการยื่น</router-link>
@@ -115,7 +115,7 @@
           <li v-if="isApprover" class="justify-center">
             <router-link to="/allhistory">เอกสารที่อนุมัติแล้ว</router-link>
           </li>
-        </div>
+        </template>
 
         <li class="justify-center">
           <router-link to="/">สรุปผลแบบสถิติ</router-link>
@@ -202,10 +202,10 @@
       </div> -->
 
       <!-- สำหรับนักวิจัย -->
-      <NotificationBell type="pro" />
+      <!-- <NotificationBell type="pro" /> -->
 
       <!-- สำหรับเจ้าหน้าที่ -->
-      <NotificationBell type="officer" />
+      <!-- <NotificationBell type="officer" /> -->
     </div>
 
     <div v-if="!userStore.user">
