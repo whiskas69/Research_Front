@@ -699,8 +699,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, toRaw } from "vue";
-import { useRoute } from "vue-router";
+import { ref, onMounted, reactive, toRaw, computed } from "vue";
+import { useUserStore } from "@/store/userStore";
+import { useRouter, useRoute } from "vue-router";
 import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
@@ -718,8 +719,12 @@ const formData = reactive({
   status: "",
 });
 
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
+
 const isLoading = ref(true);
 // Access route parameters
+const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 
@@ -787,10 +792,13 @@ const handleSubmitHaveEdit = async () => {
       conf_id: id,
       edit_data: changed,
       score: changedScore,
+      editor: userStore.user.user_nameth,
+      professor_reedit: true,
     };
     console.log("dataForBackend: ", dataForBackend);
     await api.put(`/editedFormConfer/${id}`, dataForBackend);
     alert("บันทึกข้อมูลเรียบร้อยแล้ว editForm");
+    router.push("/mystatus");
   } catch (error) {
     console.log("Error saving code : ", error);
     alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
@@ -816,6 +824,7 @@ const handleSubmit = async () => {
     console.log("dataForBackend: ", dataForBackend);
     await api.put(`/confirmEditedForm/${id}`, dataForBackend);
     alert("บันทึกข้อมูลเรียบร้อยแล้ว check editForm");
+    router.push("/mystatus");
   } catch (error) {
     console.log("Error saving code : ", error);
     alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");

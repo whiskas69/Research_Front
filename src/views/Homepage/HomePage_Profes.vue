@@ -81,7 +81,10 @@
                 <div class="flex">
                   <h4 class="mr-5">ชื่อบทความ : {{ editForm.article_title }}</h4>
                 </div>
-                
+                <div class="flex">
+                  <h4 class="mr-5">ผู้แก้ไขเอกสาร : {{ editForm.editor }} </h4>
+                  <h4 class="mr-5">วันที่แก้ไข : {{ formatThaiDate(editForm.date_form_edit) }}</h4>
+                </div>
               </div>
             </div>
           </router-link>
@@ -102,6 +105,10 @@
                 </div>
                 <div class="flex">
                   <h4 class="mr-5">ชื่อบทความ : {{ editForm.article_title }}</h4>
+                </div>
+                <div class="flex">
+                  <h4 class="mr-5">ผู้แก้ไขเอกสาร : {{ editForm.editor }} </h4>
+                  <h4 class="mr-5">วันที่แก้ไข : {{ formatThaiDate(editForm.date_form_edit) }}</h4>
                 </div>
               </div>
             </div>
@@ -135,6 +142,20 @@ if (!userStore.user.user_signature) {
   alert("กรุณาอัปโหลดลายเซ้นต์");
   router.push("/profile");
 }
+
+const formatThaiDate = (dateString) => {
+    console.log("formatThaiDate input: ", dateString);
+    const date = new Date(dateString);
+    const months = [
+      "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", 
+      "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."
+    ];
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear() + 543;
+    console.log("new date: ",`${day} ${month} ${year}`)
+    return `${day} ${month} ${year}`;
+  };
 
 const getData = async () => {
   console.log("id", data.id);

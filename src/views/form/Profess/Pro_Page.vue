@@ -288,7 +288,7 @@
           />
 
           <div
-            v-for="index in formData.numcoResearchers || null || 0"
+            v-for="index in parseInt(formData.numcoResearchers)  || 0"
             :key="index"
           >
             <div class="flex flex-row gap-4">
