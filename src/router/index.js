@@ -51,6 +51,8 @@ import summary from "@/views/Summary.vue";
 
 import ChangePage from '@/views/ChangePage.vue'
 
+import testlogin from '@/views/testlogin.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -281,6 +283,12 @@ const router = createRouter({
       name: "ChangePage",
       component: ChangePage,
       meta: { requiresAuth: true, role: ["admin"] },
+    },
+    {
+      path: "/testlogin",
+      name: "testlogin",
+      component: testlogin,
+      meta: { requiresAuth: false },
     }
   ],
 });

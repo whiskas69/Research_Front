@@ -1,25 +1,21 @@
 <template>
-  <div class="">
-    <div
-      class="h-[91.9vh] bg-cover bg-center flex justify-center items-center"
-      style="background-image: url('/images/background.png')"
-    >
-      <div class="text-center bg-white w-1/4 rounded-md drop-shadow-lg p-5">
-        <p class="text-2xl leading-relaxed">RESEARCH ADMINISTRATION</p>
-        <p class="text-xl leading-relaxed pb-5">
-          ระบบสนับสนุนงานบริหารงานวิจัย
-        </p>
-        <div class="flex justify-center">
-          <hr class="w-5/6" />
-        </div>
-        <p class="text-lg leading-relaxed pt-5 pb-3">
-          ยืนยันตัวตนด้วยบริการของ Google
-        </p>
-        <button class="btn w-[80%] border-[#e5e5e5]" @click="login">
-          <img :src="GoogleLogo" class="w-10" alt="Google Logo" />Login With
-          Google
-        </button>
+  <div
+    class="fixed inset-0 overflow-hidden bg-cover bg-center flex justify-center items-center"
+    style="background-image: url('/images/background.png')"
+  >
+    <div class="text-center bg-white w-1/4 rounded-md drop-shadow-lg p-5">
+      <p class="text-2xl leading-relaxed">RESEARCH ADMINISTRATION</p>
+      <p class="text-xl leading-relaxed pb-5">ระบบสนับสนุนงานบริหารงานวิจัย</p>
+      <div class="flex justify-center">
+        <hr class="w-5/6" />
       </div>
+      <p class="text-lg leading-relaxed pt-5 pb-3">
+        ยืนยันตัวตนด้วยบริการของ Google
+      </p>
+      <button class="btn w-[80%] border-[#e5e5e5]" @click="login">
+        <img :src="GoogleLogo" class="w-10" alt="Google Logo" />Login With
+        Google
+      </button>
     </div>
   </div>
 </template>
@@ -41,7 +37,6 @@ const login = async () => {
       scope: "openid profile email",
       ux_mode: "popup",
       callback: async (response) => {
-
         if (response.code) {
           try {
             //backend api
@@ -61,19 +56,12 @@ const login = async () => {
             await userStore.fetchUser(); //load user data before login
 
             const currentUser = userStore.user;
-
-            if (currentUser?.user_role == "professor") {
-              // location.reload();
+            if (currentUser?.user_role === "professor") {
               router.push("/homepage");
-            } else if (
-              currentUser?.user_role !== "professor" ||
-              currentUser?.user_role !== "admin"
-            ) {
-              // location.reload();
-              router.push("/Officer");
-            } else if (currentUser?.user_role == "admin") {
-              // location.reload();
+            } else if (currentUser?.user_role === "admin") {
               router.push("/admin");
+            } else {
+              router.push("/Officer");
             }
           } catch (error) {
             alert(error.response.data.message);
