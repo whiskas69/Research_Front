@@ -66,7 +66,6 @@
               v-model="formData.pageChange.quality_journal"
             />
             <TextInputLabelLeft
-              v-if="formData.checkISI == 'ISI'"
               label="ปี"
               customLabel="mr-2"
               customInput="max-w-max"
@@ -74,7 +73,6 @@
               v-model="formData.pageChange.pc_isi_year"
             />
             <TextInputLabelLeft
-              v-if="formData.checkISI == 'ISI'"
               label="ลำดับ Quartile"
               customLabel="mr-2"
               customInput="max-w-max"
@@ -82,7 +80,6 @@
               v-model="formData.pageChange.qt_isi"
             />
             <TextInputLabelLeft
-              v-if="formData.checkISI == 'ISI'"
               label="Impact Factor"
               customLabel="w-28 mx-2"
               customInput="max-w-max"
@@ -99,7 +96,6 @@
               v-model="formData.pageChange.quality_journal"
             />
             <TextInputLabelLeft
-              v-if="formData.checkSJR == 'SJR'"
               label="ปี"
               customLabel="mr-2"
               customInput="max-w-max"
@@ -107,7 +103,6 @@
               v-model="formData.pageChange.pc_sjr_year"
             />
             <TextInputLabelLeft
-              v-if="formData.checkSJR == 'SJR'"
               label="ลำดับ Quartile"
               customLabel="mr-2"
               customInput="max-w-max"
@@ -115,7 +110,6 @@
               v-model="formData.pageChange.qt_sjr"
             />
             <TextInputLabelLeft
-              v-if="formData.checkSJR == 'SJR'"
               label="SJR Score"
               customLabel="w-28 mx-2"
               customInput="max-w-max"
@@ -132,7 +126,6 @@
               v-model="formData.pageChange.quality_journal"
             />
             <TextInputLabelLeft
-              v-if="formData.checkScopus == 'Scopus'"
               label="ปี"
               customLabel="mr-2"
               customInput="max-w-max"
@@ -140,7 +133,6 @@
               v-model="formData.pageChange.pc_scopus_year"
             />
             <TextInputLabelLeft
-              v-if="formData.checkScopus == 'Scopus'"
               label="ลำดับ Quartile"
               customLabel="mr-2"
               customInput="max-w-max"
@@ -148,7 +140,6 @@
               v-model="formData.pageChange.qt_scopus"
             />
             <TextInputLabelLeft
-              v-if="formData.checkScopus == 'Scopus'"
               label="Cite Score"
               customLabel="w-28 mx-2"
               customInput="max-w-max"
@@ -398,8 +389,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, toRaw } from "vue";
-import { useRoute } from "vue-router";
+import { ref, onMounted, reactive, toRaw, computed } from "vue";
+import { useUserStore } from "@/store/userStore";
+import { useRouter, useRoute } from "vue-router";
 import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
@@ -421,9 +413,13 @@ const formData = reactive({
   nature: "",
 });
 
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
+
 //isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
 const isLoading = ref(true);
 // Access route parameters
+const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
@@ -467,10 +463,13 @@ const handleSubmit = async() => {
     const dataForBackend = {
       pageC_id: id,
       edit_data: changed,
+      editor: userStore.user.user_nameth,
+      professor_reedit: false,
     }
     console.log("dataForBackend: ",dataForBackend)
     await api.put(`/editedFormPageChage/${id}`, dataForBackend)
     alert("บันทึกข้อมูลเรียบร้อยแล้ว editForm");
+    router.push("/officer");
   }catch (error) {
       console.log("Error saving code : ", error);
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
@@ -531,5 +530,11 @@ const loopdata = async () => {
 onMounted(async () => {
   await fetchProfessorData();
   loopdata();
+  if (!userStore.user) {
+    await userStore.fetchUser();
+  }
+  await userStore.fetchUser();
+  data.id = user.value?.user_id;
+  await getData();
 });
 </script>
