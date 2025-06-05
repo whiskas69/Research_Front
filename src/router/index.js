@@ -54,8 +54,8 @@ import Profile from "@/views/Profile.vue";
 import summary from "@/views/Summary.vue";
 
 import ChangePage from '@/views/ChangePage.vue'
-
 import testlogin from '@/views/testlogin.vue'
+import Notification from "@/views/Notification.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -305,6 +305,12 @@ const router = createRouter({
       name: "testlogin",
       component: testlogin,
       meta: { requiresAuth: false },
+    },
+    {
+      path: "/notification",
+      name: "Notification",
+      component: Notification,
+      meta: { requiresAuth: true },
     }
   ],
 });
