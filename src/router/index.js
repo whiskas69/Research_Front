@@ -46,6 +46,10 @@ import offic_associatePage from "@/views/form/Officer/PageCharge/AssociatePage.v
 import offic_deanPage from "@/views/form/Officer/PageCharge/DeanPage.vue";
 
 import offic_Kris from "@/views/form/Officer/Kris.vue";
+
+import WMConference from "@/components/form/WithdrawMoney/WMConference.vue";
+import WMPageCharge from "@/components/form/WithdrawMoney/WMPageCharge.vue";
+
 import Profile from "@/views/Profile.vue";
 import summary from "@/views/Summary.vue";
 
@@ -237,6 +241,18 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path: "/withdrawMoney/Conference/:id",
+      name: "WMConference",
+      component: WMConference,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/withdrawMoney/pageCharge/:id",
+      name: "WMPageCharge",
+      component: WMPageCharge,
+      meta: { requiresAuth: true },
+    },
+    {
       path: "/profile",
       name: "Profile",
       component: Profile,
@@ -306,7 +322,8 @@ router.beforeEach(async (to, from, next) => {
     
     // เช็คว่า user ยังไม่ได้ล็อกอิน (ไม่พบ userRole)
     if (!userStore.userRole) {
-      return next("/login"); // ถ้ายังไม่ได้ล็อกอิน ให้ไปหน้า login
+      // return next("/login"); // ถ้ายังไม่ได้ล็อกอิน ให้ไปหน้า login
+      return next("/testlogin");
     }
   }
 

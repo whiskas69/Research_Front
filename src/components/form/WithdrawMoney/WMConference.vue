@@ -37,13 +37,6 @@
             v-model="data.conference.conf_days"
           />
         </div>
-        <p class="text-blue-500 text-sm">
-          สามารถตรวจสอบรายชื่อ List ของคณะได้ที่เว็บไซต์คณะที่ Share
-          online-การวิจัย และ
-          <a href="https://erp.it.kmitl.ac.th/journal_conf_list"
-            >https://erp.it.kmitl.ac.th/journal_conf_list</a
-          >
-        </p>
       </SectionWrapper>
     </Mainbox>
     <!-- 1.  รายละเอียดการขออนุมัติเดินทาง -->

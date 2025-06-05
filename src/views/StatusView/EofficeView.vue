@@ -194,7 +194,7 @@ const addapproved = async (formId) => {
     console.log("updateStatus: ", updateStatus);
     console.log("Requesting URL: ", `http://localhost:3002/form/${formId}`);
     const response = await api.put(
-      `http://localhost:3002/form/${formId}`,
+      `/form/${formId}`,
       updateStatus,
       {
         headers: {
