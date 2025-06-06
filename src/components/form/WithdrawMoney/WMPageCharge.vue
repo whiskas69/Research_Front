@@ -42,7 +42,7 @@
     <!-- 1.  รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์  -->
     <Mainbox>
       <p class="leading-9 text-lg font-bold">
-        1.  รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์
+        รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์
       </p>
       <SectionWrapper>
         <TextInputLabelLeft
@@ -208,37 +208,37 @@
     <Mainbox>
       <p class="leading-9 text-lg font-bold">อนุมัติเบิกเงินรายได้</p>
       <SectionWrapper>
-        <div class="flex flex-row bg-slate-100">
-          <p class="w-2/12 bg-red-200">กองทุน</p>
-          <p class="w-2/12 bg-yellow-200">พัฒนาบุคคลกร</p>
+        <div class="flex flex-row">
+          <p class="w-2/12">กองทุน</p>
+          <p class="w-2/12">พัฒนาบุคคลกร</p>
         </div>
 
-        <div class="flex flex-row bg-slate-100">
-          <p class="w-2/12 bg-red-200">งบรายจ่าย</p>
-          <p class="w-2/12 bg-yellow-200">งบดำเนินงาน</p>
+        <div class="flex flex-row">
+          <p class="w-2/12">งบรายจ่าย</p>
+          <p class="w-2/12">งบดำเนินงาน</p>
         </div>
 
-        <div class="flex flex-row bg-slate-100">
-          <p class="w-2/12 bg-red-200">ประเภทรายจ่าย</p>
-          <p class="w-2/12 bg-yellow-200">ค่าใช้สอย</p>
+        <div class="flex flex-row">
+          <p class="w-2/12">ประเภทรายจ่าย</p>
+          <p class="w-2/12">ค่าใช้สอย</p>
         </div>
 
-        <div class="flex flex-row bg-slate-100">
-          <p class="w-2/12 bg-red-200">ค่าใช้จ่าย</p>
-          <p class="w-2/12 bg-yellow-200">
+        <div class="flex flex-row">
+          <p class="w-2/12">ค่าใช้จ่าย</p>
+          <p class="w-2/12">
             ค่าตีพิมพ์บทความในวารสารนานาชาติ (Page Charge)
           </p>
         </div>
 
-        <div class="flex flex-row bg-slate-100">
+        <div class="flex flex-row">
           <TextInputLabelLeft
-            label="จำนวน"
-            customLabel="w-2/12 mx-2"
-            customInput="max-w-max"
-            customDiv="max-w-max"
-            v-model="formData.withdraw"
-          />
-          <p class="w-2/12 bg-red-200">บาท</p>
+              label="จำนวน"
+              customLabel="w-6/12 mr-4"
+              customInput="max-w-max"
+              customDiv="max-w-[30%]"
+              v-model="formData.withdraw"
+            />
+            <span class="flex items-center">บาท</span>
         </div>
       </SectionWrapper>
     </Mainbox>
@@ -272,8 +272,7 @@ const formData = reactive({
   checkScopus: "",
   nature: "",
 
-  withdraw: "",
-  sumMoney: "",
+  withdraw: 0,
 });
 
 //isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
@@ -330,11 +329,10 @@ const submitWithdrawMoney = async () => {
   try {
     const dataForBackend = {
       withdraw: formData.withdraw,
-      sumMoney: formData.sumMoney,
     };
     console.log("dataForBackend: ", dataForBackend);
-    await api.put(`/confirmEditedForm/${id}`, dataForBackend);
-    alert("บันทึกข้อมูลเรียบร้อยแล้ว check editForm");
+    await api.put(`/withdraw/pageCharge/${id}`, dataForBackend);
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว withdraw pc");
     router.push("/officer");
   } catch (error) {
     console.log("Error saving code : ", error);

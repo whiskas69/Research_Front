@@ -32,7 +32,6 @@ import Pro_Kris from "@/views/form/Profess/Pro_Kris.vue";
 
 import Modi_Confer from "@/components/form/ModifiedForm/ConferenceModi.vue"
 import Modi_Page from "@/components/form/ModifiedForm/PageChangeModi.vue"
-import Modi_Kris from "@/components/form/ModifiedForm/KrisModi.vue"
 
 import offic_hrConfer from "@/views/form/Officer/Conference/HRConfer.vue";
 import offic_resConfer from "@/views/form/Officer/Conference/ResearchConfer.vue";
@@ -47,6 +46,7 @@ import offic_deanPage from "@/views/form/Officer/PageCharge/DeanPage.vue";
 
 import offic_Kris from "@/views/form/Officer/Kris.vue";
 
+import AllWithdrawMoney from "@/views/AllWithdrawMoney.vue";
 import WMConference from "@/components/form/WithdrawMoney/WMConference.vue";
 import WMPageCharge from "@/components/form/WithdrawMoney/WMPageCharge.vue";
 
@@ -232,6 +232,12 @@ const router = createRouter({
       path: "/status/Kris/:id",
       name: "StatusKris",
       component: StatusKRISView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/allWithdrawMoney",
+      name: "AllWithdrawMoney",
+      component: AllWithdrawMoney,
       meta: { requiresAuth: true },
     },
     {
