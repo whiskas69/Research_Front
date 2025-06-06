@@ -157,12 +157,6 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: "/modifiedKris/:id",
-      name: "ModifiedKris",
-      component: Modi_Kris,
-      meta: { requiresAuth: true },
-    },
-    {
       path: "/officFormConfer/hr/:id",
       name: "officFormConferHr",
       component: offic_hrConfer,
