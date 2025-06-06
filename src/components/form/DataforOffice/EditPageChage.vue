@@ -261,11 +261,6 @@
                 value="วิจัยพื้นฐาน"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
-                :checked="
-                  formData.pageChange.research_type == 'วิจัยพื้นฐาน'
-                    ? true
-                    : false
-                "
                 v-model="formData.pageChange.research_type"
               />
               <RadioInput
@@ -273,11 +268,6 @@
                 value="วิจัยประยุกต์"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
-                :checked="
-                  formData.pageChange.research_type == 'วิจัยประยุกต์'
-                    ? true
-                    : false
-                "
                 v-model="formData.pageChange.research_type"
               />
               <RadioInput
@@ -285,11 +275,6 @@
                 value="วิจัยและพัฒนา"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
-                :checked="
-                  formData.pageChange.research_type == 'วิจัยและพัฒนา'
-                    ? true
-                    : false
-                "
                 v-model="formData.pageChange.research_type"
               />
               <div class="flex flex-row">
@@ -298,11 +283,6 @@
                   value="วิจัยอื่น ๆ"
                   name="type"
                   customDiv="max-w-fit mr-2 flex items-center"
-                  :checked="
-                    formData.pageChange.research_type == 'วิจัยอื่น ๆ'
-                      ? true
-                      : false
-                  "
                   v-model="formData.pageChange.research_type"
                 />
                 <TextInputLabelLeft
@@ -345,22 +325,12 @@
             label="ผู้ประพันธ์อันดับแรก First Author"
             value="First Author"
             name="Author"
-            :checked="
-              formData.pageChange.presenter_type == 'First Author'
-                ? true
-                : false
-            "
             v-model="formData.pageChange.presenter_type"
           />
           <RadioInput
             label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
             value="Corresponding Author"
             name="Author"
-            :checked="
-              formData.pageChange.presenter_type == 'Corresponding Author'
-                ? true
-                : false
-            "
             v-model="formData.pageChange.presenter_type"
           />
         </SectionWrapper>

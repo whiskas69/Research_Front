@@ -1,7 +1,7 @@
 <template>
   <div class="Main">
     <div class="container my-10 mx-auto">
-      <p class="text-xl font-bold mb-5">เอกสารต้องตรวจตอบ</p>
+      <p class="text-xl font-bold mb-5">เอกสารต้องตรวจสอบ</p>
 
       <!-- Loop forms ทั้งหมด -->
       <div v-for="form in listForm.forms" :key="form.form_id">
