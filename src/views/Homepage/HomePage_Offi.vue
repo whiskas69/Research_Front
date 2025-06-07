@@ -222,8 +222,6 @@ const listForm = reactive({
   nameK: [],
 });
 
-// console.log("user", userStore.user)
-
 if (!userStore.user.user_signature) {
   alert("กรุณาอัปโหลดลายเซ้นต์");
   router.push("/profile");
@@ -262,7 +260,7 @@ const fetchOfficerData = async () => {
       return false;
     });
     for (let i = 0; i < filteredForms.length; i++) {
-      if (filteredForms.length > 0 && filteredForms[i].professor_reedit == true) {
+      if (filteredForms.length > 0 || filteredForms[i].professor_reedit == true) {
         listForm.forms = filteredForms;
         listForm.nameC = responseOffice.data.confer;
         listForm.nameP = responseOffice.data.pageC;
