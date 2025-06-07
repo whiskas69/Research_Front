@@ -41,9 +41,7 @@
     </Mainbox>
     <!-- 1.  รายละเอียดการขออนุมัติเดินทาง -->
     <Mainbox>
-      <p class="leading-9 text-lg font-bold">
-        1. รายละเอียดการขออนุมัติเดินทาง
-      </p>
+      <p class="leading-9 text-lg font-bold">รายละเอียดการขออนุมัติเดินทาง</p>
       <SectionWrapper>
         <div class="flex flex-row">
           <TextInputLabelLeft
@@ -174,8 +172,8 @@
     </Mainbox>
     <!-- รายการค่าใช้จ่ายที่ขอเบิกจ่าย -->
     <Mainbox>
+      <p class="leading-9 text-lg font-bold">รายการค่าใช้จ่ายที่ขอเบิกจ่าย</p>
       <SectionWrapper>
-        <p class="leading-9 text-lg font-bold">รายการค่าใช้จ่ายที่ขอเบิกจ่าย</p>
         <SectionWrapper>
           <div class="flex flex-row mb-2 justify-between">
             <div class="flex flex-row">
@@ -352,32 +350,73 @@
       </SectionWrapper>
     </Mainbox>
     <!-- ตั้งเบิก -->
-     <Mainbox>
-        <SectionWrapper>
+    <Mainbox>
+      <p class="leading-9 text-lg font-bold">อนุมัติเบิกเงินรายได้</p>
+      <SectionWrapper>
+        <div class="flex flex-row">
+          <p class="w-2/12">กองทุน</p>
+          <p class="w-2/12">พัฒนาบุคคลกร</p>
+        </div>
+
+        <div class="flex flex-row">
+          <p class="w-2/12">งบรายจ่าย</p>
+          <p class="w-2/12">ค่าใช้จ่ายงบเงินอุดหนุน</p>
+        </div>
+
+        <div class="flex flex-row">
+          <p class="w-2/12">ประเภทรายจ่าย</p>
+          <p class="max-w-max">ทุนอุดหนุนการเดินทางไปเสนอบทความทางวิชาการ</p>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <div class="flex flex-row">
+            <p class="w-1/12 mt-2">ค่าใช้จ่าย</p>
             <TextInputLabelLeft
-            label="ขออนุมัติเป็นจำนวนเงิน"
+              label="ค่าเดินทาง"
+              customLabel="w-3/12 mr-10"
+              customInput="max-w-max"
+              customDiv="max-w-[21%]"
+              v-model="data.travelExpenses"
             />
+            <span class="flex items-center">บาท</span>
+          </div>
+
+          <div class="flex flex-row">
+            <p class="w-1/12"></p>
             <TextInputLabelLeft
-            label="เบิกได้"
+              label="ค่าเบี้ยเลี้ยง"
+              customLabel="w-3/12 mr-10"
+              customInput="max-w-max"
+              customDiv="max-w-[21%]"
+              v-model="data.allowance"
             />
-            <p>ค่าใช้จ่าย</p>
-            <TextInputLabelLeft
-            label="ค่าเดินทาง"
-            />
-            <TextInputLabelLeft
-            label="ค่าเบี้ยเลี้ยง"
-            />
-            <TextInputLabelLeft
-            label="รวมเป็นเงิน"
-            />
-        </SectionWrapper>
-     </Mainbox>
+            <span class="flex items-center">บาท</span>
+          </div>
+        </div>
+
+        <div class="flex flex-row">
+          <TextInputLabelLeft
+            label="จำนวน"
+            customLabel="w-6/12 mr-6"
+            customInput="max-w-max"
+            customDiv="max-w-[29%]"
+            v-model="sumWithdraw"
+          />
+          <span class="flex items-center">บาท</span>
+        </div>
+      </SectionWrapper>
+    </Mainbox>
+    <div class="flex justify-end mb-70">
+      <button @click="submitWithdrawMoney" class="btn btn-success text-white">
+        บันทึกข้อมูล
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
-import { useRoute } from "vue-router";
+import { ref, onMounted, reactive, computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
@@ -389,12 +428,22 @@ const data = reactive({
   conference: [],
   user: [],
   score: [],
+
+  travelExpenses: 0,
+  allowance: 0,
+  withdraw: 0,
 });
 
 const isLoading = ref(true);
 // Access route parameters
+const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
+
+const sumWithdraw =computed(() => {
+  data.withdraw = parseFloat(data.travelExpenses) + parseFloat(data.allowance)
+  return data.withdraw
+})
 
 const fetchOfficerData = async () => {
   try {
@@ -413,6 +462,24 @@ const fetchOfficerData = async () => {
     isLoading.value = false;
   }
 };
+
+const submitWithdrawMoney = async () => {
+  try {
+    const dataForBackend = {
+      travelExpenses: parseFloat(data.travelExpenses),
+      allowance: parseFloat(data.allowance),
+      withdraw: data.withdraw,
+    };
+    console.log("dataForBackend: ", dataForBackend);
+    await api.put(`/withdraw/conference/${id}`, dataForBackend);
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว withdraw cf");
+    router.push("/officer");
+  } catch (error) {
+    console.log("Error saving code : ", error);
+    alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+  }
+};
+
 onMounted(() => {
   fetchOfficerData();
 });
