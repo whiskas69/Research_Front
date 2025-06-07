@@ -128,7 +128,7 @@ import api from "@/setting/api";
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
-import PageChageData from "@/components/form/DataforOffice/EditPageChage.vue";
+import PageChageData from "@/components/form/EditForm/EditPageChage.vue";
 import Research from "@/components/form/DataforOffice/Research.vue";
 
 const formData = reactive({

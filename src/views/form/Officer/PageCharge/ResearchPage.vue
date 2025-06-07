@@ -169,7 +169,7 @@ import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
-import PageChageData from "@/components/form/DataforOffice/EditPageChage.vue";
+import PageChageData from "@/components/form/EditForm/EditPageChage.vue";
 
 const formData = reactive({
   file: "",
