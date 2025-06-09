@@ -4,7 +4,6 @@
       <p class="text-xl font-bold mb-5">
         ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
       </p>
-      <p>iopp</p>
       <Mainbox>
         <SectionWrapper>
           <TextInputLabelLeft
@@ -45,11 +44,12 @@
         </SectionWrapper>
       </Mainbox>
       <!-- 1.  รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์  -->
-      <Mainbox>
-        <p class="leading-9 text-lg font-bold">
+      <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title leading-9 text-lg font-bold">
           1.  รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์
         </p>
-        <SectionWrapper>
+        <SectionWrapper class="collapse-content">
           <TextInputLabelLeft
             label="ชื่อวารสาร"
             name="Input"
@@ -172,18 +172,17 @@
       </Mainbox>
 
       <!-- 2. รายละเอียดผลงานวิจัยที่ส่งเสนอพิจารณา / ได้รับการตอบรับให้ตีพิมพ์ -->
-      <Mainbox>
-        <p class="leading-9 text-lg font-bold">
+      <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title leading-9 text-lg font-bold">
           2. รายละเอียดผลงานวิจัยที่ส่งเสนอพิจารณา / ได้รับการตอบรับให้ตีพิมพ์
         </p>
-        <SectionWrapper>
+        <SectionWrapper class="collapse-content">
           <TextInputLabelLeft
             label="ชื่อบทความ"
             customLabel="w-auto min-w-fit"
             v-model="formData.pageChange.article_title"
           />
-        </SectionWrapper>
-        <div>
           <p>กำหนดการที่คาดว่าจะได้รับการลงตีพิมพ์ในวารสาร</p>
           <div class="flex flex-row mt-2 justify-between">
             <TextInputLabelLeft
@@ -315,12 +314,13 @@
               />
             </div>
           </SectionWrapper>
-        </div>
+        </SectionWrapper>
       </Mainbox>
       <!-- 3. ผู้ขอรับการสนับสนุน -->
-      <Mainbox>
-        <p class="text-lg font-bold">3. ผู้ขอรับการสนับสนุน</p>
-        <SectionWrapper>
+      <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title text-lg font-bold">3. ผู้ขอรับการสนับสนุน</p>
+        <SectionWrapper class="collapse-content">
           <RadioInput
             label="ผู้ประพันธ์อันดับแรก First Author"
             value="First Author"
@@ -336,11 +336,12 @@
         </SectionWrapper>
       </Mainbox>
       <!-- 4. ขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge) -->
-      <Mainbox>
-        <p class="leading-9 text-lg font-bold">
+      <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title leading-9 text-lg font-bold">
           4. ขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge)
         </p>
-        <SectionWrapper>
+        <SectionWrapper class="collapse-content">
           <TextInputLabelLeft
             label="จำนวนเงิน"
             customLabel="w-auto min-w-fit"
@@ -374,7 +375,8 @@ import CheckInput from "@/components/Input/CheckInput.vue";
 const formData = reactive({
   pageChange: {},
   originPc: {},
-  user: [],
+  userForm: [],
+  name:"",
 
   check: [],
   checkISI: "",
@@ -433,12 +435,12 @@ const handleSubmit = async() => {
     const dataForBackend = {
       pageC_id: id,
       edit_data: changed,
-      editor: userStore.user.user_nameth,
+      editor: formData.name,
       professor_reedit: false,
     }
     console.log("dataForBackend: ",dataForBackend)
     await api.put(`/editedFormPageChage/${id}`, dataForBackend)
-    alert("บันทึกข้อมูลเรียบร้อยแล้ว editForm");
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
     router.push("/officer");
   }catch (error) {
       console.log("Error saving code : ", error);
@@ -450,7 +452,7 @@ const fetchProfessorData = async () => {
     const responsePC = await api.get(`/page_charge/${id}`);
     const userID = responsePC.data.user_id;
     const responseUser = await api.get(`/user/${userID}`);
-    formData.user = responseUser.data;
+    formData.userForm = responseUser.data;
 
     console.log("get user: ", formData.user);
     console.log("get userid: ", responsePC.data.user_id);
@@ -500,11 +502,7 @@ const loopdata = async () => {
 onMounted(async () => {
   await fetchProfessorData();
   loopdata();
-  if (!userStore.user) {
-    await userStore.fetchUser();
-  }
   await userStore.fetchUser();
-  data.id = user.value?.user_id;
-  await getData();
+  formData.name = user.value?.user_nameth || "";
 });
 </script>
