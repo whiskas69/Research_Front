@@ -4,20 +4,19 @@
       <p class="text-xl font-bold mb-5">
         ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
       </p>
-      <p>uiuyi</p>
       <Mainbox>
         <SectionWrapper>
           <TextInputLabelLeft
             label="ชื่อ"
             customLabel="w-2/12 text-lg font-bold"
             :disabled="true"
-            v-model="data.user.user_nameth"
+            v-model="data.userForm.user_nameth"
           />
           <TextInputLabelLeft
             label="ตำแหน่ง"
             customLabel="w-2/12 text-lg font-bold"
             :disabled="true"
-            v-model="data.user.user_positionth"
+            v-model="data.userForm.user_positionth"
           />
 
           <div class="flex flex-row">
@@ -47,11 +46,12 @@
       </Mainbox>
 
       <!-- 1.  รายละเอียดการขออนุมัติเดินทาง -->
-      <Mainbox>
-        <p class="leading-9 text-lg font-bold">
+      <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title leading-9 text-lg font-bold">
           1. รายละเอียดการขออนุมัติเดินทาง
         </p>
-        <SectionWrapper>
+        <SectionWrapper class="collapse-content">
           <div class="flex flex-row">
             <TextInputLabelLeft
               label="เดินทางวันที่"
@@ -168,11 +168,12 @@
       </Mainbox>
 
       <!-- 2.  รายละเอียดการขออนุมัติเดินทาง -->
-      <Mainbox>
-        <p class="leading-9 text-lg font-bold">
+      <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title leading-9 text-lg font-bold">
           2.  รายละเอียดการขออนุมัติเดินทาง
         </p>
-        <SectionWrapper>
+        <SectionWrapper class="collapse-content">
           <RadioInput
             label="การประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ และไม่อยู่ในฐานข้อมูลสากล SCOPUS"
             name="Scopus"
@@ -296,9 +297,10 @@
       </Mainbox>
 
       <!-- 3. ผู้ขอรับการสนับสนุน -->
-      <Mainbox>
-        <p class="text-lg font-bold">3. ผู้ขอรับการสนับสนุน</p>
-        <SectionWrapper>
+      <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title text-lg font-bold">3. ผู้ขอรับการสนับสนุน</p>
+        <SectionWrapper class="collapse-content">
           <RadioInput
             label="ผู้ประพันธ์อันดับแรก First Author"
             value="First Author"
@@ -315,12 +317,12 @@
       </Mainbox>
 
       <!-- 4.  การลาและการขอเบิกค่าลงทะเบียนและค่าใช้จ่ายอื่น ๆ -->
-      <Mainbox>
-        <p class="text-lg font-bold">
+      <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title text-lg font-bold">
           4.  การลาและการขอเบิกค่าลงทะเบียนและค่าใช้จ่ายอื่น ๆ
         </p>
-
-        <SectionWrapper>
+        <SectionWrapper class="collapse-content">
           <p class="font-bold text-base pt-3">4.1 ครั้งที่ในการลา</p>
           <SectionWrapper>
             <RadioInput
@@ -432,11 +434,12 @@
       </Mainbox>
 
       <!-- รายการค่าใช้จ่ายที่ขอเบิกจ่าย -->
-      <Mainbox>
-        <SectionWrapper>
-          <p class="leading-9 text-lg font-bold">
-            รายการค่าใช้จ่ายที่ขอเบิกจ่าย
-          </p>
+      <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title leading-9 text-lg font-bold">
+          รายการค่าใช้จ่ายที่ขอเบิกจ่าย
+        </p>
+        <SectionWrapper class="collapse-content">
           <SectionWrapper>
             <div class="flex flex-row mb-2 justify-between">
               <div class="flex flex-row">
@@ -459,7 +462,7 @@
               <p class="flex items-center">
                 รวม
                 {{
-                  parseFloat(data.conference.total_amount).toLocaleString(
+                  parseFloat(totalAmount).toLocaleString(
                     "en-US",
                     {
                       minimumFractionDigits: 2,
@@ -543,9 +546,9 @@
               <p class="flex items-center">
                 รวม
                 {{
-                  data.conference.total_room == null
+                  totalRoom == null
                     ? 0
-                    : parseFloat(data.conference.total_room).toLocaleString(
+                    : parseFloat(totalRoom).toLocaleString(
                         "en-US",
                         {
                           minimumFractionDigits: 2,
@@ -577,10 +580,10 @@
               <p class="flex items-center">
                 รวม
                 {{
-                  data.conference.total_allowance == null
+                  totalAllowance == null
                     ? 0
                     : parseFloat(
-                        data.conference.total_allowance
+                        totalAllowance
                       ).toLocaleString("en-US", {
                         minimumFractionDigits: 2,
                       })
@@ -591,7 +594,7 @@
             <p class="font-bold text-2xl pt-5 text-right">
               รวมทั้งสิ้น
               {{
-                parseFloat(data.conference.all_money).toLocaleString("en-US", {
+                parseFloat(allTotal).toLocaleString("en-US", {
                   minimumFractionDigits: 2,
                 })
               }}
@@ -610,8 +613,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, toRaw } from "vue";
-import { useRoute } from "vue-router";
+import { ref, onMounted, reactive, toRaw, computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
@@ -619,17 +623,22 @@ import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
+
 const data = reactive({
   conference: {},
   originCofer: {},
-  user: [],
+  userForm: [],
   score: {},
   originScore: {},
   form_id: 0,
+  name: "",
 });
 
 const isLoading = ref(true);
 // Access route parameters
+const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 
@@ -641,7 +650,7 @@ const fetchOfficerData = async () => {
 
     const userID = responseConfer.data.user_id;
     const responseUser = await api.get(`/user/${userID}`);
-    data.user = responseUser.data;
+    data.userForm = responseUser.data;
 
     const responseScore = await api.get(`/score/${id}`);
     data.score = responseScore.data;
@@ -652,6 +661,32 @@ const fetchOfficerData = async () => {
     isLoading.value = false;
   }
 };
+
+const totalAmount = computed(() => {
+  data.conference.total_amount = data.conference.num_register_articles * data.conference.regist_amount_1_article;
+  return data.conference.total_amount;
+});
+const totalRoom = computed(() => {
+  data.conference.total_room = data.conference.num_days_room * data.conference.room_cost_per_night;
+  return data.conference.total_room;
+});
+const totalAllowance = computed(() => {
+  data.conference.total_allowance = data.conference.num_travel_days * data.conference.daily_allowance;
+  return data.conference.total_allowance;
+});
+
+const allTotal = computed(() => {
+  data.conference.all_money =
+    (parseFloat(data.conference.total_amount) || 0) +
+    (parseFloat(data.conference.domestic_expenses) || 0) +
+    (parseFloat(data.conference.overseas_expenses) || 0) +
+    (parseFloat(data.conference.inter_expenses) || 0) +
+    (parseFloat(data.conference.airplane_tax) || 0) +
+    (parseFloat(data.conference.total_room) || 0) +
+    (parseFloat(data.conference.total_allowance) || 0);
+
+  return data.conference.all_money;
+});
 
 const getChangedFields = () => {
   const current = toRaw(data.conference);
@@ -718,17 +753,22 @@ const handleSubmit = async() => {
       conf_id: id,
       edit_data: changed,
       score: changedScore,
+      editor: data.name,
+      professor_reedit: false,
     }
     console.log("dataForBackend: ",dataForBackend)
     await api.put(`/editedFormConfer/${id}`, dataForBackend)
-    alert("บันทึกข้อมูลเรียบร้อยแล้ว editForm");
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+    router.push("/officer");
   }catch (error) {
       console.log("Error saving code : ", error);
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
     }
 };
 
-onMounted(() => {
+onMounted(async () => {
   fetchOfficerData();
+  await userStore.fetchUser();
+  data.name = user.value?.user_nameth || "";
 });
 </script>

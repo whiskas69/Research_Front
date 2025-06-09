@@ -94,17 +94,23 @@ const fetchOfficerData = async () => {
     // กรองข้อมูลตาม user role
     let filteredForms = responseOffice.data.forms.filter((form) => {
       if (userStore.user.user_role === "finance") {
+        console.log("userStore.user.user_role", userStore.user.user_role, form.form_status)
         return form.form_status === "อนุมัติ";
       }
       return false;
     });
+    console.log("responseOffice.data", responseOffice.data)
+    console.log("filteredForms", filteredForms)
     for (let i = 0; i < filteredForms.length; i++) {
-      if (filteredForms.length > 0 && filteredForms[i].professor_reedit == true) {
+      console.log("i", filteredForms[i].withdraw)
+      if (filteredForms.length > 0 && filteredForms[i].withdraw == null) {
+        console.log("listForm.forms", listForm.forms)
         listForm.forms = filteredForms;
         listForm.nameC = responseOffice.data.confer;
         listForm.nameP = responseOffice.data.pageC;
       }
     }
+    console.log("listForm.forms", listForm.forms)
   } catch (error) {
     console.log("Error fetching Officer data:", error);
   } finally {
