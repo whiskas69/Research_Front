@@ -625,12 +625,33 @@ const data = reactive({
   user: [],
   score: {},
   originScore: {},
+  form_id: 0,
 });
 
 const isLoading = ref(true);
 // Access route parameters
 const route = useRoute();
 const id = route.params.id;
+
+const fetchOfficerData = async () => {
+  try {
+    const responseConfer = await api.get(`/conference/${id}`);
+    data.conference = responseConfer.data;
+    data.originCofer = JSON.parse(JSON.stringify(responseConfer.data));
+
+    const userID = responseConfer.data.user_id;
+    const responseUser = await api.get(`/user/${userID}`);
+    data.user = responseUser.data;
+
+    const responseScore = await api.get(`/score/${id}`);
+    data.score = responseScore.data;
+    data.originScore = JSON.parse(JSON.stringify(responseScore.data));
+  } catch (error) {
+    console.log("Error fetching Officer data:", error);
+  } finally {
+    isLoading.value = false;
+  }
+};
 
 const getChangedFields = () => {
   const current = toRaw(data.conference);
@@ -707,25 +728,6 @@ const handleSubmit = async() => {
     }
 };
 
-const fetchOfficerData = async () => {
-  try {
-    const responseConfer = await api.get(`/conference/${id}`);
-    data.conference = responseConfer.data;
-    data.originCofer = JSON.parse(JSON.stringify(responseConfer.data));
-
-    const userID = responseConfer.data.user_id;
-    const responseUser = await api.get(`/user/${userID}`);
-    data.user = responseUser.data;
-
-    const responseScore = await api.get(`/score/${id}`);
-    data.score = responseScore.data;
-    data.originScore = JSON.parse(JSON.stringify(responseScore.data));
-  } catch (error) {
-    console.log("Error fetching Officer data:", error);
-  } finally {
-    isLoading.value = false;
-  }
-};
 onMounted(() => {
   fetchOfficerData();
 });
