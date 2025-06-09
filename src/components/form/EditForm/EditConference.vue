@@ -646,11 +646,6 @@ const fetchOfficerData = async () => {
     const responseScore = await api.get(`/score/${id}`);
     data.score = responseScore.data;
     data.originScore = JSON.parse(JSON.stringify(responseScore.data));
-
-    const responseForm =await api.get(`/formConfer/${id}`);
-    data.form_id = responseForm.data.form_id
-    console.log("responseForm", responseForm)
-
   } catch (error) {
     console.log("Error fetching Officer data:", error);
   } finally {
@@ -720,7 +715,6 @@ const handleSubmit = async() => {
 
   try{
     const dataForBackend = {
-      user_id: data.user.user_id,
       conf_id: id,
       edit_data: changed,
       score: changedScore,

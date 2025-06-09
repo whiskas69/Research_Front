@@ -213,6 +213,6 @@ const isApprover = computed(() =>
 
 const logout = async () => {
   await userStore.logout();
-  router.push("/login");
+  router.push("/testlogin");
 };
 </script>
