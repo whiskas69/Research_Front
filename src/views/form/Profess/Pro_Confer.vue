@@ -1762,6 +1762,7 @@ const totalAllowance = computed(() => {
 
 const allTotal = computed(() => {
   formData.all_money =
+    (parseFloat(formData.totalAmount) || 0) +
     (parseFloat(formData.domesticExpenses) || 0) +
     (parseFloat(formData.overseasExpenses) || 0) +
     (parseFloat(formData.interExpenses) || 0) +

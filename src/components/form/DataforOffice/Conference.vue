@@ -3,7 +3,6 @@
     <p class="text-xl font-bold mb-5">
       ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
     </p>
-    <p>uiuyi</p>
     <Mainbox>
       <SectionWrapper>
         <TextInputLabelLeft
@@ -48,11 +47,12 @@
     </Mainbox>
 
     <!-- 1.  รายละเอียดการขออนุมัติเดินทาง -->
-    <Mainbox>
-      <p class="leading-9 text-lg font-bold">
-        1. รายละเอียดการขออนุมัติเดินทาง
-      </p>
-      <SectionWrapper>
+    <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title leading-9 text-lg font-bold">
+          1. รายละเอียดการขออนุมัติเดินทาง
+        </p>
+        <SectionWrapper class="collapse-content">
         <div class="flex flex-row">
           <TextInputLabelLeft
             label="เดินทางวันที่"
@@ -182,11 +182,12 @@
     </Mainbox>
 
     <!-- 2.  รายละเอียดการขออนุมัติเดินทาง -->
-    <Mainbox>
-      <p class="leading-9 text-lg font-bold">
-        2.  รายละเอียดการขออนุมัติเดินทาง
-      </p>
-      <SectionWrapper>
+    <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title leading-9 text-lg font-bold">
+          2.  รายละเอียดการขออนุมัติเดินทาง
+        </p>
+        <SectionWrapper class="collapse-content">
         <RadioInput
           label="การประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ และไม่อยู่ในฐานข้อมูลสากล SCOPUS"
           name="Scopus"
@@ -324,9 +325,10 @@
     </Mainbox>
 
     <!-- 3. ผู้ขอรับการสนับสนุน -->
-    <Mainbox>
-      <p class="text-lg font-bold">3. ผู้ขอรับการสนับสนุน</p>
-      <SectionWrapper>
+    <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title text-lg font-bold">3. ผู้ขอรับการสนับสนุน</p>
+        <SectionWrapper class="collapse-content">
         <RadioInput
           label="ผู้ประพันธ์อันดับแรก First Author"
           value="First Author"
@@ -345,12 +347,12 @@
     </Mainbox>
 
     <!-- 4.  การลาและการขอเบิกค่าลงทะเบียนและค่าใช้จ่ายอื่น ๆ -->
-    <Mainbox>
-      <p class="text-lg font-bold">
-        4.  การลาและการขอเบิกค่าลงทะเบียนและค่าใช้จ่ายอื่น ๆ
-      </p>
-
-      <SectionWrapper>
+    <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title text-lg font-bold">
+          4.  การลาและการขอเบิกค่าลงทะเบียนและค่าใช้จ่ายอื่น ๆ
+        </p>
+        <SectionWrapper class="collapse-content">
         <p class="font-bold text-base pt-3">4.1 ครั้งที่ในการลา</p>
         <SectionWrapper>
           <RadioInput
@@ -475,9 +477,12 @@
     </Mainbox>
 
     <!-- รายการค่าใช้จ่ายที่ขอเบิกจ่าย -->
-    <Mainbox>
-      <SectionWrapper>
-        <p class="leading-9 text-lg font-bold">รายการค่าใช้จ่ายที่ขอเบิกจ่าย</p>
+    <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title leading-9 text-lg font-bold">
+          รายการค่าใช้จ่ายที่ขอเบิกจ่าย
+        </p>
+        <SectionWrapper class="collapse-content">
         <SectionWrapper>
           <div class="flex flex-row mb-2 justify-between">
             <div class="flex flex-row">

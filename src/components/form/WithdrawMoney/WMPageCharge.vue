@@ -332,8 +332,8 @@ const submitWithdrawMoney = async () => {
     };
     console.log("dataForBackend: ", dataForBackend);
     await api.put(`/withdraw/pageCharge/${id}`, dataForBackend);
-    alert("บันทึกข้อมูลเรียบร้อยแล้ว withdraw pc");
-    router.push("/officer");
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+    router.push("/allWithdrawMoney");
   } catch (error) {
     console.log("Error saving code : ", error);
     alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
