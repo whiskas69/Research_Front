@@ -90,11 +90,11 @@
               customLabel="w-4/12 mr-2"
               v-model="formData.conference.qualityScoreCIF"
             />
-            <TextInputLabelLeft
+            <!-- <TextInputLabelLeft
               label="คำนวณแบบ CORE ได้คะแนนไม่ต่ำกว่า"
               customLabel="w-4/12 mr-2"
               v-model="formData.conference.qualityScoreCORE"
-            />
+            /> -->
           </SectionWrapper>
         </SectionWrapper>
 
@@ -181,7 +181,7 @@ const formData = reactive({
     journalYears: "",
     qualityScoreSJR: "",
     qualityScoreCIF: "",
-    qualityScoreCORE: "",
+    qualityScoreCORE: null,
     expense100ASEAN: "",
     expense100Asia: "",
     expense100EuropeAmericaAustraliaAfrica: "",

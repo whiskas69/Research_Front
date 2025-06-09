@@ -9,68 +9,6 @@
           alt="IT KMITL"
         />
       </router-link>
-      <!-- <div v-if="!userStore.user">
-        <router-link to="/">
-          <img
-            class="flex-auto max-w-14 w-24"
-            src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-            alt="IT KMITL"
-          />
-        </router-link>
-      </div> -->
-
-      <!-- <div v-else-if="userStore.user">
-        <div v-if="userStore.user.user_role == 'professor'">
-          <router-link to="/homepage">
-            <img
-              class="flex-auto max-w-14 w-24"
-              src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-              alt="IT KMITL"
-            />
-          </router-link>
-        </div>
-
-        <div
-          v-else-if="
-            userStore.user.user_role == 'hr' ||
-            userStore.user.user_role == 'research' ||
-            userStore.user.user_role == 'finance'
-          "
-        >
-          <router-link to="/Officer">
-            <img
-              class="flex-auto max-w-14 w-24"
-              src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-              alt="IT KMITL"
-            />
-          </router-link>
-        </div>
-
-        <div
-          v-else-if="
-            userStore.user.user_role == 'associate' ||
-            userStore.user.user_role == 'dean'
-          "
-        >
-          <router-link to="/Officer">
-            <img
-              class="flex-auto max-w-14 w-24"
-              src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-              alt="IT KMITL"
-            />
-          </router-link>
-        </div>
-
-        <div v-else-if="userStore.user.user_role == 'admin'">
-          <router-link to="/admin">
-            <img
-              class="flex-auto max-w-14 w-24"
-              src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-              alt="IT KMITL"
-            />
-          </router-link>
-        </div>
-      </div> -->
     </div>
 
     <!-- menu -->
@@ -126,10 +64,14 @@
           <li v-if="isApprover" class="justify-center">
             <router-link to="/allhistory">เอกสารที่อนุมัติแล้ว</router-link>
           </li>
+
+          <li v-if="isApprover" class="justify-center">
+            <router-link to="/allhistory">เอกสารที่อนุมัติแล้ว</router-link>
+          </li>
         </template>
 
-        <li class="justify-center">
-          <router-link to="/">สรุปผลแบบสถิติ</router-link>
+        <li v-if="isFinance" class="justify-center">
+          <router-link to="/allWithdrawMoney">ขออนุมัติเบิกเงินรายได้</router-link>
         </li>
 
         <li v-if="isAdmin" class="justify-center">
@@ -165,7 +107,7 @@
               {{ userStore.user.user_nameth }}
             </summary>
             <ul class="bg-base-100 rounded-t-none p-2 w-full">
-              <li v-if="userStore.user.user_role != 'admin'">
+              <li v-if="userStore.user?.user_role != 'admin'">
                 <router-link to="/profile">ข้อมูลส่วนตัว</router-link>
               </li>
               <li @click="logout">
@@ -202,6 +144,7 @@ const logoRoute = computed(() => {
 
 const isAdmin = computed(() => user.value?.user_role === "admin");
 const isProfessor = computed(() => user.value?.user_role === "professor");
+const isFinance = computed(() => user.value?.user_role === "finance");
 const isHRorResearch = computed(() =>
   ["hr", "research"].includes(user.value?.user_role)
 );
