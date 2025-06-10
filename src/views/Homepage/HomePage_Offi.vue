@@ -223,7 +223,7 @@ const listForm = reactive({
 });
 
 if (!userStore.user.user_signature) {
-  alert("กรุณาอัปโหลดลายเซ้นต์");
+  alert("กรุณาอัปโหลดลายเซ็น");
   router.push("/profile");
 }
 

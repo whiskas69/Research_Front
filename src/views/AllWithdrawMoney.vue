@@ -74,7 +74,7 @@ const listForm = reactive({
 // console.log("user", userStore.user)
 
 if (!userStore.user.user_signature) {
-  alert("กรุณาอัปโหลดลายเซ้นต์");
+  alert("กรุณาอัปโหลดลายเซ็น");
   router.push("/profile");
 }
 
