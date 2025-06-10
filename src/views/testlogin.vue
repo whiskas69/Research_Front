@@ -68,7 +68,9 @@ const login = async () => {
       }
     }
   } catch (error) {
-    alert(error.response.data.message);
+    alert("เข้าสู่ระบบล้มเหลว กรุณาลองใหม่อีกครั้ง");
+    console.error("Login error:", error);
+    // alert(error.response.data.message);
   }
 };
 
