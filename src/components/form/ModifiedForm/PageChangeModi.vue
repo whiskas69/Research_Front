@@ -504,7 +504,7 @@ const handleSubmit = async () => {
     };
     console.log("dataForBackend: ", dataForBackend);
     await api.put(`/confirmEditedForm/${id}`, dataForBackend);
-    alert("บันทึกข้อมูลเรียบร้อยแล้ว check editForm");
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
     router.push("/mystatus");
   } catch (error) {
     console.log("Error saving code : ", error);
