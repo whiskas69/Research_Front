@@ -924,6 +924,7 @@
             label="*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* (Full Paper ประกอบการเบิก) มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล WoS/SJR ซึ่งได้รับการตีพิมพ์ไม่เกิน 2 ปี ก่อนการประชุม เมื่อ"
             customLabel="w-[290%]"
             customInput="w-1/6"
+            v-model="formData.inputFile2"
             :disabled="formData.withdraw !== '100%'"
           />
           <FileInput
