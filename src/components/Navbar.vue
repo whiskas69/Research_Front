@@ -66,7 +66,7 @@
           </li>
 
           <li v-if="isApprover" class="justify-center">
-            <router-link to="/allhistory">เอกสารที่อนุมัติแล้ว</router-link>
+            <router-link to="/">สรุปผลแบบสถิติ</router-link>
           </li>
         </template>
 
