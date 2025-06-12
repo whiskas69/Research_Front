@@ -44,6 +44,10 @@
             </details>
           </li>
 
+          <li v-if="isProfessor" class="justify-center">
+            <router-link to="/">สรุปผลแบบสถิติ</router-link>
+          </li>
+
           <li v-if="isHRorResearch" class="justify-center">
             <details class="justify-center">
               <summary>เอกสารที่รับผิดชอบ</summary>
