@@ -10,12 +10,12 @@
             label="ชื่อ"
             customLabel="w-2/12 text-lg font-bold"
             :disabled="true"
-            v-model="formData.user.user_nameth"
+            v-model="formData.name.user_nameth"
           />
           <TextInputLabelLeft
             label="ตำแหน่ง"
             customLabel="w-2/12 text-lg font-bold"
-            v-model="formData.user.user_positionth"
+            v-model="formData.name.user_positionth"
             :disabled="true"
           />
           <div class="flex flex-row">
