@@ -41,7 +41,7 @@
             type="radio"
             :disabled="true"
             :checked="
-              formData.confer.country_conf == 'ภายในประเทศ' ? true : false
+              formData.confer.country_conf == 'domestic' ? true : false
             "
           />
           <span>ภายในประเทศ</span>
@@ -49,7 +49,7 @@
             type="radio"
             :disabled="true"
             :checked="
-              formData.confer.country_conf == 'ณ ต่างประเทศ' ? true : false
+              formData.confer.country_conf == 'abroad' ? true : false
             "
           />
           <span>ณ ต่างประเทศ</span>
@@ -59,10 +59,10 @@
             4. วันที่จัด: {{ formatThaiDate(formData.confer.meeting_date) }}
           </p>
           <p>สถานที่จัด: {{ formData.confer.meeting_venue }}</p>
-          <p v-if="formData.confer.country_conf == 'ณ ต่างประเทศ'">
+          <p v-if="formData.confer.country_conf == 'abroad'">
             ประเทศ{{ formData.confer.location }}
           </p>
-          <p v-if="formData.confer.country_conf == 'ภายในประเทศ'">
+          <p v-if="formData.confer.country_conf == 'domestic'">
             จังหวัด{{ formData.confer.location }}
           </p>
         </div>
@@ -87,7 +87,7 @@
               type="radio"
               :disabled="true"
               :checked="
-                formData.confer.meeting_type == 'คณะจัด ไม่อยู่scopus'
+                formData.confer.meeting_type == 'facultyHost'
                   ? true
                   : false
               "
@@ -102,7 +102,7 @@
               type="radio"
               :disabled="true"
               :checked="
-                formData.confer.meeting_type == 'อยู่ในscopus' ? true : false
+                formData.confer.meeting_type == 'inScopus' ? true : false
               "
             />
             <span
@@ -118,7 +118,7 @@
               type="radio"
               :disabled="true"
               :checked="
-                formData.confer.quality_meeting == 'มาตรฐาน' ? true : false
+                formData.confer.quality_meeting == 'standard' ? true : false
               "
             />
             <span>ระดับมาตรฐาน</span>
@@ -128,7 +128,7 @@
               type="radio"
               :disabled="true"
               :checked="
-                formData.confer.quality_meeting == 'ดีมาก' ? true : false
+                formData.confer.quality_meeting == 'good' ? true : false
               "
             />
             <span>ระดับดีมาก</span>
@@ -232,7 +232,7 @@
         <div
           v-if="
             formData.confer.time_of_leave == '2' &&
-            formData.confer.country_conf == 'ณ ต่างประเทศ'
+            formData.confer.country_conf == 'abroad'
           "
           class="ml-12"
         >
@@ -565,7 +565,7 @@
                 type="radio"
                 :disabled="true"
                 :checked="
-                  formData.confer.quality_meeting == 'มาตรฐาน' ? true : false
+                  formData.confer.quality_meeting == 'standard' ? true : false
                 "
               />
               <span>ระดับมาตรฐาน</span>
@@ -573,12 +573,12 @@
                 type="radio"
                 :disabled="true"
                 :checked="
-                  formData.confer.quality_meeting == 'ดีมาก' ? true : false
+                  formData.confer.quality_meeting == 'good' ? true : false
                 "
               />
               <span>ระดับดีมาก</span>
             </div>
-            <div v-if="formData.confer.quality_meeting == 'ดีมาก'">
+            <div v-if="formData.confer.quality_meeting == 'good'">
               <p>
               - กรณีที่เป็นการประชุมวิชาการ
               <b>ระดับดีมาก</b> เลือกวิธีคิดค่าคะแนนคุณภาพ และมีระดับคะแนน
@@ -589,7 +589,7 @@
                 </p>
             <p v-else class="pl-3"> คำนวณจาก {{ formData.score.score_type }} มีค่าคะแนน {{ formData.score.score_result }}</p>
             </div>
-            <p v-else-if="formData.confer.quality_meeting == 'มาตรฐาน'" class="px-2">
+            <p v-else-if="formData.confer.quality_meeting == 'standard'" class="px-2">
               • อยู่ในระดับ{{ formData.confer.quality_meeting }}
             </p>
             <p v-else-if="formData.confer.quality_meeting == ''" class="px-2">
@@ -724,7 +724,7 @@
               เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความจากผู้จัด
             </p>
             <p
-              v-if="formData.offic.c_approve_result == 'รับทราบ'"
+              v-if="formData.offic.c_approve_result == 'acknowledge'"
               class="flex font-bold justify-end"
             >
               รับทราบ
