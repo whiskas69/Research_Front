@@ -285,7 +285,7 @@
           <div class="flex flex-row ml-5">
             <RadioInput
               label="วิจัยพื้นฐาน"
-              value="วิจัยพื้นฐาน"
+              value="basic"
               name="type"
               customDiv="max-w-fit mr-10 flex items-center"
               v-model="formData.pageChange.research_type"
@@ -293,7 +293,7 @@
             />
             <RadioInput
               label="วิจัยประยุกต์"
-              value="วิจัยประยุกต์"
+              value="applied"
               name="type"
               customDiv="max-w-fit mr-10 flex items-center"
               v-model="formData.pageChange.research_type"
@@ -301,7 +301,7 @@
             />
             <RadioInput
               label="วิจัยและพัฒนา"
-              value="วิจัยและพัฒนา"
+              value="research&development"
               name="type"
               customDiv="max-w-fit mr-10 flex items-center"
               v-model="formData.pageChange.research_type"
@@ -310,14 +310,14 @@
             <div class="flex flex-row">
               <RadioInput
                 label="วิจัยอื่น ๆ "
-                value="วิจัยอื่น ๆ"
+                value="วิจัยother"
                 name="type"
                 customDiv="max-w-fit mr-2 flex items-center"
                 v-model="formData.pageChange.research_type"
                 :class="isFieldEdited('research_type') ? 'text-red-500' : ''"
               />
               <TextInputLabelLeft
-                v-if="formData.pageChange.research_type == 'วิจัยอื่น ๆ '"
+                v-if="formData.pageChange.research_type == 'วิจัยother '"
                 label="(ระบุ)"
                 name="type"
                 customDiv="max-w-fit flex items-center"
@@ -491,10 +491,10 @@ const handleSubmitHaveEdit = async () => {
 const handleSubmit = async () => {
   console.log("go to next step ");
   let form_status = "";
-  if (formData.status == "ฝ่ายบริหารงานวิจัย") {
-    form_status = "ฝ่ายบริหารการเงิน";
-  } else if (formData.status == "ฝ่ายบริหารการเงิน") {
-    form_status = "รองคณบดี";
+  if (formData.status == "research") {
+    form_status = "finance";
+  } else if (formData.status == "finance") {
+    form_status = "associate";
   }
   console.log("form_status", form_status);
   try {

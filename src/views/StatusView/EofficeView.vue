@@ -130,7 +130,7 @@ const data = reactive({
   userID: "",
   userRole: "",
   allForm: [],
-  status: "อนุมัติ",
+  status: "approved",
 });
 
 const userStore = useUserStore();
@@ -144,8 +144,8 @@ const pulldata = async () => {
     const filteredForms = res.data
       .filter(
         (form) =>
-          form.form_status === "รออนุมัติ" ||
-          form.form_status === "เข้าที่ประชุม"
+          form.form_status === "waitingApproval" ||
+          form.form_status === "attendMeeting"
       )
       .sort((a, b) => b.form_id - a.form_id);
     console.log("filteredForms", filteredForms);

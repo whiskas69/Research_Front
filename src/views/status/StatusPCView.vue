@@ -10,7 +10,7 @@
 
       <div
         class="flex justify-center"
-        v-if="data.form.form_status == 'ไม่อนุมัติ'"
+        v-if="data.form.form_status == 'notApproved'"
       >
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="" class="step w-40">ฝ่ายบริหารงานวิจัย</li>
@@ -24,7 +24,7 @@
 
       <div
         class="flex justify-center"
-        v-if="data.form.form_status == 'รออนุมัติ'"
+        v-if="data.form.form_status == 'waitingApproval'"
       >
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
@@ -42,7 +42,7 @@
 
       <div
         class="flex justify-center"
-        v-if="data.form.form_status == 'อนุมัติ'"
+        v-if="data.form.form_status == 'approved'"
       >
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">

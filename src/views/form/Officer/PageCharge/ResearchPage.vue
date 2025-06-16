@@ -124,16 +124,16 @@
           <p>ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
           <RadioInput label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้" value="อนุมัติ" name="re"
             v-model="formData.radioAuthOffic" @change="handleInput('radioAuthOffic', $event.target.value)" />
-          <TextInputLabelLeft v-if="formData.radioAuthOffic == 'อนุมัติ'" label="ได้รับหนังสือตอบรับบทความ เมื่อวันที่"
+          <TextInputLabelLeft v-if="formData.radioAuthOffic == 'approved'" label="ได้รับหนังสือตอบรับบทความ เมื่อวันที่"
             customLabel="mx-2 w-full " customInput="max-w-max" customDiv="max-w-max" type="date"
             v-model="formData.dateAccep" @input="handleInput('dateAccep', $event.target.value)" />
           <textarea class="textarea textarea-bordered w-full"
             @input="handleInput('description', $event.target.value)"></textarea>
-          <RadioInput label="ถูกต้องตามเงื่อนไขการสนับสนุน กรณีส่งหนังสือตอบรับย้อนหลัง ดังนี้" value="รอหนังสือตอบรับ"
+          <RadioInput label="ถูกต้องตามเงื่อนไขการสนับสนุน กรณีส่งหนังสือตอบรับย้อนหลัง ดังนี้" value="waiting letter"
             name="re" v-model="formData.radioAuthOffic" @change="handleInput('radioAuthOffic', $event.target.value)" />
           <textarea class="textarea textarea-bordered w-full"
             @input="handleInput('description', $event.target.value)"></textarea>
-          <RadioInput label="อื่น ๆ" value="อื่น ๆ" name="re" v-model="formData.radioAuthOffic"
+          <RadioInput label="อื่น ๆ" value="other" name="re" v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)" />
           <textarea class="textarea textarea-bordered w-full"
             @input="handleInput('description', $event.target.value)"></textarea>
@@ -182,7 +182,7 @@ const formData = reactive({
   f_accepted: "",
   f_copy_article: "",
   docSubmitDate: DateTime.now().toISODate(),
-  statusForm: "ฝ่ายบริหารการเงิน",
+  statusForm: "finance",
   radioAuthOffic: "",
   description: "",
   dateAccep: "",
@@ -190,11 +190,11 @@ const formData = reactive({
 
 watch(() => {
   if (formData.offic.associate_id != null) {
-    formData.formStatus = "รองคณบดี";
+    formData.formStatus = "associate";
   } else if (formData.offic.dean_id != null) {
-    formData.formStatus = "คณบดี";
+    formData.formStatus = "dean";
   } else {
-    formData.formStatus = "ฝ่ายบริหารการเงิน";
+    formData.formStatus = "finance";
   }
 });
 
@@ -219,8 +219,8 @@ const rules = computed(() => ({
       "* ไม่สามารถเลือกตัวเลือกนี้ได้ *",
       (value) => {
         if (
-          (value === "รอหนังสือตอบรับ" && (formData.f_accepted !== null || formData.f_accepted !== "")) ||
-          (value === "อนุมัติ" && (formData.f_accepted === null || formData.f_accepted === ""))
+          (value === "waiting letter" && (formData.f_accepted !== null || formData.f_accepted !== "")) ||
+          (value === "approved" && (formData.f_accepted === null || formData.f_accepted === ""))
         ) {
           return false;
         }
@@ -231,7 +231,7 @@ const rules = computed(() => ({
   dateAccep: {
     required: helpers.withMessage(
       "* กรุณากรอกวันที่อนุมัติ *",
-      requiredIf(() => formData.radioAuthOffic === "อนุมัติ" && formData.f_accepted !== null || formData.f_accepted !== "")
+      requiredIf(() => formData.radioAuthOffic === "approved" && formData.f_accepted !== null || formData.f_accepted !== "")
     ),
     maxDateToday,
   },
@@ -320,7 +320,7 @@ const OfficerPC = async () => {
           p_reason: formData.description,
           p_date_accepted_approve: formData.dateAccep || null,
           research_doc_submit_date: formData.docSubmitDate,
-          form_status: formData.radioAuthOffic == "อื่น ๆ" ? "ไม่อนุมัติ" : formData.statusForm,
+          form_status: formData.radioAuthOffic == "other" ? "notApproved" : formData.statusForm,
         };
 
         const response = await api.post("/opinionPC", dataForBackend);
@@ -346,7 +346,7 @@ const OfficerPC = async () => {
           dean_doc_submit_date: DateTime.fromISO(
             formData.offic.dean_doc_submit_date
           ).toISODate(),
-          form_status: formData.radioAuthOffic == "อื่น ๆ" ? "ไม่อนุมัติ" : formData.formStatus,
+          form_status: formData.radioAuthOffic == "other" ? "notApproved" : formData.formStatus,
         };
 
         const response = await api.put(`/opinionPC/${id}`, dataForBackend);

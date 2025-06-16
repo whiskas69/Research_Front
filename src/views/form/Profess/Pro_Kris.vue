@@ -113,12 +113,12 @@
                   label="อื่น ๆ ระบุ"
                   customDiv="max-w-32"
                   v-model="formData.resCluster"
-                  value="อื่น ๆ"
+                  value="other"
                 />
                 <TextInputLabelLeft
                   label=""
                   v-model="formData.resClusterOther"
-                  :disabled="!formData.resCluster.includes('อื่น ๆ')"
+                  :disabled="!formData.resCluster.includes('other')"
                 />
               </div>
             </div>
@@ -450,7 +450,7 @@ const rules = {
     required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),
   },
   resClusterOther: {
-    required: requiredIf(() => formData.resCluster.includes("อื่น ๆ")),
+    required: requiredIf(() => formData.resCluster.includes("other")),
   },
   resStandards: {
     required: helpers.withMessage("* กรุณากรอกข้อมูล *", required),

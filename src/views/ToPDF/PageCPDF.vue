@@ -173,7 +173,7 @@
         type="radio"
         disabled="false"
         :checked="
-          formData.pageChange.research_type == 'วิจัยพื้นฐาน' ? true : false
+          formData.pageChange.research_type == 'basic' ? true : false
         "
       />
       <span>วิจัยพื้นฐาน</span>
@@ -181,7 +181,7 @@
         type="radio"
         disabled="false"
         :checked="
-          formData.pageChange.research_type == 'วิจัยประยุกต์' ? true : false
+          formData.pageChange.research_type == 'applied' ? true : false
         "
       />
       <span>วิจัยประยุกต์</span>
@@ -189,7 +189,7 @@
         type="radio"
         disabled="false"
         :checked="
-          formData.pageChange.research_type == 'วิจัยและพัฒนา' ? true : false
+          formData.pageChange.research_type == 'research&development' ? true : false
         "
       />
       <div class="flex flex-row gap-x-4">
@@ -198,11 +198,11 @@
           type="radio"
           disabled="false"
           :checked="
-            formData.pageChange.research_type == 'วิจัยอื่น ๆ' ? true : false
+            formData.pageChange.research_type == 'other' ? true : false
           "
         />
         <span>วิจัยอื่น ๆ</span>
-        <p v-if="formData.pageChange.research_type == 'วิจัยอื่น ๆ '">
+        <p v-if="formData.pageChange.research_type == 'other '">
           {{ formData.pageChange.research_type2 }}
         </p>
       </div>
@@ -335,11 +335,11 @@
             type="radio"
             disabled="false"
             :checked="
-              formData.offic.p_research_admin == 'อนุมัติ' ? true : false
+              formData.offic.p_research_admin == 'approved' ? true : false
             "
           />
           <span>ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้</span>
-          <p v-if="formData.offic.p_research_admin == 'อนุมัติ'">
+          <p v-if="formData.offic.p_research_admin == 'approved'">
             {{ formData.offic.p_reason }}
           </p>
         </div>
@@ -348,11 +348,11 @@
             type="radio"
             disabled="false"
             :checked="
-              formData.offic.p_research_admin == 'อื่น ๆ' ? true : false
+              formData.offic.p_research_admin == 'other' ? true : false
             "
           />
           <span>อื่น ๆ</span>
-          <p v-if="formData.offic.p_research_admin == 'อื่น ๆ'">
+          <p v-if="formData.offic.p_research_admin == 'other'">
             {{ formData.offic.p_reason }}
           </p>
         </div>
@@ -491,27 +491,27 @@
       <input
         type="radio"
         disabled="false"
-        :checked="formData.offic.p_approve_result == 'อนุมัติ' ? true : false"
+        :checked="formData.offic.p_approve_result == 'approved' ? true : false"
       />
       <span>อนุมัติ</span>
       <input
         type="radio"
         disabled="false"
         :checked="
-          formData.offic.p_approve_result == 'ไม่อนุมัติ' ? true : false
+          formData.offic.p_approve_result == 'notApproved' ? true : false
         "
       />
       <span>ไม่อนุมัติ</span>
-      <p v-if="formData.offic.p_approve_result == 'ไม่อนุมัติ'">เนื่องจาก</p>
+      <p v-if="formData.offic.p_approve_result == 'notApproved'">เนื่องจาก</p>
     </div>
     <div class="flex flex-row text-[13px] pt-3 gap-4 px-[100px]">
       <input
         type="radio"
         disabled="false"
-        :checked="formData.offic.p_approve_result == 'อื่นๆ' ? true : false"
+        :checked="formData.offic.p_approve_result == 'other' ? true : false"
       />
-      <span>อื่นๆ</span>
-      <p v-if="formData.offic.p_approve_result == 'อื่นๆ'">เนื่องจาก</p>
+      <span>other</span>
+      <p v-if="formData.offic.p_approve_result == 'other'">เนื่องจาก</p>
     </div>
     <div class="flex flex-col text-[13px] pt-3 items-end">
       <div class="flex flex-row gap-1 py-3">

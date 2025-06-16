@@ -22,9 +22,9 @@
         <p class="text-lg font-bold">ตรวจสอบ และรับทราบเอกสาร</p>
 
         <SectionWrapper>
-          <RadioInput label="รับทราบ" name="noted" value="รับทราบ" v-model="formData.radioAuthOffic"
+          <RadioInput label="รับทราบ" name="noted" value="acknowledge" v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)" />
-          <RadioInput label="ไม่รับทราบ" name="noted" value="ไม่รับทราบ" v-model="formData.radioAuthOffic"
+          <RadioInput label="ไม่รับทราบ" name="noted" value="notAcknowledge" v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)" />
 
           <span v-if="v$.radioAuthOffic.$error" class="text-base font-bold text-red-500 text-left">
@@ -61,7 +61,7 @@ const formData = reactive({
   file: [],
   name: "",
   radioAuthOffic: "",
-  formStatus: "เข้าที่ประชุม",
+  formStatus: "attendMeeting",
 });
 
 const handleInput = (key, value) => {

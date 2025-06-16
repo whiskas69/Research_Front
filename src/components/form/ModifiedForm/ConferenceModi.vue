@@ -97,7 +97,7 @@
           <RadioInput
             label="ภายในประเทศ"
             name="Venue"
-            value="ภายในประเทศ"
+            value="domestic"
             customDiv="w-max mr-4"
             v-model="formData.conference.country_conf"
             :class="isFieldEdited('country_conf') ? 'text-red-500' : ''"
@@ -105,7 +105,7 @@
           <RadioInput
             label="ณ ต่างประเทศ"
             name="Venue"
-            value="ณ ต่างประเทศ"
+            value="abroad"
             customDiv="max-w-36"
             v-model="formData.conference.country_conf"
             :class="isFieldEdited('country_conf') ? 'text-red-500' : ''"
@@ -129,7 +129,7 @@
           />
           <div
             class="ml-10 w-full flex justify-center items-center"
-            v-if="formData.conference.country_conf == 'ณ ต่างประเทศ'"
+            v-if="formData.conference.country_conf == 'abroad'"
           >
             <div class="flex flex-row w-full">
               <TextInputLabelLeft
@@ -143,7 +143,7 @@
 
           <div
             class="ml-5 w-full flex justify-center items-center"
-            v-if="formData.conference.country_conf == 'ภายในประเทศ'"
+            v-if="formData.conference.country_conf == 'domestic'"
           >
             <div class="flex flex-row w-full">
               <TextInputLabelLeft
@@ -199,14 +199,14 @@
         <RadioInput
           label="การประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ และไม่อยู่ในฐานข้อมูลสากล SCOPUS"
           name="Scopus"
-          value="คณะจัด ไม่อยู่scopus"
+          value="facultyHost"
           v-model="formData.conference.meeting_type"
           :class="isFieldEdited('meeting_type') ? 'text-red-500' : ''"
         />
         <RadioInput
           label="การประชุมทางวิชาการที่อยู่ในฐานข้อมูลสากล SCOPUS โดยมีการกำหนดคุณภาพแบ่งเป็น 2 ระดับ "
           name="Scopus"
-          value="อยู่ในscopus"
+          value="inScopus"
           v-model="formData.conference.meeting_type"
           :class="isFieldEdited('meeting_type') ? 'text-red-500' : ''"
         />
@@ -215,14 +215,14 @@
           <RadioInput
             label="ระดับมาตรฐาน"
             name="Level"
-            value="มาตรฐาน"
+            value="standard"
             v-model="formData.conference.quality_meeting"
             :class="isFieldEdited('quality_meeting') ? 'text-red-500' : ''"
           />
           <RadioInput
             label="ระดับดีมาก"
             name="Level"
-            value="ดีมาก"
+            value="good"
             v-model="formData.conference.quality_meeting"
             :class="isFieldEdited('quality_meeting') ? 'text-red-500' : ''"
           />
@@ -819,12 +819,12 @@ const handleSubmitHaveEdit = async () => {
 const handleSubmit = async () => {
   console.log("go to next step ");
   let form_status = "";
-  if (formData.status == "ฝ่ายบริหารทรัพยากรบุคคล") {
-    form_status = "ฝ่ายบริหารงานวิจัย";
-  } else if (formData.status == "ฝ่ายบริหารงานวิจัย") {
-    form_status = "ฝ่ายบริหารการเงิน";
-  } else if (formData.status == "ฝ่ายบริหารการเงิน") {
-    form_status = "รองคณบดี";
+  if (formData.status == "hr") {
+    form_status = "research";
+  } else if (formData.status == "research") {
+    form_status = "finance";
+  } else if (formData.status == "finance") {
+    form_status = "associate";
   }
   console.log("form_status", form_status);
   try {

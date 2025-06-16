@@ -8,7 +8,7 @@
         <RadioInput
           label="รับทราบ"
           :disabled="true"
-          :checked="formData.offic.c_approve_result == 'รับทราบ' ? true : false"
+          :checked="formData.offic.c_approve_result == 'acknowledge' ? true : false"
         />
       </SectionWrapper>
     </Mainbox>
@@ -24,9 +24,9 @@
           </p>
           <RadioInput
             label="รับทราบ"
-            value="รับทราบ"
+            value="acknowledge"
             :disabled="true"
-            :checked="formData.offic.p_acknowledge == 'รับทราบ' ? true : false"
+            :checked="formData.offic.p_acknowledge == 'acknowledge' ? true : false"
           />
         </SectionWrapper>
       </Mainbox>
@@ -44,22 +44,22 @@
           <div class="px-2">
             <RadioInput
               label="อนุมัติ"
-              value="อนุมัติ"
+              value="approval"
               name="comment"
               :disabled="true"
               :checked="
-                formData.offic.p_approve_result == 'อนุมัติ' ? true : false
+                formData.offic.p_approve_result == 'approval' ? true : false
               "
             />
           </div>
           <div class="px-2">
             <RadioInput
               label="ไม่อนุมัติ"
-              value="ไม่อนุมัติ"
+              value="notApproved"
               name="comment"
               :disabled="true"
               :checked="
-                formData.offic.p_approve_result == 'ไม่อนุมัติ' ? true : false
+                formData.offic.p_approve_result == 'notApproved' ? true : false
               "
             />
           </div>
@@ -73,11 +73,11 @@
           <div class="px-2">
             <RadioInput
               label="อื่น ๆ"
-              value="อื่น ๆ"
+              value="other"
               name="comment"
               :disabled="true"
               :checked="
-                formData.offic.p_approve_result == 'อื่น ๆ' ? true : false
+                formData.offic.p_approve_result == 'other' ? true : false
               "
             />
           </div>

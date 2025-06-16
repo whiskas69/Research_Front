@@ -8,7 +8,7 @@
       <p class="ml-5">ชื่อการประชุม : {{ data.confer_name }}</p>
       <p class="ml-5">ชื่อบทความ : {{ data.name }}</p>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'ไม่อนุมัติ'">
+      <div class="flex justify-center" v-if="data.form.form_status == 'notApproved'">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="" class="step w-40">ฝ่ายบริหารทรัพยากรบุคคล</li>
           <li data-content="" class="step w-40">ฝ่ายบริหารงานวิจัย</li>
@@ -20,7 +20,7 @@
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'อนุมัติ'">
+      <div class="flex justify-center" v-if="data.form.form_status == 'approved'">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารทรัพยากรบุคคล
@@ -36,7 +36,7 @@
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'รออนุมัติ'">
+      <div class="flex justify-center" v-if="data.form.form_status == 'waitingApproval'">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารทรัพยากรบุคคล

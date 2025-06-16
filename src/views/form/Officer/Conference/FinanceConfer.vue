@@ -141,7 +141,7 @@ const formData = reactive({
   canWithdrawn: "",
   docSubmitDate: DateTime.now().toISODate(),
   form_id: 0,
-  formStatus: "รองคณบดี",
+  formStatus: "associate",
 });
 
 const handleInput = (key, value) => {

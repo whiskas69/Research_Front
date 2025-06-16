@@ -16,10 +16,10 @@
                 </h4>
               </div>
               <div class="flex justify-end items-center">
-                <p class="text-red-500 mr-5" v-if="form.form_status == 'ไม่อนุมัติ'">
+                <p class="text-red-500 mr-5" v-if="form.form_status == 'notApproved'">
                   สถานะ{{ form.form_status }}
                 </p>
-                <p class="text-green-500 mr-5" v-else-if="form.form_status == 'อนุมัติ'">
+                <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approved'">
                   สถานะ{{ form.form_status }}
                 </p>
               </div>
@@ -51,10 +51,10 @@
                 </h4>
               </div>
               <div class="flex justify-end h-20 items-center">
-                <p class="text-red-500 mr-5" v-if="form.form_status == 'ไม่อนุมัติ'">
+                <p class="text-red-500 mr-5" v-if="form.form_status == 'notApproved'">
                   สถานะ{{ form.form_status }}
                 </p>
-                <p class="text-green-500 mr-5" v-else-if="form.form_status == 'อนุมัติ'">
+                <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approved'">
                   สถานะ{{ form.form_status }}
                 </p>
               </div>
@@ -86,10 +86,10 @@
                 </h4>
               </div>
               <div class="flex justify-end h-20 items-center">
-                <p class="text-red-500 mr-5" v-if="form.form_status == 'ไม่อนุมัติ'">
+                <p class="text-red-500 mr-5" v-if="form.form_status == 'notApproved'">
                   สถานะ{{ form.form_status }}
                 </p>
-                <p class="text-green-500 mr-5" v-else-if="form.form_status == 'อนุมัติ'">
+                <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approved'">
                   สถานะ{{ form.form_status }}
                 </p>
               </div>
@@ -121,7 +121,7 @@ const pulldata = async () => {
     console.log("res", res.data)
 
     const filteredForms = res.data.filter(
-      (form) => form.form_status === "อนุมัติ" || form.form_status === "ไม่อนุมัติ"
+      (form) => form.form_status === "approved" || form.form_status === "notApproved"
     );
     console.log("filteredForms", filteredForms);
 

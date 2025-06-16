@@ -81,7 +81,7 @@
           <RadioInput
             label="ภายในประเทศ"
             name="Venue"
-            value="ภายในประเทศ"
+            value="domestic"
             customDiv="w-max mr-4"
             :disabled="true"
             v-model="data.conference.country_conf"
@@ -89,7 +89,7 @@
           <RadioInput
             label="ณ ต่างประเทศ"
             name="Venue"
-            value="ณ ต่างประเทศ"
+            value="abroad"
             customDiv="max-w-36"
             :disabled="true"
             v-model="data.conference.country_conf"
@@ -113,7 +113,7 @@
           />
           <div
             class="ml-10 w-full flex justify-center items-center"
-            v-if="data.conference.country_conf == 'ณ ต่างประเทศ'"
+            v-if="data.conference.country_conf == 'abroad'"
           >
             <div class="flex flex-row w-full">
               <TextInputLabelLeft
@@ -127,7 +127,7 @@
 
           <div
             class="ml-5 w-full flex justify-center items-center"
-            v-if="data.conference.country_conf == 'ภายในประเทศ'"
+            v-if="data.conference.country_conf == 'domestic'"
           >
             <div class="flex flex-row w-full">
               <TextInputLabelLeft

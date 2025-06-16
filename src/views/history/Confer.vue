@@ -11,8 +11,8 @@
     <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
       <div
         v-if="
-          formData.form.form_status == 'รออนุมัติ' ||
-          formData.form.form_status == 'อนุมัติ'
+          formData.form.form_status == 'waitingApproval' ||
+          formData.form.form_status == 'approved'
         "
         class="flex no-print"
       >

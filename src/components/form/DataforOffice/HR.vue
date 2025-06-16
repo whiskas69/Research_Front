@@ -247,18 +247,18 @@
           <p>ตรวจสอบความถูกต้องของข้อมูล</p>
           <RadioInput
             label="ข้อมูลถูกต้อง"
-            value="ถูกต้อง"
+            value="correct"
             name="redi"
             :disabled="true"
-            :checked="formData.offic.c_research_hr == 'ถูกต้อง' ? true : false"
+            :checked="formData.offic.c_research_hr == 'correct' ? true : false"
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
-            value="ไม่ถูกต้อง"
+            value="notCorrect"
             name="redi"
             :disabled="true"
             :checked="
-              formData.offic.c_research_hr == 'ไม่ถูกต้อง' ? true : false
+              formData.offic.c_research_hr == 'notCorrect' ? true : false
             "
           />
           <textarea

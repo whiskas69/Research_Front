@@ -144,7 +144,7 @@ const formData = reactive({
   typeFile: "Page_Charge",
   //status
   form_id: 0, // เพื่อเก็บไอดีในตารางการเงิน
-  formStatus: "รองคณบดี",
+  formStatus: "associate",
 });
 
 const handleInput = (key, value) => {

@@ -10,7 +10,7 @@
         โครงการวิจัย : {{ data.name }}
       </p>
 
-      <div v-if="data.form.form_status == 'ไม่อนุมัติ'" class="flex justify-center">
+      <div v-if="data.form.form_status == 'notApproved'" class="flex justify-center">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="" class="step w-40">ฝ่ายบริหารงานวิจัย</li>
           <li data-content="" class="step w-40">เข้าที่ประชุม</li>
@@ -18,7 +18,7 @@
         </ul>
       </div>
 
-      <div v-if="data.form.form_status == 'อนุมัติ'" class="flex justify-center">
+      <div v-if="data.form.form_status == 'approved'" class="flex justify-center">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
@@ -28,7 +28,7 @@
         </ul>
       </div>
 
-      <div v-if="data.form.form_status == 'เข้าที่ประชุม'" class="flex justify-center">
+      <div v-if="data.form.form_status == 'attendMeeting'" class="flex justify-center">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย

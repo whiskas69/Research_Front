@@ -9,7 +9,7 @@
           <p>• คุณภาพของการประชุม ฯ</p>
           <div
             class="px-2"
-            v-if="formData.conference.quality_meeting == 'ดีมาก'"
+            v-if="formData.conference.quality_meeting == 'good'"
           >
             <p>• อยู่ในระดับ{{ formData.conference.quality_meeting }}</p>
             <div class="flex flex-row gap-2">
@@ -22,7 +22,7 @@
           </div>
           <p
             class="px-2"
-            v-else-if="formData.conference.quality_meeting == 'มาตรฐาน'"
+            v-else-if="formData.conference.quality_meeting == 'standard'"
           >
             • อยู่ในระดับ{{ formData.conference.quality_meeting }}
           </p>
@@ -33,18 +33,18 @@
         </div>
         <RadioInput
           label="ข้อมูลถูกต้อง"
-          value="ถูกต้อง"
+          value="correct"
           name="re"
           :disabled="true"
-          :checked="formData.offic.c_meet_quality == 'ถูกต้อง' ? true : false"
+          :checked="formData.offic.c_meet_quality == 'correct' ? true : false"
         />
         <RadioInput
           label="ข้อมูลไม่ถูกต้อง"
-          value="ไม่ถูกต้อง"
+          value="notCorrect"
           name="re"
           :disabled="true"
           :checked="
-            formData.offic.c_meet_quality == 'ไม่ถูกต้อง' ? true : false
+            formData.offic.c_meet_quality == 'notCorrect' ? true : false
           "
         />
         <TextArea
@@ -215,47 +215,47 @@
           <p>ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
           <RadioInput
             label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้"
-            value="อนุมัติ"
+            value="approved"
             name="re"
             :disabled="true"
             :checked="
-              formData.offic.p_research_admin == 'อนุมัติ' ? true : false
+              formData.offic.p_research_admin == 'approved' ? true : false
             "
           />
           <textarea
-            v-if="formData.offic.p_research_admin == 'อนุมัติ'"
+            v-if="formData.offic.p_research_admin == 'approved'"
             class="textarea textarea-bordered w-full"
             :disabled="true"
             :placeholder="formData.offic.p_reason"
           ></textarea>
           <RadioInput
             label="ถูกต้องตามเงื่อนไขการสนับสนุน กรณีส่งหนังสือตอบรับย้อนหลัง ดังนี้"
-            value="รอหนังสือตอบรับ"
+            value="waiting letter"
             name="re"
             :disabled="true"
             :checked="
-              formData.offic.p_research_admin == 'รอหนังสือตอบรับ'
+              formData.offic.p_research_admin == 'waiting letter'
                 ? true
                 : false
             "
           />
           <textarea
-            v-if="formData.offic.p_research_admin == 'รอหนังสือตอบรับ'"
+            v-if="formData.offic.p_research_admin == 'waiting letter'"
             class="textarea textarea-bordered w-full"
             :disabled="true"
             :placeholder="formData.offic.p_reason"
           ></textarea>
           <RadioInput
             label="อื่น ๆ"
-            value="อื่น ๆ"
+            value="other"
             name="re"
             :disabled="true"
             :checked="
-              formData.offic.p_research_admin == 'อื่น ๆ' ? true : false
+              formData.offic.p_research_admin == 'other' ? true : false
             "
           />
           <textarea
-            v-if="formData.offic.p_research_admin == 'อื่น ๆ'"
+            v-if="formData.offic.p_research_admin == 'other'"
             class="textarea textarea-bordered w-full"
             :disabled="true"
             :placeholder="formData.offic.p_reason"
@@ -294,17 +294,17 @@
           <RadioInput
             label="รับทราบ"
             name="noted"
-            value="รับทราบ"
+            value="acknowledge"
             :disabled="true"
-            :checked="formData.offic.research_admin == 'รับทราบ' ? true : false"
+            :checked="formData.offic.research_admin == 'acknowledge' ? true : false"
           />
           <RadioInput
             label="ไม่รับทราบ"
             name="noted"
-            value="ไม่รับทราบ"
+            value="notAcknowledge"
             :disabled="true"
             :checked="
-              formData.offic.research_admin == 'ไม่รับทราบ' ? true : false
+              formData.offic.research_admin == 'notAcknowledge' ? true : false
             "
           />
         </SectionWrapper>

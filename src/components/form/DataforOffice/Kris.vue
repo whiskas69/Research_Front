@@ -104,13 +104,13 @@
                   <CheckInput
                     class="flex items-center w-[125px]"
                     label="อื่น ๆ ระบุ"
-                    value="อื่น ๆ"
+                    value="other"
                     customDiv="max-w-32"
                     v-model="formData.research_cluster"
                     :disabled="true"
                   />
                   <TextInputLabelLeft
-                    v-if="formData.other == 'อื่น ๆ' ? true : false"
+                    v-if="formData.other == 'other' ? true : false"
                     label=""
                     v-model="formData.kris.res_cluster_other"
                     :disabled="true"
@@ -317,8 +317,8 @@ const loopCluster = async () => {
   // await fetchOfficerData();
 
   for (let i = 0; i < formData.research_cluster.length; i++) {
-    if (formData.research_cluster[i] == "อื่น ๆ") {
-      formData.other = "อื่น ๆ";
+    if (formData.research_cluster[i] == "other") {
+      formData.other = "other";
     }
   }
 };

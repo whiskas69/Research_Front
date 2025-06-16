@@ -151,14 +151,14 @@
           <p>ตรวจสอบความถูกต้องของข้อมูล</p>
           <RadioInput
             label="ข้อมูลถูกต้อง"
-            value="ถูกต้อง"
+            value="correct"
             name="re"
             v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)"
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
-            value="ไม่ถูกต้อง"
+            value="notCorrect"
             name="re"
             v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)"
@@ -211,7 +211,7 @@ const formData = reactive({
   f_fx_rate_document: null,
   f_conf_proof: null,
   checkWorkedNo3NeverAbroad: "",
-  formStatus: "ฝ่ายบริหารงานวิจัย",
+  formStatus: "research",
   noteHR: "",
   profes3y: "",
   radioAuthOffic: "",
@@ -309,7 +309,7 @@ const OfficerConfer = async () => {
         c_reason: formData.description,
         c_noteOther: formData.noteHR,
         hr_doc_submit_date: formData.docSubmitDate,
-        form_status: formData.radioAuthOffic == "ไม่ถูกต้อง" ? "ไม่อนุมัติ" : formData.formStatus,
+        form_status: formData.radioAuthOffic == "notCorrect" ? "notApproved" : formData.formStatus,
       };
 
       const response = await api.post("/opinionConf", dataForBackend);

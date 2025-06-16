@@ -257,21 +257,21 @@
             <div class="flex flex-row ml-5">
               <RadioInput
                 label="วิจัยพื้นฐาน"
-                value="วิจัยพื้นฐาน"
+                value="basic"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
                 v-model="formData.pageChange.research_type"
               />
               <RadioInput
                 label="วิจัยประยุกต์"
-                value="วิจัยประยุกต์"
+                value="applied"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
                 v-model="formData.pageChange.research_type"
               />
               <RadioInput
                 label="วิจัยและพัฒนา"
-                value="วิจัยและพัฒนา"
+                value="research&development"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
                 v-model="formData.pageChange.research_type"
@@ -279,13 +279,13 @@
               <div class="flex flex-row">
                 <RadioInput
                   label="วิจัยอื่น ๆ "
-                  value="วิจัยอื่น ๆ"
+                  value="วิจัยother"
                   name="type"
                   customDiv="max-w-fit mr-2 flex items-center"
                   v-model="formData.pageChange.research_type"
                 />
                 <TextInputLabelLeft
-                  v-if="formData.pageChange.research_type == 'วิจัยอื่น ๆ '"
+                  v-if="formData.pageChange.research_type == 'วิจัยother '"
                   label="(ระบุ)"
                   name="type"
                   customDiv="max-w-fit flex items-center"

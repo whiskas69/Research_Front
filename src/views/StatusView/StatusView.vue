@@ -119,7 +119,7 @@ const pulldata = async () => {
     const res = await api.get(`/form/${data.userID}`);
     const filteredForms = res.data.filter(
       (form) =>
-        form.form_status != "อนุมัติ" && form.form_status != "ไม่อนุมัติ"
+        form.form_status != "approved" && form.form_status != "notApproved"
     );
 
     data.allForm = filteredForms;

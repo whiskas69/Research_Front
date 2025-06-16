@@ -91,7 +91,7 @@
           <RadioInput
             label="ภายในประเทศ"
             name="Venue"
-            value="ภายในประเทศ"
+            value="domestic"
             customDiv="w-max mr-4"
             :disabled="true"
             v-model="data.conference.country_conf"
@@ -99,7 +99,7 @@
           <RadioInput
             label="ณ ต่างประเทศ"
             name="Venue"
-            value="ณ ต่างประเทศ"
+            value="abroad"
             customDiv="max-w-36"
             :disabled="true"
             v-model="data.conference.country_conf"
@@ -123,7 +123,7 @@
           />
           <div
             class="ml-10 w-full flex justify-center items-center"
-            v-if="data.conference.country_conf == 'ณ ต่างประเทศ'"
+            v-if="data.conference.country_conf == 'abroad'"
           >
             <div class="flex flex-row w-full">
               <TextInputLabelLeft
@@ -137,7 +137,7 @@
 
           <div
             class="ml-5 w-full flex justify-center items-center"
-            v-if="data.conference.country_conf == 'ภายในประเทศ'"
+            v-if="data.conference.country_conf == 'domestic'"
           >
             <div class="flex flex-row w-full">
               <TextInputLabelLeft
@@ -191,14 +191,14 @@
         <RadioInput
           label="การประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ และไม่อยู่ในฐานข้อมูลสากล SCOPUS"
           name="Scopus"
-          value="คณะจัด ไม่อยู่scopus"
+          value="facultyHost"
           :disabled="true"
           v-model="data.conference.meeting_type"
         />
         <RadioInput
           label="การประชุมทางวิชาการที่อยู่ในฐานข้อมูลสากล SCOPUS โดยมีการกำหนดคุณภาพแบ่งเป็น 2 ระดับ "
           name="Scopus"
-          value="อยู่ในscopus"
+          value="inScopus"
           :disabled="true"
           v-model="data.conference.meeting_type"
         />
@@ -207,14 +207,14 @@
           <RadioInput
             label="ระดับมาตรฐาน"
             name="Level"
-            value="มาตรฐาน"
+            value="standard"
             :disabled="true"
             v-model="data.conference.quality_meeting"
           />
           <RadioInput
             label="ระดับดีมาก"
             name="Level"
-            value="ดีมาก"
+            value="good"
             :disabled="true"
             v-model="data.conference.quality_meeting"
           />

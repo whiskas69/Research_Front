@@ -243,19 +243,19 @@ const fetchOfficerData = async () => {
     // กรองข้อมูลตาม user role
     let filteredForms = responseOffice.data.forms.filter((form) => {
       if (userStore.user.user_role === "hr") {
-        return form.form_status === "ฝ่ายบริหารทรัพยากรบุคคล";
+        return form.form_status === "hr";
       }
       if (userStore.user.user_role === "research") {
-        return form.form_status === "ฝ่ายบริหารงานวิจัย";
+        return form.form_status === "research";
       }
       if (userStore.user.user_role === "finance") {
         return form.form_status === "ฝ่ายบริหารการเงิน";
       }
       if (userStore.user.user_role === "associate") {
-        return form.form_status === "รองคณบดี";
+        return form.form_status === "associate";
       }
       if (userStore.user.user_role === "dean") {
-        return form.form_status === "คณบดี";
+        return form.form_status === "dean";
       }
       return false;
     });

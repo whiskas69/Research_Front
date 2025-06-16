@@ -13,13 +13,13 @@
           </p>
           <RadioInput
             label="รับทราบ"
-            value="รับทราบ"
+            value="acknowledge"
             v-model="formData.acknowledge"
             @change="handleInput('acknowledge', $event.target.value)"
           />
           <RadioInput
             label="ไม่อนุมัติ"
-            value="ไม่อนุมัติ"
+            value="notApproved"
             v-model="formData.acknowledge"
             @change="handleInput('acknowledge', $event.target.value)"
           />
@@ -66,7 +66,7 @@ const formData = reactive({
   budget: [],
   docSubmitDate: DateTime.now().toISODate(),
   acknowledge: "",
-  formStatus: "รออนุมัติ",
+  formStatus: "waitingApproval",
 });
 
 const handleInput = (key, value) => {
@@ -134,7 +134,7 @@ const OfficerConfer = async () => {
         dean_id: user.value?.user_id,
         c_approve_result: formData.acknowledge,
         dean_doc_submit_date: formData.docSubmitDate,
-        form_status: formData.acknowledge == "ไม่ถูกต้อง" ? "ไม่อนุมัติ" : formData.formStatus,
+        form_status: formData.acknowledge == "notCorrect" ? "notApproved" : formData.formStatus,
       };
 
       const response = await api.put(`/opinionConf/${id}`, dataForBackend);

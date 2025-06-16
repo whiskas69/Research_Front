@@ -26,7 +26,7 @@
             />
           </SectionWrapper>
           <SectionWrapper>
-            <p>ถ้าวารสารเป็นของสำนักพิมพ์อื่น ๆ</p>
+            <p>ถ้าวารสารเป็นของสำนักพิมพ์other</p>
             <TextInputLabelLeft
               label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 1"
               customLabel="w-4/12 mr-2"

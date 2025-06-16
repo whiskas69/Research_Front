@@ -52,7 +52,7 @@ import FinanceAll from "@/components/form/DataforOffice/FinanceAll.vue";
 const formData = reactive({
   offic: [],
   docSubmitDate: DateTime.now().toISODate(),
-  statusForm: "คณบดี",
+  statusForm: "dean",
   description: "",
 });
 

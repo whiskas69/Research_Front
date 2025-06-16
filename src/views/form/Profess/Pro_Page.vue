@@ -440,21 +440,21 @@
             <div class="flex flex-row ml-5">
               <RadioInput
                 label="วิจัยพื้นฐาน"
-                value="วิจัยพื้นฐาน"
+                value="basic"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
                 v-model="formData.radioResearch"
               />
               <RadioInput
                 label="วิจัยประยุกต์"
-                value="วิจัยประยุกต์"
+                value="applied"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
                 v-model="formData.radioResearch"
               />
               <RadioInput
                 label="วิจัยและพัฒนา"
-                value="วิจัยและพัฒนา"
+                value="research&development"
                 name="type"
                 customDiv="max-w-fit mr-10 flex items-center"
                 v-model="formData.radioResearch"
@@ -462,7 +462,7 @@
               <div class="flex flex-row">
                 <RadioInput
                   label="วิจัยอื่น ๆ "
-                  value="อื่นๆ"
+                  value="other"
                   name="type"
                   customDiv="max-w-fit mr-2 flex items-center"
                   v-model="formData.radioResearch"
@@ -1016,7 +1016,7 @@ const rules = computed(() => ({
   otherInput: {
     required: helpers.withMessage(
       "* กรุณากรอกประเภทงานวิจัย *",
-      requiredIf(() => formData.radioResearch === "อื่นๆ")
+      requiredIf(() => formData.radioResearch === "other")
     ),
   },
   source: {

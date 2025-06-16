@@ -95,7 +95,7 @@ const fetchOfficerData = async () => {
     let filteredForms = responseOffice.data.forms.filter((form) => {
       if (userStore.user.user_role === "finance") {
         console.log("userStore.user.user_role", userStore.user.user_role, form.form_status)
-        return form.form_status === "อนุมัติ";
+        return form.form_status === "approved";
       }
       return false;
     });

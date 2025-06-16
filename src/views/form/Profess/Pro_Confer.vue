@@ -152,7 +152,7 @@
             <RadioInput
               label="ภายในประเทศ"
               name="Venue"
-              value="ภายในประเทศ"
+              value="domestic"
               customDiv="w-max mr-4"
               v-model="formData.venue"
             />
@@ -160,7 +160,7 @@
               customDiv="max-w-36"
               label="ณ ต่างประเทศ"
               name="Venue"
-              value="ณ ต่างประเทศ"
+              value="abroad"
               v-model="formData.venue"
             />
           </div>
@@ -189,7 +189,7 @@
 
             <div
               class="ml-10 w-full flex justify-center items-center"
-              v-if="formData.venue == 'ณ ต่างประเทศ'"
+              v-if="formData.venue == 'abroad'"
             >
               <div class="flex flex-row w-full">
                 <span class="flex mr-2 items-center"> ประเทศ </span>
@@ -202,7 +202,7 @@
             </div>
             <div
               class="ml-5 w-full flex justify-center items-center"
-              v-if="formData.venue == 'ภายในประเทศ'"
+              v-if="formData.venue == 'domestic'"
             >
               <div class="flex flex-row w-full">
                 <span class="flex mr-2 items-center"> จังหวัด </span>
@@ -287,13 +287,13 @@
           <RadioInput
             label="การประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ และไม่อยู่ในฐานข้อมูลสากล SCOPUS"
             name="Scopus"
-            value="คณะจัด ไม่อยู่scopus"
+            value="facultyHost"
             v-model="formData.meetingType"
           />
           <RadioInput
             label="การประชุมทางวิชาการที่อยู่ในฐานข้อมูลสากล SCOPUS โดยมีการกำหนดคุณภาพแบ่งเป็น 2 ระดับ "
             name="Scopus"
-            value="อยู่ในscopus"
+            value="inScopus"
             v-model="formData.meetingType"
           />
           <span
@@ -307,19 +307,19 @@
             <RadioInput
               label="ระดับมาตรฐาน"
               name="Level"
-              value="มาตรฐาน"
+              value="standard"
               v-model="formData.qualityMeeting"
               :disabled="
-                !formData.meetingType || formData.meetingType !== 'อยู่ในscopus'
+                !formData.meetingType || formData.meetingType !== 'inScopus'
               "
             />
             <RadioInput
               label="ระดับดีมาก"
               name="Level"
-              value="ดีมาก"
+              value="good"
               v-model="formData.qualityMeeting"
               :disabled="
-                !formData.meetingType || formData.meetingType !== 'อยู่ในscopus'
+                !formData.meetingType || formData.meetingType !== 'inScopus'
               "
             />
             <span
@@ -337,7 +337,7 @@
                 v-model="formData.score"
                 :disabled="
                   !formData.qualityMeeting ||
-                  formData.qualityMeeting !== 'ดีมาก'
+                  formData.qualityMeeting !== 'good'
                 "
               />
               <div class="flex flex-row w-full px-7 my-2">
@@ -377,8 +377,8 @@
                   <span>มีค่าคะแนน {{ totalScore.total }} คะแนน และมี </span>
                   <span
                     :class="{
-                      'text-green-500': totalScore.result === 'ระดับดีมาก',
-                      'text-red-500': totalScore.result !== 'ระดับดีมาก',
+                      'text-green-500': totalScore.result === 'good',
+                      'text-red-500': totalScore.result !== 'good',
                     }"
                   >
                     {{ totalScore.result }}
@@ -423,7 +423,7 @@
                 v-model="formData.score"
                 :disabled="
                   !formData.qualityMeeting ||
-                  formData.qualityMeeting !== 'ดีมาก'
+                  formData.qualityMeeting !== 'good'
                 "
               />
               <div class="flex flex-row w-full px-7 my-2">
@@ -447,8 +447,8 @@
                   <span>มีค่าคะแนน {{ totalScore.total }} คะแนน และมี </span>
                   <span
                     :class="{
-                      'text-green-500': totalScore.result === 'ระดับดีมาก',
-                      'text-red-500': totalScore.result !== 'ระดับดีมาก',
+                      'text-green-500': totalScore.result === 'good',
+                      'text-red-500': totalScore.result !== 'good',
                     }"
                   >
                     {{ totalScore.result }}
@@ -481,7 +481,7 @@
                 v-model="formData.score"
                 :disabled="
                   !formData.qualityMeeting ||
-                  formData.qualityMeeting !== 'ดีมาก'
+                  formData.qualityMeeting !== 'good'
                 "
               />
               <div class="flex flex-row w-full px-7 my-2">
@@ -544,7 +544,7 @@
       <Mainbox class="collapse collapse-arrow">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">
-          4.  การลาและการขอเบิกค่าลงทะเบียนและค่าใช้จ่ายอื่น ๆ
+          4.  การลาและการขอเบิกค่าลงทะเบียนและค่าใช้จ่ายother
         </p>
         <SectionWrapper class="collapse-content">
           <p class="font-bold text-base pt-3">4.1 ครั้งที่ในการลา</p>
@@ -581,7 +581,7 @@
                 :disabled="
                   !(
                     formData.timeLeave === '2' &&
-                    formData.venue === 'ณ ต่างประเทศ'
+                    formData.venue === 'abroad'
                   )
                 "
               />
@@ -593,7 +593,7 @@
                 :disabled="
                   !(
                     formData.timeLeave === '2' &&
-                    formData.venue === 'ณ ต่างประเทศ'
+                    formData.venue === 'abroad'
                   )
                 "
               />
@@ -613,7 +613,7 @@
                 :disabled="
                   !(
                     formData.timeLeave === '2' &&
-                    formData.venue === 'ณ ต่างประเทศ'
+                    formData.venue === 'abroad'
                   )
                 "
               />
@@ -636,14 +636,14 @@
               name="withdraw"
               value="50%"
               v-model="formData.withdraw"
-              :disabled="formData.venue !== 'ณ ต่างประเทศ'"
+              :disabled="formData.venue !== 'abroad'"
             />
             <RadioInput
               label="ไม่เกิน 100% มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล"
               name="withdraw"
               value="100%"
               v-model="formData.withdraw"
-              :disabled="formData.venue !== 'ณ ต่างประเทศ'"
+              :disabled="formData.venue !== 'abroad'"
             />
             <span
               v-if="v$.withdraw.$error"
@@ -1144,16 +1144,16 @@ const formData = reactive({
   file6: "",
   file7: "",
   file8: "",
-  result: "ระดับมาตรฐาน",
+  result: "ระดับstandard",
 });
 
 const totalScore = computed(() => {
   if (formData.score == "SJR") {
     if (formData.sjr !== null && formData.sjrhIndex !== null) {
       const total = formData.sjr * formData.sjrhIndex;
-      let result = "ระดับมาตรฐาน";
+      let result = "ระดับstandard";
       if (total >= 4) {
-        result = "ระดับดีมาก";
+        result = "good";
       }
       formData.result = result;
       return { total, result };
@@ -1164,7 +1164,7 @@ const totalScore = computed(() => {
       const total = 0.5 * (formData.Citation / 200 + formData.hIndex);
       let result = "ระดับมาตรฐาน";
       if (total >= 9.38) {
-        result = "ระดับดีมาก";
+        result = "good";
       }
       formData.result = result;
       return { total, result };
@@ -1179,7 +1179,7 @@ const totalScore = computed(() => {
         formData.coreConf == "A+" ||
         formData.coreConf == "A*"
       ) {
-        result = "ระดับดีมาก";
+        result = "good";
       }
       formData.result = result;
       return { total, result };
@@ -1200,7 +1200,7 @@ const currentDate = computed(() => DateTime.now().toISODate());
 
 // ตรวจเงื่อนไข 2 อัน
 const isRequiredForWos = () =>
-  formData.timeLeave.includes("2") && formData.venue.includes("ณ ต่างประเทศ");
+  formData.timeLeave.includes("2") && formData.venue.includes("abroad");
 
 // ตรวจว่าวันที่ไม่อยู่หลัง value <= x
 const beforeDate = (value, date) => {
@@ -1231,7 +1231,7 @@ const afterDatenoteqal = (value, date) => {
 };
 
 const computedPlaceholder = computed(() => {
-  return formData.venue === "ณ ต่างประเทศ" ? formData.location : "";
+  return formData.venue === "abroad" ? formData.location : "";
 });
 
 const rules = computed(() => ({
@@ -1372,13 +1372,13 @@ const rules = computed(() => ({
   qualityMeeting: {
     required: helpers.withMessage(
       "* กรุณาเลือกระดับคุณภาพ *",
-      requiredIf(() => formData.meetingDate.includes("อยู่ในscopus"))
+      requiredIf(() => formData.meetingDate.includes("inScopus"))
     ),
   },
   score: {
     required: helpers.withMessage(
       "* กรุณาเลือกสูตรที่ใช้ในการคำนวณ *",
-      requiredIf(() => formData.qualityMeeting.includes("ดีมาก"))
+      requiredIf(() => formData.qualityMeeting.includes("good"))
     ),
   },
   sjr: {
@@ -1505,7 +1505,7 @@ const rules = computed(() => ({
   withdraw: {
     required: helpers.withMessage(
       "* กรุณาเลือกจำนวนค่าใช้จ่ายที่เบิกได้ *",
-      requiredIf(() => formData.timeLeave && formData.venue === "ณ ต่างประเทศ")
+      requiredIf(() => formData.timeLeave && formData.venue === "abroad")
     ),
   },
   quality100: {
@@ -1541,7 +1541,7 @@ const rules = computed(() => ({
     minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
     required: helpers.withMessage(
       "* กรุณากรอกค่าพาหนะเดินทาง *",
-      requiredIf(() => formData.venue == "ภายในประเทศ")
+      requiredIf(() => formData.venue == "domestic")
     ),
   },
   overseasExpenses: {
@@ -1550,7 +1550,7 @@ const rules = computed(() => ({
     minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
     required: helpers.withMessage(
       "* กรุณากรอกค่าพาหนะเดินทาง *",
-      requiredIf(() => formData.venue == "ณ ต่างประเทศ")
+      requiredIf(() => formData.venue == "abroad")
     ),
   },
   interExpenses: {
@@ -1698,7 +1698,7 @@ const rules = computed(() => ({
       (value) => {
         // ถ้า qualityMeeting เป็น "ดีมาก" แต่ result เป็น "ได้ระดับมาตรฐาน" -> Error
         return !(
-          formData.qualityMeeting === "ดีมาก" && value === "ได้ระดับมาตรฐาน"
+          formData.qualityMeeting === "good" && value === "ได้ระดับมาตรฐาน"
         );
       }
     ),

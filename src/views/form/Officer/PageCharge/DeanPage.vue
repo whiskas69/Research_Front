@@ -15,7 +15,7 @@
           </p>
           <RadioInput
             label="รับทราบ"
-            value="รับทราบ"
+            value="acknowledge"
             v-model="formData.acknowledge"
             @change="handleInput('acknowledge', $event.target.value)"
           />
@@ -28,7 +28,7 @@
         </SectionWrapper>
       </Mainbox>
 
-      <Mainbox v-if="formData.offic.p_research_admin == 'อนุมัติ'">
+      <Mainbox v-if="formData.offic.p_research_admin == 'approved'">
         <SectionWrapper>
           <p class="text-lg font-bold">
             เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 2)
@@ -41,7 +41,7 @@
           <div class="px-2">
             <RadioInput
               label="อนุมัติ"
-              value="อนุมัติ"
+              value="approved"
               name="comment"
               v-model="formData.radioAuthOffic"
               @change="handleInput('radioAuthOffic', $event.target.value)"
@@ -50,7 +50,7 @@
           <div class="px-2">
             <RadioInput
               label="ไม่อนุมัติ"
-              value="ไม่อนุมัติ"
+              value="notApproved"
               name="comment"
               v-model="formData.radioAuthOffic"
               @change="handleInput('radioAuthOffic', $event.target.value)"
@@ -71,7 +71,7 @@
           <div class="px-2">
             <RadioInput
               label="อื่น ๆ"
-              value="อื่น ๆ"
+              value="other"
               name="comment"
               v-model="formData.radioAuthOffic"
               @change="handleInput('radioAuthOffic', $event.target.value)"
@@ -130,7 +130,7 @@ const formData = reactive({
   offic: [],
   page_c: [],
   docSubmitDate: DateTime.now().toISODate(),
-  formStatus: "รออนุมัติ",
+  formStatus: "waitingApproval",
   acknowledge: "",
   radioAuthOffic: "",
   description1: "",
@@ -141,7 +141,7 @@ watch(
   () => formData.offic.p_research_admin,
   (newValue) => {
     formData.formStatus =
-      newValue === "อนุมัติ" ? "รออนุมัติ" : "ฝ่ายบริหารงานวิจัย";
+      newValue === "approved" ? "waitingApproval" : "research";
   }
 );
 
@@ -203,19 +203,19 @@ const rules = computed(() => ({
   radioAuthOffic: {
     required: helpers.withMessage(
       "* กรุณาเลือกข้อมูล *",
-      requiredIf(() => formData.offic.p_research_admin === "อนุมัติ")
+      requiredIf(() => formData.offic.p_research_admin === "approved")
     ),
   },
   description1: {
     required: helpers.withMessage(
       "* กรุณากรอกข้อมูล *",
-      requiredIf(() => formData.radioAuthOffic === "ไม่อนุมัติ")
+      requiredIf(() => formData.radioAuthOffic === "notApproved")
     ),
   },
   description2: {
     required: helpers.withMessage(
       "* กรุณากรอกข้อมูล *",
-      requiredIf(() => formData.radioAuthOffic === "อื่น ๆ")
+      requiredIf(() => formData.radioAuthOffic === "other")
     ),
   },
 }));
@@ -248,7 +248,7 @@ const OfficerPC = async () => {
         p_approve_result: formData.radioAuthOffic,
         p_reason_dean_appeove: formData.description1 || formData.description2,
         dean_doc_submit_date: formData.docSubmitDate,
-        form_status: formData.radioAuthOffic == "ไม่อนุมัติ" ? "ไม่อนุมัติ" : formData.formStatus,
+        form_status: formData.radioAuthOffic == "notApproved" ? "notApproved" : formData.formStatus,
       };
 
       const response = await api.put(`/opinionPC/${id}`, dataForBackend);

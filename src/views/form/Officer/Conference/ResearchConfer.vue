@@ -9,7 +9,7 @@
           <div>
             <p>• คุณภาพของการประชุม ฯ</p>
             <div
-              v-if="formData.conference.quality_meeting == 'ดีมาก'"
+              v-if="formData.conference.quality_meeting == 'good'"
               class="px-2"
             >
               <p>• อยู่ในระดับ{{ formData.conference.quality_meeting }}</p>
@@ -21,7 +21,7 @@
                 <p v-else>มีค่าคะแนน {{ formData.score.score_result }}</p>
               </div>
             </div>
-            <p v-else-if="formData.conference.quality_meeting == 'มาตรฐาน'" class="px-2">
+            <p v-else-if="formData.conference.quality_meeting == 'standard'" class="px-2">
               • อยู่ในระดับ{{ formData.conference.quality_meeting }}
             </p>
             <p v-else-if="formData.conference.quality_meeting == ''" class="px-2">
@@ -31,14 +31,14 @@
           </div>
           <RadioInput
             label="ข้อมูลถูกต้อง"
-            value="ถูกต้อง"
+            value="correct"
             name="re"
             v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)"
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
-            value="ไม่ถูกต้อง"
+            value="notCorrect"
             name="re"
             v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)"
@@ -88,7 +88,7 @@ const formData = reactive({
   docSubmitDate: DateTime.now().toISODate(),
   radioAuthOffic: "",
   description: "",
-  formStatus: "ฝ่ายบริหารการเงิน",
+  formStatus: "finance",
 });
 
 const handleInput = (key, value) => {
@@ -148,7 +148,7 @@ const OfficerConfer = async () => {
         c_meet_quality: formData.radioAuthOffic,
         c_quality_reason: formData.description,
         research_doc_submit_date: formData.docSubmitDate,
-        form_status: formData.radioAuthOffic == "ไม่ถูกต้อง" ? "ไม่อนุมัติ" : formData.formStatus,
+        form_status: formData.radioAuthOffic == "notCorrect" ? "notApproved" : formData.formStatus,
       };
 
       const response = await api.put(`/opinionConf/${id}`, dataForBackend);

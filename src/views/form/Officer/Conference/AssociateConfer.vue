@@ -53,7 +53,7 @@ const formData = reactive({
   offic: [],
   docSubmitDate: DateTime.now().toISODate(),
   description: "",
-  formStatus: "คณบดี",
+  formStatus: "dean",
 });
 
 const handleInput = (key, value) => {
