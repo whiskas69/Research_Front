@@ -26,7 +26,7 @@
                 </h4>
               </div>
               <div class="flex justify-end items-center">
-                <p class="text-yellow-500 mr-5">สถานะ{{ form.form_status }}</p>
+                <p class="text-yellow-500 mr-5">สถานะ {{ showTHstatus(form.form_status) }}</p>
               </div>
             </div>
           </div>
@@ -57,7 +57,7 @@
                 <h4 class="mr-5">ชื่อบทความ : {{ form.article_title }}</h4>
               </div>
               <div class="flex justify-end h-20 items-center">
-                <p class="text-yellow-500 mr-5">สถานะ{{ form.form_status }}</p>
+                <p class="text-yellow-500 mr-5">สถานะ{{ showTHstatus(form.form_status) }}</p>
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@
                 <h4 class="mr-5">ชื่อบทความ : {{ form.article_title }}</h4>
               </div>
               <div class="flex justify-end h-20 items-center">
-                <p class="text-yellow-500 mr-5">สถานะ{{ form.form_status }}</p>
+                <p class="text-yellow-500 mr-5">สถานะ{{ showTHstatus(form.form_status) }}</p>
               </div>
             </div>
           </div>
@@ -119,7 +119,7 @@ const pulldata = async () => {
     const res = await api.get(`/form/${data.userID}`);
     const filteredForms = res.data.filter(
       (form) =>
-        form.form_status != "approved" && form.form_status != "notApproved"
+        form.form_status != "approve" && form.form_status != "notApproved"
     );
 
     data.allForm = filteredForms;
@@ -162,6 +162,24 @@ const isLessThanOneDay = (deadlineDate) => {
   const distance = deadlineDate.getTime() - now;
   return distance <= 24 * 60 * 60 * 1000 && distance > 0;
 };
+
+const showTHstatus = (status) => {
+  if (status == "hr"){
+    return "ฝ่ายบริหารทรัพยากรบุคคล"
+  }else if (status == "research"){
+    return "ฝ่ายบริหารงานวิจัย"
+  }else if (status == "finance"){
+    return "ฝ่ายบริหารการเงิน"
+  }else if (status == "associate"){
+    return "รองคณบดี"
+  }else if (status == "dean"){
+    return "คณบดี"
+  }else if (status == "waitingApproval"){
+    return "รออนุมัติ"
+  }else if (status == "attendMeeting"){
+    return "เข้าที่ประชุม"
+  }
+}
 
 onMounted(async () => {
   setInterval(() => {

@@ -7,7 +7,7 @@
           label="ปีงบประมาณ พ.ศ."
           customInput="max-w-max text-center"
           :disabled="true"
-          :placeholder="formData.budget.budget_year"
+          v-model="formData.budget.budget_year"
         />
         <div class="flex justify-end">
           <div class="flex flex-row justify-between">
@@ -16,18 +16,14 @@
               label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น"
               customInput="max-w-max text-center"
               :disabled="true"
-              :placeholder="parseFloat(formData.budget.Conference_amount).toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                  })"
+              v-model="formData.budget.Conference_amount"
             />
             <TextInputLabelLeft
               v-if="props.type == 'Page_Charge'"
               label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น"
               customInput="max-w-max text-center"
               :disabled="true"
-              :placeholder="parseFloat(formData.budget.Page_Charge_amount).toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                  })"
+              v-model="formData.budget.Page_Charge_amount"
             />
             <p class="flex items-center w-12">บาท</p>
           </div>
@@ -39,18 +35,14 @@
               label="โดยคณะได้อนุมัติค่าใช้จ่ายไปแล้ว จำนวน"
               customInput="max-w-max text-center"
               :disabled="true"
-              :placeholder="parseFloat(formData.budget.num_expenses_approved).toLocaleString('en-US', {
-                    minimumFractionDigits: 0,
-                  })"
+              v-model="formData.budget.num_expenses_approved"
             />
             <TextInputLabelLeft
               v-if="props.type == 'Page_Charge'"
               label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
               customInput="max-w-max text-center"
               :disabled="true"
-              :placeholder="parseFloat(formData.budget.num_expenses_approved).toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                  })"
+              v-model="formData.budget.num_expenses_approved"
             />
             <p class="flex items-center w-12">รายการ</p>
           </div>
@@ -61,9 +53,7 @@
               label="รวมเป็นเงิน"
               customInput="max-w-max text-center"
               :disabled="true"
-              :placeholder="parseFloat(formData.budget.total_amount_approved).toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                  })"
+              v-model="formData.budget.total_amount_approved"
             />
             <p class="flex items-center w-12">บาท</p>
           </div>
@@ -74,9 +64,7 @@
               label="วงเงินที่คณะจัดสรรไว้ คงเหลือ"
               customInput="max-w-max text-center"
               :disabled="true"
-              :placeholder="parseFloat(formData.budget.remaining_credit_limit).toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                  })"
+              v-model="formData.budget.remaining_credit_limit"
             />
             <p class="flex items-center w-12">บาท</p>
           </div>
@@ -88,18 +76,14 @@
               label="จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวนเงิน"
               customInput="max-w-max text-center"
               :disabled="true"
-              :placeholder="parseFloat(formData.budget.amount_approval).toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                  })"
+              v-model="formData.budget.amount_approval"
             />
             <TextInputLabelLeft
               v-if="props.type == 'Page_Charge'"
               label="จำนวนเงินที่ขออนุมัติจค่า Page Charge ในครั้งนี้ เป็นจำนวนเงิน"
               customInput="max-w-max text-center"
               :disabled="true"
-              :placeholder="parseFloat(formData.budget.amount_approval).toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                  })"
+              v-model="formData.budget.amount_approval"
             />
             <p class="flex items-center w-12">บาท</p>
           </div>
@@ -110,9 +94,7 @@
               label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น"
               customInput="max-w-max text-center"
               :disabled="true"
-              :placeholder="parseFloat(formData.budget.total_remaining_credit_limit).toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                  })"
+              v-model="formData.budget.total_remaining_credit_limit"
             />
             <p class="flex items-center w-12">บาท</p>
           </div>

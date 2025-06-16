@@ -25,13 +25,13 @@
                   class="text-red-500 mr-5"
                   v-if="form.form_status == 'notApproved'"
                 >
-                  สถานะ{{ form.form_status }}
+                  สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
                 <p
                   class="text-green-500 mr-5"
-                  v-else-if="form.form_status == 'approved'"
+                  v-else-if="form.form_status == 'approve'"
                 >
-                  สถานะ{{ form.form_status }}
+                  สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
               </div>
             </div>
@@ -69,13 +69,13 @@
                   class="text-red-500 mr-5"
                   v-if="form.form_status == 'notApproved'"
                 >
-                  สถานะ{{ form.form_status }}
+                  สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
                 <p
                   class="text-green-500 mr-5"
-                  v-else-if="form.form_status == 'approved'"
+                  v-else-if="form.form_status == 'approve'"
                 >
-                  สถานะ{{ form.form_status }}
+                  สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
               </div>
             </div>
@@ -112,13 +112,13 @@
                   class="text-red-500 mr-5"
                   v-if="form.form_status == 'notApproved'"
                 >
-                  สถานะ{{ form.form_status }}
+                  สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
                 <p
                   class="text-green-500 mr-5"
-                  v-else-if="form.form_status == 'approved'"
+                  v-else-if="form.form_status == 'approve'"
                 >
-                  สถานะ{{ form.form_status }}
+                  สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
               </div>
             </div>
@@ -143,7 +143,7 @@ const pulldata = async () => {
 
     const filteredForms = res.data.filter(
       (form) =>
-        form.form_status === "approved" || form.form_status === "notApproved"
+        form.form_status === "approve" || form.form_status === "notApproved"
     );
 
     data.allForm = filteredForms.map((form) => {
@@ -163,6 +163,14 @@ const pulldata = async () => {
     alert("ไม่มีเอกสาร");
   }
 };
+
+const showTHstatus = (status) => {
+  if (status == "approve"){
+    return "อนุมัติ"
+  }else if (status == "notApproved"){
+    return "ไม่อนุมัติ"
+  }
+}
 
 onMounted(async () => {
   pulldata();

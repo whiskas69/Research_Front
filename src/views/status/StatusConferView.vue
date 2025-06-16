@@ -20,7 +20,7 @@
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'approved'">
+      <div class="flex justify-center" v-if="data.form.form_status == 'approve'">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารทรัพยากรบุคคล
@@ -52,7 +52,7 @@
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'คณบดี'">
+      <div class="flex justify-center" v-if="data.form.form_status == 'dean'">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารทรัพยากรบุคคล
@@ -68,7 +68,7 @@
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'รองคณบดี'">
+      <div class="flex justify-center" v-if="data.form.form_status == 'associate'">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารทรัพยากรบุคคล
@@ -84,7 +84,7 @@
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'ฝ่ายบริหารการเงิน'">
+      <div class="flex justify-center" v-if="data.form.form_status == 'finance'">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารทรัพยากรบุคคล
@@ -100,7 +100,7 @@
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'ฝ่ายบริหารงานวิจัย'">
+      <div class="flex justify-center" v-if="data.form.form_status == 'research'">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารทรัพยากรบุคคล
@@ -116,7 +116,7 @@
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'ฝ่ายบริหารทรัพยากรบุคคล'">
+      <div class="flex justify-center" v-if="data.form.form_status == 'hr'">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารทรัพยากรบุคคล
@@ -530,7 +530,7 @@ const getDataConf = async () => {
     data.confer_name = response.data.confer_name;
     data.name = response.data.name;
     data.withdraw = response.data.withdraw;
-
+console.log("data", data.form)
     data.full_page = response.data.conf.full_page;
     data.published_journals = response.data.conf.published_journals;
     data.q_proof = response.data.conf.q_proof;
@@ -638,5 +638,6 @@ const downloadFile = async (fileUrl, fileName) => {
 onMounted(async () => {
   await getDataConf();
   checkfile();
+  console.log("iii")
 });
 </script>

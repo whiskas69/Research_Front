@@ -124,7 +124,7 @@
           <p>ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
           <RadioInput label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้" value="อนุมัติ" name="re"
             v-model="formData.radioAuthOffic" @change="handleInput('radioAuthOffic', $event.target.value)" />
-          <TextInputLabelLeft v-if="formData.radioAuthOffic == 'approved'" label="ได้รับหนังสือตอบรับบทความ เมื่อวันที่"
+          <TextInputLabelLeft v-if="formData.radioAuthOffic == 'approve'" label="ได้รับหนังสือตอบรับบทความ เมื่อวันที่"
             customLabel="mx-2 w-full " customInput="max-w-max" customDiv="max-w-max" type="date"
             v-model="formData.dateAccep" @input="handleInput('dateAccep', $event.target.value)" />
           <textarea class="textarea textarea-bordered w-full"
@@ -220,7 +220,7 @@ const rules = computed(() => ({
       (value) => {
         if (
           (value === "waiting letter" && (formData.f_accepted !== null || formData.f_accepted !== "")) ||
-          (value === "approved" && (formData.f_accepted === null || formData.f_accepted === ""))
+          (value === "approve" && (formData.f_accepted === null || formData.f_accepted === ""))
         ) {
           return false;
         }
@@ -231,7 +231,7 @@ const rules = computed(() => ({
   dateAccep: {
     required: helpers.withMessage(
       "* กรุณากรอกวันที่อนุมัติ *",
-      requiredIf(() => formData.radioAuthOffic === "approved" && formData.f_accepted !== null || formData.f_accepted !== "")
+      requiredIf(() => formData.radioAuthOffic === "approve" && formData.f_accepted !== null || formData.f_accepted !== "")
     ),
     maxDateToday,
   },

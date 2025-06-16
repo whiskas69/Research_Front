@@ -185,6 +185,7 @@ import api from "@/setting/api";
 const userStore = useUserStore();
 
 const user = computed(() => userStore.user);
+console.log("user", user.value)
 
 const data = reactive({
   id: "",

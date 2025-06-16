@@ -36,16 +36,14 @@
           value="correct"
           name="re"
           :disabled="true"
-          :checked="formData.offic.c_meet_quality == 'correct' ? true : false"
+          v-model="formData.offic.c_meet_quality"
         />
         <RadioInput
           label="ข้อมูลไม่ถูกต้อง"
           value="notCorrect"
           name="re"
           :disabled="true"
-          :checked="
-            formData.offic.c_meet_quality == 'notCorrect' ? true : false
-          "
+          v-model="formData.offic.c_meet_quality"
         />
         <TextArea
           :disabled="true"
@@ -215,15 +213,13 @@
           <p>ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
           <RadioInput
             label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้"
-            value="approved"
+            value="approve"
             name="re"
             :disabled="true"
-            :checked="
-              formData.offic.p_research_admin == 'approved' ? true : false
-            "
+            v-model="formData.offic.p_research_admin"
           />
           <textarea
-            v-if="formData.offic.p_research_admin == 'approved'"
+            v-if="formData.offic.p_research_admin == 'approve'"
             class="textarea textarea-bordered w-full"
             :disabled="true"
             :placeholder="formData.offic.p_reason"
@@ -233,11 +229,7 @@
             value="waiting letter"
             name="re"
             :disabled="true"
-            :checked="
-              formData.offic.p_research_admin == 'waiting letter'
-                ? true
-                : false
-            "
+            v-model="formData.offic.p_research_admin"
           />
           <textarea
             v-if="formData.offic.p_research_admin == 'waiting letter'"
@@ -250,9 +242,7 @@
             value="other"
             name="re"
             :disabled="true"
-            :checked="
-              formData.offic.p_research_admin == 'other' ? true : false
-            "
+            v-model="formData.offic.p_research_admin"
           />
           <textarea
             v-if="formData.offic.p_research_admin == 'other'"
@@ -296,16 +286,14 @@
             name="noted"
             value="acknowledge"
             :disabled="true"
-            :checked="formData.offic.research_admin == 'acknowledge' ? true : false"
+            v-model="formData.offic.research_admin"
           />
           <RadioInput
             label="ไม่รับทราบ"
             name="noted"
             value="notAcknowledge"
             :disabled="true"
-            :checked="
-              formData.offic.research_admin == 'notAcknowledge' ? true : false
-            "
+            v-model="formData.offic.research_admin"
           />
         </SectionWrapper>
       </Mainbox>

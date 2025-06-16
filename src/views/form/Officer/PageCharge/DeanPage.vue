@@ -41,7 +41,7 @@
           <div class="px-2">
             <RadioInput
               label="อนุมัติ"
-              value="approved"
+              value="approve"
               name="comment"
               v-model="formData.radioAuthOffic"
               @change="handleInput('radioAuthOffic', $event.target.value)"
@@ -141,7 +141,7 @@ watch(
   () => formData.offic.p_research_admin,
   (newValue) => {
     formData.formStatus =
-      newValue === "approved" ? "waitingApproval" : "research";
+      newValue === "approve" ? "waitingApproval" : "research";
   }
 );
 
@@ -203,7 +203,7 @@ const rules = computed(() => ({
   radioAuthOffic: {
     required: helpers.withMessage(
       "* กรุณาเลือกข้อมูล *",
-      requiredIf(() => formData.offic.p_research_admin === "approved")
+      requiredIf(() => formData.offic.p_research_admin === "approve")
     ),
   },
   description1: {

@@ -134,10 +134,9 @@
             </div>
           </div>
           <RadioInput
-            v-if="formData.user == 0"
-            v-model="formData.checkWorkedNo3NeverAbroad"
-            @input="handleInput('profes3y', true)"
+            value="1"
             label="เป็นพนักงานสถาบันที่ปฏิบัติงานมาแล้วไม่เกิน 3 ปีนับตั้งแต่วันบรรจุและยังไม่เคยลาเข้าร่วมประชุมทางวิชาการ ณ ต่างประเทศ"
+            v-model="formData.checkWorkedNo3NeverAbroad"
           />
           <textarea
             placeholder="อื่น ๆ"

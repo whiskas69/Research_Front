@@ -249,7 +249,7 @@ const fetchOfficerData = async () => {
         return form.form_status === "research";
       }
       if (userStore.user.user_role === "finance") {
-        return form.form_status === "ฝ่ายบริหารการเงิน";
+        return form.form_status === "finance";
       }
       if (userStore.user.user_role === "associate") {
         return form.form_status === "associate";
@@ -260,7 +260,7 @@ const fetchOfficerData = async () => {
       return false;
     });
     for (let i = 0; i < filteredForms.length; i++) {
-      if (filteredForms.length > 0 || filteredForms[i].professor_reedit == true) {
+      if (filteredForms.length > 0 || filteredForms[i].professor_reedit == true ) {
         listForm.forms = filteredForms;
         listForm.nameC = responseOffice.data.confer;
         listForm.nameP = responseOffice.data.pageC;

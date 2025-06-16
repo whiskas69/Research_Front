@@ -130,7 +130,7 @@ const data = reactive({
   userID: "",
   userRole: "",
   allForm: [],
-  status: "approved",
+  status: "approve",
 });
 
 const userStore = useUserStore();
@@ -192,7 +192,6 @@ const addapproved = async (formId) => {
       form_status: data.status,
     };
     console.log("updateStatus: ", updateStatus);
-    console.log("Requesting URL: ", `http://localhost:3002/form/${formId}`);
     const response = await api.put(
       `/form/${formId}`,
       updateStatus,

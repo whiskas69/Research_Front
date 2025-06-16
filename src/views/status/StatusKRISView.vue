@@ -18,7 +18,7 @@
         </ul>
       </div>
 
-      <div v-if="data.form.form_status == 'approved'" class="flex justify-center">
+      <div v-if="data.form.form_status == 'approve'" class="flex justify-center">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
@@ -38,7 +38,7 @@
         </ul>
       </div>
 
-      <div v-if="data.form.form_status == 'ฝ่ายบริหารงานวิจัย'" class="flex justify-center">
+      <div v-if="data.form.form_status == 'research'" class="flex justify-center">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย

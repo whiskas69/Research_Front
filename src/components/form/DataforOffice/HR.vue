@@ -230,9 +230,10 @@
             </div>
           </div>
           <RadioInput
-            v-if="formData.offic.user_confer == 0"
             label="เป็นพนักงานสถาบันที่ปฏิบัติงานมาแล้วไม่เกิน 3 ปีนับตั้งแต่วันบรรจุและยังไม่เคยลาเข้าร่วมประชุมทางวิชาการ ณ ต่างประเทศ"
-            :checked="formData.offic.user_confer == 0"
+            value="1"
+            v-model="formData.offic.user_confer"
+            :disabled="true"
           />
           <textarea
           v-if="formData.offic.c_noteOther != null"
@@ -250,16 +251,14 @@
             value="correct"
             name="redi"
             :disabled="true"
-            :checked="formData.offic.c_research_hr == 'correct' ? true : false"
+            v-model="formData.offic.c_research_hr"
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
             value="notCorrect"
             name="redi"
             :disabled="true"
-            :checked="
-              formData.offic.c_research_hr == 'notCorrect' ? true : false
-            "
+            v-model="formData.offic.c_research_hr"
           />
           <textarea
             class="textarea textarea-bordered w-full"

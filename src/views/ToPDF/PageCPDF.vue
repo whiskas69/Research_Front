@@ -335,11 +335,11 @@
             type="radio"
             disabled="false"
             :checked="
-              formData.offic.p_research_admin == 'approved' ? true : false
+              formData.offic.p_research_admin == 'approve' ? true : false
             "
           />
           <span>ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้</span>
-          <p v-if="formData.offic.p_research_admin == 'approved'">
+          <p v-if="formData.offic.p_research_admin == 'approve'">
             {{ formData.offic.p_reason }}
           </p>
         </div>
@@ -491,7 +491,7 @@
       <input
         type="radio"
         disabled="false"
-        :checked="formData.offic.p_approve_result == 'approved' ? true : false"
+        :checked="formData.offic.p_approve_result == 'approve' ? true : false"
       />
       <span>อนุมัติ</span>
       <input

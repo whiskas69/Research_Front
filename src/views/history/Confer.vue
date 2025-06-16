@@ -12,7 +12,7 @@
       <div
         v-if="
           formData.form.form_status == 'waitingApproval' ||
-          formData.form.form_status == 'approved'
+          formData.form.form_status == 'approve'
         "
         class="flex no-print"
       >

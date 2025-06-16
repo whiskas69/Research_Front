@@ -42,7 +42,7 @@
 
       <div
         class="flex justify-center"
-        v-if="data.form.form_status == 'approved'"
+        v-if="data.form.form_status == 'approve'"
       >
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
@@ -58,7 +58,7 @@
         </ul>
       </div>
 
-      <div class="flex justify-center" v-if="data.form.form_status == 'คณบดี'">
+      <div class="flex justify-center" v-if="data.form.form_status == 'dean'">
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
             ฝ่ายบริหารงานวิจัย
@@ -75,7 +75,7 @@
 
       <div
         class="flex justify-center"
-        v-if="data.form.form_status == 'รองคณบดี'"
+        v-if="data.form.form_status == 'associate'"
       >
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
@@ -93,7 +93,7 @@
 
       <div
         class="flex justify-center"
-        v-if="data.form.form_status == 'ฝ่ายบริหารการเงิน'"
+        v-if="data.form.form_status == 'finance'"
       >
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">
@@ -111,7 +111,7 @@
 
       <div
         class="flex justify-center"
-        v-if="data.form.form_status == 'ฝ่ายบริหารงานวิจัย'"
+        v-if="data.form.form_status == 'research'"
       >
         <ul class="steps steps-vertical lg:steps-horizontal">
           <li data-content="✓" class="step step-primary w-40">

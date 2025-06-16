@@ -17,10 +17,10 @@
               </div>
               <div class="flex justify-end items-center">
                 <p class="text-red-500 mr-5" v-if="form.form_status == 'notApproved'">
-                  สถานะ{{ form.form_status }}
+                  สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
-                <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approved'">
-                  สถานะ{{ form.form_status }}
+                <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approve'">
+                  สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
               </div>
             </div>
@@ -52,10 +52,10 @@
               </div>
               <div class="flex justify-end h-20 items-center">
                 <p class="text-red-500 mr-5" v-if="form.form_status == 'notApproved'">
-                  สถานะ{{ form.form_status }}
+                  สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
-                <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approved'">
-                  สถานะ{{ form.form_status }}
+                <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approve'">
+                  สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
               </div>
             </div>
@@ -87,10 +87,10 @@
               </div>
               <div class="flex justify-end h-20 items-center">
                 <p class="text-red-500 mr-5" v-if="form.form_status == 'notApproved'">
-                  สถานะ{{ form.form_status }}
+                  สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
-                <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approved'">
-                  สถานะ{{ form.form_status }}
+                <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approve'">
+                  สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
               </div>
             </div>
@@ -121,7 +121,7 @@ const pulldata = async () => {
     console.log("res", res.data)
 
     const filteredForms = res.data.filter(
-      (form) => form.form_status === "approved" || form.form_status === "notApproved"
+      (form) => form.form_status === "approve" || form.form_status === "notApproved"
     );
     console.log("filteredForms", filteredForms);
 
@@ -139,6 +139,14 @@ const pulldata = async () => {
     console.log(error);
   }
 };
+
+const showTHstatus = (status) => {
+  if (status == "approve"){
+    return "อนุมัติ"
+  }else if (status == "notApproved"){
+    return "ไม่อนุมัติ"
+  }
+}
 
 onMounted(async () => {
   await userStore.fetchUser();

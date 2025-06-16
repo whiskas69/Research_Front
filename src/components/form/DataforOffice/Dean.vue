@@ -8,7 +8,7 @@
         <RadioInput
           label="รับทราบ"
           :disabled="true"
-          :checked="formData.offic.c_approve_result == 'acknowledge' ? true : false"
+          v-model="formData.offic.c_approve_result"
         />
       </SectionWrapper>
     </Mainbox>
@@ -26,7 +26,7 @@
             label="รับทราบ"
             value="acknowledge"
             :disabled="true"
-            :checked="formData.offic.p_acknowledge == 'acknowledge' ? true : false"
+            v-model="formData.offic.p_acknowledge"
           />
         </SectionWrapper>
       </Mainbox>
@@ -47,9 +47,7 @@
               value="approval"
               name="comment"
               :disabled="true"
-              :checked="
-                formData.offic.p_approve_result == 'approval' ? true : false
-              "
+              v-model="formData.offic.p_approve_result"
             />
           </div>
           <div class="px-2">
@@ -58,9 +56,7 @@
               value="notApproved"
               name="comment"
               :disabled="true"
-              :checked="
-                formData.offic.p_approve_result == 'notApproved' ? true : false
-              "
+              v-model="formData.offic.p_approve_result"
             />
           </div>
           <div>
@@ -76,9 +72,7 @@
               value="other"
               name="comment"
               :disabled="true"
-              :checked="
-                formData.offic.p_approve_result == 'other' ? true : false
-              "
+              v-model="formData.offic.p_approve_result "
             />
           </div>
           <div>
