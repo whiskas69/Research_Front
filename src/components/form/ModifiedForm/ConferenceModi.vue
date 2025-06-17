@@ -92,6 +92,34 @@
           v-model="formData.conference.conf_name"
           :class="isFieldEdited('conf_name') ? 'text-red-500' : ''"
         />
+        <TextInputLabelLeft
+            label="จำนวนนักวิจัยร่วม"
+            customLabel="w-[10%]"
+            name="num_co_researchers"
+            v-model="formData.conference.num_co_researchers"
+            :class="isFieldEdited('num_co_researchers') ? 'text-red-500' : ''"
+          />
+          <div v-for="(index) in parseInt(formData.conference.num_co_researchers)  || 0" :key="index" >
+            <div class="flex flex-row gap-4">
+              <p class="pt-2">{{ index }}.</p>
+              <TextInputLabelLeft
+                label="ชื่อ-นามสกุลของนักวิจัยร่วม"
+                customLabel="w-[100%]"
+                customDiv="max-w-[30%]"
+                name="name_co_researchers"
+                v-model="formData.conference.name_co_researchers[index]"
+                :class="isFieldEdited('name_co_researchers') ? 'text-red-500' : ''"
+              />
+              <TextInputLabelLeft
+                label="หลักสูตรของนักวิจัยร่วม"
+                customLabel="w-[100%]"
+                customDiv="max-w-[25%]"
+                name="course_co_researchers"
+                v-model="formData.conference.course_co_researchers[index]"
+                :class="isFieldEdited('course_co_researchers') ? 'text-red-500' : ''"
+              />
+            </div>
+          </div>
         <div class="flex flex-row w-full">
           <p class="w-1/4">การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
           <RadioInput

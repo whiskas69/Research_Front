@@ -77,6 +77,28 @@
             v-model="data.conference.conf_research"
           />
           <TextInputLabelLeft
+            label="จำนวนนักวิจัยร่วม"
+            customLabel="w-[10%]"
+            v-model="data.conference.num_co_researchers"
+          />
+          <div v-for="(index) in parseInt(data.conference.num_co_researchers)  || 0" :key="index" >
+            <div class="flex flex-row gap-4">
+              <p class="pt-2">{{ index }}.</p>
+              <TextInputLabelLeft
+                label="ชื่อ-นามสกุลของนักวิจัยร่วม"
+                customLabel="w-[100%]"
+                customDiv="max-w-[30%]"
+                v-model="data.conference.name_co_researchers[index]"
+              />
+              <TextInputLabelLeft
+                label="หลักสูตรของนักวิจัยร่วม"
+                customLabel="w-[100%]"
+                customDiv="max-w-[25%]"
+                v-model="data.conference.course_co_researchers[index]"
+              />
+            </div>
+          </div>
+          <TextInputLabelLeft
             label="ชื่อการประชุมทางวิชาการ"
             customLabel="w-1/6"
             v-model="data.conference.conf_name"

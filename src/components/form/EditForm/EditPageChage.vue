@@ -2,7 +2,7 @@
   <div>
     <div class="container my-10 mx-auto">
       <p class="text-xl font-bold mb-5">
-        ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
+        ขออนุมัติค่า Page Charge เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ 
       </p>
       <Mainbox>
         <SectionWrapper>
@@ -10,12 +10,12 @@
             label="ชื่อ"
             customLabel="w-2/12 text-lg font-bold"
             :disabled="true"
-            v-model="formData.name.user_nameth"
+            v-model="formData.userForm.user_nameth"
           />
           <TextInputLabelLeft
             label="ตำแหน่ง"
             customLabel="w-2/12 text-lg font-bold"
-            v-model="formData.name.user_positionth"
+            v-model="formData.userForm.user_positionth"
             :disabled="true"
           />
           <div class="flex flex-row">
@@ -183,6 +183,29 @@
             customLabel="w-auto min-w-fit"
             v-model="formData.pageChange.article_title"
           />
+          <TextInputLabelLeft
+            label="จำนวนนักวิจัยร่วม"
+            customLabel="w-[10%]"
+            v-model="formData.pageChange.num_co_researchers"
+          />
+          <div v-for="(index) in parseInt(formData.pageChange.num_co_researchers)  || 0" :key="index" >
+            <div class="flex flex-row gap-4">
+              <p class="pt-2">{{ index }}.</p>
+              <TextInputLabelLeft
+                label="ชื่อ-นามสกุลของนักวิจัยร่วม"
+                customLabel="w-[100%]"
+                customDiv="max-w-[30%]"
+                v-model="formData.pageChange.name_co_researchers[index]"
+              />
+              <TextInputLabelLeft
+                label="หลักสูตรของนักวิจัยร่วม"
+                customLabel="w-[100%]"
+                customDiv="max-w-[25%]"
+                v-model="formData.pageChange.course_co_researchers[index]"
+              />
+            </div>
+          </div>
+
           <p>กำหนดการที่คาดว่าจะได้รับการลงตีพิมพ์ในวารสาร</p>
           <div class="flex flex-row mt-2 justify-between">
             <TextInputLabelLeft
@@ -376,7 +399,7 @@ const formData = reactive({
   pageChange: {},
   originPc: {},
   userForm: [],
-  name:"",
+  name: "",
 
   check: [],
   checkISI: "",
@@ -454,7 +477,7 @@ const fetchProfessorData = async () => {
     const responseUser = await api.get(`/user/${userID}`);
     formData.userForm = responseUser.data;
 
-    console.log("get user: ", formData.user);
+    console.log("get user: ", formData.userForm);
     console.log("get userid: ", responsePC.data.user_id);
     console.log("get responsePC: ", responsePC.data);
 
