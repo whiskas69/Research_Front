@@ -287,23 +287,20 @@
             v-model="formData.numcoResearchers"
           />
 
-          <div
-            v-for="index in parseInt(formData.numcoResearchers)  || 0"
-            :key="index"
-          >
+          <div v-for="(index) in parseInt(formData.numcoResearchers)  || 0" :key="index" >
             <div class="flex flex-row gap-4">
               <p class="pt-2">{{ index }}.</p>
               <TextInputLabelLeft
                 label="ชื่อ-นามสกุลของนักวิจัยร่วม"
                 customLabel="w-[100%]"
                 customDiv="max-w-[30%]"
-                v-model="formData.namecoResearchers"
+                v-model="formData.namecoResearchers[index]"
               />
               <TextInputLabelLeft
                 label="หลักสูตรของนักวิจัยร่วม"
                 customLabel="w-[100%]"
                 customDiv="max-w-[25%]"
-                v-model="formData.coursecoResearchers"
+                v-model="formData.coursecoResearchers[index]"
               />
             </div>
           </div>
@@ -663,7 +660,7 @@
 </template>
 
 <script setup>
-import { reactive, onMounted, computed } from "vue";
+import { reactive, onMounted, computed, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
 import {
@@ -1127,6 +1124,30 @@ onMounted(() => {
   if (draft) {
     console.log("have draft", JSON.parse(draft));
     Object.assign(formData, JSON.parse(draft));
+  }
+});
+
+watch(() => formData.numcoResearchers, (newVal) => {
+  const num = parseInt(newVal) || 0;
+
+  // ถ้ายังไม่เป็น array ให้กำหนดก่อน
+  if (!Array.isArray(formData.namecoResearchers)) {
+    formData.namecoResearchers = [];
+  }
+  if (!Array.isArray(formData.coursecoResearchers)) {
+    formData.coursecoResearchers = [];
+  }
+  
+  formData.namecoResearchers.length = num;
+  formData.coursecoResearchers.length = num;
+
+  for (let i = 0; i < num; i++) {
+    if (formData.namecoResearchers[i] === undefined) {
+      formData.namecoResearchers[i] = '';
+    }
+    if (formData.coursecoResearchers[i] === undefined) {
+      formData.coursecoResearchers[i] = '';
+    }
   }
 });
 

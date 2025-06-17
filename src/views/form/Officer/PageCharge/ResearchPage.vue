@@ -122,7 +122,7 @@
       <Mainbox>
         <SectionWrapper>
           <p>ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
-          <RadioInput label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้" value="อนุมัติ" name="re"
+          <RadioInput label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้" value="approve" name="re"
             v-model="formData.radioAuthOffic" @change="handleInput('radioAuthOffic', $event.target.value)" />
           <TextInputLabelLeft v-if="formData.radioAuthOffic == 'approve'" label="ได้รับหนังสือตอบรับบทความ เมื่อวันที่"
             customLabel="mx-2 w-full " customInput="max-w-max" customDiv="max-w-max" type="date"
