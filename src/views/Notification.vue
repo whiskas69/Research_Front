@@ -2,7 +2,8 @@
   <div class="container my-10 mx-auto">
     <div class="text-2xl font-bold mb-5">การแจ้งเตือน</div>
     <div
-      v-if="formData.My_Notification.length ||
+      v-if="
+        formData.My_Notification.length ||
         formData.Officer_Notification.length ||
         formData.HRorResearch_Notification.length
       "
@@ -19,7 +20,7 @@
             <div class="flex flex-col my-1 mx-5">
               <p class="mb-1 font-semibold text-lg">แบบเสนอโครงการวิจัย</p>
               <p>ชื่องานวิจัย : {{ noti.name_form }}</p>
-              <p>สถานะ : {{ noti.form_status }}</p>
+              <p>สถานะ : {{ changerole[noti.form_status] }}</p>
               <p>เจ้าของแบบฟอร์ม: {{ noti.user_nameth }}</p>
               <p>อัปเดตเมื่อ: {{ formatDate(noti.date_update) }}</p>
             </div>
@@ -31,7 +32,7 @@
                 ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
               </p>
               <p>ชื่อบทความ : {{ noti.name_form }}</p>
-              <p>สถานะ : {{ noti.form_status }}</p>
+              <p>สถานะ : {{ changerole[noti.form_status] }}</p>
               <p>เจ้าของแบบฟอร์ม: {{ noti.user_nameth }}</p>
               <p>อัปเดตเมื่อ: {{ formatDate(noti.date_update) }}</p>
             </div>
@@ -46,7 +47,7 @@
                 เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
               </p>
               <p>ชื่อบทความ : {{ noti.name_form }}</p>
-              <p>สถานะ : {{ noti.form_status }}</p>
+              <p>สถานะ : {{ changerole[noti.form_status] }}</p>
               <p>เจ้าของแบบฟอร์ม: {{ noti.user_nameth }}</p>
               <p>อัปเดตเมื่อ: {{ formatDate(noti.date_update) }}</p>
             </div>
@@ -58,7 +59,7 @@
                 แบบเสนอโครงการวิจัย (มีการแก้ไข)
               </p>
               <p>ชื่องานวิจัย : {{ noti.name_form }}</p>
-              <p>สถานะ : {{ noti.form_status }}</p>
+              <p>สถานะ : {{ changerole[noti.form_status] }}</p>
               <p>เจ้าของแบบฟอร์ม: {{ noti.user_nameth }}</p>
               <p>อัปเดตเมื่อ: {{ formatDate(noti.date_update) }}</p>
             </div>
@@ -70,7 +71,7 @@
                 ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ (มีการแก้ไข)
               </p>
               <p>ชื่อบทความ : {{ noti.name_form }}</p>
-              <p>สถานะ : {{ noti.form_status }}</p>
+              <p>สถานะ : {{ changerole[noti.form_status] }}</p>
               <p>เจ้าของแบบฟอร์ม: {{ noti.user_nameth }}</p>
               <p>อัปเดตเมื่อ: {{ formatDate(noti.date_update) }}</p>
             </div>
@@ -83,7 +84,7 @@
                 เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ (มีการแก้ไข)
               </p>
               <p>ชื่อบทความ : {{ noti.name_form }}</p>
-              <p>สถานะ : {{ noti.form_status }}</p>
+              <p>สถานะ : {{ changerole[noti.form_status] }}</p>
               <p>เจ้าของแบบฟอร์ม: {{ noti.user_nameth }}</p>
               <p>อัปเดตเมื่อ: {{ formatDate(noti.date_update) }}</p>
             </div>
@@ -101,7 +102,7 @@
             <div class="flex flex-col my-1 mx-5">
               <p class="mb-1 font-semibold text-lg">แบบเสนอโครงการวิจัย</p>
               <p>ชื่องานวิจัย : {{ noti.name_form }}</p>
-              <p>สถานะ : {{ noti.form_status }}</p>
+              <p>สถานะ : {{ changerole[noti.form_status] }}</p>
               <p>เจ้าของแบบฟอร์ม: {{ noti.user_nameth }}</p>
               <p>อัปเดตเมื่อ: {{ formatDate(noti.date_update) }}</p>
             </div>
@@ -113,7 +114,7 @@
                 ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
               </p>
               <p>ชื่อบทความ : {{ noti.name_form }}</p>
-              <p>สถานะ : {{ noti.form_status }}</p>
+              <p>สถานะ : {{ changerole[noti.form_status] }}</p>
               <p>เจ้าของแบบฟอร์ม: {{ noti.user_nameth }}</p>
               <p>อัปเดตเมื่อ: {{ formatDate(noti.date_update) }}</p>
             </div>
@@ -126,7 +127,7 @@
                 เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
               </p>
               <p>ชื่อบทความ : {{ noti.name_form }}</p>
-              <p>สถานะ : {{ noti.form_status }}</p>
+              <p>สถานะ : {{ changerole[noti.form_status] }}</p>
               <p>เจ้าของแบบฟอร์ม: {{ noti.user_nameth }}</p>
               <p>อัปเดตเมื่อ: {{ formatDate(noti.date_update) }}</p>
             </div>
@@ -144,7 +145,7 @@
             <div class="flex flex-col my-1 mx-5">
               <p class="mb-1 font-semibold text-lg">แบบเสนอโครงการวิจัย</p>
               <p>ชื่องานวิจัย : {{ noti.name_form }}</p>
-              <p>สถานะ : {{ noti.form_status }}</p>
+              <p>สถานะ : {{ changerole[noti.form_status] }}</p>
               <p>เจ้าของแบบฟอร์ม: {{ noti.user_nameth }}</p>
               <p>อัปเดตเมื่อ: {{ formatDate(noti.date_update) }}</p>
             </div>
@@ -156,7 +157,7 @@
                 ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
               </p>
               <p>ชื่อบทความ : {{ noti.name_form }}</p>
-              <p>สถานะ : {{ noti.form_status }}</p>
+              <p>สถานะ : {{ changerole[noti.form_status] }}</p>
               <p>เจ้าของแบบฟอร์ม: {{ noti.user_nameth }}</p>
               <p>อัปเดตเมื่อ: {{ formatDate(noti.date_update) }}</p>
             </div>
@@ -169,7 +170,7 @@
                 เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
               </p>
               <p>ชื่อบทความ : {{ noti.name_form }}</p>
-              <p>สถานะ : {{ noti.form_status }}</p>
+              <p>สถานะ : {{ changerole[noti.form_status] }}</p>
               <p>เจ้าของแบบฟอร์ม: {{ noti.user_nameth }}</p>
               <p>อัปเดตเมื่อ: {{ formatDate(noti.date_update) }}</p>
             </div>
@@ -203,6 +204,18 @@ const formData = ref({
   HRorResearch_Notification: [],
 });
 
+const changerole = {
+  hr: "ฝ่ายบริหารทรัพยากรบุคคล",
+  research: "ฝ่ายบริหารงานวิจัย",
+  finance: "ฝ่ายบริหารการเงิน",
+  associate: "รองคณบดี",
+  dean: "คณบดี",
+  waitingApproval: "รอการอนุมัติ",
+  approve: "อนุมัติ",
+  notApproved: "ไม่อนุมัติ",
+  attendMeeting: "เข้าร่วมประชุม",
+};
+
 const formatDate = (dateStr) => {
   return DateTime.fromISO(dateStr).toFormat("dd-MM-yyyy");
 };
@@ -221,11 +234,11 @@ const getNotification = async () => {
     );
 
     const roleToStatusMap = {
-      hr: "ฝ่ายบริหารทรัพยากรบุคคล",
-      research: "ฝ่ายบริหารงานวิจัย",
-      finance: "ฝ่ายบริหารการเงิน",
-      associate: "รองคณบดี",
-      dean: "คณบดี",
+      hr: "hr",
+      research: "research",
+      finance: "finance",
+      associate: "associate",
+      dean: "dean",
     };
 
     const officerStatus = roleToStatusMap[currentUserRole];
@@ -236,10 +249,8 @@ const getNotification = async () => {
 
     const HRorResearchNotifications = allNotifications.filter((noti) => {
       return (
-        (currentUserRole === "research" &&
-          (noti.form_status === "Research_KRIS" ||
-            noti.form_status === "Conference")) ||
-        (currentUserRole === "hr" && noti.form_status === "Page_Charge")
+        (currentUserRole === "research" && noti.form_status === "waitingApproval" && (noti.form_type === "Research_KRIS" || noti.form_type === "Conference")) ||
+        (currentUserRole === "hr" && noti.form_status === "waitingApproval" && (noti.form_type === "Page_Charge"))
       );
     });
 
