@@ -310,7 +310,7 @@
     <div class="flex flex-col text-[13px] pt-3 items-end">
       <p>ลงชื่อ ผู้เสนอขออนุมัติ</p>
       <img
-        :src="`http://localhost:3002/uploads/${formData.user.user_signature}`"
+        :src="`http://10.0.15.37:3002/uploads/${formData.user.user_signature}`"
         class="h-[50px] w-[170px]"
         alt="user signature"
       />
@@ -361,7 +361,7 @@
             <p>ลงนาม</p>
             <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
               <img v-if="item.user_role == 'research' && (item.user_id == formData.offic.research_id)"
-              :src="`http://localhost:3002/uploads/${item.user_signature}`"
+              :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
               class="h-[50px] w-[170px]"
               alt="research Image"
             />
@@ -415,7 +415,7 @@
             <p>ลงนาม</p>
             <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
               <img v-if="item.user_role == 'finance' && item.user_id == formData.budget.user_id"
-              :src="`http://localhost:3002/uploads/${item.user_signature}`"
+              :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
               class="h-[50px] w-[170px] "
               alt="finance Image"
             />
@@ -438,7 +438,7 @@
             <p>ลงนาม</p>
             <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
               <img v-if="item.user_role == 'associate' && item.user_id == formData.offic.associate_id"
-              :src="`http://localhost:3002/uploads/${item.user_signature}`"
+              :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
               class="h-[50px] w-[170px] "
               alt="My Image"
             />
@@ -462,7 +462,7 @@
             <p>ลงนาม</p>
             <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
               <img v-if="item.user_role == 'dean' && item.user_id == formData.offic.dean_id"
-              :src="`http://localhost:3002/uploads/${item.user_signature}`"
+              :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
               class="h-[50px] w-[170px]"
               alt="My Image"
             />
@@ -518,7 +518,7 @@
         <p>ลงนาม</p>
         <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
               <img v-if="item.user_role == 'dean' && item.user_id == formData.offic.dean_id"
-              :src="`http://localhost:3002/uploads/${item.user_signature}`"
+              :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
               class="h-[50px] w-[170px] "
               alt="My Image"
             />
