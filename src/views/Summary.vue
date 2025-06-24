@@ -134,6 +134,7 @@
               <tr class="text-center">
                 <th class="border px-3 py-2">ลำดับที่</th>
                 <th class="border px-3 py-2">ชื่อ</th>
+                <th class="border px-3 py-2">นักวิจัยร่วม</th>
                 <th class="border px-3 py-2">ชื่อผลงานวิจัย</th>
                 <th class="border px-3 py-2">ชื่อการประชุม</th>
                 <th class="border px-3 py-2">จังหวัด/ประเทศ</th>
@@ -153,6 +154,7 @@
               <tr v-for="(row, index) in conferenceData" :key="index" class="text-center">
                 <td class="border px-3 py-2">{{ index + 1 }}</td>
                 <td class="border px-3 py-2">{{ row.user_nameth }}</td>
+                <td class="border px-3 py-2">{{ row.name_co_researchers.filter(name => name !== "").join(", ") }}</td>
                 <td class="border px-3 py-2">{{ row.conf_name }}</td>
                 <td class="border px-3 py-2">{{ row.conf_research }}</td>
                 <td class="border px-3 py-2">{{ row.location }}</td>
@@ -912,160 +914,6 @@
         </div>
       </div>
 
-      <!-- <input type="radio" name="mytabs" class="tab" aria-label="Page Charge" />
-      <div class="tab-content bg-base-100 border-base-300 p-6">
-        <h2>ข้อมูลทั้งหมดของ Page Charge</h2>
-        <div class="flex justify-end mt-2">
-          <button class="btn bg-[#E85F19] text-white" @click="exportExcel('datapc1')">
-            Export to Excel
-          </button>
-        </div>
-        <div class="overflow-x-auto mt-2">
-          <table class="table w-full" ref="datapc1">
-            <thead>
-              <tr class="text-center">
-                <th class="border px-3 py-2" rowspan="2">Page Charge</th>
-                <th class="border px-3 py-2" colspan="5">
-                  วารสารอยู่ในข้อมูลสากล ใน Quartile
-                </th>
-                <th class="border px-3 py-2" rowspan="2">รวม</th>
-              </tr>
-              <tr class="text-center">
-                <th class="border px-3 py-2">Quartile 1</th>
-                <th class="border px-3 py-2">Quartile 2</th>
-                <th class="border px-3 py-2">Quartile 3</th>
-                <th class="border px-3 py-2">Quartile 4</th>
-                <th class="border px-3 py-2">Nature</th>
-              </tr>
-            </thead>
-            <tbody class="text-center">
-              <tr>
-                <td class="border px-3 py-2">จำนวน</td>
-                <td class="border px-3 py-2">
-                  {{ CountPc[0]?.count_qt_1 || "0" }}
-                </td>
-                <td class="border px-3 py-2">
-                  {{ CountPc[0]?.count_qt_2 || "0" }}
-                </td>
-                <td class="border px-3 py-2">
-                  {{ CountPc[0]?.count_qt_3 || "0" }}
-                </td>
-                <td class="border px-3 py-2">
-                  {{ CountPc[0]?.count_qt_4 || "0" }}
-                </td>
-                <td class="border px-3 py-2">
-                  {{ CountPc[0]?.count_nature || "0" }}
-                </td>
-                <td class="border px-3 py-2">{{ totalCount }}</td>
-              </tr>
-              <tr>
-                <td class="border px-3 py-2">งบ (บาท)</td>
-                <td class="border px-3 py-2">
-                  {{
-                    Number(CountPc[0]?.money_qt_1 || 0).toLocaleString("en-US")
-                  }}
-                </td>
-                <td class="border px-3 py-2">
-                  {{
-                    Number(CountPc[0]?.money_qt_2 || 0).toLocaleString("en-US")
-                  }}
-                </td>
-                <td class="border px-3 py-2">
-                  {{
-                    Number(CountPc[0]?.money_qt_3 || 0).toLocaleString("en-US")
-                  }}
-                </td>
-                <td class="border px-3 py-2">
-                  {{
-                    Number(CountPc[0]?.money_qt_4 || 0).toLocaleString("en-US")
-                  }}
-                </td>
-                <td class="border px-3 py-2">
-                  {{
-                    Number(CountPc[0]?.money_nature || 0).toLocaleString(
-                      "en-US"
-                    )
-                  }}
-                </td>
-                <td class="border px-3 py-2">{{ totalMoney }}</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="flex justify-end mt-5">
-            <button class="btn bg-[#E85F19] text-white" @click="exportExcel('datapc2')">
-              Export to Excel
-            </button>
-          </div>
-          <table class="table w-full mt-2" ref="datapc2">
-            <thead>
-              <tr class="text-center">
-                <th class="border px-3 py-2" rowspan="2">ลำดับที่</th>
-                <th class="border px-3 py-2" rowspan="2">ชื่อ</th>
-                <th class="border px-3 py-2" rowspan="2">ชื่อบทความ</th>
-                <th class="border px-3 py-2" rowspan="2">ชื่อวารสาร</th>
-                <th class="border px-3 py-2" colspan="4">
-                  วารสารอยู่ในข้อมูลสากล ใน Quartile
-                </th>
-                <th class="border px-3 py-2" rowspan="2">
-                  คาดว่าจะตีพิมพ์ในวารสาร
-                </th>
-                <th class="border px-3 py-2" rowspan="2">
-                  ผลงานจากโครงการวิจัยเรื่อง
-                </th>
-                <th class="border px-3 py-2" rowspan="2">ประเภทโครงการวิจัย</th>
-                <th class="border px-3 py-2" rowspan="2">
-                  ค่าใช้จ่ายในการลงตีพิมพ์
-                </th>
-              </tr>
-              <tr class="text-center">
-                <th class="border px-3 py-2">ISI</th>
-                <th class="border px-3 py-2">SJR</th>
-                <th class="border px-3 py-2">Scopus</th>
-                <th class="border px-3 py-2">Nature</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(row, index) in SummaryPc" :key="index" class="text-center">
-                <td class="border px-3 py-2">{{ index + 1 }}</td>
-                <td class="border px-3 py-2">{{ row.user_nameth }}</td>
-                <td class="border px-3 py-2">{{ row.journal_name }}</td>
-                <td class="border px-3 py-2">{{ row.article_title }}</td>
-                <td class="border px-3 py-2">
-                  {{ row.qt_isi ? `Quartile ${row.qt_isi}` : "-" }}
-                </td>
-                <td class="border px-3 py-2">
-                  {{ row.qt_sjr ? `Quartile ${row.qt_sjr}` : "-" }}
-                </td>
-                <td class="border px-3 py-2">
-                  {{ row.qt_scopus ? `Quartile ${row.qt_scopus}` : "-" }}
-                </td>
-                <td class="border px-3 py-2">
-                  {{
-                    row.quality_journal &&
-                      row.quality_journal.includes("nature")
-                      ? "✔"
-                      : "-"
-                  }}
-                </td>
-                <td class="border px-3 py-2">{{ (row.month && row.year) ? `${row.month}${row.year}` : "-" }}</td>
-                <td class="border px-3 py-2">
-                  {{
-                    row.article_research_ject
-                      ? `${row.article_research_ject}`
-                      : "-"
-                  }}
-                </td>
-                <td class="border px-3 py-2">
-                  {{ row.research_type ? `${row.research_type}` : "-" }}
-                </td>
-                <td class="border px-3 py-2">{{ row.request_support }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div> -->
-
       <input type="radio" name="mytabs" class="tab" aria-label="โครงงานวิชาการ" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>ข้อมูลทั้งหมดของโครงงานวิชาการ</h2>
@@ -1122,54 +970,6 @@
         </div>
       </div>
 
-      <!-- <input type="radio" name="mytabs" class="tab" aria-label="ยอดการขอสนับสนุนและคงเหลือของผู้ใช้ในระบบ"/>
-      <div class="tab-content bg-base-100 border-base-300 p-6">
-        <h2></h2>
-        <div class="flex justify-end mt-2">
-          <button class="btn bg-[#E85F19] text-white" @click="exportExcel('datauser')">
-            Export to Excel
-          </button>
-        </div>
-        <div class="overflow-x-auto mt-2">
-          <table class="table w-full" ref="datauser">
-            <thead>
-              <tr class="text-center">
-                <th class="border px-3 py-2">ลำดับที่</th>
-                <th class="border px-3 py-2">ชื่อ</th>
-                <th class="border px-3 py-2">หน้าที่</th>
-                <th class="border px-3 py-2">ยอดการประชุมวิชาการ</th>
-                <th class="border px-3 py-2">ยอดขอสนับสนุนการประชุมวิชาการ</th>
-                <th class="border px-3 py-2">ยอดคงเหลือการประชุมวิชาการ</th>
-                <th class="border px-3 py-2">ยอดขอสนับสนุนการตีพิมพ์</th>
-                <th class="border px-3 py-2">ยอดขอสนับสนุนทั้งหมด</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(row, index) in moneyuser" :key="index" class="text-center">
-                <td class="border px-3 py-2">{{ index + 1 }}</td>
-                <td class="border px-3 py-2">{{ row.user_nameth }}</td>
-                <td class="border px-3 py-2" v-if="row.user_role == 'professor'">อาจารย์</td>
-                <td class="border px-3 py-2" v-if="row.user_role == 'admin'">ผู้ดูแลระบบ</td>
-                <td class="border px-3 py-2" v-if="row.user_role == 'hr'">ฝ่ายบริหารทรัพยากรบุคคล</td>
-                <td class="border px-3 py-2" v-if="row.user_role == 'research'">ฝ่ายบริหารงานวิจัย</td>
-                <td class="border px-3 py-2" v-if="row.user_role == 'finance'">ฝ่ายบริหารการเงิน</td>
-                <td class="border px-3 py-2" v-if="row.user_role == 'associate'">รองคณบดี</td>
-                <td class="border px-3 py-2" v-if="row.user_role == 'dean'">คณบดี</td>
-                <td class="border px-3 py-2">{{ Number(row.user_moneyCF || 0).toLocaleString("en-US") }}</td>
-                <td class="border px-3 py-2">
-                  {{ Number(row.total_conference || 0).toLocaleString("en-US") }}
-                </td>
-                <td class="border px-3 py-2 w-1/6">
-                  {{ Number((row.user_moneyCF || 0) - (row.total_conference || 0)).toLocaleString("en-US") }}
-                </td>
-                <td class="border px-3 py-2">{{ Number(row.total_pc || 0).toLocaleString("en-US") }}</td>
-                <td class="border px-3 py-2">{{ Number((Number(row.total_pc) || 0) + (Number(row.total_conference) || 0)).toLocaleString("en-US") }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div> -->
-
       <input type="radio" name="mytabs" class="tab" aria-label="สรุปผลการขอสนับสนุนทั้งหมด" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>การสรุปผลภาพรวมการขอเบิกค่าสนับสนุนการประชุมวิชาการ และ Page Charge </h2>
@@ -1219,7 +1019,7 @@
 
       <input type="radio" name="mytabs" class="tab" aria-label="ค่าใช้จ่ายสำหรับการนำเสนอบทความวิจัย" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
-        <h2>ค่าใช้จ่ายสำหรับการนำเสนอบทความวิจัยลงตีพิมพ์ในวารสารวิชาการระดับนานาชาติ</h2>
+        <h2>ค่าใช้จ่ายสำหรับการนำเสนอบทความวิจัยลงตีพิมพ์ในวารสารวิชาการ</h2>
         <div class="flex justify-end mt-2">
           <button class="btn bg-[#E85F19] text-white" @click="exportExcel('datauser')">
             Export to Excel
@@ -1231,6 +1031,7 @@
               <tr class="text-center">
                 <th class="border px-3 py-2">ลำดับที่</th>
                 <th class="border px-3 py-2">ผู้เข้าร่วม</th>
+                <th class="border px-3 py-2">ผู้วิจัยร่วม</th>
                 <th class="border px-3 py-2">ชื่อบทความ</th>
                 <th class="border px-3 py-2">วันประกาศผลพิจารณา</th>
                 <th class="border px-3 py-2">Quartile</th>
@@ -1241,11 +1042,11 @@
               <tr class="text-center" v-for="(row, index) in SummaryPc" :key="index">
                 <td class="border px-3 py-2">{{ index + 1 }}</td>
                 <td class="border px-3 py-2">{{ row.user_nameth }}</td>
+                <td class="border px-3 py-2">{{ row.name_co_researchers.filter(name => name !== "").join(", ") }}</td>
                 <td class="border px-3 py-2">{{ row.article_title }}</td>
-                <td class="border px-3 py-2">{{ DateTime.fromISO(row.date_review_announce).toFormat("dd-MM-yyyy") }}
-                </td>
+                <td class="border px-3 py-2">{{ DateTime.fromISO(row.date_review_announce).toFormat("dd-MM-yyyy") }}</td>
                 <td class="border px-3 py-2">{{ getBestQt(row) }}</td>
-                <td class="border px-3 py-2">{{ row.request_support }}</td>
+                <td class="border px-3 py-2">{{ Number(row.withdraw|| 0).toLocaleString("en-US") }}</td>
               </tr>
             </tbody>
           </table>
@@ -1255,9 +1056,6 @@
       <input type="radio" name="mytabs" class="tab" aria-label="การอบรม/สัมมนา/ดูงาน ทั้งภายในและต่างประเทศ" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>การอบรม/สัมมนา/ดูงาน ของเจ้าหน้าที่คณะเทคโนโลยีสารสนเทศ ทั้งภายในและต่างประเทศ</h2>
-<!-- 
-        {{ conferenceData }} -->
-
         <div class="flex justify-end mt-2">
           <button class="btn bg-[#E85F19] text-white" @click="exportExcel('datauser')">
             Export to Excel
@@ -1269,6 +1067,7 @@
               <tr class="text-center">
                 <th class="border px-3 py-2">ลำดับที่</th>
                 <th class="border px-3 py-2">ผู้เข้าร่วม</th>
+                <th class="border px-3 py-2">ผู้วิจัยร่วม</th>
                 <th class="border px-3 py-2">หัวข้อ</th>
                 <th class="border px-3 py-2">วดป.</th>
                 <th class="border px-3 py-2">ผู้จัด/สถานที่</th>
@@ -1279,11 +1078,12 @@
               <tr class="text-center" v-for="(row, index) in conferenceData" :key="index">
                 <td class="border px-3 py-2">{{ index + 1 }}</td>
                 <td class="border px-3 py-2">{{ row.user_nameth }}</td>
+                <td class="border px-3 py-2">{{ row.name_co_researchers.filter(name => name !== "").join(", ") }}</td>
                 <td class="border px-3 py-2">{{ row.conf_research }}</td>
                 <td class="border px-3 py-2">{{ DateTime.fromISO(row.trav_dateStart).toFormat("dd-MM-yyyy") + " ถึง " +
                   DateTime.fromISO(row.trav_dateEnd).toFormat("dd-MM-yyyy") }}</td>
                 <td class="border px-3 py-2">{{ row.location }}</td>
-                <td class="border px-3 py-2">{{ Number(row.all_money || 0).toLocaleString("en-US") }}</td>
+                <td class="border px-3 py-2">{{ Number(row.withdraw || 0).toLocaleString("en-US") }}</td>
               </tr>
             </tbody>
           </table>
@@ -1326,21 +1126,6 @@ const dataconfer3 = ref(null);
 const datapc1 = ref(null);
 const datapc2 = ref(null);
 const datakris = ref(null);
-
-// const totalCount = computed(() => {
-//   if (CountPc.value.length === 0) return 0;
-//   return Object.keys(CountPc.value[0])
-//     .filter((key) => key.startsWith("count_"))
-//     .reduce((sum, key) => sum + CountPc.value[0][key], 0);
-// });
-
-// const totalMoney = computed(() => {
-//   if (CountPc.value.length === 0) return 0;
-//   return Object.keys(CountPc.value[0])
-//     .filter((key) => key.startsWith("money_"))
-//     .reduce((sum, key) => sum + Number(CountPc.value[0][key] || 0), 0)
-//     .toLocaleString("en-US");
-// });
 
 const getConferenceData = async () => {
   const response = await api.get("/all_summary_conference");

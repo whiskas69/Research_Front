@@ -8,6 +8,7 @@
         <RadioInput
           label="รับทราบ"
           :disabled="true"
+          value="acknowledge"
           v-model="formData.offic.c_approve_result"
         />
       </SectionWrapper>
@@ -44,7 +45,7 @@
           <div class="px-2">
             <RadioInput
               label="อนุมัติ"
-              value="approval"
+              value="approve"
               name="comment"
               :disabled="true"
               v-model="formData.offic.p_approve_result"

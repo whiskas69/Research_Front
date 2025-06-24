@@ -7,7 +7,6 @@
       <div v-for="form in listForm.forms" :key="form.form_id">
         <!-- Conference -->
         <div v-if="form.form_type == 'Conference'">
-
           <div v-if="userStore.user.user_role === 'finance'">
             <router-link :to="`/withdrawMoney/Conference/${form.conf_id}`">
               <div
@@ -28,7 +27,6 @@
 
         <!-- Page Charge -->
         <div v-if="form.form_type == 'Page_Charge'">
-
           <div v-if="userStore.user.user_role === 'finance'">
             <router-link :to="`/withdrawMoney/pageCharge/${form.pageC_id}`">
               <div
@@ -94,23 +92,28 @@ const fetchOfficerData = async () => {
     // กรองข้อมูลตาม user role
     let filteredForms = responseOffice.data.forms.filter((form) => {
       if (userStore.user.user_role === "finance") {
-        console.log("userStore.user.user_role", userStore.user.user_role, form.form_status)
+        console.log(
+          "userStore.user.user_role",
+          userStore.user.user_role,
+          form.form_status
+        );
         return form.form_status === "approve";
       }
       return false;
     });
-    console.log("responseOffice.data", responseOffice.data)
-    console.log("filteredForms", filteredForms)
+    console.log("responseOffice.data", responseOffice.data);
+    // console.log("filteredForms", filteredForms);
     for (let i = 0; i < filteredForms.length; i++) {
-      console.log("i", filteredForms[i].withdraw)
+      console.log("filteredForms jaaaaa", filteredForms);
       if (filteredForms.length > 0 && filteredForms[i].withdraw == null) {
-        console.log("listForm.forms", listForm.forms)
-        listForm.forms = filteredForms;
+        console.log("filteredForms withdraw", filteredForms[i].withdraw);
+        console.log("filteredForms withdraw", filteredForms[i]);
+        listForm.forms.push(filteredForms[i]);
         listForm.nameC = responseOffice.data.confer;
         listForm.nameP = responseOffice.data.pageC;
       }
     }
-    console.log("listForm.forms", listForm.forms)
+    console.log("listForm.forms", listForm.forms);
   } catch (error) {
     console.log("Error fetching Officer data:", error);
   } finally {

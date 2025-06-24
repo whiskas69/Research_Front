@@ -692,7 +692,7 @@
         >
           <div class="px-2 py-3">
             <p class="underline">ความเห็นรองคณบดี (กำกับดูแลด้านงานวิจัย)</p>
-            <p class="pt-4 pl-3">{{ formData.offic.c_deputy_dean }}</p>
+            <p class="pt-4 pl-3">เห็นชอบ</p>
             <div class="flex flex-col pt-3 items-end">
               <div class="flex flex-row gap-1">
                 <p>ลงนาม</p>

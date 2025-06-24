@@ -28,7 +28,7 @@
         </SectionWrapper>
       </Mainbox>
 
-      <Mainbox v-if="formData.offic.p_research_admin == 'approved'">
+      <Mainbox v-if="formData.offic.p_research_admin == 'approve'">
         <SectionWrapper>
           <p class="text-lg font-bold">
             เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 2)

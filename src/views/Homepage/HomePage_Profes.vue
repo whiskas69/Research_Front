@@ -11,15 +11,11 @@
           'opacity-50 pointer-events-none': data.approvedConfer >= 2,
         }"
       >
-        <router-link v-if="data.approvedConfer < 2" to="/formConfer">
+        <router-link to="/formConfer">
           <p class="text-base px-5 py-1">
             ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
           </p>
         </router-link>
-        <p v-else class="text-base px-5 py-1">
-          ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
-          <span class="flex justify-end text-red-600">ยื่นขอรับการสนับสนุนครบ 2 ครั้ง</span>
-        </p>
       </div>
       <div
         class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"

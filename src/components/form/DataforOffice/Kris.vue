@@ -157,7 +157,7 @@
                 <RadioInput
                   class="flex items-center w-1/3"
                   label="มาตรา 52 (เพื่อประโยชน์ทางการค้า)"
-                  value="มาตรา 52"
+                  value="52"
                   customDiv="max-w-80"
                   :disabled="true"
                   v-model="formData.kris.res_standard_trade"
@@ -165,7 +165,7 @@
                 <RadioInput
                   class="flex items-center"
                   label="มาตรา 53 (ไม่มีวัตถุประสงค์เพื่อประโยชน์ทางการค้า)"
-                  value="มาตรา 53"
+                  value="53"
                   :disabled="true"
                   v-model="formData.kris.res_standard_trade"
                 />
@@ -233,7 +233,7 @@
           </p>
           <SectionWrapper>
             <div class="flex flex-row w-full">
-              <TextInputLabelRight
+              <TextInputLabelLeft
                 label="ปี"
                 customLabel="w-fit"
                 customDiv="max-w-32"
@@ -275,7 +275,6 @@ import api from "@/setting/api";
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
-import TextInputLabelRight from "@/components/Input/TextInputLabelRight.vue";
 import CheckInput from "@/components/Input/CheckInput.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 

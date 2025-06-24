@@ -3,22 +3,45 @@
     <Mainbox v-if="props.type == 'Conference'">
         <SectionWrapper>
           <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
-          <TextArea
-            label="ความคิดเห็น"
-            :disabled="true"
-            :placeholder="formData.offic.c_deputy_dean"
-          />
+          <div class="px-2">
+            <RadioInput
+              label="เห็นชอบ"
+              value="agree"
+              name="comment"
+              :disabled="true"
+              v-model="formData.offic.c_deputy_dean"
+            />
+          </div>
+          <div class="px-2">
+            <RadioInput
+              label="ไม่เห็นชอบ"
+              value="disagree"
+              name="comment"
+              :disabled="true"
+              v-model="formData.offic.c_deputy_dean"
+            />
+          </div>
         </SectionWrapper>
       </Mainbox>
 
       <Mainbox v-if="props.type == 'Page_Charge'">
         <SectionWrapper>
           <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
-          <div>
-            <TextArea
-              label="ความคิดเห็น"
+          <div class="px-2">
+            <RadioInput
+              label="เห็นด้วย"
+              value="agree"
+              name="comment"
               :disabled="true"
-              :placeholder="formData.offic.p_deputy_dean"
+              v-model="formData.offic.p_deputy_dean"
+            />
+          </div><div class="px-2">
+            <RadioInput
+              label="ไม่เห็นด้วย"
+              value="disagree"
+              name="comment"
+              :disabled="true"
+              v-model="formData.offic.p_deputy_dean"
             />
           </div>
         </SectionWrapper>
@@ -32,7 +55,7 @@ import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
-import TextArea from "@/components/Input/TextArea.vue";
+import RadioInput from "@/components/Input/RadioInput.vue";
 
 const formData = reactive({
   offic: [],

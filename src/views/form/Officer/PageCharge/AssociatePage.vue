@@ -7,19 +7,25 @@
       <Mainbox>
         <SectionWrapper>
           <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
-          <div>
-            <TextArea
-              label="ความคิดเห็น"
-              @input="handleInput('description', $event.target.value)"
-            />
+          <RadioInput
+            label="เห็นชอบ"
+            value="agree"
+            name="comment"
+            v-model="formData.agree"
+          />
+          <RadioInput
+            label="ไม่เห็นชอบ"
+              value="disagree"
+              name="comment"
+            v-model="formData.agree"
+          /> 
 
-            <span
-              v-if="v$.description.$error"
-              class="text-base font-bold text-red-500 text-left"
-            >
-              {{ v$.description.$errors[0].$message }}
-            </span>
-          </div>
+          <span
+            v-if="v$.agree.$error"
+            class="text-base font-bold text-red-500 text-left"
+          >
+            {{ v$.agree.$errors[0].$message }}
+          </span>
         </SectionWrapper>
       </Mainbox>
 
@@ -44,7 +50,7 @@ import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
-import TextArea from "@/components/Input/TextArea.vue";
+import RadioInput from "@/components/Input/RadioInput.vue";
 import PageChageData from "@/components/form/DataforOffice/PageChage.vue";
 import Research from "@/components/form/DataforOffice/Research.vue";
 import FinanceAll from "@/components/form/DataforOffice/FinanceAll.vue";
@@ -53,7 +59,7 @@ const formData = reactive({
   offic: [],
   docSubmitDate: DateTime.now().toISODate(),
   statusForm: "dean",
-  description: "",
+  agree: "",
 });
 
 const handleInput = (key, value) => {
@@ -83,7 +89,7 @@ const fetchProfessorData = async () => {
 };
 
 const rules = computed(() => ({
-  description: {
+  agree: {
     required: helpers.withMessage("* กรุณากรอกความคิดเห็น *", required),
   },
 }));
@@ -109,7 +115,7 @@ const OfficerPC = async () => {
           formData.offic.research_doc_submit_date
         ).toISODate(),
         associate_id: user.value?.user_id,
-        p_deputy_dean: formData.description,
+        p_deputy_dean: formData.agree,
         associate_doc_submit_date: formData.docSubmitDate,
         form_status: formData.statusForm,
       };

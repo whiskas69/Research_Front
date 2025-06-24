@@ -62,9 +62,14 @@
       <p class="collapse-title text-lg font-bold">Conference</p>
       <SectionWrapper class="collapse-content">
         <TextInputLabelLeft
-          label="จำนวนครั้งในการลามากที่สุด"
+          label="จำนวนครั้งในการลามากที่สุด (ในประเทศไทย)"
           customLabel="w-4/12 mr-2"
-          v-model="formData.conference.maxLeave"
+          v-model="formData.conference.maxLeaveinThai"
+        />
+        <TextInputLabelLeft
+          label="จำนวนครั้งในการลามากที่สุด (ต่างประเทศ)"
+          customLabel="w-4/12 mr-2"
+          v-model="formData.conference.maxLeaveoutThai"
         />
         <TextInputLabelLeft
           label="พนักงานที่ไม่เคยไปประชุมวิชาการ ต้องทำงานไม่เกินกี่ปี"
@@ -176,7 +181,8 @@ const formData = reactive({
   },
 
   conference: {
-    maxLeave: "",
+    maxLeaveinThai: "",
+    maxLeaveoutThai: "",
     workTimeYears: "",
     journalYears: "",
     qualityScoreSJR: "",
@@ -211,7 +217,8 @@ const fetchData = async () => {
 
     const responseCF = await api.get("/getConditionCF");
     const dataCF = responseCF.data[0] || {};
-    formData.conference.maxLeave = dataCF.maxLeave || "";
+    formData.conference.maxLeaveinThai = dataCF.maxLeaveinThai || "";
+    formData.conference.maxLeaveoutThai = dataCF.maxLeaveoutThai || "";
     formData.conference.workTimeYears = dataCF.workTimeYears || "";
     formData.conference.journalYears = dataCF.journalYears || "";
     formData.conference.qualityScoreSJR = dataCF.qualityScoreSJR || "";
@@ -244,7 +251,6 @@ const submitPC = async () => {
     };
 
     console.log("Submitting page change data:", dataForBackend);
-    
     const response = await api.post("/ConditionPC", dataForBackend);
     alert("บันทึกข้อมูลสำเร็จ");
   } catch (error) {
@@ -255,7 +261,8 @@ const submitPC = async () => {
 const submitCF = async () => {
   try {
     const dataForBackend = {
-      maxLeave: parseInt(formData.conference.maxLeave),
+      maxLeaveinThai: parseInt(formData.conference.maxLeaveinThai),
+      maxLeaveoutThai: parseInt(formData.conference.maxLeaveoutThai),
       workTimeYears: parseInt(formData.conference.workTimeYears),
       journalYears: parseInt(formData.conference.journalYears),
       qualityScoreSJR: parseFloat(formData.conference.qualityScoreSJR),
