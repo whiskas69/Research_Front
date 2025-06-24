@@ -511,18 +511,9 @@ const handleSubmitHaveEdit = async () => {
 };
 
 const handleSubmit = async () => {
-  console.log("go to next step ");
-  let form_status = "";
-  if (formData.status == "research") {
-    form_status = "finance";
-  } else if (formData.status == "finance") {
-    form_status = "associate";
-  }
-  console.log("form_status", form_status);
   try {
     const dataForBackend = {
       pageC_id: id,
-      form_status: form_status,
     };
     console.log("dataForBackend: ", dataForBackend);
     await api.put(`/confirmEditedForm/${id}`, dataForBackend);
