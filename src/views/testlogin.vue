@@ -1,7 +1,7 @@
 <template>
   <div
     class="fixed inset-0 overflow-hidden bg-cover bg-center flex justify-center items-center"
-    style="background-image: url('/images/background.png')"
+    style="background-image: url('/rass/images/background.png')"
   >
     <div class="text-center bg-white w-1/4 rounded-md drop-shadow-lg p-5">
       <p class="text-2xl leading-relaxed">RESEARCH ADMINISTRATION</p>
