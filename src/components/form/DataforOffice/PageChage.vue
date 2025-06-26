@@ -23,6 +23,7 @@
             customLabel="w-auto"
             customInput="max-w-max"
             customDiv="max-w-max"
+            :disabled="true"
             v-model="formData.pageChange.pageC_times"
           />
           <TextInputLabelLeft
@@ -30,6 +31,7 @@
             type="date"
             customLabel="ml-2 w-10"
             customInput="max-w-max"
+            :disabled="true"
             v-model="formData.pageChange.pageC_days"
           />
         </div>

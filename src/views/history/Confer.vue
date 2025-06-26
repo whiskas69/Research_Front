@@ -7,6 +7,7 @@
     <FinanceAll :id="id" :type="'Conference'" />
     <Assosiate :id="id" :type="'Conference'" />
     <Dean :id="id" :type="'Conference'" />
+    <WithdrawMoney :id="id" :type="'Conference'" />
 
     <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
       <div
@@ -37,6 +38,7 @@ import Research from "@/components/form/DataforOffice/Research.vue";
 import FinanceAll from "@/components/form/DataforOffice/FinanceAll.vue";
 import Assosiate from "@/components/form/DataforOffice/Assosiate.vue";
 import Dean from "@/components/form/DataforOffice/Dean.vue";
+import WithdrawMoney from "@/components/form/DataforOffice/WithdrawMoney.vue";
 
 const route = useRoute();
 const id = route.params.id;

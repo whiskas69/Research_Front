@@ -5,7 +5,8 @@
   <FinanceAll :id="id" :type="'Page_Charge'" />
   <Assosiate :id="id" :type="'Page_Charge'" />
   <Dean :id="id" :type="'Page_Charge'" />
-
+  <WithdrawMoney :id="id" :type="'Page_Charge'" />
+<p>oppp</p>
   <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
     <div v-if="formData.form.form_status == 'waitingApproval' || formData.form.form_status == 'approve'" class="flex no-print">
       <router-link :to="`/pdf/pageCharge/${id}`">
@@ -27,6 +28,7 @@ import Research from "@/components/form/DataforOffice/Research.vue";
 import FinanceAll from "@/components/form/DataforOffice/FinanceAll.vue";
 import Assosiate from "@/components/form/DataforOffice/Assosiate.vue";
 import Dean from "@/components/form/DataforOffice/Dean.vue";
+import WithdrawMoney from "@/components/form/DataforOffice/WithdrawMoney.vue";
 
 // Access route parameters
 const route = useRoute();
