@@ -134,7 +134,8 @@
               <tr class="text-center">
                 <th class="border px-3 py-2">ลำดับที่</th>
                 <th class="border px-3 py-2">ชื่อ</th>
-                <th class="border px-3 py-2">นักวิจัยร่วม</th>
+                <th class="border px-3 py-2">ผู้วิจัยร่วม</th>
+                <th class="border px-3 py-2">หลักสูตรผู้วิจัยร่วม</th>
                 <th class="border px-3 py-2">ชื่อผลงานวิจัย</th>
                 <th class="border px-3 py-2">ชื่อการประชุม</th>
                 <th class="border px-3 py-2">จังหวัด/ประเทศ</th>
@@ -154,7 +155,8 @@
               <tr v-for="(row, index) in conferenceData" :key="index" class="text-center">
                 <td class="border px-3 py-2">{{ index + 1 }}</td>
                 <td class="border px-3 py-2">{{ row.user_nameth }}</td>
-                <td class="border px-3 py-2">{{ row.name_co_researchers.filter(name => name !== "").join(", ") }}</td>
+                <td class="border px-3 py-2">{{ (row.name_co_researchers ?? []).filter(name => name !== "").join(", ") }}</td>
+                <td class="border px-3 py-2">{{ (row.course_co_researchers ?? []).filter(name => name !== "").join(", ") }}</td>
                 <td class="border px-3 py-2">{{ row.conf_name }}</td>
                 <td class="border px-3 py-2">{{ row.conf_research }}</td>
                 <td class="border px-3 py-2">{{ row.location }}</td>
@@ -1032,6 +1034,7 @@
                 <th class="border px-3 py-2">ลำดับที่</th>
                 <th class="border px-3 py-2">ผู้เข้าร่วม</th>
                 <th class="border px-3 py-2">ผู้วิจัยร่วม</th>
+                <th class="border px-3 py-2">หลักสูตรผู้วิจัยร่วม</th>
                 <th class="border px-3 py-2">ชื่อบทความ</th>
                 <th class="border px-3 py-2">วันประกาศผลพิจารณา</th>
                 <th class="border px-3 py-2">Quartile</th>
@@ -1042,7 +1045,8 @@
               <tr class="text-center" v-for="(row, index) in SummaryPc" :key="index">
                 <td class="border px-3 py-2">{{ index + 1 }}</td>
                 <td class="border px-3 py-2">{{ row.user_nameth }}</td>
-                <td class="border px-3 py-2">{{ row.name_co_researchers.filter(name => name !== "").join(", ") }}</td>
+                <td class="border px-3 py-2">{{ (row.name_co_researchers ?? []).filter(name => name !== "").join(", ") }}</td>
+                <td class="border px-3 py-2">{{ (row.course_co_researchers ?? []).filter(name => name !== "").join(", ") }}</td>
                 <td class="border px-3 py-2">{{ row.article_title }}</td>
                 <td class="border px-3 py-2">{{ DateTime.fromISO(row.date_review_announce).toFormat("dd-MM-yyyy") }}</td>
                 <td class="border px-3 py-2">{{ getBestQt(row) }}</td>
@@ -1068,6 +1072,7 @@
                 <th class="border px-3 py-2">ลำดับที่</th>
                 <th class="border px-3 py-2">ผู้เข้าร่วม</th>
                 <th class="border px-3 py-2">ผู้วิจัยร่วม</th>
+                <th class="border px-3 py-2">หลักสูตรผู้วิจัยร่วม</th>
                 <th class="border px-3 py-2">หัวข้อ</th>
                 <th class="border px-3 py-2">วดป.</th>
                 <th class="border px-3 py-2">ผู้จัด/สถานที่</th>
@@ -1078,7 +1083,8 @@
               <tr class="text-center" v-for="(row, index) in conferenceData" :key="index">
                 <td class="border px-3 py-2">{{ index + 1 }}</td>
                 <td class="border px-3 py-2">{{ row.user_nameth }}</td>
-                <td class="border px-3 py-2">{{ row.name_co_researchers.filter(name => name !== "").join(", ") }}</td>
+                <td class="border px-3 py-2">{{ (row.name_co_researchers ?? []).filter(name => name !== "").join(", ") }}</td>
+                <td class="border px-3 py-2">{{ (row.course_co_researchers ?? []).filter(name => name !== "").join(", ") }}</td>
                 <td class="border px-3 py-2">{{ row.conf_research }}</td>
                 <td class="border px-3 py-2">{{ DateTime.fromISO(row.trav_dateStart).toFormat("dd-MM-yyyy") + " ถึง " +
                   DateTime.fromISO(row.trav_dateEnd).toFormat("dd-MM-yyyy") }}</td>
