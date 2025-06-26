@@ -2,7 +2,7 @@
   <div class="bg-white p-5 rounded-lg shadow h-[400px] w-[700px]">
     <h2 class="text-lg font-semibold">สถิติการอนุมัติในแต่ละปี</h2>
     <p class="font-bold text-[#9291A5]">
-      ปีงบประมาณ {{ currentYear-3 }} - {{ currentYear }}
+      ปีงบประมาณ {{ fiscalYear-3 }} - {{ fiscalYear }}
     </p>
     <hr />
     <div class="flex justify-center w-full h-[325px]">
@@ -24,7 +24,13 @@ import {
 import { DateTime } from "luxon";
 import api from "@/setting/api";
 
-const currentYear = DateTime.now().year + 543;
+const getThaiFiscalYear = () => {
+  const now = DateTime.now();
+  const year = now.year + 543;
+  return now.month >= 10 ? year + 1 : year;
+};
+const fiscalYear = getThaiFiscalYear();
+
 const year_now = ref(0);
 const year_x = ref(0);
 const year_y = ref(0);
@@ -40,25 +46,25 @@ const getData = async () => {
 
     year_now.value = response.data[0] ? response.data[0]
         : {
-            budget_year: currentYear,
+            budget_year: fiscalYear,
             total_conferences: "0",
             total_pagecharge: "0"
           };
     year_x.value = response.data[1] ? response.data[1]
         : {
-            budget_year: currentYear - 1,
+            budget_year: fiscalYear - 1,
             total_conferences: "0",
             total_pagecharge: "0"
           };
     year_y.value = response.data[2] ? response.data[2]
         : {
-            budget_year: currentYear - 2,
+            budget_year: fiscalYear - 2,
             total_conferences: "0",
             total_pagecharge: "0"
           };
     year_z.value = response.data[3] ? response.data[3]
         : {
-            budget_year: currentYear - 3,
+            budget_year: fiscalYear - 3,
             total_conferences: "0",
             total_pagecharge: "0"
           };

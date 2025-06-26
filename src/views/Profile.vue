@@ -125,7 +125,8 @@
       />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <div class="overflow-x-auto mt-2">
-          <p>วงเงินที่ใช้ไปแล้วทั้งหมด {{ data.totalAll }} บาท</p>
+          <p class="pb-2 text-lg font-bold">ปีงบประมาณ {{ fiscalYear }}</p>
+          <p class="pb-2 font-bold">วงเงินที่ใช้ไปแล้วทั้งหมด {{ data.totalAll }} บาท</p>
           <p>การประชุมวิชาการ</p>
           <table class="table w-full" ref="dataconfer2">
             <thead>
@@ -174,7 +175,7 @@
 
 <script setup>
 import { computed, onMounted, reactive } from "vue";
-
+import { DateTime } from "luxon";
 import { useVuelidate } from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
 import { useRouter } from "vue-router";
@@ -197,6 +198,13 @@ const data = reactive({
   totalPC: 0,
   totalConfer: 0,
 });
+
+const getThaiFiscalYear = () => {
+  const now = DateTime.now();
+  const year = now.year + 543;
+  return now.month >= 10 ? year + 1 : year;
+};
+const fiscalYear = getThaiFiscalYear();
 
 //validate rule
 const rules = {
