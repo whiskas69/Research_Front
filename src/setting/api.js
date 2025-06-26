@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://10.0.15.37:3002", //backend url
+    baseURL: import.meta.env.VITE_API_BASE_URL, //backend url
     withCredentials: true, //send cookie
     credentials: 'include',
 });
