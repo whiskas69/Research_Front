@@ -12,7 +12,7 @@
               v-if="formData.conference.quality_meeting == 'good'"
               class="px-2"
             >
-              <p>• อยู่ในระดับ{{ formData.conference.quality_meeting }}</p>
+              <p>• อยู่ในระดับดีมาก</p>
               <div class="flex flex-row gap-2">
                 <p>• คำนวณจาก {{ formData.score.score_type }}</p>
                 <p v-if="formData.score.score_type == 'CORE'">
@@ -22,7 +22,7 @@
               </div>
             </div>
             <p v-else-if="formData.conference.quality_meeting == 'standard'" class="px-2">
-              • อยู่ในระดับ{{ formData.conference.quality_meeting }}
+              • อยู่ในระดับมาตรฐาน
             </p>
             <p v-else-if="formData.conference.quality_meeting == ''" class="px-2">
               • ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ

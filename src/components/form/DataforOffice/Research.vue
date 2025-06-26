@@ -11,7 +11,7 @@
             class="px-2"
             v-if="formData.conference.quality_meeting == 'good'"
           >
-            <p>• อยู่ในระดับ{{ formData.conference.quality_meeting }}</p>
+            <p>• อยู่ในระดับดีมาก</p>
             <div class="flex flex-row gap-2">
               <p>• คำนวณจาก {{ formData.score.score_type }}</p>
               <p v-if="formData.score.score_type == 'CORE'">
@@ -24,7 +24,7 @@
             class="px-2"
             v-else-if="formData.conference.quality_meeting == 'standard'"
           >
-            • อยู่ในระดับ{{ formData.conference.quality_meeting }}
+            • อยู่ในระดับมาตรฐาน
           </p>
           <p class="px-2" v-else-if="formData.conference.quality_meeting == ''">
             • ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ
@@ -156,7 +156,6 @@
                 <button
                   @click="getFile(formData.f_accepted)"
                   class="btn bg-[#E85F19] text-white mr-5"
-                  :disabled="!isValidFile(formData.f_accepted)"
                 >
                   ดูเอกสาร
                 </button>
@@ -165,7 +164,6 @@
                     downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')
                   "
                   class="btn bg-[#4285F4] text-white"
-                  :disabled="!isValidFile(formData.f_accepted)"
                 >
                   โหลดเอกสาร
                 </button>

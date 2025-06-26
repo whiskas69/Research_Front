@@ -19,7 +19,7 @@
 
       <p class="text-xl font-bold pb-5">ตรวจสอบข้อมูลและหลักฐาน</p>
       <Mainbox>
-        <p class="text-lg font-bold">ตรวจสอบ และรับทราบเอกสาร</p>
+        <p class="text-lg">ตรวจสอบ และรับทราบเอกสาร</p>
 
         <SectionWrapper>
           <RadioInput label="รับทราบ" name="noted" value="acknowledge" v-model="formData.radioAuthOffic"

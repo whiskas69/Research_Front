@@ -172,24 +172,22 @@
       <input
         type="radio"
         disabled="false"
-        :checked="
-          formData.pageChange.research_type == 'basic' ? true : false
-        "
+        :checked="formData.pageChange.research_type == 'basic' ? true : false"
       />
       <span>วิจัยพื้นฐาน</span>
       <input
         type="radio"
         disabled="false"
-        :checked="
-          formData.pageChange.research_type == 'applied' ? true : false
-        "
+        :checked="formData.pageChange.research_type == 'applied' ? true : false"
       />
       <span>วิจัยประยุกต์</span>
       <input
         type="radio"
         disabled="false"
         :checked="
-          formData.pageChange.research_type == 'research&development' ? true : false
+          formData.pageChange.research_type == 'research&development'
+            ? true
+            : false
         "
       />
       <div class="flex flex-row gap-x-4">
@@ -197,9 +195,7 @@
         <input
           type="radio"
           disabled="false"
-          :checked="
-            formData.pageChange.research_type == 'other' ? true : false
-          "
+          :checked="formData.pageChange.research_type == 'other' ? true : false"
         />
         <span>วิจัยอื่น ๆ</span>
         <p v-if="formData.pageChange.research_type == 'other '">
@@ -310,11 +306,10 @@
     <div class="flex flex-col text-[13px] pt-3 items-end">
       <p>ลงชื่อ ผู้เสนอขออนุมัติ</p>
       <img
-        :src="`http://10.0.15.37:3002/uploads/${formData.user.user_signature}`"
+        :src="getUploadURL(formData.user.user_signature)"
         class="h-[50px] w-[170px]"
         alt="user signature"
       />
-
       <p>{{ formatThaiDate(formData.pageChange.doc_submit_date) }}</p>
     </div>
 
@@ -347,9 +342,7 @@
           <input
             type="radio"
             disabled="false"
-            :checked="
-              formData.offic.p_research_admin == 'other' ? true : false
-            "
+            :checked="formData.offic.p_research_admin == 'other' ? true : false"
           />
           <span>อื่น ๆ</span>
           <p v-if="formData.offic.p_research_admin == 'other'">
@@ -357,14 +350,22 @@
           </p>
         </div>
         <div class="flex flex-col text-[13px] pt-3 items-end">
-          <div class="flex flex-row gap-1 ">
+          <div class="flex flex-row gap-1">
             <p>ลงนาม</p>
-            <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
-              <img v-if="item.user_role == 'research' && (item.user_id == formData.offic.research_id)"
-              :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
-              class="h-[50px] w-[170px]"
-              alt="research Image"
-            />
+            <div
+              v-for="item in formData.signatureOffice"
+              :key="item"
+              class="-mt-4"
+            >
+              <img
+                v-if="
+                  item.user_role == 'research' &&
+                  item.user_id == formData.offic.research_id
+                "
+                :src="getUploadURL(item.user_signature)"
+                class="h-[50px] w-[170px]"
+                alt="user signature"
+              />
             </div>
             <p>เจ้าหน้าที่บริหารงานวิจัย</p>
           </div>
@@ -413,12 +414,20 @@
         <div class="flex flex-col text-[13px] pt-10 items-end px-10">
           <div class="flex flex-row gap-1">
             <p>ลงนาม</p>
-            <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
-              <img v-if="item.user_role == 'finance' && item.user_id == formData.budget.user_id"
-              :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
-              class="h-[50px] w-[170px] "
-              alt="finance Image"
-            />
+            <div
+              v-for="item in formData.signatureOffice"
+              :key="item"
+              class="-mt-4"
+            >
+              <img
+                v-show="
+                  item.user_role == 'finance' &&
+                  item.user_id == formData.budget.user_id
+                "
+                :src="getUploadURL(item.user_signature)"
+                class="h-[50px] w-[170px]"
+                alt="user signature"
+              />
             </div>
             <p>เจ้าหน้าที่การเงิน</p>
           </div>
@@ -436,12 +445,20 @@
         <div class="flex flex-col text-[13px] pt-3 items-end">
           <div class="flex flex-row gap-1">
             <p>ลงนาม</p>
-            <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
-              <img v-if="item.user_role == 'associate' && item.user_id == formData.offic.associate_id"
-              :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
-              class="h-[50px] w-[170px] "
-              alt="My Image"
-            />
+            <div
+              v-for="item in formData.signatureOffice"
+              :key="item"
+              class="-mt-4"
+            >
+              <img
+                v-if="
+                  item.user_role == 'associate' &&
+                  item.user_id == formData.offic.associate_id
+                "
+                :src="getUploadURL(item.user_signature)"
+                class="h-[50px] w-[170px]"
+                alt="user signature"
+              />
             </div>
           </div>
 
@@ -460,12 +477,20 @@
         <div class="flex flex-col text-[13px] pt-3 items-end">
           <div class="flex flex-row gap-1 py-3">
             <p>ลงนาม</p>
-            <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
-              <img v-if="item.user_role == 'dean' && item.user_id == formData.offic.dean_id"
-              :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
-              class="h-[50px] w-[170px]"
-              alt="My Image"
-            />
+            <div
+              v-for="item in formData.signatureOffice"
+              :key="item"
+              class="-mt-4"
+            >
+              <img
+                v-if="
+                  item.user_role == 'dean' &&
+                  item.user_id == formData.offic.dean_id
+                "
+                :src="getUploadURL(item.user_signature)"
+                class="h-[50px] w-[170px]"
+                alt="user signature"
+              />
             </div>
             <p>คณบดี</p>
           </div>
@@ -516,13 +541,16 @@
     <div class="flex flex-col text-[13px] pt-3 items-end">
       <div class="flex flex-row gap-1 py-3">
         <p>ลงนาม</p>
-        <div v-for="item in formData.signatureOffice" :key="item" class=" -mt-4">
-              <img v-if="item.user_role == 'dean' && item.user_id == formData.offic.dean_id"
-              :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
-              class="h-[50px] w-[170px] "
-              alt="My Image"
-            />
-            </div>
+        <div v-for="item in formData.signatureOffice" :key="item" class="-mt-4">
+          <img
+            v-if="
+              item.user_role == 'dean' && item.user_id == formData.offic.dean_id
+            "
+            :src="getUploadURL(item.user_signature)"
+            class="h-[50px] w-[170px]"
+            alt="user signature"
+          />
+        </div>
         <p>คณบดี</p>
       </div>
       <p>(รองศาสตราจารย์ ดร.ศิริเดช บุญแสง)</p>
@@ -530,12 +558,12 @@
     </div>
     <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
       <div class="flex no-print">
-      <router-link :to="`/myhistory`">
-        <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
-          ไปยังหน้าประวัติทั้งหมด
-        </button>
-      </router-link>
-    </div>
+        <router-link :to="`/myhistory`">
+          <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
+            ไปยังหน้าประวัติทั้งหมด
+          </button>
+        </router-link>
+      </div>
       <div class="flex no-print">
         <button
           onclick="window.print()"
@@ -616,14 +644,16 @@ const fetchProfessorData = async () => {
       ).toLocaleString(),
     };
     const responseoffic = await api.get(`/opinionPC/${id}`);
-    console.log("responseoffic", responseoffic.data)
+    console.log("responseoffic", responseoffic.data);
     formData.offic = responseoffic.data;
 
     const responsebudget = await api.get(`/budget/pageCharge/${id}`);
-    console.log("responsebudget", responsebudget.data)
+    console.log("responsebudget", responsebudget.data);
     formData.budget = responsebudget.data;
     formData.formattedBudget = {
-      Page_Charge_amount: Number(formData.budget.Page_Charge_amount).toLocaleString(),
+      Page_Charge_amount: Number(
+        formData.budget.Page_Charge_amount
+      ).toLocaleString(),
       total_amount_approved: Number(
         formData.budget.total_amount_approved
       ).toLocaleString(),
@@ -687,6 +717,11 @@ const loopdata = async () => {
       // console.log("Journal have 'Scopus'");
     }
   }
+};
+
+const getUploadURL = (filename) => {
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
+  return `${baseURL}/uploads/${filename}`;
 };
 
 // ดึงข้อมูลเมื่อ component ถูกโหลด

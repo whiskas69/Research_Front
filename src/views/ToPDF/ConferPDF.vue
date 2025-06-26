@@ -40,17 +40,13 @@
           <input
             type="radio"
             :disabled="true"
-            :checked="
-              formData.confer.country_conf == 'domestic' ? true : false
-            "
+            :checked="formData.confer.country_conf == 'domestic' ? true : false"
           />
           <span>ภายในประเทศ</span>
           <input
             type="radio"
             :disabled="true"
-            :checked="
-              formData.confer.country_conf == 'abroad' ? true : false
-            "
+            :checked="formData.confer.country_conf == 'abroad' ? true : false"
           />
           <span>ณ ต่างประเทศ</span>
         </div>
@@ -87,9 +83,7 @@
               type="radio"
               :disabled="true"
               :checked="
-                formData.confer.meeting_type == 'facultyHost'
-                  ? true
-                  : false
+                formData.confer.meeting_type == 'facultyHost' ? true : false
               "
             />
             <span
@@ -388,7 +382,7 @@
         <div class="flex flex-row pt-3 justify-end gap-2">
           <p>ลงนาม</p>
           <img
-            :src="`http://10.0.15.37:3002/uploads/${formData.user.user_signature}`"
+            :src="getUploadURL(formData.user.user_signature)"
             class="h-[50px] w-[170px]"
             alt="user signature"
           />
@@ -542,9 +536,9 @@
                     item.user_role == 'hr' &&
                     item.user_id == formData.offic.hr_id
                   "
-                  :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
+                  :src="getUploadURL(item.user_signature)"
                   class="h-[50px] w-[170px]"
-                  alt="hr signature"
+                  alt="user signature"
                 />
               </div>
               <p>เจ้าหน้าที่บริหารทรัพยากรบุคคล</p>
@@ -580,17 +574,24 @@
             </div>
             <div v-if="formData.confer.quality_meeting == 'good'">
               <p>
-              - กรณีที่เป็นการประชุมวิชาการ
-              <b>ระดับดีมาก</b> เลือกวิธีคิดค่าคะแนนคุณภาพ และมีระดับคะแนน
-              คุณภาพของการประชุมฯ ดังนี้
-            </p>
-            <p v-if="formData.score.score_type == 'CORE'" class="pl-3">
-              คำนวณจาก {{ formData.score.score_type }} มีค่าคะแนน {{ formData.score.core_rank }}
-                </p>
-            <p v-else class="pl-3"> คำนวณจาก {{ formData.score.score_type }} มีค่าคะแนน {{ formData.score.score_result }}</p>
+                - กรณีที่เป็นการประชุมวิชาการ
+                <b>ระดับดีมาก</b> เลือกวิธีคิดค่าคะแนนคุณภาพ และมีระดับคะแนน
+                คุณภาพของการประชุมฯ ดังนี้
+              </p>
+              <p v-if="formData.score.score_type == 'CORE'" class="pl-3">
+                คำนวณจาก {{ formData.score.score_type }} มีค่าคะแนน
+                {{ formData.score.core_rank }}
+              </p>
+              <p v-else class="pl-3">
+                คำนวณจาก {{ formData.score.score_type }} มีค่าคะแนน
+                {{ formData.score.score_result }}
+              </p>
             </div>
-            <p v-else-if="formData.confer.quality_meeting == 'standard'" class="px-2">
-              • อยู่ในระดับ{{ formData.confer.quality_meeting }}
+            <p
+              v-else-if="formData.confer.quality_meeting == 'standard'"
+              class="px-2"
+            >
+              • อยู่ในระดับมาตรฐาน
             </p>
             <p v-else-if="formData.confer.quality_meeting == ''" class="px-2">
               • ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ
@@ -609,9 +610,9 @@
                       item.user_role == 'research' &&
                       item.user_id == formData.offic.research_id
                     "
-                    :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
+                    :src="getUploadURL(item.user_signature)"
                     class="h-[50px] w-[170px]"
-                    alt="research Image"
+                    alt="user signature"
                   />
                 </div>
               </div>
@@ -674,9 +675,9 @@
                       item.user_role == 'finance' &&
                       item.user_id == formData.budget.user_id
                     "
-                    :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
+                    :src="getUploadURL(item.user_signature)"
                     class="h-[50px] w-[170px]"
-                    alt="finance Image"
+                    alt="user signature"
                   />
                 </div>
               </div>
@@ -706,9 +707,9 @@
                       item.user_role == 'associate' &&
                       item.user_id == formData.offic.associate_id
                     "
-                    :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
+                    :src="getUploadURL(item.user_signature)"
                     class="h-[50px] w-[170px]"
-                    alt="associate Image"
+                    alt="user signature"
                   />
                 </div>
               </div>
@@ -742,9 +743,9 @@
                       item.user_role == 'dean' &&
                       item.user_id == formData.offic.dean_id
                     "
-                    :src="`http://10.0.15.37:3002/uploads/${item.user_signature}`"
+                    :src="getUploadURL(item.user_signature)"
                     class="h-[50px] w-[170px]"
-                    alt="Dean Image"
+                    alt="user signature"
                   />
                 </div>
                 <p>คณบดี</p>
@@ -759,21 +760,12 @@
 
     <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
       <div class="flex no-print">
-        <div v-if="userStore.user.user_role == 'professor'">
-          <router-link :to="`/myhistory`">
-            <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
-              ไปยังหน้าประวัติ
-            </button>
-          </router-link>
-        </div>
-        <div v-if="userStore.user.user_role == 'professor'">
-          <router-link :to="`/allhistory`">
-            <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
-              ไปยังหน้าประวัติทั้งหมด
-            </button>
-          </router-link>
-        </div>
-      </div>
+      <router-link :to="`/myhistory`">
+        <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
+          ไปยังหน้าประวัติทั้งหมด
+        </button>
+      </router-link>
+    </div>
       <div class="flex no-print">
         <button
           onclick="window.print()"
@@ -894,13 +886,19 @@ const fetchProfessorData = async () => {
         formData.signatureOffice.push(signature);
       }
     }
-    console.log("formData.signatureOffice",formData.signatureOffice)
+    console.log("formData.signatureOffice", formData.signatureOffice);
   } catch (error) {
     console.log("Error fetching professor data:", error);
   } finally {
     isLoading.value = false;
   }
 };
+
+const getUploadURL = (filename) => {
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
+  return `${baseURL}/uploads/${filename}`;
+};
+
 // ดึงข้อมูลเมื่อ component ถูกโหลด
 onMounted(async () => {
   await fetchProfessorData();

@@ -27,23 +27,7 @@
       <Mainbox v-if="props.type == 'Page_Charge'">
         <SectionWrapper>
           <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
-          <div class="px-2">
-            <RadioInput
-              label="เห็นด้วย"
-              value="agree"
-              name="comment"
-              :disabled="true"
-              v-model="formData.offic.p_deputy_dean"
-            />
-          </div><div class="px-2">
-            <RadioInput
-              label="ไม่เห็นด้วย"
-              value="disagree"
-              name="comment"
-              :disabled="true"
-              v-model="formData.offic.p_deputy_dean"
-            />
-          </div>
+          <p v-if="formData.offic.p_deputy_dean == 'agree'">เห็นชอบ</p>
         </SectionWrapper>
       </Mainbox>
     </div>
