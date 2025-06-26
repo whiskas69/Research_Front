@@ -177,6 +177,7 @@ import { computed, onMounted, reactive } from "vue";
 
 import { useVuelidate } from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
+import { useRouter } from "vue-router";
 
 import { useUserStore } from "@/store/userStore";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
@@ -242,6 +243,8 @@ const handleFile = (event, fieldName) => {
   }
 };
 
+const router = useRouter();
+
 const updatesignature = async () => {
   const result = await v$.value.$validate();
 
@@ -264,7 +267,7 @@ const updatesignature = async () => {
 
       alert("อัปโหลดลายเซ็นเรียบร้อยแล้ว");
 
-      location.reload();
+      router.push("/");
     } catch (error) {
       console.log("error", error);
     }
