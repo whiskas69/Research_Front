@@ -189,7 +189,7 @@ const getData = async () => {
   // console.log("res sumBudgets", res.data);
   data.approvedConfer = res.data.sumConfer.length;
 
-  const response = await api.get(`/conference/${user.value?.user_id}`);
+  const response = await api.get(`/conference/user/${user.value?.user_id}`);
   console.log("response conference userid", response.data);
   // data.formConfer = response.data
 

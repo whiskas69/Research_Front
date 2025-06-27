@@ -6,7 +6,7 @@
   <Assosiate :id="id" :type="'Page_Charge'" />
   <Dean :id="id" :type="'Page_Charge'" />
   <WithdrawMoney :id="id" :type="'Page_Charge'" />
-<p>oppp</p>
+  
   <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
     <div v-if="formData.form.form_status == 'waitingApproval' || formData.form.form_status == 'approve'" class="flex no-print">
       <router-link :to="`/pdf/pageCharge/${id}`">

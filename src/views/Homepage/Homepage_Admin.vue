@@ -501,7 +501,7 @@ const updateUserRoles = async () => {
     console.log("Response from server:", response.data);
 
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-    location.reload();
+    await fetchOfficerData();
   } catch (error) {
     console.log("Error updating user roles:", error);
     alert("เกิดข้อผิดพลาดในการอัปเดตข้อมูล");
@@ -525,7 +525,7 @@ const addUser = async () => {
       };
       await api.post("/user", dataForBackend);
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      location.reload();
+      await fetchOfficerData();
     } catch (error) {
       console.log("Error saving code : ", error);
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
@@ -541,7 +541,7 @@ const deleteSignat = async (id) => {
     await api.put(`/userSignat/${id}`);
 
     alert("ลบลายเซ็นผู้ใช้เรียบร้อย");
-    location.reload();
+    await fetchOfficerData();
   } catch (error) {
     console.log("Error updating user roles:", error);
     alert("เกิดข้อผิดพลาดในการอัปเดตข้อมูล");
@@ -553,7 +553,7 @@ const deleteUser = async (id) => {
     await api.delete(`/user/${id}`);
 
     alert("ลบผู้ใช้เรียบร้อย");
-    location.reload();
+    await fetchOfficerData();
   } catch (error) {
     console.log("Error updating user roles:", error);
     alert("เกิดข้อผิดพลาดในการอัปเดตข้อมูล");
