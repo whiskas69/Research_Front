@@ -631,7 +631,7 @@
           </span>
 
           <FileInput
-            label="สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar"
+            label="สำเนาบทความ"
             name="Fifth"
             type="file"
             @change="handleFile($event, 'file5')"
@@ -641,6 +641,19 @@
             class="text-base font-bold text-red-500 text-left"
           >
             {{ v$.file5.$errors[0].$message }}
+          </span>
+
+          <FileInput
+            label="Upload บทความเข้าระบบ IT Scholar"
+            name="sixth"
+            type="file"
+            @change="handleFile($event, 'file6')"
+          />
+          <span
+            v-if="v$.file6.$error"
+            class="text-base font-bold text-red-500 text-left"
+          >
+            {{ v$.file6.$errors[0].$message }}
           </span>
         </SectionWrapper>
       </Mainbox>
@@ -738,6 +751,7 @@ const formData = reactive({
   file3: null,
   file4: null,
   file5: null,
+  file6: null,
 });
 
 const inputTypes = {
@@ -783,6 +797,7 @@ const inputTypes = {
   file3: "string",
   file4: "string",
   file5: "string",
+  file6: "string",
 };
 
 // ตรวจสอบปีและวันที่นี้
@@ -1101,6 +1116,17 @@ const rules = computed(() => ({
       }
     ),
   },
+  file6: {
+    required: helpers.withMessage("* กรุณาอัปโหลดไฟล์ *", required),
+    fileType: helpers.withMessage(
+      "* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
+      (value) => {
+        if (!value) return false;
+        const allowedTypes = ["application/pdf"];
+        return allowedTypes.includes(value.type);
+      }
+    ),
+  },
 }));
 
 const v$ = useVuelidate(rules, formData);
@@ -1240,6 +1266,7 @@ const NewPC = async () => {
         invoice_public: formData.file3,
         accepted: formData.file4,
         copy_article: formData.file5,
+        upload_article: formData.file6,
       };
 
       console.log("postPC: ", JSON.stringify(dataForBackend));
