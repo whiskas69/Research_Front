@@ -262,12 +262,12 @@ const fetchOfficerData = async () => {
     for (let i = 0; i < filteredForms.length; i++) {
       if (filteredForms.length > 0) {
         if (filteredForms[i].edit_data == "" || filteredForms[i].edit_data == null) {
-          listForm.forms = filteredForms;
+          listForm.forms.push(filteredForms[i]);
           listForm.nameC = responseOffice.data.confer;
           listForm.nameP = responseOffice.data.pageC;
           listForm.nameK = responseOffice.data.kris;
         } else if (filteredForms[i].professor_reedit === true && filteredForms[i].edit_data !== "") {
-          listForm.forms = filteredForms;
+          listForm.forms.push(filteredForms[i]);
           listForm.nameC = responseOffice.data.confer;
           listForm.nameP = responseOffice.data.pageC;
           listForm.nameK = responseOffice.data.kris;

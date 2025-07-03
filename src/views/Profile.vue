@@ -110,8 +110,8 @@
         <img
           v-if="data.signature"
           :src="data.signature"
-          alt="signature"
           class="w-64 h-64 mt-5"
+          alt="signature"
         />
       </div>
     </div>
@@ -286,10 +286,8 @@ const updatesignature = async () => {
 
 const getSignature = async () => {
   const user_id = data.id;
-
   const res = await api.get(`/mySignature?user_id=${user_id}`);
-
-  console.log(res);
-  data.signature = res.data.fileUrl;
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
+  data.signature = `${baseURL}/uploads/${res.data.fileUrl}`;
 };
 </script>
