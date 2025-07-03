@@ -8,56 +8,71 @@
       <Mainbox>
         <SectionWrapper>
           <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
-          <TextInputLabelLeft label="ปีงบประมาณ พ.ศ." customInput="max-w-max text-center" v-model="formData.year"
+          <TextInputLabelLeft
+            label="ปีงบประมาณ พ.ศ." 
+            customInput="max-w-max text-center" 
+            v-model="formData.year"
             @input="handleInput('year', $event.target.value)" />
           <div class="flex justify-end">
             <div class="flex flex-row justify-between">
-              <TextInputLabelLeft label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น" customInput="max-w-max text-center"
-                v-model="formData.totalAll" @input="handleInput('totalAll', $event.target.value)" />
+              <TextInputLabelLeft 
+                label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น" 
+                customInput="max-w-max text-center"
+                v-model="formData.totalAll" 
+                @input="handleInput('totalAll', $event.target.value)" />
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
           <div class="flex justify-end">
             <div class="flex flex-row justify-between">
-              <TextInputLabelLeft label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
-                customInput="max-w-max text-center" disabled="true" :placeholder="parseFloat(formData.numapproved).toLocaleString('en-US', {
-                  minimumFractionDigits: 0,
-                })
-                  " />
+              <TextInputLabelLeft 
+                label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
+                customInput="max-w-max text-center"
+                :placeholder="parseFloat(formData.numapproved).toLocaleString('en-US', { minimumFractionDigits: 0, })"
+                v-model="formData.numapproved" 
+                />
               <p class="flex items-center w-12">รายการ</p>
             </div>
           </div>
           <div class="flex justify-end">
             <div class="flex flex-row justify-between">
-              <TextInputLabelLeft label="รวมเป็นเงิน" customInput="max-w-max
-              text-center" disabled="true" :placeholder="parseFloat(formData.totalapproved).toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-              })
-                " />
+              <TextInputLabelLeft 
+                label="รวมเป็นเงิน" 
+                customInput="max-w-max text-center"  
+                :placeholder="parseFloat(formData.totalapproved).toLocaleString('en-US', { minimumFractionDigits: 2, })" 
+                v-model="formData.totalapproved" 
+                />
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
           <div class="flex justify-end">
             <div class="flex flex-row justify-between">
-              <TextInputLabelLeft label="วงเงินที่คณะจัดสรรไว้ คงเหลือ" customInput="max-w-max text-center"
-                disabled="true" :placeholder="caltotalFaculty" />
+              <TextInputLabelLeft 
+                label="วงเงินที่คณะจัดสรรไว้ คงเหลือ" 
+                customInput="max-w-max text-center" 
+                :placeholder="caltotalFaculty" 
+                v-model="formData.caltotalFaculty" />
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
           <div class="flex justify-end">
             <div class="flex flex-row justify-between">
-              <TextInputLabelLeft label="จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวนเงิน"
-                customInput="max-w-max text-center" disabled="true" :placeholder="parseFloat(moneyRequested).toLocaleString('en-US', {
-                  minimumFractionDigits: 2,
-                })
-                  " />
+              <!-- rule base -->
+              <TextInputLabelLeft 
+                label="จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวนเงิน"
+                customInput="max-w-max text-center"  
+                :placeholder="parseFloat(moneyRequested).toLocaleString('en-US', { minimumFractionDigits: 2, })"
+                v-model="formData.newmoneyRequested" />
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
           <div class="flex justify-end">
             <div class="flex flex-row justify-between">
-              <TextInputLabelLeft label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น" customInput="max-w-max text-center"
-                disabled="true" :placeholder="caltotalFacultyNow" />
+              <TextInputLabelLeft 
+                label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น" 
+                customInput="max-w-max text-center" 
+                :placeholder="caltotalFacultyNow"
+                v-model="formData.caltotalFacultyNow" />
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
@@ -109,19 +124,11 @@
 import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
-import {
-  required,
-  helpers,
-  maxValue,
-  minValue,
-  numeric,
-  decimal,
-} from "@vuelidate/validators";
+import { required, helpers, maxValue, minValue, numeric, decimal, } from "@vuelidate/validators";
 import { DateTime } from "luxon";
 
 import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
-
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
@@ -142,6 +149,7 @@ const formData = reactive({
   docSubmitDate: DateTime.now().toISODate(),
   form_id: 0,
   formStatus: "associate",
+  newmoneyRequested: null,
 });
 
 const handleInput = (key, value) => {
@@ -149,55 +157,37 @@ const handleInput = (key, value) => {
 };
 
 const caltotalFaculty = computed(() => {
-  formData.creditLimit =
-    parseFloat(formData.totalAll) - parseFloat(formData.totalapproved);
-  return formData.creditLimit.toLocaleString("en-US", {
-    minimumFractionDigits: 2,
-  });
+  formData.creditLimit = parseFloat(formData.totalAll) - parseFloat(formData.totalapproved);
+  return formData.creditLimit.toLocaleString("en-US", { minimumFractionDigits: 2,});
 });
 
 const caltotalFacultyNow = computed(() => {
   console.log("moneyRequested", moneyRequested.value);
-  formData.totalcreditLimit =
-    parseFloat(formData.creditLimit) - parseFloat(moneyRequested.value);
-  return formData.totalcreditLimit.toLocaleString("en-US", {
-    minimumFractionDigits: 2,
-  });
+  formData.totalcreditLimit = parseFloat(formData.creditLimit) - parseFloat(moneyRequested.value);
+  return formData.totalcreditLimit.toLocaleString("en-US", { minimumFractionDigits: 2, });
 });
 
 const moneyRequested = computed(() => {
-  return (
-    parseFloat(formData.canWithdrawn.money) +
-    parseFloat(formData.conference.total_amount)
-  );
+  console.log("formData.newmoneyRequested", formData.newmoneyRequested);
+
+  if (!formData.newmoneyRequested) {
+    return (parseFloat(formData.canWithdrawn.money) + parseFloat(formData.conference.total_amount));
+  }
+  else if (formData.newmoneyRequested) {
+    console.log("formData.newmoneyRequested !== 0", formData.newmoneyRequested);
+    return formData.newmoneyRequested;
+  }
 });
 
 const expenses = computed(() => {
-  const withdrawn = parseFloat(formData.canWithdrawn.money).toLocaleString(
-    "en-US",
-    {
-      minimumFractionDigits: 2,
-    }
-  );
-  const regits = parseFloat(formData.conference.total_amount).toLocaleString(
-    "en-US",
-    {
-      minimumFractionDigits: 2,
-    }
-  );
-  const allowance = parseFloat(
-    3500 * formData.conference.num_travel_days
-  ).toLocaleString("en-US", {
-    minimumFractionDigits: 2,
-  });
-  const accom = parseFloat(
-    8000 * formData.conference.num_days_room
-  ).toLocaleString("en-US", {
-    minimumFractionDigits: 2,
-  });
+  const withdrawn = parseFloat(formData.canWithdrawn.money).toLocaleString("en-US", { minimumFractionDigits: 2, });
+  const regits = parseFloat(formData.conference.total_amount).toLocaleString("en-US", { minimumFractionDigits: 2, });
+  const allowance = parseFloat( 3500 * formData.conference.num_travel_days ).toLocaleString("en-US", { minimumFractionDigits: 2, });
+  const accom = parseFloat( 8000 * formData.conference.num_days_room ).toLocaleString("en-US", { minimumFractionDigits: 2,});
 
   return { withdrawn, regits, allowance, accom };
 });
+
 const showCreditLimit = ref(false);
 const isLoading = ref(true);
 
@@ -215,10 +205,7 @@ const fetchOfficerData = async () => {
     const responseBudget = await api.get(`/budgetsConfer`);
     console.log("budgetsConfer:", responseBudget.data);
     formData.numapproved = responseBudget.data.numapproved;
-    formData.totalapproved =
-      responseBudget.data.totalapproved == null
-        ? 0
-        : responseBudget.data.totalapproved;
+    formData.totalapproved = responseBudget.data.totalapproved == null ? 0 : responseBudget.data.totalapproved;
 
     console.log("numapprove", formData.numapproved);
     console.log("totalapprove", formData.totalapproved);

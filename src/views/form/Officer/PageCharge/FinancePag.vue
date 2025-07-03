@@ -30,10 +30,8 @@
               <TextInputLabelLeft
                 label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
                 customInput="max-w-max text-center"
-                disabled="true"
-                :placeholder="parseFloat(formData.numapproved).toLocaleString('en-US', {
-                  minimumFractionDigits: 0,
-                })"
+                :placeholder="parseFloat(formData.numapproved).toLocaleString('en-US', { minimumFractionDigits: 0, })"
+                v-model="formData.numapproved"
               />
               <p class="flex items-center w-12">รายการ</p>
             </div>
@@ -43,10 +41,8 @@
               <TextInputLabelLeft
                 label="รวมเป็นเงิน"
                 customInput="max-w-max text-center"
-                disabled="true"
-                :placeholder="parseFloat(formData.totalapproved).toLocaleString('en-US', {
-                  minimumFractionDigits: 0,
-                })"
+                :placeholder="parseFloat(formData.totalapproved).toLocaleString('en-US', { minimumFractionDigits: 0, })"
+                v-model="formData.totalapproved"
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
@@ -56,10 +52,8 @@
               <TextInputLabelLeft
                 label="วงเงินที่คณะจัดสรรไว้ คงเหลือ"
                 customInput="max-w-max text-center"
-                disabled="true"
-                :placeholder="parseFloat(caltotalFaculty).toLocaleString('en-US', {
-                  minimumFractionDigits: 0,
-                })"
+                :placeholder="parseFloat(caltotalFaculty).toLocaleString('en-US', { minimumFractionDigits: 0, })"
+                v-model="formData.caltotalFaculty"
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
@@ -69,11 +63,9 @@
               <TextInputLabelLeft
                 label="จำนวนเงินที่ขออนุมัติค่า Page Charge ในครั้งนี้ เป็นจำนวนเงิน"
                 customInput="max-w-max text-center"
-                disabled="true"
-                :placeholder="parseFloat(formData.canWithdrawn).toLocaleString('en-US', {
-                  minimumFractionDigits: 0,
-                })"
-              />
+                :placeholder="parseFloat(formData.canWithdrawn).toLocaleString('en-US', { minimumFractionDigits: 0,})"
+                v-model="formData.canWithdrawn"
+                />
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
@@ -82,10 +74,10 @@
               <TextInputLabelLeft
                 label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น"
                 customInput="max-w-max text-center"
-                disabled="true"
                 :placeholder="parseFloat(caltotalFacultyNow).toLocaleString('en-US', {
                   minimumFractionDigits: 0,
                 })"
+                v-model="formData.totalcreditLimit"
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
