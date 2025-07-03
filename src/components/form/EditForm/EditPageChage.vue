@@ -374,11 +374,24 @@
         </SectionWrapper>
       </Mainbox>
     </div>
-    <div class="flex justify-end">
+
+    <div class="flex w-full ">
+      <div class="flex flex-1 justify-start ">
+        <button @click="saveDraft" class="bg-blue-500 text-white px-4 py-2 rounded mr-3">
+          บันทึกแบบร่าง
+        </button>
+        <button @click="clearDraft" class="bg-red-500 text-white px-4 py-2 rounded mr-3">
+          ลบแบบร่าง
+        </button>
+      </div>
+
+      <div class="flex flex-1 justify-end">
         <button @click="handleSubmit" class="btn btn-success text-white">
           บันทึกข้อมูลที่แก้ไข
         </button>
       </div>
+    </div>
+
   </div>
 </template>
 
@@ -398,7 +411,7 @@ import CheckInput from "@/components/Input/CheckInput.vue";
 const formData = reactive({
   pageChange: {},
   originPc: {},
-  userForm: [],
+  userForm: {},
   name: "",
 
   check: [],
@@ -419,6 +432,43 @@ const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
+
+
+// โหลด draft จาก localStorage ถ้ามี
+const loadDraft = () => {
+  const draftKey = `draft-form-PC-${id}`;
+  console.log("draftKey",draftKey)
+  const draft = localStorage.getItem(draftKey);
+  console.log("draft",draft)
+  if (draft) {
+    try {
+    const parsed = JSON.parse(draft);
+    console.log("parsed",parsed)
+    if (parsed) {
+      formData.pageChange = parsed.pageChange;
+      formData.userForm = parsed.userForm;
+      console.log("โหลดข้อมูลจาก draft:", formData);
+      return true;
+    }
+  }catch (e) {
+      console.warn("Draft format ผิดพลาด:", e);
+    }
+  }
+  return false;
+};
+
+const saveDraft = () => {
+  const rawData = toRaw(formData);
+  const draftKey = `draft-form-PC-${id}`;
+  localStorage.setItem(draftKey, JSON.stringify(rawData));
+  alert("บันทึกแบบร่างเรียบร้อยแล้ว");
+};
+
+const clearDraft = () => {
+  const draftKey = `draft-form-PC-${id}`;
+  localStorage.removeItem(draftKey);
+  alert("ลบแบบร่างสำเร็จ");
+};
 
 const getChangedFields = () => {
   const current = toRaw(formData.pageChange);
@@ -464,27 +514,25 @@ const handleSubmit = async() => {
     console.log("dataForBackend: ",dataForBackend)
     await api.put(`/editedFormPageChage/${id}`, dataForBackend)
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+
+    const draftKey = `draft-form-PC-${id}`;
+    localStorage.removeItem(draftKey);
+
     router.push("/officer");
   }catch (error) {
       console.log("Error saving code : ", error);
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
     }
 };
-const fetchProfessorData = async () => {
+
+const fetchOfficerData = async () => {
   try {
     const responsePC = await api.get(`/page_charge/${id}`);
     const userID = responsePC.data.user_id;
     const responseUser = await api.get(`/user/${userID}`);
     formData.userForm = responseUser.data;
 
-    console.log("get user: ", formData.userForm);
-    console.log("get userid: ", responsePC.data.user_id);
-    console.log("get responsePC: ", responsePC.data);
-
     formData.pageChange = responsePC.data;
-    formData.originPc = JSON.parse(JSON.stringify(responsePC.data));
-
-    console.log("pageChange", formData.pageChange);
     formData.check = formData.pageChange.quality_journal;
   } catch (error) {
     console.log("Error fetching professor data:", error);
@@ -494,11 +542,19 @@ const fetchProfessorData = async () => {
   console.log("Fetching professor data...");
 };
 
+const fetchOfficerDataorigin = async () => {
+  try {
+    const responsePC = await api.get(`/page_charge/${id}`);
+    formData.originPc = JSON.parse(JSON.stringify(responsePC.data));
+  } catch (error) {
+    console.log("Error fetching professor data:", error);
+  } finally {
+    isLoading.value = false;
+  }
+  console.log("Fetching professor data...");
+};
+
 const loopdata = async () => {
-  console.log("in loop");
-
-  fetchProfessorData();
-
   console.log("formdata, ", formData.check);
   for (let i = 0; i < formData.check.length; i++) {
     console.log("checking journal", formData.check[i]);
@@ -523,7 +579,11 @@ const loopdata = async () => {
 
 // ดึงข้อมูลเมื่อ component ถูกโหลด
 onMounted(async () => {
-  await fetchProfessorData();
+  fetchOfficerDataorigin();
+  const draftLoaded = loadDraft(); // คืนค่า true ถ้ามี draft
+  if (!draftLoaded) {
+    await fetchOfficerData(); // โหลดจากฐานข้อมูลเฉพาะถ้าไม่มี draft
+  }
   loopdata();
   await userStore.fetchUser();
   formData.name = user.value?.user_nameth || "";

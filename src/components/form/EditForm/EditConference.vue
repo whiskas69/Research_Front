@@ -626,11 +626,24 @@
         </SectionWrapper>
       </Mainbox>
     </div>
-    <div class="flex justify-end">
+
+    <div class="flex w-full ">
+      <div class="flex flex-1 justify-start ">
+        <button @click="saveDraft" class="bg-blue-500 text-white px-4 py-2 rounded mr-3">
+          บันทึกแบบร่าง
+        </button>
+        <button @click="clearDraft" class="bg-red-500 text-white px-4 py-2 rounded mr-3">
+          ลบแบบร่าง
+        </button>
+      </div>
+
+      <div class="flex flex-1 justify-end">
         <button @click="handleSubmit" class="btn btn-success text-white">
           บันทึกข้อมูลที่แก้ไข
         </button>
       </div>
+    </div>
+    
   </div>
 </template>
 
@@ -651,10 +664,9 @@ const user = computed(() => userStore.user);
 const data = reactive({
   conference: {},
   originCofer: {},
-  userForm: [],
+  userForm: {},
   score: {},
   originScore: {},
-  form_id: 0,
   name: "",
 });
 
@@ -668,7 +680,6 @@ const fetchOfficerData = async () => {
   try {
     const responseConfer = await api.get(`/conference/${id}`);
     data.conference = responseConfer.data;
-    data.originCofer = JSON.parse(JSON.stringify(responseConfer.data));
 
     const userID = responseConfer.data.user_id;
     const responseUser = await api.get(`/user/${userID}`);
@@ -676,6 +687,19 @@ const fetchOfficerData = async () => {
 
     const responseScore = await api.get(`/score/${id}`);
     data.score = responseScore.data;
+  } catch (error) {
+    console.log("Error fetching Officer data:", error);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+const fetchOfficerDataorigin = async () => {
+  try {
+    const responseConfer = await api.get(`/conference/${id}`);
+    data.originCofer = JSON.parse(JSON.stringify(responseConfer.data));
+
+    const responseScore = await api.get(`/score/${id}`);
     data.originScore = JSON.parse(JSON.stringify(responseScore.data));
   } catch (error) {
     console.log("Error fetching Officer data:", error);
@@ -709,6 +733,43 @@ const allTotal = computed(() => {
 
   return data.conference.all_money;
 });
+
+// โหลด draft จาก localStorage ถ้ามี
+const loadDraft = () => {
+  const draftKey = `draft-form-CF-${id}`;
+  console.log("draftKey",draftKey)
+  const draft = localStorage.getItem(draftKey);
+  console.log("draft",draft)
+  if (draft) {
+    try {
+    const parsed = JSON.parse(draft);
+    console.log("parsed",parsed)
+    if (parsed) {
+      data.conference = parsed.conference;
+      data.userForm = parsed.userForm;
+      data.score = parsed.score;
+      console.log("โหลดข้อมูลจาก draft:", data);
+      return true;
+    }
+  }catch (e) {
+      console.warn("Draft format ผิดพลาด:", e);
+    }
+  }
+  return false;
+};
+
+const saveDraft = () => {
+  const rawData = toRaw(data);
+  const draftKey = `draft-form-CF-${id}`;
+  localStorage.setItem(draftKey, JSON.stringify(rawData));
+  alert("บันทึกแบบร่างเรียบร้อยแล้ว");
+};
+
+const clearDraft = () => {
+  const draftKey = `draft-form-CF-${id}`;
+  localStorage.removeItem(draftKey);
+  alert("ลบแบบร่างสำเร็จ");
+};
 
 const getChangedFields = () => {
   const current = toRaw(data.conference);
@@ -781,6 +842,10 @@ const handleSubmit = async() => {
     console.log("dataForBackend: ",dataForBackend)
     await api.put(`/editedFormConfer/${id}`, dataForBackend)
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+
+    const draftKey = `draft-form-CF-${id}`;
+    localStorage.removeItem(draftKey);
+
     router.push("/officer");
   }catch (error) {
       console.log("Error saving code : ", error);
@@ -789,7 +854,11 @@ const handleSubmit = async() => {
 };
 
 onMounted(async () => {
-  fetchOfficerData();
+  fetchOfficerDataorigin();
+  const draftLoaded = loadDraft(); // คืนค่า true ถ้ามี draft
+  if (!draftLoaded) {
+    await fetchOfficerData(); // โหลดจากฐานข้อมูลเฉพาะถ้าไม่มี draft
+  }
   await userStore.fetchUser();
   data.name = user.value?.user_nameth || "";
 });
