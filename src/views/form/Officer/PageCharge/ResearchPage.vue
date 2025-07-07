@@ -99,7 +99,7 @@
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
-                <p>สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar</p>
+                <p>สำเนาบทความ</p>
               </div>
               <div>
                 <button @click="getFile(formData.f_copy_article)" class="btn bg-[#E85F19] text-white mr-5">
@@ -108,7 +108,27 @@
                 <button @click="
                   downloadFile(
                     formData.f_copy_article,
-                    'สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar'
+                    'สำเนาบทความ'
+                  )
+                  " class="btn bg-[#4285F4] text-white">
+                  โหลดเอกสาร
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <p>หลักฐานการ Upload บทความเข้าระบบ IT Scholar</p>
+              </div>
+              <div>
+                <button @click="getFile(formData.f_upload_article)" class="btn bg-[#E85F19] text-white mr-5">
+                  ดูเอกสาร
+                </button>
+                <button @click="
+                  downloadFile(
+                    formData.f_upload_article,
+                    'หลักฐานการ Upload บทความเข้าระบบ IT Scholar'
                   )
                   " class="btn bg-[#4285F4] text-white">
                   โหลดเอกสาร
@@ -181,6 +201,7 @@ const formData = reactive({
   f_invoice_public: null,
   f_accepted: null,
   f_copy_article: null,
+  f_upload_article: null,
   docSubmitDate: DateTime.now().toISODate(),
   statusForm: "finance",
   radioAuthOffic: "",
@@ -254,7 +275,7 @@ const getDataPc = async () => {
     formData.f_invoice_public = responsefile.data.file_invoice_public;
     formData.f_accepted = responsefile.data.file_accepted;
     formData.f_copy_article = responsefile.data.file_copy_article;
-
+    formData.f_upload_article = responsefile.data.file_upload_article;
     try {
       const responseoffic = await api.get(`/opinionPC/${id}`);
       formData.offic = responseoffic.data;

@@ -290,7 +290,18 @@
           disabled="false"
         />
         <span class="text-[13px] px-4">
-          สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar</span
+          สำเนาบทความ</span
+        >
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          class="pt-1 px-5"
+          :checked="formData.file.upload_article != null ? true : false"
+          disabled="false"
+        />
+        <span class="text-[13px] px-4">
+          หลักฐานการ Upload บทความเข้าระบบ IT Scholar</span
         >
       </div>
     </div>

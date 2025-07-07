@@ -288,7 +288,7 @@
           v-if="data.page_c.copy_article && data.page_c.copy_article != ''"
         >
           <p class="w-3/5 min-w-64 flex place-items-center">
-            สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar
+            สำเนาบทความ
           </p>
           <div class="ml-5">
             <button
@@ -301,7 +301,7 @@
               @click="
                 downloadFile(
                   data.f_copy_article,
-                  'สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar'
+                  'สำเนาบทความ'
                 )
               "
               class="btn bg-[#4285F4] text-white"
@@ -313,7 +313,7 @@
 
         <div v-else>
           <FileInput
-            label="สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar"
+            label="สำเนาบทความ"
             name="copy_article"
             type="file"
             @change="handleFile($event, 'copy_article')"
@@ -323,6 +323,51 @@
             class="text-base ml-2 text-red-500"
           >
             {{ v$.copy_article.$errors[0].$message }}
+          </span>
+        </div>
+      </div>
+
+      <div class="px-5 mb-3">
+        <div
+          class="flex flex-rowitems-center mt-2 justify-between"
+          v-if="data.page_c.upload_article && data.page_c.upload_article != ''"
+        >
+          <p class="w-3/5 min-w-64 flex place-items-center">
+            หลักฐานการ Upload บทความเข้าระบบ IT Scholar
+          </p>
+          <div class="ml-5">
+            <button
+              @click="getFile(data.f_upload_article)"
+              class="btn bg-[#E85F19] text-white mr-5"
+            >
+              ดูเอกสาร
+            </button>
+            <button
+              @click="
+                downloadFile(
+                  data.f_upload_article,
+                  'หลักฐานการ Upload บทความเข้าระบบ IT Scholar'
+                )
+              "
+              class="btn bg-[#4285F4] text-white"
+            >
+              โหลดเอกสาร
+            </button>
+          </div>
+        </div>
+
+        <div v-else>
+          <FileInput
+            label="หลักฐานการ Upload บทความเข้าระบบ IT Scholar"
+            name="upload_article"
+            type="file"
+            @change="handleFile($event, 'upload_article')"
+          />
+          <span
+            v-if="v$.upload_article.$error"
+            class="text-base ml-2 text-red-500"
+          >
+            {{ v$.upload_article.$errors[0].$message }}
           </span>
         </div>
       </div>
@@ -362,6 +407,7 @@ const data = reactive({
   invoice_public: null,
   accepted: null,
   copy_article: null,
+  upload_article: null,
 
   //urlfile
   f_pc_proof: null,
@@ -369,6 +415,7 @@ const data = reactive({
   f_invoice_public: null,
   f_accepted: null,
   f_copy_article: null,
+  f_upload_article: null,
 
   //setfile
   file: "",
@@ -416,6 +463,14 @@ const rules = {
       })
     ),
   },
+  upload_article: {
+    requiredIf: helpers.withMessage(
+      "* กรุณาอัปโหลดไฟล์ *",
+      requiredIf(function () {
+        return !this.upload_article; // ถ้าไม่มี q_pc_proof_data ต้องอัปโหลดไฟล์
+      })
+    ),
+  },
 };
 
 const v$ = useVuelidate(rules, data);
@@ -437,7 +492,8 @@ const checkfile = () => {
     data.q_pc_proof &&
     data.invoice_public &&
     data.accepted &&
-    data.copy_article
+    data.copy_article &&
+    data.upload_article
   ) {
     data.check = true;
   } else {
@@ -464,6 +520,7 @@ const getDataPc = async () => {
     data.invoice_public = response.data.page_c.invoice_public;
     data.accepted = response.data.page_c.accepted;
     data.copy_article = response.data.page_c.copy_article;
+    data.upload_article = responsefile.data.page_c.upload_article;
 
     const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
 
@@ -472,6 +529,7 @@ const getDataPc = async () => {
     data.f_invoice_public = responsefile.data.file_invoice_public;
     data.f_accepted = responsefile.data.file_accepted;
     data.f_copy_article = responsefile.data.file_copy_article;
+    data.f_upload_article = responsefile.data.file_upload_article;
 
     console.log("Success", response);
   } catch (error) {
@@ -491,6 +549,7 @@ const updateFile = async () => {
     data.invoice_public,
     data.accepted,
     data.copy_article,
+    data.upload_article,
   ];
 
   const hasEmptyField = requiredFields.some((field) => !field || field === "");
@@ -509,6 +568,7 @@ const updateFile = async () => {
         invoice_public: data.invoice_public,
         accepted: data.accepted,
         copy_article: data.copy_article,
+        upload_article: data.upload_article,
       };
 
       console.log("data for  : ", dataforupdate)
