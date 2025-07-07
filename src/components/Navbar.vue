@@ -13,124 +13,113 @@
 
     <!-- menu -->
     <div class="flex-auto w-full flex-row">
-      <ul class="menu menu-horizontal px-5 flex">
-        <template v-if="user">
-          <li v-if="!isAdmin && !isProfessor" class="justify-center">
-            <details>
-              <summary>ยื่นขอรับการสนับสนุน</summary>
-              <ul class="bg-base-100 rounded-t-none px-1">
-                <li>
-                  <router-link to="/homepage">ยื่นเอกสาร</router-link>
-                </li>
-                <li>
-                  <router-link to="/mystatus">สถานะเอกสาร</router-link>
-                </li>
-                <li>
-                  <router-link to="/myhistory">ประวัติการยื่น</router-link>
-                </li>
-              </ul>
-            </details>
-          </li>
-
-          <li v-if="isProfessor" class="justify-center">
-            <details>
-              <summary>สถานะเอกสาร</summary>
-              <ul class="bg-base-100 rounded-t-none px-1">
+      <div class="menu menu-horizontal px-5">
+        <div v-if="user" class="flex flex-row">
+          <div v-if="!isAdmin && !isProfessor" class="justify-center">
+            <div class="dropdown">
+              <div tabindex="0" role="button" class="btn btn-ghost">
+                <p class="font-normal">ยื่นขอรับการสนับสนุน &nbsp; &#9660;</p>
+              </div>
+              <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow">
+                <li><router-link to="/homepage">ยื่นเอกสาร</router-link></li>
                 <li><router-link to="/mystatus">สถานะเอกสาร</router-link></li>
-                <li>
-                  <router-link to="/myhistory">ประวัติการยื่น</router-link>
-                </li>
+                <li><router-link to="/myhistory">ประวัติการยื่น</router-link></li>
               </ul>
-            </details>
-          </li>
+            </div>
+          </div>
 
-          <li v-if="isProfessor" class="justify-center">
-            <router-link to="/">สรุปผลแบบสถิติ</router-link>
-          </li>
-
-          <li v-if="isHRorResearch" class="justify-center">
-            <details class="justify-center">
-              <summary>เอกสารที่รับผิดชอบ</summary>
-              <ul class="bg-base-100 rounded-t-none px-1 w-full">
-                <li>
-                  <router-link to="/statusOffice">สถานะเอกสาร</router-link>
-                </li>
-                <li>
-                  <router-link to="/historyOffice">ประวัติเอกสาร</router-link>
-                </li>
-                <li>
-                  <router-link to="/eoffice">เอกสารรออนุมัติ</router-link>
-                </li>
+          <div v-if="isProfessor" class="justify-center">
+            <div class="dropdown">
+              <div tabindex="0" role="button" class="btn btn-ghost">
+                <p class="font-normal">สถานะเอกสาร &nbsp; &#9660;</p>
+              </div>
+              <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow">
+                <li><router-link to="/mystatus">สถานะเอกสาร</router-link></li>
+                <li><router-link to="/myhistory">ประวัติการยื่น</router-link></li>
               </ul>
-            </details>
-          </li>
+            </div>
+          </div>
 
-          <li v-if="isApprover" class="justify-center">
-            <router-link to="/allhistory">เอกสารที่อนุมัติแล้ว</router-link>
-          </li>
+          <div v-if="isHRorResearch" class="justify-center">
+            <div class="dropdown">
+              <div tabindex="0" role="button" class="btn btn-ghost">
+                <p class="font-normal">เอกสารที่รับผิดชอบ &nbsp; &#9660;</p>
+              </div>
+              <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow">
+                <li><router-link to="/statusOffice">สถานะเอกสาร</router-link></li>
+                <li><router-link to="/historyOffice">ประวัติเอกสาร</router-link></li>
+                <li><router-link to="/eoffice">เอกสารรออนุมัติ</router-link></li>
+              </ul>
+            </div>
+          </div>
 
-          <li v-if="isApprover" class="justify-center">
-            <router-link to="/">สรุปผลแบบสถิติ</router-link>
-          </li>
-        </template>
+          <div v-if="isApprover" class="justify-center">
+            <div tabindex="0" role="button" class="btn btn-ghost">
+              <router-link to="/allhistory" class="font-normal">เอกสารที่อนุมัติแล้ว</router-link>
+            </div>
+          </div>
 
-        <li v-if="isFinance" class="justify-center">
-          <router-link to="/allWithdrawMoney">ขออนุมัติเบิกเงินรายได้</router-link>
-        </li>
+          <div v-if="isFinance" class="justify-center">
+            <div tabindex="0" role="button" class="btn btn-ghost">
+              <router-link to="/allWithdrawMoney" class="font-normal">ขออนุมัติเบิกเงินรายได้</router-link>
+            </div>
+          </div>
+          
+          <div v-if="isAdmin" class="justify-center">
+            <div tabindex="0" role="button" class="btn btn-ghost">
+              <router-link to="/changePage" class="font-normal">เปลี่ยนเงื่อนไขการพิจารณา</router-link>
+            </div>
+          </div>
+        </div>
 
-        <li v-if="isAdmin" class="justify-center">
-          <router-link to="/changePage">เปลี่ยนเงื่อนไขการพิจารณา</router-link>
-        </li>
-      </ul>
-    </div>
-
-    <!-- end -->
-    <div class="flex flex-auto justify-end" v-if="isProfessor || isHRorResearch || isApprover">
-      <div tabindex="0" role="button" class="btn relative">
-        <router-link to="/notification"><i class="color-black text-xl fa fa-bell"></i></router-link>
+        <div class="justify-center">
+          <div tabindex="0" role="button" class="btn btn-ghost">
+            <router-link to="/" class="font-normal">สรุปผลแบบสถิติ</router-link>
+          </div>
+        </div>
       </div>
     </div>
 
     <div v-if="!userStore.user">
-      <router-link
-        to="/testlogin"
-        class="btn w-full bg-[#4285F4] hover:bg-[#4285F4] text-white ml-10"
-      >
+      <router-link to="/testlogin" class="btn w-full bg-[#4285F4] hover:bg-[#4285F4] text-white ml-10">
         เข้าสู่ระบบ
       </router-link>
     </div>
 
-    <div class="px-5" v-if="userStore.user">
-      <ul class="menu menu-horizontal">
-        <li>
-          <details>
-            <summary
-              v-if="userStore.user.user_nameth"
-              class="bg-[#4285F4] hover:bg-[#4285F4] py-[13px] text-white min-w-32"
-            >
-              {{ userStore.user.user_nameth }}
-            </summary>
-            <ul class="bg-base-100 rounded-t-none p-2 w-full">
-              <li v-if="userStore.user?.user_role != 'admin'">
-                <router-link to="/profile">ข้อมูลส่วนตัว</router-link>
-              </li>
-              <li @click="logout">
-                <router-link to="/">ออกจากระบบ</router-link>
-              </li>
-            </ul>
-          </details>
-        </li>
-      </ul>
+    <!-- user menu -->
+    <div class="flex flex-auto justify-end w-full" v-if="userStore.user">
+      <div class="flex flex-auto justify-end" v-if="isProfessor || isHRorResearch || isApprover">
+      <div tabindex="0" role="button" class="btn mt-2">
+        <router-link to="/notification"><i class="color-black text-xl fa fa-bell"></i></router-link>
+      </div>
     </div>
+
+      <div class="menu menu-horizontal px-5">
+        <div class="dropdown">
+          <div tabindex="0" role="button" class="btn bg-[#4285F4] hover:bg-[#4285F4] py-[13px] text-white min-w-32">
+            <p class="font-normal">{{ userStore.user.user_nameth }} &nbsp; &#9660;</p>
+          </div>
+          <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow">
+            <li v-if="userStore.user?.user_role != 'admin'">
+              <router-link to="/profile">ข้อมูลส่วนตัว</router-link>
+            </li>
+            <li @click="logout">
+              <router-link to="/">ออกจากระบบ</router-link>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script setup>
-import { onMounted, reactive, computed } from "vue";
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 
 import { useUserStore } from "@/store/userStore";
-import api from "@/setting/api";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -149,14 +138,8 @@ const logoRoute = computed(() => {
 const isAdmin = computed(() => user.value?.user_role === "admin");
 const isProfessor = computed(() => user.value?.user_role === "professor");
 const isFinance = computed(() => user.value?.user_role === "finance");
-const isHRorResearch = computed(() =>
-  ["hr", "research"].includes(user.value?.user_role)
-);
-const isApprover = computed(() =>
-  ["hr", "research", "finance", "associate", "dean"].includes(
-    user.value?.user_role
-  )
-);
+const isHRorResearch = computed(() => ["hr", "research"].includes(user.value?.user_role));
+const isApprover = computed(() => ["hr", "research", "finance", "associate", "dean"].includes(user.value?.user_role));
 
 const logout = async () => {
   await userStore.logout();
