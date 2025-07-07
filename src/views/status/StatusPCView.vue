@@ -549,7 +549,7 @@ const getDataPc = async () => {
     data.invoice_public = response.data.page_c.invoice_public;
     data.accepted = response.data.page_c.accepted;
     data.copy_article = response.data.page_c.copy_article;
-    data.upload_article = responsefile.data.page_c.upload_article;
+    data.upload_article = response.data.page_c.upload_article;
 
     const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
 
