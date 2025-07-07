@@ -644,8 +644,8 @@
           </span>
 
           <FileInput
-            label="Upload บทความเข้าระบบ IT Scholar"
-            name="sixth"
+            label="หลักฐานการ Upload บทความเข้าระบบ IT Scholar"
+            name="six"
             type="file"
             @change="handleFile($event, 'file6')"
           />
@@ -1266,7 +1266,7 @@ const NewPC = async () => {
         invoice_public: formData.file3,
         accepted: formData.file4,
         copy_article: formData.file5,
-        upload_article: formData.file6,
+        upload_article: formData.file6
       };
 
       console.log("postPC: ", JSON.stringify(dataForBackend));

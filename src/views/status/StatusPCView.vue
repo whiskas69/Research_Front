@@ -317,7 +317,52 @@
           v-if="data.page_c.upload_article && data.page_c.upload_article != ''"
         >
           <p class="w-3/5 min-w-64 flex place-items-center">
-            Upload บทความเข้าระบบ IT Scholar
+            สำเนาบทความ
+          </p>
+          <div class="ml-5">
+            <button
+              @click="getFile(data.f_upload_article)"
+              class="btn bg-[#E85F19] text-white mr-5"
+            >
+              ดูเอกสาร
+            </button>
+            <button
+              @click="
+                downloadFile(
+                  data.f_copy_article,
+                  'สำเนาบทความ'
+                )
+              "
+              class="btn bg-[#4285F4] text-white"
+            >
+              โหลดเอกสาร
+            </button>
+          </div>
+        </div>
+
+        <div v-else>
+          <FileInput
+            label="สำเนาบทความ"
+            name="copy_article"
+            type="file"
+            @change="handleFile($event, 'upload_article')"
+          />
+          <span
+            v-if="v$.upload_article.$error"
+            class="text-base ml-2 text-red-500"
+          >
+            {{ v$.upload_article.$errors[0].$message }}
+          </span>
+        </div>
+      </div>
+
+      <div class="px-5 mb-3">
+        <div
+          class="flex flex-rowitems-center mt-2 justify-between"
+          v-if="data.page_c.upload_article && data.page_c.upload_article != ''"
+        >
+          <p class="w-3/5 min-w-64 flex place-items-center">
+            หลักฐานการ Upload บทความเข้าระบบ IT Scholar
           </p>
           <div class="ml-5">
             <button
@@ -330,7 +375,7 @@
               @click="
                 downloadFile(
                   data.f_upload_article,
-                  'Upload บทความเข้าระบบ IT Scholar'
+                  'หลักฐานการ Upload บทความเข้าระบบ IT Scholar'
                 )
               "
               class="btn bg-[#4285F4] text-white"
@@ -342,7 +387,7 @@
 
         <div v-else>
           <FileInput
-            label="Upload บทความเข้าระบบ IT Scholar"
+            label="หลักฐานการ Upload บทความเข้าระบบ IT Scholar"
             name="upload_article"
             type="file"
             @change="handleFile($event, 'upload_article')"
@@ -451,7 +496,7 @@ const rules = {
     requiredIf: helpers.withMessage(
       "* กรุณาอัปโหลดไฟล์ *",
       requiredIf(function () {
-        return !this.upload_article; // ถ้าไม่มี upload_article ต้องอัปโหลดไฟล์
+        return !this.upload_article; // ถ้าไม่มี q_pc_proof_data ต้องอัปโหลดไฟล์
       })
     ),
   },
@@ -504,7 +549,7 @@ const getDataPc = async () => {
     data.invoice_public = response.data.page_c.invoice_public;
     data.accepted = response.data.page_c.accepted;
     data.copy_article = response.data.page_c.copy_article;
-    data.upload_article = response.data.page_c.upload_article;
+    data.upload_article = responsefile.data.page_c.upload_article;
 
     const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
 

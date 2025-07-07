@@ -116,11 +116,10 @@
               </div>
             </div>
           </div>
-
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
-                <p>Upload บทความเข้าระบบ IT Scholar</p>
+                <p>หลักฐานการ Upload บทความเข้าระบบ IT Scholar</p>
               </div>
               <div>
                 <button @click="getFile(formData.f_upload_article)" class="btn bg-[#E85F19] text-white mr-5">
@@ -129,7 +128,7 @@
                 <button @click="
                   downloadFile(
                     formData.f_upload_article,
-                    'Upload บทความเข้าระบบ IT Scholar'
+                    'หลักฐานการ Upload บทความเข้าระบบ IT Scholar'
                   )
                   " class="btn bg-[#4285F4] text-white">
                   โหลดเอกสาร
@@ -277,7 +276,6 @@ const getDataPc = async () => {
     formData.f_accepted = responsefile.data.file_accepted;
     formData.f_copy_article = responsefile.data.file_copy_article;
     formData.f_upload_article = responsefile.data.file_upload_article;
-
     try {
       const responseoffic = await api.get(`/opinionPC/${id}`);
       formData.offic = responseoffic.data;

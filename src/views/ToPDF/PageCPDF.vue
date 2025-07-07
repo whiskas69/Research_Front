@@ -301,7 +301,7 @@
           disabled="false"
         />
         <span class="text-[13px] px-4">
-          Upload บทความเข้าระบบ IT Scholar</span
+          หลักฐานการ Upload บทความเข้าระบบ IT Scholar</span
         >
       </div>
     </div>
