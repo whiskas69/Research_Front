@@ -49,31 +49,28 @@
       </div>
     </Mainbox>
 
-    <Mainbox>
-      <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
-      <div class="flex flex-rowitems-center">
-        <p class="w-1/5 min-w-64 flex place-items-center">
-          แบบเสนอโครงการวิจัย (Research Project)
-        </p>
-        <div class="ml-5">
-          <button @click="getFile" class="btn bg-[#E85F19] text-white mr-5">
-            ดูเอกสาร
-          </button>
+    <div class="flex justify-end mr-5">
+      <button @click="showData = !showData" class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
+        ข้อมูลแบบฟร์อม
+      </button>
+    </div>
+    
+    <div v-if="showData" class="showData">
+      <Kris :id="id"/>
+      <Research :id="id" :type="'Research_KRIS'"/>
+    </div>
 
-          <button @click="downloadFile" class="btn bg-[#4285F4] text-white">
-            โหลดเอกสาร
-          </button>
-        </div>
-      </div>
-    </Mainbox>
   </div>
 </template>
 
 <script setup>
 import Mainbox from "@/components/form/Mainbox.vue";
 import api from "@/setting/api";
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
+
+import Kris from "@/components/form/DataforOffice/Kris.vue";
+import Research from "@/components/form/DataforOffice/Research.vue";
 
 const route = useRoute();
 const id = route.params.id;
@@ -83,6 +80,8 @@ const data = reactive({
   name: "",
   file: "",
 });
+
+const showData = ref(true)
 
 const getDataForm = async () => {
   if (id == null || id == "") {

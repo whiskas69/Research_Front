@@ -1,35 +1,49 @@
 <template>
     <div class="container my-10 mx-auto">
-    <Mainbox v-if="props.type == 'Conference'">
-        <SectionWrapper>
-          <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
-          <div class="px-2">
-            <RadioInput
-              label="เห็นชอบ"
-              value="agree"
-              name="comment"
-              :disabled="true"
-              v-model="formData.offic.c_deputy_dean"
-            />
-          </div>
-          <div class="px-2">
-            <RadioInput
-              label="ไม่เห็นชอบ"
-              value="disagree"
-              name="comment"
-              :disabled="true"
-              v-model="formData.offic.c_deputy_dean"
-            />
-          </div>
-        </SectionWrapper>
-      </Mainbox>
-
-      <Mainbox v-if="props.type == 'Page_Charge'">
-        <SectionWrapper>
-          <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
-          <p v-if="formData.offic.p_deputy_dean == 'agree'">เห็นชอบ</p>
-        </SectionWrapper>
-      </Mainbox>
+      <div v-if="props.type == 'Conference'">
+        <Mainbox v-if="formData.offic.c_deputy_dean" class="collapse collapse-arrow">
+          <input type="checkbox" />
+          <p class="collapse-title text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
+            <SectionWrapper class="collapse-content">
+              <div class="px-2">
+                <RadioInput
+                  label="เห็นชอบ"
+                  value="agree"
+                  name="comment"
+                  :disabled="true"
+                  v-model="formData.offic.c_deputy_dean"
+                />
+              </div>
+              <div class="px-2">
+                <RadioInput
+                  label="ไม่เห็นชอบ"
+                  value="disagree"
+                  name="comment"
+                  :disabled="true"
+                  v-model="formData.offic.c_deputy_dean"
+                />
+              </div>
+            </SectionWrapper>
+        </Mainbox>
+        <Mainbox v-else>
+          <p class="font-bold">รองคณบดีฝ่ายงานวิจัย</p>
+          <p>เอกสารอยู่ในขั้นตอนการอนุมัติ</p>
+        </Mainbox>
+      </div>
+    
+      <div v-if="props.type == 'Page_Charge'">
+        <Mainbox v-if="formData.offic.p_deputy_dean"  class="collapse collapse-arrow">
+          <input type="checkbox" />
+          <p class="collapse-title text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
+          <SectionWrapper class="collapse-content">
+            <p v-if="formData.offic.p_deputy_dean == 'agree'">เห็นชอบ</p>
+          </SectionWrapper>
+        </Mainbox>
+        <Mainbox v-else>
+          <p class="font-bold">รองคณบดีฝ่ายงานวิจัย</p>
+          <p>เอกสารอยู่ในขั้นตอนการอนุมัติ</p>
+        </Mainbox>
+      </div>
     </div>
 </template>
 

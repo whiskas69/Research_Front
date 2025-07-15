@@ -1,8 +1,9 @@
 <template>
   <div class="container my-10 mx-auto">
-    <Mainbox>
-      <SectionWrapper>
-        <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
+    <Mainbox v-if="formData.budget.budget_year" class="collapse collapse-arrow">
+      <input type="checkbox" />
+      <p class="collapse-title">ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
+      <SectionWrapper class="collapse-content">
         <TextInputLabelLeft
           label="ปีงบประมาณ พ.ศ."
           customInput="max-w-max text-center"
@@ -132,6 +133,10 @@
           </p>
         </div>
       </SectionWrapper>
+    </Mainbox>
+    <Mainbox v-else>
+      <p class="font-bold">ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
+      <p>เอกสารอยู่ในขั้นตอนการตรวจสอบ</p>
     </Mainbox>
   </div>
 </template>

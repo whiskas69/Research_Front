@@ -5,226 +5,228 @@
         แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ
       </p>
 
-      <Mainbox>
-        <p class="text-lg font-bold">รายละเอียดเบื้องต้น</p>
-        <div class="py-2 px-5">
-          <p class="font-bold">1. ชื่อโครงการวิจัย</p>
-          <SectionWrapper>
-            <TextInputLabelLeft
-              label="(ภาษาไทย)"
-              customLabel="w-64"
-              v-model="formData.kris.name_research_th"
-              :disabled="true"
-            />
-            <TextInputLabelLeft
-              label="(ภาษาอังกฤษ)"
-              customLabel="w-64"
-              v-model="formData.kris.name_research_en"
-              :disabled="true"
-            />
-          </SectionWrapper>
-        </div>
+      <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title text-lg font-bold">รายละเอียดเบื้องต้น</p>
+        <div class="collapse-content">
+          <div class="py-2 px-5">
+            <p class="font-bold">1. ชื่อโครงการวิจัย</p>
+            <SectionWrapper>
+              <TextInputLabelLeft
+                label="(ภาษาไทย)"
+                customLabel="w-64"
+                v-model="formData.kris.name_research_th"
+                :disabled="true"
+              />
+              <TextInputLabelLeft
+                label="(ภาษาอังกฤษ)"
+                customLabel="w-64"
+                v-model="formData.kris.name_research_en"
+                :disabled="true"
+              />
+            </SectionWrapper>
+          </div>
 
-        <div class="py-2 px-5">
-          <p class="font-bold">
-            2. สอดคล้องกับกลุ่มวิจัย (Research Cluster) ของ สจล.
-          </p>
+          <div class="py-2 px-5">
+            <p class="font-bold">
+              2. สอดคล้องกับกลุ่มวิจัย (Research Cluster) ของ สจล.
+            </p>
 
-          <SectionWrapper>
-            <div class="flex flex-row w-full">
-              <div class="flex flex-col w-2/3">
-                <CheckInput
-                  class="pb-3"
-                  label="ICT: Robotics & Automation"
-                  value="ICT: Robotics & Automation"
-                  v-model="formData.research_cluster"
-                  :disabled="true"
-                />
-                <CheckInput
-                  class="pb-3"
-                  label="ICT: Smart City & IoT"
-                  value="ICT: Smart City & IoT"
-                  v-model="formData.research_cluster"
-                  :disabled="true"
-                />
-                <CheckInput
-                  class="pb-3"
-                  label="Battery & EV"
-                  value="Battery & EV"
-                  v-model="formData.research_cluster"
-                  :disabled="true"
-                />
-                <CheckInput
-                  class="pb-3"
-                  label="Renewable Energy"
-                  value="Renewable Energy"
-                  v-model="formData.research_cluster"
-                  :disabled="true"
-                />
-                <CheckInput
-                  class="pb-3"
-                  label="Biomedical"
-                  value="Biomedical"
-                  v-model="formData.research_cluster"
-                  :disabled="true"
-                />
-              </div>
-
-              <div class="flex flex-col w-full">
-                <CheckInput
-                  class="pb-3"
-                  label="Agriculture & Food"
-                  value="Agriculture & Food"
-                  v-model="formData.research_cluster"
-                  :disabled="true"
-                />
-                <CheckInput
-                  class="pb-3"
-                  label="Future Mobility & Logistic"
-                  value="Future Mobility & Logistic"
-                  v-model="formData.research_cluster"
-                  :disabled="true"
-                />
-                <CheckInput
-                  class="pb-3"
-                  label="Materials"
-                  value="Materials"
-                  v-model="formData.research_cluster"
-                  :disabled="true"
-                />
-                <CheckInput
-                  class="pb-3"
-                  label="Creative Economy"
-                  value="Creative Economy"
-                  v-model="formData.research_cluster"
-                  :disabled="true"
-                />
-
-                <div class="flex flex-row items-center">
+            <SectionWrapper>
+              <div class="flex flex-row w-full">
+                <div class="flex flex-col w-2/3">
                   <CheckInput
-                    class="flex items-center w-[125px]"
-                    label="อื่น ๆ ระบุ"
-                    value="other"
-                    customDiv="max-w-32"
+                    class="pb-3"
+                    label="ICT: Robotics & Automation"
+                    value="ICT: Robotics & Automation"
                     v-model="formData.research_cluster"
                     :disabled="true"
                   />
-                  <TextInputLabelLeft
-                    v-if="formData.other == 'other' ? true : false"
-                    label=""
-                    v-model="formData.kris.res_cluster_other"
+                  <CheckInput
+                    class="pb-3"
+                    label="ICT: Smart City & IoT"
+                    value="ICT: Smart City & IoT"
+                    v-model="formData.research_cluster"
+                    :disabled="true"
+                  />
+                  <CheckInput
+                    class="pb-3"
+                    label="Battery & EV"
+                    value="Battery & EV"
+                    v-model="formData.research_cluster"
+                    :disabled="true"
+                  />
+                  <CheckInput
+                    class="pb-3"
+                    label="Renewable Energy"
+                    value="Renewable Energy"
+                    v-model="formData.research_cluster"
+                    :disabled="true"
+                  />
+                  <CheckInput
+                    class="pb-3"
+                    label="Biomedical"
+                    value="Biomedical"
+                    v-model="formData.research_cluster"
                     :disabled="true"
                   />
                 </div>
+
+                <div class="flex flex-col w-full">
+                  <CheckInput
+                    class="pb-3"
+                    label="Agriculture & Food"
+                    value="Agriculture & Food"
+                    v-model="formData.research_cluster"
+                    :disabled="true"
+                  />
+                  <CheckInput
+                    class="pb-3"
+                    label="Future Mobility & Logistic"
+                    value="Future Mobility & Logistic"
+                    v-model="formData.research_cluster"
+                    :disabled="true"
+                  />
+                  <CheckInput
+                    class="pb-3"
+                    label="Materials"
+                    value="Materials"
+                    v-model="formData.research_cluster"
+                    :disabled="true"
+                  />
+                  <CheckInput
+                    class="pb-3"
+                    label="Creative Economy"
+                    value="Creative Economy"
+                    v-model="formData.research_cluster"
+                    :disabled="true"
+                  />
+
+                  <div class="flex flex-row items-center">
+                    <CheckInput
+                      class="flex items-center w-[125px]"
+                      label="อื่น ๆ ระบุ"
+                      value="other"
+                      customDiv="max-w-32"
+                      v-model="formData.research_cluster"
+                      :disabled="true"
+                    />
+                    <TextInputLabelLeft
+                      v-if="formData.other == 'other' ? true : false"
+                      label=""
+                      v-model="formData.kris.res_cluster_other"
+                      :disabled="true"
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </SectionWrapper>
-        </div>
+            </SectionWrapper>
+          </div>
 
-        <div class="py-2 px-5">
-          <p class="font-bold">3. มาตรฐานการวิจัย</p>
-          <SectionWrapper>
-            <div class="flex flex-col w-full">
-              <CheckInput
-                class="pb-3"
-                label="มีการใช้สัตว์ทดลอง"
-                value="มีการใช้สัตว์ทดลอง"
-                v-model="formData.res_standard"
-                :disabled="true"
-              />
-              <CheckInput
-                class="pb-3"
-                label="มีการวิจัยในมนุษย์"
-                value="มีการวิจัยในมนุษย์"
-                v-model="formData.res_standard"
-                :disabled="true"
-              />
-              <CheckInput
-                class="pb-3"
-                label="มีการวิจัยด้านเทคโนโลยีชีวภาพสมัยใหม่หรือพันธุวิศวกรรม"
-                value="มีการวิจัยด้านเทคโนโลยีชีวภาพสมัยใหม่หรือพันธุวิศวกรรม"
-                v-model="formData.res_standard"
-                :disabled="true"
-              />
-              <CheckInput
-                class="pb-3"
-                label="มีการใช้พันธุ์พืช"
-                value="มีการใช้พันธุ์พืช"
-                v-model="formData.res_standard"
-                :disabled="true"
-              />
-              <div class="flex flex-row items-center ml-10">
-                <RadioInput
-                  class="flex items-center w-1/3"
-                  label="มาตรา 52 (เพื่อประโยชน์ทางการค้า)"
-                  value="52"
-                  customDiv="max-w-80"
+          <div class="py-2 px-5">
+            <p class="font-bold">3. มาตรฐานการวิจัย</p>
+            <SectionWrapper>
+              <div class="flex flex-col w-full">
+                <CheckInput
+                  class="pb-3"
+                  label="มีการใช้สัตว์ทดลอง"
+                  value="มีการใช้สัตว์ทดลอง"
+                  v-model="formData.res_standard"
                   :disabled="true"
-                  v-model="formData.kris.res_standard_trade"
                 />
-                <RadioInput
-                  class="flex items-center"
-                  label="มาตรา 53 (ไม่มีวัตถุประสงค์เพื่อประโยชน์ทางการค้า)"
-                  value="53"
+                <CheckInput
+                  class="pb-3"
+                  label="มีการวิจัยในมนุษย์"
+                  value="มีการวิจัยในมนุษย์"
+                  v-model="formData.res_standard"
                   :disabled="true"
-                  v-model="formData.kris.res_standard_trade"
                 />
+                <CheckInput
+                  class="pb-3"
+                  label="มีการวิจัยด้านเทคโนโลยีชีวภาพสมัยใหม่หรือพันธุวิศวกรรม"
+                  value="มีการวิจัยด้านเทคโนโลยีชีวภาพสมัยใหม่หรือพันธุวิศวกรรม"
+                  v-model="formData.res_standard"
+                  :disabled="true"
+                />
+                <CheckInput
+                  class="pb-3"
+                  label="มีการใช้พันธุ์พืช"
+                  value="มีการใช้พันธุ์พืช"
+                  v-model="formData.res_standard"
+                  :disabled="true"
+                />
+                <div class="flex flex-row items-center ml-10">
+                  <RadioInput
+                    class="flex items-center w-1/3"
+                    label="มาตรา 52 (เพื่อประโยชน์ทางการค้า)"
+                    value="52"
+                    customDiv="max-w-80"
+                    :disabled="true"
+                    v-model="formData.kris.res_standard_trade"
+                  />
+                  <RadioInput
+                    class="flex items-center"
+                    label="มาตรา 53 (ไม่มีวัตถุประสงค์เพื่อประโยชน์ทางการค้า)"
+                    value="53"
+                    :disabled="true"
+                    v-model="formData.kris.res_standard_trade"
+                  />
+                </div>
               </div>
-            </div>
-          </SectionWrapper>
-        </div>
+            </SectionWrapper>
+          </div>
 
-        <div class="py-5 px-5">
-          <p class="font-bold">4. ข้อมูลนักวิจัย</p>
-          <SectionWrapper>
-            <p>4.1 ข้อมูลผู้ขอทุน (หัวหน้าโครงการ)</p>
-            <div class="grid px-5 gap-3">
-              <TextInputLabelLeft
-                label="ชื่อ - สกุล (ภาษาไทย)"
-                customLabel="w-64"
-                v-model="formData.user.user_nameth"
-                :disabled="true"
-              />
-              <TextInputLabelLeft
-                label="ชื่อ - สกุล (ภาษาอังกฤษ)"
-                customLabel="w-64"
-                v-model="formData.user.user_nameeng"
-                :disabled="true"
-              />
-
-              <div class="flex flex-col">
+          <div class="py-5 px-5">
+            <p class="font-bold">4. ข้อมูลนักวิจัย</p>
+            <SectionWrapper>
+              <p>4.1 ข้อมูลผู้ขอทุน (หัวหน้าโครงการ)</p>
+              <div class="grid px-5 gap-3">
                 <TextInputLabelLeft
-                  label="ดัชนี H-Index"
+                  label="ชื่อ - สกุล (ภาษาไทย)"
                   customLabel="w-64"
-                  v-model="formData.kris.h_index"
+                  v-model="formData.user.user_nameth"
                   :disabled="true"
                 />
-                <p class="text-sm text-blue-500 py-2 mx-52">
-                  (search ชื่อตนเองในฐาน https://www.scopus.com/)
-                </p>
-              </div>
-              <TextInputLabelLeft
-                label="ประวัติด้านสิ่งประดิษฐ์ หรือ นวัตกรรม"
-                customLabel="w-3/12"
-                v-model="formData.kris.his_invention"
-                :disabled="true"
-              />
-              <div class="flex flex-row">
                 <TextInputLabelLeft
-                  label="ร้อยละการมีส่วนร่วมในโครงการ"
-                  customLabel="w-[530px]"
-                  customDiv="max-w-[600px]"
-                  customInput="w-32"
-                  v-model="formData.kris.participation_percent"
+                  label="ชื่อ - สกุล (ภาษาอังกฤษ)"
+                  customLabel="w-64"
+                  v-model="formData.user.user_nameeng"
                   :disabled="true"
                 />
-                <span class="text-sm text-red-500 w-1/6 flex items-center">(สัดส่วนการวิจัย)</span>
-              </div>
-            </div>
-          </SectionWrapper>
-        </div>
 
-        <div class="py-2 px-5">
+                <div class="flex flex-col">
+                  <TextInputLabelLeft
+                    label="ดัชนี H-Index"
+                    customLabel="w-64"
+                    v-model="formData.kris.h_index"
+                    :disabled="true"
+                  />
+                  <p class="text-sm text-blue-500 py-2 mx-52">
+                    (search ชื่อตนเองในฐาน https://www.scopus.com/)
+                  </p>
+                </div>
+                <TextInputLabelLeft
+                  label="ประวัติด้านสิ่งประดิษฐ์ หรือ นวัตกรรม"
+                  customLabel="w-3/12"
+                  v-model="formData.kris.his_invention"
+                  :disabled="true"
+                />
+                <div class="flex flex-row">
+                  <TextInputLabelLeft
+                    label="ร้อยละการมีส่วนร่วมในโครงการ"
+                    customLabel="w-[530px]"
+                    customDiv="max-w-[600px]"
+                    customInput="w-32"
+                    v-model="formData.kris.participation_percent"
+                    :disabled="true"
+                  />
+                  <span class="text-sm text-red-500 w-1/6 flex items-center">(สัดส่วนการวิจัย)</span>
+                </div>
+              </div>
+            </SectionWrapper>
+          </div>
+
+          <div class="py-2 px-5">
           <p class="font-bold">
             5. ระยะเวลาโครงการ
             <span class="font-bold text-red-500">
@@ -261,6 +263,7 @@
               />
             </div>
           </SectionWrapper>
+        </div>
         </div>
       </Mainbox>
     </div>

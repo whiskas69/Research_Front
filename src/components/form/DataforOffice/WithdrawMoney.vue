@@ -1,103 +1,116 @@
 <template>
   <div class="container my-10 mx-auto">
-    <Mainbox v-if="props.type == 'Conference'">
-      <p class="leading-9 text-lg font-bold">อนุมัติเบิกเงินรายได้</p>
-      <SectionWrapper v-if="data.withdraw.withdraw">
-        <div class="flex flex-row">
-          <p class="w-2/12">กองทุน</p>
-          <p class="w-2/12">พัฒนาบุคคลกร</p>
-        </div>
-
-        <div class="flex flex-row">
-          <p class="w-2/12">งบรายจ่าย</p>
-          <p class="w-2/12">ค่าใช้จ่ายงบเงินอุดหนุน</p>
-        </div>
-
-        <div class="flex flex-row">
-          <p class="w-2/12">ประเภทรายจ่าย</p>
-          <p class="max-w-max">ทุนอุดหนุนการเดินทางไปเสนอบทความทางวิชาการ</p>
-        </div>
-
-        <div class="flex flex-col gap-3">
+    <div v-if="props.type == 'Conference'">
+      <Mainbox v-if="data.withdraw.withdraw" class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title leading-9 text-lg font-bold">อนุมัติเบิกเงินรายได้</p>
+        <SectionWrapper class="collapse-content">
           <div class="flex flex-row">
-            <p class="w-1/12 mt-2">ค่าใช้จ่าย</p>
+            <p class="w-2/12">กองทุน</p>
+            <p class="w-2/12">พัฒนาบุคคลกร</p>
+          </div>
+
+          <div class="flex flex-row">
+            <p class="w-2/12">งบรายจ่าย</p>
+            <p class="w-2/12">ค่าใช้จ่ายงบเงินอุดหนุน</p>
+          </div>
+
+          <div class="flex flex-row">
+            <p class="w-2/12">ประเภทรายจ่าย</p>
+            <p class="max-w-max">ทุนอุดหนุนการเดินทางไปเสนอบทความทางวิชาการ</p>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <div class="flex flex-row">
+              <p class="w-1/12 mt-2">ค่าใช้จ่าย</p>
+              <TextInputLabelLeft
+                label="ค่าเดินทาง"
+                customLabel="w-3/12 mr-10"
+                customInput="max-w-max"
+                customDiv="max-w-[21%]"
+                v-model="data.withdraw.travelExpenses"
+                :disabled="true"
+              />
+              <span class="flex items-center">บาท</span>
+            </div>
+
+            <div class="flex flex-row">
+              <p class="w-1/12"></p>
+              <TextInputLabelLeft
+                label="ค่าเบี้ยเลี้ยง"
+                customLabel="w-3/12 mr-10"
+                customInput="max-w-max"
+                customDiv="max-w-[21%]"
+                v-model="data.withdraw.allowance"
+                :disabled="true"
+              />
+              <span class="flex items-center">บาท</span>
+            </div>
+          </div>
+
+          <div class="flex flex-row">
             <TextInputLabelLeft
-              label="ค่าเดินทาง"
-              customLabel="w-3/12 mr-10"
+              label="จำนวน"
+              customLabel="w-6/12 mr-6"
               customInput="max-w-max"
-              customDiv="max-w-[21%]"
-              v-model="data.withdraw.travelExpenses"
+              customDiv="max-w-[29%]"
+              v-model="data.withdraw.withdraw"
               :disabled="true"
             />
             <span class="flex items-center">บาท</span>
           </div>
+        </SectionWrapper>
+      </Mainbox>
+      <Mainbox v-else>
+        <p class="leading-9 font-bold">อนุมัติเบิกเงินรายได้</p>
+        <p>รอขออนุมัติเบิกเงินรายได้</p>
+      </Mainbox>
+    </div>
+
+    <div v-if="props.type == 'Page_Charge'">
+      <Mainbox v-if="data.withdraw.withdraw" class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title leading-9 text-lg font-bold">อนุมัติเบิกเงินรายได้</p>
+        <SectionWrapper class="collapse-content">
+          <div class="flex flex-row">
+            <p class="w-2/12">กองทุน</p>
+            <p class="w-2/12">พัฒนาบุคคลกร</p>
+          </div>
 
           <div class="flex flex-row">
-            <p class="w-1/12"></p>
+            <p class="w-2/12">งบรายจ่าย</p>
+            <p class="w-2/12">งบดำเนินงาน</p>
+          </div>
+
+          <div class="flex flex-row">
+            <p class="w-2/12">ประเภทรายจ่าย</p>
+            <p class="w-2/12">ค่าใช้สอย</p>
+          </div>
+
+          <div class="flex flex-row">
+            <p class="w-2/12">ค่าใช้จ่าย</p>
+            <p class="w-2/12">ค่าตีพิมพ์บทความในวารสารนานาชาติ (Page Charge)</p>
+          </div>
+
+          <div class="flex flex-row">
             <TextInputLabelLeft
-              label="ค่าเบี้ยเลี้ยง"
-              customLabel="w-3/12 mr-10"
+              label="จำนวน"
+              customLabel="w-6/12 mr-4"
               customInput="max-w-max"
-              customDiv="max-w-[21%]"
-              v-model="data.withdraw.allowance"
+              customDiv="max-w-[30%]"
               :disabled="true"
+              v-model="data.withdraw.withdraw"
             />
             <span class="flex items-center">บาท</span>
           </div>
-        </div>
-
-        <div class="flex flex-row">
-          <TextInputLabelLeft
-            label="จำนวน"
-            customLabel="w-6/12 mr-6"
-            customInput="max-w-max"
-            customDiv="max-w-[29%]"
-            v-model="data.withdraw.withdraw"
-            :disabled="true"
-          />
-          <span class="flex items-center">บาท</span>
-        </div>
-      </SectionWrapper>
-      <p v-else>รอขออนุมัติเบิกเงินรายได้</p>
-    </Mainbox>
-
-    <Mainbox v-if="props.type == 'Page_Charge'">
-      <p class="leading-9 text-lg font-bold">อนุมัติเบิกเงินรายได้</p>
-      <SectionWrapper v-if="data.withdraw.withdraw">
-        <div class="flex flex-row">
-          <p class="w-2/12">กองทุน</p>
-          <p class="w-2/12">พัฒนาบุคคลกร</p>
-        </div>
-
-        <div class="flex flex-row">
-          <p class="w-2/12">งบรายจ่าย</p>
-          <p class="w-2/12">งบดำเนินงาน</p>
-        </div>
-
-        <div class="flex flex-row">
-          <p class="w-2/12">ประเภทรายจ่าย</p>
-          <p class="w-2/12">ค่าใช้สอย</p>
-        </div>
-
-        <div class="flex flex-row">
-          <p class="w-2/12">ค่าใช้จ่าย</p>
-          <p class="w-2/12">ค่าตีพิมพ์บทความในวารสารนานาชาติ (Page Charge)</p>
-        </div>
-
-        <div class="flex flex-row">
-          <TextInputLabelLeft
-            label="จำนวน"
-            customLabel="w-6/12 mr-4"
-            customInput="max-w-max"
-            customDiv="max-w-[30%]"
-            :disabled="true"
-            v-model="data.withdraw.withdraw"
-          />
-          <span class="flex items-center">บาท</span>
-        </div>
-      </SectionWrapper>
-      <p v-else>รอขออนุมัติเบิกเงินรายได้</p>
-    </Mainbox>
+        </SectionWrapper>
+      </Mainbox>
+      <Mainbox v-else>
+        <p class="leading-9 font-bold">อนุมัติเบิกเงินรายได้</p>
+        <p>รอขออนุมัติเบิกเงินรายได้</p>
+      </Mainbox>
+    </div>
+    
   </div>
 </template>
 

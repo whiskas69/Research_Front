@@ -1,62 +1,69 @@
 <template>
   <div class="container my-10 mx-auto">
     <!-- Conference -->
-    <Mainbox v-if="props.type == 'Conference'">
-      <SectionWrapper>
-        <p class="font-bold">ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
-
-        <div>
-          <p>• คุณภาพของการประชุม ฯ</p>
-          <div
-            class="px-2"
-            v-if="formData.conference.quality_meeting == 'good'"
-          >
-            <p>• อยู่ในระดับดีมาก</p>
-            <div class="flex flex-row gap-2">
-              <p>• คำนวณจาก {{ formData.score.score_type }}</p>
-              <p v-if="formData.score.score_type == 'CORE'">
-                มีค่าคะแนน {{ formData.score.core_rank }}
-              </p>
-              <p v-else>มีค่าคะแนน {{ formData.score.score_result }}</p>
+    <div v-if="props.type == 'Conference'">
+      <Mainbox v-if="formData.conference.quality_meeting" class="collapse collapse-arrow">
+         <input type="checkbox" />
+         <p class="collapse-title">ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
+        <SectionWrapper class="collapse-content">
+          <div>
+            <p>• คุณภาพของการประชุม ฯ</p>
+            <div
+              class="px-2"
+              v-if="formData.conference.quality_meeting == 'good'"
+            >
+              <p>• อยู่ในระดับดีมาก</p>
+              <div class="flex flex-row gap-2">
+                <p>• คำนวณจาก {{ formData.score.score_type }}</p>
+                <p v-if="formData.score.score_type == 'CORE'">
+                  มีค่าคะแนน {{ formData.score.core_rank }}
+                </p>
+                <p v-else>มีค่าคะแนน {{ formData.score.score_result }}</p>
+              </div>
             </div>
+            <p
+              class="px-2"
+              v-else-if="formData.conference.quality_meeting == 'standard'"
+            >
+              • อยู่ในระดับมาตรฐาน
+            </p>
+            <p class="px-2" v-else-if="formData.conference.quality_meeting == ''">
+              • ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ
+              และไม่อยู่ในฐานข้อมูลสากล SCOPUS
+            </p>
           </div>
-          <p
-            class="px-2"
-            v-else-if="formData.conference.quality_meeting == 'standard'"
-          >
-            • อยู่ในระดับมาตรฐาน
-          </p>
-          <p class="px-2" v-else-if="formData.conference.quality_meeting == ''">
-            • ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ
-            และไม่อยู่ในฐานข้อมูลสากล SCOPUS
-          </p>
-        </div>
-        <RadioInput
-          label="ข้อมูลถูกต้อง"
-          value="correct"
-          name="re"
-          :disabled="true"
-          v-model="formData.offic.c_meet_quality"
-        />
-        <RadioInput
-          label="ข้อมูลไม่ถูกต้อง"
-          value="notCorrect"
-          name="re"
-          :disabled="true"
-          v-model="formData.offic.c_meet_quality"
-        />
-        <TextArea
-          :disabled="true"
-          :placeholder="formData.offic.c_quality_reason"
-        />
-      </SectionWrapper>
-    </Mainbox>
+          <RadioInput
+            label="ข้อมูลถูกต้อง"
+            value="correct"
+            name="re"
+            :disabled="true"
+            v-model="formData.offic.c_meet_quality"
+          />
+          <RadioInput
+            label="ข้อมูลไม่ถูกต้อง"
+            value="notCorrect"
+            name="re"
+            :disabled="true"
+            v-model="formData.offic.c_meet_quality"
+          />
+          <TextArea
+            :disabled="true"
+            :placeholder="formData.offic.c_quality_reason"
+          />
+        </SectionWrapper>
+      </Mainbox>
+      <Mainbox v-else>
+        <p class="font-bold">ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
+        <p>เอกสารอยู่ในขั้นตอนการตรวจสอบ</p>
+      </Mainbox>
+    </div>
 
     <!-- PC -->
     <div v-if="props.type == 'Page_Charge'">
-      <Mainbox>
-        <SectionWrapper>
-          <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
+      <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
+        <SectionWrapper class="collapse-content">
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
               <div class="flex flex-row">
@@ -167,12 +174,6 @@
                 >
                   โหลดเอกสาร
                 </button>
-                <p
-                  v-if="formData.page_c.accepted == null"
-                  class="text-red-500 pt-1"
-                >
-                  ** ไม่มีหนังสือตอบรับบทความ **
-                </p>
               </div>
             </div>
           </div>
@@ -193,7 +194,34 @@
                   @click="
                     downloadFile(
                       formData.f_copy_article,
-                      'สำเนาบทความ และ Upload บทความเข้าระบบ IT Scholar'
+                      'สำเนาบทความ'
+                    )
+                  "
+                  class="btn bg-[#4285F4] text-white"
+                >
+                  โหลดเอกสาร
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <p>หลักฐานการ Upload บทความเข้าระบบ IT Scholar</p>
+              </div>
+              <div>
+                <button
+                  @click="getFile(formData.f_upload_article)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
+                  ดูเอกสาร
+                </button>
+                <button
+                  @click="
+                    downloadFile(
+                      formData.f_upload_article,
+                      'หลักฐานการ Upload บทความเข้าระบบ IT Scholar'
                     )
                   "
                   class="btn bg-[#4285F4] text-white"
@@ -206,9 +234,10 @@
         </SectionWrapper>
       </Mainbox>
       <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
-      <Mainbox>
-        <SectionWrapper>
-          <p>ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
+      <Mainbox v-if="formData.offic.p_research_admin" class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title">ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
+        <SectionWrapper class="collapse-content">
           <RadioInput
             label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้"
             value="approve"
@@ -250,14 +279,19 @@
           ></textarea>
         </SectionWrapper>
       </Mainbox>
+      <Mainbox v-else>
+        <p class="font-bold">ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
+        <p>เอกสารอยู่ในขั้นตอนการตรวจสอบ</p>
+      </Mainbox>
     </div>
 
     <!-- Kris -->
     <div v-if="props.type == 'Research_KRIS'">
-      <Mainbox>
-        <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
-        <div class="flex flex-rowitems-center">
-          <p>แบบเสนอโครงการวิจัย (Research Project)</p>
+      <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
+        <div class="collapse-content flex flex-rowitems-center">
+          <p class="w-3/5 min-w-64 flex place-items-center">แบบเสนอโครงการวิจัย (Research Project)</p>
           <div class="ml-80">
             <button
               @click="getFile(formData.file)"
@@ -276,9 +310,10 @@
       </Mainbox>
 
       <p class="text-xl font-bold pb-5">ตรวจสอบข้อมูลและหลักฐาน</p>
-      <Mainbox>
-        <p class="text-lg font-bold">ตรวจสอบ และรับทราบเอกสาร</p>
-        <SectionWrapper>
+      <Mainbox v-if="formData.offic.research_admin" class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title text-lg font-bold">ตรวจสอบ และรับทราบเอกสาร</p>
+        <SectionWrapper class="collapse-content">
           <RadioInput
             label="รับทราบ"
             name="noted"
@@ -294,6 +329,10 @@
             v-model="formData.offic.research_admin"
           />
         </SectionWrapper>
+      </Mainbox>
+      <Mainbox v-else>
+        <p class="font-bold">ตรวจสอบหลักฐาน และรับทราบเอกสาร</p>
+        <p>เอกสารอยู่ในขั้นตอนการตรวจสอบ</p>
       </Mainbox>
     </div>
   </div>

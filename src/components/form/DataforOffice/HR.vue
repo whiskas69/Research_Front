@@ -2,8 +2,10 @@
   <div>
     <div class="container my-10 mx-auto">
       <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
-      <Mainbox>
-        <SectionWrapper>
+      <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
+        <SectionWrapper class="collapse-content">
           <p>ตรวจหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ สจล. และประกาศคณะ</p>
           <!-- เอกสารหลักฐานที่แนบ -->
           <!-- 1 -->
@@ -243,9 +245,10 @@
           ></textarea>
         </SectionWrapper>
       </Mainbox>
-      <Mainbox>
-        <SectionWrapper>
-          <p>ตรวจสอบความถูกต้องของข้อมูล</p>
+      <Mainbox v-if="formData.offic.c_research_hr" class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title">ตรวจสอบความถูกต้องของข้อมูล</p>
+        <SectionWrapper class="collapse-content">
           <RadioInput
             label="ข้อมูลถูกต้อง"
             value="correct"
@@ -266,6 +269,10 @@
             :placeholder="formData.offic.c_reason"
           ></textarea>
         </SectionWrapper>
+      </Mainbox>
+      <Mainbox v-else>
+        <p class="font-bold">ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
+        <p>เอกสารอยู่ในขั้นตอนการตรวจสอบ</p>
       </Mainbox>
     </div>
   </div>

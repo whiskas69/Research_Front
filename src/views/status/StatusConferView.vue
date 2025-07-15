@@ -130,241 +130,21 @@
         </ul>
       </div>
     </Mainbox>
-
-    <Mainbox>
-      <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
-      <span class="text-s font-bold text-red-500 ml-5 mt-2" v-if="!data.check">
-        ส่งเอกสารเพิ่มเติมได้เพียงครั้งเดียวเท่านั้นและจำเป็นต้องกรอกทุกช่อง
-      </span>
-      <div class="px-5 mb-3">
-        <div class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.conf.full_page && data.conf.full_page !== ''">
-          <p class="w-3/5 min-w-64 flex place-items-center">
-            สำเนาบทความ (Full Paper)
-          </p>
-
-          <div class="ml-5">
-            <button @click="getFile(data.f_full_page)" class="btn bg-[#E85F19] text-white mr-5">
-              ดูเอกสาร
-            </button>
-            <button @click="downloadFile(data.f_full_page, 'สำเนาบทความ')" class="btn bg-[#4285F4] text-white">
-              โหลดเอกสาร
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="px-5 mb-3">
-        <div class="flex flex-rowitems-center mt-2 justify-between" v-if="
-          data.conf.published_journals && data.conf.published_journals !== ''
-        ">
-          <p class="w-3/5 min-w-64 flex place-items-center">
-            *กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* (Full Paper ประกอบการเบิก)
-            มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล WoS/SJR
-            ซึ่งได้รับการตีพิมพ์ไม่เกิน 2 ปี ก่อนการประชุม เมื่อ
-          </p>
-          <div class="ml-5">
-            <button @click="getFile(data.f_published_journals)" class="btn bg-[#E85F19] text-white mr-5">
-              ดูเอกสาร
-            </button>
-            <button @click="
-              downloadFile(
-                data.f_published_journals,
-                'Full Paper ประกอบการเบิก'
-              )
-              " class="btn bg-[#4285F4] text-white">
-              โหลดเอกสาร
-            </button>
-          </div>
-        </div>
-
-        <div v-else>
-          <FileInput
-            label="(Full Paper ประกอบการเบิก) มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล WoS/SJR ซึ่งได้รับการตีพิมพ์ไม่เกิน 2 ปี ก่อนการประชุม"
-            name="published_journals" type="file" @change="handleFile($event, 'published_journals')" 
-            disabled="data.withdraw == '50%' ? true: false"/>
-          <span v-if="v$.published_journals.$error" class="text-base ml-2 text-red-500">
-            {{ v$.published_journals.$errors[0].$message }}
-          </span>
-        </div>
-      </div>
-
-      <div class="px-5 mb-3">
-        <div class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.conf.q_proof && data.conf.q_proof !== ''">
-          <p class="w-3/5 min-w-64 flex place-items-center">
-            *กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* หลักฐานเอกสาร Quartile ของ Paper
-            ที่ใช้ประกอบการเบิก
-          </p>
-          <div class="ml-5">
-            <button @click="getFile(data.f_q_proof)" class="btn bg-[#E85F19] text-white mr-5">
-              ดูเอกสาร
-            </button>
-            <button @click="
-              downloadFile(data.f_q_proof, 'หลักฐานเอกสาร Quartile ของ Paper')
-              " class="btn bg-[#4285F4] text-white">
-              โหลดเอกสาร
-            </button>
-          </div>
-        </div>
-
-        <div v-else>
-          <FileInput label="*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* หลักฐานเอกสาร Quartile ของ Paper ที่ใช้ประกอบการเบิก"
-            name="q_proof" type="file" @change="handleFile($event, 'q_proof')" 
-            disabled="data.withdraw == '50%' ? true: false"/>
-          <span v-if="v$.q_proof.$error" class="text-base ml-2 text-red-500">
-            {{ v$.q_proof.$errors[0].$message }}
-          </span>
-        </div>
-      </div>
-
-      <div class="px-5 mb-3">
-        <div class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.conf.call_for_paper && data.conf.call_for_paper !== ''">
-          <p class="w-3/5 min-w-64 flex place-items-center">
-            เอกสารประชาสัมพันธ์การจัดการประชุมทางวิชาการ (Call for paper)
-          </p>
-          <div class="ml-5">
-            <button @click="getFile(data.f_call_for_paper)" class="btn bg-[#E85F19] text-white mr-5">
-              ดูเอกสาร
-            </button>
-            <button @click="
-              downloadFile(
-                data.f_call_for_paper,
-                'เอกสารประชาสัมพันธ์การจัดการประชุม'
-              )
-              " class="btn bg-[#4285F4] text-white">
-              โหลดเอกสาร
-            </button>
-          </div>
-        </div>
-
-        <div v-else>
-          <FileInput label="เอกสารประชาสัมพันธ์การจัดการประชุมทางวิชาการ (Call for paper)" name="call_for_paper"
-            type="file" @change="handleFile($event, 'call_for_paper')" />
-          <span v-if="v$.call_for_paper.$error" class="text-base ml-2 text-red-500">
-            {{ v$.call_for_paper.$errors[0].$message }}
-          </span>
-        </div>
-      </div>
-
-      <div class="px-5 mb-3">
-        <div class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.conf.accepted && data.conf.accepted !== ''">
-          <p class="w-3/5 min-w-64 flex place-items-center">
-            จดหมายการตอบรับเข้าร่วมประชุม (Accepted)
-          </p>
-          <div class="ml-5">
-            <button @click="getFile(data.f_accepted)" class="btn bg-[#E85F19] text-white mr-5">
-              ดูเอกสาร
-            </button>
-            <button @click="downloadFile(data.f_accepted, 'จดหมายการตอบรับ')" class="btn bg-[#4285F4] text-white">
-              โหลดเอกสาร
-            </button>
-          </div>
-        </div>
-
-        <div v-else>
-          <FileInput label="จดหมายการตอบรับเข้าร่วมประชุม (Accepted)" name="accepted" type="file"
-            @change="handleFile($event, 'accepted')" />
-          <span v-if="v$.accepted.$error" class="text-base ml-2 text-red-500">
-            {{ v$.accepted.$errors[0].$message }}
-          </span>
-        </div>
-      </div>
-
-      <div class="px-5 mb-3">
-        <div class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.conf.fee_receipt && data.conf.fee_receipt !== ''">
-          <p class="w-3/5 min-w-64 flex place-items-center">
-            เอกสารแสดงค่าลงทะเบียน
-          </p>
-          <div class="ml-5">
-            <button @click="getFile(data.f_fee_receipt)" class="btn bg-[#E85F19] text-white mr-5">
-              ดูเอกสาร
-            </button>
-            <button @click="
-              downloadFile(data.f_fee_receipt, 'เอกสารแสดงค่าลงทะเบียน')
-              " class="btn bg-[#4285F4] text-white">
-              โหลดเอกสาร
-            </button>
-          </div>
-        </div>
-
-        <div v-else>
-          <FileInput label="เอกสารแสดงค่าลงทะเบียน" name="fee_receipt" type="file"
-            @change="handleFile($event, 'fee_receipt')" />
-          <span v-if="v$.fee_receipt.$error" class="text-base ml-2 text-red-500">
-            {{ v$.fee_receipt.$errors[0].$message }}
-          </span>
-        </div>
-      </div>
-
-      <div class="px-5 mb-3">
-        <div class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.conf.fx_rate_document && data.conf.fx_rate_document != ''">
-          <p class="w-3/5 min-w-64 flex place-items-center">
-            เอกสารแสดงอัตราแลกเปลี่ยน (ณ วันที่ยื่น)
-          </p>
-          <div class="ml-5">
-            <button @click="getFile(data.f_fx_rate_document)" class="btn bg-[#E85F19] text-white mr-5">
-              ดูเอกสาร
-            </button>
-            <button @click="
-              downloadFile(
-                data.f_fx_rate_document,
-                'เอกสารแสดงอัตราแลกเปลี่ยน'
-              )
-              " class="btn bg-[#4285F4] text-white">
-              โหลดเอกสาร
-            </button>
-          </div>
-        </div>
-
-        <div v-else>
-          <FileInput label="เอกสารแสดงอัตราแลกเปลี่ยน (ณ วันที่ยื่น)" name="fx_rate_document" type="file"
-            @change="handleFile($event, 'fx_rate_document')" />
-          <span v-if="v$.fx_rate_document.$error" class="text-base ml-2 text-red-500">
-            {{ v$.fx_rate_document.$errors[0].$message }}
-          </span>
-        </div>
-      </div>
-
-      <div class="px-5 mb-3">
-        <div class="flex flex-rowitems-center mt-2 justify-between"
-          v-if="data.conf.conf_proof && data.conf.conf_proof != ''">
-          <p class="w-3/5 min-w-64 flex place-items-center">
-            หลักฐานการประชุมวิชาการอยู่ในฐาน Scopus
-          </p>
-          <div class="ml-5">
-            <button @click="getFile(data.f_conf_proof)" class="btn bg-[#E85F19] text-white mr-5">
-              ดูเอกสาร
-            </button>
-            <button @click="
-              downloadFile(
-                data.f_conf_proof,
-                'หลักฐานการประชุมวิชาการอยู่ในฐาน Scopus'
-              )
-              " class="btn bg-[#4285F4] text-white">
-              โหลดเอกสาร
-            </button>
-          </div>
-        </div>
-
-        <div v-else>
-          <FileInput label="หลักฐานการประชุมวิชาการอยู่ในฐาน Scopus" name="conf_proof" type="file"
-            @change="handleFile($event, 'conf_proof')" />
-          <span v-if="v$.conf_proof.$error" class="text-base ml-2 text-red-500">
-            {{ v$.conf_proof.$errors[0].$message }}
-          </span>
-        </div>
-      </div>
-    </Mainbox>
-
-    <div class="flex justify-end" v-if="!data.check">
-      <button @click="updateFile" class="btn btn-success text-white">
-        บันทึกข้อมูล
+    
+    <div class="flex justify-end mr-5">
+      <button @click="showData = !showData" class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
+        ข้อมูลแบบฟร์อม
       </button>
+    </div>
+    
+    <div v-if="showData" class="showData">
+      <ConferenceData :id="id" />
+      <HR :id="id" />
+      <Research :id="id" :type="'Conference'" />
+      <FinanceAll :id="id" :type="'Conference'" />
+      <Assosiate :id="id" :type="'Conference'" />
+      <Dean :id="id" :type="'Conference'" />
+      <WithdrawMoney :id="id" :type="'Conference'" />
     </div>
   </div>
 </template>
@@ -377,8 +157,16 @@ import api from "@/setting/api";
 import { useVuelidate } from "@vuelidate/core";
 import { helpers } from "@vuelidate/validators";
 
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
+
+import ConferenceData from "@/components/form/DataforOffice/Conference.vue";
+import HR from "@/components/form/DataforOffice/HR.vue";
+import Research from "@/components/form/DataforOffice/Research.vue";
+import FinanceAll from "@/components/form/DataforOffice/FinanceAll.vue";
+import Assosiate from "@/components/form/DataforOffice/Assosiate.vue";
+import Dean from "@/components/form/DataforOffice/Dean.vue";
+import WithdrawMoney from "@/components/form/DataforOffice/WithdrawMoney.vue";
 
 const route = useRoute();
 const id = route.params.id;
@@ -415,6 +203,8 @@ const data = reactive({
 
   check: false,
 });
+
+const showData = ref(true)
 
 //validate rule
 const rules = {

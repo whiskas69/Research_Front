@@ -1,9 +1,19 @@
 <template>
   <div class="container my-5 mx-auto">
+
+    <div class="flex flex-row mb-4">
+      <span class="flex mr-2 items-center">ปีงบประมาณ</span>
+        <select class="select select-bordered w-1/6" v-model="data.findFiscalYear">
+            <option v-for="n in 5" :key="n" :value="fiscalYear - (n - 1)">
+              {{ fiscalYear - (n - 1) }}
+            </option>
+        </select>
+    </div>
+
     <div class="flex flex-row justify-center mx-2 max-h-fit w-full gap-5">
-      <RemainingConfer />
-      <TotalDocuments />
-      <RemainingPC />
+      <RemainingConfer :year="data.findFiscalYear"/>
+      <TotalDocuments :year="data.findFiscalYear"/>
+      <RemainingPC :year="data.findFiscalYear"/>
     </div>
     <div class="flex flex-row justify-center m-2 max-h-fit w-full gap-5">
       <DisbursementApproval />
@@ -115,9 +125,10 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted } from "vue";
+import { reactive, onMounted } from "vue";
 import { useUserStore } from "@/store/userStore";
 import { Chart, registerables } from "chart.js";
+import { DateTime } from "luxon";
 
 import RemainingConfer from "@/components/Dashboard/RemainingConfer.vue";
 import RemainingPC from "@/components/Dashboard/RemainingPC.vue";
@@ -127,5 +138,24 @@ import DisbursementEachYear from "@/components/Dashboard/DisbursementEachYear.vu
 
 Chart.register(...registerables);
 
+const data = reactive({
+  findFiscalYear: '',
+});
+
 const userStore = useUserStore();
+
+const getThaiFiscalYear = () => {
+  const now = DateTime.now();
+  const year = now.year + 543;
+  return now.month >= 10 ? year + 1 : year;
+};
+const fiscalYear = getThaiFiscalYear();
+
+
+onMounted(() => {
+  if (!data.findFiscalYear) {
+    data.findFiscalYear = fiscalYear
+  }
+})
+
 </script>

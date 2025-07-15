@@ -1,89 +1,107 @@
 <template>
   <div class="container my-10 mx-auto">
-    <Mainbox v-if="props.type == 'Conference'">
-      <SectionWrapper>
-        <p class="text-lg font-bold">
-          เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความจากผู้จัด
-        </p>
-        <RadioInput
-          label="รับทราบ"
-          :disabled="true"
-          value="acknowledge"
-          v-model="formData.offic.c_approve_result"
-        />
-      </SectionWrapper>
-    </Mainbox>
-
-    <div v-if="props.type == 'Page_Charge'">
-      <Mainbox>
-        <SectionWrapper>
-          <p class="text-lg font-bold">
-            เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 1)
-          </p>
-          <p class="text-base mt-1">
-            เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความ
+    <div v-if="props.type == 'Conference'">
+      <Mainbox v-if="formData.offic.c_approve_result" class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title text-lg font-bold">คณบดี</p>
+        <SectionWrapper class="collapse-content">
+          <p class="text-lg">
+            เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความจากผู้จัด
           </p>
           <RadioInput
             label="รับทราบ"
-            value="acknowledge"
             :disabled="true"
-            v-model="formData.offic.p_acknowledge"
+            value="acknowledge"
+            v-model="formData.offic.c_approve_result"
           />
         </SectionWrapper>
       </Mainbox>
+      <Mainbox v-else>
+        <p class="font-bold">คณบดี</p>
+        <p>เอกสารอยู่ในขั้นตอนการอนุมัติ</p>
+      </Mainbox>
+    </div>
 
-      <Mainbox>
-        <SectionWrapper>
-          <p class="text-lg font-bold">
-            เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 2)
-          </p>
-          <p class="text-base mt-1">
-            ขณะนี้บทความได้รับการตอบรับแล้ว (Letter of acceptance) เมื่อวันที่
-            <b>{{ formatThaiDate(formData.offic.p_date_accepted_approve) }} </b>
-            ตามหลักฐานที่แนบจึงเรียนมาเพื่อโปรดพิจารณา
-          </p>
-          <div class="px-2">
+    <div v-if="props.type == 'Page_Charge'">
+      <div v-if="formData.offic.p_acknowledge">
+        <Mainbox class="collapse collapse-arrow">
+          <input type="checkbox" />
+          <p class="collapse-title text-lg font-bold">คณบดี</p>
+          <SectionWrapper class="collapse-content">
+            <p class="text-lg font-bold">
+              เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 1)
+            </p>
+            <p class="text-base mt-1">
+              เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความ
+            </p>
             <RadioInput
-              label="อนุมัติ"
-              value="approve"
-              name="comment"
+              label="รับทราบ"
+              value="acknowledge"
               :disabled="true"
-              v-model="formData.offic.p_approve_result"
+              v-model="formData.offic.p_acknowledge"
             />
-          </div>
-          <div class="px-2">
-            <RadioInput
-              label="ไม่อนุมัติ"
-              value="notApproved"
-              name="comment"
-              :disabled="true"
-              v-model="formData.offic.p_approve_result"
-            />
-          </div>
-          <div>
-            <TextArea
-              label="เนื่องจาก"
-              :disabled="true"
-              :placeholder="formData.offic.p_reason_dean_appeove"
-            />
-          </div>
-          <div class="px-2">
-            <RadioInput
-              label="อื่น ๆ"
-              value="other"
-              name="comment"
-              :disabled="true"
-              v-model="formData.offic.p_approve_result "
-            />
-          </div>
-          <div>
-            <TextArea
-              label="เนื่องจาก"
-              :disabled="true"
-              :placeholder="formData.offic.p_reason_dean_appeove"
-            />
-          </div>
-        </SectionWrapper>
+          </SectionWrapper>
+        </Mainbox>
+
+        <Mainbox class="collapse collapse-arrow">
+          <input type="checkbox" />
+          <p class="collapse-title text-lg font-bold">คณบดี</p>
+          <SectionWrapper class="collapse-content">
+            <p class="text-lg font-bold">
+              เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 2)
+            </p>
+            <p class="text-base mt-1">
+              ขณะนี้บทความได้รับการตอบรับแล้ว (Letter of acceptance) เมื่อวันที่
+              <b>{{ formatThaiDate(formData.offic.p_date_accepted_approve) }} </b>
+              ตามหลักฐานที่แนบจึงเรียนมาเพื่อโปรดพิจารณา
+            </p>
+            <div class="px-2">
+              <RadioInput
+                label="อนุมัติ"
+                value="approve"
+                name="comment"
+                :disabled="true"
+                v-model="formData.offic.p_approve_result"
+              />
+            </div>
+            <div class="px-2">
+              <RadioInput
+                label="ไม่อนุมัติ"
+                value="notApproved"
+                name="comment"
+                :disabled="true"
+                v-model="formData.offic.p_approve_result"
+              />
+            </div>
+            <div>
+              <TextArea
+                label="เนื่องจาก"
+                :disabled="true"
+                :placeholder="formData.offic.p_reason_dean_appeove"
+              />
+            </div>
+            <div class="px-2">
+              <RadioInput
+                label="อื่น ๆ"
+                value="other"
+                name="comment"
+                :disabled="true"
+                v-model="formData.offic.p_approve_result "
+              />
+            </div>
+            <div>
+              <TextArea
+                label="เนื่องจาก"
+                :disabled="true"
+                :placeholder="formData.offic.p_reason_dean_appeove"
+              />
+            </div>
+          </SectionWrapper>
+        </Mainbox>
+      </div>
+      <Mainbox v-else>
+        <p class="font-bold">คณบดี</p>
+        <p>เอกสารอยู่ในขั้นตอนการอนุมัติ</p>
       </Mainbox>
     </div>
   </div>

@@ -90,9 +90,6 @@
                   " class="btn bg-[#4285F4] text-white" :disabled="!isValidFile(formData.f_accepted)">
                   โหลดเอกสาร
                 </button>
-                <p v-if="formData.page_c.accepted == null" class="text-red-500 pt-1">
-                  ** ไม่มีหนังสือตอบรับบทความ **
-                </p>
               </div>
             </div>
           </div>
