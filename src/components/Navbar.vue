@@ -81,7 +81,7 @@
     </div>
 
     <div v-if="!userStore.user">
-      <router-link to="/testlogin" class="btn w-full bg-[#4285F4] hover:bg-[#4285F4] text-white ml-10">
+      <router-link to="/login" class="btn w-full bg-[#4285F4] hover:bg-[#4285F4] text-white ml-10">
         เข้าสู่ระบบ
       </router-link>
     </div>
