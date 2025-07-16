@@ -11,7 +11,8 @@ RUN npm run build
 # Production Stage
 FROM nginx:alpine AS production-stage
 
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+COPY --from=build-stage /app/dist /usr/share/nginx/html/rass
+#COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Optional: custom nginx config (ใช้ค่า default ก็ได้)
 # COPY nginx.conf /etc/nginx/conf.d/default.conf
