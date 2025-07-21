@@ -4,6 +4,7 @@
     style="background-image: url('/rass/images/background.png')"
   >
     <div class="text-center bg-white w-1/4 rounded-md drop-shadow-lg p-5">
+      <p class="text-2xl leading-relaxed">test send mail</p>
       <p class="text-2xl leading-relaxed">RESEARCH ADMINISTRATION</p>
       <p class="text-xl leading-relaxed pb-5">ระบบสนับสนุนงานบริหารงานวิจัย</p>
       <div class="flex justify-center">
