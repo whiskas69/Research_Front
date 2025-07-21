@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white p-5 rounded-lg shadow h-[400px] w-[400px]">
     <h2 class="text-lg font-semibold">งบประมาณคงเหลือของการประชุมวิชาการ</h2>
-    <p class="font-bold text-[#9291A5]">ปี {{ fiscalYear }}</p>
+    <p class="font-bold text-[#9291A5]">ปี {{ year }}</p>
     <hr />
     <div class="mt-4 text-center">
       <p class="text-sm">งบประมาณทั้งหมด</p>
@@ -21,13 +21,6 @@ import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
 import { DateTime } from "luxon";
 import api from "@/setting/api";
 
-const getThaiFiscalYear = () => {
-  const now = DateTime.now();
-  const year = now.year + 543;
-  return now.month >= 10 ? year + 1 : year;
-};
-const fiscalYear = getThaiFiscalYear();
-
 const Budget = ref(0);
 const usedBudget = ref(0);
 const remainingBudget = ref(0);
@@ -36,9 +29,11 @@ Chart.register(ArcElement, Tooltip, Legend);
 const chartCanvas = ref(null);
 let chartInstance = null;
 
+const { year } = defineProps(["year"]);
+
 const getData = async () => {
   try {
-    const response = await api.get("/remainingConference");
+    const response = await api.get(`/remainingConference/${year}`);
 
     Budget.value = response.data[0]?.Conference_amount || 0;
     remainingBudget.value = response.data[0]?.total_remaining_credit_limit || 0;
@@ -98,8 +93,14 @@ const creatChart = () => {
   });
 };
 
-
-onMounted(getData);
+watch(
+  () => year,
+  (newVal) => {
+    console.log("เปลี่ยนปีเป็น:", newVal);
+    getData();
+  },
+  { immediate: true }
+);
 
 watch([usedBudget, remainingBudget], () => {
   creatChart();
