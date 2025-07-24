@@ -143,6 +143,6 @@ const isApprover = computed(() => ["hr", "research", "finance", "associate", "de
 
 const logout = async () => {
   await userStore.logout();
-  router.push("/testlogin");
+  router.push("/login");
 };
 </script>
