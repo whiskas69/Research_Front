@@ -1,5 +1,14 @@
 <template>
   <div class="container my-10 mx-auto">
+    <div class="flex flex-row mb-4">
+      <span class="flex mr-2 items-center">ปีงบประมาณ</span>
+        <select class="select select-bordered w-1/6" v-model="data.findFiscalYear">
+            <option v-for="n in 5" :key="n" :value="fiscalYear - (n - 1)">
+              {{ fiscalYear - (n - 1) }}
+            </option>
+        </select>
+    </div>
+
     <div class="tabs tabs-lift">
       <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการแยกขอเบิก และเอกสารทั้งหมด" checked="checked" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
@@ -1100,7 +1109,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed, reactive } from "vue";
+import { onMounted, ref, computed, reactive, watch, watchEffect } from "vue";
 import api from "@/setting/api";
 import { DateTime } from "luxon";
 import * as XLSX from "xlsx";
@@ -1108,12 +1117,10 @@ import { saveAs } from 'file-saver';
 
 const conferenceData = ref([]);
 const SummaryPc = ref([]);
-const CountPc = ref([]);
 const krisData = ref([]);
 const withdraw50 = ref([]);
 const withdraw100 = ref([]);
 const inThai = ref([]);
-const moneyuser = ref([]);
 const countryData = reactive({
   ASIA: 0,
   ASIA_data: "",
@@ -1133,17 +1140,29 @@ const datapc1 = ref(null);
 const datapc2 = ref(null);
 const datakris = ref(null);
 
-const getConferenceData = async () => {
-  const response = await api.get("/all_summary_conference");
+// Function to get the current Thai fiscal year
+const getThaiFiscalYear = () => {
+  const now = DateTime.now();
+  const year = now.year + 543;
+  return now.month >= 10 ? year + 1 : year;
+};
+
+const fiscalYear = getThaiFiscalYear();
+
+const data = reactive({
+  findFiscalYear: fiscalYear, // set default fiscal year
+});
+
+const getConferenceData = async (year) => {
+  const response = await api.get(`/all_summary_conference/${year}`);
 
   conferenceData.value = response.data;
 };
 
-const getPageChargeData = async () => {
-  const response = await api.get("/all_summary_page_charge");
+const getPageChargeData = async (year) => {
+  const response = await api.get(`/all_summary_page_charge/${year}`);
 
   SummaryPc.value = response.data[0];
-  CountPc.value = response.data[1];
 };
 
 const getKrisData = async () => {
@@ -1164,16 +1183,16 @@ const getKrisData = async () => {
   }));
 };
 
-const getConfer_countwithdraw = async () => {
-  const response = await api.get("/count_confer_withdraw");
+const getConfer_countwithdraw = async (year) => {
+  const response = await api.get(`/count_confer_withdraw/${year}`);
 
   withdraw50.value = response.data[0];
   withdraw100.value = response.data[1];
 };
 
-const getConfer_country = async () => {
+const getConfer_country = async (year) => {
   try {
-    const response = await api.get("/count_confer_country");
+    const response = await api.get(`/count_confer_country/${year}`);
     const data = response.data; // JSON ที่ได้จาก API
 
     // ฟังก์ชันจัดกลุ่มข้อมูลตาม location และลบ location ออกจาก details
@@ -1209,23 +1228,16 @@ const getConfer_country = async () => {
   }
 };
 
-const getConfer_thai = async () => {
-  const response = await api.get("/count_confer_thai");
+const getConfer_thai = async (year) => {
+  const response = await api.get(`/count_confer_thai/${year}`);
 
   inThai.value = response.data;
 };
-
-const getUser_money = async () => {
-  const response = await api.get("/money_user");
-
-  moneyuser.value = response.data;
-}
 
 const getSumnat = async () => {
   const response = await api.get("/all_sum");
 
   sumnat.value = response.data;
-  console.log("sumnat", sumnat.value);
 };
 
 const getBestQt = (row) => {
@@ -1305,14 +1317,27 @@ const exportExcel = (tableRefName) => {
   saveAs(blob, `${name}.xlsx`);
 };
 
+const loadAllData = async (year) => {
+  if (!year) return;
+  await Promise.all([
+    getConferenceData(year),
+    getPageChargeData(year),
+    getConfer_countwithdraw(year),
+    getConfer_country(year),
+    getConfer_thai(year),
+  ]);
+}
+
+watch(
+  () => data.findFiscalYear,
+  (newVal, oldVal) => {
+    loadAllData(newVal);
+  },
+  { immediate: true }
+);
+
 onMounted(() => {
-  getConferenceData();
-  getPageChargeData();
   getKrisData();
-  getConfer_countwithdraw();
-  getConfer_country();
-  getConfer_thai();
-  getUser_money();
   getSumnat();
 });
 </script>

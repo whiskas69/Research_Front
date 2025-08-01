@@ -8,7 +8,7 @@
         <!-- Conference -->
         <div v-if="form.form_type == 'Conference'">
           <div v-if="userStore.user.user_role === 'hr'">
-            <router-link :to="`/officFormConfer/hr/${form.conf_id}`">
+            <router-link :to="`/officeFormConference/hr/${form.conf_id}`">
               <div
                 class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"
               >
@@ -25,7 +25,7 @@
           </div>
 
           <div v-if="userStore.user.user_role === 'research'">
-            <router-link :to="`/officFormConfer/research/${form.conf_id}`">
+            <router-link :to="`/officeFormConference/research/${form.conf_id}`">
               <div
                 class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"
               >
@@ -42,7 +42,7 @@
           </div>
 
           <div v-if="userStore.user.user_role === 'finance'">
-            <router-link :to="`/officFormConfer/finance/${form.conf_id}`">
+            <router-link :to="`/officeFormConference/finance/${form.conf_id}`">
               <div
                 class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"
               >
@@ -59,7 +59,7 @@
           </div>
 
           <div v-if="userStore.user.user_role === 'associate'">
-            <router-link :to="`/officFormConfer/associate/${form.conf_id}`">
+            <router-link :to="`/officeFormConference/associate/${form.conf_id}`">
               <div
                 class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"
               >
@@ -76,7 +76,7 @@
           </div>
 
           <div v-if="userStore.user.user_role === 'dean'">
-            <router-link :to="`/officFormConfer/dean/${form.conf_id}`">
+            <router-link :to="`/officeFormConference/dean/${form.conf_id}`">
               <div
                 class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"
               >
@@ -96,7 +96,7 @@
         <!-- Page Charge -->
         <div v-if="form.form_type == 'Page_Charge'">
           <div v-if="userStore.user.user_role === 'research'">
-            <router-link :to="`/officFormPC/research/${form.pageC_id}`">
+            <router-link :to="`/officeFormPageCharge/research/${form.pageC_id}`">
               <div
                 class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"
               >
@@ -118,7 +118,7 @@
           </div>
 
           <div v-if="userStore.user.user_role === 'finance'">
-            <router-link :to="`/officFormPC/finance/${form.pageC_id}`">
+            <router-link :to="`/officeFormPageCharge/finance/${form.pageC_id}`">
               <div
                 class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"
               >
@@ -140,7 +140,7 @@
           </div>
 
           <div v-if="userStore.user.user_role === 'associate'">
-            <router-link :to="`/officFormPC/associate/${form.pageC_id}`">
+            <router-link :to="`/officeFormPageCharge/associate/${form.pageC_id}`">
               <div
                 class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"
               >
@@ -162,7 +162,7 @@
           </div>
 
           <div v-if="userStore.user.user_role === 'dean'">
-            <router-link :to="`/officFormPC/dean/${form.pageC_id}`">
+            <router-link :to="`/officeFormPageCharge/dean/${form.pageC_id}`">
               <div
                 class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"
               >
@@ -186,7 +186,7 @@
 
         <!-- Research_KRIS -->
         <div v-if="form.form_type == 'Research_KRIS'">
-          <router-link :to="`/officFormKris/research/${form.kris_id}`">
+          <router-link :to="`/officeFormKris/research/${form.kris_id}`">
             <div
               class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"
             >

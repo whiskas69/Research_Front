@@ -837,7 +837,7 @@ const handleSubmitHaveEdit = async () => {
     console.log("dataForBackend: ", dataForBackend);
     await api.put(`/editedFormConfer/${id}`, dataForBackend);
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-    router.push("/mystatus");
+    router.push("/myStatus");
   } catch (error) {
     console.log("Error saving code : ", error);
     alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
@@ -852,7 +852,7 @@ const handleSubmit = async () => {
     console.log("dataForBackend: ", dataForBackend);
     await api.put(`/confirmEditedForm/${id}`, dataForBackend);
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-    router.push("/mystatus");
+    router.push("/myStatus");
   } catch (error) {
     console.log("Error saving code : ", error);
     alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");

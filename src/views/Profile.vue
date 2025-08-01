@@ -110,7 +110,7 @@
         <img
           v-if="data.signature"
           :src="data.signature"
-          class="w-64 h-64 mt-5"
+          class="w-64 h-64 mt-5 object-contain"
           alt="signature"
         />
       </div>

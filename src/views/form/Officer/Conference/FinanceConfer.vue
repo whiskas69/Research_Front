@@ -210,7 +210,7 @@ const fetchOfficerData = async () => {
     console.log("numapprove", formData.numapproved);
     console.log("totalapprove", formData.totalapproved);
 
-    const responseFormConfer = await api.get(`/formConfer/${id}`);
+    const responseFormConfer = await api.get(`/formConference/${id}`);
     console.log("responseFormConfer 123", responseFormConfer.data);
     formData.form_id = responseFormConfer.data.form_id;
 

@@ -607,7 +607,7 @@ const NewKris = async () => {
       });
 
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      router.push("/mystatus");
+      router.push("/myStatus");
       localStorage.removeItem("formDraft");
     } catch (error) {
       console.log(

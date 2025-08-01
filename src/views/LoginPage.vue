@@ -57,7 +57,7 @@ const login = async () => {
 
             const currentUser = userStore.user;
             if (currentUser?.user_role === "professor") {
-              router.push("/homepage");
+              router.push("/homePage");
             } else if (currentUser?.user_role === "admin") {
               router.push("/admin");
             } else {

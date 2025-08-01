@@ -183,7 +183,7 @@ const fetchProfessorData = async () => {
         ? 0
         : responseBudget.data.totalapproved;
 
-    const responseFormPC = await api.get(`/formPC/${id}`);
+    const responseFormPC = await api.get(`/formPageCharge/${id}`);
     formData.form_id = responseFormPC.data.form_id;
   } catch (error) {
     console.log("Error fetching professor data:", error);

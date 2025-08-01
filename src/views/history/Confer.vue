@@ -17,7 +17,7 @@
         "
         class="flex no-print"
       >
-        <router-link :to="`/pdf/confer/${id}`">
+        <router-link :to="`/pdf/conference/${id}`">
           <button class="btn text-white bg-[#4285F4] hover:bg-[#4285F4]">
             พิมพ์แบบฟอร์ม
           </button>

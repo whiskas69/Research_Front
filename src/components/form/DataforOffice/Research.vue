@@ -2,7 +2,7 @@
   <div class="container my-10 mx-auto">
     <!-- Conference -->
     <div v-if="props.type == 'Conference'">
-      <Mainbox v-if="formData.conference.quality_meeting" class="collapse collapse-arrow">
+      <Mainbox v-if="formData.conference.meeting_type" class="collapse collapse-arrow">
          <input type="checkbox" />
          <p class="collapse-title">ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
         <SectionWrapper class="collapse-content">
@@ -294,13 +294,13 @@
           <p class="w-3/5 min-w-64 flex place-items-center">แบบเสนอโครงการวิจัย (Research Project)</p>
           <div class="ml-80">
             <button
-              @click="getFile(formData.file)"
+              @click="getFile(formData.f_kris)"
               class="btn bg-[#E85F19] text-white mr-5"
             >
               ดูเอกสาร
             </button>
             <button
-              @click="downloadFile(formData.file, 'แบบเสนอโครงการวิจัย')"
+              @click="downloadFile(formData.f_kris, 'แบบเสนอโครงการวิจัย')"
               class="btn bg-[#4285F4] text-white"
             >
               โหลดเอกสาร
@@ -354,13 +354,14 @@ const formData = reactive({
   score: [],
   page_c: [],
   name: "",
+  file: "",
   f_pc_proof: null,
   f_q_pc_proof: null,
   f_invoice_public: null,
   f_accepted: null,
   f_copy_article: null,
   f_upload_article: null,
-  file: null,
+  f_kris: null,
 });
 
 const getFile = async (fileUrl) => {
@@ -414,6 +415,7 @@ const fetchOfficerData = async () => {
       formData.page_c = response.data.page_c;
       formData.name = response.data.name;
       const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
+      console.log("responsefile", responsefile.data)
       formData.f_pc_proof = responsefile.data.file_pc_proof;
       formData.f_q_pc_proof = responsefile.data.file_q_pc_proof;
       formData.f_invoice_public = responsefile.data.file_invoice_public;
@@ -421,11 +423,13 @@ const fetchOfficerData = async () => {
       formData.f_copy_article = responsefile.data.file_copy_article;
       formData.f_upload_article = responsefile.data.file_upload_article;
     } else if (props.type == "Research_KRIS") {
+
+      const responsefile = await api.get(`/getFilekris?kris_id=${id}`);
+      console.log("responsefile k", responsefile)
+      formData.f_kris = responsefile.data.fileUrl;
+
       const responsedata = await api.get(`/opinionkris/${id}`);
       formData.offic = responsedata.data;
-
-      const responsefile = await api.get(`/getFilekris?kris_id=${props.id}`);
-      formData.file = responsefile.data.fileUrl;
     }
   } catch (error) {
     console.log("Error fetching Officer data:", error);

@@ -24,7 +24,7 @@
       <div
         class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"
       >
-        <router-link to="/formPC">
+        <router-link to="/formPageCharge">
           <p class="text-base px-5 py-1">
             ขออนุมัติค่า Page Charge
             เพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
@@ -68,7 +68,7 @@
           class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
           v-if="editForm.form_type == 'Page_Charge'"
         >
-          <router-link :to="`/modifiedPage/${editForm.pageC_id}`">
+          <router-link :to="`/modifiedPageCharge/${editForm.pageC_id}`">
             <h2 class="text-lg font-bold">
               ขออนุมัติค่า Page
               Chargeเพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
@@ -98,7 +98,7 @@
           class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
           v-if="editForm.form_type == 'Conference'"
         >
-          <router-link :to="`/modifiedConfer/${editForm.conf_id}`">
+          <router-link :to="`/modifiedConference/${editForm.conf_id}`">
             <h2 class="text-lg font-bold">
               ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
             </h2>

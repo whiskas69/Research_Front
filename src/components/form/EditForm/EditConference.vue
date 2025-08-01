@@ -775,9 +775,7 @@ const getChangedFields = () => {
   const current = toRaw(data.conference);
   const originalConference = data.originCofer;
   const changedFields = [];
-  console.log("changedFields", changedFields);
-  console.log("current", current);
-  console.log("originalConference", originalConference);
+  
   for (const key in current) {
     if (current[key] !== originalConference[key]) {
       changedFields.push({

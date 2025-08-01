@@ -1,6 +1,6 @@
 <template>
   <div class="container my-10 mx-auto">
-    <p class="text-2xl font-bold text-center no-print">export pdf confer</p>
+    <p class="text-2xl font-bold text-center no-print">นำออกเอกสาร</p>
     <div class="flex flex-col gap-1">
       <div class="flex flex-col justify-center items-center gap-1">
         <p class="text-[15px] font-bold pt-7">
@@ -760,7 +760,7 @@
 
     <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
       <div class="flex no-print">
-      <router-link :to="`/myhistory`">
+      <router-link :to="`/myHistory`">
         <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
           ไปยังหน้าประวัติทั้งหมด
         </button>

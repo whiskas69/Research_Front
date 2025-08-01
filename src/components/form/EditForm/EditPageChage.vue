@@ -470,15 +470,20 @@ const clearDraft = () => {
   alert("ลบแบบร่างสำเร็จ");
 };
 
+const isEqual = (a, b) => {
+  if (Array.isArray(a) && Array.isArray(b)) {
+    return JSON.stringify(a) === JSON.stringify(b);
+  }
+  return a === b;
+};
+
 const getChangedFields = () => {
   const current = toRaw(formData.pageChange);
   const originalPageChange = formData.originPc;
   const changedFields = [];
-  console.log("changedFields", changedFields);
-  console.log("current", current);
-  console.log("originalPageChange", originalPageChange);
+
   for (const key in current) {
-    if (current[key] !== originalPageChange[key]) {
+    if (!isEqual(current[key], originalPageChange[key])) {
       changedFields.push({
         field: key,
         oldValue: originalPageChange[key],

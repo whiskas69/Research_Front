@@ -21,9 +21,9 @@
                 <p class="font-normal">ยื่นขอรับการสนับสนุน &nbsp; &#9660;</p>
               </div>
               <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow">
-                <li><router-link to="/homepage">ยื่นเอกสาร</router-link></li>
-                <li><router-link to="/mystatus">สถานะเอกสาร</router-link></li>
-                <li><router-link to="/myhistory">ประวัติการยื่น</router-link></li>
+                <li><router-link to="/homePage">ยื่นเอกสาร</router-link></li>
+                <li><router-link to="/myStatus">สถานะเอกสาร</router-link></li>
+                <li><router-link to="/myHistory">ประวัติการยื่น</router-link></li>
               </ul>
             </div>
           </div>
@@ -34,8 +34,8 @@
                 <p class="font-normal">สถานะเอกสาร &nbsp; &#9660;</p>
               </div>
               <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow">
-                <li><router-link to="/mystatus">สถานะเอกสาร</router-link></li>
-                <li><router-link to="/myhistory">ประวัติการยื่น</router-link></li>
+                <li><router-link to="/myStatus">สถานะเอกสาร</router-link></li>
+                <li><router-link to="/myHistory">ประวัติการยื่น</router-link></li>
               </ul>
             </div>
           </div>
@@ -48,14 +48,14 @@
               <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow">
                 <li><router-link to="/statusOffice">สถานะเอกสาร</router-link></li>
                 <li><router-link to="/historyOffice">ประวัติเอกสาร</router-link></li>
-                <li><router-link to="/eoffice">เอกสารรออนุมัติ</router-link></li>
+                <li><router-link to="/eOffice">เอกสารรออนุมัติ</router-link></li>
               </ul>
             </div>
           </div>
 
           <div v-if="isApprover" class="justify-center">
             <div tabindex="0" role="button" class="btn btn-ghost">
-              <router-link to="/allhistory" class="font-normal">เอกสารที่อนุมัติแล้ว</router-link>
+              <router-link to="/allHistory" class="font-normal">เอกสารที่อนุมัติแล้ว</router-link>
             </div>
           </div>
 
@@ -128,7 +128,7 @@ const user = computed(() => userStore.user);
 const logoRoute = computed(() => {
   if (!user.value) return "/";
   const role = user.value.user_role;
-  if (role === "professor") return "/homepage";
+  if (role === "professor") return "/homePage";
   if (["hr", "research", "finance", "associate", "dean"].includes(role))
     return "/Officer";
   if (role === "admin") return "/admin";

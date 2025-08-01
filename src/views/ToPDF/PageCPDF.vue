@@ -1,6 +1,6 @@
 <template>
   <div class="container my-10 mx-auto">
-    <p class="text-2xl font-bold text-center no-print">export pdf pc</p>
+    <p class="text-2xl font-bold text-center no-print">นำออกเอกสาร</p>
     <div class="flex flex-col">
       <div class="flex flex-col justify-center items-center">
         <p class="text-[15px] font-bold pt-7">
@@ -569,7 +569,7 @@
     </div>
     <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
       <div class="flex no-print">
-        <router-link :to="`/myhistory`">
+        <router-link :to="`/myHistory`">
           <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
             ไปยังหน้าประวัติทั้งหมด
           </button>
@@ -710,22 +710,17 @@ const fetchProfessorData = async () => {
 
 const loopdata = async () => {
   for (let i = 0; i < formData.check.length; i++) {
-    // console.log("checking journal", formData.check[i]);
     if (formData.check[i] == "nature") {
       formData.nature = "nature";
-      // console.log("Journal have 'nature'");
     }
     if (formData.check[i] == "ISI") {
       formData.checkISI = "ISI";
-      // console.log("Journal have 'ISI'");
     }
     if (formData.check[i] == "SJR") {
       formData.checkSJR = "SJR";
-      // console.log("Journal have 'SJR'");
     }
     if (formData.check[i] == "Scopus") {
       formData.checkScopus = "Scopus";
-      // console.log("Journal have 'Scopus'");
     }
   }
 };

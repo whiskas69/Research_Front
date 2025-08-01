@@ -54,14 +54,14 @@ import Profile from "@/views/Profile.vue";
 import summary from "@/views/Summary.vue";
 
 import ChangePage from '@/views/ChangePage.vue';
-import testlogin from '@/views/testlogin.vue';
 import Notification from "@/views/Notification.vue";
+import testlogin from "@/views/testlogin.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/eoffice",
+      path: "/eOffice",
       name: "eOffice",
       component: eOffice,
       meta: { requiresAuth: true, role: ["hr", "research"] },
@@ -73,7 +73,7 @@ const router = createRouter({
       meta: { requiresAuth: false },
     },
     {
-      path: "/homepage",
+      path: "/homePage",
       name: "HomePageProfes",
       component: HomePage_Profes,
       meta: { requiresAuth: true },
@@ -97,7 +97,7 @@ const router = createRouter({
       meta: { requiresAuth: false },
     },
     {
-      path: "/mystatus",
+      path: "/myStatus",
       name: "Status",
       component: StatusView,
       meta: { requiresAuth: true },
@@ -109,7 +109,7 @@ const router = createRouter({
       meta: { requiresAuth: true, role: ["hr", "research"] },
     },
     {
-      path: "/myhistory",
+      path: "/myHistory",
       name: "History",
       component: HistoryView,
       meta: { requiresAuth: true },
@@ -121,19 +121,19 @@ const router = createRouter({
       meta: { requiresAuth: true, role: ["hr", "research"] },
     },
     {
-      path: "/allhistory",
-      name: "allhistory",
+      path: "/allHistory",
+      name: "allHistory",
       component: AllHistory,
       meta: { requiresAuth: true, role: ["hr", "research", "finance", "associate", "dean"] },
     },
     {
-      path: "/formConfer",
+      path: "/formConference",
       name: "Form_Confer",
       component: Pro_Confer,
       meta: { requiresAuth: true },
     },
     {
-      path: "/formPC",
+      path: "/formPageCharge",
       name: "FormPC",
       component: Pro_Page,
       meta: { requiresAuth: true },
@@ -145,73 +145,73 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: "/modifiedConfer/:id",
+      path: "/modifiedConference/:id",
       name: "ModifiedConfer",
       component: Modi_Confer,
       meta: { requiresAuth: true },
     },
     {
-      path: "/modifiedPage/:id",
+      path: "/modifiedPageCharge/:id",
       name: "ModifiedPage",
       component: Modi_Page,
       meta: { requiresAuth: true },
     },
     {
-      path: "/officFormConfer/hr/:id",
-      name: "officFormConferHr",
+      path: "/officeFormConference/hr/:id",
+      name: "officeFormConferenceHr",
       component: offic_hrConfer,
       meta: { requiresAuth: true, role: ["hr"] },
     },
     {
-      path: "/officFormConfer/research/:id",
-      name: "officFormConferRes",
+      path: "/officeFormConference/research/:id",
+      name: "officeFormConferenceRes",
       component: offic_resConfer,
       meta: { requiresAuth: true, role: ["research"] },
     },
     {
-      path: "/officFormConfer/finance/:id",
-      name: "officFormConferFinc",
+      path: "/officeFormConference/finance/:id",
+      name: "officeFormConferenceFinc",
       component: offic_fincConfer,
       meta: { requiresAuth: true, role: ["finance"] },
     },
     {
-      path: "/officFormConfer/associate/:id",
-      name: "officFormConferAssoc",
+      path: "/officeFormConference/associate/:id",
+      name: "officeFormConferenceAssoc",
       component: offic_associateConfer,
       meta: { requiresAuth: true, role: ["associate"] },
     },
     {
-      path: "/officFormConfer/dean/:id",
-      name: "officFormConferDean",
+      path: "/officeFormConference/dean/:id",
+      name: "officeFormConferenceDean",
       component: offic_deanConfer,
       meta: { requiresAuth: true, role: ["dean"] },
     },
     {
-      path: "/officFormPC/research/:id",
+      path: "/officeFormPageCharge/research/:id",
       name: "OfficFormPCRes",
       component: offic_resPage,
       meta: { requiresAuth: true, role: ["research"] },
     },
     {
-      path: "/officFormPC/finance/:id",
+      path: "/officeFormPageCharge/finance/:id",
       name: "OfficFormPCFin",
       component: offic_financePage,
       meta: { requiresAuth: true, role: ["finance"] },
     },
     {
-      path: "/officFormPC/associate/:id",
+      path: "/officeFormPageCharge/associate/:id",
       name: "OfficFormPCAssoc",
       component: offic_associatePage,
       meta: { requiresAuth: true, role: ["associate"] },
     },
     {
-      path: "/officFormPC/dean/:id",
+      path: "/officeFormPageCharge/dean/:id",
       name: "OfficFormPCDean",
       component: offic_deanPage,
       meta: { requiresAuth: true, role: ["dean"] },
     },
     {
-      path: "/officFormKris/research/:id",
+      path: "/officeFormKris/research/:id",
       name: "OfficFormKris",
       component: offic_Kris,
       meta: { requiresAuth: true, role: ["research"] },
@@ -259,7 +259,7 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: "/history/confer/:id",
+      path: "/history/conference/:id",
       name: "HistoryConfer",
       component: his_confer,
       meta: { requiresAuth: true },
@@ -277,7 +277,7 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: "/pdf/confer/:id",
+      path: "/pdf/conference/:id",
       name: "ConferPDF",
       component: ConferPDF,
       meta: { hideNavbar: true, requiresAuth: true },
@@ -301,17 +301,17 @@ const router = createRouter({
       meta: { requiresAuth: true, role: ["admin"] },
     },
     {
-      path: "/testlogin",
-      name: "testlogin",
-      component: testlogin,
-      meta: { requiresAuth: false },
-    },
-    {
       path: "/notification",
       name: "Notification",
       component: Notification,
       meta: { requiresAuth: true },
-    }
+    },
+    {
+      path: "/testlogin",
+      name: "testlogin",
+      component: testlogin,
+      meta: { requiresAuth: false},
+    },
   ],
 });
 

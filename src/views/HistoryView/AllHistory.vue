@@ -87,7 +87,7 @@
         class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
         v-if="form.form_type == 'Conference'"
       >
-        <router-link :to="`/history/confer/${form.conf_id}`">
+        <router-link :to="`/history/conference/${form.conf_id}`">
           <h2 class="text-lg font-bold">
             ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
           </h2>
