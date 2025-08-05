@@ -28,7 +28,7 @@
                 customLabel="w-3/12 mr-10"
                 customInput="max-w-max"
                 customDiv="max-w-[21%]"
-                v-model="data.withdraw.travelExpenses"
+                v-model="formattedBudget.travelExpenses"
                 :disabled="true"
               />
               <span class="flex items-center">บาท</span>
@@ -41,7 +41,7 @@
                 customLabel="w-3/12 mr-10"
                 customInput="max-w-max"
                 customDiv="max-w-[21%]"
-                v-model="data.withdraw.allowance"
+                v-model="formattedBudget.allowance"
                 :disabled="true"
               />
               <span class="flex items-center">บาท</span>
@@ -54,7 +54,7 @@
               customLabel="w-6/12 mr-6"
               customInput="max-w-max"
               customDiv="max-w-[29%]"
-              v-model="data.withdraw.withdraw"
+              v-model="formattedBudget.withdraw"
               :disabled="true"
             />
             <span class="flex items-center">บาท</span>
@@ -89,7 +89,7 @@
 
           <div class="flex flex-row">
             <p class="w-2/12">ค่าใช้จ่าย</p>
-            <p class="w-2/12">ค่าตีพิมพ์บทความในวารสารนานาชาติ (Page Charge)</p>
+            <p class="w-6/12">ค่าตีพิมพ์บทความในวารสารนานาชาติ (Page Charge)</p>
           </div>
 
           <div class="flex flex-row">
@@ -99,7 +99,7 @@
               customInput="max-w-max"
               customDiv="max-w-[30%]"
               :disabled="true"
-              v-model="data.withdraw.withdraw"
+              v-model="formattedBudget.withdraw"
             />
             <span class="flex items-center">บาท</span>
           </div>
@@ -115,7 +115,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import api from "@/setting/api";
 
 import Mainbox from "@/components/form/Mainbox.vue";
@@ -145,6 +145,23 @@ const fetchOfficerData = async () => {
     isLoading.value = false;
   }
 };
+
+const formatNumber = (value) => {
+  if (value === null || value === undefined || value === '') return '0.00';
+  const num = parseFloat(value);
+  if (isNaN(num)) return '0.00';
+  return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+const formattedBudget = computed(() => {
+  const b = data.withdraw;
+  return {
+    ...b,
+    travelExpenses: formatNumber(b.travelExpenses),
+    allowance: formatNumber(b.allowance),
+    withdraw: formatNumber(b.withdraw),
+  };
+});
 
 onMounted(() => {
   fetchOfficerData();

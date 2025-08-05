@@ -1,6 +1,6 @@
 <template>
   <div class="container my-10 mx-auto">
-    <h1 class="text-xl font-bold mb-5">แก้ไขเงือนไขในการพิจารณาการสนับสนุน</h1>
+    <h1 class="text-xl font-bold mb-5">แก้ไขเงื่อนไขในการพิจารณาการสนับสนุน</h1>
     <Mainbox class="collapse collapse-arrow">
       <input type="checkbox" />
       <p class="collapse-title text-lg font-bold">Page Change</p>

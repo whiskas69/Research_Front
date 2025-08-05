@@ -81,11 +81,36 @@
           v-model="data.conference.conf_research"
         />
         <TextInputLabelLeft
-          label="ชื่อการประชุมทางวิชาการ"
-          customLabel="w-1/6"
-          :disabled="true"
-          v-model="data.conference.conf_name"
-        />
+            label="จำนวนนักวิจัยร่วม"
+            customLabel="w-[10%]"
+            v-model="data.conference.num_co_researchers"
+            :disabled="true"
+          />
+          <div v-for="(index) in parseInt(data.conference.num_co_researchers)  || 0" :key="index" >
+            <div class="flex flex-row gap-4">
+              <p class="pt-2">{{ index }}.</p>
+              <TextInputLabelLeft
+                label="ชื่อ-นามสกุลของนักวิจัยร่วม"
+                customLabel="w-[100%]"
+                customDiv="max-w-[30%]"
+                v-model="data.conference.name_co_researchers[index]"
+                :disabled="true"
+              />
+              <TextInputLabelLeft
+                label="หลักสูตรของนักวิจัยร่วม"
+                customLabel="w-[100%]"
+                customDiv="max-w-[25%]"
+                v-model="data.conference.course_co_researchers[index]"
+                :disabled="true"
+              />
+            </div>
+          </div>
+          <TextInputLabelLeft
+            label="ชื่อการประชุมทางวิชาการ"
+            customLabel="w-1/6"
+            :disabled="true"
+            v-model="data.conference.conf_name"
+          />
         <div class="flex flex-row w-full">
           <p class="w-1/4">การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
           <RadioInput

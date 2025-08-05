@@ -11,7 +11,7 @@
           'opacity-50 pointer-events-none': data.formConfer >= 2,
         }"
       >
-        <router-link v-if="data.formConfer < 2" to="/formConfer">
+        <router-link v-if="data.formConfer < 2" to="/formConference">
           <p class="text-base px-5 py-1">
             ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
           </p>

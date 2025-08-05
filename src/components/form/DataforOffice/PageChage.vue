@@ -200,6 +200,31 @@
           :disabled="true"
           v-model="formData.pageChange.article_title"
         />
+        <TextInputLabelLeft
+            label="จำนวนนักวิจัยร่วม"
+            customLabel="w-[10%]"
+            v-model="formData.pageChange.num_co_researchers"
+            :disabled="true"
+          />
+          <div v-for="(index) in parseInt(formData.pageChange.num_co_researchers)  || 0" :key="index" >
+            <div class="flex flex-row gap-4">
+              <p class="pt-2">{{ index }}.</p>
+              <TextInputLabelLeft
+                label="ชื่อ-นามสกุลของนักวิจัยร่วม"
+                customLabel="w-[100%]"
+                customDiv="max-w-[30%]"
+                v-model="formData.pageChange.name_co_researchers[index]"
+                :disabled="true"
+              />
+              <TextInputLabelLeft
+                label="หลักสูตรของนักวิจัยร่วม"
+                customLabel="w-[100%]"
+                customDiv="max-w-[25%]"
+                v-model="formData.pageChange.course_co_researchers[index]"
+                :disabled="true"
+              />
+            </div>
+          </div>
         <p>กำหนดการที่คาดว่าจะได้รับการลงตีพิมพ์ในวารสาร</p>
         <div class="flex flex-row mt-2 justify-between">
           <TextInputLabelLeft

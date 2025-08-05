@@ -179,7 +179,7 @@
           <div class="py-5 px-5">
             <p class="font-bold">4. ข้อมูลนักวิจัย</p>
             <SectionWrapper>
-              <p>4.1 ข้อมูลผู้ขอทุน (หัวหน้าโครงการ)</p>
+              <p>ข้อมูลผู้ขอทุน (หัวหน้าโครงการ)</p>
               <div class="grid px-5 gap-3">
                 <TextInputLabelLeft
                   label="ชื่อ - สกุล (ภาษาไทย)"
@@ -222,6 +222,16 @@
                   />
                   <span class="text-sm text-red-500 w-1/6 flex items-center">(สัดส่วนการวิจัย)</span>
                 </div>
+                <div class="flex flex-row">
+              <TextInputLabelLeft
+                label="งบประมาณที่เสนอขอ"
+                customLabel="w-[530px]"
+                customDiv="max-w-[600px]"
+                customInput="w-32"
+                v-model="formattedKris.proposed_budget"
+                :disabled="true"
+              />
+            </div>
               </div>
             </SectionWrapper>
           </div>
@@ -271,7 +281,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import api from "@/setting/api";
 
@@ -314,6 +324,11 @@ const fetchOfficerData = async () => {
     isLoading.value = false;
   }
 };
+const formattedKris = computed(() => ({
+  ...formData.kris,
+  proposed_budget: parseFloat(formData.kris.proposed_budget).toLocaleString(
+    "en-US",{minimumFractionDigits: 2,})
+}));
 
 const loopCluster = async () => {
   // await fetchOfficerData();

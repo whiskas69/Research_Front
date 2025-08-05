@@ -86,13 +86,6 @@
           :class="isFieldEdited('conf_research') ? 'text-red-500' : ''"
         />
         <TextInputLabelLeft
-          label="ชื่อการประชุมทางวิชาการ"
-          customLabel="w-1/6"
-          name="conf_name"
-          v-model="formData.conference.conf_name"
-          :class="isFieldEdited('conf_name') ? 'text-red-500' : ''"
-        />
-        <TextInputLabelLeft
             label="จำนวนนักวิจัยร่วม"
             customLabel="w-[10%]"
             name="num_co_researchers"
@@ -120,6 +113,13 @@
               />
             </div>
           </div>
+          <TextInputLabelLeft
+            label="ชื่อการประชุมทางวิชาการ"
+            customLabel="w-1/6"
+            name="conf_name"
+            v-model="formData.conference.conf_name"
+            :class="isFieldEdited('conf_name') ? 'text-red-500' : ''"
+          />
         <div class="flex flex-row w-full">
           <p class="w-1/4">การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
           <RadioInput

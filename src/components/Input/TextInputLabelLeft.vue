@@ -1,7 +1,7 @@
 <template>
   <div :class="`form-control w-full ${customDiv}`">
     <label class="w-full flex items-center">
-      <span :class="`${customLabel}`"> {{ label }}</span>
+      <span :class="`${customLabel}`"> {{ label }} <span v-if="required" class="text-red-500">*</span></span>
       <input
         :type="type"
         :class="`input input-bordered mx-1 w-full ${customInput}`"
@@ -48,6 +48,10 @@ const props = defineProps({
   customInput: {
     type: String,
     default: "",
+  },
+  required: { 
+    type: Boolean, 
+    default: false 
   }
 });
 

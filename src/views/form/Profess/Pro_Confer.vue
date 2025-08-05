@@ -26,6 +26,7 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.textOther1"
+              :required="true"
             />
             <TextInputLabelLeft
               label="วันที่"
@@ -33,6 +34,7 @@
               customInput="max-w-max"
               type="date"
               v-model="formData.textOther2"
+              :required="true"
             />
           </div>
           <span
@@ -72,6 +74,7 @@
               customInput="max-w-max"
               type="date"
               v-model="formData.travelStart"
+              :required="true"
             />
             <TextInputLabelLeft
               label="ถึงวันที่"
@@ -80,6 +83,7 @@
               customInput="max-w-max"
               type="date"
               v-model="formData.travelEnd"
+              :required="true"
             />
           </div>
           <span
@@ -99,6 +103,7 @@
             label="ชื่อผลงานวิจัยที่นำเสนอ"
             customLabel="w-1/6"
             v-model="formData.research"
+            :required="true"
           />
           <span
             v-if="v$.research.$error"
@@ -135,6 +140,7 @@
             label="ชื่อการประชุมทางวิชาการ"
             customLabel="w-1/6"
             v-model="formData.conferenceName"
+            :required="true"
           />
 
           <span
@@ -145,7 +151,7 @@
           </span>
 
           <div class="flex flex-row w-full">
-            <p class="w-1/4">การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
+            <p class="w-1/4">การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ <span class="text-red-500">*</span></p>
             <RadioInput
               label="ภายในประเทศ"
               name="Venue"
@@ -176,12 +182,14 @@
               customInput="max-w-max"
               type="date"
               v-model="formData.meetingDate"
+              :required="true"
             />
             <TextInputLabelLeft
               label="สถานที่จัด"
               customLabel="w-24"
               customInput="w-full"
               v-model="formData.meetingVenue"
+              :required="true"
             />
 
             <div
@@ -189,7 +197,7 @@
               v-if="formData.venue == 'abroad'"
             >
               <div class="flex flex-row w-full">
-                <span class="flex mr-2 items-center"> ประเทศ </span>
+                <span class="flex mr-2 items-center"> ประเทศ <span class="text-red-500">*</span></span>
                 <v-select
                   class="w-full"
                   :options="countries"
@@ -202,7 +210,7 @@
               v-if="formData.venue == 'domestic'"
             >
               <div class="flex flex-row w-full">
-                <span class="flex mr-2 items-center"> จังหวัด </span>
+                <span class="flex mr-2 items-center"> จังหวัด <span class="text-red-500">*</span></span>
                 <v-select
                   class="w-full"
                   :options="provinces"
@@ -238,6 +246,7 @@
               customDiv="max-w-max"
               customInput="max-w-max"
               v-model="formData.dateSubmitToOrganizer"
+              :required="true"
             />
             <TextInputLabelLeft
               label="วันประกาศผลการพิจารณาบทความ"
@@ -245,6 +254,7 @@
               customDiv="max-w-max"
               customInput="max-w-max"
               v-model="formData.argumentDateReview"
+              :required="true"
             />
             <TextInputLabelLeft
               label="วันสุดท้ายของการลงทะเบียน"
@@ -252,6 +262,7 @@
               customDiv="max-w-max"
               customInput="max-w-max"
               v-model="formData.lastDayRegister"
+              :required="true"
             />
           </div>
           <span
@@ -279,6 +290,7 @@
         <input type="checkbox" />
         <p class="collapse-title leading-9 text-lg font-bold">
           2.  รายละเอียดการขออนุมัติเดินทาง
+          <span class="text-red-500">*</span>
         </p>
         <SectionWrapper class="collapse-content">
           <RadioInput
@@ -515,7 +527,7 @@
 
       <Mainbox class="collapse collapse-arrow">
         <input type="checkbox" />
-        <p class="collapse-title text-lg font-bold">3. ผู้ขอรับการสนับสนุน</p>
+        <p class="collapse-title text-lg font-bold">3. ผู้ขอรับการสนับสนุน <span class="text-red-500">*</span></p>
         <SectionWrapper class="collapse-content">
           <RadioInput
             label="ผู้ประพันธ์อันดับแรก First Author"
@@ -541,7 +553,8 @@
       <Mainbox class="collapse collapse-arrow">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">
-          4.  การลาและการขอเบิกค่าลงทะเบียนและค่าใช้จ่ายother
+          4.  การลาและการขอเบิกค่าลงทะเบียนและค่าใช้จ่ายอื่น ๆ
+          <span class="text-red-500">*</span>
         </p>
         <SectionWrapper class="collapse-content">
           <p class="font-bold text-base pt-3">4.1 ครั้งที่ในการลา</p>
@@ -719,8 +732,9 @@
           <SectionWrapper>
             <div class="flex flex-row mb-2 justify-between">
               <div class="flex flex-row">
+                <p class="pt-2 pr-2">1. ค่าลงทะเบียน (ตามที่จ่ายจริง) <span class="text-red-500">*</span></p>
                 <TextInputLabelLeft
-                  label="1. ค่าลงทะเบียน (ตามที่จ่ายจริง) จำนวน"
+                  label="จำนวน"
                   customLabel="w-auto pr-2"
                   customDiv="max-w-max"
                   customInput="max-w-max"
@@ -750,7 +764,7 @@
               {{ v$.amount1article.$errors[0].$message }}
             </span>
 
-            <p>2. ค่าพาหนะเดินทาง</p>
+            <p>2. ค่าพาหนะเดินทาง <span class="text-red-500">*</span></p>
             <div class="flex flex-col px-5">
               <div class="flex flex-row mb-2">
                 <TextInputLabelLeft
@@ -833,9 +847,10 @@
                 <TextInputLabelLeft
                   label="4. ค่าเช่าที่พัก"
                   customLabel="w-auto pr-2"
-                  customDiv="max-w-[26rem]"
+                  customDiv="max-w-[27rem]"
                   customInput="max-w-[19rem]"
                   v-model="formData.numberDaysRoom"
+                  :required="true"
                 />
                 <TextInputLabelLeft
                   label="คืน ๆ ละ"
@@ -866,9 +881,10 @@
                 <TextInputLabelLeft
                   label="5. ค่าเบี้ยเลี้ยงเดินทาง"
                   customLabel="w-auto pr-2"
-                  customDiv="max-w-[26rem]"
+                  customDiv="max-w-[27rem]"
                   customInput="max-w-[16rem]"
                   v-model="formData.numTravelDays"
+                  :required="true"
                 />
                 <TextInputLabelLeft
                   label="วัน ๆ ละ"
@@ -904,10 +920,12 @@
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
         <SectionWrapper class="collapse-content">
+          <span class="text-gray-500">ขนาดไฟล์สูงสุด 10 MB </span>
           <FileInput
             label="สำเนาบทความ (Full Paper)"
             name="First"
             type="file"
+            :required="true"
             @change="handleFile($event, 'file1')"
           />
           <span
@@ -961,6 +979,7 @@
             label="เอกสารประชาสัมพันธ์การจัดการประชุมทางวิชาการ (Call for paper)"
             name="Fourth"
             type="file"
+            :required="true"
             @change="handleFile($event, 'file4')"
           />
           <span
@@ -974,6 +993,7 @@
             label="จดหมายการตอบรับเข้าร่วมประชุม (Accepted)"
             name="Fifth"
             type="file"
+            :required="true"
             @change="handleFile($event, 'file5')"
           />
           <span
@@ -987,6 +1007,7 @@
             label="เอกสารแสดงค่าลงทะเบียน"
             name="Sixth"
             type="file"
+            :required="true"
             @change="handleFile($event, 'file6')"
           />
           <span
@@ -1000,6 +1021,7 @@
             label="เอกสารแสดงอัตราแลกเปลี่ยน (ณ วันที่ยื่น)"
             name="Seventh"
             type="file"
+            :required="true"
             @change="handleFile($event, 'file7')"
           />
           <span
@@ -1013,6 +1035,7 @@
             label="หลักฐานการประชุมวิชาการอยู่ในฐาน Scopus"
             name="Eighth"
             type="file"
+            :required="true"
             @change="handleFile($event, 'file8')"
           />
           <span
@@ -1083,7 +1106,7 @@ const formData = reactive({
   user_id: null,
   name: "",
   position: "",
-  textOther1: 0,
+  textOther1: "",
   textOther2: "",
   travelStart: "",
   travelEnd: "",
@@ -1234,15 +1257,6 @@ const computedPlaceholder = computed(() => {
 const rules = computed(() => ({
   textOther1: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลครั้งที่ *", required),
-    numeric: helpers.withMessage(
-      "* กรุณากรอกข้อมูลครั้งที่เป็นตัวเลข *",
-      numeric
-    ),
-    integer: helpers.withMessage("* กรุณากรอกเป็นจำนวนเต็ม *", integer),
-    minValue: helpers.withMessage(
-      "* ครั้งที่ไม่สามารถต่ำกว่า 1 ได้ *",
-      minValue(1)
-    ),
   },
   textOther2: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลวันที่ *", required),
@@ -1749,36 +1763,51 @@ watch(() => formData.numcoResearchers, (newVal) => {
   formData.coursecoResearchers.length = num;
 });
 
-const handleInput = (key, value) => {
-  formData[key] = value;
-};
-
-const handleInputArray = (key, value) => {
-  console.log("value", value);
-  formData[key].push(value);
-  console.log("value1", formData[key]);
-};
-
 const handleFile = (event, fieldName) => {
   const file = event.target.files[0];
-  if (file) {
-    formData[fieldName] = file;
-  } else {
+
+  if (!file) {
     console.log(`No file selected for ${fieldName}.`);
+    return;
   }
+
+  // ตรวจสอบประเภทไฟล์ (PDF เท่านั้น)
+  if (file.type !== "application/pdf") {
+    alert("กรุณาอัพโหลดไฟล์ PDF เท่านั้น");
+    event.target.value = ""; // ล้างค่า input
+    return;
+  }
+
+  // ตรวจสอบขนาดไฟล์ (ไม่เกิน 100MB)
+  const maxSize = 10 * 1024 * 1024; // 100 MB
+  if (file.size > maxSize) {
+    alert("ไฟล์มีขนาดเกิน 20 MB กรุณาเลือกไฟล์ที่เล็กกว่า");
+    event.target.value = ""; // ล้างค่า input
+    return;
+  }
+
+  // ถ้าผ่านเงื่อนไขทั้งหมด เก็บไฟล์ลง formData
+  formData[fieldName] = file;
 };
+
+const formatNumber = (value) => {
+  if (value === null || value === undefined || value === '') return '0.00';
+  const num = parseFloat(value);
+  if (isNaN(num)) return '0.00';
+  return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
 
 const totalAmount = computed(() => {
   formData.totalAmount = formData.numberArticles * formData.amount1article;
-  return formData.totalAmount;
+  return formatNumber(formData.totalAmount);
 });
 const totalRoom = computed(() => {
   formData.totalRoom = formData.numberDaysRoom * formData.roomCostPerNight;
-  return formData.totalRoom;
+  return formatNumber(formData.totalRoom);
 });
 const totalAllowance = computed(() => {
   formData.totalAllowance = formData.numTravelDays * formData.dailyAllowance;
-  return formData.totalAllowance;
+  return formatNumber(formData.totalAllowance);
 });
 
 const allTotal = computed(() => {
@@ -1791,7 +1820,7 @@ const allTotal = computed(() => {
     (parseFloat(formData.totalRoom) || 0) +
     (parseFloat(formData.totalAllowance) || 0);
 
-  return formData.all_money;
+  return formatNumber(formData.all_money);
 });
 
 const newConfer = async () => {

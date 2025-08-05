@@ -21,12 +21,6 @@
                 >
                   ดูเอกสาร
                 </button>
-                <button
-                  @click="downloadFile(formData.f_full_page, 'สำเนาบทความ')"
-                  class="btn bg-[#4285F4] text-white"
-                >
-                  โหลดเอกสาร
-                </button>
               </div>
             </div>
           </div>
@@ -52,18 +46,6 @@
                 >
                   ดูเอกสาร
                 </button>
-                <button
-                  @click="
-                    downloadFile(
-                      formData.f_published_journals,
-                      'Full Paper ประกอบการเบิก'
-                    )
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                  disabled="!isValidFile(formData.f_published_journals)"
-                >
-                  โหลดเอกสาร
-                </button>
               </div>
             </div>
           </div>
@@ -84,18 +66,6 @@
                 >
                   ดูเอกสาร
                 </button>
-                <button
-                  @click="
-                    downloadFile(
-                      formData.f_q_proof,
-                      'หลักฐานเอกสาร Quartile ของ Paper'
-                    )
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                  disabled="!isValidFile(formData.f_q_proof)"
-                >
-                  โหลดเอกสาร
-                </button>
               </div>
             </div>
           </div>
@@ -114,17 +84,6 @@
                 >
                   ดูเอกสาร
                 </button>
-                <button
-                  @click="
-                    downloadFile(
-                      formData.f_call_for_paper,
-                      'เอกสารประชาสัมพันธ์การจัดการประชุม'
-                    )
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                >
-                  โหลดเอกสาร
-                </button>
               </div>
             </div>
           </div>
@@ -140,12 +99,6 @@
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
-                </button>
-                <button
-                  @click="downloadFile(formData.f_accepted, 'จดหมายการตอบรับ')"
-                  class="btn bg-[#4285F4] text-white"
-                >
-                  โหลดเอกสาร
                 </button>
               </div>
             </div>
@@ -163,17 +116,6 @@
                 >
                   ดูเอกสาร
                 </button>
-                <button
-                  @click="
-                    downloadFile(
-                      formData.f_fee_receipt,
-                      'เอกสารแสดงค่าลงทะเบียน'
-                    )
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                >
-                  โหลดเอกสาร
-                </button>
               </div>
             </div>
           </div>
@@ -190,17 +132,6 @@
                 >
                   ดูเอกสาร
                 </button>
-                <button
-                  @click="
-                    downloadFile(
-                      formData.f_fx_rate_document,
-                      'เอกสารแสดงอัตราแลกเปลี่ยน'
-                    )
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                >
-                  โหลดเอกสาร
-                </button>
               </div>
             </div>
           </div>
@@ -216,17 +147,6 @@
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
-                </button>
-                <button
-                  @click="
-                    downloadFile(
-                      formData.f_conf_proof,
-                      'หลักฐานการประชุมวิชาการอยู่ในฐาน Scopus'
-                    )
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                >
-                  โหลดเอกสาร
                 </button>
               </div>
             </div>

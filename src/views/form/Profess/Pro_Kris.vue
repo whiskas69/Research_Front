@@ -13,6 +13,7 @@
             label="(ภาษาไทย)"
             customLabel="w-64"
             v-model="formData.projectTH"
+            :required="true"
           />
 
           <span v-if="v$.projectTH.$error" class="text-base ml-56 text-red-500">
@@ -23,6 +24,7 @@
             label="(ภาษาอังกฤษ)"
             customLabel="w-64"
             v-model="formData.projectENG"
+            :required="true"
           />
 
           <span
@@ -37,6 +39,7 @@
       <div class="py-2 px-5">
         <p class="font-bold">
           2. สอดคล้องกับกลุ่มวิจัย (Research Cluster) ของ สจล.
+          <span class="text-red-500">*</span>
         </p>
 
         <SectionWrapper>
@@ -141,7 +144,7 @@
       </div>
 
       <div class="py-2 px-5">
-        <p class="font-bold">3. มาตรฐานการวิจัย</p>
+        <p class="font-bold">3. มาตรฐานการวิจัย <span class="text-red-500">*</span></p>
         <SectionWrapper>
           <div class="flex flex-col w-full">
             <CheckInput
@@ -211,25 +214,28 @@
       <div class="py-5 px-5">
         <p class="font-bold">4. ข้อมูลนักวิจัย</p>
         <SectionWrapper>
-          <p>4.1 ข้อมูลผู้ขอทุน (หัวหน้าโครงการ)</p>
+          <p>ข้อมูลผู้ขอทุน (หัวหน้าโครงการ)</p>
           <div class="grid px-5 gap-3">
             <TextInputLabelLeft
               label="ชื่อ - สกุล (ภาษาไทย)"
               customLabel="w-64"
               :placeholder="formData.positionTH + ' ' + formData.nameTH"
               :disabled="true"
+              :required="true"
             />
             <TextInputLabelLeft
               label="ชื่อ - สกุล (ภาษาอังกฤษ)"
               customLabel="w-64"
               :placeholder="formData.positionENG + ' ' + formData.nameENG"
               :disabled="true"
+              :required="true"
             />
             <div class="flex flex-col">
               <TextInputLabelLeft
                 label="ดัชนี H-Index"
                 customLabel="w-64"
                 v-model="formData.Hindex"
+                :required="true"
               />
               <p class="text-sm text-blue-500 py-2 ml-[14rem]">
                 (search ชื่อตนเองในฐาน https://www.scopus.com/)
@@ -246,6 +252,7 @@
               label="ประวัติด้านสิ่งประดิษฐ์ หรือ นวัตกรรม"
               customLabel="w-3/12"
               v-model="formData.invention"
+              :required="true"
             />
             <span
               v-if="v$.invention.$error"
@@ -261,6 +268,7 @@
                 customDiv="max-w-[600px]"
                 customInput="w-32"
                 v-model="formData.participation"
+                :required="true"
               />
               <span class="text-sm text-red-500 w-1/6 flex items-center"
                 >(สัดส่วนการวิจัย)</span
@@ -279,6 +287,7 @@
                 customDiv="max-w-[600px]"
                 customInput="w-32"
                 v-model="formData.proposedBudget"
+                :required="true"
               />
             </div>
           </div>
@@ -300,6 +309,7 @@
               customDiv="max-w-fit"
               customInput="max-w-24"
               v-model="formData.periodYear"
+              :required="true"
             />
             <TextInputLabelLeft
               label="เริ่ม"
@@ -308,6 +318,7 @@
               customDiv="max-w-fit"
               customInput="max-w-fit"
               v-model="formData.periodStart"
+              :required="true"
             />
             <TextInputLabelLeft
               label="สิ้นสุด"
@@ -316,6 +327,7 @@
               customDiv="max-w-fit"
               customInput="max-w-fit"
               v-model="formData.periodEnd"
+              :required="true"
             />
           </div>
           <span v-if="v$.periodYear.$error" class="text-base ml-2 text-red-500">
@@ -336,9 +348,11 @@
     <Mainbox>
       <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
       <SectionWrapper>
+        <span class="text-gray-500">ขนาดไฟล์สูงสุด 10 MB </span>
         <FileInput
           label="แบบเสนอโครงการวิจัย (Research Project)"
           type="file"
+          :required="true"
           @change="handleFile($event, 'file')"
         />
         <span v-if="v$.file.$error" class="text-base ml-2 text-red-500">
@@ -529,49 +543,31 @@ onMounted(() => {
   }
 });
 
-const handleInput = (key, value) => {
-  formData[key] = value;
-};
-
-const handleCheckbox = (key, value) => {
-  if (!Array.isArray(formData[key])) {
-    // Ensure formData[key] is an array
-    formData[key] = [];
-  }
-
-  if (formData[key].includes(value)) {
-    // Remove the value if it exists in the array
-    formData[key] = formData[key].filter((item) => item !== value);
-  } else {
-    // Add the value to the array
-    formData[key].push(value);
-  }
-
-  console.log("check box : ", formData.resCluster);
-};
-
-const handleCheckStandards = (key, value) => {
-  if (!Array.isArray(formData[key])) {
-    // Ensure formData[key] is an array
-    formData[key] = [];
-  }
-
-  if (formData[key].includes(value)) {
-    // Remove the value if it exists in the array
-    formData[key] = formData[key].filter((item) => item !== value);
-  } else {
-    // Add the value to the array
-    formData[key].push(value);
-  }
-};
-
 const handleFile = (event, fieldName) => {
   const file = event.target.files[0];
-  if (file) {
-    formData[fieldName] = file;
-  } else {
+
+  if (!file) {
     console.log(`No file selected for ${fieldName}.`);
+    return;
   }
+
+  // ตรวจสอบประเภทไฟล์ (PDF เท่านั้น)
+  if (file.type !== "application/pdf") {
+    alert("กรุณาอัพโหลดไฟล์ PDF เท่านั้น");
+    event.target.value = ""; // ล้างค่า input
+    return;
+  }
+
+  // ตรวจสอบขนาดไฟล์ (ไม่เกิน 100MB)
+  const maxSize = 10 * 1024 * 1024; // 100 MB
+  if (file.size > maxSize) {
+    alert("ไฟล์มีขนาดเกิน 20 MB กรุณาเลือกไฟล์ที่เล็กกว่า");
+    event.target.value = ""; // ล้างค่า input
+    return;
+  }
+
+  // ถ้าผ่านเงื่อนไขทั้งหมด เก็บไฟล์ลง formData
+  formData[fieldName] = file;
 };
 
 const NewKris = async () => {

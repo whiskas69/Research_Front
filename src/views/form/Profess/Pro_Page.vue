@@ -26,6 +26,7 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               v-model="formData.textOther1pc"
+              :required="true"
             />
             <TextInputLabelLeft
               label="วันที่"
@@ -34,6 +35,7 @@
               customDiv="max-w-max"
               type="date"
               v-model="formData.textOther2pc"
+              :required="true"
             />
           </div>
           <span
@@ -68,6 +70,7 @@
             label="ชื่อวารสาร"
             customLabel="w-24"
             v-model="formData.nameJournal"
+            :required="true"
           />
           <span
             v-if="v$.nameJournal.$error"
@@ -76,7 +79,7 @@
             {{ v$.nameJournal.$errors[0].$message }}
           </span>
 
-          <p>เป็นวารสารที่อยู่ในฐานข้อมูลสากล</p>
+          <p>เป็นวารสารที่อยู่ในฐานข้อมูลสากล <span class="text-red-500">*</span></p>
           <div class="flex flex-row">
             <CheckInput
               label="ISI ได้รับการจัดลำดับ Quartile "
@@ -240,6 +243,7 @@
             <div class="flex flex-row">
               <span class="flex mr-2 items-center">
                 วงเงินตามเกณฑ์การให้การสนับสนุนไม่เกิน
+                <span class="text-red-500">*</span>
               </span>
               <select
                 class="select select-bordered w-3/12"
@@ -273,6 +277,7 @@
             label="ชื่อบทความ"
             customLabel="w-24"
             v-model="formData.nameReach"
+            :required="true"
           />
           <span
             v-if="v$.nameReach.$error"
@@ -388,6 +393,7 @@
               customInput="w-[35%]"
               customDiv="max-w-[35%]"
               v-model="formData.submitReach"
+              :required="true"
             />
             <TextInputLabelLeft
               label="วันประกาศผลการพิจารณา"
@@ -395,6 +401,7 @@
               customLabel="w-[100%]"
               customDiv="max-w-[30%]"
               v-model="formData.announce"
+              :required="true"
             />
             <TextInputLabelLeft
               label="วันสุดท้ายของการจ่ายค่าตีพิมพ์"
@@ -402,6 +409,7 @@
               customInput="w-[35%]"
               customDiv="max-w-[30%]"
               v-model="formData.latePay"
+              :required="true"
             />
           </div>
           <span
@@ -530,7 +538,7 @@
 
       <Mainbox class="collapse collapse-arrow">
         <input type="checkbox" />
-        <p class="collapse-title text-lg font-bold">3. ผู้ขอรับการสนับสนุน</p>
+        <p class="collapse-title text-lg font-bold">3. ผู้ขอรับการสนับสนุน <span class="text-red-500">*</span></p>
         <SectionWrapper class="collapse-content">
           <RadioInput
             label="ผู้ประพันธ์อันดับแรก First Author"
@@ -557,6 +565,7 @@
         <input type="checkbox" />
         <p class="collapse-title leading-9 text-lg font-bold">
           4. ขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge)
+          <span class="text-red-500">*</span>
         </p>
         <SectionWrapper class="collapse-content">
           <TextInputLabelLeft
@@ -577,11 +586,14 @@
       <Mainbox class="collapse collapse-arrow">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
+        
         <SectionWrapper class="collapse-content">
+          <span class="text-gray-500">ขนาดไฟล์สูงสุด 10 MB </span>
           <FileInput
             label="หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature"
             name="First"
             type="file"
+            :required="true"
             @change="handleFile($event, 'file1')"
           />
           <span
@@ -595,6 +607,7 @@
             label="หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus"
             name="Second"
             type="file"
+            :required="true"
             @change="handleFile($event, 'file2')"
           />
           <span
@@ -608,6 +621,7 @@
             label="ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ / อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์"
             name="Third"
             type="file"
+            :required="true"
             @change="handleFile($event, 'file3')"
           />
           <span
@@ -621,6 +635,7 @@
             label="หลักฐานการส่งบทความ หนังสือตอบรับบทความ"
             name="Fourth"
             type="file"
+            :required="true"
             @change="handleFile($event, 'file4')"
           />
           <span
@@ -634,6 +649,7 @@
             label="สำเนาบทความ"
             name="Fifth"
             type="file"
+            :required="true"
             @change="handleFile($event, 'file5')"
           />
           <span
@@ -647,6 +663,7 @@
             label="หลักฐานการ Upload บทความเข้าระบบ IT Scholar"
             name="six"
             type="file"
+            :required="true"
             @change="handleFile($event, 'file6')"
           />
           <span
@@ -758,7 +775,7 @@ const inputTypes = {
   userID: "string",
   name: "string",
   position: "string",
-  textOther1pc: "number",
+  textOther1pc: "string",
   textOther2pc: "date",
   nameJournal: "string",
   check: "array",
@@ -822,15 +839,6 @@ const afterDate = (value, date) => {
 const rules = computed(() => ({
   textOther1pc: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลครั้งที่ *", required),
-    numeric: helpers.withMessage(
-      "* กรุณากรอกข้อมูลครั้งที่เป็นตัวเลข *",
-      numeric
-    ),
-    integer: helpers.withMessage("* กรุณากรอกเป็นจำนวนเต็ม *", integer),
-    minValue: helpers.withMessage(
-      "* ครั้งที่ไม่สามารถต่ำกว่า 1 ได้ *",
-      minValue(1)
-    ),
   },
   textOther2pc: {
     required: helpers.withMessage("* กรุณากรอกข้อมูลวันที่ *", required),
@@ -1177,47 +1185,31 @@ watch(() => formData.numcoResearchers, (newVal) => {
   }
 });
 
-const handleInput = (key, event) => {
-  const value = event.target.value.trim();
-  const type = inputTypes[key];
-  if (type === "number") {
-    formData[key] = value === "" ? null : parseInt(value, 10);
-  } else {
-    formData[key] = value;
-  }
-};
-
-const handleInputArray = (key, event) => {
-  const value = event.target.value.trim();
-  if (!Array.isArray(formData[key])) {
-    formData[key] = [];
-  }
-  console.log("key", formData[key]);
-  console.log("value", value);
-  formData[key].push(value);
-  console.log("value1", formData[key]);
-};
-
-// const handleCheckbox = (key, value) => {
-//   handleCheckbox;
-//   if (formData[key]) {
-//     // If the checkbox is checked, uncheck it and remove the value from the array
-//     formData[key] = "";
-//     formData.check = formData.check.filter((item) => item !== value);
-//   } else {
-//     // If the checkbox is unchecked, check it and add the value to the array
-//     formData[key] = value;
-//     formData.check.push(value);
-//   }
-// };
-
 const handleFile = (event, fieldName) => {
   const file = event.target.files[0];
-  if (file) {
-    formData[fieldName] = file;
-  } else {
+
+  if (!file) {
     console.log(`No file selected for ${fieldName}.`);
+    return;
   }
+
+  // ตรวจสอบประเภทไฟล์ (PDF เท่านั้น)
+  if (file.type !== "application/pdf") {
+    alert("กรุณาอัพโหลดไฟล์ PDF เท่านั้น");
+    event.target.value = ""; // ล้างค่า input
+    return;
+  }
+
+  // ตรวจสอบขนาดไฟล์ (ไม่เกิน 100MB)
+  const maxSize = 10 * 1024 * 1024; // 100 MB
+  if (file.size > maxSize) {
+    alert("ไฟล์มีขนาดเกิน 20 MB กรุณาเลือกไฟล์ที่เล็กกว่า");
+    event.target.value = ""; // ล้างค่า input
+    return;
+  }
+
+  // ถ้าผ่านเงื่อนไขทั้งหมด เก็บไฟล์ลง formData
+  formData[fieldName] = file;
 };
 
 const NewPC = async () => {

@@ -225,7 +225,7 @@
 
         <div class="flex flex-row">
           <p class="w-2/12">ค่าใช้จ่าย</p>
-          <p class="w-2/12">
+          <p class="w-6/12">
             ค่าตีพิมพ์บทความในวารสารนานาชาติ (Page Charge)
           </p>
         </div>

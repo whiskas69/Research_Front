@@ -3,7 +3,7 @@
     <label class="flex flex-col">
       <div class="flex flex-row items-center">
         <span :class="`${customSpan}`"> {{ span }}</span>
-        <span :class="`mb-1 ${customLabel}`"> {{ label }}</span>
+        <span :class="`mb-1 ${customLabel}`"> {{ label }} <span v-if="required" class="text-red-500">*</span></span>
       </div>
 
       <input type="file" :class="`file-input file-input-bordered w-full ${customInput}`"
@@ -46,5 +46,9 @@ defineProps({
     type: String,
     default: "",
   },
+  required: { 
+    type: Boolean, 
+    default: false 
+  }
 });
 </script>

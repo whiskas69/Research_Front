@@ -24,7 +24,7 @@
 
     <div class="flex justify-end mt-5" v-if="userStore.user && userStore.user.user_role != 'admin' && userStore.user.user_role != 'professor'">
       <router-link to="/summary">
-        <button class="btn btn-neutral">ไปหน้าสรุปผลเป็นตาราง</button>
+        <button class="btn btn-neutral">สรุปผลเป็นตาราง</button>
       </router-link>
     </div>
   </div>

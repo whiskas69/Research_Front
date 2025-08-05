@@ -10,9 +10,6 @@
             <button @click="getFile" class="btn bg-[#E85F19] text-white mr-5">
               ดูเอกสาร
             </button>
-            <button @click="downloadFile" class="btn bg-[#4285F4] text-white">
-              โหลดเอกสาร
-            </button>
           </div>
         </div>
       </Mainbox>

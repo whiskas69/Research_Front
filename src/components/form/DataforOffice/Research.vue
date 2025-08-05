@@ -79,17 +79,6 @@
                 >
                   ดูเอกสาร
                 </button>
-                <button
-                  @click="
-                    downloadFile(
-                      formData.f_q_pc_proof,
-                      'หลักฐานการจัดลำดับ Quartile'
-                    )
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                >
-                  โหลดเอกสาร
-                </button>
               </div>
             </div>
           </div>
@@ -108,17 +97,6 @@
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
-                </button>
-                <button
-                  @click="
-                    downloadFile(
-                      formData.f_q_pc_proof,
-                      'หลักฐานการจัดลำดับ Quartile'
-                    )
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                >
-                  โหลดเอกสาร
                 </button>
               </div>
             </div>
@@ -139,17 +117,6 @@
                 >
                   ดูเอกสาร
                 </button>
-                <button
-                  @click="
-                    downloadFile(
-                      formData.f_invoice_public,
-                      'ใบแจ้งหนี้ค่าใช้จ่าย'
-                    )
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                >
-                  โหลดเอกสาร
-                </button>
               </div>
             </div>
           </div>
@@ -165,14 +132,6 @@
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
-                </button>
-                <button
-                  @click="
-                    downloadFile(formData.f_accepted, 'หนังสือตอบรับบทความ')
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                >
-                  โหลดเอกสาร
                 </button>
               </div>
             </div>
@@ -190,17 +149,6 @@
                 >
                   ดูเอกสาร
                 </button>
-                <button
-                  @click="
-                    downloadFile(
-                      formData.f_copy_article,
-                      'สำเนาบทความ'
-                    )
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                >
-                  โหลดเอกสาร
-                </button>
               </div>
             </div>
           </div>
@@ -216,17 +164,6 @@
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
-                </button>
-                <button
-                  @click="
-                    downloadFile(
-                      formData.f_upload_article,
-                      'หลักฐานการ Upload บทความเข้าระบบ IT Scholar'
-                    )
-                  "
-                  class="btn bg-[#4285F4] text-white"
-                >
-                  โหลดเอกสาร
                 </button>
               </div>
             </div>
@@ -298,12 +235,6 @@
               class="btn bg-[#E85F19] text-white mr-5"
             >
               ดูเอกสาร
-            </button>
-            <button
-              @click="downloadFile(formData.f_kris, 'แบบเสนอโครงการวิจัย')"
-              class="btn bg-[#4285F4] text-white"
-            >
-              โหลดเอกสาร
             </button>
           </div>
         </div>

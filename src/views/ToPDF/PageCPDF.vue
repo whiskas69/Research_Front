@@ -636,7 +636,14 @@ const isLoading = ref(true);
 // Access route parameters
 const route = useRoute();
 const id = route.params.id;
-console.log("params.id", id);
+
+const formatNumber = (value) => {
+  if (value === null || value === undefined || value === '') return '0.00';
+  const num = parseFloat(value);
+  if (isNaN(num)) return '0.00';
+  return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
 const fetchProfessorData = async () => {
   try {
@@ -649,10 +656,8 @@ const fetchProfessorData = async () => {
     formData.check = formData.pageChange.quality_journal;
 
     formData.formattedNumbers = {
-      support_limit: Number(formData.pageChange.support_limit).toLocaleString(),
-      request_support: Number(
-        formData.pageChange.request_support
-      ).toLocaleString(),
+      support_limit: formatNumber(formData.pageChange.support_limit),
+      request_support: formatNumber(formData.pageChange.request_support),
     };
     const responseoffic = await api.get(`/opinionPC/${id}`);
     console.log("responseoffic", responseoffic.data);
@@ -662,29 +667,19 @@ const fetchProfessorData = async () => {
     console.log("responsebudget", responsebudget.data);
     formData.budget = responsebudget.data;
     formData.formattedBudget = {
-      Page_Charge_amount: Number(
-        formData.budget.Page_Charge_amount
-      ).toLocaleString(),
-      total_amount_approved: Number(
-        formData.budget.total_amount_approved
-      ).toLocaleString(),
-      remaining_credit_limit: Number(
-        formData.budget.remaining_credit_limit
-      ).toLocaleString(),
-      amount_approval: Number(formData.budget.amount_approval).toLocaleString(),
-      total_remaining_credit_limit: Number(
-        formData.budget.total_remaining_credit_limit
-      ).toLocaleString(),
+      Page_Charge_amount: formatNumber(formData.budget.Page_Charge_amount),
+      total_amount_approved: formatNumber(formData.budget.total_amount_approved),
+      remaining_credit_limit: formatNumber(formData.budget.remaining_credit_limit),
+      amount_approval: formatNumber(formData.budget.amount_approval),
+      total_remaining_credit_limit: formatNumber(formData.budget.total_remaining_credit_limit),
     };
 
     const responseFile = await api.get(`/pdfPC/${id}`);
     formData.file = responseFile.data;
 
     const responseSignature = await api.get("/users");
-    console.log("responseSignature 123", responseSignature.data);
 
     for (let i = 0; i < responseSignature.data.length; i++) {
-      console.log("i", i);
       if (
         ["research", "finance", "associate", "dean"].includes(
           responseSignature.data[i].user_role
@@ -695,17 +690,14 @@ const fetchProfessorData = async () => {
           user_role: responseSignature.data[i].user_role,
           user_signature: responseSignature.data[i].user_signature,
         };
-        console.log("er", signature);
         formData.signatureOffice.push(signature);
       }
     }
-    console.log("formData.signatureOffice", formData.signatureOffice);
   } catch (error) {
     console.log("Error fetching professor data:", error);
   } finally {
     isLoading.value = false;
   }
-  // console.log("Fetching professor data...");
 };
 
 const loopdata = async () => {
