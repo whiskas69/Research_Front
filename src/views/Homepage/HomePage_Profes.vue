@@ -210,11 +210,10 @@ const getData = async () => {
 
   const resEdit = await api.get(`/form/${user.value?.user_id}`);
   for (let i = 0; i < resEdit.data.length; i++) {
-    if (resEdit.data[i].edit_data != null) {
+    if (resEdit.data[i].edit_data != null && resEdit.data[i].professor_reedit != true) {
       data.editForm.push(resEdit.data[i]);
     }
   }
-  console.log("wow za", data.editForm);
 };
 
 onMounted(async () => {
