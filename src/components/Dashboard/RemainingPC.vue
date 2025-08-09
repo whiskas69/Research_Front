@@ -35,7 +35,7 @@ const getData = async () => {
     
     Budget.value = response.data[0]?.Page_Charge_amount || 0;
     remainingBudget.value = response.data[0]?.total_remaining_credit_limit || 0;
-    usedBudget.value = Budget.value - remainingBudget.value;
+    usedBudget.value = response.data[0]?.total_withdraw || 0;
 
     creatChart();
   } catch (error) {
@@ -61,8 +61,8 @@ const creatChart = () => {
     type: "doughnut",
     data: {
       labels: [
-        `จำนวนเงินที่ใช้ไปแล้ว ${usedBudget.value.toLocaleString("en-US")} บาท`,
-        `จำนวนเงินคงเหลือทั้งหมด ${Number(remainingBudget.value).toLocaleString("en-US")} บาท`,
+        `จำนวนเงินที่ใช้ไปแล้ว ${Number(usedBudget.value).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} บาท`,
+        `จำนวนเงินคงเหลือทั้งหมด ${Number(remainingBudget.value).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} บาท`,
       ],
       datasets: [
         {

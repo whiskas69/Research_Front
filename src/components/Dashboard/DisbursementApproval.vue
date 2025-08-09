@@ -55,8 +55,8 @@ const getData = async () => {
     year_now.value = response.data[0]
       ? {
           budget_year: fiscalYear,
-          total_pagecharge: Number(response.data[0].total_pagecharge_amount),
-          total_conference: Number(response.data[0].total_conference_amount),
+          total_pagecharge: Number(response.data[0].total_withdraw_pagecharge),
+          total_conference: Number(response.data[0].total_withdraw_conference),
         }
       : {
           budget_year: fiscalYear,
@@ -66,8 +66,8 @@ const getData = async () => {
     year_x.value = response.data[1]
       ? {
           budget_year: fiscalYear - 1,
-          total_pagecharge: Number(response.data[1].total_pagecharge_amount),
-          total_conference: Number(response.data[1].total_conference_amount),
+          total_pagecharge: Number(response.data[1].total_withdraw_pagecharge),
+          total_conference: Number(response.data[1].total_withdraw_conference),
         }
       : {
           budget_year: fiscalYear - 1,
@@ -77,8 +77,8 @@ const getData = async () => {
     year_y.value = response.data[2]
       ? {
           budget_year: fiscalYear - 2,
-          total_pagecharge: Number(response.data[2].total_pagecharge_amount),
-          total_conference: Number(response.data[2].total_conference_amount),
+          total_pagecharge: Number(response.data[2].total_withdraw_pagecharge),
+          total_conference: Number(response.data[2].total_withdraw_conference),
         }
       : {
           budget_year: fiscalYear - 2,
@@ -88,8 +88,8 @@ const getData = async () => {
     year_z.value = response.data[3]
       ? {
           budget_year: fiscalYear - 3,
-          total_pagecharge: Number(response.data[3].total_pagecharge_amount),
-          total_conference: Number(response.data[3].total_conference_amount),
+          total_pagecharge: Number(response.data[3].total_withdraw_pagecharge),
+          total_conference: Number(response.data[3].total_withdraw_conference),
         }
       : {
           budget_year: fiscalYear - 3,
