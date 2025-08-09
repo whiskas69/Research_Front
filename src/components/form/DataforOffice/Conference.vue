@@ -525,7 +525,7 @@
                 customDiv="max-w-max"
                 customInput="max-w-max"
                 :disabled="true"
-                v-model="data.conference.regist_amount_1_article"
+                v-model="formattedBudget.regist_amount_1_article"
               />
               <p class="flex items-center pl-2">บาท</p>
             </div>
@@ -552,7 +552,7 @@
                 customDiv="max-w-[50rem]"
                 customInput="max-w-[50rem]"
                 :disabled="true"
-                v-model="data.conference.domestic_expenses"
+                v-model="formattedBudget.domestic_expenses"
               />
               <p class="flex items-center pl-2">บาท</p>
             </div>
@@ -563,7 +563,7 @@
                 customDiv="max-w-[50rem]"
                 customInput="max-w-[50rem]"
                 :disabled="true"
-                v-model="data.conference.overseas_expenses"
+                v-model="formattedBudget.overseas_expenses"
               />
               <p class="flex items-center pl-2">บาท</p>
             </div>
@@ -582,7 +582,7 @@
                 customDiv="max-w-[20rem]"
                 customInput="max-w-[14rem]"
                 :disabled="true"
-                v-model="data.conference.inter_expenses"
+                v-model="formattedBudget.inter_expenses"
               />
               <p class="flex items-center pl-2">บาท</p>
             </div>
@@ -595,7 +595,7 @@
               customDiv="max-w-[52rem]"
               customInput="max-w-[40rem]"
               :disabled="true"
-              v-model="data.conference.airplane_tax"
+              v-model="formattedBudget.airplane_tax"
             />
             <p class="flex items-center pl-2">บาท</p>
           </div>
@@ -616,7 +616,7 @@
                 customDiv="max-w-[26rem]"
                 customInput="max-w-[20rem]"
                 :disabled="true"
-                v-model="data.conference.room_cost_per_night"
+                v-model="formattedBudget.room_cost_per_night"
               />
               <p class="flex items-center pl-2">บาท</p>
             </div>
@@ -652,7 +652,7 @@
                 customDiv="max-w-[26rem]"
                 customInput="max-w-[20rem]"
                 :disabled="true"
-                v-model="data.conference.daily_allowance"
+                v-model="formattedBudget.daily_allowance"
               />
               <p class="flex items-center pl-2">บาท</p>
             </div>
@@ -687,7 +687,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute } from "vue-router";
 import api from "@/setting/api";
 
@@ -724,6 +724,28 @@ const fetchOfficerData = async () => {
     isLoading.value = false;
   }
 };
+
+const formatNumber = (value) => {
+  if (value === null || value === undefined || value === '') return '0.00';
+  const num = parseFloat(value);
+  if (isNaN(num)) return '0.00';
+  return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+const formattedBudget = computed(() => {
+  const b = data.conference;
+  return {
+    ...b,
+    regist_amount_1_article: formatNumber(b.regist_amount_1_article),
+    domestic_expenses: formatNumber(b.domestic_expenses),
+    overseas_expenses: formatNumber(b.overseas_expenses),
+    inter_expenses: formatNumber(b.inter_expenses),
+    airplane_tax: formatNumber(b.airplane_tax),
+    room_cost_per_night: formatNumber(b.room_cost_per_night),
+    daily_allowance: formatNumber(b.daily_allowance),
+  };
+});
+
 onMounted(() => {
   fetchOfficerData();
 });

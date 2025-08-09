@@ -179,7 +179,7 @@
               customInput="max-w-max"
               customDiv="max-w-max"
               :disabled="true"
-              v-model="formData.pageChange.support_limit"
+              v-model="formattedBudget.support_limit"
             />
             <span class="flex items-center">บาท</span>
           </div>
@@ -362,7 +362,7 @@
               customLabel="w-auto min-w-fit"
               customDiv="max-w-max mr-10"
               :disabled="true"
-              v-model="formData.pageChange.budget_limit"
+              v-model="formattedBudget.budget_limit"
             />
             <TextInputLabelLeft
               label="ประจำปี"
@@ -408,7 +408,7 @@
           customLabel="w-auto min-w-fit"
           customInput="max-w-fit"
           :disabled="true"
-          v-model="formData.pageChange.request_support"
+          v-model="formattedBudget.request_support"
         />
       </SectionWrapper>
     </Mainbox>
@@ -416,7 +416,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute } from "vue-router";
 import api from "@/setting/api";
 
@@ -452,12 +452,7 @@ const fetchProfessorData = async () => {
     const responseUser = await api.get(`/user/${userID}`);
     formData.user = responseUser.data;
 
-    console.log("get user: ", formData.user);
-    console.log("get userid: ", responsePC.data.user_id);
-    console.log("get responsePC: ", responsePC.data);
-
     formData.pageChange = responsePC.data;
-    console.log("pageChange", formData.pageChange);
     formData.check = formData.pageChange.quality_journal;
   } catch (error) {
     console.log("Error fetching professor data:", error);
@@ -493,6 +488,23 @@ const loopdata = async () => {
     }
   }
 };
+
+const formatNumber = (value) => {
+  if (value === null || value === undefined || value === '') return '0.00';
+  const num = parseFloat(value);
+  if (isNaN(num)) return '0.00';
+  return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+const formattedBudget = computed(() => {
+  const b = formData.pageChange;
+  return {
+    ...b,
+    support_limit: formatNumber(b.support_limit),
+    budget_limit: formatNumber(b.budget_limit),
+    request_support: formatNumber(b.request_support),
+  };
+});
 
 // ดึงข้อมูลเมื่อ component ถูกโหลด
 onMounted(async () => {
