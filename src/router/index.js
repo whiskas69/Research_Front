@@ -54,7 +54,6 @@ import Profile from "@/views/Profile.vue";
 import summary from "@/views/Summary.vue";
 
 import ChangePage from '@/views/ChangePage.vue';
-import Notification from "@/views/Notification.vue";
 import testlogin from "@/views/testlogin.vue";
 
 const router = createRouter({
