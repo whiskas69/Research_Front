@@ -409,7 +409,6 @@ const rules = computed(() => ({
     ),
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
-    minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
   },
   positionth: {
     required: helpers.withMessage(

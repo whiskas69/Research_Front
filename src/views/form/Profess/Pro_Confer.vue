@@ -1535,7 +1535,7 @@ const rules = computed(() => ({
     required: helpers.withMessage("* กรุณากรอกจำนวนบทความ *", required),
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     integer: helpers.withMessage("* กรุณาระบุเป็นจำนวนจริง *", integer),
-    minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
+     
   },
   amount1article: {
     required: helpers.withMessage(
@@ -1544,12 +1544,12 @@ const rules = computed(() => ({
     ),
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
-    minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
+     
   },
   domesticExpenses: {
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
-    minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
+     
     required: helpers.withMessage(
       "* กรุณากรอกค่าพาหนะเดินทาง *",
       requiredIf(() => formData.venue == "domestic")
@@ -1558,7 +1558,7 @@ const rules = computed(() => ({
   overseasExpenses: {
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
-    minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
+     
     required: helpers.withMessage(
       "* กรุณากรอกค่าพาหนะเดินทาง *",
       requiredIf(() => formData.venue == "abroad")
@@ -1567,33 +1567,33 @@ const rules = computed(() => ({
   interExpenses: {
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
-    minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
+     
   },
   airplaneTax: {
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
-    minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
+     
   },
   numberDaysRoom: {
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     integer: helpers.withMessage("* กรุณาระบุเป็นจำนวนจริง *", integer),
-    minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
+     
   },
   roomCostPerNight: {
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
-    minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
+     
   },
 
   numTravelDays: {
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     integer: helpers.withMessage("* กรุณาระบุเป็นจำนวนจริง *", integer),
-    minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
+     
   },
   dailyAllowance: {
     numeric: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณาระบุเป็นตัวเลข *", decimal),
-    minValue: helpers.withMessage("* ไม่สามารถต่ำกว่า 1 *", minValue(1)),
+     
   },
   file1: {
     required: helpers.withMessage("* กรุณาอัปโหลดไฟล์ *", required),
