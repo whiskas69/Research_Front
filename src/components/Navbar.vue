@@ -16,6 +16,9 @@
       <div class="menu menu-horizontal px-5">
         <div v-if="user" class="flex flex-row">
           <div v-if="!isAdmin && !isProfessor" class="justify-center">
+            <div tabindex="0" role="button" class="btn btn-ghost">
+                <router-link to="/Officer" class="font-normal">ตรวจสอบเอกสาร</router-link>
+              </div>
             <div class="dropdown">
               <div tabindex="0" role="button" class="btn btn-ghost">
                 <p class="font-normal">ยื่นขอรับการสนับสนุน &nbsp; &#9660;</p>
@@ -29,6 +32,9 @@
           </div>
 
           <div v-if="isProfessor" class="justify-center">
+            <div tabindex="0" role="button" class="btn btn-ghost">
+                <router-link to="/homePage" class="font-normal">ยื่นเอกสาร</router-link>
+              </div>
             <div class="dropdown">
               <div tabindex="0" role="button" class="btn btn-ghost">
                 <p class="font-normal">สถานะเอกสาร &nbsp; &#9660;</p>
@@ -81,7 +87,7 @@
     </div>
 
     <div v-if="!userStore.user">
-      <router-link to="/login" class="btn w-full bg-[#4285F4] hover:bg-[#4285F4] text-white ml-10">
+      <router-link to="/testlogin" class="btn w-full bg-[#4285F4] hover:bg-[#4285F4] text-white ml-10">
         เข้าสู่ระบบ
       </router-link>
     </div>
@@ -143,6 +149,6 @@ const isApprover = computed(() => ["hr", "research", "finance", "associate", "de
 
 const logout = async () => {
   await userStore.logout();
-  router.push("/login");
+  router.push("/testlogin");
 };
 </script>

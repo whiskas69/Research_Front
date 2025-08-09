@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="container my-10 mx-auto">
-      <p class="text-xl font-bold pb-5">เอกสารที่ได้รับการแก้ไข</p>
+      <p class="text-xl font-bold pb-5">เอกสารที่มีการแก้ไข</p>
       <div v-for="editForm in data.editForm" :key="editForm.form_id">
         <div
           class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"

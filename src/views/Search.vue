@@ -1,6 +1,7 @@
 <template>
   <div class="container my-5 mx-auto">
 
+    <!-- <div class="flex flex-row w-full"> -->
     <div class="flex flex-row mb-4">
       <span class="flex mr-2 items-center">ปีงบประมาณ</span>
         <select class="select select-bordered w-1/6" v-model="data.findFiscalYear">
@@ -8,7 +9,14 @@
               {{ fiscalYear - (n - 1) }}
             </option>
         </select>
+
     </div>
+    <div class="flex justify-end" v-if="userStore.user && userStore.user.user_role != 'admin' && userStore.user.user_role != 'professor'">
+          <router-link to="/summary">
+            <button class="btn btn-neutral">สรุปผลเป็นตาราง</button>
+          </router-link>
+      </div>
+    <!-- </div> -->
 
     <div class="flex flex-row justify-center mx-2 max-h-fit w-full gap-5">
       <RemainingConfer :year="data.findFiscalYear"/>
@@ -18,14 +26,6 @@
     <div class="flex flex-row justify-center m-2 max-h-fit w-full gap-5">
       <DisbursementApproval />
       <DisbursementEachYear />
-    </div>
-
-
-
-    <div class="flex justify-end mt-5" v-if="userStore.user && userStore.user.user_role != 'admin' && userStore.user.user_role != 'professor'">
-      <router-link to="/summary">
-        <button class="btn btn-neutral">สรุปผลเป็นตาราง</button>
-      </router-link>
     </div>
   </div>
 </template>
