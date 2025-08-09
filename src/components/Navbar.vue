@@ -94,12 +94,6 @@
 
     <!-- user menu -->
     <div class="flex flex-auto justify-end w-full" v-if="userStore.user">
-      <div class="flex flex-auto justify-end" v-if="isProfessor || isHRorResearch || isApprover">
-      <div tabindex="0" role="button" class="btn mt-2">
-        <router-link to="/notification"><i class="color-black text-xl fa fa-bell"></i></router-link>
-      </div>
-    </div>
-
       <div class="menu menu-horizontal px-5">
         <div class="dropdown">
           <div tabindex="0" role="button" class="btn bg-[#4285F4] hover:bg-[#4285F4] py-[13px] text-white min-w-32">

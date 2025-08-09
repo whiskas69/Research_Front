@@ -2,21 +2,22 @@
   <div class="container my-5 mx-auto">
 
     <!-- <div class="flex flex-row w-full"> -->
-    <div class="flex flex-row mb-4">
-      <span class="flex mr-2 items-center">ปีงบประมาณ</span>
+    <div class="flex flex-row mb-4 w-full">
+      <div class="flex flex-row mb-4 w-full">
+        <span class="flex mr-2 items-center">ปีงบประมาณ</span>
         <select class="select select-bordered w-1/6" v-model="data.findFiscalYear">
             <option v-for="n in 5" :key="n" :value="fiscalYear - (n - 1)">
               {{ fiscalYear - (n - 1) }}
             </option>
         </select>
+      </div>
 
-    </div>
-    <div class="flex justify-end" v-if="userStore.user && userStore.user.user_role != 'admin' && userStore.user.user_role != 'professor'">
+      <div class="flex justify-end w-full" v-if="userStore.user && userStore.user.user_role != 'admin' && userStore.user.user_role != 'professor'">
           <router-link to="/summary">
             <button class="btn btn-neutral">สรุปผลเป็นตาราง</button>
           </router-link>
       </div>
-    <!-- </div> -->
+    </div>
 
     <div class="flex flex-row justify-center mx-2 max-h-fit w-full gap-5">
       <RemainingConfer :year="data.findFiscalYear"/>

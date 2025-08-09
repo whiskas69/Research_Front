@@ -301,12 +301,6 @@ const router = createRouter({
       meta: { requiresAuth: true, role: ["admin"] },
     },
     {
-      path: "/notification",
-      name: "Notification",
-      component: Notification,
-      meta: { requiresAuth: true },
-    },
-    {
       path: "/testlogin",
       name: "testlogin",
       component: testlogin,
