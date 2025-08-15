@@ -1,6 +1,26 @@
 <template>
   <div class="container my-10 mx-auto">
     <h1 class="text-xl font-bold mb-5">ประวัติเอกสารทั้งหมด</h1>
+
+    <div class="flex flex-row mb-4 w-full">
+      <div class="flex flex-row mb-4 w-full">
+        <span class="flex mr-2 items-center">ปีงบประมาณ</span>
+        <select class="select select-bordered w-1/6" v-model="data.findFiscalYear">
+            <option v-for="n in 5" :key="n" :value="fiscalYear - (n - 1)">
+              {{ fiscalYear - (n - 1) }}
+            </option>
+        </select>
+        
+        <span class="flex ml-2 mr-2 items-center">ประเภทเอกสาร</span>
+        <select class="select select-bordered w-1/6" v-model="data.typeOfDoc">
+          <option selected :value="'all'">ทั้งหมด</option>
+          <option :value="'Conference'">ประชุมวิชาการ</option>
+          <option :value="'Page_Charge'">ตีพิมพ์วารสาร</option>
+          <option :value="'Research_KRIS'">ทุนวิจัย</option>
+        </select>
+      </div>
+    </div>
+
     <div v-for="form in data.allForm" :key="form.form_id">
       <div
         class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
@@ -129,17 +149,32 @@
   </div>
 </template>
 <script setup>
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, watch } from "vue";
+import { DateTime } from "luxon";
 import api from "@/setting/api";
 
 const data = reactive({
   allForm: "",
+  findFiscalYear: '',
+  typeOfDoc: '',
 });
+
+const getThaiFiscalYear = () => {
+  const now = DateTime.now();
+  const year = now.year + 543;
+  return now.month >= 10 ? year + 1 : year;
+};
+const fiscalYear = getThaiFiscalYear();
 
 //pull data of profess
 const pulldata = async () => {
   try {
-    const res = await api.get(`/allForms`);
+    const res = await api.get(`/allForms`,{
+      params: {
+        fiscalYear: data.findFiscalYear || '', // ส่งว่างถ้าไม่ได้เลือก
+        type: data.typeOfDoc || ''
+      }
+    });
 
     const filteredForms = res.data.filter(
       (form) =>
@@ -173,6 +208,17 @@ const showTHstatus = (status) => {
 }
 
 onMounted(async () => {
+  if (!data.findFiscalYear) {
+    data.findFiscalYear = fiscalYear
+  }
+  if (!data.typeOfDoc) {
+    data.typeOfDoc = "all"
+  }
   pulldata();
 });
+
+watch(
+  () => [data.findFiscalYear, data.typeOfDoc],
+  () => {pulldata();}
+);
 </script>

@@ -587,7 +587,7 @@ const NewKris = async () => {
         h_index: formData.Hindex,
         his_invention: formData.invention,
         participation_percent: formData.participation,
-        proposed_budget: formData.proposedBudget,
+        Research_kris_amout: formData.proposedBudget,
         year: formData.periodYear,
         project_periodStart: formData.periodStart,
         project_periodEnd: formData.periodEnd,

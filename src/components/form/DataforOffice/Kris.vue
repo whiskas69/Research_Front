@@ -228,7 +228,7 @@
                 customLabel="w-[530px]"
                 customDiv="max-w-[600px]"
                 customInput="w-32"
-                v-model="formattedKris.proposed_budget"
+                v-model="formattedKris.Research_kris_amout"
                 :disabled="true"
               />
             </div>
@@ -326,7 +326,7 @@ const fetchOfficerData = async () => {
 };
 const formattedKris = computed(() => ({
   ...formData.kris,
-  proposed_budget: parseFloat(formData.kris.proposed_budget).toLocaleString(
+  Research_kris_amout: parseFloat(formData.kris.Research_kris_amout).toLocaleString(
     "en-US",{minimumFractionDigits: 2,})
 }));
 
