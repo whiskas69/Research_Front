@@ -509,10 +509,16 @@
               </div>
               <!-- input file จะโชว์ก็ต่อเมื่อกดแก้ไข -->
                 <!-- <div v-if="showInput" class="flex flex-row mt-3">
-                    <FileInput
+                  <FileInput
                       type="file"
-                      @change="handleFile($event, 'file5')"
-                    />
+                      @change="handleFile($event, 'copy_article')"
+                  />
+                    <button
+                      class="btn bg-green-600 text-white ml-2"
+                      @click="saveFile"
+                    >
+                      บันทึก
+                    </button>
                   <button
                     class="btn bg-gray-400 text-white ml-2"
                     @click="cancelEdit"
@@ -583,7 +589,13 @@ const formData = reactive({
   f_accepted: null,
   f_copy_article: null,
   f_upload_article: null,
-  f_kris: null,
+
+  pc_proof: null,
+  q_pc_proof: null,
+  invoice_public: null,
+  accepted: null,
+  copy_article: null,
+  upload_article: null,
 });
 
 const userStore = useUserStore();
@@ -611,6 +623,7 @@ const cancelEdit = () => {
 };
 
 const handleFile = (event, fieldName) => {
+  selectedFile.value = event.target.files[0];
   const file = event.target.files[0];
 
   if (!file) {
@@ -635,6 +648,25 @@ const handleFile = (event, fieldName) => {
 
   // ถ้าผ่านเงื่อนไขทั้งหมด เก็บไฟล์ลง formData
   formData[fieldName] = file;
+};
+
+const saveFile = async () => {
+  if (!selectedFile.value) {
+    alert("กรุณาเลือกไฟล์ก่อนบันทึก");
+    return;
+  }
+  console.log("อัปโหลดไฟล์ใหม่:", selectedFile.value);
+  alert("กำลังเข้าดาต้าเบส");
+  const dataForBackend = selectedFile.value
+  // await api.post(`/upload/${id}`, formData[fieldName]);
+  try {
+    const response = await api.put(`/upload/${id}`, dataForBackend);
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+    showInput.value = false;
+  } catch (err) {
+    console.error("Upload error:", err);
+    alert("อัปโหลดไม่สำเร็จ");
+  }
 };
 
 const getChangedFields = () => {
