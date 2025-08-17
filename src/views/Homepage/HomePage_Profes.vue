@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="container my-10 mx-auto">
-      <p class="text-xl font-bold pb-5">เอกสารที่มีการแก้ไข</p>
+      <p class="text-xl font-bold pb-5">เอกสารที่มีการแก้ไข หรือ ตีกลับเอกสาร</p>
       <div v-for="editForm in data.editForm" :key="editForm.form_id">
         <div
           class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
@@ -189,29 +189,29 @@ const getData = async () => {
   // console.log("res sumBudgets", res.data);
   data.approvedConfer = res.data.sumConfer.length;
 
-  const response = await api.get(`/conference/user/${user.value?.user_id}`);
-  console.log("response conference userid", response.data);
-  // data.formConfer = response.data
-
+  // response เรียก all form ของ user
+  const response = await api.get(`/form/${data.id}`);
+  // หาจำนวนที่ส่ง conference
   for (let i = 0; i < response.data.length; i++) {
-    const docDateStr = response.data[i].doc_submit_date;
-    if (docDateStr != null) {
-      // แปลงวันที่เป็น DateTime
-      const docDate = DateTime.fromISO(docDateStr);
-      // คำนวณปีงบของ doc_submit_date
-      const docFiscalYear =
-        docDate.month >= 10 ? docDate.year + 1 : docDate.year;
-      // เปรียบเทียบกับ fiscalYear ปัจจุบัน
-      if (docFiscalYear === fiscalYear) {
-        data.formConfer++;
+    if(response.data[i].form_type == "Conference"){
+      const docDateStr = response.data[i].doc_submit_date;
+      if (docDateStr != null) {
+        // แปลงวันที่เป็น DateTime
+        const docDate = DateTime.fromISO(docDateStr);
+        // คำนวณปีงบของ doc_submit_date
+        const docFiscalYear =
+          docDate.month >= 10 ? docDate.year + 1 : docDate.year;
+        // เปรียบเทียบกับ fiscalYear ปัจจุบัน
+        if (docFiscalYear === fiscalYear) {
+          data.formConfer++;
+        }
       }
     }
   }
-
-  const resEdit = await api.get(`/form/${user.value?.user_id}`);
-  for (let i = 0; i < resEdit.data.length; i++) {
-    if (resEdit.data[i].edit_data != null && resEdit.data[i].professor_reedit != true) {
-      data.editForm.push(resEdit.data[i]);
+  // หาเอกสารที่มีการแก้ไข
+  for (let i = 0; i < response.data.length; i++) {
+    if (response.data[i].edit_data != null && response.data[i].professor_reedit != true) {
+      data.editForm.push(response.data[i]);
     }
   }
 };

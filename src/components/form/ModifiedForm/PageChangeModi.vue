@@ -410,6 +410,136 @@
         />
       </SectionWrapper>
     </Mainbox>
+
+    <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
+        <SectionWrapper class="collapse-content">
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <p>
+                  หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus
+                  หรือ Nature
+                </p>
+              </div>
+              <div>
+                <button
+                  @click="getFile(formData.f_q_pc_proof)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
+                  ดูเอกสาร
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <p>
+                  หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR
+                  หรือ Scopus
+                </p>
+              </div>
+              <div>
+                <button
+                  @click="getFile(formData.f_q_pc_proof)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
+                  ดูเอกสาร
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <p>
+                  ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ /
+                  อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์
+                </p>
+              </div>
+              <div>
+                <button
+                  @click="getFile(formData.f_invoice_public)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
+                  ดูเอกสาร
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <p>หลักฐานการส่งบทความ หนังสือตอบรับบทความ</p>
+              </div>
+              <div>
+                <button
+                  @click="getFile(formData.f_accepted)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
+                  ดูเอกสาร
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <p>สำเนาบทความ</p>
+              </div>
+              <div>
+                <button
+                  @click="getFile(formData.f_copy_article)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
+                  ดูเอกสาร
+                </button>
+                <!-- <button
+                  @click="toggleEdit"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
+                  แก้ไข
+                </button> -->
+              </div>
+              <!-- input file จะโชว์ก็ต่อเมื่อกดแก้ไข -->
+                <!-- <div v-if="showInput" class="flex flex-row mt-3">
+                    <FileInput
+                      type="file"
+                      @change="handleFile($event, 'file5')"
+                    />
+                  <button
+                    class="btn bg-gray-400 text-white ml-2"
+                    @click="cancelEdit"
+                  >
+                    ยกเลิก
+                  </button>
+                </div> -->
+            </div>
+          </div>
+
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <p>หลักฐานการ Upload บทความเข้าระบบ IT Scholar</p>
+              </div>
+              <div>
+                <button
+                  @click="getFile(formData.f_upload_article)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
+                  ดูเอกสาร
+                </button>
+              </div>
+            </div>
+          </div>
+        </SectionWrapper>
+      </Mainbox>
     <div class="flex justify-end gap-4 mb-70">
       <button @click="handleSubmitHaveEdit" class="btn btn-info text-white">
         มีการเปลี่ยนข้อมูลที่ถูกแก้ไข
@@ -432,6 +562,7 @@ import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 import CheckInput from "@/components/Input/CheckInput.vue";
+import FileInput from "@/components/Input/FileInput.vue";
 
 // จัดการข้อมูลหลัก
 const formData = reactive({
@@ -445,6 +576,14 @@ const formData = reactive({
   checkSJR: "",
   checkScopus: "",
   nature: "",
+
+  f_pc_proof: null,
+  f_q_pc_proof: null,
+  f_invoice_public: null,
+  f_accepted: null,
+  f_copy_article: null,
+  f_upload_article: null,
+  f_kris: null,
 });
 
 const userStore = useUserStore();
@@ -457,6 +596,46 @@ const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
+
+//แก้ไขไฟล์
+const showInput = ref(false);
+const selectedFile = ref(null);
+
+const toggleEdit = () => {
+  showInput.value = true;
+};
+
+const cancelEdit = () => {
+  showInput.value = false;
+  selectedFile.value = null;
+};
+
+const handleFile = (event, fieldName) => {
+  const file = event.target.files[0];
+
+  if (!file) {
+    console.log(`No file selected for ${fieldName}.`);
+    return;
+  }
+
+  // ตรวจสอบประเภทไฟล์ (PDF เท่านั้น)
+  if (file.type !== "application/pdf") {
+    alert("กรุณาอัพโหลดไฟล์ PDF เท่านั้น");
+    event.target.value = ""; // ล้างค่า input
+    return;
+  }
+
+  // ตรวจสอบขนาดไฟล์ (ไม่เกิน 100MB)
+  const maxSize = 10 * 1024 * 1024; // 100 MB
+  if (file.size > maxSize) {
+    alert("ไฟล์มีขนาดเกิน 20 MB กรุณาเลือกไฟล์ที่เล็กกว่า");
+    event.target.value = ""; // ล้างค่า input
+    return;
+  }
+
+  // ถ้าผ่านเงื่อนไขทั้งหมด เก็บไฟล์ลง formData
+  formData[fieldName] = file;
+};
 
 const getChangedFields = () => {
   const current = toRaw(formData.pageChange);
@@ -524,6 +703,12 @@ const handleSubmit = async () => {
     alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
   }
 };
+
+const getFile = async (fileUrl) => {
+  formData.file = fileUrl;
+  window.open(formData.file, "_blank");
+};
+
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
 const fetchProfessorData = async () => {
   try {
@@ -531,10 +716,6 @@ const fetchProfessorData = async () => {
     const userID = responsePC.data.user_id;
     const responseUser = await api.get(`/user/${userID}`);
     formData.user = responseUser.data;
-
-    console.log("get user: ", formData.user);
-    console.log("get userid: ", responsePC.data.user_id);
-    console.log("get responsePC: ", responsePC.data);
 
     formData.pageChange = responsePC.data;
     formData.originPc = JSON.parse(JSON.stringify(responsePC.data));
@@ -553,6 +734,14 @@ const fetchProfessorData = async () => {
         formData.editForm.push(resEdit.data[i].edit_data);
       }
     }
+    const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
+      console.log("responsefile", responsefile.data)
+      formData.f_pc_proof = responsefile.data.file_pc_proof;
+      formData.f_q_pc_proof = responsefile.data.file_q_pc_proof;
+      formData.f_invoice_public = responsefile.data.file_invoice_public;
+      formData.f_accepted = responsefile.data.file_accepted;
+      formData.f_copy_article = responsefile.data.file_copy_article;
+      formData.f_upload_article = responsefile.data.file_upload_article;
     console.log("wow za", formData.editForm);
   } catch (error) {
     console.log("Error fetching professor data:", error);

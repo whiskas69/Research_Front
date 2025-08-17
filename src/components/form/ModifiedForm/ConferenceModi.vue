@@ -694,6 +694,156 @@
         </SectionWrapper>
       </SectionWrapper>
     </Mainbox>
+    <Mainbox class="collapse collapse-arrow">
+        <input type="checkbox" />
+        <p class="collapse-title text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
+        <SectionWrapper class="collapse-content">
+          <!-- เอกสารหลักฐานที่แนบ -->
+          <!-- 1 -->
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <p>สำเนาบทความ (Full Paper)</p>
+              </div>
+              <div class="">
+                <button
+                  @click="getFile(formData.f_full_page)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
+                  ดูเอกสาร
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- 2 -->
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <span class="w-[15rem] flex items-center text-blue-500 mr-2"
+                  >*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน*</span
+                >
+                <TextInputLabelLeft
+                  customInput="max-w-24"
+                  label="(Full Paper ประกอบการเบิก) มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล WoS/SJR ซึ่งได้รับการตีพิมพ์ไม่เกิน 2 ปี ก่อนการประชุม เมื่อ"
+                  :disabled="true"
+                  :placeholder="formData.date_journals"
+                />
+              </div>
+              <div class="">
+                <button
+                  @click="getFile(formData.f_published_journals)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                  disabled="!isValidFile(formData.f_published_journals)"
+                >
+                  ดูเอกสาร
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- 3 -->
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <span class="text-blue-500 mr-2"
+                  >"*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน*</span
+                >
+                <p>หลักฐานเอกสาร Quartile ของ Paper ที่ใช้ประกอบการเบิก</p>
+              </div>
+              <div class="">
+                <button
+                  @click="getFile(formData.f_q_proof)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                  disabled="!isValidFile(formData.f_q_proof)"
+                >
+                  ดูเอกสาร
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- 4 -->
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <p>
+                  เอกสารประชาสัมพันธ์การจัดการประชุมทางวิชาการ (Call for paper)
+                </p>
+              </div>
+              <div class="">
+                <button
+                  @click="getFile(formData.f_call_for_paper)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
+                  ดูเอกสาร
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- 5 -->
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <p>จดหมายการตอบรับเข้าร่วมประชุม (Accepted)</p>
+              </div>
+              <div class="">
+                <button
+                  @click="getFile(formData.f_accepted)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
+                  ดูเอกสาร
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- 6 -->
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <p>เอกสารแสดงค่าลงทะเบียน</p>
+              </div>
+              <div class="">
+                <button
+                  @click="getFile(formData.f_fee_receipt)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
+                  ดูเอกสาร
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- 7 -->
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <p>เอกสารแสดงอัตราแลกเปลี่ยน (ณ วันที่ยื่น)</p>
+              </div>
+              <div class="">
+                <button
+                  @click="getFile(formData.f_fx_rate_document)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
+                  ดูเอกสาร
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- 8 -->
+          <div class="flex flex-row items-center w-full">
+            <div class="flex flex-row items-center w-full justify-between">
+              <div class="flex flex-row">
+                <p>หลักฐานการประชุมวิชาการอยู่ในฐาน Scopus</p>
+              </div>
+              <div class="">
+                <button
+                  @click="getFile(formData.f_conf_proof)"
+                  class="btn bg-[#E85F19] text-white mr-5"
+                >
+                  ดูเอกสาร
+                </button>
+              </div>
+            </div>
+          </div>
+        </SectionWrapper>
+      </Mainbox>
     <div class="flex justify-end gap-4 mb-70">
       <button @click="handleSubmitHaveEdit" class="btn btn-info text-white">
         มีการเปลี่ยนข้อมูลที่ถูกแก้ไข
@@ -724,6 +874,15 @@ const formData = reactive({
   originScore: {},
   editForm: [],
   status: "",
+    //url
+  f_full_page: null,
+  f_published_journals: null,
+  f_q_proof: null,
+  f_call_for_paper: null,
+  f_accepted: null,
+  f_fee_receipt: null,
+  f_fx_rate_document: null,
+  f_conf_proof: null,
 });
 
 const totalAmount = computed(() => {
@@ -859,6 +1018,11 @@ const handleSubmit = async () => {
   }
 };
 
+const getFile = async (fileUrl) => {
+  formData.file = fileUrl;
+  window.open(formData.file, "_blank");
+};
+
 const fetchOfficerData = async () => {
   try {
     const responseConfer = await api.get(`/conference/${id}`);
@@ -889,6 +1053,17 @@ const fetchOfficerData = async () => {
       }
     }
     console.log("wow za", formData.editForm);
+
+    const responsefile = await api.get(`/getFileConf?conf_id=${id}`);
+    formData.date_journals = responsefile.data.date_published_journals,
+    formData.f_full_page = responsefile.data.file_full_page;
+    formData.f_published_journals = responsefile.data.file_published_journals;
+    formData.f_q_proof = responsefile.data.file_q_proof;
+    formData.f_call_for_paper = responsefile.data.file_call_for_paper;
+    formData.f_accepted = responsefile.data.file_accepted;
+    formData.f_fee_receipt = responsefile.data.file_fee_receipt;
+    formData.f_fx_rate_document = responsefile.data.file_fx_rate_document;
+    formData.f_conf_proof = responsefile.data.file_conf_proof;
   } catch (error) {
     console.log("Error fetching Officer data:", error);
   } finally {
