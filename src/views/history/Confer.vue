@@ -132,7 +132,7 @@
 </template>
 
 <script setup>
-import { reactive, onMounted, watch } from "vue";
+import { reactive, onMounted, watch, computed } from "vue";
 import { useRoute } from "vue-router";
 import api from "@/setting/api";
 import { useVuelidate } from "@vuelidate/core";
@@ -147,8 +147,6 @@ import Dean from "@/components/form/DataforOffice/Dean.vue";
 import WithdrawMoney from "@/components/form/DataforOffice/WithdrawMoney.vue";
 import Mainbox from "@/components/form/Mainbox.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
-import { computed } from "vue";
-
 const route = useRoute();
 const id = route.params.id;
 const formData = reactive({
@@ -200,8 +198,6 @@ const getDataCf = async () => {
 const getStatus = async () => {
   const response = await api.get(`/formConference/${id}`);
   formData.status = response.data;
-
-  console.log("Status data:", formData.status);
 };
 
 const SummitStatus = async () => {
@@ -213,8 +209,6 @@ const SummitStatus = async () => {
         form_status: formData.new.form_status,
         return: formData.new.return ? formData.new.return : null,
         description: formData.new.description ? formData.new.description : null,
-        // return: formData.new.form_status === "return" ? formData.new.return : null,
-        // description: formData.new.form_status === "return" ?  formData.new.description : null,
       };
 
       const response = await api.put(`/updatestatus_confer/${id}`, dataForBackend);
@@ -228,8 +222,6 @@ const SummitStatus = async () => {
     
   } else {
     alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");
-
-    console.log("Validation failed:", v$.value.$errors);
   }
 }
 onMounted(() => {
