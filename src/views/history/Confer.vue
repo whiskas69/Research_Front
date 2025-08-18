@@ -44,7 +44,7 @@
         </span>
         <div class="px-10 pb-2">
           <RadioInput
-            label="อาจารย์"
+            label="ผู้ยื่นขอรับการสนับสนุน"
             value="professor"
             name="return"
             v-model="formData.new.return"
