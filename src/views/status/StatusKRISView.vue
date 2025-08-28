@@ -51,7 +51,7 @@
 
     <div class="flex justify-end mr-5">
       <button @click="showData = !showData" class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
-        ข้อมูลแบบฟร์อม
+        ข้อมูลแบบฟอร์ม
       </button>
     </div>
     

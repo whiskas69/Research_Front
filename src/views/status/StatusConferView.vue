@@ -133,7 +133,7 @@
     
     <div class="flex justify-end mr-5">
       <button @click="showData = !showData" class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
-        ข้อมูลแบบฟร์อม
+        ข้อมูลแบบฟอร์ม
       </button>
     </div>
     
@@ -151,10 +151,8 @@
 
 <script setup>
 import Mainbox from "@/components/form/Mainbox.vue";
-import FileInput from "@/components/Input/FileInput.vue";
 
 import api from "@/setting/api";
-import { useVuelidate } from "@vuelidate/core";
 import { helpers } from "@vuelidate/validators";
 
 import { onMounted, reactive, ref } from "vue";
@@ -206,106 +204,6 @@ const data = reactive({
 
 const showData = ref(true)
 
-//validate rule
-const rules = {
-  published_journals: {
-    fileType: helpers.withMessage(
-      "* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
-      (value) => {
-        if (!value) return true; // ถ้าไม่มีไฟล์ ก็ผ่าน (ไม่บังคับ)
-        return value.type === "application/pdf"; // เช็คว่าเป็น PDF
-      }
-    ),
-  },
-  accepted: {
-    fileType: helpers.withMessage(
-      "* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
-      (value) => {
-        if (!value) return false;
-        const allowedTypes = ["application/pdf"];
-        return allowedTypes.includes(value.type);
-      }
-    ),
-  },
-  q_proof: {
-    fileType: helpers.withMessage(
-      "* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
-      (value) => {
-        if (!value) return true; // ถ้าไม่มีไฟล์ ก็ผ่าน (ไม่บังคับ)
-        return value.type === "application/pdf"; // เช็คว่าเป็น PDF
-      }
-    ),
-  },
-  call_for_paper: {
-    fileType: helpers.withMessage(
-      "* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
-      (value) => {
-        if (!value) return false;
-        const allowedTypes = ["application/pdf"];
-        return allowedTypes.includes(value.type);
-      }
-    ),
-  },
-  fee_receipt: {
-    fileType: helpers.withMessage(
-      "* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
-      (value) => {
-        if (!value) return false;
-        const allowedTypes = ["application/pdf"];
-        return allowedTypes.includes(value.type);
-      }
-    ),
-  },
-  fx_rate_document: {
-    fileType: helpers.withMessage(
-      "* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
-      (value) => {
-        if (!value) return false;
-        const allowedTypes = ["application/pdf"];
-        return allowedTypes.includes(value.type);
-      }
-    ),
-  },
-  conf_proof: {
-    fileType: helpers.withMessage(
-      "* อัปโหลดได้เฉพาะไฟล์ PDF เท่านั้น *",
-      (value) => {
-        if (!value) return false;
-        const allowedTypes = ["application/pdf"];
-        return allowedTypes.includes(value.type);
-      }
-    ),
-  },
-};
-
-const v$ = useVuelidate(rules, data);
-
-//sent file
-const handleFile = (event, fieldName) => {
-  const file = event.target.files[0];
-
-  if (file) {
-    data[fieldName] = file;
-  } else {
-    console.log(`No file selected for ${fieldName}`);
-  }
-};
-
-const checkfile = () => {
-  if (
-    data.full_page &&
-    data.call_for_paper &&
-    data.accepted &&
-    data.fee_receipt &&
-    data.fx_rate_document &&
-    data.conf_proof
-  ) {
-    data.check = true;
-  } else {
-    data.check = false;
-  }
-};
-
 //ดึงข้อมูล
 const getDataConf = async () => {
   if (id == null || id == "") {
@@ -320,28 +218,6 @@ const getDataConf = async () => {
     data.confer_name = response.data.confer_name;
     data.name = response.data.name;
     data.withdraw = response.data.withdraw;
-console.log("data", data.form)
-    data.full_page = response.data.conf.full_page;
-    data.published_journals = response.data.conf.published_journals;
-    data.q_proof = response.data.conf.q_proof;
-    data.call_for_paper = response.data.conf.call_for_paper;
-    data.accepted = response.data.conf.accepted;
-    data.fee_receipt = response.data.conf.fee_receipt;
-    data.fx_rate_document = response.data.conf.fx_rate_document;
-    data.conf_proof = response.data.conf.conf_proof;
-
-    const responsefile = await api.get(`/getFileConf?conf_id=${id}`);
-
-    data.f_full_page = responsefile.data.file_full_page;
-    data.f_published_journals = responsefile.data.file_published_journals;
-    data.f_q_proof = responsefile.data.file_q_proof;
-    data.f_call_for_paper = responsefile.data.file_call_for_paper;
-    data.f_accepted = responsefile.data.file_accepted;
-    data.f_fee_receipt = responsefile.data.file_fee_receipt;
-    data.f_fx_rate_document = responsefile.data.file_fx_rate_document;
-    data.f_conf_proof = responsefile.data.file_conf_proof;
-
-    console.log("Success status confer:", response.data);
   } catch (error) {
     console.log("Error", error);
   }
@@ -402,32 +278,7 @@ const updateFile = async () => {
   }
 };
 
-const getFile = async (fileUrl) => {
-  data.file = fileUrl;
-  window.open(data.file, "_blank");
-};
-
-const downloadFile = async (fileUrl, fileName) => {
-  try {
-    const response = await fetch(fileUrl);
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = fileName + " ของ " + data.name + ".pdf";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-  } catch (error) {
-    console.log("Error downloading file:", error);
-  }
-};
-
 onMounted(async () => {
   await getDataConf();
-  checkfile();
-  console.log("iii")
 });
 </script>

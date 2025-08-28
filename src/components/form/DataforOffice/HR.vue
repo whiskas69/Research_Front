@@ -255,10 +255,8 @@ const id = route.params.id;
 
 const fetchOfficerData = async () => {
   try {
-    const responseoffic = await api.get(`/opinionConf/${id}`);
-    formData.offic = responseoffic.data;
-
     const responsefile = await api.get(`/getFileConf?conf_id=${id}`);
+    console.log("responsefile", responsefile.data)
     formData.date_journals = responsefile.data.date_published_journals,
     formData.f_full_page = responsefile.data.file_full_page;
     formData.f_published_journals = responsefile.data.file_published_journals;
@@ -268,6 +266,9 @@ const fetchOfficerData = async () => {
     formData.f_fee_receipt = responsefile.data.file_fee_receipt;
     formData.f_fx_rate_document = responsefile.data.file_fx_rate_document;
     formData.f_conf_proof = responsefile.data.file_conf_proof;
+    
+    const responseoffic = await api.get(`/opinionConf/${id}`);
+    formData.offic = responseoffic.data;
   } catch (error) {
     console.log("Error fetching Officer data:", error);
   } finally {

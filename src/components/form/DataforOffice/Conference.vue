@@ -711,6 +711,7 @@ const fetchOfficerData = async () => {
   try {
     const responseConfer = await api.get(`/conference/${id}`);
     data.conference = responseConfer.data;
+    
 
     const userID = responseConfer.data.user_id;
     const responseUser = await api.get(`/user/${userID}`);
@@ -718,6 +719,7 @@ const fetchOfficerData = async () => {
 
     const responseScore = await api.get(`/score/${id}`);
     data.score = responseScore.data;
+    console.log('data.score', data.score);
   } catch (error) {
     console.log("Error fetching Officer data:", error);
   } finally {
