@@ -17,32 +17,36 @@
         <div v-if="user" class="flex flex-row">
           <div v-if="!isAdmin && !isProfessor" class="justify-center">
             <div tabindex="0" role="button" class="btn btn-ghost">
-                <router-link to="/Officer" class="font-normal">ตรวจสอบเอกสาร</router-link>
-              </div>
+              <router-link to="/Officer" class="font-normal"
+                >ตรวจสอบเอกสาร</router-link
+              >
+            </div>
             <div class="dropdown">
               <div tabindex="0" role="button" class="btn btn-ghost">
                 <p class="font-normal">ยื่นขอรับการสนับสนุน &nbsp; &#9660;</p>
               </div>
-              <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow">
+              <ul
+                tabindex="0"
+                class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow"
+              >
                 <li><router-link to="/homePage">ยื่นเอกสาร</router-link></li>
                 <li><router-link to="/myStatus">สถานะเอกสาร</router-link></li>
-                <li><router-link to="/myHistory">ประวัติการยื่น</router-link></li>
+                <li>
+                  <router-link to="/myHistory">ประวัติการยื่น</router-link>
+                </li>
               </ul>
             </div>
           </div>
 
           <div v-if="isProfessor" class="justify-center">
             <div tabindex="0" role="button" class="btn btn-ghost">
-                <router-link to="/homePage" class="font-normal">ยื่นเอกสาร</router-link>
-              </div>
-            <div class="dropdown">
-              <div tabindex="0" role="button" class="btn btn-ghost">
-                <p class="font-normal">สถานะเอกสาร &nbsp; &#9660;</p>
-              </div>
-              <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow">
-                <li><router-link to="/myStatus">สถานะเอกสาร</router-link></li>
-                <li><router-link to="/myHistory">ประวัติการยื่น</router-link></li>
-              </ul>
+              <router-link to="/homePage" class="font-normal">ยื่นเอกสาร</router-link>
+            </div>
+            <div tabindex="0" role="button" class="btn btn-ghost">
+              <router-link to="/myStatus" class="font-normal">เอกสารรออนุมัติ</router-link>
+            </div>
+            <div tabindex="0" role="button" class="btn btn-ghost">
+              <router-link to="/myHistory" class="font-normal">ผลการอนุมัติ</router-link>
             </div>
           </div>
 
@@ -51,29 +55,44 @@
               <div tabindex="0" role="button" class="btn btn-ghost">
                 <p class="font-normal">เอกสารที่รับผิดชอบ &nbsp; &#9660;</p>
               </div>
-              <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow">
-                <li><router-link to="/statusOffice">สถานะเอกสาร</router-link></li>
-                <li><router-link to="/historyOffice">ประวัติเอกสาร</router-link></li>
-                <li><router-link to="/eOffice">เอกสารรออนุมัติ</router-link></li>
+              <ul
+                tabindex="0"
+                class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow"
+              >
+                <li>
+                  <router-link to="/statusOffice">สถานะเอกสาร</router-link>
+                </li>
+                <li>
+                  <router-link to="/historyOffice">ประวัติเอกสาร</router-link>
+                </li>
+                <li>
+                  <router-link to="/eOffice">เอกสารรออนุมัติ</router-link>
+                </li>
               </ul>
             </div>
           </div>
 
           <div v-if="isApprover" class="justify-center">
             <div tabindex="0" role="button" class="btn btn-ghost">
-              <router-link to="/allHistory" class="font-normal">เอกสารที่อนุมัติแล้ว</router-link>
+              <router-link to="/allHistory" class="font-normal"
+                >เอกสารที่อนุมัติแล้ว</router-link
+              >
             </div>
           </div>
 
           <div v-if="isFinance" class="justify-center">
             <div tabindex="0" role="button" class="btn btn-ghost">
-              <router-link to="/allWithdrawMoney" class="font-normal">ขออนุมัติเบิกเงินรายได้</router-link>
+              <router-link to="/allWithdrawMoney" class="font-normal"
+                >ขออนุมัติเบิกเงินรายได้</router-link
+              >
             </div>
           </div>
-          
+
           <div v-if="isAdmin" class="justify-center">
             <div tabindex="0" role="button" class="btn btn-ghost">
-              <router-link to="/changePage" class="font-normal">เปลี่ยนเงื่อนไขการพิจารณา</router-link>
+              <router-link to="/changePage" class="font-normal"
+                >เปลี่ยนเงื่อนไขการพิจารณา</router-link
+              >
             </div>
           </div>
         </div>
@@ -87,7 +106,10 @@
     </div>
 
     <div v-if="!userStore.user">
-      <router-link to="/testlogin" class="btn w-full bg-[#4285F4] hover:bg-[#4285F4] text-white ml-10">
+      <router-link
+        to="/testlogin"
+        class="btn w-full bg-[#4285F4] hover:bg-[#4285F4] text-white ml-10"
+      >
         เข้าสู่ระบบ
       </router-link>
     </div>
@@ -96,22 +118,29 @@
     <div class="flex flex-auto justify-end w-full" v-if="userStore.user">
       <div class="menu menu-horizontal px-5">
         <div class="dropdown">
-          <div tabindex="0" role="button" class="btn bg-[#4285F4] hover:bg-[#4285F4] py-[13px] text-white min-w-32">
-            <p class="font-normal">{{ userStore.user.user_nameth }} &nbsp; &#9660;</p>
+          <div
+            tabindex="0"
+            role="button"
+            class="btn bg-[#4285F4] hover:bg-[#4285F4] py-[13px] text-white min-w-32"
+          >
+            <p class="font-normal">
+              {{ userStore.user.user_nameth }} &nbsp; &#9660;
+            </p>
           </div>
-          <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow">
+          <ul
+            tabindex="0"
+            class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow"
+          >
             <li v-if="userStore.user?.user_role != 'admin'">
               <router-link to="/profile">ข้อมูลส่วนตัว</router-link>
             </li>
             <li @click="logout">
               <router-link to="/">ออกจากระบบ</router-link>
             </li>
-
           </ul>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -138,8 +167,14 @@ const logoRoute = computed(() => {
 const isAdmin = computed(() => user.value?.user_role === "admin");
 const isProfessor = computed(() => user.value?.user_role === "professor");
 const isFinance = computed(() => user.value?.user_role === "finance");
-const isHRorResearch = computed(() => ["hr", "research"].includes(user.value?.user_role));
-const isApprover = computed(() => ["hr", "research", "finance", "associate", "dean"].includes(user.value?.user_role));
+const isHRorResearch = computed(() =>
+  ["hr", "research"].includes(user.value?.user_role)
+);
+const isApprover = computed(() =>
+  ["hr", "research", "finance", "associate", "dean"].includes(
+    user.value?.user_role
+  )
+);
 
 const logout = async () => {
   await userStore.logout();
