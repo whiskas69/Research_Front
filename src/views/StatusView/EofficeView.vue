@@ -32,7 +32,7 @@
                 @click="addapproved(form.form_id)"
                 class="btn btn-success text-white"
               >
-                คลิกเมื่อเอกสารได้รับการอนุมัติ
+                เอกสารได้รับการอนุมัติแล้ว
               </button>
             </div>
           </router-link>
@@ -70,7 +70,7 @@
                     @click="addapproved(form.form_id)"
                     class="btn btn-success text-white"
                   >
-                    คลิกเมื่อเอกสารได้รับการอนุมัติ
+                    เอกสารได้รับการอนุมัติแล้ว
                   </button>
                 </div>
               </div>
@@ -110,7 +110,7 @@
                     @click="addapproved(form.form_id)"
                     class="btn btn-success text-white"
                   >
-                    คลิกเมื่อเอกสารได้รับการอนุมัติ
+                    เอกสารได้รับการอนุมัติแล้ว
                   </button>
                 </div>
               </div>

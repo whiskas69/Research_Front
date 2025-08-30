@@ -19,9 +19,9 @@
         <p class="text-lg">ตรวจสอบ และรับทราบเอกสาร</p>
 
         <SectionWrapper>
-          <RadioInput label="รับทราบ" name="noted" value="acknowledge" v-model="formData.radioAuthOffic"
+          <RadioInput label="ข้อมูลถูกต้อง" name="noted" value="acknowledge" v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)" />
-          <RadioInput label="ไม่รับทราบ" name="noted" value="notAcknowledge" v-model="formData.radioAuthOffic"
+          <RadioInput label="ข้อมูลไม่ถูกต้อง" name="noted" value="notAcknowledge" v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)" />
 
           <span v-if="v$.radioAuthOffic.$error" class="text-base font-bold text-red-500 text-left">

@@ -1,7 +1,7 @@
 <template>
   <div class="container my-10 mx-auto">
     <div v-if="props.type == 'Conference'">
-      <Mainbox v-if="data.withdraw.withdraw" class="collapse collapse-arrow">
+      <Mainbox v-if="data.withdraw.withdraw" class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title leading-9 text-lg font-bold">อนุมัติเบิกเงินรายได้</p>
         <SectionWrapper class="collapse-content">
@@ -68,7 +68,7 @@
     </div>
 
     <div v-if="props.type == 'Page_Charge'">
-      <Mainbox v-if="data.withdraw.withdraw" class="collapse collapse-arrow">
+      <Mainbox v-if="data.withdraw.withdraw" class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title leading-9 text-lg font-bold">อนุมัติเบิกเงินรายได้</p>
         <SectionWrapper class="collapse-content">

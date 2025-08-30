@@ -2,7 +2,7 @@
   <div>
     <div class="container my-10 mx-auto">
       <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
-      <Mainbox class="collapse collapse-arrow">
+      <Mainbox class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
         <SectionWrapper class="collapse-content">
@@ -165,7 +165,7 @@
           ></textarea>
         </SectionWrapper>
       </Mainbox>
-      <Mainbox v-if="formData.offic.c_research_hr" class="collapse collapse-arrow">
+      <Mainbox v-if="formData.offic.c_research_hr" class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title">ตรวจสอบความถูกต้องของข้อมูล</p>
         <SectionWrapper class="collapse-content">

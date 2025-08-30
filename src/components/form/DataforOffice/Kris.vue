@@ -5,7 +5,7 @@
         แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ
       </p>
 
-      <Mainbox class="collapse collapse-arrow">
+      <Mainbox class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">รายละเอียดเบื้องต้น</p>
         <div class="collapse-content">

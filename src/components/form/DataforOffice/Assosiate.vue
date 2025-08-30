@@ -1,7 +1,7 @@
 <template>
     <div class="container my-10 mx-auto">
       <div v-if="props.type == 'Conference'">
-        <Mainbox v-if="formData.offic.c_deputy_dean" class="collapse collapse-arrow">
+        <Mainbox v-if="formData.offic.c_deputy_dean" class="collapse collapse-arrow collapse-open">
           <input type="checkbox" />
           <p class="collapse-title text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
             <SectionWrapper class="collapse-content">
@@ -32,7 +32,7 @@
       </div>
     
       <div v-if="props.type == 'Page_Charge'">
-        <Mainbox v-if="formData.offic.p_deputy_dean"  class="collapse collapse-arrow">
+        <Mainbox v-if="formData.offic.p_deputy_dean"  class="collapse collapse-arrow collapse-open">
           <input type="checkbox" />
           <p class="collapse-title text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
           <SectionWrapper class="collapse-content">

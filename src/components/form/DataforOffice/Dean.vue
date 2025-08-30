@@ -1,7 +1,7 @@
 <template>
   <div class="container my-10 mx-auto">
     <div v-if="props.type == 'Conference'">
-      <Mainbox v-if="formData.offic.c_approve_result" class="collapse collapse-arrow">
+      <Mainbox v-if="formData.offic.c_approve_result" class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">คณบดี</p>
         <SectionWrapper class="collapse-content">
@@ -24,7 +24,7 @@
 
     <div v-if="props.type == 'Page_Charge'">
       <div v-if="formData.offic.p_acknowledge">
-        <Mainbox class="collapse collapse-arrow">
+        <Mainbox class="collapse collapse-arrow collapse-open">
           <input type="checkbox" />
           <p class="collapse-title text-lg font-bold">คณบดี</p>
           <SectionWrapper class="collapse-content">
@@ -43,7 +43,7 @@
           </SectionWrapper>
         </Mainbox>
 
-        <Mainbox class="collapse collapse-arrow">
+        <Mainbox class="collapse collapse-arrow collapse-open">
           <input type="checkbox" />
           <p class="collapse-title text-lg font-bold">คณบดี</p>
           <SectionWrapper class="collapse-content">

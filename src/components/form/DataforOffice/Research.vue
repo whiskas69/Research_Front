@@ -2,7 +2,7 @@
   <div class="container my-10 mx-auto">
     <!-- Conference -->
     <div v-if="props.type == 'Conference'">
-      <Mainbox v-if="formData.conference.meeting_type" class="collapse collapse-arrow">
+      <Mainbox v-if="formData.conference.meeting_type" class="collapse collapse-arrow collapse-open">
          <input type="checkbox" />
          <p class="collapse-title">ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
         <SectionWrapper class="collapse-content">
@@ -60,7 +60,7 @@
 
     <!-- PC -->
     <div v-if="props.type == 'Page_Charge'">
-      <Mainbox class="collapse collapse-arrow">
+      <Mainbox class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
         <SectionWrapper class="collapse-content">
@@ -171,7 +171,7 @@
         </SectionWrapper>
       </Mainbox>
       <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
-      <Mainbox v-if="formData.offic.p_research_admin" class="collapse collapse-arrow">
+      <Mainbox v-if="formData.offic.p_research_admin" class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title">ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
         <SectionWrapper class="collapse-content">
@@ -224,7 +224,7 @@
 
     <!-- Kris -->
     <div v-if="props.type == 'Research_KRIS'">
-      <Mainbox class="collapse collapse-arrow">
+      <Mainbox class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
         <div class="collapse-content flex flex-rowitems-center">
@@ -241,7 +241,7 @@
       </Mainbox>
 
       <p class="text-xl font-bold pb-5">ตรวจสอบข้อมูลและหลักฐาน</p>
-      <Mainbox v-if="formData.offic.research_admin" class="collapse collapse-arrow">
+      <Mainbox v-if="formData.offic.research_admin" class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">ตรวจสอบ และรับทราบเอกสาร</p>
         <SectionWrapper class="collapse-content">

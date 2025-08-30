@@ -60,7 +60,7 @@
         </SectionWrapper>
       </Mainbox>
 
-      <Mainbox class="collapse collapse-arrow">
+      <Mainbox class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title leading-9 text-lg font-bold">
           1. รายละเอียดการขออนุมัติเดินทาง
@@ -286,7 +286,7 @@
         </SectionWrapper>
       </Mainbox>
 
-      <Mainbox class="collapse collapse-arrow">
+      <Mainbox class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title leading-9 text-lg font-bold">
           2.  รายละเอียดการขออนุมัติเดินทาง
@@ -525,7 +525,7 @@
         </SectionWrapper>
       </Mainbox>
 
-      <Mainbox class="collapse collapse-arrow">
+      <Mainbox class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">3. ผู้ขอรับการสนับสนุน <span class="text-red-500">*</span></p>
         <SectionWrapper class="collapse-content">
@@ -550,7 +550,7 @@
         </SectionWrapper>
       </Mainbox>
 
-      <Mainbox class="collapse collapse-arrow">
+      <Mainbox class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">
           4.  การลาและการขอเบิกค่าลงทะเบียนและค่าใช้จ่ายอื่น ๆ
@@ -723,7 +723,7 @@
         </SectionWrapper>
       </Mainbox>
 
-      <Mainbox class="collapse collapse-arrow">
+      <Mainbox class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title leading-9 text-lg font-bold">
           รายการค่าใช้จ่ายที่ขอเบิกจ่าย
@@ -916,7 +916,7 @@
         </SectionWrapper>
       </Mainbox>
 
-      <Mainbox class="collapse collapse-arrow">
+      <Mainbox class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
         <SectionWrapper class="collapse-content">

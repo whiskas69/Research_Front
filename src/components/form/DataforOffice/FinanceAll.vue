@@ -1,6 +1,6 @@
 <template>
   <div class="container my-10 mx-auto">
-    <Mainbox v-if="formData.budget.budget_year" class="collapse collapse-arrow">
+    <Mainbox v-if="formData.budget.budget_year" class="collapse collapse-arrow collapse-open">
       <input type="checkbox" />
       <p class="collapse-title">ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
       <SectionWrapper class="collapse-content">

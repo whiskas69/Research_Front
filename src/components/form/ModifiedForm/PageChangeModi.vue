@@ -45,7 +45,7 @@
       </SectionWrapper>
     </Mainbox>
     <!-- 1.  รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์  -->
-    <Mainbox class="collapse collapse-arrow">
+    <Mainbox class="collapse collapse-arrow collapse-open">
       <input type="checkbox" />
       <p class="collapse-title leading-9 text-lg font-bold">
         1.  รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์
@@ -188,7 +188,7 @@
     </Mainbox>
 
     <!-- 2. รายละเอียดผลงานวิจัยที่ส่งเสนอพิจารณา / ได้รับการตอบรับให้ตีพิมพ์ -->
-    <Mainbox class="collapse collapse-arrow">
+    <Mainbox class="collapse collapse-arrow collapse-open">
       <input type="checkbox" />
       <p class="collapse-title leading-9 text-lg font-bold">
         2. รายละเอียดผลงานวิจัยที่ส่งเสนอพิจารณา / ได้รับการตอบรับให้ตีพิมพ์
@@ -375,7 +375,7 @@
       </SectionWrapper>
     </Mainbox>
     <!-- 3. ผู้ขอรับการสนับสนุน -->
-    <Mainbox class="collapse collapse-arrow">
+    <Mainbox class="collapse collapse-arrow collapse-open">
       <input type="checkbox" />
       <p class="collapse-title text-lg font-bold">3. ผู้ขอรับการสนับสนุน</p>
       <SectionWrapper class="collapse-content">
@@ -395,7 +395,7 @@
       </SectionWrapper>
     </Mainbox>
     <!-- 4. ขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge) -->
-    <Mainbox class="collapse collapse-arrow">
+    <Mainbox class="collapse collapse-arrow collapse-open">
       <input type="checkbox" />
       <p class="collapse-title leading-9 text-lg font-bold">
         4. ขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge)
@@ -411,7 +411,7 @@
       </SectionWrapper>
     </Mainbox>
 
-    <Mainbox class="collapse collapse-arrow">
+    <Mainbox class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
         <SectionWrapper class="collapse-content">
