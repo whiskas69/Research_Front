@@ -132,7 +132,7 @@ import api from "@/setting/api";
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
-import ConferenceData from "@/components/form/EditForm/EditConference.vue";
+import ConferenceData from "@/components/form/DataforOffice/Conference.vue"
 import HR from "@/components/form/DataforOffice/HR.vue";
 import Research from "@/components/form/DataforOffice/Research.vue";
 
