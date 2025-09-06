@@ -88,7 +88,7 @@ const fetchOfficerData = async () => {
         return form.form_status === "research";
       }
       if (userStore.user.user_role === "finance") {
-        return form.form_status === "finance";
+        return form.form_status === "finance" || form.form_status === "pending";
       }
       if (userStore.user.user_role === "associate") {
         return form.form_status === "associate";
