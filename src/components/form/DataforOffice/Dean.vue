@@ -122,7 +122,6 @@ const formData = reactive({
 });
 
 const formatThaiDate = (dateString) => {
-  console.log("formatThaiDate input: ", dateString);
   const date = new Date(dateString);
   const months = [
     "ม.ค.",
@@ -138,10 +137,9 @@ const formatThaiDate = (dateString) => {
     "พ.ย.",
     "ธ.ค.",
   ];
-  const day = date.getDate();
-  const month = months[date.getMonth()];
-  const year = date.getFullYear() + 543;
-  console.log("new date: ", `${day} ${month} ${year}`);
+  const day = date.getUTCDate();
+  const month = months[date.getUTCMonth()];
+  const year = date.getUTCFullYear() + 543;
   return `${day} ${month} ${year}`;
 };
 

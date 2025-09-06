@@ -35,6 +35,10 @@
             วงเงินที่เบิกได้ : {{ form.form_type === "Research_KRIS" ? form.Research_kris_amount : form.amount_approval }} บาท
           </h4>
         </div>
+
+        <div class="flex">
+          <h4 class="mr-5">วันที่ส่งเอกสาร : {{ formatThaiDate(form.doc_submit_date) }}</h4>
+        </div>
       </div>
     </div>
   </router-link>
@@ -51,18 +55,20 @@ const props = defineProps({
   showAmount: { type: String, default: 'notShow' },
 });
 
-onMounted(() => {
-  console.log("FormCard mounted -> form:", props.form);
-  console.log("showAmount:", props.showAmount);
-});
+const formatThaiDate = (dateString) => {
+  if (!dateString) return "ไม่พบวันที่";
+  
+  const date = new Date(dateString);
+  const months = [
+    "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.",
+    "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."
+  ];
 
-watch(
-  () => props.form,
-  (newVal) => {
-    console.log("FormCard updated -> form:", newVal);
-  },
-  { deep: true }
-);
+  const day = date.getUTCDate();
+  const month = months[date.getUTCMonth()];
+  const year = date.getUTCFullYear() + 543;
+  return `${day} ${month} ${year}`;
+};
 
 
 const userStore = useUserStore();
