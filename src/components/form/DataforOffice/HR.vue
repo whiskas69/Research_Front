@@ -228,26 +228,6 @@ const getFile = async (fileUrl) => {
   formData.file = fileUrl;
   window.open(formData.file, "_blank");
 };
-const isValidFile = (fileUrl) => {
-  return fileUrl && !fileUrl.includes("/uploads/null");
-};
-const downloadFile = async (fileUrl, fileName) => {
-  try {
-    const response = await fetch(fileUrl);
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = fileName + " ของ " + formData.name + ".pdf";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-  } catch (error) {
-    console.log("Error downloading file:", error);
-  }
-};
 const isLoading = ref(true);
 // Access route parameters
 const route = useRoute();

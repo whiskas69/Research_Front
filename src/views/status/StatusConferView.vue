@@ -153,7 +153,6 @@
 import Mainbox from "@/components/form/Mainbox.vue";
 
 import api from "@/setting/api";
-import { helpers } from "@vuelidate/validators";
 
 import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";

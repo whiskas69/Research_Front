@@ -621,18 +621,7 @@
               <p class="flex items-center pl-2">บาท</p>
             </div>
             <p class="flex items-center">
-              รวม
-              {{
-                data.conference.total_room == null
-                  ? 0
-                  : parseFloat(data.conference.total_room).toLocaleString(
-                      "en-US",
-                      {
-                        minimumFractionDigits: 2,
-                      }
-                    )
-              }}
-              บาท
+              รวม {{data.conference.total_room == null ? 0 : parseFloat(data.conference.total_room).toLocaleString("en-US", { minimumFractionDigits: 2 })}} บาท
             </p>
           </div>
 
@@ -657,28 +646,11 @@
               <p class="flex items-center pl-2">บาท</p>
             </div>
             <p class="flex items-center">
-              รวม
-              {{
-                data.conference.total_allowance == null
-                  ? 0
-                  : parseFloat(data.conference.total_allowance).toLocaleString(
-                      "en-US",
-                      {
-                        minimumFractionDigits: 2,
-                      }
-                    )
-              }}
-              บาท
+              รวม {{ data.conference.total_allowance == null ? 0 : parseFloat(data.conference.total_allowance).toLocaleString( "en-US", { minimumFractionDigits: 2 })}} บาท
             </p>
           </div>
           <p class="font-bold text-2xl pt-5 text-right">
-            รวมทั้งสิ้น
-            {{
-              parseFloat(data.conference.all_money).toLocaleString("en-US", {
-                minimumFractionDigits: 2,
-              })
-            }}
-            บาท
+            รวมทั้งสิ้น {{ parseFloat(data.conference.all_money).toLocaleString("en-US", { minimumFractionDigits: 2 })}}บาท
           </p>
         </SectionWrapper>
       </SectionWrapper>

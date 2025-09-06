@@ -2,7 +2,6 @@
   <div class="container my-10 mx-auto h-screen">
     <div class="h-[50%]">
       <p class="text-xl font-bold mb-2">เอกสารต้องตรวจสอบ</p>
-
       <div class="h-full p-2 mb-2 border rounded-lg overflow-auto">
         <FormCard
           v-for="form in listForm.forms"

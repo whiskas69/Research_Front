@@ -19,12 +19,25 @@
         <p class="text-lg">ตรวจสอบ และรับทราบเอกสาร</p>
 
         <SectionWrapper>
-          <RadioInput label="ข้อมูลถูกต้อง" name="noted" value="acknowledge" v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)" />
-          <RadioInput label="ข้อมูลไม่ถูกต้อง" name="noted" value="notAcknowledge" v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)" />
+          <RadioInput
+            label="ข้อมูลถูกต้อง"
+            name="noted"
+            value="acknowledge"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
+          />
+          <RadioInput
+            label="ข้อมูลไม่ถูกต้อง"
+            name="noted"
+            value="notAcknowledge"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
+          />
 
-          <span v-if="v$.radioAuthOffic.$error" class="text-base font-bold text-red-500 text-left">
+          <span
+            v-if="v$.radioAuthOffic.$error"
+            class="text-base font-bold text-red-500 text-left"
+          >
             {{ v$.radioAuthOffic.$errors[0].$message }}
           </span>
         </SectionWrapper>
@@ -67,31 +80,22 @@ const handleInput = (key, value) => {
 
 const route = useRoute();
 const id = route.params.id;
-console.log("id",id)
+console.log("id", id);
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
 const getFile = async () => {
+  try {
+    const response = await api.get(`/getFilekris?kris_id=${id}`);
+    formData.file = response.data.fileUrl;
+    console.log("Success", response);
+  } catch (error) {
+    console.log("Error fetching file:", error);
+  }
   window.open(formData.file, "_blank");
 };
 
-const downloadFile = async () => {
-  try {
-    const response = await fetch(formData.file);
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "แบบเสนอโครงการวิจัย " + formData.name + " .pdf"; // ชื่อไฟล์ที่บันทึก
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-  } catch (error) {
-    console.log("Error downloading file:", error);
-  }
-};
 const router = useRouter();
 
 const rules = computed(() => ({

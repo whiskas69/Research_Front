@@ -299,33 +299,10 @@ const getFile = async (fileUrl) => {
   formData.file = fileUrl;
   window.open(formData.file, "_blank");
 };
-const isValidFile = (fileUrl) => {
-  return fileUrl && !fileUrl.includes("/uploads/null");
-};
-const downloadFile = async (fileUrl, fileName) => {
-  try {
-    const response = await fetch(fileUrl);
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = fileName + " ของ " + formData.name + ".pdf";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-  } catch (error) {
-    console.log("Error downloading file:", error);
-  }
-};
 
 const props = defineProps(["type"]);
 const route = useRoute();
 const id = route.params.id;
-
-console.log("id", id);
-
 const isLoading = ref(true);
 
 const fetchOfficerData = async () => {
@@ -339,20 +316,22 @@ const fetchOfficerData = async () => {
       const responseScore = await api.get(`/score/${id}`);
       console.log("score123", responseScore);
       formData.score = responseScore.data;
+
     } else if (props.type == "Page_Charge") {
-      const responseoffic = await api.get(`/opinionPC/${id}`);
-      formData.offic = responseoffic.data;
-      const response = await api.get(`/form/Pc/${id}`);
-      formData.page_c = response.data.page_c;
-      formData.name = response.data.name;
       const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
-      console.log("responsefile", responsefile.data)
       formData.f_pc_proof = responsefile.data.file_pc_proof;
       formData.f_q_pc_proof = responsefile.data.file_q_pc_proof;
       formData.f_invoice_public = responsefile.data.file_invoice_public;
       formData.f_accepted = responsefile.data.file_accepted;
       formData.f_copy_article = responsefile.data.file_copy_article;
       formData.f_upload_article = responsefile.data.file_upload_article;
+
+      const response = await api.get(`/form/Pc/${id}`);
+      formData.page_c = response.data.page_c;
+      formData.name = response.data.name;
+
+      const responseoffic = await api.get(`/opinionPC/${id}`);
+      formData.offic = responseoffic.data;
     } else if (props.type == "Research_KRIS") {
 
       const responsefile = await api.get(`/getFilekris?kris_id=${id}`);
