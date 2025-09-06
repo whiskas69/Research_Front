@@ -394,7 +394,6 @@ import api from "@/setting/api";
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
-import TextInputLabelRight from "@/components/Input/TextInputLabelRight.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 import CheckInput from "@/components/Input/CheckInput.vue";
 import FileInput from "@/components/Input/FileInput.vue";
@@ -577,7 +576,7 @@ const NewKris = async () => {
   if (result) {
     try {
       const Dataforbackend = {
-        user_id: formData.userID,
+        user_id: user.value?.user_id,
         name_research_th: formData.projectTH,
         name_research_en: formData.projectENG,
         research_cluster: formData.resCluster,
@@ -587,7 +586,7 @@ const NewKris = async () => {
         h_index: formData.Hindex,
         his_invention: formData.invention,
         participation_percent: formData.participation,
-        Research_kris_amout: formData.proposedBudget,
+        Research_kris_amount: formData.proposedBudget,
         year: formData.periodYear,
         project_periodStart: formData.periodStart,
         project_periodEnd: formData.periodEnd,
