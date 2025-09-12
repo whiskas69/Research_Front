@@ -13,7 +13,7 @@
           </p>
           <RadioInput
             label="รับทราบ"
-            value="acknowledge"
+            value="approve"
             v-model="formData.acknowledge"
             @change="handleInput('acknowledge', $event.target.value)"
           />
@@ -23,13 +23,43 @@
             v-model="formData.acknowledge"
             @change="handleInput('acknowledge', $event.target.value)"
           />
+          <RadioInput
+            label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
+            value="returnSender"
+            v-model="formData.acknowledge"
+            @change="handleInput('acknowledge', $event.target.value)"
+          />
+          <RadioInput
+            label="ตีกลับเจ้าหน้าที่ทรัพยากรบุคคลเพื่อแก้ไขข้อมูล"
+            value="returnHr"
+            v-model="formData.acknowledge"
+            @change="handleInput('acknowledge', $event.target.value)"
+          />
+          <RadioInput
+            label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล"
+            value="returnResearch"
+            v-model="formData.acknowledge"
+            @change="handleInput('acknowledge', $event.target.value)"
+          />
+          <RadioInput
+            label="ตีกลับเจ้าหน้าที่การเงินเพื่อแก้ไขข้อมูล"
+            value="returnFinance"
+            v-model="formData.acknowledge"
+            @change="handleInput('acknowledge', $event.target.value)"
+          />
+          <RadioInput
+            label="ตีกลับรองคณบดีเพื่อแก้ไขข้อมูล"
+            value="returnassociate"
+            v-model="formData.acknowledge"
+            @change="handleInput('acknowledge', $event.target.value)"
+          />
 
           <span
-              v-if="v$.acknowledge.$error"
-              class="text-base font-bold text-red-500 text-left"
-            >
-              {{ v$.acknowledge.$errors[0].$message }}
-            </span>
+            v-if="v$.acknowledge.$error"
+            class="text-base font-bold text-red-500 text-left"
+          >
+            {{ v$.acknowledge.$errors[0].$message }}
+          </span>
         </SectionWrapper>
       </Mainbox>
 
@@ -66,7 +96,7 @@ const formData = reactive({
   budget: [],
   docSubmitDate: DateTime.now().toISODate(),
   acknowledge: "",
-  formStatus: "waitingApproval",
+  //formStatus: "waitingApproval",
 });
 
 const handleInput = (key, value) => {
@@ -134,7 +164,10 @@ const OfficerConfer = async () => {
         dean_id: user.value?.user_id,
         c_approve_result: formData.acknowledge,
         dean_doc_submit_date: formData.docSubmitDate,
-        form_status: formData.acknowledge == "notCorrect" ? "notApproved" : formData.formStatus,
+        form_status:
+          formData.acknowledge == "approve"
+            ? "waitingApproval"
+            : formData.acknowledge,
       };
 
       const response = await api.put(`/opinionConf/${id}`, dataForBackend);

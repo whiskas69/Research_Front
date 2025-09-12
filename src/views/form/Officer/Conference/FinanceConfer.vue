@@ -30,11 +30,7 @@
               <TextInputLabelLeft
                 label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
                 customInput="max-w-max text-center"
-                :placeholder="
-                  parseFloat(formData.numapproved).toLocaleString('en-US', {
-                    minimumFractionDigits: 0,
-                  })
-                "
+                :placeholder="parseFloat(formData.numapproved).toLocaleString('en-US', { minimumFractionDigits: 0 })"
                 v-model="formData.numapproved"
               />
               <p class="flex items-center w-12">รายการ</p>
@@ -45,11 +41,7 @@
               <TextInputLabelLeft
                 label="รวมเป็นเงิน"
                 customInput="max-w-max text-center"
-                :placeholder="
-                  parseFloat(formData.totalapproved).toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                  })
-                "
+                :placeholder="parseFloat(formData.totalapproved).toLocaleString('en-US', { minimumFractionDigits: 2 })"
                 v-model="formData.totalapproved"
               />
               <p class="flex items-center w-12">บาท</p>
@@ -72,11 +64,7 @@
               <TextInputLabelLeft
                 label="จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวนเงิน"
                 customInput="max-w-max text-center"
-                :placeholder="
-                  parseFloat(moneyRequested).toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                  })
-                "
+                :placeholder="parseFloat(moneyRequested).toLocaleString('en-US', { minimumFractionDigits: 2 })"
                 v-model="formData.newmoneyRequested"
               />
               <p class="flex items-center w-12">บาท</p>
@@ -145,6 +133,7 @@
 
       <Mainbox>
         <SectionWrapper>
+          <h1 class="text-m font-bold">กรณีไม่อนุมัติ หรือมีปัญหา (อื่น ๆ)</h1>
           <RadioInput
             label="เงินสำรองไม่เพียงพอ"
             value="pending"
@@ -159,10 +148,37 @@
             v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)"
           />
+          <RadioInput
+            label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
+            value="returnSender"
+            name="re"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
+          />
+          <RadioInput
+            label="ตีกลับเจ้าหน้าที่ทรัพยากรบุคคลเพื่อแก้ไขข้อมูล"
+            value="returnHr"
+            name="re"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
+          />
+          <RadioInput
+            label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล"
+            value="returnResearch"
+            name="re"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
+          />
+          <!-- <span v-if="v$.radioAuthOffic.$error" class="text-base font-bold text-red-500 text-left">
+            {{ v$.radioAuthOffic.$errors[0].$message }}
+          </span> -->
           <textarea
             class="textarea textarea-bordered w-full"
             @input="handleInput('comment_text', $event.target.value)"
           ></textarea>
+          <span v-if="v$.comment_text.$error" class="text-base font-bold text-red-500 text-left">
+            {{ v$.comment_text.$errors[0].$message }}
+          </span>
         </SectionWrapper>
       </Mainbox>
 
@@ -179,14 +195,7 @@
 import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
-import {
-  required,
-  helpers,
-  maxValue,
-  minValue,
-  numeric,
-  decimal,
-} from "@vuelidate/validators";
+import { required, helpers, maxValue, minValue, numeric, decimal, requiredIf } from "@vuelidate/validators";
 import { DateTime } from "luxon";
 
 import { useUserStore } from "@/store/userStore";
@@ -216,9 +225,9 @@ const formData = reactive({
   newmoneyRequested: null,
 });
 
-const formStatus = computed(() =>
-  formData.radioAuthOffic === "pending" ? "pending" : "associate"
-);
+// const formStatus = computed(() =>
+//   formData.radioAuthOffic === "pending" ? "pending" : "associate"
+// );
 
 const handleInput = (key, value) => {
   formData[key] = value;
@@ -288,13 +297,11 @@ const fetchOfficerData = async () => {
   try {
     const responseoffic = await api.get(`/opinionConf/${id}`);
     formData.offic = responseoffic.data;
+
     const responseBudget = await api.get(`/budgetsConfer`);
     console.log("budgetsConfer:", responseBudget.data);
     formData.numapproved = responseBudget.data.numapproved;
-    formData.totalapproved =
-      responseBudget.data.totalapproved == null
-        ? 0
-        : responseBudget.data.totalapproved;
+    formData.totalapproved = responseBudget.data.totalapproved == null ? 0 : responseBudget.data.totalapproved;
 
     console.log("numapprove", formData.numapproved);
     console.log("totalapprove", formData.totalapproved);
@@ -340,26 +347,33 @@ const rules = computed(() => ({
     decimal: helpers.withMessage("* กรุณากรอกตัวเลข *", decimal),
     minValue: helpers.withMessage("* ไม่ต่ำกว่า 1 *", minValue(1)),
   },
+  // radioAuthOffic: {
+  //   required: helpers.withMessage("* กรุณาเลือกสถานะ *", required),
+  // },
+  comment_text: {
+    required: helpers.withMessage(
+        "* กรุณากรอกข้อมูล *",
+        requiredIf(() => formData.radioAuthOffic !== "notApproved" || formData.radioAuthOffic == "")
+      ),
+  }
 }));
 
 const v$ = useVuelidate(rules, formData);
 
-// const rulesPending = computed(() => ({
-//   comment: {
-
-//   }
-// }))
-
 const OfficerConfer = async () => {
-  
+
+  console.log("formData",JSON.stringify(formData))
+
   if (formData.radioAuthOffic === "pending" && (formData.comment_text != null)) {
     const dataForBackend = {
       form_id: formData.form_id,
-      form_status: formStatus.value,
+      form_status: formData.radioAuthOffic,
       comment_pending: formData.comment_text,
     };
     await api.post(`/budget`, dataForBackend);
+
     console.log("dataForBackend",JSON.stringify(dataForBackend))
+    
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
     // router.push("/officer");
   } else {
@@ -381,7 +395,7 @@ const OfficerConfer = async () => {
           amount_approval: moneyRequested.value,
           total_remaining_credit_limit: formData.totalcreditLimit,
           doc_submit_date: formData.docSubmitDate,
-          form_status: formStatus.value,
+          form_status: formData.radioAuthOffic ? formData.radioAuthOffic : "associate",
         };
         console.log("post office confer: ", JSON.stringify(dataForBackend));
 

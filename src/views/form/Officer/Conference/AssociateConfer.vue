@@ -10,17 +10,40 @@
           <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
           <RadioInput
             label="เห็นชอบ"
-            value="agree"
+            value="approve"
             name="comment"
             v-model="formData.agree"
           />
           <RadioInput
             label="ไม่เห็นชอบ"
-              value="disagree"
+              value="notApproved"
               name="comment"
             v-model="formData.agree"
-          /> 
-
+          />
+          <RadioInput
+            label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
+              value="returnSender"
+              name="comment"
+            v-model="formData.agree"
+          />
+          <RadioInput
+            label="ตีกลับเจ้าหน้าที่ทรัพยากรบุคคลเพื่อแก้ไขข้อมูล"
+              value="returnHr"
+              name="comment"
+            v-model="formData.agree"
+          />
+          <RadioInput
+            label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล"
+              value="returnResearch"
+              name="comment"
+            v-model="formData.agree"
+          />
+          <RadioInput
+            label="ตีกลับเจ้าหน้าที่การเงินเพื่อแก้ไขข้อมูล"
+              value="returnFinance"
+              name="comment"
+            v-model="formData.agree"
+          />
           <span
             v-if="v$.agree.$error"
             class="text-base font-bold text-red-500 text-left"
@@ -61,7 +84,7 @@ const formData = reactive({
   offic: [],
   docSubmitDate: DateTime.now().toISODate(),
   agree: "",
-  formStatus: "dean",
+  // formStatus: "dean",
 });
 
 const isLoading = ref(true);
@@ -118,7 +141,8 @@ const OfficerConfer = async () => {
         associate_id: user.value?.user_id,
         c_deputy_dean: formData.agree,
         associate_doc_submit_date: formData.docSubmitDate,
-        form_status: formData.formStatus,
+        //form_status: formData.formStatus,
+        form_status: formData.agree === 'approve' ? 'dean' : formData.agree,
       };
 
       const response = await api.put(`/opinionConf/${id}`, dataForBackend);

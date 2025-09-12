@@ -126,14 +126,21 @@
           <p>ตรวจสอบความถูกต้องของข้อมูล</p>
           <RadioInput
             label="ข้อมูลถูกต้อง"
-            value="correct"
+            value="approve"
             name="re"
             v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)"
           />
           <RadioInput
-            label="ข้อมูลไม่ถูกต้อง"
-            value="notCorrect"
+            label="ไม่อนุมัติ"
+            value="notApproved"
+            name="re"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
+          />
+          <RadioInput
+            label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
+            value="returnSender"
             name="re"
             v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)"
@@ -142,6 +149,9 @@
             class="textarea textarea-bordered w-full"
             @input="handleInput('description', $event.target.value)"
           ></textarea>
+          <span v-if="v$.description.$error" class="text-base font-bold text-red-500 text-left">
+            {{ v$.description.$errors[0].$message }}
+          </span>
 
           <span v-if="v$.radioAuthOffic.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.radioAuthOffic.$errors[0].$message }}
@@ -161,7 +171,7 @@
 import { ref, onMounted, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
-import { required, helpers } from "@vuelidate/validators";
+import { required, helpers, requiredIf } from "@vuelidate/validators";
 
 import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
@@ -186,7 +196,7 @@ const formData = reactive({
   f_fx_rate_document: null,
   f_conf_proof: null,
   checkWorkedNo3NeverAbroad: "",
-  formStatus: "research",
+  //formStatus: "research",
   noteHR: "",
   profes3y: "",
   radioAuthOffic: "",
@@ -200,7 +210,13 @@ const handleInput = (key, value) => {
 const rules = computed(() => ({
   radioAuthOffic: {
     required: helpers.withMessage("* กรุณาเลือกข้อมูล *", required)
-  }
+  },
+  description: {
+      required: helpers.withMessage(
+        "* กรุณากรอกข้อมูล *",
+        requiredIf(() => formData.radioAuthOffic === "returnSender")
+      ),
+    },
 }));
 
 const v$ = useVuelidate(rules, formData);
@@ -284,7 +300,7 @@ const OfficerConfer = async () => {
         c_reason: formData.description,
         c_noteOther: formData.noteHR,
         hr_doc_submit_date: formData.docSubmitDate,
-        form_status: formData.radioAuthOffic == "notCorrect" ? "notApproved" : formData.formStatus,
+        form_status: formData.radioAuthOffic === 'approve' ? 'research' : formData.radioAuthOffic,
       };
 
       const response = await api.post("/opinionConf", dataForBackend);
