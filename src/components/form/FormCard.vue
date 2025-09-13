@@ -1,43 +1,78 @@
 <template>
-  <router-link v-if="getLink(form)" :to="getLink(form)">
+  <router-link v-if="getLink(form) || true" :to="getLink(form) || '#'">
     <div
       class="my-2 p-4 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"
     >
+      <!-- Title -->
       <h2 class="text-lg font-bold">{{ getTitle(form) }}</h2>
 
-      <div class="mt-2 ml-5">
-        <div class="flex">
-          <h4 class="mr-5">ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}</h4>
+
+      <div class="flex flex-row w-full justify-between pt-2">
+        <div>
+          <div class="flex">
+            <h4 class="mr-5">ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}</h4>
+          </div>
+
+          <div class="flex" v-if="form.article_name">
+            <h4 class="mr-5 truncate">
+              {{
+                form.form_type === "Page_Charge"
+                  ? "ชื่อวารสาร"
+                  : "ชื่องานประชุม"
+              }}
+              : {{ form.article_name }}
+            </h4>
+          </div>
+
+          <div
+            class="flex"
+            v-if="form.article_title && form.form_type !== 'Research_KRIS'"
+          >
+            <h4 class="mr-5 truncate">ชื่อบทความ : {{ form.article_title }}</h4>
+          </div>
+
+          <div class="flex" v-if="form.form_type === 'Research_KRIS'">
+            <h4 class="mr-5 truncate">
+              ชื่อโครงงานวิจัย : {{ form.article_title }}
+            </h4>
+          </div>
+
+          <div class="flex">
+            <h4 class="mr-5">
+              วันที่ส่งเอกสาร : {{ formatThaiDate(form.doc_submit_date) }}
+            </h4>
+          </div>
+
+          <div class="flex" v-if="showAmount">
+            <h4 class="mr-5">
+              วงเงินที่เบิกได้ :
+              {{
+                form.form_type === "Research_KRIS"
+                  ? form.Research_kris_amount
+                  : form.amount_approval
+              }}
+              บาท
+            </h4>
+          </div>
         </div>
 
-        <div class="flex" v-if="form.article_name">
-          <h4 class="mr-5">
-            {{
-              form.form_type === "Page_Charge" ? "ชื่อวารสาร" : "ชื่องานประชุม"
-            }}
-            : {{ form.article_name }}
-          </h4>
-        </div>
-
+        <!-- Status -->
         <div
-          class="flex"
-          v-if="form.article_title && form.form_type !== 'Research_KRIS'"
+          v-if="showStatus"
+          class="flex justify-end items-center"
         >
-          <h4 class="mr-5">ชื่อบทความ : {{ form.article_title }}</h4>
-        </div>
-
-        <div class="flex" v-if="form.form_type === 'Research_KRIS'">
-          <h4 class="mr-5">ชื่อโครงงานวิจัย : {{ form.article_title }}</h4>
-        </div>
-
-        <div class="flex" v-if="showAmount == 'show'">
-          <h4 class="mr-5">
-            วงเงินที่เบิกได้ : {{ form.form_type === "Research_KRIS" ? form.Research_kris_amount : form.amount_approval }} บาท
-          </h4>
-        </div>
-
-        <div class="flex">
-          <h4 class="mr-5">วันที่ส่งเอกสาร : {{ formatThaiDate(form.doc_submit_date) }}</h4>
+          <p class="text-red-500 mr-5" v-if="form.form_status == 'notApproved'">
+            สถานะ{{ showTHstatus(form.form_status) }}
+          </p>
+          <p
+            class="text-green-500 mr-5"
+            v-else-if="form.form_status == 'approve'"
+          >
+            สถานะ{{ showTHstatus(form.form_status) }}
+          </p>
+          <p class="text-yellow-500 mr-5" v-else>
+            สถานะ{{ showTHstatus(form.form_status) }}
+          </p>
         </div>
       </div>
     </div>
@@ -45,23 +80,35 @@
 </template>
 
 <script setup>
-import { onMounted, watch } from "vue";
 import { useUserStore } from "@/store/userStore";
 
 const props = defineProps({
   form: { type: Object, required: true },
-  rolePathMap: { type: Object, required: false, default: () => ({}) },
+  page: { type: String, default: "history" },
+  roleConferenceMap: { type: Object, required: false, default: () => ({}) },
   rolePageChargeMap: { type: Object, required: false, default: () => ({}) },
-  showAmount: { type: String, default: 'notShow' },
+  roleResearchKRISMap: { type: Object, required: false, default: () => ({}) },
+  showAmount: { type: Boolean, default: true },
+  showStatus: { type: Boolean, default: true },
 });
 
 const formatThaiDate = (dateString) => {
   if (!dateString) return "ไม่พบวันที่";
-  
+
   const date = new Date(dateString);
   const months = [
-    "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.",
-    "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."
+    "ม.ค.",
+    "ก.พ.",
+    "มี.ค.",
+    "เม.ย.",
+    "พ.ค.",
+    "มิ.ย.",
+    "ก.ค.",
+    "ส.ค.",
+    "ก.ย.",
+    "ต.ค.",
+    "พ.ย.",
+    "ธ.ค.",
   ];
 
   const day = date.getUTCDate();
@@ -70,25 +117,46 @@ const formatThaiDate = (dateString) => {
   return `${day} ${month} ${year}`;
 };
 
-
 const userStore = useUserStore();
 
 const getLink = (form) => {
   const role = userStore.user.user_role;
-  if (form.form_type === "Conference") {
-    return props.rolePathMap[role]
-      ? props.rolePathMap[role] + form.conf_id
-      : null;
+
+  /// เลือก map ตามหน้า
+  let roleMapByType;
+  if (props.page === "officer") {
+    roleMapByType = {
+      Conference: props.roleConferenceMap,
+      Page_Charge: props.rolePageChargeMap,
+      Research_KRIS: props.roleResearchKRISMap,
+    };
+  } else {
+    // history page
+    roleMapByType = {
+      Conference: { default: "/history/conference/" },
+      Page_Charge: { default: "/history/pageCharge/" },
+      Research_KRIS: { default: "/history/kris/" },
+    };
   }
-  if (form.form_type === "Page_Charge") {
-    return props.rolePageChargeMap[role]
-      ? props.rolePageChargeMap[role] + form.pageC_id
-      : null;
+
+  const idFieldByType = {
+    Conference: "conf_id",
+    Page_Charge: "pageC_id",
+    Research_KRIS: "kris_id",
+  };
+
+  const roleMap = roleMapByType[form.form_type];
+  const idField = idFieldByType[form.form_type];
+
+  if (!roleMap || !idField) return "#";
+
+  // officer → ใช้ role ของ user
+  // history → fallback default
+  if (props.page === "officer") {
+    return roleMap[role] ? roleMap[role] + form[idField] : "#";
+  } else {
+    return roleMap.default + form[idField];
   }
-  if (form.form_type === "Research_KRIS") {
-    return "/officeFormKris/research/" + form.kris_id;
-  }
-  return null;
 };
 
 const getTitle = (form) => {
@@ -101,6 +169,26 @@ const getTitle = (form) => {
       return "แบบเสนอโครงการวิจัย";
     default:
       return "";
+  }
+};
+
+const showTHstatus = (status) => {
+  if (status == "approve") {
+    return "อนุมัติ";
+  } else if (status == "notApproved") {
+    return "ไม่อนุมัติ";
+  } else if (status == "hr") {
+    return "ฝ่ายบริหารทรัพยากรบุคคล";
+  } else if (status == "research") {
+    return "ฝ่ายบริหารงานวิจัย";
+  } else if (status == "finance" || status == "pending") {
+    return "ฝ่ายบริหารการเงิน";
+  } else if (status == "associate") {
+    return "รองคณบดี";
+  } else if (status == "dean") {
+    return "คณบดี";
+  } else if (status == "waitingApproval") {
+    return "รออนุมัติ";
   }
 };
 </script>

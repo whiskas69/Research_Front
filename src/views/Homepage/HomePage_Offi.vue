@@ -7,9 +7,12 @@
           v-for="form in listForm.forms"
           :key="form.form_id"
           :form="form"
-          :rolePathMap="rolePathMap"
+          :page="'officer'"
+          :roleConferenceMap="roleConferenceMap"
           :rolePageChargeMap="rolePageChargeMap"
-          showAmount="notShow"
+          :roleResearchKRISMap="roleResearchKRISMap"
+          :showAmount="false"
+          :showStatus="false"
         />
       </div>
     </div>
@@ -21,11 +24,13 @@
           v-for="form in listForm.return"
           :key="form.form_id"
           :form="form"
-          :rolePathMap="rolePathMap"
+          :roleConferenceMap="roleConferenceMap"
           :rolePageChargeMap="rolePageChargeMap"
-          showAmount="notShow"
+          :roleResearchKRISMap="roleResearchKRISMap"
+          :showAmount="false"
+          :showStatus="false"
+          :eoffice="false"
         />
-
       </div>
     </div>
   </div>
@@ -53,7 +58,7 @@ if (!userStore.user.user_signature) {
 
 const isLoading = ref(true);
 
-const rolePathMap = {
+const roleConferenceMap = {
   hr: "/officeFormConference/hr/",
   research: "/officeFormConference/research/",
   finance: "/officeFormConference/finance/",
@@ -67,6 +72,11 @@ const rolePageChargeMap = {
   associate: "/officeFormPageCharge/associate/",
   dean: "/officeFormPageCharge/dean/",
 };
+
+const roleResearchKRISMap = {
+  research: "/officeFormKris/research/",
+};
+
 const fetchOfficerData = async () => {
   try {
     const responseOffice = await api.get("/allForms");
@@ -79,11 +89,9 @@ const fetchOfficerData = async () => {
     // กรองข้อมูลตาม user role
     let filteredForms = responseOffice.data.filter((form) => {
       if (userStore.user.user_role === "hr") {
-        console.log("userStore.user.user_role", userStore.user.user_role);
         return form.form_status === "hr";
       }
       if (userStore.user.user_role === "research") {
-        console.log("userStore.user.user_role", userStore.user.user_role);
         return form.form_status === "research";
       }
       if (userStore.user.user_role === "finance") {
@@ -99,7 +107,6 @@ const fetchOfficerData = async () => {
     });
 
     listForm.forms = filteredForms;
-    
   } catch (error) {
     console.log("Error fetching Officer data:", error);
   } finally {

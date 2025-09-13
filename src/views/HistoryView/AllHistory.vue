@@ -5,12 +5,15 @@
     <div class="flex flex-row mb-4 w-full">
       <div class="flex flex-row mb-4 w-full">
         <span class="flex mr-2 items-center">ปีงบประมาณ</span>
-        <select class="select select-bordered w-1/6" v-model="data.findFiscalYear">
-            <option v-for="n in 5" :key="n" :value="fiscalYear - (n - 1)">
-              {{ fiscalYear - (n - 1) }}
-            </option>
+        <select
+          class="select select-bordered w-1/6"
+          v-model="data.findFiscalYear"
+        >
+          <option v-for="n in 5" :key="n" :value="fiscalYear - (n - 1)">
+            {{ fiscalYear - (n - 1) }}
+          </option>
         </select>
-        
+
         <span class="flex ml-2 mr-2 items-center">ประเภทเอกสาร</span>
         <select class="select select-bordered w-1/6" v-model="data.typeOfDoc">
           <option selected :value="'all'">ทั้งหมด</option>
@@ -34,162 +37,43 @@
       </div>
     </div>
 
-    <div v-for="form in data.allForm" :key="form.form_id">
-      <div
-        class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
-        v-if="form.form_type == 'Research_KRIS'"
-      >
-        <router-link :to="`/history/kris/${form.kris_id}`">
-          <h2 class="text-lg font-bold">
-            แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ
-          </h2>
-          <div class="columns-2 mt-2 ml-5">
-            <div>
-              <div class="flex">
-                <h4 class="mr-5">ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}</h4>
-              </div>
-              <div class="flex">
-                <h4 class="mr-5 truncate">
-                  ชื่อโครงการวิจัย : {{ form.article_title }}
-                </h4>
-              </div>
-              <div class="flex justify-end items-center">
-                <p
-                  class="text-red-500 mr-5"
-                  v-if="form.form_status == 'notApproved'"
-                >
-                  สถานะ{{ showTHstatus(form.form_status) }}
-                </p>
-                <p
-                  class="text-green-500 mr-5"
-                  v-else-if="form.form_status == 'approve'"
-                >
-                  สถานะ{{ showTHstatus(form.form_status) }}
-                </p>
-                <p
-                  class="text-yellow-500 mr-5"
-                  v-else-if="form.form_status != 'notApproved' && form.form_status != 'approve'"
-                >
-                  สถานะ{{ showTHstatus(form.form_status) }}
-                </p>
-              </div>
-            </div>
-          </div>
-        </router-link>
-      </div>
-
-      <div
-        class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
-        v-if="form.form_type == 'Page_Charge'"
-      >
-        <router-link :to="`/history/pageCharge/${form.pageC_id}`">
-          <h2 class="text-lg font-bold">
-            ขออนุมัติค่า Page
-            Chargeเพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
-          </h2>
-          <div class="columns-2 mt-2 ml-5">
-            <div>
-              <div class="flex">
-                <h4 class="mr-5">ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}</h4>
-              </div>
-              <div class="flex">
-                <h4 class="mr-5 truncate">ชื่อวารสาร : {{ form.article_name }}</h4>
-              </div>
-              <div class="flex">
-                <h4 class="mr-5 truncate">ชื่อบทความ : {{ form.article_title }}</h4>
-              </div>
-              <div class="flex">
-                <h4 class="mr-5">
-                  วงเงินที่เบิกได้ : {{ form.amount_approval }} บาท
-                </h4>
-              </div>
-              <div class="flex justify-end h-20 items-center">
-                <p
-                  class="text-red-500 mr-5"
-                  v-if="form.form_status == 'notApproved'"
-                >
-                  สถานะ{{ showTHstatus(form.form_status) }}
-                </p>
-                <p
-                  class="text-green-500 mr-5"
-                  v-else-if="form.form_status == 'approve'"
-                >
-                  สถานะ{{ showTHstatus(form.form_status) }}
-                </p>
-                <p
-                  class="text-yellow-500 mr-5"
-                  v-else-if="form.form_status != 'notApproved' && form.form_status != 'approve'"
-                >
-                  สถานะ{{ showTHstatus(form.form_status) }}
-                </p>
-              </div>
-            </div>
-          </div>
-        </router-link>
-      </div>
-
-      <div
-        class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
-        v-if="form.form_type == 'Conference'"
-      >
-        <router-link :to="`/history/conference/${form.conf_id}`">
-          <h2 class="text-lg font-bold">
-            ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
-          </h2>
-          <div class="columns-2 mt-2 ml-5">
-            <div>
-              <div class="flex">
-                <h4 class="mr-5">ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}</h4>
-              </div>
-              <div class="flex">
-                <h4 class="mr-5 truncate">ชื่องานประชุม : {{ form.article_name }}</h4>
-              </div>
-              <div class="flex">
-                <h4 class="mr-5 truncate">ชื่อบทความ : {{ form.article_title }}</h4>
-              </div>
-              <div class="flex">
-                <h4 class="mr-5">
-                  วงเงินที่เบิกได้ : {{ form.amount_approval }} บาท
-                </h4>
-              </div>
-              <div class="flex justify-end h-20 items-center">
-                <p
-                  class="text-red-500 mr-5"
-                  v-if="form.form_status == 'notApproved'"
-                >
-                  สถานะ{{ showTHstatus(form.form_status) }}
-                </p>
-                <p
-                  class="text-green-500 mr-5"
-                  v-else-if="form.form_status == 'approve'"
-                >
-                  สถานะ{{ showTHstatus(form.form_status) }}
-                </p>
-                <p
-                  class="text-yellow-500 mr-5"
-                  v-else-if="form.form_status != 'notApproved' && form.form_status != 'approve'"
-                >
-                  สถานะ{{ showTHstatus(form.form_status) }}
-                </p>
-              </div>
-            </div>
-          </div>
-        </router-link>
-      </div>
-    </div>
+    <FormCard
+      v-for="form in data.allForm"
+      :key="form.form_id"
+      :form="form"
+      :page="'history'"
+      :roleConferenceMap="roleConferenceMap"
+      :rolePageChargeMap="rolePageChargeMap"
+      :roleResearchKRISMap="roleResearchKRISMap"
+      :showAmount="true"
+      :showStatus="true"
+    />
   </div>
 </template>
 <script setup>
 import { onMounted, reactive, watch } from "vue";
 import { DateTime } from "luxon";
 import api from "@/setting/api";
+import FormCard from "@/components/form/FormCard.vue";
 
 const data = reactive({
-  allForm: "",
+  allForm: [],
   findFiscalYear: "",
   typeOfDoc: "",
   typeStatus: "",
 });
+
+const roleConferenceMap = {
+  conference: "/history/conference/",
+};
+
+const rolePageChargeMap = {
+  pageCharge: "/history/pageCharge/",
+};
+
+const roleResearchKRISMap = {
+  kris: "/history/kris/",
+};
 
 const getThaiFiscalYear = () => {
   const now = DateTime.now();
@@ -201,18 +85,24 @@ const fiscalYear = getThaiFiscalYear();
 //pull data of profess
 const pulldata = async () => {
   try {
-    const res = await api.get(`/allForms`,{
+    const res = await api.get(`/allForms`, {
       params: {
         fiscalYear: data.findFiscalYear || "", // ส่งว่างถ้าไม่ได้เลือก
         type: data.typeOfDoc || "",
         typeStatus: data.typeStatus || "",
-      }
+      },
     });
 
     data.allForm = res.data.map((form) => {
       return {
         ...form, // คัดลอกทุกค่าในออบเจกต์ `form` มา
         amount_approval: parseFloat(form.amount_approval).toLocaleString(
+          "en-US",
+          {
+            minimumFractionDigits: 2,
+          }
+        ),
+        Research_kris_amount: parseFloat(form.Research_kris_amount).toLocaleString(
           "en-US",
           {
             minimumFractionDigits: 2,
@@ -228,40 +118,42 @@ const pulldata = async () => {
 };
 
 const showTHstatus = (status) => {
-  if (status == "approve"){
-    return "อนุมัติ"
-  }else if (status == "notApproved"){
-    return "ไม่อนุมัติ"
-  }else if (status == "hr"){
-    return "ฝ่ายบริหารทรัพยากรบุคคล"
-  }else if (status == "research"){
-    return "ฝ่ายบริหารงานวิจัย"
-  }else if (status == "finance" || status == "pending"){
-    return "ฝ่ายบริหารการเงิน"
-  }else if (status == "associate"){
-    return "รองคณบดี"
-  }else if (status == "dean"){
-    return "คณบดี"
-  }else if (status == "waitingApproval"){
-    return "รออนุมัติ"
+  if (status == "approve") {
+    return "อนุมัติ";
+  } else if (status == "notApproved") {
+    return "ไม่อนุมัติ";
+  } else if (status == "hr") {
+    return "ฝ่ายบริหารทรัพยากรบุคคล";
+  } else if (status == "research") {
+    return "ฝ่ายบริหารงานวิจัย";
+  } else if (status == "finance" || status == "pending") {
+    return "ฝ่ายบริหารการเงิน";
+  } else if (status == "associate") {
+    return "รองคณบดี";
+  } else if (status == "dean") {
+    return "คณบดี";
+  } else if (status == "waitingApproval") {
+    return "รออนุมัติ";
   }
-}
+};
 
 onMounted(async () => {
   if (!data.findFiscalYear) {
-    data.findFiscalYear = fiscalYear
+    data.findFiscalYear = fiscalYear;
   }
   if (!data.typeOfDoc) {
-    data.typeOfDoc = "all"
+    data.typeOfDoc = "all";
   }
   if (!data.typeStatus) {
-    data.typeStatus = "all"
+    data.typeStatus = "all";
   }
   pulldata();
 });
 
 watch(
   () => [data.findFiscalYear, data.typeOfDoc, data.typeStatus],
-  () => {pulldata();}
+  () => {
+    pulldata();
+  }
 );
 </script>
