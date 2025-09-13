@@ -3,7 +3,6 @@
     <div class="container my-10 mx-auto">
       <PageChageData :id="id" />
       <Research :id="id" :type="'Page_Charge'" />
-
       <Mainbox>
         <SectionWrapper>
           <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
@@ -30,7 +29,11 @@
               <TextInputLabelLeft
                 label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
                 customInput="max-w-max text-center"
-                :placeholder="parseFloat(formData.numapproved).toLocaleString('en-US', { minimumFractionDigits: 0, })"
+                :placeholder="
+                  parseFloat(formData.numapproved).toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                  })
+                "
                 v-model="formData.numapproved"
               />
               <p class="flex items-center w-12">รายการ</p>
@@ -41,7 +44,11 @@
               <TextInputLabelLeft
                 label="รวมเป็นเงิน"
                 customInput="max-w-max text-center"
-                :placeholder="parseFloat(formData.totalapproved).toLocaleString('en-US', { minimumFractionDigits: 0, })"
+                :placeholder="
+                  parseFloat(formData.totalapproved).toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                  })
+                "
                 v-model="formData.totalapproved"
               />
               <p class="flex items-center w-12">บาท</p>
@@ -52,7 +59,11 @@
               <TextInputLabelLeft
                 label="วงเงินที่คณะจัดสรรไว้ คงเหลือ"
                 customInput="max-w-max text-center"
-                :placeholder="parseFloat(caltotalFaculty).toLocaleString('en-US', { minimumFractionDigits: 0, })"
+                :placeholder="
+                  parseFloat(caltotalFaculty).toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                  })
+                "
                 v-model="formData.caltotalFaculty"
               />
               <p class="flex items-center w-12">บาท</p>
@@ -63,9 +74,13 @@
               <TextInputLabelLeft
                 label="จำนวนเงินที่ขออนุมัติค่า Page Charge ในครั้งนี้ เป็นจำนวนเงิน"
                 customInput="max-w-max text-center"
-                :placeholder="parseFloat(formData.canWithdrawn).toLocaleString('en-US', { minimumFractionDigits: 0,})"
+                :placeholder="
+                  parseFloat(formData.canWithdrawn).toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                  })
+                "
                 v-model="formData.canWithdrawn"
-                />
+              />
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
@@ -74,19 +89,71 @@
               <TextInputLabelLeft
                 label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น"
                 customInput="max-w-max text-center"
-                :placeholder="parseFloat(caltotalFacultyNow).toLocaleString('en-US', {
-                  minimumFractionDigits: 0,
-                })"
+                :placeholder="
+                  parseFloat(caltotalFacultyNow).toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                  })
+                "
                 v-model="formData.totalcreditLimit"
               />
               <p class="flex items-center w-12">บาท</p>
             </div>
           </div>
-          <span v-if="v$.year.$error" class="text-base font-bold text-red-500 text-left">
+          <span
+            v-if="v$.year.$error"
+            class="text-base font-bold text-red-500 text-left"
+          >
             {{ v$.year.$errors[0].$message }}
           </span>
-          <span v-if="v$.totalAll.$error" class="text-base font-bold text-red-500 text-left">
+          <span
+            v-if="v$.totalAll.$error"
+            class="text-base font-bold text-red-500 text-left"
+          >
             {{ v$.totalAll.$errors[0].$message }}
+          </span>
+        </SectionWrapper>
+      </Mainbox>
+
+      <Mainbox>
+        <SectionWrapper>
+          <h1 class="text-m font-bold">กรณีไม่อนุมัติ หรือมีปัญหา (อื่น ๆ)</h1>
+          <RadioInput
+            label="เงินสำรองไม่เพียงพอ"
+            value="pending"
+            name="re"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
+          />
+          <RadioInput
+            label="ไม่อนุมัติ"
+            value="notApproved"
+            name="re"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
+          />
+          <RadioInput
+            label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
+            value="returnSender"
+            name="re"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
+          />
+          <RadioInput
+            label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล"
+            value="returnResearch"
+            name="re"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
+          />
+          <textarea
+            class="textarea textarea-bordered w-full"
+            @input="handleInput('comment_text', $event.target.value)"
+          ></textarea>
+          <span
+            v-if="v$.comment_text.$error"
+            class="text-base font-bold text-red-500 text-left"
+          >
+            {{ v$.comment_text.$errors[0].$message }}
           </span>
         </SectionWrapper>
       </Mainbox>
@@ -111,15 +178,15 @@ import {
   minValue,
   numeric,
   decimal,
+  requiredIf,
 } from "@vuelidate/validators";
 import { DateTime } from "luxon";
-
 import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
-
 import Mainbox from "@/components/form/Mainbox.vue";
 import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
+import RadioInput from "@/components/Input/RadioInput.vue";
 import PageChageData from "@/components/form/DataforOffice/PageChage.vue";
 import Research from "@/components/form/DataforOffice/Research.vue";
 
@@ -136,7 +203,9 @@ const formData = reactive({
   typeFile: "Page_Charge",
   //status
   form_id: 0, // เพื่อเก็บไอดีในตารางการเงิน
-  formStatus: "associate",
+  radioAuthOffic: "",
+  comment_text: null,
+  newmoneyRequested: null,
 });
 
 const handleInput = (key, value) => {
@@ -228,49 +297,71 @@ const rules = computed(() => ({
     decimal: helpers.withMessage("* กรุณากรอกตัวเลข *", decimal),
     minValue: helpers.withMessage("* ไม่ต่ำกว่า 1 *", minValue(1)),
   },
+  comment_text: {
+    required: helpers.withMessage(
+      "* กรุณากรอกข้อมูล *",
+      requiredIf(() => formData.radioAuthOffic)
+    ),
+  },
 }));
 
 const v$ = useVuelidate(rules, formData);
 
 const OfficerPC = async () => {
-  const result = await v$.value.$validate();
+  console.log("formData", JSON.stringify(formData));
 
-  if (result) {
-    if (confirm("ยืนยันข้อมูลถูกต้อง") == false) {
-      return false;
-    }
+  if (formData.radioAuthOffic === "pending" && formData.comment_text != null) {
+    const dataForBackend = {
+      form_id: formData.form_id,
+      form_status: formData.radioAuthOffic,
+      comment_pending: formData.comment_text,
+    };
+    await api.post(`/budget`, dataForBackend);
 
-    try {
-      const dataForBackend = {
-        user_id: user.value?.user_id,
-        form_id: formData.form_id,
-        budget_year: formData.year,
-        Page_Charge_amount: formData.totalAll,
-        num_expenses_approved: formData.numapproved,
-        total_amount_approved: formData.totalapproved,
-        remaining_credit_limit: formData.creditLimit,
-        amount_approval: formData.canWithdrawn,
-        total_remaining_credit_limit: formData.totalcreditLimit,
-        doc_submit_date: formData.docSubmitDate,
-        form_status: formData.formStatus,
-      };
-      console.log("post office confer: ", JSON.stringify(dataForBackend));
+    console.log("dataForBackend", JSON.stringify(dataForBackend));
 
-      const response = await api.post(`/budget`, dataForBackend, {
-        headers: { "Content-Type": "application/json" },
-      });
-      alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      router.push("/officer");
-      console.log("res: ", response);
-      console.log("postOfficerConfer: ", response.data);
-    } catch (error) {
-      console.log("Error saving code : ", error);
-      alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
-    }
+    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+    router.push("/officer");
   } else {
-    alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");
+    const result = await v$.value.$validate();
 
-    console.log("Validation failed:", v$.value.$errors);
+    if (result) {
+      if (confirm("ยืนยันข้อมูลถูกต้อง") == false) {
+        return false;
+      }
+
+      try {
+        const dataForBackend = {
+          user_id: user.value?.user_id,
+          form_id: formData.form_id,
+          budget_year: formData.year,
+          Page_Charge_amount: formData.totalAll,
+          num_expenses_approved: formData.numapproved,
+          total_amount_approved: formData.totalapproved,
+          remaining_credit_limit: formData.creditLimit,
+          amount_approval: formData.canWithdrawn,
+          total_remaining_credit_limit: formData.totalcreditLimit,
+          doc_submit_date: formData.docSubmitDate,
+          form_status: formData.formStatus,
+        };
+        console.log("post office confer: ", JSON.stringify(dataForBackend));
+
+        const response = await api.post(`/budget`, dataForBackend, {
+          headers: { "Content-Type": "application/json" },
+        });
+        alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+        router.push("/officer");
+        console.log("res: ", response);
+        console.log("postOfficerConfer: ", response.data);
+      } catch (error) {
+        console.log("Error saving code : ", error);
+        alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      }
+    } else {
+      alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");
+
+      console.log("Validation failed:", v$.value.$errors);
+    }
   }
 };
 

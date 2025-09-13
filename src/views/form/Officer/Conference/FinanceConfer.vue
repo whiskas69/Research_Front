@@ -4,7 +4,6 @@
       <ConferenceData :id="id" />
       <HR :id="id" />
       <Research :id="id" :type="'Conference'" />
-      <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
       <Mainbox>
         <SectionWrapper>
           <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
@@ -169,9 +168,6 @@
             v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)"
           />
-          <!-- <span v-if="v$.radioAuthOffic.$error" class="text-base font-bold text-red-500 text-left">
-            {{ v$.radioAuthOffic.$errors[0].$message }}
-          </span> -->
           <textarea
             class="textarea textarea-bordered w-full"
             @input="handleInput('comment_text', $event.target.value)"
@@ -221,7 +217,7 @@ const formData = reactive({
   docSubmitDate: DateTime.now().toISODate(),
   form_id: 0,
   radioAuthOffic: "",
-  comment_text: "",
+  comment_text: null,
   newmoneyRequested: null,
 });
 
@@ -347,13 +343,10 @@ const rules = computed(() => ({
     decimal: helpers.withMessage("* กรุณากรอกตัวเลข *", decimal),
     minValue: helpers.withMessage("* ไม่ต่ำกว่า 1 *", minValue(1)),
   },
-  // radioAuthOffic: {
-  //   required: helpers.withMessage("* กรุณาเลือกสถานะ *", required),
-  // },
   comment_text: {
     required: helpers.withMessage(
         "* กรุณากรอกข้อมูล *",
-        requiredIf(() => formData.radioAuthOffic !== "notApproved" || formData.radioAuthOffic == "")
+        requiredIf(() => formData.radioAuthOffic)
       ),
   }
 }));
@@ -375,7 +368,7 @@ const OfficerConfer = async () => {
     console.log("dataForBackend",JSON.stringify(dataForBackend))
     
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-    // router.push("/officer");
+    router.push("/officer");
   } else {
     const result = await v$.value.$validate();
     if (result) {
