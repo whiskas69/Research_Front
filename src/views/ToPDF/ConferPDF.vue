@@ -923,6 +923,8 @@ const fetchProfessorData = async () => {
       ) {
         const signature = {
           user_id: responseSignature.data[i].user_id,
+          user_name: responseSignature.data[i].user_nameth,
+          user_position: responseSignature.data[i].user_positionth,
           user_role: responseSignature.data[i].user_role,
           user_signature: responseSignature.data[i].user_signature,
         };
