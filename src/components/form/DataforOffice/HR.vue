@@ -165,7 +165,7 @@
           ></textarea>
         </SectionWrapper>
       </Mainbox>
-      <Mainbox v-if="formData.offic.c_research_hr" class="collapse collapse-arrow collapse-open">
+      <Mainbox v-if="formData.offic.c_hr_result" class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title">ตรวจสอบความถูกต้องของข้อมูล</p>
         <SectionWrapper class="collapse-content">
@@ -174,19 +174,19 @@
             value="correct"
             name="redi"
             :disabled="true"
-            v-model="formData.offic.c_research_hr"
+            v-model="formData.offic.c_hr_result"
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
             value="notCorrect"
             name="redi"
             :disabled="true"
-            v-model="formData.offic.c_research_hr"
+            v-model="formData.offic.c_hr_result"
           />
           <textarea
             class="textarea textarea-bordered w-full"
             :disabled="true"
-            :placeholder="formData.offic.c_reason"
+            :placeholder="formData.offic.c_hr_reason"
           ></textarea>
         </SectionWrapper>
       </Mainbox>

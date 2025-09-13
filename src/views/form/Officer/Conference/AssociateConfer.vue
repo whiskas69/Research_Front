@@ -22,25 +22,25 @@
           />
           <RadioInput
             label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
-              value="returnSender"
+              value="return_professor"
               name="comment"
             v-model="formData.agree"
           />
           <RadioInput
             label="ตีกลับเจ้าหน้าที่ทรัพยากรบุคคลเพื่อแก้ไขข้อมูล"
-              value="returnHr"
+              value="return_hr"
               name="comment"
             v-model="formData.agree"
           />
           <RadioInput
             label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล"
-              value="returnResearch"
+              value="return_research"
               name="comment"
             v-model="formData.agree"
           />
           <RadioInput
             label="ตีกลับเจ้าหน้าที่การเงินเพื่อแก้ไขข้อมูล"
-              value="returnFinance"
+              value="return_finance"
               name="comment"
             v-model="formData.agree"
           />
@@ -81,13 +81,9 @@ import Research from "@/components/form/DataforOffice/Research.vue";
 import FinanceAll from "@/components/form/DataforOffice/FinanceAll.vue";
 
 const formData = reactive({
-  offic: [],
   docSubmitDate: DateTime.now().toISODate(),
   agree: "",
-  // formStatus: "dean",
 });
-
-const isLoading = ref(true);
 // Access route parameters
 const router = useRouter();
 const route = useRoute();
@@ -96,22 +92,38 @@ const id = route.params.id;
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
-const fetchOfficerData = async () => {
-  try {
-    const responseoffic = await api.get(`/opinionConf/${id}`);
-    formData.offic = responseoffic.data;
-  } catch (error) {
-    console.log("Error fetching Officer data:", error);
-  } finally {
-    isLoading.value = false;
-  }
-};
-
 const rules = computed(() => ({
   agree: {
     required: helpers.withMessage("* กรุณาเลือกความคิดเห็น *", required),
   },
 }));
+
+const statusMap = {
+  approve: "finance",
+  notApproved: "notApproved",
+  return_professor: "return",
+  return_hr: "return",
+  return_research: "return",
+  return_finance: "return",
+}
+
+const returnMap = {
+  approve: null,
+  notApproved: null,
+  return_professor: "professor",
+  return_hr: "hr",
+  return_research: "research",
+  return_finance: "finance",
+}
+
+const resultMap = {
+  approve: "approve",
+  notApproved: "notApproved",
+  return_professor: "return",
+  return_hr: "return",
+  return_research: "return",
+  return_finance: "return",
+}
 
 const v$ = useVuelidate(rules, formData);
 
@@ -125,24 +137,14 @@ const OfficerConfer = async () => {
 
     try {
       const dataForBackend = {
-        hr_id: formData.offic.hr_id,
-        research_id: formData.offic.research_id,
         conf_id: id,
-        c_research_hr: formData.offic.c_research_hr,
-        c_reason: formData.offic.c_reason,
-        hr_doc_submit_date: DateTime.fromISO(
-          formData.offic.hr_doc_submit_date
-        ).toISODate(),
-        c_meet_quality: formData.offic.c_meet_quality,
-        c_good_reason: formData.offic.c_good_reason,
-        research_doc_submit_date: DateTime.fromISO(
-          formData.offic.research_doc_submit_date
-        ).toISODate(),
-        associate_id: user.value?.user_id,
-        c_deputy_dean: formData.agree,
-        associate_doc_submit_date: formData.docSubmitDate,
-        //form_status: formData.formStatus,
-        form_status: formData.agree === 'approve' ? 'dean' : formData.agree,
+        updated_data: [
+          { field : 'associate_id', value : user.value?.user_id },
+          { field : 'c_associate_result', value : resultMap[formData.agree] },
+          { field : 'associate_doc_submit_date', value : formData.docSubmitDate },
+        ],
+        form_status: statusMap[formData.agree],
+        returnto: returnMap[formData.agree]
       };
 
       const response = await api.put(`/opinionConf/${id}`, dataForBackend);
