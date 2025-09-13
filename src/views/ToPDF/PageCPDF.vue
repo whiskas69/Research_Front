@@ -505,7 +505,14 @@
             </div>
             <p>คณบดี</p>
           </div>
-          <p>(รองศาสตราจารย์ ดร.ศิริเดช บุญแสง)</p>
+          <div v-for="item in formData.signatureOffice"
+              :key="item">
+          <p v-if="
+                  item.user_role == 'dean' &&
+                  item.user_id == formData.offic.dean_id
+                ">
+                ({{ item.user_position }} {{ item.user_name}}) </p>
+          </div>
           <p>{{ formatThaiDate(formData.offic.dean_doc_submit_date) }}</p>
         </div>
       </div>
@@ -564,7 +571,14 @@
         </div>
         <p>คณบดี</p>
       </div>
-      <p>(รองศาสตราจารย์ ดร.ศิริเดช บุญแสง)</p>
+      <div v-for="item in formData.signatureOffice"
+              :key="item">
+          <p v-if="
+                  item.user_role == 'dean' &&
+                  item.user_id == formData.offic.dean_id
+                ">
+                ({{ item.user_position }} {{ item.user_name}}) </p>
+          </div>
       <p>{{ formatThaiDate(formData.offic.dean_doc_submit_date) }}</p>
     </div>
     <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
@@ -681,6 +695,8 @@ const fetchProfessorData = async () => {
       ) {
         const signature = {
           user_id: responseSignature.data[i].user_id,
+          user_name: responseSignature.data[i].user_nameth,
+          user_position: responseSignature.data[i].user_positionth,
           user_role: responseSignature.data[i].user_role,
           user_signature: responseSignature.data[i].user_signature,
         };

@@ -324,7 +324,9 @@
             <p>1) ค่าลงทะเบียน (ตามที่จ่ายจริง) จำนวน</p>
             <p class="px-2">{{ formData.confer.num_register_articles }}</p>
             <p>บทความ ๆ ละ</p>
-            <p class="px-2">{{ formData.formattedNumbers.regist_amount_1_article }}</p>
+            <p class="px-2">
+              {{ formData.formattedNumbers.regist_amount_1_article }}
+            </p>
             <p class="flex pl-2">บาท</p>
           </div>
           <p>รวม {{ formData.formattedNumbers.total_amount }} บาท</p>
@@ -333,19 +335,25 @@
         <div class="flex flex-col my-1 ml-4">
           <div class="flex flex-row mb-1">
             <p>- เดินทางในประเทศ</p>
-            <p class="px-2">{{ formData.formattedNumbers.domestic_expenses ?? 0 }}</p>
+            <p class="px-2">
+              {{ formData.formattedNumbers.domestic_expenses ?? 0 }}
+            </p>
             <p class="flex pl-2">บาท</p>
           </div>
           <div class="flex flex-row mb-1">
             <p>- เดินทางในต่างประเทศ</p>
-            <p class="px-2">{{ formData.formattedNumbers.overseas_expenses ?? 0 }}</p>
+            <p class="px-2">
+              {{ formData.formattedNumbers.overseas_expenses ?? 0 }}
+            </p>
             <p class="flex pl-2">บาท</p>
           </div>
           <div class="flex flex-row mb-1">
             <p>- เดินทางระหว่างประเทศ กรุงเทพฯ -</p>
             <p class="px-2">{{ formData.confer.travel_country ?? "-" }}</p>
             <p>- กรุงเทพฯ</p>
-            <p class="px-2">{{ formData.formattedNumbers.inter_expenses ?? 0 }}</p>
+            <p class="px-2">
+              {{ formData.formattedNumbers.inter_expenses ?? 0 }}
+            </p>
             <p class="flex pl-2">บาท</p>
           </div>
         </div>
@@ -359,7 +367,9 @@
             <p>4) ค่าเช่าที่พัก</p>
             <p class="px-2">{{ formData.confer.num_days_room ?? 0 }}</p>
             <p>คืน ๆ ละ</p>
-            <p class="px-2">{{ formData.formattedNumbers.room_cost_per_night ?? 0 }}</p>
+            <p class="px-2">
+              {{ formData.formattedNumbers.room_cost_per_night ?? 0 }}
+            </p>
             <p class="flex pl-2">บาท</p>
           </div>
           <p>รวม {{ formData.formattedNumbers.total_room ?? 0 }} บาท</p>
@@ -369,7 +379,9 @@
             <p>5) ค่าเบี้ยเลี้ยงเดินทาง</p>
             <p class="px-2">{{ formData.confer.num_travel_days ?? 0 }}</p>
             <p>วัน ๆ ละ</p>
-            <p class="px-2">{{ formData.formattedNumbers.daily_allowance ?? 0 }}</p>
+            <p class="px-2">
+              {{ formData.formattedNumbers.daily_allowance ?? 0 }}
+            </p>
             <p class="flex pl-2">บาท</p>
           </div>
           <p>รวม {{ formData.formattedNumbers.total_allowance ?? 0 }} บาท</p>
@@ -750,7 +762,16 @@
                 </div>
                 <p>คณบดี</p>
               </div>
-              <p>(รองศาสตราจารย์ ดร.ศิริเดช บุญแสง)</p>
+              <div v-for="item in formData.signatureOffice" :key="item">
+                <p
+                  v-if="
+                    item.user_role == 'dean' &&
+                    item.user_id == formData.offic.dean_id
+                  "
+                >
+                  ({{ item.user_position }} {{ item.user_name }})
+                </p>
+              </div>
               <p>{{ formatThaiDate(formData.offic.dean_doc_submit_date) }}</p>
             </div>
           </div>
@@ -760,12 +781,12 @@
 
     <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
       <div class="flex no-print">
-      <router-link :to="`/myHistory`">
-        <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
-          ไปยังหน้าประวัติทั้งหมด
-        </button>
-      </router-link>
-    </div>
+        <router-link :to="`/myHistory`">
+          <button class="btn text-black border-[#4285F4] hover:bg-[#4285F4]">
+            ไปยังหน้าประวัติทั้งหมด
+          </button>
+        </router-link>
+      </div>
       <div class="flex no-print">
         <button
           onclick="window.print()"
@@ -804,11 +825,21 @@ const formData = reactive({
 
 const formatThaiDate = (dateString) => {
   if (!dateString) return "ไม่พบวันที่";
-  
+
   const date = new Date(dateString);
   const months = [
-    "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.",
-    "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."
+    "ม.ค.",
+    "ก.พ.",
+    "มี.ค.",
+    "เม.ย.",
+    "พ.ค.",
+    "มิ.ย.",
+    "ก.ค.",
+    "ส.ค.",
+    "ก.ย.",
+    "ต.ค.",
+    "พ.ย.",
+    "ธ.ค.",
   ];
 
   const day = date.getUTCDate();
@@ -824,18 +855,23 @@ const route = useRoute();
 const id = route.params.id;
 
 const formatNumber = (value) => {
-  if (value === null || value === undefined || value === '') return '0.00';
+  if (value === null || value === undefined || value === "") return "0.00";
   const num = parseFloat(value);
-  if (isNaN(num)) return '0.00';
-  return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
+  if (isNaN(num)) return "0.00";
+  return num.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+};
 // ตัวแปรสำหรับเก็บข้อมูลจาก backend
 const fetchProfessorData = async () => {
   try {
     const responseConfer = await api.get(`/conference/${id}`);
     formData.confer = responseConfer.data;
     formData.formattedNumbers = {
-      regist_amount_1_article: formatNumber(formData.confer.regist_amount_1_article),
+      regist_amount_1_article: formatNumber(
+        formData.confer.regist_amount_1_article
+      ),
       total_amount: formatNumber(formData.confer.total_amount),
       domestic_expenses: formatNumber(formData.confer.domestic_expenses),
       overseas_expenses: formatNumber(formData.confer.overseas_expenses),
@@ -862,10 +898,16 @@ const fetchProfessorData = async () => {
     formData.budget = responsebudget.data;
     formData.formattedBudget = {
       Conference_amount: formatNumber(formData.budget.Conference_amount),
-      total_amount_approved: formatNumber(formData.budget.total_amount_approved),
-      remaining_credit_limit: formatNumber(formData.budget.remaining_credit_limit),
+      total_amount_approved: formatNumber(
+        formData.budget.total_amount_approved
+      ),
+      remaining_credit_limit: formatNumber(
+        formData.budget.remaining_credit_limit
+      ),
       amount_approval: formatNumber(formData.budget.amount_appr),
-      total_remaining_credit_limit: formatNumber(formData.budget.total_remaining_credit_limit),
+      total_remaining_credit_limit: formatNumber(
+        formData.budget.total_remaining_credit_limit
+      ),
     };
 
     const responseFile = await api.get(`/pdfConfer/${id}`);
