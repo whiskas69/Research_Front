@@ -18,6 +18,19 @@
           <option :value="'Page_Charge'">ตีพิมพ์วารสาร</option>
           <option :value="'Research_KRIS'">ทุนวิจัย</option>
         </select>
+
+        <span class="flex ml-2 mr-2 items-center">สถานะเอกสาร</span>
+        <select class="select select-bordered w-1/6" v-model="data.typeStatus">
+          <option selected :value="'all'">ทั้งหมด</option>
+          <option :value="'hr'">ฝ่ายบริหารทรัพยากรบุคคล</option>
+          <option :value="'research'">ฝ่ายบริหารงานวิจัย</option>
+          <option :value="'finance, pending'">ฝ่ายบริหารการเงิน</option>
+          <option :value="'associate'">รองคณบดี</option>
+          <option :value="'dean'">คณบดี</option>
+          <option :value="'waitingApproval'">รออนุมัติ</option>
+          <option :value="'approve'">อนุมัติ</option>
+          <option :value="'notApproved'">ไม่อนุมัติ</option>
+        </select>
       </div>
     </div>
 
@@ -36,7 +49,7 @@
                 <h4 class="mr-5">ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}</h4>
               </div>
               <div class="flex">
-                <h4 class="mr-5">
+                <h4 class="mr-5 truncate">
                   ชื่อโครงการวิจัย : {{ form.article_title }}
                 </h4>
               </div>
@@ -50,6 +63,12 @@
                 <p
                   class="text-green-500 mr-5"
                   v-else-if="form.form_status == 'approve'"
+                >
+                  สถานะ{{ showTHstatus(form.form_status) }}
+                </p>
+                <p
+                  class="text-yellow-500 mr-5"
+                  v-else-if="form.form_status != 'notApproved' && form.form_status != 'approve'"
                 >
                   สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
@@ -74,10 +93,10 @@
                 <h4 class="mr-5">ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}</h4>
               </div>
               <div class="flex">
-                <h4 class="mr-5">ชื่อวารสาร : {{ form.article_name }}</h4>
+                <h4 class="mr-5 truncate">ชื่อวารสาร : {{ form.article_name }}</h4>
               </div>
               <div class="flex">
-                <h4 class="mr-5">ชื่อบทความ : {{ form.article_title }}</h4>
+                <h4 class="mr-5 truncate">ชื่อบทความ : {{ form.article_title }}</h4>
               </div>
               <div class="flex">
                 <h4 class="mr-5">
@@ -94,6 +113,12 @@
                 <p
                   class="text-green-500 mr-5"
                   v-else-if="form.form_status == 'approve'"
+                >
+                  สถานะ{{ showTHstatus(form.form_status) }}
+                </p>
+                <p
+                  class="text-yellow-500 mr-5"
+                  v-else-if="form.form_status != 'notApproved' && form.form_status != 'approve'"
                 >
                   สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
@@ -117,10 +142,10 @@
                 <h4 class="mr-5">ชื่อผู้ขออนุมัติ : {{ form.user_nameth }}</h4>
               </div>
               <div class="flex">
-                <h4 class="mr-5">ชื่องานประชุม : {{ form.article_name }}</h4>
+                <h4 class="mr-5 truncate">ชื่องานประชุม : {{ form.article_name }}</h4>
               </div>
               <div class="flex">
-                <h4 class="mr-5">ชื่อบทความ : {{ form.article_title }}</h4>
+                <h4 class="mr-5 truncate">ชื่อบทความ : {{ form.article_title }}</h4>
               </div>
               <div class="flex">
                 <h4 class="mr-5">
@@ -140,6 +165,12 @@
                 >
                   สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
+                <p
+                  class="text-yellow-500 mr-5"
+                  v-else-if="form.form_status != 'notApproved' && form.form_status != 'approve'"
+                >
+                  สถานะ{{ showTHstatus(form.form_status) }}
+                </p>
               </div>
             </div>
           </div>
@@ -155,8 +186,9 @@ import api from "@/setting/api";
 
 const data = reactive({
   allForm: "",
-  findFiscalYear: '',
-  typeOfDoc: '',
+  findFiscalYear: "",
+  typeOfDoc: "",
+  typeStatus: "",
 });
 
 const getThaiFiscalYear = () => {
@@ -171,17 +203,13 @@ const pulldata = async () => {
   try {
     const res = await api.get(`/allForms`,{
       params: {
-        fiscalYear: data.findFiscalYear || '', // ส่งว่างถ้าไม่ได้เลือก
-        type: data.typeOfDoc || ''
+        fiscalYear: data.findFiscalYear || "", // ส่งว่างถ้าไม่ได้เลือก
+        type: data.typeOfDoc || "",
+        typeStatus: data.typeStatus || "",
       }
     });
 
-    const filteredForms = res.data.filter(
-      (form) =>
-        form.form_status === "approve" || form.form_status === "notApproved"
-    );
-
-    data.allForm = filteredForms.map((form) => {
+    data.allForm = res.data.map((form) => {
       return {
         ...form, // คัดลอกทุกค่าในออบเจกต์ `form` มา
         amount_approval: parseFloat(form.amount_approval).toLocaleString(
@@ -204,6 +232,18 @@ const showTHstatus = (status) => {
     return "อนุมัติ"
   }else if (status == "notApproved"){
     return "ไม่อนุมัติ"
+  }else if (status == "hr"){
+    return "ฝ่ายบริหารทรัพยากรบุคคล"
+  }else if (status == "research"){
+    return "ฝ่ายบริหารงานวิจัย"
+  }else if (status == "finance" || status == "pending"){
+    return "ฝ่ายบริหารการเงิน"
+  }else if (status == "associate"){
+    return "รองคณบดี"
+  }else if (status == "dean"){
+    return "คณบดี"
+  }else if (status == "waitingApproval"){
+    return "รออนุมัติ"
   }
 }
 
@@ -214,11 +254,14 @@ onMounted(async () => {
   if (!data.typeOfDoc) {
     data.typeOfDoc = "all"
   }
+  if (!data.typeStatus) {
+    data.typeStatus = "all"
+  }
   pulldata();
 });
 
 watch(
-  () => [data.findFiscalYear, data.typeOfDoc],
+  () => [data.findFiscalYear, data.typeOfDoc, data.typeStatus],
   () => {pulldata();}
 );
 </script>
