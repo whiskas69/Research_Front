@@ -1,190 +1,165 @@
 <template>
-  <div>
-    <div class="container my-10 mx-auto">
-      <ConferenceData :id="id" />
-      <HR :id="id" />
-      <Research :id="id" :type="'Conference'" />
-      <Mainbox>
-        <SectionWrapper>
-          <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
-          <TextInputLabelLeft
-            label="ปีงบประมาณ พ.ศ."
-            customInput="max-w-max text-center"
-            v-model="formData.year"
-            @input="handleInput('year', $event.target.value)"
-          />
-          <div class="flex justify-end">
-            <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น"
-                customInput="max-w-max text-center"
-                v-model="formData.totalAll"
-                @input="handleInput('totalAll', $event.target.value)"
-              />
-              <p class="flex items-center w-12">บาท</p>
-            </div>
+<div class="container my-10 mx-auto">
+  <ConferenceData :id="id" />
+  <HR :id="id" />
+  <Research :id="id" :type="'Conference'" />
+  <Mainbox>
+    <SectionWrapper>
+      <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
+      <TextInputLabelLeft
+        label="ปีงบประมาณ พ.ศ."
+        customInput="max-w-max text-center"
+        v-model="formData.year"
+        @input="handleInput('year', $event.target.value)"
+        />
+        <div class="flex justify-end">
+          <div class="flex flex-row justify-between">
+            <TextInputLabelLeft
+              label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น"
+              customInput="max-w-max text-center"
+              v-model="formData.totalAll"
+              @input="handleInput('totalAll', $event.target.value)"
+            />
+            <p class="flex items-center w-12">บาท</p>
           </div>
-          <div class="flex justify-end">
-            <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
-                customInput="max-w-max text-center"
-                :placeholder="parseFloat(formData.numapproved).toLocaleString('en-US', { minimumFractionDigits: 0 })"
-                v-model="formData.numapproved"
-              />
-              <p class="flex items-center w-12">รายการ</p>
-            </div>
+        </div>
+        <div class="flex justify-end">
+          <div class="flex flex-row justify-between">
+            <TextInputLabelLeft
+              label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
+              customInput="max-w-max text-center"
+              :placeholder="parseFloat(formData.numapproved).toLocaleString('en-US', { minimumFractionDigits: 0 })"
+              v-model="formData.numapproved"
+            />
+            <p class="flex items-center w-12">รายการ</p>
           </div>
-          <div class="flex justify-end">
-            <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="รวมเป็นเงิน"
-                customInput="max-w-max text-center"
-                :placeholder="parseFloat(formData.totalapproved).toLocaleString('en-US', { minimumFractionDigits: 2 })"
-                v-model="formData.totalapproved"
-              />
-              <p class="flex items-center w-12">บาท</p>
-            </div>
+        </div>
+        <div class="flex justify-end">
+          <div class="flex flex-row justify-between">
+            <TextInputLabelLeft
+              label="รวมเป็นเงิน"
+              customInput="max-w-max text-center"
+              :placeholder="parseFloat(formData.totalapproved).toLocaleString('en-US', { minimumFractionDigits: 2 })"
+              v-model="formData.totalapproved"
+            />
+            <p class="flex items-center w-12">บาท</p>
           </div>
-          <div class="flex justify-end">
-            <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="วงเงินที่คณะจัดสรรไว้ คงเหลือ"
-                customInput="max-w-max text-center"
-                :placeholder="caltotalFaculty"
-                v-model="formData.caltotalFaculty"
-              />
-              <p class="flex items-center w-12">บาท</p>
-            </div>
+        </div>
+        <div class="flex justify-end">
+          <div class="flex flex-row justify-between">
+            <TextInputLabelLeft
+              label="วงเงินที่คณะจัดสรรไว้ คงเหลือ"
+              customInput="max-w-max text-center"
+              :placeholder="caltotalFaculty"
+              v-model="formData.caltotalFaculty"
+            />
+            <p class="flex items-center w-12">บาท</p>
           </div>
-          <div class="flex justify-end">
-            <div class="flex flex-row justify-between">
-              <!-- rule base -->
-              <TextInputLabelLeft
-                label="จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวนเงิน"
-                customInput="max-w-max text-center"
-                :placeholder="parseFloat(moneyRequested).toLocaleString('en-US', { minimumFractionDigits: 2 })"
-                v-model="formData.newmoneyRequested"
-              />
-              <p class="flex items-center w-12">บาท</p>
-            </div>
+        </div>
+        <div class="flex justify-end">
+          <div class="flex flex-row justify-between">
+            <!-- rule base -->
+            <TextInputLabelLeft
+              label="จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวนเงิน"
+              customInput="max-w-max text-center"
+              :placeholder="parseFloat(moneyRequested).toLocaleString('en-US', { minimumFractionDigits: 2 })"
+              v-model="formData.newmoneyRequested"
+            />
+            <p class="flex items-center w-12">บาท</p>
           </div>
-          <div class="flex justify-end">
-            <div class="flex flex-row justify-between">
-              <TextInputLabelLeft
-                label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น"
-                customInput="max-w-max text-center"
-                :placeholder="caltotalFacultyNow"
-                v-model="formData.caltotalFacultyNow"
-              />
-              <p class="flex items-center w-12">บาท</p>
-            </div>
+        </div>
+        <div class="flex justify-end">
+          <div class="flex flex-row justify-between">
+            <TextInputLabelLeft
+              label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น"
+              customInput="max-w-max text-center"
+              :placeholder="caltotalFacultyNow"
+              v-model="formData.caltotalFacultyNow"
+            />
+            <p class="flex items-center w-12">บาท</p>
           </div>
-          <span
-            v-if="v$.year.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
-            {{ v$.year.$errors[0].$message }}
-          </span>
-          <span
-            v-if="v$.totalAll.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
-            {{ v$.totalAll.$errors[0].$message }}
-          </span>
+        </div>
+        <span v-if="v$.year.$error" class="text-base font-bold text-red-500 text-left">
+          {{ v$.year.$errors[0].$message }}
+        </span>
+        <span v-if="v$.totalAll.$error" class="text-base font-bold text-red-500 text-left">
+          {{ v$.totalAll.$errors[0].$message }}
+        </span>
+        
+        <div class="flex justify-end">
+          <button @click="showCreditLimit = true" class="btn text-black btn-warning mr-5">
+            คำนวณ
+          </button>
+        </div>
 
-          <div class="flex justify-end">
-            <button
-              @click="showCreditLimit = true"
-              class="btn text-black btn-warning mr-5"
-            >
-              คำนวณ
-            </button>
-          </div>
-
-          <div class="text-red-500 flex justify-end mt-5 mr-5">
-            <div v-show="showCreditLimit" class="flex flex-col items-end">
-              <p v-if="formData.canWithdrawn.inOutC == 'Out_Country'">
-                วงเงินที่สามารถเบิกได้ {{ expenses.withdrawn }} บาท
-              </p>
-              <div
-                v-if="formData.canWithdrawn.inOutC == 'In_Country'"
-                class="flex flex-col items-end"
-              >
-                <p>วงเงินที่สามารถเบิกได้ {{ expenses.withdrawn }} บาท</p>
-                <p>{{ formData.canWithdrawn.inthai }}</p>
-              </div>
-              <p>
-                {{ formData.canWithdrawn.message }} ค่าลงทะเบียน
-                {{ expenses.regits }} บาท
-              </p>
-              <div
-                v-if="formData.canWithdrawn.inOutC == 'Out_Country'"
-                class="flex flex-col items-end"
-              >
-                <p>ค่าเบี้ยเลี้ยงเดินทางไม่เกิน {{ expenses.allowance }} บาท</p>
-                <p>ค่าที่พักไม่เกิน {{ expenses.accom }} บาท</p>
-              </div>
+        <div class="text-red-500 flex justify-end mt-5 mr-5">
+          <div v-show="showCreditLimit" class="flex flex-col items-end">
+            <p v-if="formData.canWithdrawn.inOutC == 'Out_Country'">
+              วงเงินที่สามารถเบิกได้ {{ expenses.withdrawn }} บาท
+            </p>
+            <div v-if="formData.canWithdrawn.inOutC == 'In_Country'" class="flex flex-col items-end">
+              <p>วงเงินที่สามารถเบิกได้ {{ expenses.withdrawn }} บาท</p>
+              <p>{{ formData.canWithdrawn.inthai }}</p>
+            </div>
+            <p>{{ formData.canWithdrawn.message }} ค่าลงทะเบียน {{ expenses.regits }} บาท</p>
+            <div v-if="formData.canWithdrawn.inOutC == 'Out_Country'" class="flex flex-col items-end">
+              <p>ค่าเบี้ยเลี้ยงเดินทางไม่เกิน {{ expenses.allowance }} บาท</p>
+              <p>ค่าที่พักไม่เกิน {{ expenses.accom }} บาท</p>
             </div>
           </div>
-        </SectionWrapper>
-      </Mainbox>
+        </div>
+      </SectionWrapper>
+    </Mainbox>
+    
+    <Mainbox>
+      <SectionWrapper>
+        <h1 class="text-m font-bold">กรณีไม่อนุมัติ หรือมีปัญหา (อื่น ๆ)</h1>
+        <RadioInput
+          label="เงินสำรองไม่เพียงพอ"
+          value="pending"
+          name="recheckinfo"
+          v-model="formData.radioAuthOffic"
+        />
+        <RadioInput
+          label="ไม่อนุมัติ"
+          value="notApproved"
+          name="recheckinfo"
+          v-model="formData.radioAuthOffic"
+        />
+        <RadioInput
+          label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
+          value="return_professor"
+          name="recheckinfo"
+          v-model="formData.radioAuthOffic"
+        />
+        <RadioInput
+          label="ตีกลับเจ้าหน้าที่ทรัพยากรบุคคลเพื่อแก้ไขข้อมูล"
+          value="return_hr"
+          name="recheckinfo"
+          v-model="formData.radioAuthOffic"
+        />
+        <RadioInput
+          label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล"
+          value="return_research"
+          name="recheckinfo"
+          v-model="formData.radioAuthOffic"
+        />
+        <textarea
+          class="textarea textarea-bordered w-full"
+          @input="handleInput('comment_text', $event.target.value)"
+        ></textarea>
+        <span v-if="v$.comment_text.$error" class="text-base font-bold text-red-500 text-left">
+          {{ v$.comment_text.$errors[0].$message }}
+        </span>
+      </SectionWrapper>
+    </Mainbox>
 
-      <Mainbox>
-        <SectionWrapper>
-          <h1 class="text-m font-bold">กรณีไม่อนุมัติ หรือมีปัญหา (อื่น ๆ)</h1>
-          <RadioInput
-            label="เงินสำรองไม่เพียงพอ"
-            value="pending"
-            name="re"
-            v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)"
-          />
-          <RadioInput
-            label="ไม่อนุมัติ"
-            value="notApproved"
-            name="re"
-            v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)"
-          />
-          <RadioInput
-            label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
-            value="returnSender"
-            name="re"
-            v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)"
-          />
-          <RadioInput
-            label="ตีกลับเจ้าหน้าที่ทรัพยากรบุคคลเพื่อแก้ไขข้อมูล"
-            value="returnHr"
-            name="re"
-            v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)"
-          />
-          <RadioInput
-            label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล"
-            value="returnResearch"
-            name="re"
-            v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)"
-          />
-          <textarea
-            class="textarea textarea-bordered w-full"
-            @input="handleInput('comment_text', $event.target.value)"
-          ></textarea>
-          <span v-if="v$.comment_text.$error" class="text-base font-bold text-red-500 text-left">
-            {{ v$.comment_text.$errors[0].$message }}
-          </span>
-        </SectionWrapper>
-      </Mainbox>
-
-      <div class="flex justify-end">
-        <button @click="OfficerConfer" class="btn btn-success text-white">
-          บันทึกข้อมูล
-        </button>
-      </div>
+    <div class="flex justify-end">
+      <button @click="OfficerConfer" class="btn btn-success text-white">
+        บันทึกข้อมูล
+      </button>
     </div>
-  </div>
+    </div>
 </template>
 
 <script setup>
@@ -220,10 +195,6 @@ const formData = reactive({
   comment_text: null,
   newmoneyRequested: null,
 });
-
-// const formStatus = computed(() =>
-//   formData.radioAuthOffic === "pending" ? "pending" : "associate"
-// );
 
 const handleInput = (key, value) => {
   formData[key] = value;
@@ -280,7 +251,6 @@ const expenses = computed(() => {
 });
 
 const showCreditLimit = ref(false);
-const isLoading = ref(true);
 
 const router = useRouter();
 const route = useRoute();
@@ -291,8 +261,8 @@ const user = computed(() => userStore.user);
 
 const fetchOfficerData = async () => {
   try {
-    const responseoffic = await api.get(`/opinionConf/${id}`);
-    formData.offic = responseoffic.data;
+    //const responseoffic = await api.get(`/opinionConf/${id}`);
+    //formData.offic = responseoffic.data;
 
     const responseBudget = await api.get(`/budgetsConfer`);
     console.log("budgetsConfer:", responseBudget.data);
@@ -315,8 +285,6 @@ const fetchOfficerData = async () => {
     formData.conference = responseConfer.data;
   } catch (error) {
     console.log("Error fetching Officer data:", error);
-  } finally {
-    isLoading.value = false;
   }
 };
 
@@ -353,10 +321,25 @@ const rules = computed(() => ({
 
 const v$ = useVuelidate(rules, formData);
 
+const statusMap = {
+  approve: "associate",
+  notApproved: "notApproved",
+  return_professor: "return",
+  return_hr: "return",
+  return_research: "return",
+  pending: "pending"
+}
+
+const returnMap = {
+  approve: null,
+  notApproved: null,
+  return_professor: "professor",
+  return_hr: "hr",
+  return_research: "research",
+  pending: null
+}
+
 const OfficerConfer = async () => {
-
-  console.log("formData",JSON.stringify(formData))
-
   if (formData.radioAuthOffic === "pending" && (formData.comment_text != null)) {
     const dataForBackend = {
       form_id: formData.form_id,
@@ -388,7 +371,9 @@ const OfficerConfer = async () => {
           amount_approval: moneyRequested.value,
           total_remaining_credit_limit: formData.totalcreditLimit,
           doc_submit_date: formData.docSubmitDate,
-          form_status: formData.radioAuthOffic ? formData.radioAuthOffic : "associate",
+          
+          form_status: statusMap[formData.radioAuthOffic],
+          returnto: returnMap[formData.radioAuthOffic]
         };
         console.log("post office confer: ", JSON.stringify(dataForBackend));
 

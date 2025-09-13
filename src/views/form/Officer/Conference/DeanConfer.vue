@@ -147,12 +147,12 @@ const OfficerConfer = async () => {
         research_id: formData.offic.research_id,
         associate_id: formData.offic.associate_id,
         conf_id: id,
-        c_research_hr: formData.offic.c_research_hr,
-        c_reason: formData.offic.c_reason,
+        c_hr_result: formData.offic.c_hr_result,
+        c_hr_reason: formData.offic.c_hr_reason,
         hr_doc_submit_date: DateTime.fromISO(
           formData.offic.hr_doc_submit_date
         ).toISODate(),
-        c_meet_quality: formData.offic.c_meet_quality,
+        c_research_result: formData.offic.c_research_result,
         c_good_reason: formData.offic.c_good_reason,
         research_doc_submit_date: DateTime.fromISO(
           formData.offic.research_doc_submit_date

@@ -1,89 +1,79 @@
 <template>
-  <div>
-    <div class="container my-10 mx-auto">
-      <ConferenceData :id="id" />
-      <HR :id="id" />
-      <Mainbox>
-        <SectionWrapper>
-          <p class="font-bold">ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
-          <div>
-            <p>• คุณภาพของการประชุม ฯ</p>
-            <div
-              v-if="formData.conference.quality_meeting == 'good'"
-              class="px-2"
-            >
-              <p>• อยู่ในระดับดีมาก</p>
-              <div class="flex flex-row gap-2">
-                <p>• คำนวณจาก {{ formData.score.score_type }}</p>
-                <p v-if="formData.score.score_type == 'CORE'">
-                  มีค่าคะแนน {{ formData.score.core_rank }}
-                </p>
-                <p v-else>มีค่าคะแนน {{ formData.score.score_result }}</p>
-              </div>
-            </div>
-            <p v-else-if="formData.conference.quality_meeting == 'standard'" class="px-2">
-              • อยู่ในระดับมาตรฐาน
+<div class="container my-10 mx-auto">
+  <ConferenceData :id="id" />
+  <HR :id="id" />
+  <Mainbox>
+    <SectionWrapper>
+      <p class="font-bold">ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
+      <div>
+        <p>• คุณภาพของการประชุม ฯ</p>
+        <div v-if="formData.conference.quality_meeting == 'good'" class="px-2">
+          <p>• อยู่ในระดับดีมาก</p>
+          <div class="flex flex-row gap-2">
+            <p>• คำนวณจาก {{ formData.score.score_type }}</p>
+            <p v-if="formData.score.score_type == 'CORE'">
+              มีค่าคะแนน {{ formData.score.core_rank }}
             </p>
-            <p v-else-if="formData.conference.quality_meeting == ''" class="px-2">
-              • ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ
-              และไม่อยู่ในฐานข้อมูลสากล SCOPUS
-            </p>
+            <p v-else>มีค่าคะแนน {{ formData.score.score_result }}</p>
           </div>
-          <RadioInput
-            label="ข้อมูลถูกต้อง"
-            value="approve"
-            name="re"
-            v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)"
-          />
-          <RadioInput
-            label="ข้อมูลไม่ถูกต้อง"
-            value="notApproved"
-            name="re"
-            v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)"
-          />
-          <RadioInput
-            label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
-            value="returnSender"
-            name="re"
-            v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)"
-          />
-          <RadioInput
-            label="ตีกลับเจ้าหน้าที่ทรัพยากรบุคคลเพื่อแก้ไขข้อมูล"
-            value="returnHr"
-            name="re"
-            v-model="formData.radioAuthOffic"
-            @change="handleInput('radioAuthOffic', $event.target.value)"
-          />
-          <textarea
-            class="textarea textarea-bordered w-full"
-            @input="handleInput('description', $event.target.value)"
-          ></textarea>
-
-          <span
-            v-if="v$.radioAuthOffic.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
-            {{ v$.radioAuthOffic.$errors[0].$message }}
-          </span>
-        </SectionWrapper>
-      </Mainbox>
-      <div class="flex justify-end">
-        <button @click="OfficerConfer" class="btn btn-success text-white">
-          บันทึกข้อมูล
-        </button>
+        </div>
+        <p v-else-if="formData.conference.quality_meeting == 'standard'" class="px-2">
+          • อยู่ในระดับมาตรฐาน
+        </p>
+        <p v-else-if="formData.conference.quality_meeting == ''" class="px-2">
+          • ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ และไม่อยู่ในฐานข้อมูลสากล SCOPUS
+        </p>
       </div>
-    </div>
+      <RadioInput
+        label="ข้อมูลถูกต้อง"
+        value="approve"
+        name="recheckinfo"
+        v-model="formData.radioAuthOffic"
+      />
+      <RadioInput
+        label="ข้อมูลไม่ถูกต้อง"
+        value="notApproved"
+        name="recheckinfo"
+        v-model="formData.radioAuthOffic"
+      />
+      <RadioInput
+        label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
+        value="return_professor"
+        name="recheckinfo"
+        v-model="formData.radioAuthOffic"
+      />
+      <RadioInput
+        label="ตีกลับเจ้าหน้าที่ทรัพยากรบุคคลเพื่อแก้ไขข้อมูล"
+        value="return_hr"
+        name="recheckinfo"
+        v-model="formData.radioAuthOffic"
+      />
+      <textarea
+        class="textarea textarea-bordered w-full"
+        @input="handleInput('commentReason', $event.target.value)"
+      ></textarea>
+      <span v-if="v$.radioAuthOffic.$error" class="text-base font-bold text-red-500 text-left">
+        {{ v$.radioAuthOffic.$errors[0].$message }}
+      </span>
+      <span v-if="v$.commentReason.$error" class="text-base font-bold text-red-500 text-left">
+        {{ v$.commentReason.$errors[0].$message }}
+      </span>
+    </SectionWrapper>
+  </Mainbox>
+  
+  <div class="flex justify-end">
+    <button @click="OfficerConfer" class="btn btn-success text-white">
+      บันทึกข้อมูล
+    </button>
+  </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, computed } from "vue";
+import { onMounted, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
-import { required, helpers } from "@vuelidate/validators";
+import { required, helpers, requiredIf } from "@vuelidate/validators";
 import { DateTime } from "luxon";
 
 import { useUserStore } from "@/store/userStore";
@@ -96,13 +86,12 @@ import ConferenceData from "@/components/form/DataforOffice/Conference.vue"
 import HR from "@/components/form/DataforOffice/HR.vue";
 
 const formData = reactive({
-  offic: [],
   conference: [],
   score: [],
   docSubmitDate: DateTime.now().toISODate(),
   radioAuthOffic: "",
-  description: "",
-  //formStatus: "finance",
+  commentReason: "",
+  returnto: ""
 });
 
 const handleInput = (key, value) => {
@@ -113,11 +102,15 @@ const rules = computed(() => ({
   radioAuthOffic: {
     required: helpers.withMessage("* กรุณาเลือกข้อมูล *", required),
   },
+  commentReason: {
+      required: helpers.withMessage(
+        "* กรุณากรอกข้อมูล *",
+        requiredIf(() => formData.radioAuthOffic !== "approve")
+      ),
+    },
 }));
 
 const v$ = useVuelidate(rules, formData);
-
-const isLoading = ref(true);
 
 const router = useRouter();
 const route = useRoute();
@@ -134,14 +127,31 @@ const fetchOfficerData = async () => {
     const responseScore = await api.get(`/score/${id}`);
     formData.score = responseScore.data;
 
-    const responseoffic = await api.get(`/opinionConf/${id}`);
-    formData.offic = responseoffic.data;
   } catch (error) {
     console.log("Error fetching Officer data:", error);
-  } finally {
-    isLoading.value = false;
   }
 };
+
+const statusMap = {
+  approve: "finance",
+  notApproved: "notApproved",
+  return_professor: "return",
+  return_hr: "return",
+}
+
+const returnMap = {
+  approve: null,
+  notApproved: null,
+  return_professor: "professor",
+  return_hr: "hr"
+}
+
+const resultMap = {
+  approve: "approve",
+  notApproved: "notApproved",
+  return_professor: "return",
+  return_hr: "return"
+}
 
 const OfficerConfer = async () => {
   const result = await v$.value.$validate();
@@ -153,19 +163,20 @@ const OfficerConfer = async () => {
 
     try {
       const dataForBackend = {
-        hr_id: formData.offic.hr_id,
         conf_id: id,
-        c_research_hr: formData.offic.c_research_hr,
-        c_reason: formData.offic.c_reason,
-        hr_doc_submit_date: DateTime.fromISO(formData.offic.hr_doc_submit_date).toISODate(),
-        research_id: user.value?.user_id,
-        c_meet_quality: formData.radioAuthOffic,
-        c_quality_reason: formData.description,
-        research_doc_submit_date: formData.docSubmitDate,
-        form_status: formData.radioAuthOffic == "notCorrect" ? "notApproved" : formData.formStatus,
+        updated_data: [
+          { field : 'research_id', value : user.value?.user_id },
+          { field : 'c_research_result', value : resultMap[formData.radioAuthOffic] },
+          { field : 'c_research_reason', value : formData.commentReason },
+          { field : 'research_doc_submit_date', value : formData.docSubmitDate },
+        ],
+        form_status: statusMap[formData.radioAuthOffic],
+        returnto: returnMap[formData.radioAuthOffic]
       };
 
-      const response = await api.put(`/opinionConf/${id}`, dataForBackend);
+      await api.put(`/opinionConf/${id}`, dataForBackend);
+
+      alert("บันทึกข้อมูลเรียบร้อยแล้ว");
       router.push("/officer");
     } catch (error) {
       console.log("Error saving code : ", error);
@@ -178,7 +189,7 @@ const OfficerConfer = async () => {
   }
 };
 
-onMounted(() => {
-  fetchOfficerData();
+onMounted(async () => {
+  await fetchOfficerData();
 });
 </script>

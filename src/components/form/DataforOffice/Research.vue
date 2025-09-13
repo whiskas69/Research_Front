@@ -37,18 +37,18 @@
             value="correct"
             name="re"
             :disabled="true"
-            v-model="formData.offic.c_meet_quality"
+            v-model="formData.offic.c_research_result"
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
             value="notCorrect"
             name="re"
             :disabled="true"
-            v-model="formData.offic.c_meet_quality"
+            v-model="formData.offic.c_research_result"
           />
           <TextArea
             :disabled="true"
-            :placeholder="formData.offic.c_quality_reason"
+            :placeholder="formData.offic.c_research_reason"
           />
         </SectionWrapper>
       </Mainbox>
