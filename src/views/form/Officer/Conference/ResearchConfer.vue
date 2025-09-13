@@ -31,14 +31,28 @@
           </div>
           <RadioInput
             label="ข้อมูลถูกต้อง"
-            value="correct"
+            value="approve"
             name="re"
             v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)"
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
-            value="notCorrect"
+            value="notApproved"
+            name="re"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
+          />
+          <RadioInput
+            label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
+            value="returnSender"
+            name="re"
+            v-model="formData.radioAuthOffic"
+            @change="handleInput('radioAuthOffic', $event.target.value)"
+          />
+          <RadioInput
+            label="ตีกลับเจ้าหน้าที่ทรัพยากรบุคคลเพื่อแก้ไขข้อมูล"
+            value="returnHr"
             name="re"
             v-model="formData.radioAuthOffic"
             @change="handleInput('radioAuthOffic', $event.target.value)"
@@ -88,7 +102,7 @@ const formData = reactive({
   docSubmitDate: DateTime.now().toISODate(),
   radioAuthOffic: "",
   description: "",
-  formStatus: "finance",
+  //formStatus: "finance",
 });
 
 const handleInput = (key, value) => {
