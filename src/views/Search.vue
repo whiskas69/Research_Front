@@ -1,7 +1,6 @@
 <template>
   <div class="container my-5 mx-auto">
 
-    <!-- <div class="flex flex-row w-full"> -->
     <div class="flex flex-row mb-4 w-full">
       <div class="flex flex-row mb-4 w-full">
         <span class="flex mr-2 items-center">ปีงบประมาณ</span>
