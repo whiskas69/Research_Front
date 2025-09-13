@@ -18,6 +18,19 @@
           <option :value="'Page_Charge'">ตีพิมพ์วารสาร</option>
           <option :value="'Research_KRIS'">ทุนวิจัย</option>
         </select>
+
+        <span class="flex ml-2 mr-2 items-center">สถานะเอกสาร</span>
+        <select class="select select-bordered w-1/6" v-model="data.typeStatus">
+          <option selected :value="'all'">ทั้งหมด</option>
+          <option :value="'hr'">ฝ่ายบริหารทรัพยากรบุคคล</option>
+          <option :value="'research'">ฝ่ายบริหารงานวิจัย</option>
+          <option :value="'finance, pending'">ฝ่ายบริหารการเงิน</option>
+          <option :value="'associate'">รองคณบดี</option>
+          <option :value="'dean'">คณบดี</option>
+          <option :value="'waitingApproval'">รออนุมัติ</option>
+          <option :value="'approve'">อนุมัติ</option>
+          <option :value="'notApproved'">ไม่อนุมัติ</option>
+        </select>
       </div>
     </div>
 
@@ -31,7 +44,7 @@
           <div class="columns-2 mt-2 ml-5">
             <div>
               <div class="flex">
-                <h4 class="mr-5">
+                <h4 class="mr-5 truncate">
                   ชื่อโครงการวิจัย : {{ form.article_title }}
                 </h4>
               </div>
@@ -40,6 +53,12 @@
                   สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
                 <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approve'">
+                  สถานะ{{ showTHstatus(form.form_status) }}
+                </p>
+                <p
+                  class="text-yellow-500 mr-5"
+                  v-else-if="form.form_status != 'notApproved' && form.form_status != 'approve'"
+                >
                   สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
               </div>
@@ -56,12 +75,12 @@
           <div class="columns-2 mt-2 ml-5">
             <div>
               <div class="flex">
-                <h4 class="mr-5">
+                <h4 class="mr-5 truncate">
                   ชื่องานประชุม : {{ form.article_name }}
                 </h4>
               </div>
               <div class="flex">
-                <h4 class="mr-5">
+                <h4 class="mr-5 truncate">
                   ชื่อบทความ : {{ form.article_title }}
                 </h4>
               </div>
@@ -75,6 +94,12 @@
                   สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
                 <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approve'">
+                  สถานะ{{ showTHstatus(form.form_status) }}
+                </p>
+                <p
+                  class="text-yellow-500 mr-5"
+                  v-else-if="form.form_status != 'notApproved' && form.form_status != 'approve'"
+                >
                   สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
               </div>
@@ -96,12 +121,12 @@
                 </h4>
               </div>
               <div class="flex">
-                <h4 class="mr-5">
+                <h4 class="mr-5 truncate">
                   ชื่อบทความ : {{ form.article_title }}
                 </h4>
               </div>
               <div class="flex">
-                <h4 class="mr-5">
+                <h4 class="mr-5 truncate">
                   วงเงินที่เบิกได้ : {{ form.amount_approval }} บาท
                 </h4>
               </div>
@@ -110,6 +135,12 @@
                   สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
                 <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approve'">
+                  สถานะ{{ showTHstatus(form.form_status) }}
+                </p>
+                <p
+                  class="text-yellow-500 mr-5"
+                  v-else-if="form.form_status != 'notApproved' && form.form_status != 'approve'"
+                >
                   สถานะ{{ showTHstatus(form.form_status) }}
                 </p>
               </div>
@@ -130,8 +161,9 @@ const data = reactive({
   userID: "",
   userRole: "",
   allForm: "",
-  findFiscalYear: '',
-  typeOfDoc: '',
+  findFiscalYear: "",
+  typeOfDoc: "",
+  typeStatus: "",
 });
 
 const userStore = useUserStore();
@@ -149,19 +181,13 @@ const pulldata = async () => {
   try {
     const res = await api.get(`/form/${data.userID}`,{
       params: {
-        fiscalYear: data.findFiscalYear || '', // ส่งว่างถ้าไม่ได้เลือก
-        type: data.typeOfDoc || ''
+        fiscalYear: data.findFiscalYear || "", // ส่งว่างถ้าไม่ได้เลือก
+        type: data.typeOfDoc || "",
+        typeStatus: data.typeStatus || "",
       }
     });
-    console.log("res", res.data)
 
-    const filteredForms = res.data.filter(
-      (form) => form.form_status === "approve" || form.form_status === "notApproved"
-    );
-    console.log("filteredForms", filteredForms);
-
-    
-    data.allForm = filteredForms.map(form => {
+    data.allForm = res.data.map(form => {
       return {
         ...form, // คัดลอกทุกค่าในออบเจกต์ `form` มา
         amount_approval: parseFloat(form.amount_approval).toLocaleString("en-US", {
@@ -169,9 +195,10 @@ const pulldata = async () => {
         }) //แทนที่เฉพาะ `amount_approval`
       };
     });
-    console.log("Updated allForm:", data.allForm);
   } catch (error) {
-    console.log(error);
+    console.error(error);
+
+    alert("ไม่มีเอกสาร");
   }
 };
 
@@ -180,6 +207,18 @@ const showTHstatus = (status) => {
     return "อนุมัติ"
   }else if (status == "notApproved"){
     return "ไม่อนุมัติ"
+  }else if (status == "hr"){
+    return "ฝ่ายบริหารทรัพยากรบุคคล"
+  }else if (status == "research"){
+    return "ฝ่ายบริหารงานวิจัย"
+  }else if (status == "finance" || status == "pending"){
+    return "ฝ่ายบริหารการเงิน"
+  }else if (status == "associate"){
+    return "รองคณบดี"
+  }else if (status == "dean"){
+    return "คณบดี"
+  }else if (status == "waitingApproval"){
+    return "รออนุมัติ"
   }
 }
 
@@ -190,7 +229,9 @@ onMounted(async () => {
   if (!data.typeOfDoc) {
     data.typeOfDoc = "all"
   }
-
+  if (!data.typeStatus) {
+    data.typeStatus = "all"
+  }
   await userStore.fetchUser();
 
   data.userID = user.value?.user_id;
@@ -199,7 +240,7 @@ onMounted(async () => {
 });
 
 watch(
-  () => [data.findFiscalYear, data.typeOfDoc],
+  () => [data.findFiscalYear, data.typeOfDoc, data.typeStatus],
   () => {
     if (data.userID) {
       pulldata();

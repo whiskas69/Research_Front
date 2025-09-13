@@ -37,7 +37,7 @@
 
     <div class="container my-10 mx-auto">
       <p class="text-xl font-bold pb-5">
-        เอกสารที่มีการแก้ไข หรือ ตีกลับเอกสาร
+        เอกสารที่มีการตีกลับ
       </p>
       <div v-for="editForm in data.editForm" :key="editForm.form_id">
         <div class="p-5 shadow my-5 rounded-xl hover:cursor-pointer mb-2" v-if="editForm.form_type == 'Research_KRIS'">
