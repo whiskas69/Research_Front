@@ -1,7 +1,7 @@
 <template>
   <div class="container my-10 mx-auto">
     <h1 class="text-xl font-bold mb-5">สถานะเอกสาร</h1>
-    <!-- {{ data.allForm }} -->
+    
     <div v-for="form in data.allForm" :key="form.form_id">
       <div
         class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
@@ -12,11 +12,6 @@
             <h2 class="text-lg font-bold">
               แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ
             </h2>
-            <div class="flex justify-end items-center">
-              <span :class="{ red: isLessThanOneDay(form.deadlineDate) }">
-                เหลือเวลา: {{ getCountdown(form.deadlineDate) }}
-              </span>
-            </div>
           </div>
           <div class="columns-2 mt-2 ml-5">
             <div>
@@ -42,11 +37,6 @@
             <h2 class="text-lg font-bold">
               ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
             </h2>
-            <div class="flex justify-end items-center">
-              <span :class="{ red: isLessThanOneDay(form.deadlineDate) }">
-                เหลือเวลา: {{ getCountdown(form.deadlineDate) }}
-              </span>
-            </div>
           </div>
           <div class="columns-2 mt-2 ml-5">
             <div>
@@ -74,11 +64,6 @@
               ขออนุมัติค่า Page
             Chargeเพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
             </h2>
-            <div class="flex justify-end items-center">
-              <span :class="{ red: isLessThanOneDay(form.deadlineDate) }">
-                เหลือเวลา: {{ getCountdown(form.deadlineDate) }}
-              </span>
-            </div>
           </div>
           <div class="columns-2 mt-2 ml-5">
             <div>
@@ -141,26 +126,6 @@ const pulldata = async () => {
   } catch (error) {
     console.log(error);
   }
-};
-
-const getCountdown = (deadlineDate) => {
-  const now = new Date().getTime();
-  const distance = deadlineDate.getTime() - now;
-
-  if (distance <= 0) return "หมดเวลาแล้ว";
-
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((distance / (1000 * 60)) % 60);
-  const seconds = Math.floor((distance / 1000) % 60);
-
-  return `${days}d ${hours}h ${minutes}m ${seconds}s`;
-};
-
-const isLessThanOneDay = (deadlineDate) => {
-  const now = new Date().getTime();
-  const distance = deadlineDate.getTime() - now;
-  return distance <= 24 * 60 * 60 * 1000 && distance > 0;
 };
 
 const showTHstatus = (status) => {
