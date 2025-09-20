@@ -1,6 +1,6 @@
 <template>
   <div class="container my-10 mx-auto">
-    <h1 class="text-xl font-bold mb-5">ประวัติเอกสาร</h1>
+    <h1 class="text-xl font-bold mb-5">สถานะ และประวัติเอกสาร</h1>
 
     <div class="flex flex-row mb-4 w-full">
       <div class="flex flex-row mb-4 w-full">

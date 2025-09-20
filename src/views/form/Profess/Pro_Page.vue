@@ -1269,7 +1269,7 @@ const NewPC = async () => {
       });
 
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      router.push("/myStatus");
+      router.push("/myHistory");
       localStorage.removeItem("formDraft");
     } catch (error) {
       console.log("Error saving code : ", error);

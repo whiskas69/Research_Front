@@ -4,8 +4,6 @@ import { useUserStore } from "@/store/userStore";
 import LoginPage from "@/views/LoginPage.vue";
 import Search from "@/views/Search.vue";
 
-import StatusView from "@/views/StatusView/StatusView.vue";
-import StatusViewOffice from "@/views/StatusView/StatusViewOffice.vue";
 import StatusConferView from "@/views/status/StatusConferView.vue";
 import StatusPCView from "@/views/status/StatusPCView.vue";
 import StatusKRISView from "@/views/status/StatusKRISView.vue";
@@ -94,18 +92,6 @@ const router = createRouter({
       name: "Login",
       component: LoginPage,
       meta: { requiresAuth: false },
-    },
-    {
-      path: "/myStatus",
-      name: "Status",
-      component: StatusView,
-      meta: { requiresAuth: true },
-    },
-    {
-      path: "/statusOffice",
-      name: "StatusofOffice",
-      component: StatusViewOffice,
-      meta: { requiresAuth: true, role: ["hr", "research"] },
     },
     {
       path: "/myHistory",

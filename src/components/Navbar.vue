@@ -30,9 +30,8 @@
                 class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow"
               >
                 <li><router-link to="/homePage">ยื่นเอกสาร</router-link></li>
-                <li><router-link to="/myStatus">สถานะเอกสาร</router-link></li>
                 <li>
-                  <router-link to="/myHistory">ประวัติการยื่น</router-link>
+                  <router-link to="/myHistory">สถานะ และประวัติเอกสาร</router-link>
                 </li>
               </ul>
             </div>
@@ -43,39 +42,20 @@
               <router-link to="/homePage" class="font-normal">ยื่นเอกสาร</router-link>
             </div>
             <div tabindex="0" role="button" class="btn btn-ghost">
-              <router-link to="/myStatus" class="font-normal">เอกสารรออนุมัติ</router-link>
-            </div>
-            <div tabindex="0" role="button" class="btn btn-ghost">
-              <router-link to="/myHistory" class="font-normal">ผลการอนุมัติ</router-link>
+              <router-link to="/myHistory" class="font-normal">สถานะ และประวัติเอกสาร</router-link>
             </div>
           </div>
 
           <div v-if="isHRorResearch" class="justify-center">
-            <div class="dropdown">
-              <div tabindex="0" role="button" class="btn btn-ghost">
-                <p class="font-normal">เอกสารที่รับผิดชอบ &nbsp; &#9660;</p>
-              </div>
-              <ul
-                tabindex="0"
-                class="dropdown-content menu bg-base-100 rounded-t-none p-2 shadow"
-              >
-                <li>
-                  <router-link to="/statusOffice">สถานะเอกสาร</router-link>
-                </li>
-                <li>
-                  <router-link to="/historyOffice">ประวัติเอกสาร</router-link>
-                </li>
-                <li>
-                  <router-link to="/eOffice">เอกสารรออนุมัติ</router-link>
-                </li>
-              </ul>
+            <div tabindex="0" role="button" class="btn btn-ghost">
+              <router-link to="/eOffice">เอกสารรออนุมัติ</router-link>
             </div>
           </div>
 
           <div v-if="isApprover" class="justify-center">
             <div tabindex="0" role="button" class="btn btn-ghost">
               <router-link to="/allHistory" class="font-normal"
-                >เอกสารที่อนุมัติแล้ว</router-link
+                >สถานะ และประวัติเอกสาร</router-link
               >
             </div>
           </div>
