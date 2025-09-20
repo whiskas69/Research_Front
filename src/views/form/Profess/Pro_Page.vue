@@ -60,7 +60,7 @@
           </p>
         </SectionWrapper>
       </Mainbox>
-      <Mainbox class="collapse collapse-arrow collapse-open collapse-open">
+      <Mainbox class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title leading-9 text-lg font-bold">
           1.  รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์
