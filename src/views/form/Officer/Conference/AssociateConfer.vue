@@ -1,72 +1,75 @@
 <template>
-  <div>
-    <div class="container my-10 mx-auto">
-      <ConferenceData :id="id" />
-      <HR :id="id" />
-      <Research :id="id" :type="'Conference'" />
-      <FinanceAll :id="id" :type="'Conference'" />
-      <Mainbox>
-        <SectionWrapper>
-          <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
-          <RadioInput
-            label="เห็นชอบ"
-            value="approve"
-            name="comment"
-            v-model="formData.agree"
-          />
-          <RadioInput
-            label="ไม่เห็นชอบ"
-              value="notApproved"
-              name="comment"
-            v-model="formData.agree"
-          />
-          <RadioInput
-            label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
-              value="return_professor"
-              name="comment"
-            v-model="formData.agree"
-          />
-          <RadioInput
-            label="ตีกลับเจ้าหน้าที่ทรัพยากรบุคคลเพื่อแก้ไขข้อมูล"
-              value="return_hr"
-              name="comment"
-            v-model="formData.agree"
-          />
-          <RadioInput
-            label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล"
-              value="return_research"
-              name="comment"
-            v-model="formData.agree"
-          />
-          <RadioInput
-            label="ตีกลับเจ้าหน้าที่การเงินเพื่อแก้ไขข้อมูล"
-              value="return_finance"
-              name="comment"
-            v-model="formData.agree"
-          />
-          <span
-            v-if="v$.agree.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
-            {{ v$.agree.$errors[0].$message }}
-          </span>
-        </SectionWrapper>
-      </Mainbox>
+<div class="container my-10 mx-auto">
+  <ConferenceData :id="id" />
+  <HR :id="id" />
+  <Research :id="id" :type="'Conference'" />
+  <FinanceAll :id="id" :type="'Conference'" />
+  <Mainbox>
+    <SectionWrapper>
+      <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
+      <RadioInput
+        label="เห็นชอบ"
+        value="approve"
+        name="comment"
+        v-model="formData.agree"
+      />
+      <RadioInput
+        label="ไม่เห็นชอบ"
+        value="notApproved"
+        name="comment"
+        v-model="formData.agree"
+      />
+      <RadioInput
+        label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
+        value="return_professor"
+        name="comment"
+        v-model="formData.agree"
+      />
+      <RadioInput
+        label="ตีกลับเจ้าหน้าที่ทรัพยากรบุคคลเพื่อแก้ไขข้อมูล"
+        value="return_hr"
+        name="comment"
+        v-model="formData.agree"
+      />
+      <RadioInput
+        label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล"
+        value="return_research"
+        name="comment"
+        v-model="formData.agree"
+      />
+      <RadioInput
+        label="ตีกลับเจ้าหน้าที่การเงินเพื่อแก้ไขข้อมูล"
+        value="return_finance"
+        name="comment"
+        v-model="formData.agree"
+      />
+      <span v-if="v$.agree.$error" class="text-base font-bold text-red-500 text-left">
+        {{ v$.agree.$errors[0].$message }}
+      </span>
 
-      <div class="flex justify-end">
-        <button @click="OfficerConfer" class="btn btn-success text-white">
-          บันทึกข้อมูล
-        </button>
-      </div>
-    </div>
+      <textarea
+        class="textarea textarea-bordered w-full"
+        @input="handleInput('commentReason', $event.target.value)"
+      ></textarea>
+      <span v-if="v$.commentReason.$error" class="text-base font-bold text-red-500 text-left">
+        {{ v$.commentReason.$errors[0].$message }}
+      </span>
+    </SectionWrapper>
+  </Mainbox>
+  
+  <div class="flex justify-end">
+    <button @click="OfficerConfer" class="btn btn-success text-white">
+      บันทึกข้อมูล
+    </button>
   </div>
+</div>
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, computed } from "vue";
+import { onMounted, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
-import { required, helpers } from "@vuelidate/validators";
+import { required, helpers, requiredIf } from "@vuelidate/validators";
 import { DateTime } from "luxon";
 
 import { useUserStore } from "@/store/userStore";
@@ -83,20 +86,34 @@ import FinanceAll from "@/components/form/DataforOffice/FinanceAll.vue";
 const formData = reactive({
   docSubmitDate: DateTime.now().toISODate(),
   agree: "",
+  commentReason: "",
+  returnto: ""
 });
-// Access route parameters
+
+const handleInput = (key, value) => {
+  formData[key] = value;
+};
+
+const rules = computed(() => ({
+  agree: {
+    required: helpers.withMessage("* กรุณาเลือกข้อมูล *", required),
+  },
+  commentReason: {
+      required: helpers.withMessage(
+        "* กรุณากรอกข้อมูล *",
+        requiredIf(() => formData.agree !== "approve")
+      ),
+    },
+}));
+
+const v$ = useVuelidate(rules, formData);
+
 const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
-
-const rules = computed(() => ({
-  agree: {
-    required: helpers.withMessage("* กรุณาเลือกความคิดเห็น *", required),
-  },
-}));
 
 const statusMap = {
   approve: "finance",
@@ -125,8 +142,6 @@ const resultMap = {
   return_finance: "return",
 }
 
-const v$ = useVuelidate(rules, formData);
-
 const OfficerConfer = async () => {
   const result = await v$.value.$validate();
 
@@ -141,13 +156,14 @@ const OfficerConfer = async () => {
         updated_data: [
           { field : 'associate_id', value : user.value?.user_id },
           { field : 'c_associate_result', value : resultMap[formData.agree] },
+          { field : 'c_associate_reason', value : formData.commentReason },
           { field : 'associate_doc_submit_date', value : formData.docSubmitDate },
         ],
         form_status: statusMap[formData.agree],
         returnto: returnMap[formData.agree]
       };
 
-      const response = await api.put(`/opinionConf/${id}`, dataForBackend);
+      await api.put(`/opinionConf/${id}`, dataForBackend);
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
       router.push("/officer");
     } catch (error) {
@@ -160,8 +176,4 @@ const OfficerConfer = async () => {
     console.log("Validation failed:", v$.value.$errors);
   }
 };
-
-onMounted(async () => {
-  await fetchOfficerData();
-});
 </script>
