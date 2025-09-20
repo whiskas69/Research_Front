@@ -125,7 +125,7 @@
           </div>
         </div>
         <RadioInput
-          value="1"
+          value=1
           label="เป็นพนักงานสถาบันที่ปฏิบัติงานมาแล้วไม่เกิน 3 ปีนับตั้งแต่วันบรรจุและยังไม่เคยลาเข้าร่วมประชุมทางวิชาการ ณ ต่างประเทศ"
           v-model="formData.isUnder3YearsNoOverseasConf"
         />
@@ -211,7 +211,7 @@ const formData = reactive({
   f_fee_receipt: null,
   f_fx_rate_document: null,
   f_conf_proof: null,
-  isUnder3YearsNoOverseasConf: "",
+  isUnder3YearsNoOverseasConf: 0,
   noteHR: "",
   radioAuthOffic: "",
   commentReason: "",
@@ -294,7 +294,8 @@ const OfficerConfer = async () => {
         c_hr_reason: formData.commentReason,
         c_hr_note: formData.noteHR,
         hr_doc_submit_date: formData.docSubmitDate,
-
+        
+        user_confer: formData.isUnder3YearsNoOverseasConf,
         form_status:
           statusMap[formData.radioAuthOffic] || formData.radioAuthOffic,
         returnto:
