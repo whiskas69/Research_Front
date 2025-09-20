@@ -1,5 +1,6 @@
 <template>
-  <p class="text-2xl font-bold text-center my-10">ประวัติเอกสาร</p>
+  <p class="text-2xl font-bold text-center my-10">สถานะ และประวัติเอกสาร</p>
+  <ApprovalSteps :status="formData.form.form_status" type="Page_Charge"/>
   <PageChageData :id="id" />
   <Research :id="id" :type="'Page_Charge'" />
   <FinanceAll :id="id" :type="'Page_Charge'" />
@@ -131,6 +132,7 @@ import api from "@/setting/api";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, requiredIf } from "@vuelidate/validators";
 
+import ApprovalSteps from "@/components/Status/ApprovalSteps.vue";
 import PageChageData from "@/components/form/DataforOffice/PageChage.vue";
 import Research from "@/components/form/DataforOffice/Research.vue";
 import FinanceAll from "@/components/form/DataforOffice/FinanceAll.vue";

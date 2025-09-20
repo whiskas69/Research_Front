@@ -1,6 +1,7 @@
 <template>
   <div>
-    <p class="text-2xl font-bold text-center my-10">ประวัติเอกสาร</p>
+    <p class="text-2xl font-bold text-center my-10">สถานะ และประวัติเอกสาร</p>
+    <ApprovalSteps :status="formData.form.form_status" type="conference"/>
     <ConferenceData :id="id" />
     <HR :id="id" />
     <Research :id="id" :type="'Conference'" />
@@ -138,6 +139,7 @@ import api from "@/setting/api";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, requiredIf } from "@vuelidate/validators";
 
+import ApprovalSteps from "@/components/Status/ApprovalSteps.vue";
 import ConferenceData from "@/components/form/DataforOffice/Conference.vue";
 import HR from "@/components/form/DataforOffice/HR.vue";
 import Research from "@/components/form/DataforOffice/Research.vue";
@@ -147,6 +149,7 @@ import Dean from "@/components/form/DataforOffice/Dean.vue";
 import WithdrawMoney from "@/components/form/DataforOffice/WithdrawMoney.vue";
 import Mainbox from "@/components/form/Mainbox.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
+
 const route = useRoute();
 const id = route.params.id;
 const formData = reactive({
