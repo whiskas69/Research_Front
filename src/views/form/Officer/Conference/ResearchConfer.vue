@@ -10,7 +10,7 @@
           <div class="flex flex-row w-[300px] py-2">
             <RadioInput
               label="ระดับมาตรฐาน"
-              value="standardgood"
+              value="standard"
               name="qualityinfo"
               v-model="formData.radioQuality"
             />

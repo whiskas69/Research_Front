@@ -153,7 +153,7 @@
           </div>
           <RadioInput
             label="เป็นพนักงานสถาบันที่ปฏิบัติงานมาแล้วไม่เกิน 3 ปีนับตั้งแต่วันบรรจุและยังไม่เคยลาเข้าร่วมประชุมทางวิชาการ ณ ต่างประเทศ"
-            value="1"
+            :value=1
             v-model="formData.offic.user_confer"
             :disabled="true"
           />
@@ -171,14 +171,14 @@
         <SectionWrapper class="collapse-content">
           <RadioInput
             label="ข้อมูลถูกต้อง"
-            value="correct"
+            value="approve"
             name="redi"
             :disabled="true"
             v-model="formData.offic.c_hr_result"
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
-            value="notCorrect"
+            value="notApproved"
             name="redi"
             :disabled="true"
             v-model="formData.offic.c_hr_result"

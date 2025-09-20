@@ -2,46 +2,60 @@
   <div class="container my-10 mx-auto">
     <!-- Conference -->
     <div v-if="props.type == 'Conference'">
-      <Mainbox v-if="formData.conference.meeting_type" class="collapse collapse-arrow collapse-open">
-         <input type="checkbox" />
-         <p class="collapse-title">ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
+      <Mainbox
+        v-if="formData.conference.meeting_type"
+        class="collapse collapse-arrow collapse-open"
+      >
+        <input type="checkbox" />
+        <p class="collapse-title">ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
         <SectionWrapper class="collapse-content">
           <div>
+            <!-- {{ formData.offic }} -->
             <p>• คุณภาพของการประชุม ฯ</p>
-            <div
-              class="px-2"
-              v-if="formData.conference.quality_meeting == 'good'"
-            >
-              <p>• อยู่ในระดับดีมาก</p>
-              <div class="flex flex-row gap-2">
-                <p>• คำนวณจาก {{ formData.score.score_type }}</p>
-                <p v-if="formData.score.score_type == 'CORE'">
-                  มีค่าคะแนน {{ formData.score.core_rank }}
-                </p>
-                <p v-else>มีค่าคะแนน {{ formData.score.score_result }}</p>
-              </div>
+            <div class="flex flex-row w-[300px] py-2">
+              <RadioInput
+                label="ระดับมาตรฐาน"
+                value="standard"
+                name="qualityinfo"
+                :disabled="true"
+                v-model="formData.offic.c_quality"
+              />
+              <RadioInput
+                label="ระดับดีมาก"
+                value="good"
+                name="qualityinfo"
+                :disabled="true"
+                v-model="formData.offic.c_quality"
+              />
             </div>
-            <p
-              class="px-2"
-              v-else-if="formData.conference.quality_meeting == 'standard'"
-            >
-              • อยู่ในระดับมาตรฐาน
+            <textarea
+              class="textarea textarea-bordered w-full"
+              :placeholder="formData.offic.c_comment_quality"
+              :disabled="true"
+            ></textarea>
+
+            <div v-if="formData.offic.c_quality == 'good'" class="py-2">
+            <p class="pb-2">
+              • กรณีที่เป็นการประชุมวิชาการ <b>ระดับดีมาก</b>
+              เลือกวิธีคิดค่าคะแนนคุณภาพ และมีระดับคะแนนคุณภาพของการประชุมฯ
             </p>
-            <p class="px-2" v-else-if="formData.conference.quality_meeting == ''">
-              • ประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ
-              และไม่อยู่ในฐานข้อมูลสากล SCOPUS
-            </p>
+            <textarea
+              class="textarea textarea-bordered w-full"
+              :placeholder="formData.offic.c_comment_quality_good"
+              :disabled="true"
+            ></textarea>
+          </div>
           </div>
           <RadioInput
             label="ข้อมูลถูกต้อง"
-            value="correct"
+            value="approve"
             name="re"
             :disabled="true"
             v-model="formData.offic.c_research_result"
           />
           <RadioInput
             label="ข้อมูลไม่ถูกต้อง"
-            value="notCorrect"
+            value="notApproved"
             name="re"
             :disabled="true"
             v-model="formData.offic.c_research_result"
@@ -171,9 +185,14 @@
         </SectionWrapper>
       </Mainbox>
       <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
-      <Mainbox v-if="formData.offic.p_research_admin" class="collapse collapse-arrow collapse-open">
+      <Mainbox
+        v-if="formData.offic.p_research_admin"
+        class="collapse collapse-arrow collapse-open"
+      >
         <input type="checkbox" />
-        <p class="collapse-title">ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
+        <p class="collapse-title">
+          ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ
+        </p>
         <SectionWrapper class="collapse-content">
           <RadioInput
             label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้"
@@ -217,7 +236,9 @@
         </SectionWrapper>
       </Mainbox>
       <Mainbox v-else>
-        <p class="font-bold">ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
+        <p class="font-bold">
+          ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ
+        </p>
         <p>เอกสารอยู่ในขั้นตอนการตรวจสอบ</p>
       </Mainbox>
     </div>
@@ -228,7 +249,9 @@
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
         <div class="collapse-content flex flex-rowitems-center">
-          <p class="w-3/5 min-w-64 flex place-items-center">แบบเสนอโครงการวิจัย (Research Project)</p>
+          <p class="w-3/5 min-w-64 flex place-items-center">
+            แบบเสนอโครงการวิจัย (Research Project)
+          </p>
           <div class="ml-80">
             <button
               @click="getFile(formData.f_kris)"
@@ -241,7 +264,10 @@
       </Mainbox>
 
       <p class="text-xl font-bold pb-5">ตรวจสอบข้อมูลและหลักฐาน</p>
-      <Mainbox v-if="formData.offic.research_admin" class="collapse collapse-arrow collapse-open">
+      <Mainbox
+        v-if="formData.offic.research_admin"
+        class="collapse collapse-arrow collapse-open"
+      >
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">ตรวจสอบ และรับทราบเอกสาร</p>
         <SectionWrapper class="collapse-content">
@@ -316,7 +342,6 @@ const fetchOfficerData = async () => {
       const responseScore = await api.get(`/score/${id}`);
       console.log("score123", responseScore);
       formData.score = responseScore.data;
-
     } else if (props.type == "Page_Charge") {
       const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
       formData.f_pc_proof = responsefile.data.file_pc_proof;
@@ -333,9 +358,8 @@ const fetchOfficerData = async () => {
       const responseoffic = await api.get(`/opinionPC/${id}`);
       formData.offic = responseoffic.data;
     } else if (props.type == "Research_KRIS") {
-
       const responsefile = await api.get(`/getFilekris?kris_id=${id}`);
-      console.log("responsefile k", responsefile)
+      console.log("responsefile k", responsefile);
       formData.f_kris = responsefile.data.fileUrl;
 
       const responsedata = await api.get(`/opinionkris/${id}`);
