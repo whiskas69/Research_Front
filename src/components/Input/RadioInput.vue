@@ -1,6 +1,6 @@
 <template>
-  <div :class="`from-control w-full ${customDiv}`">
-    <label class="w-full flex items-center">
+  <div :class="`form-control w-full ${customDiv}`">
+    <label :class="`flex items-center ${customLabel}`">
       <input
         type="radio"
         :class="`radio radio-sm mr-2 ${customClass}`"
@@ -10,7 +10,7 @@
         :checked="modelValue === value"
         @change="$emit('update:modelValue', value)"
       />
-      <span :class="`${customLabel}`"> {{ label }}</span>
+      <span>{{ label }}</span>
     </label>
   </div>
 </template>

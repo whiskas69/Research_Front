@@ -191,7 +191,7 @@ const formData = reactive({
   canWithdrawn: "",
   docSubmitDate: DateTime.now().toISODate(),
   form_id: 0,
-  radioAuthOffic: "",
+  radioAuthOffic: null,
   comment_text: null,
   newmoneyRequested: null,
 });
@@ -209,7 +209,6 @@ const caltotalFaculty = computed(() => {
 });
 
 const caltotalFacultyNow = computed(() => {
-  console.log("moneyRequested", moneyRequested.value);
   formData.totalcreditLimit =
     parseFloat(formData.creditLimit) - parseFloat(moneyRequested.value);
   return formData.totalcreditLimit.toLocaleString("en-US", {
@@ -261,27 +260,17 @@ const user = computed(() => userStore.user);
 
 const fetchOfficerData = async () => {
   try {
-    //const responseoffic = await api.get(`/opinionConf/${id}`);
-    //formData.offic = responseoffic.data;
-
     const responseBudget = await api.get(`/budgetsConfer`);
-    console.log("budgetsConfer:", responseBudget.data);
     formData.numapproved = responseBudget.data.numapproved;
     formData.totalapproved = responseBudget.data.totalapproved == null ? 0 : responseBudget.data.totalapproved;
 
-    console.log("numapprove", formData.numapproved);
-    console.log("totalapprove", formData.totalapproved);
-
     const responseFormConfer = await api.get(`/formConference/${id}`);
-    console.log("responseFormConfer 123", responseFormConfer.data);
     formData.form_id = responseFormConfer.data.form_id;
 
     const responseCalConfer = await api.get(`/confer/calc/${id}`);
     formData.canWithdrawn = responseCalConfer.data;
-    console.log("canWithdrawn", formData.canWithdrawn);
 
     const responseConfer = await api.get(`/conference/${id}`);
-    console.log("conference123", responseConfer);
     formData.conference = responseConfer.data;
   } catch (error) {
     console.log("Error fetching Officer data:", error);
@@ -322,7 +311,7 @@ const rules = computed(() => ({
 const v$ = useVuelidate(rules, formData);
 
 const statusMap = {
-  approve: "associate",
+  null: "associate",
   notApproved: "notApproved",
   return_professor: "return",
   return_hr: "return",
@@ -331,7 +320,7 @@ const statusMap = {
 }
 
 const returnMap = {
-  approve: null,
+  null: null,
   notApproved: null,
   return_professor: "professor",
   return_hr: "hr",
@@ -377,7 +366,7 @@ const OfficerConfer = async () => {
         };
         console.log("post office confer: ", JSON.stringify(dataForBackend));
 
-        const response = await api.post(`/budget`, dataForBackend);
+        await api.post(`/budget`, dataForBackend);
         alert("บันทึกข้อมูลเรียบร้อยแล้ว");
         router.push("/officer");
       } catch (error) {
@@ -392,7 +381,7 @@ const OfficerConfer = async () => {
   }
 };
 
-onMounted(() => {
-  fetchOfficerData();
+onMounted(async () => {
+  await fetchOfficerData();
 });
 </script>

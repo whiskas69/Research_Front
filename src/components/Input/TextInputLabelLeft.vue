@@ -4,7 +4,7 @@
       <span :class="`${customLabel}`"> {{ label }} <span v-if="required" class="text-red-500">*</span></span>
       <input
         :type="type"
-        :class="`input input-bordered mx-1 w-full ${customInput}`"
+        :class="`input input-bordered mx-1 w-full h-10 ${customInput}`"
         :placeholder="placeholder"
         :disabled="disabled"
         :value="formattedValue"
