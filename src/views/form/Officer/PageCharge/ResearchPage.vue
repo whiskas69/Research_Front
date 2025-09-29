@@ -234,20 +234,20 @@ const OfficerPC = async () => {
 
     try {
       const dataForBackend = {
-        research_id: user.value?.user_id,
-        pageC_id: id,
-        p_research_result: formData.radioAuthOffic,
-        p_research_reason: formData.commentReason,
-        p_date_accepted_approve: formData.dateAccep || null,
-        research_doc_submit_date: formData.docSubmitDate,
+        research_id : user.value?.user_id,
+        pageC_id : id,
+        p_research_result : formData.radioAuthOffic,
+        p_research_reason : formData.commentReason,
+        p_date_accepted_approve : formData.dateAccep || null,
+        research_doc_submit_date : formData.docSubmitDate,
 
-        form_status:
-          statusMap[formData.radioAuthOffic] || formData.radioAuthOffic,
-        returnto:
-          formData.radioAuthOffic === "return_professor" ? "professor" : null,
+        form_status : statusMap[formData.radioAuthOffic] || formData.radioAuthOffic,
+        returnto : formData.radioAuthOffic === "return_professor" ? "professor" : null,
+        return_note : formData.commentReason || null,
+        past_return : formData.radioAuthOffic === "return_professor" ? "research" : null
       };
 
-      await api.put(`/opinionPC/${id}`, dataForBackend);
+      await api.post(`/opinionPC`, dataForBackend);
 
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
       router.push("/officer");

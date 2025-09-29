@@ -132,7 +132,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, computed } from "vue";
+import { onMounted, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, maxValue, minValue, numeric, decimal, requiredIf } from "@vuelidate/validators";
@@ -297,7 +297,9 @@ const OfficerPC = async () => {
           doc_submit_date: formData.docSubmitDate,
           
           form_status: statusMap[formData.radioAuthOffic],
-          returnto: returnMap[formData.radioAuthOffic]
+          returnto: returnMap[formData.radioAuthOffic],
+          return_note: formData.comment_text || null,
+          past_return: statusMap[formData.radioAuthOffic] == 'return' ? user.value?.user_role : null
         };
         console.log("post office confer: ", JSON.stringify(dataForBackend));
 
