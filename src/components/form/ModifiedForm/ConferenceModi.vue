@@ -694,11 +694,11 @@
         </SectionWrapper>
       </SectionWrapper>
     </Mainbox>
+    <!-- เอกสารหลักฐานที่แนบ -->
     <Mainbox class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
         <SectionWrapper class="collapse-content">
-          <!-- เอกสารหลักฐานที่แนบ -->
           <!-- 1 -->
           <div class="flex flex-row items-center w-full">
             <div class="flex flex-row items-center w-full justify-between">
@@ -707,10 +707,23 @@
               </div>
               <div class="">
                 <button
-                  @click="getFile(formData.f_full_page)"
+                  @click="getFile(formData.file.file_full_page)"
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
+                </button>
+              
+                <input
+                type="file"
+                @change="onFileChange($event, 'full_page')"
+                class="hidden"
+                ref="full_page"
+                />
+                <button
+                  @click="$refs.full_page.click()"
+                  class="btn bg-blue-500 text-white"
+                >
+                  แก้ไขไฟล์
                 </button>
               </div>
             </div>
@@ -731,11 +744,25 @@
               </div>
               <div class="">
                 <button
-                  @click="getFile(formData.f_published_journals)"
+                  @click="getFile(formData.file.file_published_journals)"
                   class="btn bg-[#E85F19] text-white mr-5"
-                  disabled="!isValidFile(formData.f_published_journals)"
+                  disabled="!isValidFile(formData.file.file_published_journals)"
                 >
                   ดูเอกสาร
+                </button>
+
+                <input
+                type="file"
+                @change="onFileChange($event, 'published_journals')"
+                class="hidden"
+                ref="published_journals"
+                />
+                <button
+                  @click="$refs.published_journals.click()"
+                  class="btn bg-blue-500 text-white"
+                  disabled="!isValidFile(formData.file.file_published_journals)"
+                >
+                  แก้ไขไฟล์
                 </button>
               </div>
             </div>
@@ -751,11 +778,25 @@
               </div>
               <div class="">
                 <button
-                  @click="getFile(formData.f_q_proof)"
+                  @click="getFile(formData.file.file_q_proof)"
                   class="btn bg-[#E85F19] text-white mr-5"
-                  disabled="!isValidFile(formData.f_q_proof)"
+                  disabled="!isValidFile(formData.file.file_q_proof)"
                 >
                   ดูเอกสาร
+                </button>
+
+                <input
+                type="file"
+                @change="onFileChange($event, 'q_proof')"
+                class="hidden"
+                ref="q_proof"
+                />
+                <button
+                  @click="$refs.q_proof.click()"
+                  class="btn bg-blue-500 text-white"
+                  disabled="!isValidFile(formData.file.file_q_proof)"
+                >
+                  แก้ไขไฟล์
                 </button>
               </div>
             </div>
@@ -770,10 +811,23 @@
               </div>
               <div class="">
                 <button
-                  @click="getFile(formData.f_call_for_paper)"
+                  @click="getFile(formData.file.file_call_for_paper)"
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
+                </button>
+
+                <input
+                type="file"
+                @change="onFileChange($event, 'call_for_paper')"
+                class="hidden"
+                ref="call_for_paper"
+                />
+                <button
+                  @click="$refs.call_for_paper.click()"
+                  class="btn bg-blue-500 text-white"
+                >
+                  แก้ไขไฟล์
                 </button>
               </div>
             </div>
@@ -786,10 +840,23 @@
               </div>
               <div class="">
                 <button
-                  @click="getFile(formData.f_accepted)"
+                  @click="getFile(formData.file.file_accepted)"
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
+                </button>
+
+                <input
+                type="file"
+                @change="onFileChange($event, 'accepted')"
+                class="hidden"
+                ref="accepted"
+                />
+                <button
+                  @click="$refs.accepted.click()"
+                  class="btn bg-blue-500 text-white"
+                >
+                  แก้ไขไฟล์
                 </button>
               </div>
             </div>
@@ -802,10 +869,23 @@
               </div>
               <div class="">
                 <button
-                  @click="getFile(formData.f_fee_receipt)"
+                  @click="getFile(formData.file.file_fee_receipt)"
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
+                </button>
+
+                <input
+                type="file"
+                @change="onFileChange($event, 'fee_receipt')"
+                class="hidden"
+                ref="fee_receipt"
+                />
+                <button
+                  @click="$refs.fee_receipt.click()"
+                  class="btn bg-blue-500 text-white"
+                >
+                  แก้ไขไฟล์
                 </button>
               </div>
             </div>
@@ -818,10 +898,23 @@
               </div>
               <div class="">
                 <button
-                  @click="getFile(formData.f_fx_rate_document)"
+                  @click="getFile(formData.file.file_fx_rate_document)"
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
+                </button>
+
+                <input
+                type="file"
+                @change="onFileChange($event, 'fx_rate_document')"
+                class="hidden"
+                ref="fx_rate_document"
+                />
+                <button
+                  @click="$refs.fx_rate_document.click()"
+                  class="btn bg-blue-500 text-white"
+                >
+                  แก้ไขไฟล์
                 </button>
               </div>
             </div>
@@ -834,10 +927,23 @@
               </div>
               <div class="">
                 <button
-                  @click="getFile(formData.f_conf_proof)"
+                  @click="getFile(formData.file.file_conf_proof)"
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
+                </button>
+
+                <input
+                type="file"
+                @change="onFileChange($event, 'conf_proof')"
+                class="hidden"
+                ref="conf_proof"
+                />
+                <button
+                  @click="$refs.conf_proof.click()"
+                  class="btn bg-blue-500 text-white"
+                >
+                  แก้ไขไฟล์
                 </button>
               </div>
             </div>
@@ -845,11 +951,8 @@
         </SectionWrapper>
       </Mainbox>
     <div class="flex justify-end gap-4 mb-70">
-      <button @click="handleSubmitHaveEdit" class="btn btn-info text-white">
-        มีการเปลี่ยนข้อมูลที่ถูกแก้ไข
-      </button>
       <button @click="handleSubmit" class="btn btn-success text-white">
-        ข้อมูลที่แก้ไขถูกต้อง
+        ยืนยัน
       </button>
     </div>
   </div>
@@ -874,15 +977,9 @@ const formData = reactive({
   originScore: {},
   editForm: [],
   status: "",
-    //url
-  f_full_page: null,
-  f_published_journals: null,
-  f_q_proof: null,
-  f_call_for_paper: null,
-  f_accepted: null,
-  f_fee_receipt: null,
-  f_fx_rate_document: null,
-  f_conf_proof: null,
+  //url
+  file: {},
+  originFile: {},
 });
 
 const totalAmount = computed(() => {
@@ -924,6 +1021,16 @@ const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 
+const onFileChange = (event, field) => {
+  const file = event.target.files[0];
+  if (file) {
+    formData.file[field] = file;
+  }
+  console.log("edit formData[field]", field)
+  console.log("edit file", file)
+  console.log(formData)
+}
+
 const getChangedFields = () => {
   const current = toRaw(formData.conference);
   const originalConference = formData.originCofer;
@@ -961,59 +1068,61 @@ const getChangedFieldsScore = () => {
   return changedFields;
 };
 
-const handleSubmitHaveEdit = async () => {
+const getChangedFieldsFile = () => {
+  const current = toRaw(formData.file);
+  const originalFile = formData.originFile;
+  const changedFields = [];
+  console.log("current file", current);
+  console.log("ori file", originalFile);
+  for (const key in current) {
+    if (JSON.stringify(current[key]) !== JSON.stringify(originalFile[key])) {
+      changedFields.push({
+        field: key,
+        oldValue: originalFile[key],
+        newValue: current[key],
+      });
+    }
+  }
+  return changedFields;
+};
+
+const handleSubmit = async () => {
   const changed = getChangedFields();
   const changedScore = getChangedFieldsScore();
-  if (changed.length === 0) {
-    alert("ไม่มีการเปลี่ยนแปลงข้อมูล");
-    return;
-  }
-  if (changedScore.length === 0) {
+  const changedFile = getChangedFieldsFile();
+
+  if (changed.length === 0 && changedScore.length === 0 && changedFile.length === 0) {
     alert("ไม่มีการเปลี่ยนแปลงข้อมูล");
     return;
   }
 
   console.log("ฟิลด์ที่ถูกแก้ไข:", changed);
   console.log("ฟิลด์ที่ถูกแก้ไข changedScore:", changedScore);
+  console.log("ฟิลด์ที่ถูกแก้ไข changedFile:", changedFile);
 
-  // ถ้าต้องการส่งเฉพาะที่เปลี่ยน:
-  const payload = {};
-  changed.forEach((item) => {
-    payload[item.field] = item.newValue;
-  });
-  changedScore.forEach((item) => {
-    payload[item.field] = item.newValue;
+  const formData = new FormData();
+  formData.append("conf_id", id);
+  formData.append("edit_data", JSON.stringify(changed));
+  formData.append("score", JSON.stringify(changedScore));
+  formData.append("editor", userStore.user.user_nameth);
+  formData.append("professor_reedit", true);
+
+  // แนบไฟล์จริง
+  changedFile.forEach((item) => {
+    if (item.newValue instanceof File) {
+      formData.append(item.field, item.newValue); 
+    }
   });
 
   try {
-    const dataForBackend = {
-      conf_id: id,
-      edit_data: changed,
-      score: changedScore,
-      editor: userStore.user.user_nameth,
-      professor_reedit: true,
-    };
-    console.log("dataForBackend: ", dataForBackend);
-    await api.put(`/editedFormConfer/${id}`, dataForBackend);
+    console.log("dataForBackend: ", formData);
+    await api.put(`/editedFormConfer/${id}`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
     router.push("/myHistory");
   } catch (error) {
-    console.log("Error saving code : ", error);
-    alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
-  }
-};
-
-const handleSubmit = async () => {
-  try {
-    const dataForBackend = {
-      conf_id: id,
-    };
-    console.log("dataForBackend: ", dataForBackend);
-    await api.put(`/confirmEditedForm/${id}`, dataForBackend);
-    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-    router.push("/myHistory");
-  } catch (error) {
-    console.log("Error saving code : ", error);
+    console.error("Error saving:", error);
     alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
   }
 };
@@ -1055,6 +1164,9 @@ const fetchOfficerData = async () => {
     console.log("wow za", formData.editForm);
 
     const responsefile = await api.get(`/getFileConf?conf_id=${id}`);
+    formData.file = responsefile.data;
+    formData.originFile = JSON.parse(JSON.stringify(responsefile.data));
+
     formData.date_journals = responsefile.data.date_published_journals,
     formData.f_full_page = responsefile.data.file_full_page;
     formData.f_published_journals = responsefile.data.file_published_journals;

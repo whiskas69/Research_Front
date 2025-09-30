@@ -425,10 +425,23 @@
               </div>
               <div>
                 <button
-                  @click="getFile(formData.f_q_pc_proof)"
+                  @click="getFile(formData.file.file_pc_proof)"
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
+                </button>
+
+                <input
+                type="file"
+                @change="onFileChange($event, 'pc_proof')"
+                class="hidden"
+                ref="pc_proof"
+                />
+                <button
+                  @click="$refs.pc_proof.click()"
+                  class="btn bg-blue-500 text-white"
+                >
+                  แก้ไขไฟล์
                 </button>
               </div>
             </div>
@@ -444,10 +457,23 @@
               </div>
               <div>
                 <button
-                  @click="getFile(formData.f_q_pc_proof)"
+                  @click="getFile(formData.file.file_q_pc_proof)"
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
+                </button>
+
+                <input
+                type="file"
+                @change="onFileChange($event, 'q_pc_proof')"
+                class="hidden"
+                ref="q_pc_proof"
+                />
+                <button
+                  @click="$refs.q_pc_proof.click()"
+                  class="btn bg-blue-500 text-white"
+                >
+                  แก้ไขไฟล์
                 </button>
               </div>
             </div>
@@ -463,10 +489,23 @@
               </div>
               <div>
                 <button
-                  @click="getFile(formData.f_invoice_public)"
+                  @click="getFile(formData.file.file_invoice_public)"
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
+                </button>
+
+                <input
+                type="file"
+                @change="onFileChange($event, 'invoice_public')"
+                class="hidden"
+                ref="invoice_public"
+                />
+                <button
+                  @click="$refs.invoice_public.click()"
+                  class="btn bg-blue-500 text-white"
+                >
+                  แก้ไขไฟล์
                 </button>
               </div>
             </div>
@@ -479,10 +518,23 @@
               </div>
               <div>
                 <button
-                  @click="getFile(formData.f_accepted)"
+                  @click="getFile(formData.file.file_accepted)"
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
+                </button>
+
+                <input
+                type="file"
+                @change="onFileChange($event, 'accepted')"
+                class="hidden"
+                ref="accepted"
+                />
+                <button
+                  @click="$refs.accepted.click()"
+                  class="btn bg-blue-500 text-white"
+                >
+                  แก้ไขไฟล์
                 </button>
               </div>
             </div>
@@ -495,37 +547,25 @@
               </div>
               <div>
                 <button
-                  @click="getFile(formData.f_copy_article)"
+                  @click="getFile(formData.file.file_copy_article)"
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
                 </button>
-                <!-- <button
-                  @click="toggleEdit"
-                  class="btn bg-[#E85F19] text-white mr-5"
+
+                <input
+                type="file"
+                @change="onFileChange($event, 'copy_article')"
+                class="hidden"
+                ref="copy_article"
+                />
+                <button
+                  @click="$refs.copy_article.click()"
+                  class="btn bg-blue-500 text-white"
                 >
-                  แก้ไข
-                </button> -->
+                  แก้ไขไฟล์
+                </button>
               </div>
-              <!-- input file จะโชว์ก็ต่อเมื่อกดแก้ไข -->
-                <!-- <div v-if="showInput" class="flex flex-row mt-3">
-                  <FileInput
-                      type="file"
-                      @change="handleFile($event, 'copy_article')"
-                  />
-                    <button
-                      class="btn bg-green-600 text-white ml-2"
-                      @click="saveFile"
-                    >
-                      บันทึก
-                    </button>
-                  <button
-                    class="btn bg-gray-400 text-white ml-2"
-                    @click="cancelEdit"
-                  >
-                    ยกเลิก
-                  </button>
-                </div> -->
             </div>
           </div>
 
@@ -536,10 +576,23 @@
               </div>
               <div>
                 <button
-                  @click="getFile(formData.f_upload_article)"
+                  @click="getFile(formData.file.file_upload_article)"
                   class="btn bg-[#E85F19] text-white mr-5"
                 >
                   ดูเอกสาร
+                </button>
+
+                <input
+                type="file"
+                @change="onFileChange($event, 'upload_article')"
+                class="hidden"
+                ref="upload_article"
+                />
+                <button
+                  @click="$refs.upload_article.click()"
+                  class="btn bg-blue-500 text-white"
+                >
+                  แก้ไขไฟล์
                 </button>
               </div>
             </div>
@@ -547,11 +600,8 @@
         </SectionWrapper>
       </Mainbox>
     <div class="flex justify-end gap-4 mb-70">
-      <button @click="handleSubmitHaveEdit" class="btn btn-info text-white">
-        มีการเปลี่ยนข้อมูลที่ถูกแก้ไข
-      </button>
       <button @click="handleSubmit" class="btn btn-success text-white">
-        ข้อมูลที่แก้ไขถูกต้อง
+        ยืนยัน
       </button>
     </div>
   </div>
@@ -583,6 +633,9 @@ const formData = reactive({
   checkScopus: "",
   nature: "",
 
+  file: {},
+  originFile: {},
+
   f_pc_proof: null,
   f_q_pc_proof: null,
   f_invoice_public: null,
@@ -609,65 +662,15 @@ const route = useRoute();
 const id = route.params.id;
 console.log("params.id", id);
 
-//แก้ไขไฟล์
-const showInput = ref(false);
-const selectedFile = ref(null);
-
-const toggleEdit = () => {
-  showInput.value = true;
-};
-
-const cancelEdit = () => {
-  showInput.value = false;
-  selectedFile.value = null;
-};
-
-const handleFile = (event, fieldName) => {
-  selectedFile.value = event.target.files[0];
+const onFileChange = (event, field) => {
   const file = event.target.files[0];
-
-  if (!file) {
-    console.log(`No file selected for ${fieldName}.`);
-    return;
+  if (file) {
+    formData.file[field] = file;
   }
-
-  // ตรวจสอบประเภทไฟล์ (PDF เท่านั้น)
-  if (file.type !== "application/pdf") {
-    alert("กรุณาอัพโหลดไฟล์ PDF เท่านั้น");
-    event.target.value = ""; // ล้างค่า input
-    return;
-  }
-
-  // ตรวจสอบขนาดไฟล์ (ไม่เกิน 100MB)
-  const maxSize = 10 * 1024 * 1024; // 100 MB
-  if (file.size > maxSize) {
-    alert("ไฟล์มีขนาดเกิน 20 MB กรุณาเลือกไฟล์ที่เล็กกว่า");
-    event.target.value = ""; // ล้างค่า input
-    return;
-  }
-
-  // ถ้าผ่านเงื่อนไขทั้งหมด เก็บไฟล์ลง formData
-  formData[fieldName] = file;
-};
-
-const saveFile = async () => {
-  if (!selectedFile.value) {
-    alert("กรุณาเลือกไฟล์ก่อนบันทึก");
-    return;
-  }
-  console.log("อัปโหลดไฟล์ใหม่:", selectedFile.value);
-  alert("กำลังเข้าดาต้าเบส");
-  const dataForBackend = selectedFile.value
-  // await api.post(`/upload/${id}`, formData[fieldName]);
-  try {
-    const response = await api.put(`/upload/${id}`, dataForBackend);
-    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-    showInput.value = false;
-  } catch (err) {
-    console.error("Upload error:", err);
-    alert("อัปโหลดไม่สำเร็จ");
-  }
-};
+  console.log("edit formData[field]", field)
+  console.log("edit file", file)
+  console.log(formData)
+}
 
 const getChangedFields = () => {
   const current = toRaw(formData.pageChange);
@@ -688,48 +691,53 @@ const getChangedFields = () => {
   return changedFields;
 };
 
-const handleSubmitHaveEdit = async () => {
-  const changed = getChangedFields();
+const getChangedFieldsFile = () => {
+  const current = toRaw(formData.file);
+  const originalFile = formData.originFile;
+  const changedFields = [];
+  console.log("current file", current);
+  console.log("ori file", originalFile);
+  for (const key in current) {
+    if (JSON.stringify(current[key]) !== JSON.stringify(originalFile[key])) {
+      changedFields.push({
+        field: key,
+        oldValue: originalFile[key],
+        newValue: current[key],
+      });
+    }
+  }
+  return changedFields;
+};
 
-  if (changed.length === 0) {
+const handleSubmit = async () => {
+  const changed = getChangedFields();
+  const changedFile = getChangedFieldsFile();
+
+  if (changed.length === 0 && changedFile.length === 0) {
     alert("ไม่มีการเปลี่ยนแปลงข้อมูล");
     return;
   }
   console.log("ฟิลด์ที่ถูกแก้ไข:", changed);
+  console.log("ฟิลด์ที่ถูกแก้ไข changedFile:", changedFile);
 
-  // ถ้าต้องการส่งเฉพาะที่เปลี่ยน:
-  const payload = {};
-  changed.forEach((item) => {
-    payload[item.field] = item.newValue;
+  const formData = new FormData();
+  formData.append("pageC_id", id);
+  formData.append("edit_data", JSON.stringify(changed));
+  formData.append("editor", userStore.user.user_nameth);
+  formData.append("professor_reedit", true);
+
+  // แนบไฟล์จริง
+  changedFile.forEach((item) => {
+    if (item.newValue instanceof File) {
+      formData.append(item.field, item.newValue); 
+    }
   });
-  console.log("userStroe.user", userStore.user);
 
   try {
-    const dataForBackend = {
-      pageC_id: id,
-      edit_data: changed,
-      editor: userStore.user.user_nameth,
-      professor_reedit: true,
-    };
-    console.log("dataForBackend: ", dataForBackend);
-    await api.put(`/editedFormPageChage/${id}`, dataForBackend);
+    console.log("dataForBackend: ", formData);
+    await api.put(`/editedFormPageChage/${id}`, formData);
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-    router.push("/myHistory");
-  } catch (error) {
-    console.log("Error saving code : ", error);
-    alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
-  }
-};
-
-const handleSubmit = async () => {
-  try {
-    const dataForBackend = {
-      pageC_id: id,
-    };
-    console.log("dataForBackend: ", dataForBackend);
-    await api.put(`/confirmEditedForm/${id}`, dataForBackend);
-    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-    router.push("/myHistory");
+    // router.push("/myHistory");
   } catch (error) {
     console.log("Error saving code : ", error);
     alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
@@ -767,7 +775,10 @@ const fetchProfessorData = async () => {
       }
     }
     const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
-      console.log("responsefile", responsefile.data)
+    console.log("responsefile", responsefile.data)
+    formData.file = responsefile.data;
+    formData.originFile = JSON.parse(JSON.stringify(responsefile.data));
+
       formData.f_pc_proof = responsefile.data.file_pc_proof;
       formData.f_q_pc_proof = responsefile.data.file_q_pc_proof;
       formData.f_invoice_public = responsefile.data.file_invoice_public;
