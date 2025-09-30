@@ -115,7 +115,6 @@
       </div>
 
       <div v-for="returnForm in data.returnForm" :key="returnForm.form_id">
-        {{ returnForm }}
         <div class="p-5 shadow my-5 rounded-xl hover:cursor-pointer mb-2" v-if="returnForm.form_type == 'Page_Charge'">
           <router-link :to="`/modifiedPageCharge/${returnForm.pageC_id}`">
             <h2 class="text-lg font-bold">
@@ -161,7 +160,7 @@
                 </div>
                 <div class="flex">
                   <h4 class="mr-5">
-                    เหตุผลการตีกลับ : {{ returnForm.return_note }}
+                    เหตุผลที่ถูกตีกลับ : {{ returnForm.return_note }}
                   </h4>
                 </div>
               </div>
@@ -254,7 +253,7 @@ const getData = async () => {
     }
 
     data.returnForm = response.data.filter(
-      (form) => form.form_status === "return" && form.return_to === 'professor'
+      (form) => form.form_status === "return" && form.return_to === user.value?.user_role
     );
   }
 };

@@ -30,6 +30,8 @@
           :showAmount="false"
           :showStatus="false"
           :eoffice="false"
+          :comment="form.return_note"
+          :who="form.past_return"
         />
       </div>
     </div>
@@ -85,6 +87,7 @@ const fetchOfficerData = async () => {
       console.log("Invalid forms data");
       return;
     }
+
     // ค้นหาทุก form ที่ตรงกับเงื่อนไข
     // กรองข้อมูลตาม user role
     let filteredForms = responseOffice.data.filter((form) => {
@@ -107,6 +110,14 @@ const fetchOfficerData = async () => {
     });
 
     listForm.forms = filteredForms;
+
+    console.log("Filtered Forms:", responseOffice.data);
+    console.log("User Role:", userStore.user.user_role);
+    listForm.return = responseOffice.data.filter(
+      (form) => form.form_status === "return" && form.return_to === userStore.user.user_role
+    );
+
+    console.log("Returned Forms:", listForm.return);
   } catch (error) {
     console.log("Error fetching Officer data:", error);
   } finally {

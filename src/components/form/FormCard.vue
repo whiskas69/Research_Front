@@ -1,12 +1,7 @@
 <template>
   <router-link v-if="getLink(form) || true" :to="getLink(form) || '#'">
-    <div
-      class="my-2 p-4 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"
-    >
-      <!-- Title -->
+    <div class="my-2 p-4 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer">
       <h2 class="text-lg font-bold">{{ getTitle(form) }}</h2>
-
-
       <div class="flex flex-row w-full justify-between pt-2">
         <div>
           <div class="flex">
@@ -15,19 +10,11 @@
 
           <div class="flex" v-if="form.article_name">
             <h4 class="mr-5 truncate">
-              {{
-                form.form_type === "Page_Charge"
-                  ? "ชื่อวารสาร"
-                  : "ชื่องานประชุม"
-              }}
-              : {{ form.article_name }}
+              {{ form.form_type === "Page_Charge" ? "ชื่อวารสาร" : "ชื่องานประชุม" }} : {{ form.article_name }}
             </h4>
           </div>
 
-          <div
-            class="flex"
-            v-if="form.article_title && form.form_type !== 'Research_KRIS'"
-          >
+          <div class="flex" v-if="form.article_title && form.form_type !== 'Research_KRIS'">
             <h4 class="mr-5 truncate">ชื่อบทความ : {{ form.article_title }}</h4>
           </div>
 
@@ -46,28 +33,25 @@
           <div class="flex" v-if="showAmount">
             <h4 class="mr-5">
               วงเงินที่เบิกได้ :
-              {{
-                form.form_type === "Research_KRIS"
-                  ? form.Research_kris_amount
-                  : form.amount_approval
-              }}
+              {{ form.form_type === "Research_KRIS" ? form.Research_kris_amount : form.amount_approval }}
               บาท
             </h4>
+          </div>
+
+          <div class="flex">
+            <h4 class="mr-5">
+              เหตุผลที่ถูกตีกลับ : {{ comment }} {{ roleinThai(who) ? `( โดย ${roleinThai(who)} )` : "" }}
+            </h4>
+
           </div>
         </div>
 
         <!-- Status -->
-        <div
-          v-if="showStatus"
-          class="flex justify-end items-center"
-        >
+        <div v-if="showStatus" class="flex justify-end items-center">
           <p class="text-red-500 mr-5" v-if="form.form_status == 'notApproved'">
             สถานะ{{ showTHstatus(form.form_status) }}
           </p>
-          <p
-            class="text-green-500 mr-5"
-            v-else-if="form.form_status == 'approve'"
-          >
+          <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approve'">
             สถานะ{{ showTHstatus(form.form_status) }}
           </p>
           <p class="text-yellow-500 mr-5" v-else>
@@ -90,6 +74,8 @@ const props = defineProps({
   roleResearchKRISMap: { type: Object, required: false, default: () => ({}) },
   showAmount: { type: Boolean, default: true },
   showStatus: { type: Boolean, default: true },
+  comment: { type: String, default: "" },
+  who: { type: String, default: "" }
 });
 
 const formatThaiDate = (dateString) => {
@@ -171,6 +157,24 @@ const getTitle = (form) => {
       return "";
   }
 };
+
+const roleinThai = (who) => {
+  if (who == "hr") {
+    return "ฝ่ายบริหารทรัพยากรบุคคล";
+  } else if (who == "research") {
+    return "ฝ่ายบริหารงานวิจัย";
+  } else if (who == "finance") {
+    return "ฝ่ายบริหารการเงิน";
+  } else if (who == "associate") {
+    return "รองคณบดี";
+  } else if (who == "dean") {
+    return "คณบดี";
+  } else if (who == "professor") {
+    return "อาจารย์ผู้เสนอขออนุมัติ";
+  } else if (who == "officer") {
+    return "เจ้าหน้าที่";
+  }
+}
 
 const showTHstatus = (status) => {
   if (status == "approve") {
