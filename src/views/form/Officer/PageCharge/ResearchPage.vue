@@ -1,121 +1,99 @@
 <template>
-<div class="container my-10 mx-auto">
-  <PageChageData :id="id" />
-  <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
-  <Mainbox>
-    <SectionWrapper>
-      <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
-      <div class="flex flex-row items-center w-full">
-        <div class="flex flex-row items-center w-full justify-between">
-          <div class="flex flex-row">
-            <p>หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature</p>
+  <div class="container my-10 mx-auto">
+    <PageChageData :id="id" />
+    <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
+    <Mainbox>
+      <SectionWrapper>
+        <p class="text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
+        <div class="flex flex-row items-center w-full">
+          <div class="flex flex-row items-center w-full justify-between">
+            <div class="flex flex-row">
+              <p>หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature</p>
+            </div>
+            <button @click="getFile(formData.f_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
+              ดูเอกสาร
+            </button>
           </div>
-          <button @click="getFile(formData.f_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
-            ดูเอกสาร
-          </button>
         </div>
-      </div>
-      <div class="flex flex-row items-center w-full">
-        <div class="flex flex-row items-center w-full justify-between">
-          <div class="flex flex-row">
-            <p>หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus</p>
+        <div class="flex flex-row items-center w-full">
+          <div class="flex flex-row items-center w-full justify-between">
+            <div class="flex flex-row">
+              <p>หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus</p>
+            </div>
+            <button @click="getFile(formData.f_q_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
+              ดูเอกสาร
+            </button>
           </div>
-          <button @click="getFile(formData.f_q_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
-            ดูเอกสาร
-          </button>
         </div>
-      </div>
-      <div class="flex flex-row items-center w-full">
-        <div class="flex flex-row items-center w-full justify-between">
-          <div class="flex flex-row">
-            <p>ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ / อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์</p>
+        <div class="flex flex-row items-center w-full">
+          <div class="flex flex-row items-center w-full justify-between">
+            <div class="flex flex-row">
+              <p>ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ / อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์</p>
+            </div>
+            <button @click="getFile(formData.f_invoice_public)" class="btn bg-[#E85F19] text-white mr-5">
+              ดูเอกสาร
+            </button>
           </div>
-          <button @click="getFile(formData.f_invoice_public)" class="btn bg-[#E85F19] text-white mr-5">
-            ดูเอกสาร
-          </button>
         </div>
-      </div>
-      <div class="flex flex-row items-center w-full">
-        <div class="flex flex-row items-center w-full justify-between">
-          <p>หลักฐานการส่งบทความ หนังสือตอบรับบทความ</p>
-          <button @click="getFile(formData.f_accepted)" class="btn bg-[#E85F19] text-white mr-5">
-            ดูเอกสาร
-          </button>
+        <div class="flex flex-row items-center w-full">
+          <div class="flex flex-row items-center w-full justify-between">
+            <p>หลักฐานการส่งบทความ หนังสือตอบรับบทความ</p>
+            <button @click="getFile(formData.f_accepted)" class="btn bg-[#E85F19] text-white mr-5">
+              ดูเอกสาร
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="flex flex-row items-center w-full">
-        <div class="flex flex-row items-center w-full justify-between">
-          <p>สำเนาบทความ</p>
-          <button @click="getFile(formData.f_copy_article)" class="btn bg-[#E85F19] text-white mr-5">
-            ดูเอกสาร
-          </button>
+        <div class="flex flex-row items-center w-full">
+          <div class="flex flex-row items-center w-full justify-between">
+            <p>สำเนาบทความ</p>
+            <button @click="getFile(formData.f_copy_article)" class="btn bg-[#E85F19] text-white mr-5">
+              ดูเอกสาร
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="flex flex-row items-center w-full">
-        <div class="flex flex-row items-center w-full justify-between">
-          <p>หลักฐานการ Upload บทความเข้าระบบ IT Scholar</p>
-          <button @click="getFile(formData.f_upload_article)" class="btn bg-[#E85F19] text-white mr-5">
-            ดูเอกสาร
-          </button>
+        <div class="flex flex-row items-center w-full">
+          <div class="flex flex-row items-center w-full justify-between">
+            <p>หลักฐานการ Upload บทความเข้าระบบ IT Scholar</p>
+            <button @click="getFile(formData.f_upload_article)" class="btn bg-[#E85F19] text-white mr-5">
+              ดูเอกสาร
+            </button>
+          </div>
         </div>
-      </div>
-    </SectionWrapper>
-  </Mainbox>
-  
-  <Mainbox>
-    <SectionWrapper>
-      <p>ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
-      <div class="flex flex-row w-full justify-start items-center gap-2">
-        <RadioInput
-          customDiv="max-w-max"
-          label="ถูกต้องตามเงื่อนไขการสนับสนุน"
-          value="approve"
-          name="recheckinfo"
-          v-model="formData.radioAuthOffic"
-        />
-        <TextInputLabelLeft
-          label="ได้รับหนังสือตอบรับบทความ เมื่อวันที่"
-          customLabel="mx-2"
-          customInput="max-w-max"
-          customDiv="max-w-max"
-          type="date"
-          v-model="formData.dateAccep"
-          @input="handleInput('dateAccep', $event.target.value)"
-        />
-      </div>
-      <RadioInput
-        label="ไม่ถูกต้อง"
-        value="notApproved"
-        name="recheckinfo"
-        v-model="formData.radioAuthOffic"
-      />
-      <RadioInput
-        label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
-        value="return_professor"
-        name="recheckinfo"
-        v-model="formData.radioAuthOffic"
-      />
-      <textarea
-        class="textarea textarea-bordered w-full"
-        @input="handleInput('commentReason', $event.target.value)"
-      ></textarea>
-      <span v-if="v$.radioAuthOffic.$error" class="text-base font-bold text-red-500 text-left">
-        {{ v$.radioAuthOffic.$errors[0].$message }}
-      </span>
-      <span v-if="v$.dateAccep.$error" class="text-base font-bold text-red-500 text-left">
-        {{ v$.dateAccep.$errors[0].$message }}
-      </span>
-      <span v-if="v$.commentReason.$error" class="text-base font-bold text-red-500 text-left">
-        {{ v$.commentReason.$errors[0].$message }}
-      </span>
-    </SectionWrapper>
-  </Mainbox>
-  
-  <div class="flex justify-end">
-    <button @click="OfficerPC" class="btn btn-success text-white">
-      บันทึกข้อมูล
-    </button>
-  </div>
+      </SectionWrapper>
+    </Mainbox>
+
+    <Mainbox>
+      <SectionWrapper>
+        <p>ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
+        <div class="flex flex-row w-full justify-start items-center gap-2">
+          <RadioInput customDiv="max-w-max" label="ถูกต้องตามเงื่อนไขการสนับสนุน" value="approve" name="recheckinfo"
+            v-model="formData.radioAuthOffic" />
+          <TextInputLabelLeft label="ได้รับหนังสือตอบรับบทความ เมื่อวันที่" customLabel="mx-2" customInput="max-w-max"
+            customDiv="max-w-max" type="date" v-model="formData.dateAccep"
+            @input="handleInput('dateAccep', $event.target.value)" />
+        </div>
+        <RadioInput label="ไม่ถูกต้อง" value="notApproved" name="recheckinfo" v-model="formData.radioAuthOffic" />
+        <RadioInput label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล" value="return_professor" name="recheckinfo"
+          v-model="formData.radioAuthOffic" />
+        <textarea class="textarea textarea-bordered w-full"
+          @input="handleInput('commentReason', $event.target.value)"></textarea>
+        <span v-if="v$.radioAuthOffic.$error" class="text-base font-bold text-red-500 text-left">
+          {{ v$.radioAuthOffic.$errors[0].$message }}
+        </span>
+        <span v-if="v$.dateAccep.$error" class="text-base font-bold text-red-500 text-left">
+          {{ v$.dateAccep.$errors[0].$message }}
+        </span>
+        <span v-if="v$.commentReason.$error" class="text-base font-bold text-red-500 text-left">
+          {{ v$.commentReason.$errors[0].$message }}
+        </span>
+      </SectionWrapper>
+    </Mainbox>
+
+    <div class="flex justify-end">
+      <button @click="OfficerPC" class="btn btn-success text-white">
+        บันทึกข้อมูล
+      </button>
+    </div>
   </div>
 </template>
 
@@ -167,14 +145,14 @@ const maxDateToday = (condition) =>
 
     return DateTime.fromISO(value) <= DateTime.fromISO(today);
   });
-  
+
 const rules = computed(() => ({
   radioAuthOffic: {
     required: helpers.withMessage("* กรุณาเลือกข้อมูล *", required),
   },
   dateAccep: {
     required: helpers.withMessage("* กรุณากรอกวันที่อนุมัติ *",
-    requiredIf(() => formData.radioAuthOffic === "approve")
+      requiredIf(() => formData.radioAuthOffic === "approve")
     ),
     maxDateToday: maxDateToday(() => formData.radioAuthOffic === "approve"),
   },
@@ -234,17 +212,17 @@ const OfficerPC = async () => {
 
     try {
       const dataForBackend = {
-        research_id : user.value?.user_id,
-        pageC_id : id,
-        p_research_result : formData.radioAuthOffic,
-        p_research_reason : formData.commentReason,
-        p_date_accepted_approve : formData.dateAccep || null,
-        research_doc_submit_date : formData.docSubmitDate,
+        research_id: user.value?.user_id,
+        pageC_id: id,
+        p_research_result: formData.radioAuthOffic,
+        p_research_reason: formData.commentReason,
+        p_date_accepted_approve: formData.dateAccep || null,
+        research_doc_submit_date: formData.docSubmitDate,
 
-        form_status : statusMap[formData.radioAuthOffic] || formData.radioAuthOffic,
-        returnto : formData.radioAuthOffic === "return_professor" ? "professor" : null,
-        return_note : formData.commentReason || null,
-        past_return : formData.radioAuthOffic === "return_professor" ? "research" : null
+        form_status: statusMap[formData.radioAuthOffic] || formData.radioAuthOffic,
+        returnto: formData.radioAuthOffic === "return_professor" ? "professor" : null,
+        return_note: formData.commentReason || null,
+        past_return: formData.radioAuthOffic === "return_professor" ? "research" : null
       };
 
       await api.post(`/opinionPC`, dataForBackend);

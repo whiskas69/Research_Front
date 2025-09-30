@@ -5,10 +5,7 @@
     <div class="flex flex-row mb-4 w-full">
       <div class="flex flex-row mb-4 w-full">
         <span class="flex mr-2 items-center">ปีงบประมาณ</span>
-        <select
-          class="select select-bordered w-1/6"
-          v-model="data.findFiscalYear"
-        >
+        <select class="select select-bordered w-1/6" v-model="data.findFiscalYear">
           <option v-for="n in 5" :key="n" :value="fiscalYear - (n - 1)">
             {{ fiscalYear - (n - 1) }}
           </option>
@@ -37,17 +34,9 @@
       </div>
     </div>
 
-    <FormCard
-      v-for="form in data.allForm"
-      :key="form.form_id"
-      :form="form"
-      :page="'history'"
-      :roleConferenceMap="roleConferenceMap"
-      :rolePageChargeMap="rolePageChargeMap"
-      :roleResearchKRISMap="roleResearchKRISMap"
-      :showAmount="true"
-      :showStatus="true"
-    />
+    <FormCard v-for="form in data.allForm" :key="form.form_id" :form="form" :page="'history'"
+      :roleConferenceMap="roleConferenceMap" :rolePageChargeMap="rolePageChargeMap"
+      :roleResearchKRISMap="roleResearchKRISMap" :showAmount="true" :showStatus="true" />
   </div>
 </template>
 <script setup>

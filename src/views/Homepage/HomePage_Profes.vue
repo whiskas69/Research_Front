@@ -4,8 +4,7 @@
     <div class="container my-10 mx-auto">
       <p class="text-xl font-bold pb-5">เอกสารที่ต้องการยื่น</p>
       <!-- box first -->
-      <div class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer" 
-        :class="{
+      <div class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer" :class="{
         'hover:cursor-pointer': data.formConfer < 2,
         'opacity-50 pointer-events-none': data.formConfer >= 2,
       }">
@@ -205,7 +204,7 @@ if (!userStore.user.user_signature) {
 
 const formatThaiDate = (dateString) => {
   if (!dateString) return "ไม่พบวันที่";
-  
+
   const date = new Date(dateString);
   const months = [
     "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.",

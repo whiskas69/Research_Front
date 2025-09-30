@@ -9,16 +9,12 @@
         <div v-if="form.form_type == 'Conference'">
           <div v-if="userStore.user.user_role === 'finance'">
             <router-link :to="`/withdrawMoney/Conference/${form.conf_id}`">
-              <div
-                class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"
-              >
+              <div class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer">
                 <p class="flex justify-between px-5 py-1 text-left">
                   <span class="text-base">{{
                     getNameById(listForm.nameC, form.conf_id)
                   }}</span>
-                  <span class="text-base text-[#868181]"
-                    >ขออนุมัติเดินทางไปประชุมวิชาการ</span
-                  >
+                  <span class="text-base text-[#868181]">ขออนุมัติเดินทางไปประชุมวิชาการ</span>
                 </p>
               </div>
             </router-link>
@@ -29,21 +25,16 @@
         <div v-if="form.form_type == 'Page_Charge'">
           <div v-if="userStore.user.user_role === 'finance'">
             <router-link :to="`/withdrawMoney/pageCharge/${form.pageC_id}`">
-              <div
-                class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer"
-              >
+              <div class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer">
                 <p class="flex justify-between px-5 py-1 text-left">
                   <span>
                     <span class="text-base">{{
                       getNameById(listForm.nameP, form.pageC_id)
                     }}</span>
                     <span class="text-sm px-2 text-red-900">
-                      ({{ getFileById(listForm.nameP, form.pageC_id) }})</span
-                    >
+                      ({{ getFileById(listForm.nameP, form.pageC_id) }})</span>
                   </span>
-                  <span class="text-base text-[#868181]"
-                    >ขออนุมัติค่า Page Charge</span
-                  >
+                  <span class="text-base text-[#868181]">ขออนุมัติค่า Page Charge</span>
                 </p>
               </div>
             </router-link>

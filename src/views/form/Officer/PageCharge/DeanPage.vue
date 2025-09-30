@@ -1,100 +1,63 @@
 <template>
-<div class="container my-10 mx-auto">
-  <PageChageData :id="id" />
-  <Research :id="id" :type="'Page_Charge'" />
-  <FinanceAll :id="id" :type="'Page_Charge'" />
-  <Assosiate :id="id" :type="'Page_Charge'" />
-  <Mainbox>
-    <SectionWrapper>
-      <p class="text-lg font-bold">
-        เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 1)
-      </p>
-      <p class="text-base mt-1">
-        เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความ
-      </p>
-      <RadioInput
-        label="รับทราบ"
-        value="acknowledge"
-        v-model="formData.acknowledge"
-      />
-      <RadioInput
-        label="ไม่รับทราบ"
-        value="notAcknowledge"
-        v-model="formData.acknowledge"
-      />
-      <span v-if="v$.acknowledge.$error" class="text-base font-bold text-red-500 text-left">
-        {{ v$.acknowledge.$errors[0].$message }}
-      </span>
-    </SectionWrapper>
-  </Mainbox>
-  
-  <Mainbox>
-    <SectionWrapper>
-      <p class="text-lg font-bold">
-        เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 2)
-      </p>
-      <p class="text-base mt-1">
-        ขณะนี้บทความได้รับการตอบรับแล้ว (Letter of acceptance) เมื่อวันที่
-        <b>{{ formatThaiDate(formData.offic.p_date_accepted_approve) }} </b>
-        ตามหลักฐานที่แนบจึงเรียนมาเพื่อโปรดพิจารณา
-      </p>
-      <RadioInput
-        label="อนุมัติ"
-        value="approve"
-        name="comment"
-        v-model="formData.radioAuthOffic"
-      />
-      <RadioInput
-        label="ไม่อนุมัติ"
-        value="notApproved"
-        name="comment"
-        v-model="formData.radioAuthOffic"
-      />
-      <RadioInput
-        label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
-        value="return_professor"
-        name="comment"
-        v-model="formData.radioAuthOffic"
-      />
-      <RadioInput
-        label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล"
-        value="return_research"
-        name="comment"
-        v-model="formData.radioAuthOffic"
-      />
-      <RadioInput
-        label="ตีกลับเจ้าหน้าที่การเงินเพื่อแก้ไขข้อมูล"
-        value="return_finance"
-        name="comment"
-        v-model="formData.radioAuthOffic"
-      />
-      <RadioInput
-        label="ตีกลับรองคณบดีเพื่อแก้ไขข้อมูล"
-        value="return_associate"
-        name="comment"
-        v-model="formData.radioAuthOffic"
-      />
-      <TextArea
-        label="เนื่องจาก"
-        @input="handleInput('reason', $event.target.value)"
-      />
-      
-      <span v-if="v$.radioAuthOffic.$error" class="text-base font-bold text-red-500 text-left">
-        {{ v$.radioAuthOffic.$errors[0].$message }}
-      </span>
+  <div class="container my-10 mx-auto">
+    <PageChageData :id="id" />
+    <Research :id="id" :type="'Page_Charge'" />
+    <FinanceAll :id="id" :type="'Page_Charge'" />
+    <Assosiate :id="id" :type="'Page_Charge'" />
+    <Mainbox>
+      <SectionWrapper>
+        <p class="text-lg font-bold">
+          เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 1)
+        </p>
+        <p class="text-base mt-1">
+          เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความ
+        </p>
+        <RadioInput label="รับทราบ" value="acknowledge" v-model="formData.acknowledge" />
+        <RadioInput label="ไม่รับทราบ" value="notAcknowledge" v-model="formData.acknowledge" />
+        <span v-if="v$.acknowledge.$error" class="text-base font-bold text-red-500 text-left">
+          {{ v$.acknowledge.$errors[0].$message }}
+        </span>
+      </SectionWrapper>
+    </Mainbox>
 
-      <span v-if="v$.reason.$error" class="text-base font-bold text-red-500 text-left">
-        {{ v$.reason.$errors[0].$message }}
-      </span>
-  </SectionWrapper>
-</Mainbox>
+    <Mainbox>
+      <SectionWrapper>
+        <p class="text-lg font-bold">
+          เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 2)
+        </p>
+        <p class="text-base mt-1">
+          ขณะนี้บทความได้รับการตอบรับแล้ว (Letter of acceptance) เมื่อวันที่
+          <b>{{ formatThaiDate(formData.offic.p_date_accepted_approve) }} </b>
+          ตามหลักฐานที่แนบจึงเรียนมาเพื่อโปรดพิจารณา
+        </p>
+        <RadioInput label="อนุมัติ" value="approve" name="comment" v-model="formData.radioAuthOffic" />
+        <RadioInput label="ไม่อนุมัติ" value="notApproved" name="comment" v-model="formData.radioAuthOffic" />
+        <RadioInput label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล" value="return_professor" name="comment"
+          v-model="formData.radioAuthOffic" />
+        <RadioInput label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล" value="return_research" name="comment"
+          v-model="formData.radioAuthOffic" />
+        <RadioInput label="ตีกลับเจ้าหน้าที่การเงินเพื่อแก้ไขข้อมูล" value="return_finance" name="comment"
+          v-model="formData.radioAuthOffic" />
+        <RadioInput label="ตีกลับรองคณบดีเพื่อแก้ไขข้อมูล" value="return_associate" name="comment"
+          v-model="formData.radioAuthOffic" />
+        <TextArea label="เนื่องจาก" @input="handleInput('reason', $event.target.value)" />
 
-<div class="flex justify-end">
-  <button @click="OfficerPC" class="btn btn-success text-white">
-    บันทึกข้อมูล
-  </button>
-</div>
-</div>
+        <span v-if="v$.radioAuthOffic.$error" class="text-base font-bold text-red-500 text-left">
+          {{ v$.radioAuthOffic.$errors[0].$message }}
+        </span>
+
+        <span v-if="v$.reason.$error" class="text-base font-bold text-red-500 text-left">
+          {{ v$.reason.$errors[0].$message }}
+        </span>
+      </SectionWrapper>
+    </Mainbox>
+
+    <div class="flex justify-end">
+      <button @click="OfficerPC" class="btn btn-success text-white">
+        บันทึกข้อมูล
+      </button>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -128,7 +91,7 @@ const formData = reactive({
 
 const formatThaiDate = (dateString) => {
   if (!dateString) return "ไม่พบวันที่";
-  
+
   const date = new Date(dateString);
   const months = [
     "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.",
@@ -219,16 +182,16 @@ const OfficerPC = async () => {
       const dataForBackend = {
         pageC_id: id,
         updated_data: [
-          { field : 'dean_id', value : user.value?.user_id },
-          { field : 'p_dean_acknowledge', value : formData.acknowledge },
-          { field : 'p_dean_result', value : resultMap[formData.radioAuthOffic] },
-          { field : 'p_dean_reason', value : formData.reason },
-          { field : 'p_date_accepted_approve', value : DateTime.fromISO(formData.offic.p_date_accepted_approve).toISODate() }
+          { field: 'dean_id', value: user.value?.user_id },
+          { field: 'p_dean_acknowledge', value: formData.acknowledge },
+          { field: 'p_dean_result', value: resultMap[formData.radioAuthOffic] },
+          { field: 'p_dean_reason', value: formData.reason },
+          { field: 'p_date_accepted_approve', value: DateTime.fromISO(formData.offic.p_date_accepted_approve).toISODate() }
         ],
-        form_status : statusMap[formData.radioAuthOffic],
-        returnto : returnMap[formData.radioAuthOffic],
-        return_note : formData.reason || null,
-        past_return : statusMap[formData.radioAuthOffic] == 'return' ? user.value?.user_role : null
+        form_status: statusMap[formData.radioAuthOffic],
+        returnto: returnMap[formData.radioAuthOffic],
+        return_note: formData.reason || null,
+        past_return: statusMap[formData.radioAuthOffic] == 'return' ? user.value?.user_role : null
       };
 
       await api.put(`/opinionPC/${id}`, dataForBackend);

@@ -1,60 +1,36 @@
 <template>
-<div class="container my-10 mx-auto">
-  <PageChageData :id="id" />
-  <Research :id="id" :type="'Page_Charge'" />
-  <FinanceAll :id="id" :type="'Page_Charge'" />
-  <Mainbox>
-    <SectionWrapper>
-      <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
-      <RadioInput
-        label="เห็นชอบ"
-        value="approve"
-        name="comment"
-        v-model="formData.agree"
-      />
-      <RadioInput
-        label="ไม่เห็นชอบ"
-        value="notApproved"
-        name="comment"
-        v-model="formData.agree"
-      />
-      <RadioInput
-        label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
-        value="return_professor"
-        name="comment"
-        v-model="formData.agree"
-      />
-      <RadioInput
-        label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล"
-        value="return_research"
-        name="comment"
-        v-model="formData.agree"
-      />
-      <RadioInput
-        label="ตีกลับเจ้าหน้าที่การเงินเพื่อแก้ไขข้อมูล"
-        value="return_finance"
-        name="comment"
-        v-model="formData.agree"
-      />
-      <span v-if="v$.agree.$error" class="text-base font-bold text-red-500 text-left">
-        {{ v$.agree.$errors[0].$message }}
-      </span>
+  <div class="container my-10 mx-auto">
+    <PageChageData :id="id" />
+    <Research :id="id" :type="'Page_Charge'" />
+    <FinanceAll :id="id" :type="'Page_Charge'" />
+    <Mainbox>
+      <SectionWrapper>
+        <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
+        <RadioInput label="เห็นชอบ" value="approve" name="comment" v-model="formData.agree" />
+        <RadioInput label="ไม่เห็นชอบ" value="notApproved" name="comment" v-model="formData.agree" />
+        <RadioInput label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล" value="return_professor" name="comment"
+          v-model="formData.agree" />
+        <RadioInput label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล" value="return_research" name="comment"
+          v-model="formData.agree" />
+        <RadioInput label="ตีกลับเจ้าหน้าที่การเงินเพื่อแก้ไขข้อมูล" value="return_finance" name="comment"
+          v-model="formData.agree" />
+        <span v-if="v$.agree.$error" class="text-base font-bold text-red-500 text-left">
+          {{ v$.agree.$errors[0].$message }}
+        </span>
 
-      <textarea
-        class="textarea textarea-bordered w-full"
-        @input="handleInput('commentReason', $event.target.value)"
-      ></textarea>
-      <span v-if="v$.commentReason.$error" class="text-base font-bold text-red-500 text-left">
-        {{ v$.commentReason.$errors[0].$message }}
-      </span>
-    </SectionWrapper>
-  </Mainbox>
-  
-  <div class="flex justify-end">
-    <button @click="OfficerPC" class="btn btn-success text-white">
-      บันทึกข้อมูล
-    </button>
-  </div>
+        <textarea class="textarea textarea-bordered w-full"
+          @input="handleInput('commentReason', $event.target.value)"></textarea>
+        <span v-if="v$.commentReason.$error" class="text-base font-bold text-red-500 text-left">
+          {{ v$.commentReason.$errors[0].$message }}
+        </span>
+      </SectionWrapper>
+    </Mainbox>
+
+    <div class="flex justify-end">
+      <button @click="OfficerPC" class="btn btn-success text-white">
+        บันทึกข้อมูล
+      </button>
+    </div>
   </div>
 </template>
 
@@ -91,11 +67,11 @@ const rules = computed(() => ({
     required: helpers.withMessage("* กรุณาเลือกข้อมูล *", required),
   },
   commentReason: {
-      required: helpers.withMessage(
-        "* กรุณากรอกข้อมูล *",
-        requiredIf(() => formData.agree !== "approve")
-      ),
-    },
+    required: helpers.withMessage(
+      "* กรุณากรอกข้อมูล *",
+      requiredIf(() => formData.agree !== "approve")
+    ),
+  },
 }));
 
 const v$ = useVuelidate(rules, formData);
@@ -143,10 +119,10 @@ const OfficerPC = async () => {
       const dataForBackend = {
         pageC_id: id,
         updated_data: [
-          { field : 'associate_id', value : user.value?.user_id },
-          { field : 'p_associate_result', value : resultMap[formData.agree] },
-          { field : 'p_associate_reason', value : formData.commentReason },
-          { field : 'associate_doc_submit_date', value : formData.docSubmitDate },
+          { field: 'associate_id', value: user.value?.user_id },
+          { field: 'p_associate_result', value: resultMap[formData.agree] },
+          { field: 'p_associate_reason', value: formData.commentReason },
+          { field: 'associate_doc_submit_date', value: formData.docSubmitDate },
         ],
         form_status: statusMap[formData.agree],
         return_to: returnMap[formData.agree],

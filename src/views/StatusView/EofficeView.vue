@@ -5,10 +5,7 @@
     </h1>
     <div v-for="form in data.allForm" :key="form.form_id">
       <div v-if="userStore.user.user_role == 'research'">
-        <div
-          class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
-          v-if="form.form_type == 'Research_KRIS'"
-        >
+        <div class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2" v-if="form.form_type == 'Research_KRIS'">
           <router-link :to="`/history/kris/${form.kris_id}`">
             <h2 class="text-lg font-bold">
               แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ
@@ -28,20 +25,14 @@
               </div>
             </div>
             <div class="flex justify-end mr-5">
-              <button
-                @click="addapproved(form.form_id)"
-                class="btn btn-success text-white"
-              >
+              <button @click="addapproved(form.form_id)" class="btn btn-success text-white">
                 เอกสารได้รับการอนุมัติแล้ว
               </button>
             </div>
           </router-link>
         </div>
 
-        <div
-          class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
-          v-if="form.form_type == 'Page_Charge'"
-        >
+        <div class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2" v-if="form.form_type == 'Page_Charge'">
           <router-link :to="`/history/pageCharge/${form.pageC_id}`">
             <h2 class="text-lg font-bold">
               ขออนุมัติค่า Page
@@ -66,10 +57,7 @@
                   </h4>
                 </div>
                 <div class="flex justify-end mr-5">
-                  <button
-                    @click="addapproved(form.form_id)"
-                    class="btn btn-success text-white"
-                  >
+                  <button @click="addapproved(form.form_id)" class="btn btn-success text-white">
                     เอกสารได้รับการอนุมัติแล้ว
                   </button>
                 </div>
@@ -79,10 +67,7 @@
         </div>
       </div>
       <div v-if="userStore.user.user_role == 'hr'">
-        <div
-          class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
-          v-if="form.form_type == 'Conference'"
-        >
+        <div class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2" v-if="form.form_type == 'Conference'">
           <router-link :to="`/history/conference/${form.conf_id}`">
             <h2 class="text-lg font-bold">
               ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
@@ -106,10 +91,7 @@
                   </h4>
                 </div>
                 <div class="flex justify-end mr-5">
-                  <button
-                    @click="addapproved(form.form_id)"
-                    class="btn btn-success text-white"
-                  >
+                  <button @click="addapproved(form.form_id)" class="btn btn-success text-white">
                     เอกสารได้รับการอนุมัติแล้ว
                   </button>
                 </div>
@@ -149,7 +131,7 @@ const pulldata = async () => {
       )
       .sort((a, b) => b.form_id - a.form_id);
     console.log("filteredForms", filteredForms);
-    
+
     data.allForm = filteredForms.map(form => {
       return {
         ...form, // คัดลอกทุกค่าในออบเจกต์ `form` มา

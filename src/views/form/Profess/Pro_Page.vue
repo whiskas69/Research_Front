@@ -6,57 +6,29 @@
       </p>
       <Mainbox>
         <SectionWrapper>
-          <TextInputLabelLeft
-            label="ชื่อ"
-            customLabel="w-2/12 text-lg font-bold"
-            :disabled="true"
-            :placeholder="formData.name"
-          />
-          <TextInputLabelLeft
-            label="ตำแหน่ง"
-            customLabel="w-2/12 text-lg font-bold"
-            :placeholder="formData.position"
-            :disabled="true"
-          />
+          <TextInputLabelLeft label="ชื่อ" customLabel="w-2/12 text-lg font-bold" :disabled="true"
+            :placeholder="formData.name" />
+          <TextInputLabelLeft label="ตำแหน่ง" customLabel="w-2/12 text-lg font-bold" :placeholder="formData.position"
+            :disabled="true" />
 
           <div class="flex flex-row">
-            <TextInputLabelLeft
-              label="มีรายชื่ออยู่ใน List ที่คณะได้ให้การรับรองแล้ว โดยมติคณะ ครั้งที่"
-              customLabel="w-auto"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              v-model="formData.textOther1pc"
-              :required="true"
-            />
-            <TextInputLabelLeft
-              label="วันที่"
-              customLabel="ml-2 w-10"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              type="date"
-              v-model="formData.textOther2pc"
-              :required="true"
-            />
+            <TextInputLabelLeft label="มีรายชื่ออยู่ใน List ที่คณะได้ให้การรับรองแล้ว โดยมติคณะ ครั้งที่"
+              customLabel="w-auto" customInput="max-w-max" customDiv="max-w-max" v-model="formData.textOther1pc"
+              :required="true" />
+            <TextInputLabelLeft label="วันที่" customLabel="ml-2 w-10" customInput="max-w-max" customDiv="max-w-max"
+              type="date" v-model="formData.textOther2pc" :required="true" />
           </div>
-          <span
-            v-if="v$.textOther1pc.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.textOther1pc.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.textOther1pc.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.textOther2pc.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.textOther2pc.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.textOther2pc.$errors[0].$message }}
           </span>
 
           <p class="text-blue-500 text-sm">
             สามารถตรวจสอบรายชื่อ List ของคณะได้ที่เว็บไซต์คณะที่ Share
             online-การวิจัย และ
-            <a href="https://erp.it.kmitl.ac.th/journal_conf_list"
-              >https://erp.it.kmitl.ac.th/journal_conf_list</a
-            >
+            <a href="https://erp.it.kmitl.ac.th/journal_conf_list">https://erp.it.kmitl.ac.th/journal_conf_list</a>
           </p>
         </SectionWrapper>
       </Mainbox>
@@ -66,176 +38,76 @@
           1.  รายละเอียดวารสารที่ส่งเสนอพิจารณา / การตอบรับให้ลงตีพิมพ์
         </p>
         <SectionWrapper class="collapse-content">
-          <TextInputLabelLeft
-            label="ชื่อวารสาร"
-            customLabel="w-24"
-            v-model="formData.nameJournal"
-            :required="true"
-          />
-          <span
-            v-if="v$.nameJournal.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <TextInputLabelLeft label="ชื่อวารสาร" customLabel="w-24" v-model="formData.nameJournal" :required="true" />
+          <span v-if="v$.nameJournal.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.nameJournal.$errors[0].$message }}
           </span>
 
           <p>เป็นวารสารที่อยู่ในฐานข้อมูลสากล <span class="text-red-500">*</span></p>
           <div class="flex flex-row">
-            <CheckInput
-              label="ISI ได้รับการจัดลำดับ Quartile "
-              customDiv="max-w-72 flex items-center"
-              v-model="formData.check"
-              value="ISI"
-            />
-            <TextInputLabelLeft
-              label="ปี"
-              customLabel="mr-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              v-model="formData.yearISI"
-            />
-            <TextInputLabelLeft
-              label="ลำดับ Quartile"
-              customLabel="ml-4 mr-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              v-model="formData.quartileISI"
-            />
-            <TextInputLabelLeft
-              label="Impact Factor"
-              customLabel="w-28 mx-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              v-model="formData.scoreISI"
-            />
+            <CheckInput label="ISI ได้รับการจัดลำดับ Quartile " customDiv="max-w-72 flex items-center"
+              v-model="formData.check" value="ISI" />
+            <TextInputLabelLeft label="ปี" customLabel="mr-2" customInput="max-w-max" customDiv="max-w-max"
+              v-model="formData.yearISI" />
+            <TextInputLabelLeft label="ลำดับ Quartile" customLabel="ml-4 mr-2" customInput="max-w-max"
+              customDiv="max-w-max" v-model="formData.quartileISI" />
+            <TextInputLabelLeft label="Impact Factor" customLabel="w-28 mx-2" customInput="max-w-max"
+              customDiv="max-w-max" v-model="formData.scoreISI" />
           </div>
-          <span
-            v-if="v$.yearISI.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.yearISI.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.yearISI.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.quartileISI.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.quartileISI.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.quartileISI.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.scoreISI.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.scoreISI.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.scoreISI.$errors[0].$message }}
           </span>
 
           <div class="flex flex-row">
-            <CheckInput
-              label="SJR ได้รับการจัดลำดับ Quartile "
-              customDiv="max-w-72 flex items-center"
-              v-model="formData.check"
-              value="SJR"
-            />
-            <TextInputLabelLeft
-              label="ปี"
-              customLabel="mr-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              v-model="formData.yearSJR"
-            />
-            <TextInputLabelLeft
-              label="ลำดับ Quartile"
-              customLabel="ml-4 mr-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              v-model="formData.quartileSJR"
-            />
-            <TextInputLabelLeft
-              label="SJR Score"
-              customLabel="w-28 mx-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              v-model="formData.scoreSJR"
-            />
+            <CheckInput label="SJR ได้รับการจัดลำดับ Quartile " customDiv="max-w-72 flex items-center"
+              v-model="formData.check" value="SJR" />
+            <TextInputLabelLeft label="ปี" customLabel="mr-2" customInput="max-w-max" customDiv="max-w-max"
+              v-model="formData.yearSJR" />
+            <TextInputLabelLeft label="ลำดับ Quartile" customLabel="ml-4 mr-2" customInput="max-w-max"
+              customDiv="max-w-max" v-model="formData.quartileSJR" />
+            <TextInputLabelLeft label="SJR Score" customLabel="w-28 mx-2" customInput="max-w-max" customDiv="max-w-max"
+              v-model="formData.scoreSJR" />
           </div>
-          <span
-            v-if="v$.yearSJR.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.yearSJR.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.yearSJR.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.quartileSJR.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.quartileSJR.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.quartileSJR.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.scoreSJR.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.scoreSJR.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.scoreSJR.$errors[0].$message }}
           </span>
 
           <div class="flex flex-row">
-            <CheckInput
-              label="Scopus ได้รับการจัดลำดับ Quartile "
-              customDiv="max-w-72 flex items-center"
-              v-model="formData.check"
-              value="Scopus"
-            />
-            <TextInputLabelLeft
-              label="ปี"
-              customLabel="mr-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              v-model="formData.yearScopus"
-            />
-            <TextInputLabelLeft
-              label="ลำดับ Quartile"
-              customLabel="ml-4 mr-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              v-model="formData.quartileScopus"
-            />
-            <TextInputLabelLeft
-              label="Cite Score"
-              customLabel="w-28 mx-2"
-              customInput="max-w-max"
-              customDiv="max-w-max"
-              v-model="formData.scoreScopus"
-            />
+            <CheckInput label="Scopus ได้รับการจัดลำดับ Quartile " customDiv="max-w-72 flex items-center"
+              v-model="formData.check" value="Scopus" />
+            <TextInputLabelLeft label="ปี" customLabel="mr-2" customInput="max-w-max" customDiv="max-w-max"
+              v-model="formData.yearScopus" />
+            <TextInputLabelLeft label="ลำดับ Quartile" customLabel="ml-4 mr-2" customInput="max-w-max"
+              customDiv="max-w-max" v-model="formData.quartileScopus" />
+            <TextInputLabelLeft label="Cite Score" customLabel="w-28 mx-2" customInput="max-w-max" customDiv="max-w-max"
+              v-model="formData.scoreScopus" />
           </div>
-          <span
-            v-if="v$.yearScopus.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.yearScopus.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.yearScopus.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.quartileScopus.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.quartileScopus.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.quartileScopus.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.scoreScopus.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.scoreScopus.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.scoreScopus.$errors[0].$message }}
           </span>
 
           <div class="flex flex-row">
-            <CheckInput
-              label="Nature"
-              customDiv="max-w-72 flex items-center"
-              v-model="formData.check"
-              value="nature"
-            />
+            <CheckInput label="Nature" customDiv="max-w-72 flex items-center" v-model="formData.check" value="nature" />
           </div>
-          <span
-            v-if="v$.check.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.check.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.check.$errors[0].$message }}
           </span>
 
@@ -245,10 +117,7 @@
                 วงเงินตามเกณฑ์การให้การสนับสนุนไม่เกิน
                 <span class="text-red-500">*</span>
               </span>
-              <select
-                class="select select-bordered w-3/12"
-                v-model="formData.moneyOp"
-              >
+              <select class="select select-bordered w-3/12" v-model="formData.moneyOp">
                 <option disabled value="">เลือกวงเงินสนับสนุน</option>
                 <option :value="20000">20,000 บาท</option>
                 <option :value="30000">30,000 บาท</option>
@@ -258,10 +127,7 @@
               </select>
             </div>
           </label>
-          <span
-            v-if="v$.moneyOp.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.moneyOp.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.moneyOp.$errors[0].$message }}
           </span>
         </SectionWrapper>
@@ -273,65 +139,32 @@
           2. รายละเอียดผลงานวิจัยที่ส่งเสนอพิจารณา / ได้รับการตอบรับให้ตีพิมพ์
         </p>
         <SectionWrapper class="collapse-content">
-          <TextInputLabelLeft
-            label="ชื่อบทความ"
-            customLabel="w-24"
-            v-model="formData.nameReach"
-            :required="true"
-          />
-          <span
-            v-if="v$.nameReach.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <TextInputLabelLeft label="ชื่อบทความ" customLabel="w-24" v-model="formData.nameReach" :required="true" />
+          <span v-if="v$.nameReach.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.nameReach.$errors[0].$message }}
           </span>
 
-          <TextInputLabelLeft
-            label="จำนวนนักวิจัยร่วม"
-            customLabel="w-[10%]"
-            v-model="formData.numcoResearchers"
-          />
+          <TextInputLabelLeft label="จำนวนนักวิจัยร่วม" customLabel="w-[10%]" v-model="formData.numcoResearchers" />
 
-          <div v-for="(index) in parseInt(formData.numcoResearchers)  || 0" :key="index" >
+          <div v-for="(index) in parseInt(formData.numcoResearchers) || 0" :key="index">
             <div class="flex flex-row gap-4">
               <p class="pt-2">{{ index }}.</p>
-              <TextInputLabelLeft
-                label="ชื่อ-นามสกุลของนักวิจัยร่วม"
-                customLabel="w-[100%]"
-                customDiv="max-w-[30%]"
-                v-model="formData.namecoResearchers[index]"
-              />
-              <TextInputLabelLeft
-                label="หลักสูตรของนักวิจัยร่วม"
-                customLabel="w-[100%]"
-                customDiv="max-w-[25%]"
-                v-model="formData.coursecoResearchers[index]"
-              />
+              <TextInputLabelLeft label="ชื่อ-นามสกุลของนักวิจัยร่วม" customLabel="w-[100%]" customDiv="max-w-[30%]"
+                v-model="formData.namecoResearchers[index]" />
+              <TextInputLabelLeft label="หลักสูตรของนักวิจัยร่วม" customLabel="w-[100%]" customDiv="max-w-[25%]"
+                v-model="formData.coursecoResearchers[index]" />
             </div>
           </div>
           <p>กำหนดการที่คาดว่าจะได้รับการลงตีพิมพ์ในวารสาร</p>
           <div class="flex flex-row mt-2 justify-between">
-            <TextInputLabelLeft
-              label="ปีที่ (Vol.)"
-              customLabel="w-[50%]"
-              customInput="w-[50%]"
-              customDiv="max-w-[15%]"
-              v-model="formData.schedule"
-            />
-            <TextInputLabelLeft
-              label="ฉบับที่ (Issue)"
-              customLabel="w-[50%]"
-              customInput="w-[49%]"
-              customDiv="max-w-[15%]"
-              v-model="formData.issue"
-            />
+            <TextInputLabelLeft label="ปีที่ (Vol.)" customLabel="w-[50%]" customInput="w-[50%]" customDiv="max-w-[15%]"
+              v-model="formData.schedule" />
+            <TextInputLabelLeft label="ฉบับที่ (Issue)" customLabel="w-[50%]" customInput="w-[49%]"
+              customDiv="max-w-[15%]" v-model="formData.issue" />
             <label class="form-control w-full max-w-[20%]">
               <div class="flex flex-row w-full">
                 <span class="flex mr-2 items-center"> เดือน </span>
-                <select
-                  class="select select-bordered flex-1"
-                  v-model="formData.months"
-                >
+                <select class="select select-bordered flex-1" v-model="formData.months">
                   <option disabled value="">เลือกเดือน</option>
                   <option value="มกราคม">มกราคม</option>
                   <option value="กุมภาพันธ์">กุมภาพันธ์</option>
@@ -349,187 +182,86 @@
               </div>
             </label>
 
-            <TextInputLabelLeft
-              label="ปี ค.ศ."
-              customLabel="w-[50%]"
-              customInput="w-[50%]"
-              customDiv="max-w-[15%]"
-              v-model="formData.year"
-            />
+            <TextInputLabelLeft label="ปี ค.ศ." customLabel="w-[50%]" customInput="w-[50%]" customDiv="max-w-[15%]"
+              v-model="formData.year" />
 
-            <TextInputLabelLeft
-              label="เลขที่ ISSN/ISBN (อื่นๆ)"
-              customLabel="w-[60%]"
-              customInput="w-[50%]"
-              customDiv="max-w-[30%]"
-              v-model="formData.ISSN"
-            />
+            <TextInputLabelLeft label="เลขที่ ISSN/ISBN (อื่นๆ)" customLabel="w-[60%]" customInput="w-[50%]"
+              customDiv="max-w-[30%]" v-model="formData.ISSN" />
           </div>
 
-          <span
-            v-if="v$.schedule.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.schedule.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.schedule.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.issue.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.issue.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.issue.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.year.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.year.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.year.$errors[0].$message }}
           </span>
 
           <div class="flex flex-row mt-2 justify-between w-[100%]">
-            <TextInputLabelLeft
-              label="วันที่ส่งบทความไปยังสำนักพิมพ์เจ้าของวารสาร"
-              type="date"
-              customLabel="w-[100%]"
-              customInput="w-[35%]"
-              customDiv="max-w-[35%]"
-              v-model="formData.submitReach"
-              :required="true"
-            />
-            <TextInputLabelLeft
-              label="วันประกาศผลการพิจารณา"
-              type="date"
-              customLabel="w-[100%]"
-              customDiv="max-w-[30%]"
-              v-model="formData.announce"
-              :required="true"
-            />
-            <TextInputLabelLeft
-              label="วันสุดท้ายของการจ่ายค่าตีพิมพ์"
-              type="date"
-              customInput="w-[35%]"
-              customDiv="max-w-[30%]"
-              v-model="formData.latePay"
-              :required="true"
-            />
+            <TextInputLabelLeft label="วันที่ส่งบทความไปยังสำนักพิมพ์เจ้าของวารสาร" type="date" customLabel="w-[100%]"
+              customInput="w-[35%]" customDiv="max-w-[35%]" v-model="formData.submitReach" :required="true" />
+            <TextInputLabelLeft label="วันประกาศผลการพิจารณา" type="date" customLabel="w-[100%]" customDiv="max-w-[30%]"
+              v-model="formData.announce" :required="true" />
+            <TextInputLabelLeft label="วันสุดท้ายของการจ่ายค่าตีพิมพ์" type="date" customInput="w-[35%]"
+              customDiv="max-w-[30%]" v-model="formData.latePay" :required="true" />
           </div>
-          <span
-            v-if="v$.submitReach.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.submitReach.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.submitReach.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.announce.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.announce.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.announce.$errors[0].$message }}
           </span>
-          <span
-            v-if="v$.latePay.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <span v-if="v$.latePay.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.latePay.$errors[0].$message }}
           </span>
 
           <SectionWrapper>
             <div class="flex flex-row mt-3">
               <p class="flex text-blue-500 w-12 items-center">(ถ้ามี)</p>
-              <TextInputLabelLeft
-                label="บทความวิจัยนี้เป็นผลงานจากโครงการวิจัยเรื่อง"
-                customLabel="w-[30%]"
-                v-model="formData.reachOther"
-              />
+              <TextInputLabelLeft label="บทความวิจัยนี้เป็นผลงานจากโครงการวิจัยเรื่อง" customLabel="w-[30%]"
+                v-model="formData.reachOther" />
             </div>
 
             <p>ประเภทโครงการวิจัย</p>
             <div class="flex flex-row ml-5">
-              <RadioInput
-                label="วิจัยพื้นฐาน"
-                value="basic"
-                name="type"
-                customDiv="max-w-fit mr-10 flex items-center"
-                v-model="formData.radioResearch"
-              />
-              <RadioInput
-                label="วิจัยประยุกต์"
-                value="applied"
-                name="type"
-                customDiv="max-w-fit mr-10 flex items-center"
-                v-model="formData.radioResearch"
-              />
-              <RadioInput
-                label="วิจัยและพัฒนา"
-                value="research&development"
-                name="type"
-                customDiv="max-w-fit mr-10 flex items-center"
-                v-model="formData.radioResearch"
-              />
+              <RadioInput label="วิจัยพื้นฐาน" value="basic" name="type" customDiv="max-w-fit mr-10 flex items-center"
+                v-model="formData.radioResearch" />
+              <RadioInput label="วิจัยประยุกต์" value="applied" name="type"
+                customDiv="max-w-fit mr-10 flex items-center" v-model="formData.radioResearch" />
+              <RadioInput label="วิจัยและพัฒนา" value="research&development" name="type"
+                customDiv="max-w-fit mr-10 flex items-center" v-model="formData.radioResearch" />
               <div class="flex flex-row">
-                <RadioInput
-                  label="วิจัยอื่น ๆ "
-                  value="other"
-                  name="type"
-                  customDiv="max-w-fit mr-2 flex items-center"
-                  v-model="formData.radioResearch"
-                />
-                <TextInputLabelLeft
-                  label="(ระบุ)"
-                  name="type"
-                  customDiv="max-w-fit flex items-center"
-                  v-model="formData.otherInput"
-                />
+                <RadioInput label="วิจัยอื่น ๆ " value="other" name="type" customDiv="max-w-fit mr-2 flex items-center"
+                  v-model="formData.radioResearch" />
+                <TextInputLabelLeft label="(ระบุ)" name="type" customDiv="max-w-fit flex items-center"
+                  v-model="formData.otherInput" />
               </div>
             </div>
 
-            <span
-              v-if="v$.radioResearch.$error"
-              class="text-base font-bold text-red-500 text-left"
-            >
+            <span v-if="v$.radioResearch.$error" class="text-base font-bold text-red-500 text-left">
               {{ v$.radioResearch.$errors[0].$message }}
             </span>
-            <span
-              v-if="v$.otherInput.$error"
-              class="text-base font-bold text-red-500 text-left"
-            >
+            <span v-if="v$.otherInput.$error" class="text-base font-bold text-red-500 text-left">
               {{ v$.otherInput.$errors[0].$message }}
             </span>
 
-            <TextInputLabelLeft
-              label="ชื่อแหล่งทุนวิจัย"
-              customLabel="w-auto min-w-fit"
-              v-model="formData.source"
-            />
-            <span
-              v-if="v$.source.$error"
-              class="text-base font-bold text-red-500 text-left"
-            >
+            <TextInputLabelLeft label="ชื่อแหล่งทุนวิจัย" customLabel="w-auto min-w-fit" v-model="formData.source" />
+            <span v-if="v$.source.$error" class="text-base font-bold text-red-500 text-left">
               {{ v$.source.$errors[0].$message }}
             </span>
 
             <div class="flex flex-row">
-              <TextInputLabelLeft
-                label="วงเงินงบประมาณการวิจัย"
-                customLabel="w-auto min-w-fit"
-                customDiv="max-w-max mr-10"
-                v-model="formData.credit"
-              />
-              <TextInputLabelLeft
-                label="ประจำปี"
-                customLabel="w-auto min-w-fit"
-                customDiv="max-w-max mr-10"
-                v-model="formData.inYears"
-              />
+              <TextInputLabelLeft label="วงเงินงบประมาณการวิจัย" customLabel="w-auto min-w-fit"
+                customDiv="max-w-max mr-10" v-model="formData.credit" />
+              <TextInputLabelLeft label="ประจำปี" customLabel="w-auto min-w-fit" customDiv="max-w-max mr-10"
+                v-model="formData.inYears" />
             </div>
-            <span
-              v-if="v$.credit.$error"
-              class="text-base font-bold text-red-500 text-left"
-            >
+            <span v-if="v$.credit.$error" class="text-base font-bold text-red-500 text-left">
               {{ v$.credit.$errors[0].$message }}
             </span>
-            <span
-              v-if="v$.inYears.$error"
-              class="text-base font-bold text-red-500 text-left"
-            >
+            <span v-if="v$.inYears.$error" class="text-base font-bold text-red-500 text-left">
               {{ v$.inYears.$errors[0].$message }}
             </span>
           </SectionWrapper>
@@ -540,22 +272,11 @@
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">3. ผู้ขอรับการสนับสนุน <span class="text-red-500">*</span></p>
         <SectionWrapper class="collapse-content">
-          <RadioInput
-            label="ผู้ประพันธ์อันดับแรก First Author"
-            value="First Author"
-            name="Author"
-            v-model="formData.radioAuth"
-          />
-          <RadioInput
-            label="ผู้ประพันธ์บรรณกิจ Corresponding Author"
-            value="Corresponding Author"
-            name="Author"
-            v-model="formData.radioAuth"
-          />
-          <span
-            v-if="v$.radioAuth.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <RadioInput label="ผู้ประพันธ์อันดับแรก First Author" value="First Author" name="Author"
+            v-model="formData.radioAuth" />
+          <RadioInput label="ผู้ประพันธ์บรรณกิจ Corresponding Author" value="Corresponding Author" name="Author"
+            v-model="formData.radioAuth" />
+          <span v-if="v$.radioAuth.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.radioAuth.$errors[0].$message }}
           </span>
         </SectionWrapper>
@@ -568,16 +289,9 @@
           <span class="text-red-500">*</span>
         </p>
         <SectionWrapper class="collapse-content">
-          <TextInputLabelLeft
-            label="จำนวนเงิน"
-            customLabel="w-auto min-w-fit"
-            customInput="max-w-fit"
-            v-model="formData.moneyPG"
-          />
-          <span
-            v-if="v$.moneyPG.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <TextInputLabelLeft label="จำนวนเงิน" customLabel="w-auto min-w-fit" customInput="max-w-fit"
+            v-model="formData.moneyPG" />
+          <span v-if="v$.moneyPG.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.moneyPG.$errors[0].$message }}
           </span>
         </SectionWrapper>
@@ -586,99 +300,48 @@
       <Mainbox class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">เอกสารหลักฐานที่แนบ</p>
-        
+
         <SectionWrapper class="collapse-content">
           <span class="text-gray-500">ขนาดไฟล์สูงสุด 10 MB </span>
-          <FileInput
-            label="หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature"
-            name="First"
-            type="file"
-            :required="true"
-            @change="handleFile($event, 'file1')"
-          />
-          <span
-            v-if="v$.file1.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <FileInput label="หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature" name="First"
+            type="file" :required="true" @change="handleFile($event, 'file1')" />
+          <span v-if="v$.file1.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.file1.$errors[0].$message }}
           </span>
 
-          <FileInput
-            label="หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus"
-            name="Second"
-            type="file"
-            :required="true"
-            @change="handleFile($event, 'file2')"
-          />
-          <span
-            v-if="v$.file2.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <FileInput label="หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus" name="Second"
+            type="file" :required="true" @change="handleFile($event, 'file2')" />
+          <span v-if="v$.file2.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.file2.$errors[0].$message }}
           </span>
 
-          <FileInput
-            label="ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ / อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์"
-            name="Third"
-            type="file"
-            :required="true"
-            @change="handleFile($event, 'file3')"
-          />
-          <span
-            v-if="v$.file3.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <FileInput label="ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ / อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์" name="Third"
+            type="file" :required="true" @change="handleFile($event, 'file3')" />
+          <span v-if="v$.file3.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.file3.$errors[0].$message }}
           </span>
 
-          <FileInput
-            label="หลักฐานการส่งบทความ หนังสือตอบรับบทความ"
-            name="Fourth"
-            type="file"
-            :required="true"
-            @change="handleFile($event, 'file4')"
-          />
-          <span
-            v-if="v$.file4.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <FileInput label="หลักฐานการส่งบทความ หนังสือตอบรับบทความ" name="Fourth" type="file" :required="true"
+            @change="handleFile($event, 'file4')" />
+          <span v-if="v$.file4.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.file4.$errors[0].$message }}
           </span>
 
-          <FileInput
-            label="สำเนาบทความ"
-            name="Fifth"
-            type="file"
-            :required="true"
-            @change="handleFile($event, 'file5')"
-          />
-          <span
-            v-if="v$.file5.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <FileInput label="สำเนาบทความ" name="Fifth" type="file" :required="true"
+            @change="handleFile($event, 'file5')" />
+          <span v-if="v$.file5.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.file5.$errors[0].$message }}
           </span>
 
-          <FileInput
-            label="หลักฐานการ Upload บทความเข้าระบบ IT Scholar"
-            name="six"
-            type="file"
-            :required="true"
-            @change="handleFile($event, 'file6')"
-          />
-          <span
-            v-if="v$.file6.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
+          <FileInput label="หลักฐานการ Upload บทความเข้าระบบ IT Scholar" name="six" type="file" :required="true"
+            @change="handleFile($event, 'file6')" />
+          <span v-if="v$.file6.$error" class="text-base font-bold text-red-500 text-left">
             {{ v$.file6.$errors[0].$message }}
           </span>
         </SectionWrapper>
       </Mainbox>
       <div class="flex justify-end">
-        <button
-          @click="saveDraft"
-          class="bg-blue-500 text-white px-4 py-2 rounded mr-3"
-        >
+        <button @click="saveDraft" class="bg-blue-500 text-white px-4 py-2 rounded mr-3">
           บันทึกแบบร่าง
         </button>
         <button @click="NewPC" class="btn btn-success text-white">
@@ -1171,7 +834,7 @@ watch(() => formData.numcoResearchers, (newVal) => {
   if (!Array.isArray(formData.coursecoResearchers)) {
     formData.coursecoResearchers = [];
   }
-  
+
   formData.namecoResearchers.length = num;
   formData.coursecoResearchers.length = num;
 

@@ -54,10 +54,10 @@
         ข้อมูลแบบฟอร์ม
       </button>
     </div>
-    
+
     <div v-if="showData" class="showData">
-      <Kris :id="id"/>
-      <Research :id="id" :type="'Research_KRIS'"/>
+      <Kris :id="id" />
+      <Research :id="id" :type="'Research_KRIS'" />
     </div>
 
   </div>

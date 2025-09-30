@@ -2,15 +2,16 @@
   <div class="container my-10 mx-auto">
     <div class="flex flex-row mb-4">
       <span class="flex mr-2 items-center">ปีงบประมาณ</span>
-        <select class="select select-bordered w-1/6" v-model="data.findFiscalYear">
-            <option v-for="n in 5" :key="n" :value="fiscalYear - (n - 1)">
-              {{ fiscalYear - (n - 1) }}
-            </option>
-        </select>
+      <select class="select select-bordered w-1/6" v-model="data.findFiscalYear">
+        <option v-for="n in 5" :key="n" :value="fiscalYear - (n - 1)">
+          {{ fiscalYear - (n - 1) }}
+        </option>
+      </select>
     </div>
 
     <div class="tabs tabs-lift">
-      <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการแยกขอเบิก และเอกสารทั้งหมด" checked="checked" />
+      <input type="radio" name="mytabs" class="tab" aria-label="การประชุมวิชาการแยกขอเบิก และเอกสารทั้งหมด"
+        checked="checked" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <h2>
           ข้อมูลการประชุมวิชาการ
@@ -164,8 +165,10 @@
               <tr v-for="(row, index) in conferenceData" :key="index" class="text-center">
                 <td class="border px-3 py-2">{{ index + 1 }}</td>
                 <td class="border px-3 py-2">{{ row.user_nameth }}</td>
-                <td class="border px-3 py-2">{{ (row.name_co_researchers ?? []).filter(name => name !== "").join(", ") }}</td>
-                <td class="border px-3 py-2">{{ (row.course_co_researchers ?? []).filter(name => name !== "").join(", ") }}</td>
+                <td class="border px-3 py-2">{{(row.name_co_researchers ?? []).filter(name => name !== "").join(", ")
+                  }}</td>
+                <td class="border px-3 py-2">{{(row.course_co_researchers ?? []).filter(name => name !== "").join(", ")
+                  }}</td>
                 <td class="border px-3 py-2">{{ row.conf_name }}</td>
                 <td class="border px-3 py-2">{{ row.conf_research }}</td>
                 <td class="border px-3 py-2">{{ row.location }}</td>
@@ -1019,7 +1022,7 @@
                     <td class="border px-3 py-2">{{ form.total_forms_approved ? `${form.total_forms_approved}` : "-" }}
                     </td>
                     <td class="border px-3 py-2">{{ form.total_amount_approved ? `${form.total_amount_approved}` : "-"
-                      }}</td>
+                    }}</td>
                   </template>
                 </template>
               </tr>
@@ -1054,12 +1057,16 @@
               <tr class="text-center" v-for="(row, index) in SummaryPc" :key="index">
                 <td class="border px-3 py-2">{{ index + 1 }}</td>
                 <td class="border px-3 py-2">{{ row.user_nameth }}</td>
-                <td class="border px-3 py-2">{{ (row.name_co_researchers ?? []).filter(name => name !== "").join(", ") }}</td>
-                <td class="border px-3 py-2">{{ (row.course_co_researchers ?? []).filter(name => name !== "").join(", ") }}</td>
+                <td class="border px-3 py-2">{{(row.name_co_researchers ?? []).filter(name => name !== "").join(", ")
+                  }}</td>
+                <td class="border px-3 py-2">{{(row.course_co_researchers ?? []).filter(name => name !== "").join(", ")
+                  }}
+                </td>
                 <td class="border px-3 py-2">{{ row.article_title }}</td>
-                <td class="border px-3 py-2">{{ DateTime.fromISO(row.date_review_announce).toFormat("dd-MM-yyyy") }}</td>
+                <td class="border px-3 py-2">{{ DateTime.fromISO(row.date_review_announce).toFormat("dd-MM-yyyy") }}
+                </td>
                 <td class="border px-3 py-2">{{ getBestQt(row) }}</td>
-                <td class="border px-3 py-2">{{ Number(row.withdraw|| 0).toLocaleString("en-US") }}</td>
+                <td class="border px-3 py-2">{{ Number(row.withdraw || 0).toLocaleString("en-US") }}</td>
               </tr>
             </tbody>
           </table>
@@ -1092,8 +1099,11 @@
               <tr class="text-center" v-for="(row, index) in conferenceData" :key="index">
                 <td class="border px-3 py-2">{{ index + 1 }}</td>
                 <td class="border px-3 py-2">{{ row.user_nameth }}</td>
-                <td class="border px-3 py-2">{{ (row.name_co_researchers ?? []).filter(name => name !== "").join(", ") }}</td>
-                <td class="border px-3 py-2">{{ (row.course_co_researchers ?? []).filter(name => name !== "").join(", ") }}</td>
+                <td class="border px-3 py-2">{{(row.name_co_researchers ?? []).filter(name => name !== "").join(", ")
+                  }}</td>
+                <td class="border px-3 py-2">{{(row.course_co_researchers ?? []).filter(name => name !== "").join(", ")
+                  }}
+                </td>
                 <td class="border px-3 py-2">{{ row.conf_research }}</td>
                 <td class="border px-3 py-2">{{ DateTime.fromISO(row.trav_dateStart).toFormat("dd-MM-yyyy") + " ถึง " +
                   DateTime.fromISO(row.trav_dateEnd).toFormat("dd-MM-yyyy") }}</td>

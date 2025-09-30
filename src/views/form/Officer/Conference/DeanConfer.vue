@@ -1,77 +1,45 @@
 <template>
-<div class="container my-10 mx-auto">
-  <ConferenceData :id="id" />
-  <HR :id="id" />
-  <Research :id="id" :type="'Conference'" />
-  <FinanceAll :id="id" :type="'Conference'" />
-  <Assosiate :id="id" :type="'Conference'" />
-  <Mainbox>
-    <SectionWrapper>
-      <p class="text-lg font-bold">
-        เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความจากผู้จัด
-      </p>
-      <RadioInput
-        label="รับทราบ"
-        value="approve"
-        name="comment"
-        v-model="formData.acknowledge"
-      />
-      <RadioInput
-        label="ไม่อนุมัติ"
-        value="notApproved"
-        name="comment"
-        v-model="formData.acknowledge"
-      />
-      <RadioInput
-        label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
-        value="return_professor"
-        name="comment"
-        v-model="formData.acknowledge"
-      />
-      <RadioInput
-        label="ตีกลับเจ้าหน้าที่ทรัพยากรบุคคลเพื่อแก้ไขข้อมูล"
-        value="return_hr"
-        name="comment"
-        v-model="formData.acknowledge"
-      />
-      <RadioInput
-        label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล"
-        value="return_research"
-        name="comment"
-        v-model="formData.acknowledge"
-      />
-      <RadioInput
-        label="ตีกลับเจ้าหน้าที่การเงินเพื่อแก้ไขข้อมูล"
-        value="return_finance"
-        name="comment"
-        v-model="formData.acknowledge"
-      />
-      <RadioInput
-        label="ตีกลับรองคณบดีเพื่อแก้ไขข้อมูล"
-        value="return_associate"
-        name="comment"
-        v-model="formData.acknowledge"
-      />
-      <span v-if="v$.acknowledge.$error" class="text-base font-bold text-red-500 text-left">
-        {{ v$.acknowledge.$errors[0].$message }}
-      </span>
+  <div class="container my-10 mx-auto">
+    <ConferenceData :id="id" />
+    <HR :id="id" />
+    <Research :id="id" :type="'Conference'" />
+    <FinanceAll :id="id" :type="'Conference'" />
+    <Assosiate :id="id" :type="'Conference'" />
+    <Mainbox>
+      <SectionWrapper>
+        <p class="text-lg font-bold">
+          เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความจากผู้จัด
+        </p>
+        <RadioInput label="รับทราบ" value="approve" name="comment" v-model="formData.acknowledge" />
+        <RadioInput label="ไม่อนุมัติ" value="notApproved" name="comment" v-model="formData.acknowledge" />
+        <RadioInput label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล" value="return_professor" name="comment"
+          v-model="formData.acknowledge" />
+        <RadioInput label="ตีกลับเจ้าหน้าที่ทรัพยากรบุคคลเพื่อแก้ไขข้อมูล" value="return_hr" name="comment"
+          v-model="formData.acknowledge" />
+        <RadioInput label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล" value="return_research" name="comment"
+          v-model="formData.acknowledge" />
+        <RadioInput label="ตีกลับเจ้าหน้าที่การเงินเพื่อแก้ไขข้อมูล" value="return_finance" name="comment"
+          v-model="formData.acknowledge" />
+        <RadioInput label="ตีกลับรองคณบดีเพื่อแก้ไขข้อมูล" value="return_associate" name="comment"
+          v-model="formData.acknowledge" />
+        <span v-if="v$.acknowledge.$error" class="text-base font-bold text-red-500 text-left">
+          {{ v$.acknowledge.$errors[0].$message }}
+        </span>
 
-      <textarea
-        class="textarea textarea-bordered w-full"
-        @input="handleInput('commentReason', $event.target.value)"
-      ></textarea>
-      <span v-if="v$.commentReason.$error" class="text-base font-bold text-red-500 text-left">
-        {{ v$.commentReason.$errors[0].$message }}
-      </span>
-    </SectionWrapper>
-  </Mainbox>
-  
-  <div class="flex justify-end">
-    <button @click="OfficerConfer" class="btn btn-success text-white">
-      บันทึกข้อมูล
-    </button>
+        <textarea class="textarea textarea-bordered w-full"
+          @input="handleInput('commentReason', $event.target.value)"></textarea>
+        <span v-if="v$.commentReason.$error" class="text-base font-bold text-red-500 text-left">
+          {{ v$.commentReason.$errors[0].$message }}
+        </span>
+      </SectionWrapper>
+    </Mainbox>
+
+    <div class="flex justify-end">
+      <button @click="OfficerConfer" class="btn btn-success text-white">
+        บันทึกข้อมูล
+      </button>
+    </div>
   </div>
-</div>
 </template>
 
 <script setup>
@@ -109,11 +77,11 @@ const rules = computed(() => ({
     required: helpers.withMessage("* กรุณาเลือกข้อมูล *", required),
   },
   commentReason: {
-      required: helpers.withMessage(
-        "* กรุณากรอกข้อมูล *",
-        requiredIf(() => formData.acknowledge !== "approve")
-      ),
-    },
+    required: helpers.withMessage(
+      "* กรุณากรอกข้อมูล *",
+      requiredIf(() => formData.acknowledge !== "approve")
+    ),
+  },
 }));
 
 const v$ = useVuelidate(rules, formData);
@@ -168,10 +136,10 @@ const OfficerConfer = async () => {
       const dataForBackend = {
         conf_id: user.value?.user_id,
         updated_data: [
-          { field : 'dean_id', value : user.value?.user_id },
-          { field : 'c_dean_result', value : resultMap[formData.acknowledge] },
-          { field : 'c_dean_reason', value : formData.commentReason },
-          { field : 'dean_doc_submit_date', value : formData.docSubmitDate },
+          { field: 'dean_id', value: user.value?.user_id },
+          { field: 'c_dean_result', value: resultMap[formData.acknowledge] },
+          { field: 'c_dean_reason', value: formData.commentReason },
+          { field: 'dean_doc_submit_date', value: formData.docSubmitDate },
         ],
         form_status: statusMap[formData.acknowledge],
         returnto: returnMap[formData.acknowledge],

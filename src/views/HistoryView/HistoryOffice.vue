@@ -3,10 +3,7 @@
     <h1 class="text-xl font-bold mb-5">ประวัติเอกสารทั้งหมด</h1>
     <div v-for="form in data.allForm" :key="form.form_id">
       <div v-if="userStore.user.user_role == 'research'">
-        <div
-          class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
-          v-if="form.form_type == 'Research_KRIS'"
-        >
+        <div class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2" v-if="form.form_type == 'Research_KRIS'">
           <router-link :to="`/history/kris/${form.kris_id}`">
             <h2 class="text-lg font-bold">
               แบบเสนอโครงการวิจัย ทุนวิจัยส่งเสริมส่วนงานวิชาการ
@@ -24,16 +21,10 @@
                   </h4>
                 </div>
                 <div class="flex justify-end items-center">
-                  <p
-                    class="text-red-500 mr-5"
-                    v-if="form.form_status == 'notApproved'"
-                  >
+                  <p class="text-red-500 mr-5" v-if="form.form_status == 'notApproved'">
                     สถานะ{{ showTHstatus(form.form_status) }}
                   </p>
-                  <p
-                    class="text-green-500 mr-5"
-                    v-else-if="form.form_status == 'approve'"
-                  >
+                  <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approve'">
                     สถานะ{{ showTHstatus(form.form_status) }}
                   </p>
                 </div>
@@ -42,10 +33,7 @@
           </router-link>
         </div>
 
-        <div
-          class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
-          v-if="form.form_type == 'Page_Charge'"
-        >
+        <div class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2" v-if="form.form_type == 'Page_Charge'">
           <router-link :to="`/history/pageCharge/${form.pageC_id}`">
             <h2 class="text-lg font-bold">
               ขออนุมัติค่า Page
@@ -70,16 +58,10 @@
                   </h4>
                 </div>
                 <div class="flex justify-end h-20 items-center">
-                  <p
-                    class="text-red-500 mr-5"
-                    v-if="form.form_status == 'notApproved'"
-                  >
+                  <p class="text-red-500 mr-5" v-if="form.form_status == 'notApproved'">
                     สถานะ{{ showTHstatus(form.form_status) }}
                   </p>
-                  <p
-                    class="text-green-500 mr-5"
-                    v-else-if="form.form_status == 'approve'"
-                  >
+                  <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approve'">
                     สถานะ{{ showTHstatus(form.form_status) }}
                   </p>
                 </div>
@@ -90,10 +72,7 @@
       </div>
 
       <div v-if="userStore.user.user_role == 'hr'">
-        <div
-          class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
-          v-if="form.form_type == 'Conference'"
-        >
+        <div class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2" v-if="form.form_type == 'Conference'">
           <router-link :to="`/history/conference/${form.conf_id}`">
             <h2 class="text-lg font-bold">
               ขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมทางวิชาการ
@@ -117,16 +96,10 @@
                   </h4>
                 </div>
                 <div class="flex justify-end h-20 items-center">
-                  <p
-                    class="text-red-500 mr-5"
-                    v-if="form.form_status == 'notApproved'"
-                  >
+                  <p class="text-red-500 mr-5" v-if="form.form_status == 'notApproved'">
                     สถานะ{{ showTHstatus(form.form_status) }}
                   </p>
-                  <p
-                    class="text-green-500 mr-5"
-                    v-else-if="form.form_status == 'approve'"
-                  >
+                  <p class="text-green-500 mr-5" v-else-if="form.form_status == 'approve'">
                     สถานะ{{ showTHstatus(form.form_status) }}
                   </p>
                 </div>
@@ -182,9 +155,9 @@ const pulldata = async () => {
 };
 
 const showTHstatus = (status) => {
-  if (status == "approve"){
+  if (status == "approve") {
     return "อนุมัติ"
-  }else if (status == "notApproved"){
+  } else if (status == "notApproved") {
     return "ไม่อนุมัติ"
   }
 }

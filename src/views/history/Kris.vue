@@ -1,8 +1,8 @@
 <template>
   <p class="text-2xl font-bold text-center my-10">สถานะ และประวัติเอกสาร</p>
-  <ApprovalSteps :status="formData.form.form_status" type="Research_KRIS"/>
-  <Kris :id="id"/>
-  <Research :id="id" :type="'Research_KRIS'"/>
+  <ApprovalSteps :status="formData.form.form_status" type="Research_KRIS" />
+  <Kris :id="id" />
+  <Research :id="id" :type="'Research_KRIS'" />
 </template>
 
 <script setup>

@@ -37,17 +37,9 @@
         <p>2. ชื่อการประชุมทางวิชาการ: {{ formData.confer.conf_name }}</p>
         <div class="flex flex-row gap-4">
           <p>3. การประชุมวิชาการจัดในประเทศ หรือต่างประเทศ</p>
-          <input
-            type="radio"
-            :disabled="true"
-            :checked="formData.confer.country_conf == 'domestic' ? true : false"
-          />
+          <input type="radio" :disabled="true" :checked="formData.confer.country_conf == 'domestic' ? true : false" />
           <span>ภายในประเทศ</span>
-          <input
-            type="radio"
-            :disabled="true"
-            :checked="formData.confer.country_conf == 'abroad' ? true : false"
-          />
+          <input type="radio" :disabled="true" :checked="formData.confer.country_conf == 'abroad' ? true : false" />
           <span>ณ ต่างประเทศ</span>
         </div>
         <div class="flex flex-row gap-4">
@@ -79,71 +71,38 @@
         <p>7. คุณภาพของการประชุมทางวิชาการ</p>
         <div class="flex flex-col ml-4 gap-1 my-1">
           <div class="flex flex-row gap-3">
-            <input
-              type="radio"
-              :disabled="true"
-              :checked="
-                formData.confer.meeting_type == 'facultyHost' ? true : false
-              "
-            />
-            <span
-              >การประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ
-              และไม่อยู่ในฐานข้อมูลสากล SCOPUS</span
-            >
+            <input type="radio" :disabled="true" :checked="formData.confer.meeting_type == 'facultyHost' ? true : false
+              " />
+            <span>การประชุมทางวิชาการที่คณะจัดหรือร่วมจัดในประเทศ
+              และไม่อยู่ในฐานข้อมูลสากล SCOPUS</span>
           </div>
           <div class="flex flex-row gap-3">
-            <input
-              type="radio"
-              :disabled="true"
-              :checked="
-                formData.confer.meeting_type == 'inScopus' ? true : false
-              "
-            />
-            <span
-              >การประชุมทางวิชาการที่อยู่ในฐานข้อมูลสากล SCOPUS
-              โดยมีการกำหนดคุณภาพแบ่งเป็น 2 ระดับ</span
-            >
+            <input type="radio" :disabled="true" :checked="formData.confer.meeting_type == 'inScopus' ? true : false
+              " />
+            <span>การประชุมทางวิชาการที่อยู่ในฐานข้อมูลสากล SCOPUS
+              โดยมีการกำหนดคุณภาพแบ่งเป็น 2 ระดับ</span>
           </div>
         </div>
 
         <div class="flex flex-col ml-10 gap-1 my1">
           <div class="flex flex-row gap-3">
-            <input
-              type="radio"
-              :disabled="true"
-              :checked="
-                formData.confer.quality_meeting == 'standard' ? true : false
-              "
-            />
+            <input type="radio" :disabled="true" :checked="formData.confer.quality_meeting == 'standard' ? true : false
+              " />
             <span>ระดับมาตรฐาน</span>
           </div>
           <div class="flex flex-row gap-3">
-            <input
-              type="radio"
-              :disabled="true"
-              :checked="
-                formData.confer.quality_meeting == 'good' ? true : false
-              "
-            />
+            <input type="radio" :disabled="true" :checked="formData.confer.quality_meeting == 'good' ? true : false
+              " />
             <span>ระดับดีมาก</span>
           </div>
         </div>
         <div class="flex flex-col ml-[60px] gap-1 my-1">
           <div class="flex flex-row gap-3">
-            <input
-              type="radio"
-              :disabled="true"
-              :checked="formData.score.score_type == 'SJR' ? true : false"
-            />
-            <span
-              >ใช้คะแนนที่คำนวณจาก SJR indicator และ H Index ที่ได้มาจาก SCImago
-              Journal & Country Rank</span
-            >
+            <input type="radio" :disabled="true" :checked="formData.score.score_type == 'SJR' ? true : false" />
+            <span>ใช้คะแนนที่คำนวณจาก SJR indicator และ H Index ที่ได้มาจาก SCImago
+              Journal & Country Rank</span>
           </div>
-          <div
-            v-if="formData.score.score_type == 'SJR'"
-            class="flex flex-row ml-10 gap-4"
-          >
+          <div v-if="formData.score.score_type == 'SJR'" class="flex flex-row ml-10 gap-4">
             <p>
               ค่า SJR = {{ formData.score.sjr_score }} (ปี
               {{ formData.score.sjr_year }})
@@ -155,97 +114,54 @@
             <p>มีค่าคะแนน = {{ formData.score.score_result }}</p>
           </div>
           <div class="flex flex-row gap-3">
-            <input
-              type="radio"
-              :disabled="true"
-              :checked="formData.score.score_type == 'CIF' ? true : false"
-            />
+            <input type="radio" :disabled="true" :checked="formData.score.score_type == 'CIF' ? true : false" />
             <span>ใช้ผลการจัดระดับ CIF (Conference Impact Factor)</span>
           </div>
-          <div
-            v-if="formData.score.score_type == 'CIF'"
-            class="flex flex-row ml-10 gap-4"
-          >
+          <div v-if="formData.score.score_type == 'CIF'" class="flex flex-row ml-10 gap-4">
             <p>ค่า Citation total = {{ formData.score.sjr_score }}</p>
             <p>ค่า H-Index = {{ formData.score.hindex_score }}</p>
             <p>มีค่าคะแนน = {{ formData.score.score_result }}</p>
           </div>
           <div class="flex flex-row gap-3">
-            <input
-              type="radio"
-              :disabled="true"
-              :checked="formData.score.score_type == 'CORE' ? true : false"
-            />
+            <input type="radio" :disabled="true" :checked="formData.score.score_type == 'CORE' ? true : false" />
             <span>ใช้ผลการจัดระดับ CORE Conference Ranking</span>
           </div>
-          <div
-            v-if="formData.score.score_type == 'CORE'"
-            class="flex flex-row ml-10 gap-4"
-          >
+          <div v-if="formData.score.score_type == 'CORE'" class="flex flex-row ml-10 gap-4">
             <p>ค่า CORE = {{ formData.score.core_rank }}</p>
           </div>
         </div>
 
         <div class="flex flex-row gap-3">
           <p>8. ผู้ขอรับการสนับสนุนเป็นผู้นำเสนอผลงานและผู้วิจัยหลัก</p>
-          <input
-            type="radio"
-            :disabled="true"
-            :checked="
-              formData.confer.presenter_type == 'First Author' ? true : false
-            "
-          />
+          <input type="radio" :disabled="true" :checked="formData.confer.presenter_type == 'First Author' ? true : false
+            " />
           <span>First Author</span>
-          <input
-            type="radio"
-            :disabled="true"
-            :checked="
-              formData.confer.presenter_type == 'Corresponding Author'
-                ? true
-                : false
-            "
-          />
+          <input type="radio" :disabled="true" :checked="formData.confer.presenter_type == 'Corresponding Author'
+              ? true
+              : false
+            " />
           <span>Corresponding Author</span>
         </div>
         <p>9. การลาและการขอเบิกค่าลงทะเบียนและค่าใช้จ่ายอื่น ๆ</p>
         <div class="flex flex-row gap-3">
           <p class="ml-4">9.1 ครั้งที่ในการลา</p>
-          <input
-            type="radio"
-            :disabled="true"
-            :checked="formData.confer.time_of_leave == '1' ? true : false"
-          />
+          <input type="radio" :disabled="true" :checked="formData.confer.time_of_leave == '1' ? true : false" />
           <span>ครั้งที่ 1</span>
-          <input
-            type="radio"
-            :disabled="true"
-            :checked="formData.confer.time_of_leave == '2' ? true : false"
-          />
+          <input type="radio" :disabled="true" :checked="formData.confer.time_of_leave == '2' ? true : false" />
           <span>ครั้งที่ 2</span>
         </div>
-        <div
-          v-if="
-            formData.confer.time_of_leave == '2' &&
-            formData.confer.country_conf == 'abroad'
-          "
-          class="ml-12"
-        >
+        <div v-if="
+          formData.confer.time_of_leave == '2' &&
+          formData.confer.country_conf == 'abroad'
+        " class="ml-12">
           <p>
             ในกรณีลาครั้งที่ 2 (การประชุมฯ ณ ต่างประเทศ)
             มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล
           </p>
           <div class="flex flex-row gap-3 ml-4">
-            <input
-              type="radio"
-              :disabled="true"
-              :checked="formData.confer.wos_2_leave == 'WoS-Q1' ? true : false"
-            />
+            <input type="radio" :disabled="true" :checked="formData.confer.wos_2_leave == 'WoS-Q1' ? true : false" />
             <span>WoS-Q1</span>
-            <input
-              type="radio"
-              :disabled="true"
-              :checked="formData.confer.wos_2_leave == 'WoS-Q2' ? true : false"
-            />
+            <input type="radio" :disabled="true" :checked="formData.confer.wos_2_leave == 'WoS-Q2' ? true : false" />
             <span>WoS-Q2</span>
           </div>
           <p class="ml-4">เรื่อง: {{ formData.confer.name_2_leave }}</p>
@@ -255,63 +171,30 @@
           ขอเบิกค่าลงทะเบียนตามที่จ่ายจริง และค่าใช้จ่ายอื่น ๆ
         </p>
         <div class="flex flex-row gap-3 ml-10">
-          <input
-            type="radio"
-            :disabled="true"
-            :checked="formData.confer.withdraw == '50%' ? true : false"
-          />
+          <input type="radio" :disabled="true" :checked="formData.confer.withdraw == '50%' ? true : false" />
           <span>ไม่เกิน 50%</span>
         </div>
         <div class="flex flex-row gap-3 ml-10">
-          <input
-            type="radio"
-            :disabled="true"
-            :checked="formData.confer.withdraw == '100%' ? true : false"
-          />
+          <input type="radio" :disabled="true" :checked="formData.confer.withdraw == '100%' ? true : false" />
           <span>ไม่เกิน 100%</span>
         </div>
         <div v-if="formData.confer.withdraw == '100%'" class="ml-16">
           <p>มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล</p>
           <div class="flex flex-row gap-3">
-            <input
-              type="radio"
-              :disabled="true"
-              :checked="
-                formData.confer.wd_100_quality == 'WoS-Q1' ? true : false
-              "
-            />
+            <input type="radio" :disabled="true" :checked="formData.confer.wd_100_quality == 'WoS-Q1' ? true : false
+              " />
             <span>WoS-Q1</span>
-            <input
-              type="radio"
-              :disabled="true"
-              :checked="
-                formData.confer.wd_100_quality == 'WoS-Q2' ? true : false
-              "
-            />
+            <input type="radio" :disabled="true" :checked="formData.confer.wd_100_quality == 'WoS-Q2' ? true : false
+              " />
             <span>WoS-Q2</span>
-            <input
-              type="radio"
-              :disabled="true"
-              :checked="
-                formData.confer.wd_100_quality == 'WoS-Q3' ? true : false
-              "
-            />
+            <input type="radio" :disabled="true" :checked="formData.confer.wd_100_quality == 'WoS-Q3' ? true : false
+              " />
             <span>WoS-Q3</span>
-            <input
-              type="radio"
-              :disabled="true"
-              :checked="
-                formData.confer.wd_100_quality == 'SJR-Q1' ? true : false
-              "
-            />
+            <input type="radio" :disabled="true" :checked="formData.confer.wd_100_quality == 'SJR-Q1' ? true : false
+              " />
             <span>SJR-Q1</span>
-            <input
-              type="radio"
-              :disabled="true"
-              :checked="
-                formData.confer.wd_100_quality == 'SJR-Q2' ? true : false
-              "
-            />
+            <input type="radio" :disabled="true" :checked="formData.confer.wd_100_quality == 'SJR-Q2' ? true : false
+              " />
             <span>SJR-Q2</span>
           </div>
           <p>เรื่อง: {{ formData.confer.wd_name_100 }}</p>
@@ -393,11 +276,7 @@
         </div>
         <div class="flex flex-row pt-3 justify-end gap-2">
           <p>ลงนาม</p>
-          <img
-            :src="getUploadURL(formData.user.user_signature)"
-            class="h-[50px] w-[170px]"
-            alt="user signature"
-          />
+          <img :src="getUploadURL(formData.user.user_signature)" class="h-[50px] w-[170px]" alt="user signature" />
           <p>ผู้เสนอขออนุมัติ</p>
           <p>ลงวันที่</p>
           <p>{{ formatThaiDate(formData.confer.doc_submit_date) }}</p>
@@ -416,142 +295,78 @@
           </div>
           <p>รับยื่นแบบฯ ตรวจรายการค่าใช้จ่ายที่ขอเบิกจ่ายและหลักฐาน</p>
           <div class="flex flex-row gap-3">
-            <input
-              type="checkbox"
-              class="pt-1 px-5"
-              :checked="formData.file.full_page != null ? true : false"
-              :disabled="true"
-            />
+            <input type="checkbox" class="pt-1 px-5" :checked="formData.file.full_page != null ? true : false"
+              :disabled="true" />
             <span>สำเนาบทความ (Full Paper)</span>
           </div>
           <div class="flex flex-row gap-3">
-            <input
-              type="checkbox"
-              class="pt-1 px-5"
-              :checked="formData.file.published_journals != null ? true : false"
-              :disabled="true"
-            />
-            <span class="mt-2"
-              >*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* (Full Paper ประกอบการเบิก)
+            <input type="checkbox" class="pt-1 px-5" :checked="formData.file.published_journals != null ? true : false"
+              :disabled="true" />
+            <span class="mt-2">*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* (Full Paper ประกอบการเบิก)
               มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล WoS/SJR
               ซึ่งได้รับการตีพิมพ์ไม่เกิน 2 ปี ก่อนการประชุม เมื่อ
-              {{ formData.file.date_published_journals }}</span
-            >
+              {{ formData.file.date_published_journals }}</span>
           </div>
           <div class="flex flex-row gap-3">
-            <input
-              type="checkbox"
-              class="pt-1 px-5"
-              :checked="formData.file.q_proof != null ? true : false"
-              :disabled="true"
-            />
+            <input type="checkbox" class="pt-1 px-5" :checked="formData.file.q_proof != null ? true : false"
+              :disabled="true" />
             <span class="mt-1">
               *กรณีเบิกค่าใช้จ่ายเต็มวงเงิน* หลักฐานเอกสาร Q ของ Paper
-              ที่ใช้ประกอบการเบิก</span
-            >
+              ที่ใช้ประกอบการเบิก</span>
           </div>
           <div class="flex flex-row gap-3">
-            <input
-              type="checkbox"
-              class="pt-1 px-5"
-              :checked="formData.file.call_for_paper != null ? true : false"
-              :disabled="true"
-            />
-            <span
-              >เอกสารประชาสัมพันธ์การจัดการประชุมทางวิชาการ (Call for
-              paper)</span
-            >
+            <input type="checkbox" class="pt-1 px-5" :checked="formData.file.call_for_paper != null ? true : false"
+              :disabled="true" />
+            <span>เอกสารประชาสัมพันธ์การจัดการประชุมทางวิชาการ (Call for
+              paper)</span>
           </div>
           <div class="flex flex-row gap-3">
-            <input
-              type="checkbox"
-              class="pt-1 px-5"
-              :checked="formData.file.accepted != null ? true : false"
-              :disabled="true"
-            />
+            <input type="checkbox" class="pt-1 px-5" :checked="formData.file.accepted != null ? true : false"
+              :disabled="true" />
             <span>จดหมายการตอบรับเข้าร่วมประชุม (Accepted)</span>
           </div>
           <div class="flex flex-row gap-3">
-            <input
-              type="checkbox"
-              class="pt-1 px-5"
-              :checked="formData.file.fee_receipt != null ? true : false"
-              :disabled="true"
-            />
+            <input type="checkbox" class="pt-1 px-5" :checked="formData.file.fee_receipt != null ? true : false"
+              :disabled="true" />
             <span>เอกสารแสดงค่าลงทะเบียน</span>
           </div>
           <div class="flex flex-row gap-3">
-            <input
-              type="checkbox"
-              class="pt-1 px-5"
-              :checked="formData.file.fx_rate_document != null ? true : false"
-              :disabled="true"
-            />
+            <input type="checkbox" class="pt-1 px-5" :checked="formData.file.fx_rate_document != null ? true : false"
+              :disabled="true" />
             <span>เอกสารแสดงอัตราแลกเปลี่ยน (ณ วันที่ยื่น)</span>
           </div>
           <div class="flex flex-row gap-3">
-            <input
-              type="checkbox"
-              class="pt-1 px-5"
-              :checked="formData.file.conf_proof != null ? true : false"
-              :disabled="true"
-            />
+            <input type="checkbox" class="pt-1 px-5" :checked="formData.file.conf_proof != null ? true : false"
+              :disabled="true" />
             <span>หลักฐานการประชุมวิชาการอยู่ในฐาน Scopus</span>
           </div>
           <div class="flex flex-row gap-3">
-            <input
-              type="checkbox"
-              class="pt-1 px-5"
-              :checked="formData.user.user_confer == false ? true : false"
-              :disabled="true"
-            />
-            <span
-              >เป็นพนักงานสถาบันที่ปฏิบัติงานมาแล้วไม่เกิน 3
+            <input type="checkbox" class="pt-1 px-5" :checked="formData.user.user_confer == false ? true : false"
+              :disabled="true" />
+            <span>เป็นพนักงานสถาบันที่ปฏิบัติงานมาแล้วไม่เกิน 3
               ปีนับตั้งแต่วันบรรจุและยังไม่เคยลาเข้าร่วมประชุมทางวิชาการ ณ
-              ต่างประเทศ</span
-            >
+              ต่างประเทศ</span>
           </div>
           <div class="flex flex-row gap-3">
             <p>ผู้ขอรับการสนับสนุนเป็น</p>
-            <input
-              type="checkbox"
-              class="pt-1 px-5"
-              :checked="
-                formData.confer.presenter_type == 'First Author' ? true : false
-              "
-              :disabled="true"
-            />
+            <input type="checkbox" class="pt-1 px-5" :checked="formData.confer.presenter_type == 'First Author' ? true : false
+              " :disabled="true" />
             <span>First Author</span>
-            <input
-              type="checkbox"
-              class="pt-1 px-5"
-              :checked="
-                formData.confer.presenter_type == 'Corresponding Author'
-                  ? true
-                  : false
-              "
-              :disabled="true"
-            />
+            <input type="checkbox" class="pt-1 px-5" :checked="formData.confer.presenter_type == 'Corresponding Author'
+                ? true
+                : false
+              " :disabled="true" />
             <span>Corresponding Author</span>
           </div>
           <p>อื่น ๆ ต้องเพิ่มดาต้าเบส</p>
           <div class="flex flex-col text-[13px] pt-3 items-end">
             <div class="flex flex-row gap-1 py-3">
               <p>ลงนาม</p>
-              <div
-                v-for="item in formData.signatureOffice"
-                :key="item"
-                class="-mt-4"
-              >
-                <img
-                  v-if="
-                    item.user_role == 'hr' &&
-                    item.user_id == formData.offic.hr_id
-                  "
-                  :src="getUploadURL(item.user_signature)"
-                  class="h-[50px] w-[170px]"
-                  alt="user signature"
-                />
+              <div v-for="item in formData.signatureOffice" :key="item" class="-mt-4">
+                <img v-if="
+                  item.user_role == 'hr' &&
+                  item.user_id == formData.offic.hr_id
+                " :src="getUploadURL(item.user_signature)" class="h-[50px] w-[170px]" alt="user signature" />
               </div>
               <p>เจ้าหน้าที่บริหารทรัพยากรบุคคล</p>
             </div>
@@ -559,29 +374,17 @@
             <p>{{ formatThaiDate(formData.offic.hr_doc_submit_date) }}</p>
           </div>
         </div>
-        <div
-          class="grid grid-cols-2 divide-x divide-black border border-black mt-5 text-[11px]"
-        >
+        <div class="grid grid-cols-2 divide-x divide-black border border-black mt-5 text-[11px]">
           <div class="px-2 py-3">
             <p class="underline">ขั้นตอนที่ 2 งานบริหารงานวิจัย</p>
             <p>ตรวจหลักฐานคุณภาพของการจัดประชุมทางวิชาการ</p>
             <p>- คุณภาพของการประชุมฯ</p>
             <div class="flex flex-row gap-2 pl-4">
-              <input
-                type="radio"
-                :disabled="true"
-                :checked="
-                  formData.confer.quality_meeting == 'standard' ? true : false
-                "
-              />
+              <input type="radio" :disabled="true" :checked="formData.confer.quality_meeting == 'standard' ? true : false
+                " />
               <span>ระดับมาตรฐาน</span>
-              <input
-                type="radio"
-                :disabled="true"
-                :checked="
-                  formData.confer.quality_meeting == 'good' ? true : false
-                "
-              />
+              <input type="radio" :disabled="true" :checked="formData.confer.quality_meeting == 'good' ? true : false
+                " />
               <span>ระดับดีมาก</span>
             </div>
             <div v-if="formData.confer.quality_meeting == 'good'">
@@ -599,10 +402,7 @@
                 {{ formData.score.score_result }}
               </p>
             </div>
-            <p
-              v-else-if="formData.confer.quality_meeting == 'standard'"
-              class="px-2"
-            >
+            <p v-else-if="formData.confer.quality_meeting == 'standard'" class="px-2">
               • อยู่ในระดับมาตรฐาน
             </p>
             <p v-else-if="formData.confer.quality_meeting == ''" class="px-2">
@@ -612,20 +412,11 @@
             <div class="flex flex-col pt-3 items-end">
               <div class="flex flex-row gap-1 mt-3">
                 <p>ลงนาม</p>
-                <div
-                  v-for="item in formData.signatureOffice"
-                  :key="item"
-                  class="-mt-4"
-                >
-                  <img
-                    v-if="
-                      item.user_role == 'research' &&
-                      item.user_id == formData.offic.research_id
-                    "
-                    :src="getUploadURL(item.user_signature)"
-                    class="h-[50px] w-[170px]"
-                    alt="user signature"
-                  />
+                <div v-for="item in formData.signatureOffice" :key="item" class="-mt-4">
+                  <img v-if="
+                    item.user_role == 'research' &&
+                    item.user_id == formData.offic.research_id
+                  " :src="getUploadURL(item.user_signature)" class="h-[50px] w-[170px]" alt="user signature" />
                 </div>
               </div>
               <p>เจ้าหน้าที่บริหารงานวิจัย</p>
@@ -677,20 +468,10 @@
             <div class="flex flex-col mt-3 items-end">
               <div class="flex flex-row gap-1">
                 <p>ลงนาม</p>
-                <div
-                  v-for="item in formData.signatureOffice"
-                  :key="item.user_id"
-                  class="-mt-2"
-                >
-                  <img
-                    v-show="
-                      item.user_role == 'finance' &&
-                      item.user_id == formData.budget.user_id
-                    "
-                    :src="getUploadURL(item.user_signature)"
-                    class="h-[50px] w-[170px]"
-                    alt="user signature"
-                  />
+                <div v-for="item in formData.signatureOffice" :key="item.user_id" class="-mt-2">
+                  <img v-show="item.user_role == 'finance' &&
+                    item.user_id == formData.budget.user_id
+                    " :src="getUploadURL(item.user_signature)" class="h-[50px] w-[170px]" alt="user signature" />
                 </div>
               </div>
               <p>เจ้าหน้าที่การเงิน</p>
@@ -700,29 +481,18 @@
             </div>
           </div>
         </div>
-        <div
-          class="grid grid-cols-2 divide-x divide-black border border-black text-[12px]"
-        >
+        <div class="grid grid-cols-2 divide-x divide-black border border-black text-[12px]">
           <div class="px-2 py-3">
             <p class="underline">ความเห็นรองคณบดี (กำกับดูแลด้านงานวิจัย)</p>
             <p class="pt-4 pl-3">เห็นชอบ</p>
             <div class="flex flex-col pt-3 items-end">
               <div class="flex flex-row gap-1">
                 <p>ลงนาม</p>
-                <div
-                  v-for="item in formData.signatureOffice"
-                  :key="item"
-                  class="-mt-3"
-                >
-                  <img
-                    v-if="
-                      item.user_role == 'associate' &&
-                      item.user_id == formData.offic.associate_id
-                    "
-                    :src="getUploadURL(item.user_signature)"
-                    class="h-[50px] w-[170px]"
-                    alt="user signature"
-                  />
+                <div v-for="item in formData.signatureOffice" :key="item" class="-mt-3">
+                  <img v-if="
+                    item.user_role == 'associate' &&
+                    item.user_id == formData.offic.associate_id
+                  " :src="getUploadURL(item.user_signature)" class="h-[50px] w-[170px]" alt="user signature" />
                 </div>
               </div>
 
@@ -736,39 +506,25 @@
             <p class="pt-1 px-8">
               เพื่อโปรดทราบการจัดสรรวงเงิน ก่อนการตอบรับบทความจากผู้จัด
             </p>
-            <p
-              v-if="formData.offic.c_approve_result == 'acknowledge'"
-              class="flex font-bold justify-end"
-            >
+            <p v-if="formData.offic.c_approve_result == 'acknowledge'" class="flex font-bold justify-end">
               รับทราบ
             </p>
             <div class="flex flex-col mt-5 items-end">
               <div class="flex flex-row gap-1">
                 <p>ลงนาม</p>
-                <div
-                  v-for="item in formData.signatureOffice"
-                  :key="item"
-                  class="-mt-4"
-                >
-                  <img
-                    v-if="
-                      item.user_role == 'dean' &&
-                      item.user_id == formData.offic.dean_id
-                    "
-                    :src="getUploadURL(item.user_signature)"
-                    class="h-[50px] w-[170px]"
-                    alt="user signature"
-                  />
+                <div v-for="item in formData.signatureOffice" :key="item" class="-mt-4">
+                  <img v-if="
+                    item.user_role == 'dean' &&
+                    item.user_id == formData.offic.dean_id
+                  " :src="getUploadURL(item.user_signature)" class="h-[50px] w-[170px]" alt="user signature" />
                 </div>
                 <p>คณบดี</p>
               </div>
               <div v-for="item in formData.signatureOffice" :key="item">
-                <p
-                  v-if="
-                    item.user_role == 'dean' &&
-                    item.user_id == formData.offic.dean_id
-                  "
-                >
+                <p v-if="
+                  item.user_role == 'dean' &&
+                  item.user_id == formData.offic.dean_id
+                ">
                   ({{ item.user_position }} {{ item.user_name }})
                 </p>
               </div>
@@ -788,10 +544,7 @@
         </router-link>
       </div>
       <div class="flex no-print">
-        <button
-          onclick="window.print()"
-          class="btn text-white bg-[#4285F4] hover:bg-[#4285F4]"
-        >
+        <button onclick="window.print()" class="btn text-white bg-[#4285F4] hover:bg-[#4285F4]">
           พิมพ์แบบฟอร์ม
         </button>
       </div>
@@ -956,19 +709,24 @@ onMounted(async () => {
   img {
     object-fit: cover;
   }
+
   .no-print {
     display: none !important;
   }
+
   @page {
     margin: 0;
   }
+
   body {
     margin: 0;
   }
+
   header,
   footer {
     display: none;
   }
+
   .page-break {
     page-break-before: always;
   }

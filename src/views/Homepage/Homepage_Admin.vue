@@ -5,55 +5,33 @@
 
       <div class="flex justify-end">
         <div class="add_user">
-          <button
-            class="btn bg-[#FF7518] text-white text-base mx-2"
-            onclick="Add_user.showModal()"
-          >
+          <button class="btn bg-[#FF7518] text-white text-base mx-2" onclick="Add_user.showModal()">
             เพิ่มผู้ใช้
           </button>
           <dialog id="Add_user" class="modal">
             <div class="modal-box w-11/12 max-w-5xl">
               <form method="dialog">
-                <button
-                  class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                >
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                   ✕
                 </button>
               </form>
 
               <h3 class="text-lg font-bold">เพิ่มผู้ใช้</h3>
               <SectionWrapper>
-                <TextInputLabelLeft
-                  label="ชื่อ (ภาษาไทย)"
-                  customLabel="mr-2 w-1/4"
-                  customInput="max-w-1/2"
-                  @input="handleInputUser('nameth', $event)"
-                />
-                <span
-                  v-if="v$.nameth.$error"
-                  class="text-base font-bold text-red-500 text-left"
-                >
+                <TextInputLabelLeft label="ชื่อ (ภาษาไทย)" customLabel="mr-2 w-1/4" customInput="max-w-1/2"
+                  @input="handleInputUser('nameth', $event)" />
+                <span v-if="v$.nameth.$error" class="text-base font-bold text-red-500 text-left">
                   {{ v$.nameth.$errors[0].$message }}
                 </span>
-                <TextInputLabelLeft
-                  label="ชื่อ (ภาษาอังกฤษ)"
-                  customLabel="mr-2 w-1/4"
-                  customInput="max-w-1/2"
-                  @input="handleInputUser('nameeng', $event)"
-                />
-                <span
-                  v-if="v$.nameeng.$error"
-                  class="text-base font-bold text-red-500 text-left"
-                >
+                <TextInputLabelLeft label="ชื่อ (ภาษาอังกฤษ)" customLabel="mr-2 w-1/4" customInput="max-w-1/2"
+                  @input="handleInputUser('nameeng', $event)" />
+                <span v-if="v$.nameeng.$error" class="text-base font-bold text-red-500 text-left">
                   {{ v$.nameeng.$errors[0].$message }}
                 </span>
                 <div class="form-control w-full">
                   <label class="w-full flex items-center">
                     <span class="mr-2 w-1/4">หน้าที่</span>
-                    <select
-                      class="select select-bordered mx-1 w-full"
-                      @change="handleInputUser('role', $event)"
-                    >
+                    <select class="select select-bordered mx-1 w-full" @change="handleInputUser('role', $event)">
                       <option disabled selected>เลือกหน้าที่ผู้ใช้</option>
                       <option :value="'professor'">อาจารย์</option>
                       <option :value="'hr'">
@@ -67,90 +45,41 @@
                     </select>
                   </label>
                 </div>
-                <span
-                  v-if="v$.role.$error"
-                  class="text-base font-bold text-red-500 text-left"
-                >
+                <span v-if="v$.role.$error" class="text-base font-bold text-red-500 text-left">
                   {{ v$.role.$errors[0].$message }}
                 </span>
-                <TextInputLabelLeft
-                  label="อีเมล"
-                  customLabel="mr-2 w-1/4"
-                  customInput="max-w-1/2"
-                  @input="handleInputUser('email', $event)"
-                />
-                <span
-                  v-if="v$.email.$error"
-                  class="text-base font-bold text-red-500 text-left"
-                >
+                <TextInputLabelLeft label="อีเมล" customLabel="mr-2 w-1/4" customInput="max-w-1/2"
+                  @input="handleInputUser('email', $event)" />
+                <span v-if="v$.email.$error" class="text-base font-bold text-red-500 text-left">
                   {{ v$.email.$errors[0].$message }}
                 </span>
-                <TextInputLabelLeft
-                  label="ตำแหน่ง (ภาษาไทย)"
-                  customLabel="mr-2 w-1/4"
-                  customInput="max-w-1/2"
-                  @input="handleInputUser('positionth', $event)"
-                />
-                <span
-                  v-if="v$.positionth.$error"
-                  class="text-base font-bold text-red-500 text-left"
-                >
+                <TextInputLabelLeft label="ตำแหน่ง (ภาษาไทย)" customLabel="mr-2 w-1/4" customInput="max-w-1/2"
+                  @input="handleInputUser('positionth', $event)" />
+                <span v-if="v$.positionth.$error" class="text-base font-bold text-red-500 text-left">
                   {{ v$.positionth.$errors[0].$message }}
                 </span>
-                <TextInputLabelLeft
-                  label="ตำแหน่ง (ภาษาอังกฤษ)"
-                  customLabel="mr-2 w-1/4"
-                  customInput="max-w-1/2"
-                  @input="handleInputUser('positioneng', $event)"
-                />
-                <span
-                  v-if="v$.positioneng.$error"
-                  class="text-base font-bold text-red-500 text-left"
-                >
+                <TextInputLabelLeft label="ตำแหน่ง (ภาษาอังกฤษ)" customLabel="mr-2 w-1/4" customInput="max-w-1/2"
+                  @input="handleInputUser('positioneng', $event)" />
+                <span v-if="v$.positioneng.$error" class="text-base font-bold text-red-500 text-left">
                   {{ v$.positioneng.$errors[0].$message }}
                 </span>
-                <TextInputLabelLeft
-                  label="วันที่เริ่มทำงาน"
-                  type="date"
-                  customLabel="mr-2 w-1/4"
-                  customInput="max-w-1/2"
-                  @input="handleInputUser('startwork', $event)"
-                />
-                <span
-                  v-if="v$.startwork.$error"
-                  class="text-base font-bold text-red-500 text-left"
-                >
+                <TextInputLabelLeft label="วันที่เริ่มทำงาน" type="date" customLabel="mr-2 w-1/4"
+                  customInput="max-w-1/2" @input="handleInputUser('startwork', $event)" />
+                <span v-if="v$.startwork.$error" class="text-base font-bold text-red-500 text-left">
                   {{ v$.startwork.$errors[0].$message }}
                 </span>
-                <TextInputLabelLeft
-                  label="จำนวนปีที่เริ่มทำงาน"
-                  customLabel="mr-2 w-1/4"
-                  customInput="max-w-1/2"
-                  @input="handleInputUser('year', $event)"
-                />
-                <span
-                  v-if="v$.year.$error"
-                  class="text-base font-bold text-red-500 text-left"
-                >
+                <TextInputLabelLeft label="จำนวนปีที่เริ่มทำงาน" customLabel="mr-2 w-1/4" customInput="max-w-1/2"
+                  @input="handleInputUser('year', $event)" />
+                <span v-if="v$.year.$error" class="text-base font-bold text-red-500 text-left">
                   {{ v$.year.$errors[0].$message }}
                 </span>
-                <TextInputLabelLeft
-                  label="ยอดเงินการขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมวิชาการ"
-                  customLabel="mr-2 w-1/2"
-                  customInput="max-w-max"
-                  @input="handleInputUser('moneyCF', $event)"
-                />
-                <span
-                  v-if="v$.moneyCF.$error"
-                  class="text-base font-bold text-red-500 text-left"
-                >
+                <TextInputLabelLeft label="ยอดเงินการขออนุมัติเดินทางไปเผยแพร่ผลงานในการประชุมวิชาการ"
+                  customLabel="mr-2 w-1/2" customInput="max-w-max" @input="handleInputUser('moneyCF', $event)" />
+                <span v-if="v$.moneyCF.$error" class="text-base font-bold text-red-500 text-left">
                   {{ v$.moneyCF.$errors[0].$message }}
                 </span>
                 <div class="modal-action">
-                  <button
-                    @click="addUser"
-                    class="btn bg-[#2E8B57] text-white text-base"
-                  >
+                  <button @click="addUser" class="btn bg-[#2E8B57] text-white text-base">
                     เพิ่มผู้ใช้
                   </button>
                   <form method="dialog">
@@ -165,18 +94,13 @@
         </div>
 
         <div class="edit_user">
-          <button
-            class="btn bg-[#6F4E37] text-white text-base mx-2"
-            onclick="edit_user.showModal()"
-          >
+          <button class="btn bg-[#6F4E37] text-white text-base mx-2" onclick="edit_user.showModal()">
             แก้ไข
           </button>
           <dialog id="edit_user" class="modal">
             <div class="modal-box w-11/12 max-w-[90%] max-h-[90%]">
               <form method="dialog">
-                <button
-                  class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                >
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                   ✕
                 </button>
               </form>
@@ -184,9 +108,7 @@
               <h3 class="text-lg font-bold pb-5">แก้ไขข้อมูล</h3>
 
               <SectionWrapper>
-                <div
-                  class="max-h-[650px] overflow-y-auto rounded-box border border-base-content/5 bg-base-100"
-                >
+                <div class="max-h-[650px] overflow-y-auto rounded-box border border-base-content/5 bg-base-100">
                   <table class="table text-center w-full">
                     <thead>
                       <tr class="text-base text-black">
@@ -199,18 +121,13 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr
-                        v-for="(user, index) in formData.users"
-                        :key="user.user_id"
-                      >
+                      <tr v-for="(user, index) in formData.users" :key="user.user_id">
                         <th>{{ index + 1 }}</th>
                         <td>{{ user.user_nameth }}</td>
                         <td>{{ user.user_role }}</td>
                         <td>
-                          <select
-                            class="select select-bordered flex-1"
-                            @change="handleInput(user.user_id, $event, 'role')"
-                          >
+                          <select class="select select-bordered flex-1"
+                            @change="handleInput(user.user_id, $event, 'role')">
                             <option disabled selected>
                               เลือกหน้าที่ผู้ใช้
                             </option>
@@ -228,26 +145,16 @@
                           </select>
                         </td>
                         <td class="flex justify-center">
-                          <TextInputLabelLeft
-                            customLabel="w-auto min-w-fit"
-                            customDiv="max-w-max mr-10"
-                            :placeholder="user.user_moneyCF"
-                            @input="handleInput(user.user_id, $event, 'money')"
-                          />
+                          <TextInputLabelLeft customLabel="w-auto min-w-fit" customDiv="max-w-max mr-10"
+                            :placeholder="user.user_moneyCF" @input="handleInput(user.user_id, $event, 'money')" />
                         </td>
                         <td>
-                          <button
-                            @click="deleteSignat(user.user_id)"
-                            class="btn btn-error text-base text-white"
-                          >
+                          <button @click="deleteSignat(user.user_id)" class="btn btn-error text-base text-white">
                             ลบลายเซ็นผู้ใช้
                           </button>
                         </td>
                         <td>
-                          <button
-                            @click="deleteUser(user.user_id)"
-                            class="btn btn-error text-base text-white"
-                          >
+                          <button @click="deleteUser(user.user_id)" class="btn btn-error text-base text-white">
                             ลบผู้ใช้
                           </button>
                         </td>
@@ -257,10 +164,7 @@
                 </div>
 
                 <div class="modal-action">
-                  <button
-                    @click="updateUserRoles"
-                    class="btn bg-[#2E8B57] text-white text-base"
-                  >
+                  <button @click="updateUserRoles" class="btn bg-[#2E8B57] text-white text-base">
                     อัปเดตข้อมูล
                   </button>
                   <form method="dialog">
@@ -276,9 +180,7 @@
       </div>
 
       <!-- หน้าจอ -->
-      <div
-        class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mt-5"
-      >
+      <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mt-5">
         <table class="table text-center">
           <thead>
             <tr class="text-base text-black">

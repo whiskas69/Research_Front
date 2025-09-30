@@ -1,128 +1,81 @@
 <template>
   <div class="container my-10 mx-auto">
     <div role="tablist" class="tabs tabs-lift">
-      <input
-        type="radio"
-        name="mytabs"
-        class="tab"
-        aria-label="ข้อมูลส่วนตัว"
-        checked="checked"
-      />
+      <input type="radio" name="mytabs" class="tab" aria-label="ข้อมูลส่วนตัว" checked="checked" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <div class="my-5">
-          <TextInputLabelLeft
-            label="ชื่อ (ภาษาไทย)"
-            customLabel="w-4/12"
-            customInput="w-full"
-            :placeholder="user.user_nameth"
-            disabled="true"
-          />
+          <TextInputLabelLeft label="ชื่อ (ภาษาไทย)" customLabel="w-4/12" customInput="w-full"
+            :placeholder="user.user_nameth" disabled="true" />
         </div>
 
         <div class="my-5">
-          <TextInputLabelLeft
-            label="ชื่อ (ภาษาอังกฤษ)"
-            customLabel="w-4/12"
-            customInput="w-full"
-            :placeholder="user.user_nameeng"
-            disabled="true"
-          />
+          <TextInputLabelLeft label="ชื่อ (ภาษาอังกฤษ)" customLabel="w-4/12" customInput="w-full"
+            :placeholder="user.user_nameeng" disabled="true" />
         </div>
 
         <div class="my-5">
-          <TextInputLabelLeft
-            label="ตำแหน่ง (ภาษาไทย)"
-            customLabel="w-4/12"
-            customInput="w-full"
-            :placeholder="user.user_positionth"
-            disabled="true"
-          />
+          <TextInputLabelLeft label="ตำแหน่ง (ภาษาไทย)" customLabel="w-4/12" customInput="w-full"
+            :placeholder="user.user_positionth" disabled="true" />
         </div>
 
         <div class="my-5">
-          <TextInputLabelLeft
-            label="ตำแหน่ง (ภาษาอังกฤษ)"
-            customLabel="w-4/12"
-            customInput="w-full"
-            :placeholder="user.user_positioneng"
-            disabled="true"
-          />
+          <TextInputLabelLeft label="ตำแหน่ง (ภาษาอังกฤษ)" customLabel="w-4/12" customInput="w-full"
+            :placeholder="user.user_positioneng" disabled="true" />
         </div>
 
         <div class="my-5">
-          <TextInputLabelLeft
-            label="อีเมล"
-            customLabel="w-4/12"
-            customInput="w-full"
-            :placeholder="user.user_email"
-            disabled="true"
-          />
+          <TextInputLabelLeft label="อีเมล" customLabel="w-4/12" customInput="w-full" :placeholder="user.user_email"
+            disabled="true" />
         </div>
 
         <div class="my-10 flex flex-col">
-      <h1 class="text-xl font-bold">ลายเซ็น</h1>
+          <h1 class="text-xl font-bold">ลายเซ็น</h1>
 
-      <div v-if="user.user_signature == null || user.user_signature == ''">
-        <p class="text-red-600">
-          สามารถอัปโหลดลายเซ็นได้เพียง 1 ครั้งเท่านั้น และสกุลไฟล์เป็น png
-          กรุณาตรวจสอบความถูกต้องก่อนกดยืนยัน
-        </p>
+          <div v-if="user.user_signature == null || user.user_signature == ''">
+            <p class="text-red-600">
+              สามารถอัปโหลดลายเซ็นได้เพียง 1 ครั้งเท่านั้น และสกุลไฟล์เป็น png
+              กรุณาตรวจสอบความถูกต้องก่อนกดยืนยัน
+            </p>
 
-        <div class="my-5">
-          <input
-            type="file"
-            class="file-input file-input-bordered w-full max-w-xs"
-            @change="handleFile($event, 'signature')"
-          />
-        </div>
-
-        <span v-if="v$.signature.$error" class="text-base ml-2 text-red-500">
-          {{ v$.signature.$errors[0].$message }}
-        </span>
-
-        <div class="flex justify-end mr-5">
-          <button @click="updatesignature" class="btn bg-blue-500 text-white">
-            ตกลง
-          </button>
-        </div>
-      </div>
-
-      <div v-else>
-        <p class="text-red-600">
-          หากมีข้อผิดพลาดโปรดติดต่อเจ้าหน้าที่ที่เกี่ยวข้อง เพื่อแก้ไข
-        </p>
-        <div class="flex flex-row items-center w-full">
-          <div class="flex flex-row items-center w-full">
-            <div class="flex flex-row">
-              <p>ดูลายเซ็นที่อัปโหลด</p>
+            <div class="my-5">
+              <input type="file" class="file-input file-input-bordered w-full max-w-xs"
+                @change="handleFile($event, 'signature')" />
             </div>
-            <div class="">
-              <button
-                @click="getSignature"
-                class="btn bg-[#E85F19] text-white ml-10"
-              >
-                ดูเอกสาร
+
+            <span v-if="v$.signature.$error" class="text-base ml-2 text-red-500">
+              {{ v$.signature.$errors[0].$message }}
+            </span>
+
+            <div class="flex justify-end mr-5">
+              <button @click="updatesignature" class="btn bg-blue-500 text-white">
+                ตกลง
               </button>
             </div>
           </div>
+
+          <div v-else>
+            <p class="text-red-600">
+              หากมีข้อผิดพลาดโปรดติดต่อเจ้าหน้าที่ที่เกี่ยวข้อง เพื่อแก้ไข
+            </p>
+            <div class="flex flex-row items-center w-full">
+              <div class="flex flex-row items-center w-full">
+                <div class="flex flex-row">
+                  <p>ดูลายเซ็นที่อัปโหลด</p>
+                </div>
+                <div class="">
+                  <button @click="getSignature" class="btn bg-[#E85F19] text-white ml-10">
+                    ดูเอกสาร
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <img v-if="data.signature" :src="data.signature" class="w-64 h-64 mt-5 object-contain" alt="signature" />
+          </div>
         </div>
-
-        <img
-          v-if="data.signature"
-          :src="data.signature"
-          class="w-64 h-64 mt-5 object-contain"
-          alt="signature"
-        />
-      </div>
-    </div>
       </div>
 
-      <input
-        type="radio"
-        name="mytabs"
-        class="tab"
-        aria-label="วงเงินที่ใช้ไปแล้ว"
-      />
+      <input type="radio" name="mytabs" class="tab" aria-label="วงเงินที่ใช้ไปแล้ว" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <div class="overflow-x-auto mt-2">
           <p class="pb-2 text-lg font-bold">ปีงบประมาณ {{ fiscalYear }}</p>

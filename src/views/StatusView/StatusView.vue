@@ -1,12 +1,9 @@
 <template>
   <div class="container my-10 mx-auto">
     <h1 class="text-xl font-bold mb-5">สถานะเอกสาร</h1>
-    
+
     <div v-for="form in data.allForm" :key="form.form_id">
-      <div
-        class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
-        v-if="form.form_type == 'Research_KRIS'"
-      >
+      <div class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2" v-if="form.form_type == 'Research_KRIS'">
         <router-link :to="`/status/Kris/${form.kris_id}`">
           <div class="columns-2 mt-2 ml-5">
             <h2 class="text-lg font-bold">
@@ -28,10 +25,7 @@
         </router-link>
       </div>
 
-      <div
-        class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
-        v-if="form.form_type == 'Conference'"
-      >
+      <div class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2" v-if="form.form_type == 'Conference'">
         <router-link :to="`/status/Conference/${form.conf_id}`">
           <div class="columns-2 mt-2 ml-5">
             <h2 class="text-lg font-bold">
@@ -54,15 +48,12 @@
         </router-link>
       </div>
 
-      <div
-        class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2"
-        v-if="form.form_type == 'Page_Charge'"
-      >
+      <div class="p-5 shadow m-5 rounded-xl hover:cursor-pointer mb-2" v-if="form.form_type == 'Page_Charge'">
         <router-link :to="`/status/PageCharge/${form.pageC_id}`">
           <div class="columns-2 mt-2 ml-5">
             <h2 class="text-lg font-bold">
               ขออนุมัติค่า Page
-            Chargeเพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
+              Chargeเพื่อตีพิมพ์ผลงานในวารสารวิชาการระดับนานาชาติ
             </h2>
           </div>
           <div class="columns-2 mt-2 ml-5">
@@ -129,19 +120,19 @@ const pulldata = async () => {
 };
 
 const showTHstatus = (status) => {
-  if (status == "hr"){
+  if (status == "hr") {
     return "ฝ่ายบริหารทรัพยากรบุคคล"
-  }else if (status == "research"){
+  } else if (status == "research") {
     return "ฝ่ายบริหารงานวิจัย"
-  }else if (status == "finance"){
+  } else if (status == "finance") {
     return "ฝ่ายบริหารการเงิน"
-  }else if (status == "associate"){
+  } else if (status == "associate") {
     return "รองคณบดี"
-  }else if (status == "dean"){
+  } else if (status == "dean") {
     return "คณบดี"
-  }else if (status == "waitingApproval"){
+  } else if (status == "waitingApproval") {
     return "รออนุมัติ"
-  }else if (status == "attendMeeting"){
+  } else if (status == "attendMeeting") {
     return "เข้าที่ประชุม"
   }
 }

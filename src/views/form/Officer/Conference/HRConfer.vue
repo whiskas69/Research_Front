@@ -10,10 +10,7 @@
             <div class="flex flex-row">
               <p>สำเนาบทความ (Full Paper)</p>
             </div>
-            <button
-              @click="getFile(formData.f_full_page)"
-              class="btn bg-[#E85F19] text-white mr-5"
-            >
+            <button @click="getFile(formData.f_full_page)" class="btn bg-[#E85F19] text-white mr-5">
               ดูเอกสาร
             </button>
           </div>
@@ -21,21 +18,13 @@
         <div class="flex flex-row items-center w-full">
           <div class="flex flex-row items-center w-full justify-between">
             <div class="flex flex-row">
-              <span class="w-[15rem] flex items-center text-blue-500 mr-2"
-                >*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน*</span
-              >
-              <TextInputLabelLeft
-                customInput="max-w-24"
+              <span class="w-[15rem] flex items-center text-blue-500 mr-2">*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน*</span>
+              <TextInputLabelLeft customInput="max-w-24"
                 label="(Full Paper ประกอบการเบิก) มีผลงานตีพิมพ์ในวารสารในฐานข้อมูล WoS/SJR ซึ่งได้รับการตีพิมพ์ไม่เกิน 2 ปี ก่อนการประชุม เมื่อ"
-                disabled="true"
-                :placeholder="formData.date_journals"
-              />
+                disabled="true" :placeholder="formData.date_journals" />
             </div>
-            <button
-              @click="getFile(formData.f_published_journals)"
-              class="btn bg-[#E85F19] text-white mr-5"
-              :disabled="!isValidFile(formData.f_published_journals)"
-            >
+            <button @click="getFile(formData.f_published_journals)" class="btn bg-[#E85F19] text-white mr-5"
+              :disabled="!isValidFile(formData.f_published_journals)">
               ดูเอกสาร
             </button>
           </div>
@@ -43,16 +32,11 @@
         <div class="flex flex-row items-center w-full">
           <div class="flex flex-row items-center w-full justify-between">
             <div class="flex flex-row">
-              <span class="text-blue-500 mr-2"
-                >"*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน*</span
-              >
+              <span class="text-blue-500 mr-2">"*กรณีเบิกค่าใช้จ่ายเต็มวงเงิน*</span>
               <p>หลักฐานเอกสาร Quartile ของ Paper ที่ใช้ประกอบการเบิก</p>
             </div>
-            <button
-              @click="getFile(formData.f_q_proof)"
-              class="btn bg-[#E85F19] text-white mr-5"
-              :disabled="!isValidFile(formData.f_q_proof)"
-            >
+            <button @click="getFile(formData.f_q_proof)" class="btn bg-[#E85F19] text-white mr-5"
+              :disabled="!isValidFile(formData.f_q_proof)">
               ดูเอกสาร
             </button>
           </div>
@@ -64,10 +48,7 @@
                 เอกสารประชาสัมพันธ์การจัดการประชุมทางวิชาการ (Call for paper)
               </p>
             </div>
-            <button
-              @click="getFile(formData.f_call_for_paper)"
-              class="btn bg-[#E85F19] text-white mr-5"
-            >
+            <button @click="getFile(formData.f_call_for_paper)" class="btn bg-[#E85F19] text-white mr-5">
               ดูเอกสาร
             </button>
           </div>
@@ -77,10 +58,7 @@
             <div class="flex flex-row">
               <p>จดหมายการตอบรับเข้าร่วมประชุม (Accepted)</p>
             </div>
-            <button
-              @click="getFile(formData.f_accepted)"
-              class="btn bg-[#E85F19] text-white mr-5"
-            >
+            <button @click="getFile(formData.f_accepted)" class="btn bg-[#E85F19] text-white mr-5">
               ดูเอกสาร
             </button>
           </div>
@@ -90,10 +68,7 @@
             <div class="flex flex-row">
               <p>เอกสารแสดงค่าลงทะเบียน</p>
             </div>
-            <button
-              @click="getFile(formData.f_fee_receipt)"
-              class="btn bg-[#E85F19] text-white mr-5"
-            >
+            <button @click="getFile(formData.f_fee_receipt)" class="btn bg-[#E85F19] text-white mr-5">
               ดูเอกสาร
             </button>
           </div>
@@ -103,10 +78,7 @@
             <div class="flex flex-row">
               <p>เอกสารแสดงอัตราแลกเปลี่ยน (ณ วันที่ยื่น)</p>
             </div>
-            <button
-              @click="getFile(formData.f_fx_rate_document)"
-              class="btn bg-[#E85F19] text-white mr-5"
-            >
+            <button @click="getFile(formData.f_fx_rate_document)" class="btn bg-[#E85F19] text-white mr-5">
               ดูเอกสาร
             </button>
           </div>
@@ -116,62 +88,32 @@
             <div class="flex flex-row">
               <p>หลักฐานการประชุมวิชาการอยู่ในฐาน Scopus</p>
             </div>
-            <button
-              @click="getFile(formData.f_conf_proof)"
-              class="btn bg-[#E85F19] text-white mr-5"
-            >
+            <button @click="getFile(formData.f_conf_proof)" class="btn bg-[#E85F19] text-white mr-5">
               ดูเอกสาร
             </button>
           </div>
         </div>
-        <RadioInput
-          value=1
+        <RadioInput value=1
           label="เป็นพนักงานสถาบันที่ปฏิบัติงานมาแล้วไม่เกิน 3 ปีนับตั้งแต่วันบรรจุและยังไม่เคยลาเข้าร่วมประชุมทางวิชาการ ณ ต่างประเทศ"
-          v-model="formData.isUnder3YearsNoOverseasConf"
-        />
-        <textarea
-          placeholder="อื่น ๆ"
-          class="textarea textarea-bordered w-full"
-          @input="handleInput('noteHR', $event.target.value)"
-        ></textarea>
+          v-model="formData.isUnder3YearsNoOverseasConf" />
+        <textarea placeholder="อื่น ๆ" class="textarea textarea-bordered w-full"
+          @input="handleInput('noteHR', $event.target.value)"></textarea>
       </SectionWrapper>
     </Mainbox>
 
     <Mainbox>
       <SectionWrapper>
         <p>ตรวจสอบความถูกต้องของข้อมูล</p>
-        <RadioInput
-          label="ข้อมูลถูกต้อง"
-          value="approve"
-          name="recheckinfo"
-          v-model="formData.radioAuthOffic"
-        />
-        <RadioInput
-          label="ไม่อนุมัติ"
-          value="notApproved"
-          name="recheckinfo"
-          v-model="formData.radioAuthOffic"
-        />
-        <RadioInput
-          label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
-          value="return_professor"
-          name="recheckinfo"
-          v-model="formData.radioAuthOffic"
-        />
-        <textarea
-          class="textarea textarea-bordered w-full"
-          @input="handleInput('commentReason', $event.target.value)"
-        ></textarea>
-        <span
-          v-if="v$.radioAuthOffic.$error"
-          class="text-base font-bold text-red-500 text-left"
-        >
+        <RadioInput label="ข้อมูลถูกต้อง" value="approve" name="recheckinfo" v-model="formData.radioAuthOffic" />
+        <RadioInput label="ไม่อนุมัติ" value="notApproved" name="recheckinfo" v-model="formData.radioAuthOffic" />
+        <RadioInput label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล" value="return_professor" name="recheckinfo"
+          v-model="formData.radioAuthOffic" />
+        <textarea class="textarea textarea-bordered w-full"
+          @input="handleInput('commentReason', $event.target.value)"></textarea>
+        <span v-if="v$.radioAuthOffic.$error" class="text-base font-bold text-red-500 text-left">
           {{ v$.radioAuthOffic.$errors[0].$message }}
         </span>
-        <span
-          v-if="v$.commentReason.$error"
-          class="text-base font-bold text-red-500 text-left"
-        >
+        <span v-if="v$.commentReason.$error" class="text-base font-bold text-red-500 text-left">
           {{ v$.commentReason.$errors[0].$message }}
         </span>
       </SectionWrapper>
@@ -294,14 +236,14 @@ const OfficerConfer = async () => {
         c_hr_reason: formData.commentReason,
         c_hr_note: formData.noteHR,
         hr_doc_submit_date: formData.docSubmitDate,
-        
+
         user_confer: formData.isUnder3YearsNoOverseasConf,
         form_status:
           statusMap[formData.radioAuthOffic] || formData.radioAuthOffic,
         returnto:
           formData.radioAuthOffic === "return_professor" ? "professor" : null,
-          return_note : formData.commentReason || null,
-          past_return : formData.radioAuthOffic === "return_professor" ? "research" : null
+        return_note: formData.commentReason || null,
+        past_return: formData.radioAuthOffic === "return_professor" ? "research" : null
       };
 
       await api.post("/opinionConf", dataForBackend);

@@ -3,36 +3,19 @@
     <div class="h-[50%]">
       <p class="text-xl font-bold mb-2">เอกสารต้องตรวจสอบ</p>
       <div class="h-full p-2 mb-2 border rounded-lg overflow-auto">
-        <FormCard
-          v-for="form in listForm.forms"
-          :key="form.form_id"
-          :form="form"
-          :page="'officer'"
-          :roleConferenceMap="roleConferenceMap"
-          :rolePageChargeMap="rolePageChargeMap"
-          :roleResearchKRISMap="roleResearchKRISMap"
-          :showAmount="false"
-          :showStatus="false"
-        />
+        <FormCard v-for="form in listForm.forms" :key="form.form_id" :form="form" :page="'officer'"
+          :roleConferenceMap="roleConferenceMap" :rolePageChargeMap="rolePageChargeMap"
+          :roleResearchKRISMap="roleResearchKRISMap" :showAmount="false" :showStatus="false" />
       </div>
     </div>
 
     <div class="h-[40%]">
       <p class="text-xl font-bold mt-10 mb-2">เอกสารที่ถูกตีกลับ</p>
       <div class="h-full p-2 mb-2 border rounded-lg overflow-auto">
-        <FormCard
-          v-for="form in listForm.return"
-          :key="form.form_id"
-          :form="form"
-          :roleConferenceMap="roleConferenceMap"
-          :rolePageChargeMap="rolePageChargeMap"
-          :roleResearchKRISMap="roleResearchKRISMap"
-          :showAmount="false"
-          :showStatus="false"
-          :eoffice="false"
-          :comment="form.return_note"
-          :who="form.past_return"
-        />
+        <FormCard v-for="form in listForm.return" :key="form.form_id" :form="form"
+          :roleConferenceMap="roleConferenceMap" :rolePageChargeMap="rolePageChargeMap"
+          :roleResearchKRISMap="roleResearchKRISMap" :showAmount="false" :showStatus="false" :eoffice="false"
+          :comment="form.return_note" :who="form.past_return" />
       </div>
     </div>
   </div>

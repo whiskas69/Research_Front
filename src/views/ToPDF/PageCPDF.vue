@@ -49,13 +49,8 @@
       <p class="text-[13px] pt-1 px-4">เป็นวารสารที่อยู่ในฐานข้อมูลสากล :</p>
       <div class="flex flex-row pt-1 px-5">
         <!-- checkbox edit -->
-        <input
-          type="checkbox"
-          class="pt-1 px-5"
-          v-model="formData.checkISI"
-          :checked="formData.checkISI == 'ISI' ? true : false"
-          disabled="false"
-        />
+        <input type="checkbox" class="pt-1 px-5" v-model="formData.checkISI"
+          :checked="formData.checkISI == 'ISI' ? true : false" disabled="false" />
         <span class="text-[13px] px-4"> ISI ได้รับการจัดลำดับ Quartile </span>
         <div v-if="formData.checkISI == 'ISI'" class="flex flex-row">
           <p class="text-[13px] px-4">
@@ -71,13 +66,8 @@
       </div>
 
       <div class="flex flex-row pt-1 px-5">
-        <input
-          type="checkbox"
-          class="pt-1 px-5"
-          v-model="formData.checkSJR"
-          :checked="formData.checkSJR == 'SJR' ? true : false"
-          disabled="false"
-        />
+        <input type="checkbox" class="pt-1 px-5" v-model="formData.checkSJR"
+          :checked="formData.checkSJR == 'SJR' ? true : false" disabled="false" />
         <span class="text-[13px] px-4"> SJR ได้รับการจัดลำดับ Quartile </span>
         <div v-if="formData.checkSJR == 'SJR'" class="flex flex-row">
           <p class="text-[13px] px-4">
@@ -93,12 +83,8 @@
       </div>
 
       <div class="flex flex-row pt-1 px-5">
-        <input
-          type="checkbox"
-          v-model="formData.checkScopus"
-          :checked="formData.checkScopus == 'Scopus' ? true : false"
-          disabled="false"
-        />
+        <input type="checkbox" v-model="formData.checkScopus" :checked="formData.checkScopus == 'Scopus' ? true : false"
+          disabled="false" />
         <span class="text-[13px] px-4">
           Scopus ได้รับการจัดลำดับ Quartile
         </span>
@@ -116,13 +102,8 @@
       </div>
 
       <div class="flex flex-row pt-1 px-5">
-        <input
-          type="checkbox"
-          class="pt-1 px-5"
-          v-model="formData.nature"
-          :checked="formData.nature == 'nature' ? true : false"
-          disabled="false"
-        />
+        <input type="checkbox" class="pt-1 px-5" v-model="formData.nature"
+          :checked="formData.nature == 'nature' ? true : false" disabled="false" />
         <span class="text-[13px] px-4"> Nature </span>
       </div>
     </div>
@@ -169,34 +150,17 @@
     </p>
     <div class="flex flex-row text-[13px] px-[50px] pt-1 gap-x-3">
       <p>ประเภทโครงการวิจัย:</p>
-      <input
-        type="radio"
-        disabled="false"
-        :checked="formData.pageChange.research_type == 'basic' ? true : false"
-      />
+      <input type="radio" disabled="false" :checked="formData.pageChange.research_type == 'basic' ? true : false" />
       <span>วิจัยพื้นฐาน</span>
-      <input
-        type="radio"
-        disabled="false"
-        :checked="formData.pageChange.research_type == 'applied' ? true : false"
-      />
+      <input type="radio" disabled="false" :checked="formData.pageChange.research_type == 'applied' ? true : false" />
       <span>วิจัยประยุกต์</span>
-      <input
-        type="radio"
-        disabled="false"
-        :checked="
-          formData.pageChange.research_type == 'research&development'
-            ? true
-            : false
-        "
-      />
+      <input type="radio" disabled="false" :checked="formData.pageChange.research_type == 'research&development'
+          ? true
+          : false
+        " />
       <div class="flex flex-row gap-x-4">
         <span>วิจัยและพัฒนา</span>
-        <input
-          type="radio"
-          disabled="false"
-          :checked="formData.pageChange.research_type == 'other' ? true : false"
-        />
+        <input type="radio" disabled="false" :checked="formData.pageChange.research_type == 'other' ? true : false" />
         <span>วิจัยอื่น ๆ</span>
         <p v-if="formData.pageChange.research_type == 'other '">
           {{ formData.pageChange.research_type2 }}
@@ -214,95 +178,57 @@
     <!-- 3.	ผู้ขอรับการสนับสนุน -->
     <p class="text-[13px] font-bold pt-3">3. ผู้ขอรับการสนับสนุน</p>
     <div class="flex flex-row text-[13px] pt-1 gap-x-4 px-5">
-      <input
-        type="radio"
-        disabled="false"
-        :checked="
-          formData.pageChange.presenter_type == 'First Author' ? true : false
-        "
-      />
+      <input type="radio" disabled="false" :checked="formData.pageChange.presenter_type == 'First Author' ? true : false
+        " />
       <span>ผู้ประพันธ์บรรณกิจ Corresponding Author</span>
-      <input
-        type="radio"
-        disabled="false"
-        :checked="
-          formData.pageChange.presenter_type == 'Corresponding Author'
-            ? true
-            : false
-        "
-      />
+      <input type="radio" disabled="false" :checked="formData.pageChange.presenter_type == 'Corresponding Author'
+          ? true
+          : false
+        " />
       <span>ผู้ประพันธ์บรรณกิจ Corresponding Author</span>
     </div>
     <!-- 4. เอกสารหลักฐานที่แนบมาพร้อมนี้ -->
     <p class="text-[13px] font-bold pt-3">4. เอกสารหลักฐานที่แนบมาพร้อมนี้</p>
     <div class="flex flex-col text-[13px] px-5 pt-1">
       <div>
-        <input
-          type="checkbox"
-          class="pt-1 px-5"
-          :checked="formData.file.pc_proof != null ? true : false"
-          disabled="false"
-        />
+        <input type="checkbox" class="pt-1 px-5" :checked="formData.file.pc_proof != null ? true : false"
+          disabled="false" />
         <span class="text-[13px] px-4">
           หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature
         </span>
       </div>
       <div>
-        <input
-          type="checkbox"
-          class="pt-1 px-5"
-          :checked="formData.file.q_pc_proof != null ? true : false"
-          disabled="false"
-        />
+        <input type="checkbox" class="pt-1 px-5" :checked="formData.file.q_pc_proof != null ? true : false"
+          disabled="false" />
         <span class="text-[13px] px-4">
           หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ
           Scopus
         </span>
       </div>
       <div>
-        <input
-          type="checkbox"
-          class="pt-1 px-5"
-          :checked="formData.file.invoice_public != null ? true : false"
-          disabled="false"
-        />
+        <input type="checkbox" class="pt-1 px-5" :checked="formData.file.invoice_public != null ? true : false"
+          disabled="false" />
         <span class="text-[13px] px-4">
           ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ /
-          อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์</span
-        >
+          อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์</span>
       </div>
       <div>
-        <input
-          type="checkbox"
-          class="pt-1 px-5"
-          :checked="formData.file.accepted != null ? true : false"
-          disabled="false"
-        />
+        <input type="checkbox" class="pt-1 px-5" :checked="formData.file.accepted != null ? true : false"
+          disabled="false" />
         <span class="text-[13px] px-4">
-          หลักฐานการส่งบทความ หนังสือตอบรับบทความ</span
-        >
+          หลักฐานการส่งบทความ หนังสือตอบรับบทความ</span>
       </div>
       <div>
-        <input
-          type="checkbox"
-          class="pt-1 px-5"
-          :checked="formData.file.copy_article != null ? true : false"
-          disabled="false"
-        />
+        <input type="checkbox" class="pt-1 px-5" :checked="formData.file.copy_article != null ? true : false"
+          disabled="false" />
         <span class="text-[13px] px-4">
-          สำเนาบทความ</span
-        >
+          สำเนาบทความ</span>
       </div>
       <div>
-        <input
-          type="checkbox"
-          class="pt-1 px-5"
-          :checked="formData.file.upload_article != null ? true : false"
-          disabled="false"
-        />
+        <input type="checkbox" class="pt-1 px-5" :checked="formData.file.upload_article != null ? true : false"
+          disabled="false" />
         <span class="text-[13px] px-4">
-          หลักฐานการ Upload บทความเข้าระบบ IT Scholar</span
-        >
+          หลักฐานการ Upload บทความเข้าระบบ IT Scholar</span>
       </div>
     </div>
     <!-- 5.	ขอรับการสนับสนุนค่าใช้จ่ายในการลงตีพิมพ์ (Page Charge)  -->
@@ -316,11 +242,7 @@
     </div>
     <div class="flex flex-col text-[13px] pt-3 items-end">
       <p>ลงชื่อ ผู้เสนอขออนุมัติ</p>
-      <img
-        :src="getUploadURL(formData.user.user_signature)"
-        class="h-[50px] w-[170px]"
-        alt="user signature"
-      />
+      <img :src="getUploadURL(formData.user.user_signature)" class="h-[50px] w-[170px]" alt="user signature" />
       <p>{{ formatThaiDate(formData.pageChange.doc_submit_date) }}</p>
     </div>
 
@@ -337,24 +259,15 @@
         </div>
         <p>ตรวจหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ สจล. และประกาศคณะ</p>
         <div class="flex flex-row gap-4">
-          <input
-            type="radio"
-            disabled="false"
-            :checked="
-              formData.offic.p_research_admin == 'approve' ? true : false
-            "
-          />
+          <input type="radio" disabled="false" :checked="formData.offic.p_research_admin == 'approve' ? true : false
+            " />
           <span>ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้</span>
           <p v-if="formData.offic.p_research_admin == 'approve'">
             {{ formData.offic.p_reason }}
           </p>
         </div>
         <div class="flex flex-row gap-4">
-          <input
-            type="radio"
-            disabled="false"
-            :checked="formData.offic.p_research_admin == 'other' ? true : false"
-          />
+          <input type="radio" disabled="false" :checked="formData.offic.p_research_admin == 'other' ? true : false" />
           <span>อื่น ๆ</span>
           <p v-if="formData.offic.p_research_admin == 'other'">
             {{ formData.offic.p_reason }}
@@ -363,20 +276,11 @@
         <div class="flex flex-col text-[13px] pt-3 items-end">
           <div class="flex flex-row gap-1">
             <p>ลงนาม</p>
-            <div
-              v-for="item in formData.signatureOffice"
-              :key="item"
-              class="-mt-4"
-            >
-              <img
-                v-if="
-                  item.user_role == 'research' &&
-                  item.user_id == formData.offic.research_id
-                "
-                :src="getUploadURL(item.user_signature)"
-                class="h-[50px] w-[170px]"
-                alt="user signature"
-              />
+            <div v-for="item in formData.signatureOffice" :key="item" class="-mt-4">
+              <img v-if="
+                item.user_role == 'research' &&
+                item.user_id == formData.offic.research_id
+              " :src="getUploadURL(item.user_signature)" class="h-[50px] w-[170px]" alt="user signature" />
             </div>
             <p>เจ้าหน้าที่บริหารงานวิจัย</p>
           </div>
@@ -425,20 +329,10 @@
         <div class="flex flex-col text-[13px] pt-10 items-end px-10">
           <div class="flex flex-row gap-1">
             <p>ลงนาม</p>
-            <div
-              v-for="item in formData.signatureOffice"
-              :key="item"
-              class="-mt-4"
-            >
-              <img
-                v-show="
-                  item.user_role == 'finance' &&
-                  item.user_id == formData.budget.user_id
-                "
-                :src="getUploadURL(item.user_signature)"
-                class="h-[50px] w-[170px]"
-                alt="user signature"
-              />
+            <div v-for="item in formData.signatureOffice" :key="item" class="-mt-4">
+              <img v-show="item.user_role == 'finance' &&
+                item.user_id == formData.budget.user_id
+                " :src="getUploadURL(item.user_signature)" class="h-[50px] w-[170px]" alt="user signature" />
             </div>
             <p>เจ้าหน้าที่การเงิน</p>
           </div>
@@ -447,29 +341,18 @@
         </div>
       </div>
     </div>
-    <div
-      class="grid grid-cols-2 divide-x divide-black border border-black mt-5"
-    >
+    <div class="grid grid-cols-2 divide-x divide-black border border-black mt-5">
       <div class="text-[13px] px-2 py-3">
         <p class="underline">ความเห็นรองคณบดี (กำกับดูแลด้านงานวิจัย)</p>
         <p class="pt-4">เห็นชอบ</p>
         <div class="flex flex-col text-[13px] pt-3 items-end">
           <div class="flex flex-row gap-1">
             <p>ลงนาม</p>
-            <div
-              v-for="item in formData.signatureOffice"
-              :key="item"
-              class="-mt-4"
-            >
-              <img
-                v-if="
-                  item.user_role == 'associate' &&
-                  item.user_id == formData.offic.associate_id
-                "
-                :src="getUploadURL(item.user_signature)"
-                class="h-[50px] w-[170px]"
-                alt="user signature"
-              />
+            <div v-for="item in formData.signatureOffice" :key="item" class="-mt-4">
+              <img v-if="
+                item.user_role == 'associate' &&
+                item.user_id == formData.offic.associate_id
+              " :src="getUploadURL(item.user_signature)" class="h-[50px] w-[170px]" alt="user signature" />
             </div>
           </div>
 
@@ -488,30 +371,20 @@
         <div class="flex flex-col text-[13px] pt-3 items-end">
           <div class="flex flex-row gap-1 py-3">
             <p>ลงนาม</p>
-            <div
-              v-for="item in formData.signatureOffice"
-              :key="item"
-              class="-mt-4"
-            >
-              <img
-                v-if="
-                  item.user_role == 'dean' &&
-                  item.user_id == formData.offic.dean_id
-                "
-                :src="getUploadURL(item.user_signature)"
-                class="h-[50px] w-[170px]"
-                alt="user signature"
-              />
+            <div v-for="item in formData.signatureOffice" :key="item" class="-mt-4">
+              <img v-if="
+                item.user_role == 'dean' &&
+                item.user_id == formData.offic.dean_id
+              " :src="getUploadURL(item.user_signature)" class="h-[50px] w-[170px]" alt="user signature" />
             </div>
             <p>คณบดี</p>
           </div>
-          <div v-for="item in formData.signatureOffice"
-              :key="item">
-          <p v-if="
-                  item.user_role == 'dean' &&
-                  item.user_id == formData.offic.dean_id
-                ">
-                ({{ item.user_position }} {{ item.user_name}}) </p>
+          <div v-for="item in formData.signatureOffice" :key="item">
+            <p v-if="
+              item.user_role == 'dean' &&
+              item.user_id == formData.offic.dean_id
+            ">
+              ({{ item.user_position }} {{ item.user_name }}) </p>
           </div>
           <p>{{ formatThaiDate(formData.offic.dean_doc_submit_date) }}</p>
         </div>
@@ -531,28 +404,15 @@
 
     <div class="flex flex-row text-[13px] pt-3 gap-4">
       <p class="font-bold">ผลการพิจารณา</p>
-      <input
-        type="radio"
-        disabled="false"
-        :checked="formData.offic.p_approve_result == 'approve' ? true : false"
-      />
+      <input type="radio" disabled="false" :checked="formData.offic.p_approve_result == 'approve' ? true : false" />
       <span>อนุมัติ</span>
-      <input
-        type="radio"
-        disabled="false"
-        :checked="
-          formData.offic.p_approve_result == 'notApproved' ? true : false
-        "
-      />
+      <input type="radio" disabled="false" :checked="formData.offic.p_approve_result == 'notApproved' ? true : false
+        " />
       <span>ไม่อนุมัติ</span>
       <p v-if="formData.offic.p_approve_result == 'notApproved'">เนื่องจาก</p>
     </div>
     <div class="flex flex-row text-[13px] pt-3 gap-4 px-[100px]">
-      <input
-        type="radio"
-        disabled="false"
-        :checked="formData.offic.p_approve_result == 'other' ? true : false"
-      />
+      <input type="radio" disabled="false" :checked="formData.offic.p_approve_result == 'other' ? true : false" />
       <span>other</span>
       <p v-if="formData.offic.p_approve_result == 'other'">เนื่องจาก</p>
     </div>
@@ -560,25 +420,19 @@
       <div class="flex flex-row gap-1 py-3">
         <p>ลงนาม</p>
         <div v-for="item in formData.signatureOffice" :key="item" class="-mt-4">
-          <img
-            v-if="
-              item.user_role == 'dean' && item.user_id == formData.offic.dean_id
-            "
-            :src="getUploadURL(item.user_signature)"
-            class="h-[50px] w-[170px]"
-            alt="user signature"
-          />
+          <img v-if="
+            item.user_role == 'dean' && item.user_id == formData.offic.dean_id
+          " :src="getUploadURL(item.user_signature)" class="h-[50px] w-[170px]" alt="user signature" />
         </div>
         <p>คณบดี</p>
       </div>
-      <div v-for="item in formData.signatureOffice"
-              :key="item">
-          <p v-if="
-                  item.user_role == 'dean' &&
-                  item.user_id == formData.offic.dean_id
-                ">
-                ({{ item.user_position }} {{ item.user_name}}) </p>
-          </div>
+      <div v-for="item in formData.signatureOffice" :key="item">
+        <p v-if="
+          item.user_role == 'dean' &&
+          item.user_id == formData.offic.dean_id
+        ">
+          ({{ item.user_position }} {{ item.user_name }}) </p>
+      </div>
       <p>{{ formatThaiDate(formData.offic.dean_doc_submit_date) }}</p>
     </div>
     <div class="flex flex-row container my-10 mx-auto gap-3 justify-end">
@@ -590,10 +444,7 @@
         </router-link>
       </div>
       <div class="flex no-print">
-        <button
-          onclick="window.print()"
-          class="btn text-white bg-[#4285F4] hover:bg-[#4285F4]"
-        >
+        <button onclick="window.print()" class="btn text-white bg-[#4285F4] hover:bg-[#4285F4]">
           พิมพ์แบบฟอร์ม
         </button>
       </div>
@@ -626,7 +477,7 @@ const formData = reactive({
 
 const formatThaiDate = (dateString) => {
   if (!dateString) return "ไม่พบวันที่";
-  
+
   const date = new Date(dateString);
   const months = [
     "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.",
@@ -744,19 +595,24 @@ onMounted(async () => {
   img {
     object-fit: cover;
   }
+
   .no-print {
     display: none !important;
   }
+
   @page {
     margin: 0;
   }
+
   body {
     margin: 0;
   }
+
   header,
   footer {
     display: none;
   }
+
   .page-break {
     page-break-before: always;
   }

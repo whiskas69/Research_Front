@@ -5,48 +5,27 @@
       <input type="checkbox" />
       <p class="collapse-title text-lg font-bold">Page Change</p>
       <SectionWrapper class="collapse-content">
-        <TextInputLabelLeft
-          label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Nature"
-          customLabel="w-4/12 mr-2"
-          v-model="formData.pageChange.natureAmount"
-          />
+        <TextInputLabelLeft label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Nature" customLabel="w-4/12 mr-2"
+          v-model="formData.pageChange.natureAmount" />
         <SectionWrapper>
           <p>วารสารอยู่ในฐานข้อมูลสากล ISI, SJR หรือ Scopus</p>
           <SectionWrapper>
             <p>ถ้าวารสารเป็นของสำนักพิมพ์ MDPI, Frontiers, Hindawi</p>
-            <TextInputLabelLeft
-              label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 1"
-              customLabel="w-4/12 mr-2"
-              v-model="formData.pageChange.mdpiFrontiersHindawi.quartile1"
-            />
-            <TextInputLabelLeft
-              label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 2"
-              customLabel="w-4/12 mr-2"
-              v-model="formData.pageChange.mdpiFrontiersHindawi.quartile2"
-            />
+            <TextInputLabelLeft label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 1" customLabel="w-4/12 mr-2"
+              v-model="formData.pageChange.mdpiFrontiersHindawi.quartile1" />
+            <TextInputLabelLeft label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 2" customLabel="w-4/12 mr-2"
+              v-model="formData.pageChange.mdpiFrontiersHindawi.quartile2" />
           </SectionWrapper>
           <SectionWrapper>
             <p>ถ้าวารสารเป็นของสำนักพิมพ์other</p>
-            <TextInputLabelLeft
-              label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 1"
-              customLabel="w-4/12 mr-2"
-              v-model="formData.pageChange.otherPublisher.quartile1"
-            />
-            <TextInputLabelLeft
-              label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 2"
-              customLabel="w-4/12 mr-2"
-              v-model="formData.pageChange.otherPublisher.quartile2"
-            />
-            <TextInputLabelLeft
-              label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 3"
-              customLabel="w-4/12 mr-2"
-              v-model="formData.pageChange.otherPublisher.quartile3"
-            />
-            <TextInputLabelLeft
-              label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 4"
-              customLabel="w-4/12 mr-2"
-              v-model="formData.pageChange.otherPublisher.quartile4"
-            />
+            <TextInputLabelLeft label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 1" customLabel="w-4/12 mr-2"
+              v-model="formData.pageChange.otherPublisher.quartile1" />
+            <TextInputLabelLeft label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 2" customLabel="w-4/12 mr-2"
+              v-model="formData.pageChange.otherPublisher.quartile2" />
+            <TextInputLabelLeft label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 3" customLabel="w-4/12 mr-2"
+              v-model="formData.pageChange.otherPublisher.quartile3" />
+            <TextInputLabelLeft label="จำนวนเงินที่เบิกได้เมื่ออยู่ใน Quartile 4" customLabel="w-4/12 mr-2"
+              v-model="formData.pageChange.otherPublisher.quartile4" />
           </SectionWrapper>
         </SectionWrapper>
         <div class="flex justify-end mx-10">
@@ -61,40 +40,22 @@
       <input type="checkbox" />
       <p class="collapse-title text-lg font-bold">Conference</p>
       <SectionWrapper class="collapse-content">
-        <TextInputLabelLeft
-          label="จำนวนครั้งในการลามากที่สุด (ในประเทศไทย)"
-          customLabel="w-4/12 mr-2"
-          v-model="formData.conference.maxLeaveinThai"
-        />
-        <TextInputLabelLeft
-          label="จำนวนครั้งในการลามากที่สุด (ต่างประเทศ)"
-          customLabel="w-4/12 mr-2"
-          v-model="formData.conference.maxLeaveoutThai"
-        />
-        <TextInputLabelLeft
-          label="พนักงานที่ไม่เคยไปประชุมวิชาการ ต้องทำงานไม่เกินกี่ปี"
-          customLabel="w-4/12 mr-2"
-          v-model="formData.conference.workTimeYears"
-        />
-        <TextInputLabelLeft
-          label="วารสารใน WOS Q1 ,2 ,3 หรือ SJR Q1, 2 ไม่เกินกี่ปี"
-          customLabel="w-4/12 mr-2"
-          v-model="formData.conference.journalYears"
-        />
+        <TextInputLabelLeft label="จำนวนครั้งในการลามากที่สุด (ในประเทศไทย)" customLabel="w-4/12 mr-2"
+          v-model="formData.conference.maxLeaveinThai" />
+        <TextInputLabelLeft label="จำนวนครั้งในการลามากที่สุด (ต่างประเทศ)" customLabel="w-4/12 mr-2"
+          v-model="formData.conference.maxLeaveoutThai" />
+        <TextInputLabelLeft label="พนักงานที่ไม่เคยไปประชุมวิชาการ ต้องทำงานไม่เกินกี่ปี" customLabel="w-4/12 mr-2"
+          v-model="formData.conference.workTimeYears" />
+        <TextInputLabelLeft label="วารสารใน WOS Q1 ,2 ,3 หรือ SJR Q1, 2 ไม่เกินกี่ปี" customLabel="w-4/12 mr-2"
+          v-model="formData.conference.journalYears" />
         <SectionWrapper>
           <p>ระดับคะแนนคุณภาพของการประชุมวิชาการ (ดีมาก)</p>
           <SectionWrapper>
             <p></p>
-            <TextInputLabelLeft
-              label="คำนวณแบบ SJR ได้คะแนนไม่ต่ำกว่า"
-              customLabel="w-4/12 mr-2"
-              v-model="formData.conference.qualityScoreSJR"
-            />
-            <TextInputLabelLeft
-              label="คำนวณแบบ CIF ได้คะแนนไม่ต่ำกว่า"
-              customLabel="w-4/12 mr-2"
-              v-model="formData.conference.qualityScoreCIF"
-            />
+            <TextInputLabelLeft label="คำนวณแบบ SJR ได้คะแนนไม่ต่ำกว่า" customLabel="w-4/12 mr-2"
+              v-model="formData.conference.qualityScoreSJR" />
+            <TextInputLabelLeft label="คำนวณแบบ CIF ได้คะแนนไม่ต่ำกว่า" customLabel="w-4/12 mr-2"
+              v-model="formData.conference.qualityScoreCIF" />
             <!-- <TextInputLabelLeft
               label="คำนวณแบบ CORE ได้คะแนนไม่ต่ำกว่า"
               customLabel="w-4/12 mr-2"
@@ -107,21 +68,13 @@
           <p>การเบิกค่าใช้จ่าย (100%)</p>
           <SectionWrapper>
             <p></p>
-            <TextInputLabelLeft
-              label="ประเทศใกล้เคียง (ASEAN) ได้เบิก"
-              customLabel="w-4/12 mr-2"
-              v-model="formData.conference.expense100ASEAN"
-            />
-            <TextInputLabelLeft
-              label="ประเทศเอเชีย ได้เบิก"
-              customLabel="w-4/12 mr-2"
-              v-model="formData.conference.expense100Asia"
-            />
+            <TextInputLabelLeft label="ประเทศใกล้เคียง (ASEAN) ได้เบิก" customLabel="w-4/12 mr-2"
+              v-model="formData.conference.expense100ASEAN" />
+            <TextInputLabelLeft label="ประเทศเอเชีย ได้เบิก" customLabel="w-4/12 mr-2"
+              v-model="formData.conference.expense100Asia" />
             <TextInputLabelLeft
               label="ประเทศประเทศในโซนยุโรป หรือ อเมริกาเหนือ หรือ อเมริกาใต้ หรือ ออสเตรเลีย หรือ แอฟริกา ได้เบิก"
-              customLabel="w-4/12 mr-2"
-              v-model="formData.conference.expense100EuropeAmericaAustraliaAfrica"
-            />
+              customLabel="w-4/12 mr-2" v-model="formData.conference.expense100EuropeAmericaAustraliaAfrica" />
           </SectionWrapper>
         </SectionWrapper>
 
@@ -129,21 +82,13 @@
           <p>การเบิกค่าใช้จ่าย (50%)</p>
           <SectionWrapper>
             <p></p>
-            <TextInputLabelLeft
-              label="ประเทศใกล้เคียง (ASEAN) ได้เบิก"
-              customLabel="w-4/12 mr-2"
-              v-model="formData.conference.expense50ASEAN"
-            />
-            <TextInputLabelLeft
-              label="ประเทศเอเชีย ได้เบิก"
-              customLabel="w-4/12 mr-2"
-              v-model="formData.conference.expense50Asia"
-            />
+            <TextInputLabelLeft label="ประเทศใกล้เคียง (ASEAN) ได้เบิก" customLabel="w-4/12 mr-2"
+              v-model="formData.conference.expense50ASEAN" />
+            <TextInputLabelLeft label="ประเทศเอเชีย ได้เบิก" customLabel="w-4/12 mr-2"
+              v-model="formData.conference.expense50Asia" />
             <TextInputLabelLeft
               label="ประเทศประเทศในโซนยุโรป, อเมริกาเหนือ, อเมริกาใต้, ออสเตรเลีย หรือ แอฟริกา ได้เบิก"
-              customLabel="w-4/12 mr-2"
-              v-model="formData.conference.expense50EuropeAmericaAustraliaAfrica"
-            />
+              customLabel="w-4/12 mr-2" v-model="formData.conference.expense50EuropeAmericaAustraliaAfrica" />
           </SectionWrapper>
         </SectionWrapper>
         <div class="flex justify-end mx-10">
@@ -280,15 +225,15 @@ const submitCF = async () => {
       ),
     };
 
-    
+
     console.log("Submitting page change data:", dataForBackend);
-    
+
     const response = await api.post("/ConditionCF", dataForBackend);
     alert("บันทึกข้อมูลสำเร็จ");
   } catch (error) {
     console.error("Error submitting conference data:", error);
     alert("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
-    
+
   }
 }
 

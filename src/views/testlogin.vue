@@ -1,8 +1,6 @@
 <template>
-  <div
-    class="fixed inset-0 overflow-hidden bg-cover bg-center flex justify-center items-center"
-    style="background-image: url('/rass/images/background.png')"
-  >
+  <div class="fixed inset-0 overflow-hidden bg-cover bg-center flex justify-center items-center"
+    style="background-image: url('/rass/images/background.png')">
     <div class="text-center bg-white w-1/4 rounded-md drop-shadow-lg p-5">
       <p class="text-2xl leading-relaxed">RESEARCH ADMINISTRATION</p>
       <p class="text-xl leading-relaxed">ระบบสนับสนุนงานบริหารงานวิจัย</p>
@@ -10,16 +8,9 @@
         <hr class="w-5/6" />
       </div>
       <div class="flex justify-center">
-        <TextInputLabelLeft
-          label="อีเมล"
-          customLabel="w-[20%]"
-          customInput="max-w-[100%]"
-          customDiv="flex justify-center items-center max-w-[80%]"
-          v-model="email"
-          type="email"
-          required
-          placeholder="กรุณากรอกอีเมล"
-        />
+        <TextInputLabelLeft label="อีเมล" customLabel="w-[20%]" customInput="max-w-[100%]"
+          customDiv="flex justify-center items-center max-w-[80%]" v-model="email" type="email" required
+          placeholder="กรุณากรอกอีเมล" />
       </div>
       <button class="btn w-[80%] bg-blue-500 text-white mt-3" @click="login">
         เข้าสู่ระบบ
