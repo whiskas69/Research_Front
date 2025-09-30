@@ -49,7 +49,7 @@
           <TextInputLabelLeft
             label="วงเงินที่คณะจัดสรรไว้ คงเหลือ"
             customInput="max-w-max text-center"
-            :placeholder="parseFloat(caltotalFaculty).toLocaleString('en-US', { minimumFractionDigits: 0 })"
+            :placeholder="caltotalFaculty"
             v-model="formData.caltotalFaculty"
           />
           <p class="flex items-center w-12">บาท</p>
@@ -71,7 +71,7 @@
           <TextInputLabelLeft
             label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น"
             customInput="max-w-max text-center"
-            :placeholder="parseFloat(caltotalFacultyNow).toLocaleString('en-US', { minimumFractionDigits: 0 })"
+            :placeholder="caltotalFacultyNow"
             v-model="formData.totalcreditLimit"
           />
           <p class="flex items-center w-12">บาท</p>
