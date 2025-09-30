@@ -300,6 +300,8 @@ const OfficerConfer = async () => {
           statusMap[formData.radioAuthOffic] || formData.radioAuthOffic,
         returnto:
           formData.radioAuthOffic === "return_professor" ? "professor" : null,
+          return_note : formData.commentReason || null,
+          past_return : formData.radioAuthOffic === "return_professor" ? "research" : null
       };
 
       await api.post("/opinionConf", dataForBackend);

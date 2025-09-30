@@ -66,7 +66,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, computed } from "vue";
+import { reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, requiredIf } from "@vuelidate/validators";
@@ -116,7 +116,7 @@ const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
 const statusMap = {
-  approve: "finance",
+  approve: "dean",
   notApproved: "notApproved",
   return_professor: "return",
   return_hr: "return",
@@ -160,7 +160,9 @@ const OfficerConfer = async () => {
           { field : 'associate_doc_submit_date', value : formData.docSubmitDate },
         ],
         form_status: statusMap[formData.agree],
-        returnto: returnMap[formData.agree]
+        returnto: returnMap[formData.agree],
+        return_note: formData.commentReason || null,
+        past_return: statusMap[formData.agree] == 'return' ? user.value?.user_role : null
       };
 
       await api.put(`/opinionConf/${id}`, dataForBackend);

@@ -75,7 +75,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, computed } from "vue";
+import { reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, requiredIf } from "@vuelidate/validators";
@@ -94,7 +94,6 @@ import FinanceAll from "@/components/form/DataforOffice/FinanceAll.vue";
 import Assosiate from "@/components/form/DataforOffice/Assosiate.vue";
 
 const formData = reactive({
-  offic: [],
   docSubmitDate: DateTime.now().toISODate(),
   acknowledge: "",
   commentReason: "",
@@ -128,7 +127,7 @@ const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
 const statusMap = {
-  approve: "finance",
+  approve: "waitingApproval",
   notApproved: "notApproved",
   return_professor: "return",
   return_hr: "return",
@@ -175,7 +174,9 @@ const OfficerConfer = async () => {
           { field : 'dean_doc_submit_date', value : formData.docSubmitDate },
         ],
         form_status: statusMap[formData.acknowledge],
-        returnto: returnMap[formData.acknowledge]
+        returnto: returnMap[formData.acknowledge],
+        return_note: formData.commentReason || null,
+        past_return: statusMap[formData.acknowledge] == 'return' ? user.value?.user_role : null
       };
 
       await api.put(`/opinionConf/${id}`, dataForBackend);

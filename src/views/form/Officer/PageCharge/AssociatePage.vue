@@ -1,48 +1,68 @@
 <template>
-  <div>
-    <div class="container my-10 mx-auto">
-      <PageChageData :id="id" />
-      <Research :id="id" :type="'Page_Charge'" />
-      <FinanceAll :id="id" :type="'Page_Charge'" />
-      <Mainbox>
-        <SectionWrapper>
-          <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
-          <RadioInput
-            label="เห็นชอบ"
-            value="agree"
-            name="comment"
-            v-model="formData.agree"
-          />
-          <RadioInput
-            label="ไม่เห็นชอบ"
-              value="disagree"
-              name="comment"
-            v-model="formData.agree"
-          /> 
+<div class="container my-10 mx-auto">
+  <PageChageData :id="id" />
+  <Research :id="id" :type="'Page_Charge'" />
+  <FinanceAll :id="id" :type="'Page_Charge'" />
+  <Mainbox>
+    <SectionWrapper>
+      <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
+      <RadioInput
+        label="เห็นชอบ"
+        value="approve"
+        name="comment"
+        v-model="formData.agree"
+      />
+      <RadioInput
+        label="ไม่เห็นชอบ"
+        value="notApproved"
+        name="comment"
+        v-model="formData.agree"
+      />
+      <RadioInput
+        label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
+        value="return_professor"
+        name="comment"
+        v-model="formData.agree"
+      />
+      <RadioInput
+        label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล"
+        value="return_research"
+        name="comment"
+        v-model="formData.agree"
+      />
+      <RadioInput
+        label="ตีกลับเจ้าหน้าที่การเงินเพื่อแก้ไขข้อมูล"
+        value="return_finance"
+        name="comment"
+        v-model="formData.agree"
+      />
+      <span v-if="v$.agree.$error" class="text-base font-bold text-red-500 text-left">
+        {{ v$.agree.$errors[0].$message }}
+      </span>
 
-          <span
-            v-if="v$.agree.$error"
-            class="text-base font-bold text-red-500 text-left"
-          >
-            {{ v$.agree.$errors[0].$message }}
-          </span>
-        </SectionWrapper>
-      </Mainbox>
-
-      <div class="flex justify-end">
-        <button @click="OfficerPC" class="btn btn-success text-white">
-          บันทึกข้อมูล
-        </button>
-      </div>
-    </div>
+      <textarea
+        class="textarea textarea-bordered w-full"
+        @input="handleInput('commentReason', $event.target.value)"
+      ></textarea>
+      <span v-if="v$.commentReason.$error" class="text-base font-bold text-red-500 text-left">
+        {{ v$.commentReason.$errors[0].$message }}
+      </span>
+    </SectionWrapper>
+  </Mainbox>
+  
+  <div class="flex justify-end">
+    <button @click="OfficerPC" class="btn btn-success text-white">
+      บันทึกข้อมูล
+    </button>
+  </div>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, computed } from "vue";
+import { reactive, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
-import { required, helpers } from "@vuelidate/validators";
+import { required, helpers, requiredIf } from "@vuelidate/validators";
 import { DateTime } from "luxon";
 
 import { useUserStore } from "@/store/userStore";
@@ -56,19 +76,30 @@ import Research from "@/components/form/DataforOffice/Research.vue";
 import FinanceAll from "@/components/form/DataforOffice/FinanceAll.vue";
 
 const formData = reactive({
-  offic: [],
   docSubmitDate: DateTime.now().toISODate(),
-  statusForm: "dean",
   agree: "",
+  commentReason: "",
+  returnto: ""
 });
 
 const handleInput = (key, value) => {
   formData[key] = value;
 };
 
-//isLoading เพื่อแสดงสถานะว่ากำลังโหลดข้อมูล
-const isLoading = ref(true);
-// Access route parameters
+const rules = computed(() => ({
+  agree: {
+    required: helpers.withMessage("* กรุณาเลือกข้อมูล *", required),
+  },
+  commentReason: {
+      required: helpers.withMessage(
+        "* กรุณากรอกข้อมูล *",
+        requiredIf(() => formData.agree !== "approve")
+      ),
+    },
+}));
+
+const v$ = useVuelidate(rules, formData);
+
 const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
@@ -76,25 +107,29 @@ const id = route.params.id;
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
-// ตัวแปรสำหรับเก็บข้อมูลจาก backend
-const fetchProfessorData = async () => {
-  try {
-    const responseoffic = await api.get(`/opinionPC/${id}`);
-    formData.offic = responseoffic.data;
-  } catch (error) {
-    console.log("Error fetching professor data:", error);
-  } finally {
-    isLoading.value = false;
-  }
-};
+const statusMap = {
+  approve: "dean",
+  notApproved: "notApproved",
+  return_professor: "return",
+  return_research: "return",
+  return_finance: "return",
+}
 
-const rules = computed(() => ({
-  agree: {
-    required: helpers.withMessage("* กรุณากรอกความคิดเห็น *", required),
-  },
-}));
+const returnMap = {
+  approve: null,
+  notApproved: null,
+  return_professor: "professor",
+  return_research: "research",
+  return_finance: "finance",
+}
 
-const v$ = useVuelidate(rules, formData);
+const resultMap = {
+  approve: "approve",
+  notApproved: "notApproved",
+  return_professor: "return",
+  return_research: "return",
+  return_finance: "return",
+}
 
 const OfficerPC = async () => {
   const result = await v$.value.$validate();
@@ -106,21 +141,20 @@ const OfficerPC = async () => {
 
     try {
       const dataForBackend = {
-        research_id: formData.offic.research_id,
         pageC_id: id,
-        p_research_admin: formData.offic.p_research_admin,
-        p_reason: formData.offic.p_reason,
-        p_date_accepted_approve: DateTime.fromISO(formData.offic.p_date_accepted_approve).toISODate(),
-        research_doc_submit_date: DateTime.fromISO(
-          formData.offic.research_doc_submit_date
-        ).toISODate(),
-        associate_id: user.value?.user_id,
-        p_deputy_dean: formData.agree,
-        associate_doc_submit_date: formData.docSubmitDate,
-        form_status: formData.statusForm,
+        updated_data: [
+          { field : 'associate_id', value : user.value?.user_id },
+          { field : 'p_associate_result', value : resultMap[formData.agree] },
+          { field : 'p_associate_reason', value : formData.commentReason },
+          { field : 'associate_doc_submit_date', value : formData.docSubmitDate },
+        ],
+        form_status: statusMap[formData.agree],
+        return_to: returnMap[formData.agree],
+        return_note: formData.commentReason || null,
+        past_return: statusMap[formData.agree] == 'return' ? user.value?.user_role : null
       };
 
-      const response = await api.put(`/opinionPC/${id}`, dataForBackend);
+      await api.put(`/opinionPC/${id}`, dataForBackend);
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
       router.push("/officer");
     } catch (error) {
@@ -133,8 +167,4 @@ const OfficerPC = async () => {
     console.log("Validation failed:", v$.value.$errors);
   }
 };
-
-onMounted(async () => {
-  await fetchProfessorData();
-});
 </script>

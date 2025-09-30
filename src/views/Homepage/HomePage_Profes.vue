@@ -4,7 +4,8 @@
     <div class="container my-10 mx-auto">
       <p class="text-xl font-bold pb-5">เอกสารที่ต้องการยื่น</p>
       <!-- box first -->
-      <div class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer" :class="{
+      <div class="my-5 py-2 border border-[#D9D9D9] rounded-md text-black hover:cursor-pointer" 
+        :class="{
         'hover:cursor-pointer': data.formConfer < 2,
         'opacity-50 pointer-events-none': data.formConfer >= 2,
       }">
@@ -114,6 +115,7 @@
       </div>
 
       <div v-for="returnForm in data.returnForm" :key="returnForm.form_id">
+        {{ returnForm }}
         <div class="p-5 shadow my-5 rounded-xl hover:cursor-pointer mb-2" v-if="returnForm.form_type == 'Page_Charge'">
           <router-link :to="`/modifiedPageCharge/${returnForm.pageC_id}`">
             <h2 class="text-lg font-bold">
@@ -132,7 +134,7 @@
                 </div>
                 <div class="flex">
                   <h4 class="mr-5">
-                    คอมเม้นการตีกลับ : {{ returnForm.return_note }}
+                    เหตุผลการตีกลับ : {{ returnForm.return_note }}
                   </h4>
                 </div>
               </div>
@@ -159,7 +161,7 @@
                 </div>
                 <div class="flex">
                   <h4 class="mr-5">
-                    คอมเม้นการตีกลับ : {{ returnForm.return_note }}
+                    เหตุผลการตีกลับ : {{ returnForm.return_note }}
                   </h4>
                 </div>
               </div>

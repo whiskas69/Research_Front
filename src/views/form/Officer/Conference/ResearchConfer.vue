@@ -220,6 +220,8 @@ const OfficerConfer = async () => {
         ],
         form_status: statusMap[formData.radioAuthOffic],
         returnto: returnMap[formData.radioAuthOffic],
+        return_note : formData.commentReason || null,
+        past_return : statusMap[formData.radioAuthOffic] == 'return' ? user.value?.user_role : null
       };
 
       await api.put(`/opinionConf/${id}`, dataForBackend);
