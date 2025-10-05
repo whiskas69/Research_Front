@@ -230,7 +230,9 @@ const fetchOfficerData = async () => {
   }
 };
 
-const currentYear = computed(() => DateTime.now().year + 543);
+const now = new Date();
+    let fiscalYear = now.getFullYear() + 543;
+    if (now.getMonth() + 1 >= 10) fiscalYear += 1;
 
 const rules = computed(() => ({
   year: {
@@ -239,12 +241,12 @@ const rules = computed(() => ({
       required
     ),
     minValue: helpers.withMessage(
-      `* ปีงบประมาณต้องไม่ต่ำกว่า ${currentYear.value - 1} *`,
-      minValue(currentYear.value - 1)
+      `* ปีงบประมาณต้องไม่ต่ำกว่า ${fiscalYear - 1} *`,
+      minValue(fiscalYear - 1)
     ),
     maxValue: helpers.withMessage(
-      `* ปีงบประมาณต้องไม่เกิน ${currentYear.value} *`,
-      maxValue(currentYear.value)
+      `* ปีงบประมาณต้องไม่เกิน ${fiscalYear} *`,
+      maxValue(fiscalYear)
     ),
   },
   totalAll: {

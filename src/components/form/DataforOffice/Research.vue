@@ -186,7 +186,7 @@
       </Mainbox>
       <p class="text-xl font-bold my-5">ตรวจสอบข้อมูลและหลักฐาน</p>
       <Mainbox
-        v-if="formData.offic.p_research_admin"
+        v-if="formData.offic.p_research_result"
         class="collapse collapse-arrow collapse-open"
       >
         <input type="checkbox" />
@@ -195,43 +195,23 @@
         </p>
         <SectionWrapper class="collapse-content">
           <RadioInput
-            label="ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้"
+            label="ถูกต้องตามเงื่อนไขการสนับสนุน"
             value="approve"
             name="re"
             :disabled="true"
-            v-model="formData.offic.p_research_admin"
+            v-model="formData.offic.p_research_result"
           />
-          <textarea
-            v-if="formData.offic.p_research_admin == 'approve'"
-            class="textarea textarea-bordered w-full"
-            :disabled="true"
-            :placeholder="formData.offic.p_reason"
-          ></textarea>
           <RadioInput
-            label="ถูกต้องตามเงื่อนไขการสนับสนุน กรณีส่งหนังสือตอบรับย้อนหลัง ดังนี้"
-            value="waiting letter"
+            label="ไม่ถูกต้อง"
+            value="notApproved"
             name="re"
             :disabled="true"
-            v-model="formData.offic.p_research_admin"
+            v-model="formData.offic.p_research_result"
           />
           <textarea
-            v-if="formData.offic.p_research_admin == 'waiting letter'"
             class="textarea textarea-bordered w-full"
             :disabled="true"
-            :placeholder="formData.offic.p_reason"
-          ></textarea>
-          <RadioInput
-            label="อื่น ๆ"
-            value="other"
-            name="re"
-            :disabled="true"
-            v-model="formData.offic.p_research_admin"
-          />
-          <textarea
-            v-if="formData.offic.p_research_admin == 'other'"
-            class="textarea textarea-bordered w-full"
-            :disabled="true"
-            :placeholder="formData.offic.p_reason"
+            :placeholder="formData.offic.p_research_reason"
           ></textarea>
         </SectionWrapper>
       </Mainbox>
