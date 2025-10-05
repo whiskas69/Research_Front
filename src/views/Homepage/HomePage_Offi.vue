@@ -64,45 +64,60 @@ const roleResearchKRISMap = {
 
 const fetchOfficerData = async () => {
   try {
-    const responseOffice = await api.get("/allForms");
-    // ตรวจสอบว่ามีข้อมูลก่อน
+    // คำนวณปีงบประมาณปัจจุบัน (พ.ศ.)
+    const now = new Date();
+    let fiscalYear = now.getFullYear() + 543;
+    if (now.getMonth() + 1 >= 10) fiscalYear += 1;
+
+    // กำหนด typeStatus ตาม role
+    let typeStatus = userStore.user.user_role;
+    if (typeStatus === "finance") {
+      typeStatus = "finance,pending";
+    }
+
+    // 🧾 ส่ง query ไป backend
+    const responseOffice = await api.get("/allForms", {
+      params: {
+        fiscalYear,
+        type: "all",
+        typeStatus,
+      },
+    });
+
     if (!responseOffice.data || !Array.isArray(responseOffice.data)) {
       console.log("Invalid forms data");
       return;
     }
 
-    // ค้นหาทุก form ที่ตรงกับเงื่อนไข
-    // กรองข้อมูลตาม user role
+    // 🧩 กรองข้อมูลตาม role
     let filteredForms = responseOffice.data.filter((form) => {
-      if (userStore.user.user_role === "hr") {
-        return form.form_status === "hr";
+      const role = userStore.user.user_role;
+      switch (role) {
+        case "hr":
+          return form.form_status === "hr";
+        case "research":
+          return form.form_status === "research";
+        case "finance":
+          return form.form_status === "finance" || form.form_status === "pending";
+        case "associate":
+          return form.form_status === "associate";
+        case "dean":
+          return form.form_status === "dean";
+        default:
+          return false;
       }
-      if (userStore.user.user_role === "research") {
-        return form.form_status === "research";
-      }
-      if (userStore.user.user_role === "finance") {
-        return form.form_status === "finance" || form.form_status === "pending";
-      }
-      if (userStore.user.user_role === "associate") {
-        return form.form_status === "associate";
-      }
-      if (userStore.user.user_role === "dean") {
-        return form.form_status === "dean";
-      }
-      return false;
     });
 
     listForm.forms = filteredForms;
 
     console.log("Filtered Forms:", responseOffice.data);
     console.log("User Role:", userStore.user.user_role);
+
     listForm.return = responseOffice.data.filter(
       (form) => form.form_status === "return" && form.return_to === userStore.user.user_role
     );
-
-    console.log("Returned Forms:", listForm.return);
   } catch (error) {
-    console.log("Error fetching Officer data:", error);
+    console.error("Error fetching Officer data:", error);
   } finally {
     isLoading.value = false;
   }

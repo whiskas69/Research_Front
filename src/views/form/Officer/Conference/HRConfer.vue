@@ -184,6 +184,7 @@ const getDataConf = async () => {
   }
   try {
     const responsefile = await api.get(`/getFileConf?conf_id=${id}`);
+    console.log("responsefile", responsefile.data)
 
     formData.date_journals = responsefile.data.date_published_journals;
     formData.f_full_page = responsefile.data.file_full_page;

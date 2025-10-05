@@ -106,30 +106,11 @@ const pulldata = async () => {
         ),
       };
     });
+    console.log("data.allForm",data.allForm)
   } catch (error) {
     console.error(error);
 
     alert("ไม่มีเอกสาร");
-  }
-};
-
-const showTHstatus = (status) => {
-  if (status == "approve") {
-    return "อนุมัติ";
-  } else if (status == "notApproved") {
-    return "ไม่อนุมัติ";
-  } else if (status == "hr") {
-    return "ฝ่ายบริหารทรัพยากรบุคคล";
-  } else if (status == "research") {
-    return "ฝ่ายบริหารงานวิจัย";
-  } else if (status == "finance" || status == "pending") {
-    return "ฝ่ายบริหารการเงิน";
-  } else if (status == "associate") {
-    return "รองคณบดี";
-  } else if (status == "dean") {
-    return "คณบดี";
-  } else if (status == "waitingApproval") {
-    return "รออนุมัติ";
   }
 };
 
