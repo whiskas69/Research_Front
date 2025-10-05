@@ -8,9 +8,15 @@
         <div class="flex flex-row items-center w-full">
           <div class="flex flex-row items-center w-full justify-between">
             <div class="flex flex-row">
-              <p>หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ Nature</p>
+              <p>
+                หลักฐานแสดงการอยู่ในฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus หรือ
+                Nature
+              </p>
             </div>
-            <button @click="getFile(formData.f_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
+            <button
+              @click="getFile(formData.f_pc_proof)"
+              class="btn bg-[#E85F19] text-white mr-5"
+            >
               ดูเอกสาร
             </button>
           </div>
@@ -18,9 +24,15 @@
         <div class="flex flex-row items-center w-full">
           <div class="flex flex-row items-center w-full justify-between">
             <div class="flex flex-row">
-              <p>หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR หรือ Scopus</p>
+              <p>
+                หลักฐานแสดงการจัดลำดับ Quartile ของฐานข้อมูลสากล ISI หรือ SJR
+                หรือ Scopus
+              </p>
             </div>
-            <button @click="getFile(formData.f_q_pc_proof)" class="btn bg-[#E85F19] text-white mr-5">
+            <button
+              @click="getFile(formData.f_q_pc_proof)"
+              class="btn bg-[#E85F19] text-white mr-5"
+            >
               ดูเอกสาร
             </button>
           </div>
@@ -28,9 +40,15 @@
         <div class="flex flex-row items-center w-full">
           <div class="flex flex-row items-center w-full justify-between">
             <div class="flex flex-row">
-              <p>ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ / อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์</p>
+              <p>
+                ใบแจ้งหนี้ค่าใช้จ่ายสำหรับการตีพิมพ์ /
+                อัตราค่าใช้จ่ายที่ประกาศบนหน้าเว็บไซต์
+              </p>
             </div>
-            <button @click="getFile(formData.f_invoice_public)" class="btn bg-[#E85F19] text-white mr-5">
+            <button
+              @click="getFile(formData.f_invoice_public)"
+              class="btn bg-[#E85F19] text-white mr-5"
+            >
               ดูเอกสาร
             </button>
           </div>
@@ -38,7 +56,10 @@
         <div class="flex flex-row items-center w-full">
           <div class="flex flex-row items-center w-full justify-between">
             <p>หลักฐานการส่งบทความ หนังสือตอบรับบทความ</p>
-            <button @click="getFile(formData.f_accepted)" class="btn bg-[#E85F19] text-white mr-5">
+            <button
+              @click="getFile(formData.f_accepted)"
+              class="btn bg-[#E85F19] text-white mr-5"
+            >
               ดูเอกสาร
             </button>
           </div>
@@ -46,7 +67,10 @@
         <div class="flex flex-row items-center w-full">
           <div class="flex flex-row items-center w-full justify-between">
             <p>สำเนาบทความ</p>
-            <button @click="getFile(formData.f_copy_article)" class="btn bg-[#E85F19] text-white mr-5">
+            <button
+              @click="getFile(formData.f_copy_article)"
+              class="btn bg-[#E85F19] text-white mr-5"
+            >
               ดูเอกสาร
             </button>
           </div>
@@ -54,7 +78,10 @@
         <div class="flex flex-row items-center w-full">
           <div class="flex flex-row items-center w-full justify-between">
             <p>หลักฐานการ Upload บทความเข้าระบบ IT Scholar</p>
-            <button @click="getFile(formData.f_upload_article)" class="btn bg-[#E85F19] text-white mr-5">
+            <button
+              @click="getFile(formData.f_upload_article)"
+              class="btn bg-[#E85F19] text-white mr-5"
+            >
               ดูเอกสาร
             </button>
           </div>
@@ -66,24 +93,55 @@
       <SectionWrapper>
         <p>ตรวจสอบหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ ส.จ.ล และประกาศคณะ</p>
         <div class="flex flex-row w-full justify-start items-center gap-2">
-          <RadioInput customDiv="max-w-max" label="ถูกต้องตามเงื่อนไขการสนับสนุน" value="approve" name="recheckinfo"
-            v-model="formData.radioAuthOffic" />
-          <TextInputLabelLeft label="ได้รับหนังสือตอบรับบทความ เมื่อวันที่" customLabel="mx-2" customInput="max-w-max"
-            customDiv="max-w-max" type="date" v-model="formData.dateAccep"
-            @input="handleInput('dateAccep', $event.target.value)" />
+          <RadioInput
+            customDiv="max-w-max"
+            label="ถูกต้องตามเงื่อนไขการสนับสนุน"
+            value="approve"
+            name="recheckinfo"
+            v-model="formData.radioAuthOffic"
+          />
+          <TextInputLabelLeft
+            label="ได้รับหนังสือตอบรับบทความ เมื่อวันที่"
+            customLabel="mx-2"
+            customInput="max-w-max"
+            customDiv="max-w-max"
+            type="date"
+            v-model="formData.dateAccep"
+            @input="handleInput('dateAccep', $event.target.value)"
+          />
         </div>
-        <RadioInput label="ไม่ถูกต้อง" value="notApproved" name="recheckinfo" v-model="formData.radioAuthOffic" />
-        <RadioInput label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล" value="return_professor" name="recheckinfo"
-          v-model="formData.radioAuthOffic" />
-        <textarea class="textarea textarea-bordered w-full"
-          @input="handleInput('commentReason', $event.target.value)"></textarea>
-        <span v-if="v$.radioAuthOffic.$error" class="text-base font-bold text-red-500 text-left">
+        <RadioInput
+          label="ไม่ถูกต้อง"
+          value="notApproved"
+          name="recheckinfo"
+          v-model="formData.radioAuthOffic"
+        />
+        <RadioInput
+          label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
+          value="return_professor"
+          name="recheckinfo"
+          v-model="formData.radioAuthOffic"
+        />
+        <textarea
+          class="textarea textarea-bordered w-full"
+          @input="handleInput('commentReason', $event.target.value)"
+        ></textarea>
+        <span
+          v-if="v$.radioAuthOffic.$error"
+          class="text-base font-bold text-red-500 text-left"
+        >
           {{ v$.radioAuthOffic.$errors[0].$message }}
         </span>
-        <span v-if="v$.dateAccep.$error" class="text-base font-bold text-red-500 text-left">
+        <span
+          v-if="v$.dateAccep.$error"
+          class="text-base font-bold text-red-500 text-left"
+        >
           {{ v$.dateAccep.$errors[0].$message }}
         </span>
-        <span v-if="v$.commentReason.$error" class="text-base font-bold text-red-500 text-left">
+        <span
+          v-if="v$.commentReason.$error"
+          class="text-base font-bold text-red-500 text-left"
+        >
           {{ v$.commentReason.$errors[0].$message }}
         </span>
       </SectionWrapper>
@@ -129,6 +187,8 @@ const formData = reactive({
   radioAuthOffic: "",
   commentReason: "",
   dateAccep: "",
+
+  olddata: "",
 });
 
 const handleInput = (key, value) => {
@@ -139,7 +199,6 @@ const today = DateTime.now().toISODate();
 
 const maxDateToday = (condition) =>
   helpers.withMessage("* วันที่ต้องไม่เกินวันนี้ *", (value) => {
-
     if (!condition()) return true;
     if (!value) return true;
 
@@ -151,7 +210,8 @@ const rules = computed(() => ({
     required: helpers.withMessage("* กรุณาเลือกข้อมูล *", required),
   },
   dateAccep: {
-    required: helpers.withMessage("* กรุณากรอกวันที่อนุมัติ *",
+    required: helpers.withMessage(
+      "* กรุณากรอกวันที่อนุมัติ *",
       requiredIf(() => formData.radioAuthOffic === "approve")
     ),
     maxDateToday: maxDateToday(() => formData.radioAuthOffic === "approve"),
@@ -171,15 +231,16 @@ const getDataPc = async () => {
     alert("โปรดเข้าสู่ระบบใหม่อีกครั้ง");
   }
   try {
-    const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
+    const responseData = await api.get(`/formPageCharge/${id}`);
+    formData.olddata = responseData.data;
 
+    const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
     formData.f_pc_proof = responsefile.data.file_pc_proof;
     formData.f_q_pc_proof = responsefile.data.file_q_pc_proof;
     formData.f_invoice_public = responsefile.data.file_invoice_public;
     formData.f_accepted = responsefile.data.file_accepted;
     formData.f_copy_article = responsefile.data.file_copy_article;
     formData.f_upload_article = responsefile.data.file_upload_article;
-
   } catch (error) {
     console.log("Error", error);
   }
@@ -199,7 +260,7 @@ const user = computed(() => userStore.user);
 
 const statusMap = {
   approve: "finance",
-  return_professor: "return"
+  return_professor: "return",
 };
 
 const OfficerPC = async () => {
@@ -210,28 +271,51 @@ const OfficerPC = async () => {
       return false;
     }
 
-    try {
-      const dataForBackend = {
-        research_id: user.value?.user_id,
-        pageC_id: id,
-        p_research_result: formData.radioAuthOffic,
-        p_research_reason: formData.commentReason,
-        p_date_accepted_approve: formData.dateAccep || null,
-        research_doc_submit_date: formData.docSubmitDate,
+    if (formData.olddata.form_status != "return") {
+      try {
+        const dataForBackend = {
+          research_id: user.value?.user_id,
+          pageC_id: id,
+          p_research_result: formData.radioAuthOffic,
+          p_research_reason: formData.commentReason,
+          p_date_accepted_approve: formData.dateAccep || null,
+          research_doc_submit_date: formData.docSubmitDate,
 
-        form_status: statusMap[formData.radioAuthOffic] || formData.radioAuthOffic,
-        returnto: formData.radioAuthOffic === "return_professor" ? "professor" : null,
-        return_note: formData.commentReason || null,
-        past_return: formData.radioAuthOffic === "return_professor" ? "research" : null
-      };
+          form_status: statusMap[formData.radioAuthOffic] || formData.radioAuthOffic,
+          returnto: formData.radioAuthOffic === "return_professor" ? "professor" : null,
+          return_note: formData.commentReason || null,
+          past_return: formData.radioAuthOffic === "return_professor" ? "research" : null,
+        };
 
-      await api.post(`/opinionPC`, dataForBackend);
+        await api.post(`/opinionPC`, dataForBackend);
 
-      alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      router.push("/officer");
-    } catch (error) {
-      console.log("Error saving code : ", error);
-      alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+        alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+        router.push("/officer");
+      } catch (error) {
+        console.log("Error saving code : ", error);
+        alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      }
+    } else if (formData.olddata.form_status == "return") {
+      try {
+        const dataForBackend = {
+          pageC_id: id,
+          updated_data: [
+            { field: "research_id", value: user.value?.user_id },
+            { field: "p_research_result", value: formData.radioAuthOffic },
+            { field: "p_research_reason", value: formData.commentReason },
+            { field: "p_date_accepted_approve", value: formData.dateAccep || null },
+            { field: "research_doc_submit_date", value: formData.docSubmitDate },
+          ],
+          form_status: formData.radioAuthOffic === "approve" ? formData.olddata?.past_return : formData.radioAuthOffic,
+          return_to: null,
+          return_note: formData.commentReason || null,
+          past_return: null
+        };
+
+        await api.put(`/opinionPC/${id}`, dataForBackend);
+        alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+        router.push("/officer");
+      } catch (error) {}
     }
   } else {
     alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");

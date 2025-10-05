@@ -8,12 +8,14 @@
         <p class="text-lg font-bold">รองคณบดีฝ่ายงานวิจัย</p>
         <RadioInput label="เห็นชอบ" value="approve" name="comment" v-model="formData.agree" />
         <RadioInput label="ไม่เห็นชอบ" value="notApproved" name="comment" v-model="formData.agree" />
-        <RadioInput label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล" value="return_professor" name="comment"
-          v-model="formData.agree" />
-        <RadioInput label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล" value="return_research" name="comment"
-          v-model="formData.agree" />
-        <RadioInput label="ตีกลับเจ้าหน้าที่การเงินเพื่อแก้ไขข้อมูล" value="return_finance" name="comment"
-          v-model="formData.agree" />
+        <div v-if="formData.olddata.form_status !== 'return'">
+          <RadioInput label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล" value="return_professor" name="comment"
+            v-model="formData.agree" />
+          <RadioInput label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล" value="return_research" name="comment"
+            v-model="formData.agree" />
+          <RadioInput label="ตีกลับเจ้าหน้าที่การเงินเพื่อแก้ไขข้อมูล" value="return_finance" name="comment"
+            v-model="formData.agree" />
+        </div>
         <span v-if="v$.agree.$error" class="text-base font-bold text-red-500 text-left">
           {{ v$.agree.$errors[0].$message }}
         </span>
@@ -35,7 +37,7 @@
 </template>
 
 <script setup>
-import { reactive, computed } from "vue";
+import { reactive, computed, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, requiredIf } from "@vuelidate/validators";
@@ -55,7 +57,9 @@ const formData = reactive({
   docSubmitDate: DateTime.now().toISODate(),
   agree: "",
   commentReason: "",
-  returnto: ""
+  returnto: "",
+
+  olddata: {}
 });
 
 const handleInput = (key, value) => {
@@ -107,6 +111,18 @@ const resultMap = {
   return_finance: "return",
 }
 
+const getDataPc = async () => {
+  if (id == null || id == "") {
+    alert("โปรดเข้าสู่ระบบใหม่อีกครั้ง");
+  }
+  try {
+    const responseData = await api.get(`/formPageCharge/${id}`);
+    formData.olddata = responseData.data;
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
+
 const OfficerPC = async () => {
   const result = await v$.value.$validate();
 
@@ -115,27 +131,52 @@ const OfficerPC = async () => {
       return false;
     }
 
-    try {
-      const dataForBackend = {
-        pageC_id: id,
-        updated_data: [
-          { field: 'associate_id', value: user.value?.user_id },
-          { field: 'p_associate_result', value: resultMap[formData.agree] },
-          { field: 'p_associate_reason', value: formData.commentReason },
-          { field: 'associate_doc_submit_date', value: formData.docSubmitDate },
-        ],
-        form_status: statusMap[formData.agree],
-        return_to: returnMap[formData.agree],
-        return_note: formData.commentReason || null,
-        past_return: statusMap[formData.agree] == 'return' ? user.value?.user_role : null
-      };
+    if (formData.olddata.form_status != "return") {
+      try {
+        const dataForBackend = {
+          pageC_id: id,
+          updated_data: [
+            { field: 'associate_id', value: user.value?.user_id },
+            { field: 'p_associate_result', value: resultMap[formData.agree] },
+            { field: 'p_associate_reason', value: formData.commentReason },
+            { field: 'associate_doc_submit_date', value: formData.docSubmitDate },
+          ],
+          form_status: statusMap[formData.agree],
+          return_to: returnMap[formData.agree],
+          return_note: formData.commentReason || null,
+          past_return: statusMap[formData.agree] == 'return' ? user.value?.user_role : null
+        };
 
-      await api.put(`/opinionPC/${id}`, dataForBackend);
-      alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      router.push("/officer");
-    } catch (error) {
-      console.log("Error saving code : ", error);
-      alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+        await api.put(`/opinionPC/${id}`, dataForBackend);
+        alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+        router.push("/officer");
+      } catch (error) {
+        console.log("Error saving code : ", error);
+        alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      }
+    } else if (formData.olddata.form_status === "return") {
+      try {
+        const dataForBackend = {
+          pageC_id: id,
+          updated_data: [
+            { field: 'associate_id', value: user.value?.user_id },
+            { field: 'p_associate_result', value: resultMap[formData.agree] },
+            { field: 'p_associate_reason', value: formData.commentReason },
+            { field: 'associate_doc_submit_date', value: formData.docSubmitDate },
+          ],
+          form_status: formData.agree === "approve" ? formData.olddata?.past_return : formData.agree,
+          return_to: null,
+          return_note: formData.commentReason || null,
+          past_return: null
+        };
+
+        await api.put(`/opinionPC/${id}`, dataForBackend);
+        alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+        router.push("/officer");
+      } catch (error) {
+        console.log("Error saving code : ", error);
+        alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      }
     }
   } else {
     alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");
@@ -143,4 +184,8 @@ const OfficerPC = async () => {
     console.log("Validation failed:", v$.value.$errors);
   }
 };
+
+onMounted(async () => {
+  await getDataPc();
+});
 </script>

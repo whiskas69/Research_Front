@@ -158,6 +158,8 @@ const formData = reactive({
   radioAuthOffic: "",
   commentReason: "",
   returnto: "",
+
+  oldData : {}
 });
 
 const handleInput = (key, value) => {
@@ -183,8 +185,8 @@ const getDataConf = async () => {
     alert("โปรดเข้าสู่ระบบใหม่อีกครั้ง");
   }
   try {
-    const responsefile = await api.get(`/getFileConf?conf_id=${id}`);
 
+    const responsefile = await api.get(`/getFileConf?conf_id=${id}`);
     formData.date_journals = responsefile.data.date_published_journals;
     formData.f_full_page = responsefile.data.file_full_page;
     formData.f_published_journals = responsefile.data.file_published_journals;

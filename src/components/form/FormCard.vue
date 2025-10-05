@@ -134,7 +134,6 @@ const getLink = (form) => {
       Research_KRIS: props.roleResearchKRISMap,
     };
   } else {
-    // history page
     roleMapByType = {
       Conference: { default: "/history/conference/" },
       Page_Charge: { default: "/history/pageCharge/" },
@@ -150,6 +149,9 @@ const getLink = (form) => {
 
   const roleMap = roleMapByType[form.form_type];
   const idField = idFieldByType[form.form_type];
+
+  console.log("roleMap:", roleMap);
+  console.log("idField:", idField);
 
   if (!roleMap || !idField) return "#";
 

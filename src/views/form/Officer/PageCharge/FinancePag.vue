@@ -5,52 +5,75 @@
     <Mainbox>
       <SectionWrapper>
         <p>ตรวจสอบเงินงบประมาณประจำปีที่จัดสรรในการเผยแพร่ผลงานวิชาการ</p>
-        <TextInputLabelLeft label="ปีงบประมาณ พ.ศ." customInput="max-w-max text-center" v-model="formData.year"
-          @input="handleInput('year', $event.target.value)" />
+        <TextInputLabelLeft
+          label="ปีงบประมาณ พ.ศ."
+          customInput="max-w-max text-center"
+          v-model="formData.year"
+          @input="handleInput('year', $event.target.value)"
+        />
         <div class="flex justify-end">
           <div class="flex flex-row justify-between">
-            <TextInputLabelLeft label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น" customInput="max-w-max text-center"
-              v-model="formData.totalAll" @input="handleInput('totalAll', $event.target.value)" />
+            <TextInputLabelLeft
+              label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น"
+              customInput="max-w-max text-center"
+              v-model="formData.totalAll"
+              @input="handleInput('totalAll', $event.target.value)"
+            />
             <p class="flex items-center w-12">บาท</p>
           </div>
         </div>
         <div class="flex justify-end">
           <div class="flex flex-row justify-between">
-            <TextInputLabelLeft label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
+            <TextInputLabelLeft
+              label="โดยคณะได้อนุมัติค่าใช้จ่ายในการเสนอผลงานวิชาการไปแล้ว จำนวน"
               customInput="max-w-max text-center"
-              :placeholder="parseFloat(formData.numapproved).toLocaleString('en-US', { minimumFractionDigits: 0 })"
-              v-model="formData.numapproved" />
+              :placeholder="parseFloat(formData.numapproved).toLocaleString('en-US', {minimumFractionDigits: 0})"
+              v-model="formData.numapproved"
+            />
             <p class="flex items-center w-12">รายการ</p>
           </div>
         </div>
         <div class="flex justify-end">
           <div class="flex flex-row justify-between">
-            <TextInputLabelLeft label="รวมเป็นเงิน" customInput="max-w-max text-center"
-              :placeholder="parseFloat(formData.totalapproved).toLocaleString('en-US', { minimumFractionDigits: 0 })"
-              v-model="formData.totalapproved" />
-            <p class="flex items-center w-12">บาท</p>
-          </div>
-        </div>
-        <div class="flex justify-end">
-          <div class="flex flex-row justify-between">
-            <TextInputLabelLeft label="วงเงินที่คณะจัดสรรไว้ คงเหลือ" customInput="max-w-max text-center"
-              :placeholder="caltotalFaculty" v-model="formData.caltotalFaculty" />
-            <p class="flex items-center w-12">บาท</p>
-          </div>
-        </div>
-        <div class="flex justify-end">
-          <div class="flex flex-row justify-between">
-            <TextInputLabelLeft label="จำนวนเงินที่ขออนุมัติค่า Page Charge ในครั้งนี้ เป็นจำนวนเงิน"
+            <TextInputLabelLeft
+              label="รวมเป็นเงิน"
               customInput="max-w-max text-center"
-              :placeholder="parseFloat(formData.canWithdrawn).toLocaleString('en-US', { minimumFractionDigits: 0 })"
-              v-model="formData.canWithdrawn" />
+              :placeholder="parseFloat(formData.totalapproved).toLocaleString('en-US', {minimumFractionDigits: 0})"
+              v-model="formData.totalapproved"
+            />
             <p class="flex items-center w-12">บาท</p>
           </div>
         </div>
         <div class="flex justify-end">
           <div class="flex flex-row justify-between">
-            <TextInputLabelLeft label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น" customInput="max-w-max text-center"
-              :placeholder="caltotalFacultyNow" v-model="formData.totalcreditLimit" />
+            <TextInputLabelLeft
+              label="วงเงินที่คณะจัดสรรไว้ คงเหลือ"
+              customInput="max-w-max text-center"
+              :placeholder="caltotalFaculty"
+              v-model="formData.caltotalFaculty"
+            />
+            <p class="flex items-center w-12">บาท</p>
+          </div>
+        </div>
+        <div class="flex justify-end">
+          <div class="flex flex-row justify-between">
+            <TextInputLabelLeft
+              label="จำนวนเงินที่ขออนุมัติค่า Page Charge ในครั้งนี้ เป็นจำนวนเงิน"
+              customInput="max-w-max text-center"
+              :placeholder="parseFloat(formData.canWithdrawn).toLocaleString('en-US', {minimumFractionDigits: 0})"
+              v-model="formData.canWithdrawn"
+            />
+            <p class="flex items-center w-12">บาท</p>
+          </div>
+        </div>
+        <div class="flex justify-end">
+          <div class="flex flex-row justify-between">
+            <TextInputLabelLeft
+              label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น"
+              customInput="max-w-max text-center"
+              :placeholder="caltotalFacultyNow"
+              v-model="formData.totalcreditLimit"
+            />
             <p class="flex items-center w-12">บาท</p>
           </div>
         </div>
@@ -66,15 +89,40 @@
     <Mainbox>
       <SectionWrapper>
         <h1 class="text-m font-bold">กรณีไม่อนุมัติ หรือมีปัญหา (อื่น ๆ)</h1>
-        <RadioInput label="เงินสำรองไม่เพียงพอ" value="pending" name="recheckinfo" v-model="formData.radioAuthOffic" />
-        <RadioInput label="ไม่อนุมัติ" value="notApproved" name="recheckinfo" v-model="formData.radioAuthOffic" />
-        <RadioInput label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล" value="return_professor" name="recheckinfo"
-          v-model="formData.radioAuthOffic" />
-        <RadioInput label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล" value="return_research" name="recheckinfo"
-          v-model="formData.radioAuthOffic" />
-        <textarea class="textarea textarea-bordered w-full"
-          @input="handleInput('comment_text', $event.target.value)"></textarea>
-        <span v-if="v$.comment_text.$error" class="text-base font-bold text-red-500 text-left">
+        <RadioInput
+          label="เงินสำรองไม่เพียงพอ"
+          value="pending"
+          name="recheckinfo"
+          v-model="formData.radioAuthOffic"
+        />
+        <RadioInput
+          label="ไม่อนุมัติ"
+          value="notApproved"
+          name="recheckinfo"
+          v-model="formData.radioAuthOffic"
+        />
+        <div v-if="formData.olddata.form_status != 'return'">
+          <RadioInput
+          label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
+          value="return_professor"
+          name="recheckinfo"
+          v-model="formData.radioAuthOffic"
+        />
+        <RadioInput
+          label="ตีกลับเจ้าหน้าที่งานวิจัยเพื่อแก้ไขข้อมูล"
+          value="return_research"
+          name="recheckinfo"
+          v-model="formData.radioAuthOffic"
+        />
+        </div>
+        <textarea
+          class="textarea textarea-bordered w-full"
+          @input="handleInput('comment_text', $event.target.value)"
+        ></textarea>
+        <span
+          v-if="v$.comment_text.$error"
+          class="text-base font-bold text-red-500 text-left"
+        >
           {{ v$.comment_text.$errors[0].$message }}
         </span>
       </SectionWrapper>
@@ -92,7 +140,15 @@
 import { onMounted, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
-import { required, helpers, maxValue, minValue, numeric, decimal, requiredIf } from "@vuelidate/validators";
+import {
+  required,
+  helpers,
+  maxValue,
+  minValue,
+  numeric,
+  decimal,
+  requiredIf,
+} from "@vuelidate/validators";
 import { DateTime } from "luxon";
 
 import { useUserStore } from "@/store/userStore";
@@ -119,6 +175,8 @@ const formData = reactive({
   radioAuthOffic: null,
   comment_text: null,
   newmoneyRequested: null,
+
+  olddata: {},
 });
 
 const handleInput = (key, value) => {
@@ -152,10 +210,14 @@ const fetchProfessorData = async () => {
   try {
     const responseBudget = await api.get(`/budgetsPC`);
     formData.numapproved = responseBudget.data.numapproved;
-    formData.totalapproved = responseBudget.data.totalapproved == null ? 0 : responseBudget.data.totalapproved;
+    formData.totalapproved =
+      responseBudget.data.totalapproved == null
+        ? 0
+        : responseBudget.data.totalapproved;
 
     const responseFormPC = await api.get(`/formPageCharge/${id}`);
     formData.form_id = responseFormPC.data.form_id;
+    formData.olddata = responseData.data;
   } catch (error) {
     console.log("Error fetching professor data:", error);
   }
@@ -209,37 +271,38 @@ const statusMap = {
   notApproved: "notApproved",
   return_professor: "return",
   return_research: "return",
-  pending: "pending"
-}
+  pending: "pending",
+};
 
 const returnMap = {
   null: null,
   notApproved: null,
   return_professor: "professor",
   return_research: "research",
-  pending: null
-}
+  pending: null,
+};
 
 const OfficerPC = async () => {
-  if (formData.radioAuthOffic === "pending" && (formData.comment_text != null)) {
-    const dataForBackend = {
-      form_id: formData.form_id,
-      form_status: formData.radioAuthOffic,
-      comment_pending: formData.comment_text,
-    };
-    await api.post(`/budget`, dataForBackend);
+  const result = await v$.value.$validate();
+  if (result) {
+    if (confirm("ยืนยันข้อมูลถูกต้อง") == false) {
+      return false;
+    }
 
-    console.log("dataForBackend", JSON.stringify(dataForBackend));
-
-    alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-    router.push("/officer");
-  } else {
-    const result = await v$.value.$validate();
-    if (result) {
-      if (confirm("ยืนยันข้อมูลถูกต้อง") == false) {
-        return false;
-      }
-
+    if (
+      formData.radioAuthOffic === "pending" &&
+      formData.comment_text != null
+    ) {
+      const dataForBackend = {
+        form_id: formData.form_id,
+        form_status: formData.radioAuthOffic,
+        comment_pending: formData.comment_text,
+      };
+      await api.post(`/budget`, dataForBackend);
+      alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+      router.push("/officer");
+    }
+    if (formData.olddata.form_status !== "return") {
       try {
         const dataForBackend = {
           user_id: user.value?.user_id,
@@ -256,9 +319,11 @@ const OfficerPC = async () => {
           form_status: statusMap[formData.radioAuthOffic],
           returnto: returnMap[formData.radioAuthOffic],
           return_note: formData.comment_text || null,
-          past_return: statusMap[formData.radioAuthOffic] == 'return' ? user.value?.user_role : null
+          past_return:
+            statusMap[formData.radioAuthOffic] == "return"
+              ? user.value?.user_role
+              : null,
         };
-        console.log("post office confer: ", JSON.stringify(dataForBackend));
 
         await api.post(`/budget`, dataForBackend);
         alert("บันทึกข้อมูลเรียบร้อยแล้ว");
@@ -267,11 +332,36 @@ const OfficerPC = async () => {
         console.log("Error saving code : ", error);
         alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
       }
-    } else {
-      alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");
+    } else if (formData.olddata.form_status === "return") {
+      try {
+        const dataForBackend = {
+          user_id: user.value?.user_id,
+          form_id: formData.form_id,
+          budget_year: formData.year,
+          Page_Charge_amount: formData.totalAll,
+          num_expenses_approved: formData.numapproved,
+          total_amount_approved: formData.totalapproved,
+          remaining_credit_limit: formData.creditLimit,
+          amount_approval: formData.canWithdrawn,
+          total_remaining_credit_limit: formData.totalcreditLimit,
+          doc_submit_date: formData.docSubmitDate,
 
-      console.log("Validation failed:", v$.value.$errors);
+          form_status: formData.radioAuthOffic === null ? formData.olddata?.past_return : statusMap[formData.radioAuthOffic],
+          returnto: null,
+          return_note: formData.comment_text || null,
+          past_return: null
+        };
+
+        await api.put(`/updateBudget/${formData.form_id}`, dataForBackend);
+        alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+        router.push("/officer");
+      } catch (error) {
+        console.log("Error saving code : ", error);
+        alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      }
     }
+  } else {
+    alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");
   }
 };
 
