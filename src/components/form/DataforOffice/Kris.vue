@@ -228,7 +228,7 @@
                 customLabel="w-[530px]"
                 customDiv="max-w-[600px]"
                 customInput="w-32"
-                v-model="formattedKris.Research_kris_amount"
+                v-model="formData.budget"
                 :disabled="true"
               />
             </div>
@@ -297,6 +297,7 @@ const formData = reactive({
   research_cluster: [],
   other: "",
   res_standard: [],
+  budget: "",
 
   animal: "",
   human: "",
@@ -318,17 +319,16 @@ const fetchOfficerData = async () => {
     const userID = response.data.user_id;
     const responseUser = await api.get(`/user/${userID}`);
     formData.user = responseUser.data;
+    const responseBudget = await api.get(`/budget/kris/${id}`)
+    formData.budget = parseFloat(
+      responseBudget.data.Research_kris_amount
+    ).toLocaleString("en-US", { minimumFractionDigits: 2 })
   } catch (error) {
     console.log("Error fetching Officer data:", error);
   } finally {
     isLoading.value = false;
   }
 };
-const formattedKris = computed(() => ({
-  ...formData.kris,
-  Research_kris_amount: parseFloat(formData.kris.Research_kris_amount).toLocaleString(
-    "en-US",{minimumFractionDigits: 2,})
-}));
 
 const loopCluster = async () => {
   // await fetchOfficerData();

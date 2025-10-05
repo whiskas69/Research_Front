@@ -3,7 +3,7 @@
     <!-- Conference -->
     <div v-if="props.type == 'Conference'">
       <Mainbox
-        v-if="formData.conference.meeting_type"
+        v-if="formData.offic.c_quality"
         class="collapse collapse-arrow collapse-open"
       >
         <input type="checkbox" />
@@ -307,8 +307,8 @@ import TextArea from "@/components/Input/TextArea.vue";
 
 const formData = reactive({
   offic: [],
-  conference: [],
-  score: [],
+  // conference: [],
+  // score: [],
   page_c: [],
   name: "",
   file: "",
@@ -336,12 +336,12 @@ const fetchOfficerData = async () => {
     if (props.type == "Conference") {
       const responseoffic = await api.get(`/opinionConf/${id}`);
       formData.offic = responseoffic.data;
-      const responseConfer = await api.get(`/conference/${id}`);
-      console.log("conference123", responseConfer);
-      formData.conference = responseConfer.data;
-      const responseScore = await api.get(`/score/${id}`);
-      console.log("score123", responseScore);
-      formData.score = responseScore.data;
+      // const responseConfer = await api.get(`/conference/${id}`);
+      // console.log("conference123", responseConfer);
+      // formData.conference = responseConfer.data;
+      // const responseScore = await api.get(`/score/${id}`);
+      // console.log("score123", responseScore);
+      // formData.score = responseScore.data;
     } else if (props.type == "Page_Charge") {
       const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
       formData.f_pc_proof = responsefile.data.file_pc_proof;
