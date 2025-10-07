@@ -461,7 +461,7 @@ const handleSubmit = async () => {
     console.log("dataForBackend: ", formData);
     await api.put(`/editedFormPageChage/${id}`, formData);
     alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-    // router.push("/myHistory");
+    router.push("/myHistory");
   } catch (error) {
     console.log("Error saving code : ", error);
     alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
