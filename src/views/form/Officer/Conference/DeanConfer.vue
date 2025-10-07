@@ -147,9 +147,10 @@ const OfficerConfer = async () => {
         past_return: statusMap[formData.acknowledge] == 'return' ? user.value?.user_role : null
       };
 
+      console.log(" dataForBackend", dataForBackend)
       await api.put(`/opinionConf/${id}`, dataForBackend);
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      router.push("/officer");
+      // router.push("/officer");
     } catch (error) {
       console.log("Error saving code : ", error);
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
