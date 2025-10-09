@@ -161,7 +161,6 @@
           name="recheckinfo"
           v-model="formData.radioAuthOffic"
         />
-        <div v-if="formData.olddata.form_status != 'return'">
           <RadioInput
             label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล"
             value="return_professor"
@@ -180,7 +179,6 @@
             name="recheckinfo"
             v-model="formData.radioAuthOffic"
           />
-        </div>
         <textarea
           class="textarea textarea-bordered w-full"
           @input="handleInput('comment_text', $event.target.value)"
@@ -338,8 +336,7 @@ const now = new Date();
 const rules = computed(() => ({
   year: {
     required: helpers.withMessage(
-      "* กรุณากรอกข้อมูลปีงบประมาณเป็นพ.ศ. *",
-      requiredIf(() => formData.radioAuthOffic === "approved")
+      "* กรุณากรอกข้อมูลปีงบประมาณเป็นพ.ศ. *",required
     ),
     minValue: helpers.withMessage(
       `* ปีงบประมาณต้องไม่ต่ำกว่า ${fiscalYear - 1} *`,
@@ -355,7 +352,13 @@ const rules = computed(() => ({
       requiredIf(() => formData.radioAuthOffic === "approved")),
     numeric: helpers.withMessage("* กรุณากรอกตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณากรอกตัวเลข *", decimal),
-    minValue: helpers.withMessage("* ไม่ต่ำกว่า 1 *", minValue(1)),
+    minValue: helpers.withMessage(
+    "* ไม่ต่ำกว่า 1 *",
+    helpers.withParams({ type: "minValueConditional" }, (value) => {
+      if (formData.radioAuthOffic !== "approved") return true; // ผ่านโดยไม่เช็ค
+      return minValue(1)(value); // เช็คเฉพาะตอน approved
+    })
+  ),
   },
   comment_text: {
     required: helpers.withMessage(
