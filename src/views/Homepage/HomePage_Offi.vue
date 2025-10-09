@@ -3,19 +3,37 @@
     <div class="h-[50%]">
       <p class="text-xl font-bold mb-2">เอกสารต้องตรวจสอบ</p>
       <div class="h-full p-2 mb-2 border rounded-lg overflow-auto">
-        <FormCard v-for="form in listForm.forms" :key="form.form_id" :form="form" :page="'officer'"
-          :roleConferenceMap="roleConferenceMap" :rolePageChargeMap="rolePageChargeMap"
-          :roleResearchKRISMap="roleResearchKRISMap" :showAmount="false" :showStatus="false" />
+        <FormCard
+          v-for="form in listForm.forms"
+          :key="form.form_id"
+          :form="form"
+          :page="'officer'"
+          :roleConferenceMap="roleConferenceMap"
+          :rolePageChargeMap="rolePageChargeMap"
+          :roleResearchKRISMap="roleResearchKRISMap"
+          :showAmount="false"
+          :showStatus="false"
+        />
       </div>
     </div>
 
     <div class="h-[40%]">
       <p class="text-xl font-bold mt-10 mb-2">เอกสารที่ถูกตีกลับ</p>
       <div class="h-full p-2 mb-2 border rounded-lg overflow-auto">
-        <FormCard v-for="form in listForm.return" :key="form.form_id" :form="form" :page="'officer'"
-          :roleConferenceMap="roleConferenceMap" :rolePageChargeMap="rolePageChargeMap"
-          :roleResearchKRISMap="roleResearchKRISMap" :showAmount="false" :showStatus="false" :eoffice="false"
-          :comment="form.return_note" :who="form.past_return" />
+        <FormCard
+          v-for="form in listForm.return"
+          :key="form.form_id"
+          :form="form"
+          :page="'officer'"
+          :roleConferenceMap="roleConferenceMap"
+          :rolePageChargeMap="rolePageChargeMap"
+          :roleResearchKRISMap="roleResearchKRISMap"
+          :showAmount="false"
+          :showStatus="false"
+          :eoffice="false"
+          :comment="form.return_note"
+          :who="form.past_return"
+        />
       </div>
     </div>
   </div>
@@ -71,8 +89,18 @@ const fetchOfficerData = async () => {
 
     // กำหนด typeStatus ตาม role
     let typeStatus = userStore.user.user_role;
-    if (typeStatus === "finance") {
+    const role = userStore.user.user_role;
+
+    if (role === "finance") {
       typeStatus = "finance,pending";
+    } else if (
+      role === "hr" ||
+      role === "research" ||
+      role === "associate" ||
+      role === "dean"
+    ) {
+      // เพิ่ม 'return' เข้าไปสำหรับบทบาทอื่น ๆ เพื่อให้ backend ส่งข้อมูลกลับมา
+      typeStatus = `${role},return`;
     }
 
     // 🧾 ส่ง query ไป backend
@@ -98,7 +126,9 @@ const fetchOfficerData = async () => {
         case "research":
           return form.form_status === "research";
         case "finance":
-          return form.form_status === "finance" || form.form_status === "pending";
+          return (
+            form.form_status === "finance" || form.form_status === "pending"
+          );
         case "associate":
           return form.form_status === "associate";
         case "dean":
@@ -110,12 +140,27 @@ const fetchOfficerData = async () => {
 
     listForm.forms = filteredForms;
 
+    console.log("Full Response Data:", responseOffice.data);
+
     console.log("Filtered Forms:", responseOffice.data);
     console.log("User Role:", userStore.user.user_role);
 
     listForm.return = responseOffice.data.filter(
-      (form) => form.form_status === "return" && form.return_to === userStore.user.user_role
+      (form) =>
+        form.form_status === "return" &&
+        form.return_to === userStore.user.user_role
     );
+    const allReturnedForms = responseOffice.data.filter(
+        (form) => form.form_status === "return"
+    );
+    console.log("All Forms with status 'return':", allReturnedForms);
+    
+    // 💡 ตรวจสอบค่า return_to ในฟอร์มเหล่านั้นเทียบกับ user_role
+    allReturnedForms.forEach(form => {
+        console.log(`Return Form ID: ${form.form_id}, Status: ${form.form_status}, Return To: ${form.return_to}, User Role: ${userStore.user.user_role}`);
+    });
+    
+    console.log("Final listForm.return count:", listForm.return.length);
   } catch (error) {
     console.error("Error fetching Officer data:", error);
   } finally {
