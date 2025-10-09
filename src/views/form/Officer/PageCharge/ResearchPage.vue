@@ -188,7 +188,7 @@ const formData = reactive({
   commentReason: "",
   dateAccep: "",
 
-  olddata: "",
+  oldData: {},
 });
 
 const handleInput = (key, value) => {
@@ -232,7 +232,7 @@ const getDataPc = async () => {
   }
   try {
     const responseData = await api.get(`/formPageCharge/${id}`);
-    formData.olddata = responseData.data;
+    formData.oldData = responseData.data;
 
     const responsefile = await api.get(`/getFilepage_c?pageC_id=${id}`);
     formData.f_pc_proof = responsefile.data.file_pc_proof;
@@ -271,7 +271,8 @@ const OfficerPC = async () => {
       return false;
     }
 
-    if (formData.olddata.form_status != "return" && (!formData.olddata.editor)) {
+    if (formData.oldData.form_status != "return" && (!formData.oldData.editor)) {
+      console.log("case 1 : ", formData.oldData.form_status, formData.oldData.editor);
       try {
         const dataForBackend = {
           research_id: user.value?.user_id,
@@ -295,7 +296,8 @@ const OfficerPC = async () => {
         console.log("Error saving code : ", error);
         alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
       }
-    } else if (formData.olddata.form_status == "return") {
+    } else if (formData.oldData.form_status == "return") {
+      console.log("case 2 : ", formData.oldData.form_status, formData.oldData.editor);
       try {
         const dataForBackend = {
           pageC_id: id,
@@ -306,7 +308,7 @@ const OfficerPC = async () => {
             { field: "p_date_accepted_approve", value: formData.dateAccep || null },
             { field: "research_doc_submit_date", value: formData.docSubmitDate },
           ],
-          form_status: formData.radioAuthOffic === "approve" ? formData.olddata?.past_return : formData.radioAuthOffic,
+          form_status: formData.radioAuthOffic === "approve" ? formData.oldData?.past_return : formData.radioAuthOffic,
           return_to: null,
           return_note: formData.commentReason || null,
           past_return: null
@@ -319,7 +321,8 @@ const OfficerPC = async () => {
         console.log("Error saving code : ", error);
         alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
       }
-    } else if (formData.olddata.form_status !== "return" && formData.olddata.editor) {
+    } else if (formData.oldData.form_status !== "return" && formData.oldData.editor) {
+      console.log("case 3 : ", formData.oldData.form_status, formData.oldData.editor);
       try {
         const dataForBackend = {
           pageC_id: id,
@@ -330,11 +333,13 @@ const OfficerPC = async () => {
             { field: "p_date_accepted_approve", value: formData.dateAccep || null },
             { field: "research_doc_submit_date", value: formData.docSubmitDate },
           ],
-          form_status: formData.radioAuthOffic === "approve" ? formData.olddata?.past_return : formData.radioAuthOffic,
-          return_to: null,
+          form_status: statusMap[formData.radioAuthOffic] || formData.radioAuthOffic,
+          return_to: formData.radioAuthOffic === "return_professor" ? "professor" : null,
           return_note: formData.commentReason || null,
-          past_return: null
+          past_return: formData.radioAuthOffic === "return_professor" ? "research" : null,
         };
+
+        console.log("dataForBackend : ", dataForBackend);
 
         await api.put(`/opinionPC/${id}`, dataForBackend);
         alert("บันทึกข้อมูลเรียบร้อยแล้ว");
