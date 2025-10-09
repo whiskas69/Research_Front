@@ -143,7 +143,12 @@
 
     <Mainbox>
       <SectionWrapper>
-        <h1 class="text-m font-bold">กรณีไม่อนุมัติ หรือมีปัญหา (อื่น ๆ)</h1>
+        <RadioInput
+          label="อนุมัติ"
+          value="approved"
+          name="recheckinfo"
+          v-model="formData.radioAuthOffic"
+        />
         <RadioInput
           label="เงินสำรองไม่เพียงพอ"
           value="pending"
@@ -334,7 +339,7 @@ const rules = computed(() => ({
   year: {
     required: helpers.withMessage(
       "* กรุณากรอกข้อมูลปีงบประมาณเป็นพ.ศ. *",
-      required
+      requiredIf(() => formData.radioAuthOffic === "approved")
     ),
     minValue: helpers.withMessage(
       `* ปีงบประมาณต้องไม่ต่ำกว่า ${fiscalYear - 1} *`,
@@ -346,7 +351,8 @@ const rules = computed(() => ({
     ),
   },
   totalAll: {
-    required: helpers.withMessage("* กรุณากรอกจำนวนเงิน *", required),
+    required: helpers.withMessage("* กรุณากรอกจำนวนเงิน *",
+      requiredIf(() => formData.radioAuthOffic === "approved")),
     numeric: helpers.withMessage("* กรุณากรอกตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณากรอกตัวเลข *", decimal),
     minValue: helpers.withMessage("* ไม่ต่ำกว่า 1 *", minValue(1)),
@@ -354,7 +360,7 @@ const rules = computed(() => ({
   comment_text: {
     required: helpers.withMessage(
       "* กรุณากรอกข้อมูล *",
-      requiredIf(() => formData.radioAuthOffic)
+      requiredIf(() => formData.radioAuthOffic !== "approved")
     ),
   },
 }));
