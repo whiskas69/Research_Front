@@ -271,7 +271,7 @@ const OfficerPC = async () => {
       return false;
     }
 
-    if (formData.olddata.form_status != "return") {
+    if (formData.olddata.form_status != "return" && (!formData.olddata.editor)) {
       try {
         const dataForBackend = {
           research_id: user.value?.user_id,
@@ -315,7 +315,34 @@ const OfficerPC = async () => {
         await api.put(`/opinionPC/${id}`, dataForBackend);
         alert("บันทึกข้อมูลเรียบร้อยแล้ว");
         router.push("/officer");
-      } catch (error) {}
+      } catch (error) {
+        console.log("Error saving code : ", error);
+        alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      }
+    } else if (formData.olddata.form_status !== "return" && formData.olddata.editor) {
+      try {
+        const dataForBackend = {
+          pageC_id: id,
+          updated_data: [
+            { field: "research_id", value: user.value?.user_id },
+            { field: "p_research_result", value: formData.radioAuthOffic },
+            { field: "p_research_reason", value: formData.commentReason },
+            { field: "p_date_accepted_approve", value: formData.dateAccep || null },
+            { field: "research_doc_submit_date", value: formData.docSubmitDate },
+          ],
+          form_status: formData.radioAuthOffic === "approve" ? formData.olddata?.past_return : formData.radioAuthOffic,
+          return_to: null,
+          return_note: formData.commentReason || null,
+          past_return: null
+        };
+
+        await api.put(`/opinionPC/${id}`, dataForBackend);
+        alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+        router.push("/officer");
+      } catch (error) {
+        console.log("Error saving code : ", error);
+        alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      }
     }
   } else {
     alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");

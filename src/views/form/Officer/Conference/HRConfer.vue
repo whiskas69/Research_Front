@@ -290,7 +290,7 @@ const OfficerConfer = async () => {
       return false;
     }
 
-    if (formData.oldData.form_status != "return") {
+    if (formData.oldData.form_status != "return" && (!formData.oldData.editor)) {
       try {
         const dataForBackend = {
           hr_id: user.value?.user_id,
@@ -319,6 +319,32 @@ const OfficerConfer = async () => {
         alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
       }
     } else if (formData.oldData.form_status === "return") {
+      try {
+        const dataForBackend = {
+          conf_id: id,
+          updated_data: [
+            { field: "hr_id", value: user.value?.user_id },
+            { field: "c_hr_result", value: formData.radioAuthOffic },
+            { field: "c_hr_reason", value: formData.commentReason },
+            { field: "c_hr_note", value: formData.noteHR },
+            { field: "hr_doc_submit_date", value: formData.docSubmitDate },
+          ],
+          user_confer: formData.isUnder3YearsNoOverseasConf,
+          form_status: formData.radioAuthOffic === "approve" ? formData.oldData?.past_return : formData.radioAuthOffic,
+          return_to: null,
+          return_note: formData.commentReason || null,
+          past_return: null
+        };
+
+        await api.put(`/opinionConf/${id}`, dataForBackend);
+
+        alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+        router.push("/officer");
+      } catch (error) {
+        console.log("Error saving code : ", error);
+        alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      }
+    } else if (formData.oldData.form_status !== "return" && formData.oldData.editor) {
       try {
         const dataForBackend = {
           conf_id: id,
