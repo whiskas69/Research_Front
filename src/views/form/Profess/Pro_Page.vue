@@ -866,7 +866,7 @@ const handleFile = (event, fieldName) => {
   // ตรวจสอบขนาดไฟล์ (ไม่เกิน 100MB)
   const maxSize = 10 * 1024 * 1024; // 100 MB
   if (file.size > maxSize) {
-    alert("ไฟล์มีขนาดเกิน 20 MB กรุณาเลือกไฟล์ที่เล็กกว่า");
+    alert("ไฟล์มีขนาดเกิน 10 MB กรุณาเลือกไฟล์ที่เล็กกว่า");
     event.target.value = ""; // ล้างค่า input
     return;
   }
