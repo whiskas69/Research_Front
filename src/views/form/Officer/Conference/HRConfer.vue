@@ -356,10 +356,13 @@ const OfficerConfer = async () => {
             { field: "hr_doc_submit_date", value: formData.docSubmitDate },
           ],
           user_confer: formData.isUnder3YearsNoOverseasConf,
-          form_status: formData.radioAuthOffic === "approve" ? formData.oldData?.past_return : formData.radioAuthOffic,
-          return_to: null,
+          form_status:
+            statusMap[formData.radioAuthOffic] || formData.radioAuthOffic,
+          returnto:
+            formData.radioAuthOffic === "return_professor" ? "professor" : null,
           return_note: formData.commentReason || null,
-          past_return: null
+          past_return:
+            formData.radioAuthOffic === "return_professor" ? "research" : null,
         };
 
         await api.put(`/opinionConf/${id}`, dataForBackend);
