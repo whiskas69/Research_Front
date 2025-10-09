@@ -242,6 +242,7 @@ const formData = reactive({
   newmoneyRequested: null,
 
   oldData: {},
+  bud: {}
 });
 
 const handleInput = (key, value) => {
@@ -310,10 +311,7 @@ const fetchOfficerData = async () => {
   try {
     const responseBudget = await api.get(`/budgetsConfer`);
     formData.numapproved = responseBudget.data.numapproved;
-    formData.totalapproved =
-      responseBudget.data.totalapproved == null
-        ? 0
-        : responseBudget.data.totalapproved;
+    formData.totalapproved = responseBudget.data.totalapproved == null ? 0 : responseBudget.data.totalapproved;
 
     const responseFormConfer = await api.get(`/formConference/${id}`);
     formData.form_id = responseFormConfer.data.form_id;
@@ -324,6 +322,9 @@ const fetchOfficerData = async () => {
 
     const responseConfer = await api.get(`/conference/${id}`);
     formData.conference = responseConfer.data;
+
+    const responseoldBudget = await api.get(`/budget/conference/${id}`);
+    formData.bud = responseoldBudget.data;
   } catch (error) {
     console.log("Error fetching Officer data:", error);
   }
@@ -352,13 +353,7 @@ const rules = computed(() => ({
       requiredIf(() => formData.radioAuthOffic === "approved")),
     numeric: helpers.withMessage("* กรุณากรอกตัวเลข *", numeric),
     decimal: helpers.withMessage("* กรุณากรอกตัวเลข *", decimal),
-    minValue: helpers.withMessage(
-    "* ไม่ต่ำกว่า 1 *",
-    helpers.withParams({ type: "minValueConditional" }, (value) => {
-      if (formData.radioAuthOffic !== "approved") return true; // ผ่านโดยไม่เช็ค
-      return minValue(1)(value); // เช็คเฉพาะตอน approved
-    })
-  ),
+    minValue: helpers.withMessage("* ไม่ต่ำกว่า 1 *",minValue(1)),
   },
   comment_text: {
     required: helpers.withMessage(
@@ -371,7 +366,7 @@ const rules = computed(() => ({
 const v$ = useVuelidate(rules, formData);
 
 const statusMap = {
-  null: "associate",
+  approved: "associate",
   notApproved: "notApproved",
   return_professor: "return",
   return_hr: "return",
@@ -380,7 +375,7 @@ const statusMap = {
 };
 
 const returnMap = {
-  null: null,
+  approved: null,
   notApproved: null,
   return_professor: "professor",
   return_hr: "hr",
@@ -409,7 +404,7 @@ const OfficerConfer = async () => {
       router.push("/officer");
     }
 
-    if (formData.oldData.form_status != "return") {
+    if (formData.oldData.form_status !== "return" &&  (JSON.stringify(formData.bud)) == "{}") {
       try {
         const dataForBackend = {
           user_id: user.value?.user_id,
@@ -440,6 +435,36 @@ const OfficerConfer = async () => {
         alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
       }
     } else if (formData.oldData.form_status === "return") {
+      try {
+        const dataForBackend = {
+          user_id: user.value?.user_id,
+          form_id: formData.form_id,
+          budget_year: formData.year,
+          Conference_amount: formData.totalAll,
+          num_expenses_approved: formData.numapproved,
+          total_amount_approved: formData.totalapproved,
+          remaining_credit_limit: formData.creditLimit,
+          amount_approval: moneyRequested.value,
+          total_remaining_credit_limit: formData.totalcreditLimit,
+          doc_submit_date: formData.docSubmitDate,
+
+          form_status:
+            formData.radioAuthOffic === null
+              ? formData.oldData?.past_return
+              : statusMap[formData.radioAuthOffic],
+          returnto: null,
+          return_note: formData.comment_text || null,
+          past_return: null,
+        };
+
+        await api.put(`/updateBudget/${formData.form_id}`, dataForBackend);
+        alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+        router.push("/officer");
+      } catch (error) {
+        console.log("Error saving code : ", error);
+        alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      }
+    } else if (formData.oldData.form_status !== "return" && JSON.stringify(formData.bud)) {
       try {
         const dataForBackend = {
           user_id: user.value?.user_id,
