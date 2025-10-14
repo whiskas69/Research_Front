@@ -92,7 +92,7 @@ const fetchOfficerData = async () => {
     const role = userStore.user.user_role;
 
     if (role === "finance") {
-      typeStatus = "finance,pending";
+      typeStatus = "finance,pending,return";
     } else if (
       role === "hr" ||
       role === "research" ||

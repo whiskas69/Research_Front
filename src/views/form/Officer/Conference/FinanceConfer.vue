@@ -404,8 +404,8 @@ const OfficerConfer = async () => {
       router.push("/officer");
     }
 
-    if (formData.oldData.form_status !== "return" &&  (JSON.stringify(formData.bud)) == "{}") {
-      try {
+      if (formData.oldData.form_status !== "return" &&  (!formData.bud || Object.keys(formData.bud).length === 0)) {      
+        try {
         const dataForBackend = {
           user_id: user.value?.user_id,
           form_id: formData.form_id,

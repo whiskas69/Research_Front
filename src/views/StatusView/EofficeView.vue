@@ -118,21 +118,32 @@ const data = reactive({
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
 //pull data
+
 const pulldata = async () => {
   try {
-    const res = await api.get(`/allForms`);
-    console.log("res", res.data);
+    const now = new Date();
+    let fiscalYear = now.getFullYear() + 543;
+    if (now.getMonth() + 1 >= 10) fiscalYear += 1;
+    let typeStatus =  "waitingApproval" 
+    const responseOffice = await api.get("/allForms", {
+      params: {
+        fiscalYear,
+        type: "all",
+        typeStatus,
+      },
+    });
+    console.log("res", responseOffice);
 
-    const filteredForms = res.data
-      .filter(
-        (form) =>
-          form.form_status === "waitingApproval" ||
-          form.form_status === "attendMeeting"
-      )
-      .sort((a, b) => b.form_id - a.form_id);
-    console.log("filteredForms", filteredForms);
+    // ปรับเปลี่ยนเงื่อนไข filter ให้เหลือแค่ "waitingApproval"
+    // const filteredForms = res.data
+    //   .filter(
+    //     (form) =>
+    //       form.form_status === "waitingApproval" 
+    //   )
+    //   .sort((a, b) => b.form_id - a.form_id);
+    // console.log("filteredForms", filteredForms);
 
-    data.allForm = filteredForms.map(form => {
+    data.allForm = responseOffice.data.map(form => {
       return {
         ...form, // คัดลอกทุกค่าในออบเจกต์ `form` มา
         amount_approval: parseFloat(form.amount_approval).toLocaleString("en-US", {
@@ -146,6 +157,35 @@ const pulldata = async () => {
     console.log(error);
   }
 };
+
+// const pulldata = async () => {
+//   try {
+//     const res = await api.get(`/allForms`);
+//     console.log("res", res.data);
+
+//     const filteredForms = res.data
+//       .filter(
+//         (form) =>
+//           form.form_status === "waitingApproval" ||
+//           form.form_status === "attendMeeting"
+//       )
+//       .sort((a, b) => b.form_id - a.form_id);
+//     console.log("filteredForms", filteredForms);
+
+//     data.allForm = filteredForms.map(form => {
+//       return {
+//         ...form, // คัดลอกทุกค่าในออบเจกต์ `form` มา
+//         amount_approval: parseFloat(form.amount_approval).toLocaleString("en-US", {
+//           minimumFractionDigits: 2,
+//         }) //แทนที่เฉพาะ `amount_approval`
+//       };
+//     });
+//     console.log("Updated allForm:", data.allForm);
+
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 const addapproved = async (formId) => {
   console.log("formId", formId);

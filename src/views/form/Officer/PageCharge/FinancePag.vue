@@ -313,7 +313,7 @@ const OfficerPC = async () => {
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
       router.push("/officer");
     }
-    if (formData.olddata.form_status !== "return" &&  (JSON.stringify(formData.bud)) == "{}") {
+    if (formData.olddata.form_status !== "return" &&  (!formData.bud || Object.keys(formData.bud).length === 0)) {
       try {
         const dataForBackend = {
           user_id: user.value?.user_id,
@@ -359,7 +359,7 @@ const OfficerPC = async () => {
 
           form_status: formData.radioAuthOffic === null ? formData.olddata?.past_return : statusMap[formData.radioAuthOffic],
           returnto: null,
-          return_note: formData.comment_text || null,
+          return_note: formData.comment_text,
           past_return: null
         };
 

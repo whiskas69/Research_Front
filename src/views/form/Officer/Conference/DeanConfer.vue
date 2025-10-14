@@ -134,7 +134,7 @@ const OfficerConfer = async () => {
 
     try {
       const dataForBackend = {
-        conf_id: user.value?.user_id,
+        conf_id: id,
         updated_data: [
           { field: 'dean_id', value: user.value?.user_id },
           { field: 'c_dean_result', value: resultMap[formData.acknowledge] },
@@ -150,7 +150,7 @@ const OfficerConfer = async () => {
       console.log(" dataForBackend", dataForBackend)
       await api.put(`/opinionConf/${id}`, dataForBackend);
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      // router.push("/officer");
+      router.push("/officer");
     } catch (error) {
       console.log("Error saving code : ", error);
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");

@@ -243,7 +243,7 @@ const getDataConf = async () => {
     alert("โปรดเข้าสู่ระบบใหม่อีกครั้ง");
   }
   try {
-    const responseData = await api.get(`/formPageCharge/${id}`);
+    const responseData = await api.get(`/formConference/${id}`);
     formData.oldData = responseData.data;
 
     const responsefile = await api.get(`/getFileConf?conf_id=${id}`);
@@ -307,8 +307,9 @@ const OfficerConfer = async () => {
             formData.radioAuthOffic === "return_professor" ? "professor" : null,
           return_note: formData.commentReason || null,
           past_return:
-            formData.radioAuthOffic === "return_professor" ? "research" : null,
+            formData.radioAuthOffic === "return_professor" ? "hr" : null,
         };
+        console.log("Data to be sent 1:", dataForBackend);
 
         await api.post("/opinionConf", dataForBackend);
 
@@ -335,6 +336,7 @@ const OfficerConfer = async () => {
           return_note: formData.commentReason || null,
           past_return: null
         };
+        console.log("Data to be sent 2:", dataForBackend);
 
         await api.put(`/opinionConf/${id}`, dataForBackend);
 
@@ -362,8 +364,9 @@ const OfficerConfer = async () => {
             formData.radioAuthOffic === "return_professor" ? "professor" : null,
           return_note: formData.commentReason || null,
           past_return:
-            formData.radioAuthOffic === "return_professor" ? "research" : null,
+            formData.radioAuthOffic === "return_professor" ? "hr" : null,
         };
+        console.log("Data to be sent 3:", dataForBackend);
 
         await api.put(`/opinionConf/${id}`, dataForBackend);
 

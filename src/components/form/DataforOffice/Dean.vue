@@ -1,7 +1,7 @@
 <template>
   <div class="container my-10 mx-auto">
     <div v-if="props.type == 'Conference'">
-      <Mainbox v-if="formData.offic.c_approve_result" class="collapse collapse-arrow collapse-open">
+      <Mainbox v-if="formData.offic.c_dean_result" class="collapse collapse-arrow collapse-open">
         <input type="checkbox" />
         <p class="collapse-title text-lg font-bold">คณบดี</p>
         <SectionWrapper class="collapse-content">
@@ -11,8 +11,8 @@
           <RadioInput
             label="รับทราบ"
             :disabled="true"
-            value="acknowledge"
-            v-model="formData.offic.c_approve_result"
+            value="approve"
+            v-model="formData.offic.c_dean_result"
           />
         </SectionWrapper>
       </Mainbox>
@@ -23,7 +23,7 @@
     </div>
 
     <div v-if="props.type == 'Page_Charge'">
-      <div v-if="formData.offic.p_acknowledge">
+      <div v-if="formData.offic.p_dean_acknowledge">
         <Mainbox class="collapse collapse-arrow collapse-open">
           <input type="checkbox" />
           <p class="collapse-title text-lg font-bold">คณบดี</p>
@@ -38,7 +38,7 @@
               label="รับทราบ"
               value="acknowledge"
               :disabled="true"
-              v-model="formData.offic.p_acknowledge"
+              v-model="formData.offic.p_dean_acknowledge"
             />
           </SectionWrapper>
         </Mainbox>
@@ -61,7 +61,7 @@
                 value="approve"
                 name="comment"
                 :disabled="true"
-                v-model="formData.offic.p_approve_result"
+                v-model="formData.offic.p_dean_result"
               />
             </div>
             <div class="px-2">
@@ -70,30 +70,14 @@
                 value="notApproved"
                 name="comment"
                 :disabled="true"
-                v-model="formData.offic.p_approve_result"
+                v-model="formData.offic.p_dean_result"
               />
             </div>
             <div>
               <TextArea
                 label="เนื่องจาก"
                 :disabled="true"
-                :placeholder="formData.offic.p_reason_dean_appeove"
-              />
-            </div>
-            <div class="px-2">
-              <RadioInput
-                label="อื่น ๆ"
-                value="other"
-                name="comment"
-                :disabled="true"
-                v-model="formData.offic.p_approve_result "
-              />
-            </div>
-            <div>
-              <TextArea
-                label="เนื่องจาก"
-                :disabled="true"
-                :placeholder="formData.offic.p_reason_dean_appeove"
+                :placeholder="formData.offic.p_dean_reason"
               />
             </div>
           </SectionWrapper>

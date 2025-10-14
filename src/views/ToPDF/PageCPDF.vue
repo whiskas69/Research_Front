@@ -259,17 +259,17 @@
         </div>
         <p>ตรวจหลักฐานตามหลักเกณฑ์ที่กำหนดในประกาศ สจล. และประกาศคณะ</p>
         <div class="flex flex-row gap-4">
-          <input type="radio" disabled="false" :checked="formData.offic.p_research_admin == 'approve' ? true : false
+          <input type="radio" disabled="false" :checked="formData.offic.p_research_result == 'approve' ? true : false
             " />
           <span>ถูกต้องตามเงื่อนไขการสนับสนุน ดังนี้</span>
-          <p v-if="formData.offic.p_research_admin == 'approve'">
+          <p v-if="formData.offic.p_research_result == 'approve'">
             {{ formData.offic.p_reason }}
           </p>
         </div>
         <div class="flex flex-row gap-4">
-          <input type="radio" disabled="false" :checked="formData.offic.p_research_admin == 'other' ? true : false" />
+          <input type="radio" disabled="false" :checked="formData.offic.p_research_result == 'other' ? true : false" />
           <span>อื่น ๆ</span>
-          <p v-if="formData.offic.p_research_admin == 'other'">
+          <p v-if="formData.offic.p_research_result == 'other'">
             {{ formData.offic.p_reason }}
           </p>
         </div>
@@ -404,17 +404,12 @@
 
     <div class="flex flex-row text-[13px] pt-3 gap-4">
       <p class="font-bold">ผลการพิจารณา</p>
-      <input type="radio" disabled="false" :checked="formData.offic.p_approve_result == 'approve' ? true : false" />
+      <input type="radio" disabled="false" :checked="formData.offic.p_dean_result == 'approve' ? true : false" />
       <span>อนุมัติ</span>
-      <input type="radio" disabled="false" :checked="formData.offic.p_approve_result == 'notApproved' ? true : false
+      <input type="radio" disabled="false" :checked="formData.offic.p_dean_result == 'notApproved' ? true : false
         " />
       <span>ไม่อนุมัติ</span>
-      <p v-if="formData.offic.p_approve_result == 'notApproved'">เนื่องจาก</p>
-    </div>
-    <div class="flex flex-row text-[13px] pt-3 gap-4 px-[100px]">
-      <input type="radio" disabled="false" :checked="formData.offic.p_approve_result == 'other' ? true : false" />
-      <span>other</span>
-      <p v-if="formData.offic.p_approve_result == 'other'">เนื่องจาก</p>
+      <p v-if="formData.offic.p_dean_result == 'notApproved'">เนื่องจาก</p>
     </div>
     <div class="flex flex-col text-[13px] pt-3 items-end">
       <div class="flex flex-row gap-1 py-3">
