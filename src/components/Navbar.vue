@@ -87,7 +87,7 @@
 
     <div v-if="!userStore.user">
       <router-link
-        to="/testlogin"
+        to="/login"
         class="btn w-full bg-[#4285F4] hover:bg-[#4285F4] text-white ml-10"
       >
         เข้าสู่ระบบ
@@ -158,6 +158,6 @@ const isApprover = computed(() =>
 
 const logout = async () => {
   await userStore.logout();
-  router.push("/testlogin");
+  router.push("/login");
 };
 </script>
