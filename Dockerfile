@@ -12,6 +12,8 @@ RUN npm run build
 FROM nginx:alpine AS production-stage
 
 COPY --from=build-stage /app/dist /usr/share/nginx/html/rass
+#run chmod -R 755 /app/dist
+run chmod -R 755 /usr/share/nginx/html/rass
 #COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Optional: custom nginx config (ใช้ค่า default ก็ได้)
