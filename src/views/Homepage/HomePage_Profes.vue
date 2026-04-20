@@ -197,11 +197,6 @@ const router = useRouter();
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
-if (!userStore.user.user_signature) {
-  alert("กรุณาอัปโหลดลายเซ็น");
-  router.push("/profile");
-}
-
 const formatThaiDate = (dateString) => {
   if (!dateString) return "ไม่พบวันที่";
 
@@ -252,7 +247,7 @@ const getData = async () => {
     }
 
     data.returnForm = response.data.filter(
-      (form) => form.form_status === "return" && form.return_to === user.value?.user_role
+      (form) => form.form_status === "return" && form.user_id === user.value?.user_id && form.return_to === 'professor'
     );
   }
 };

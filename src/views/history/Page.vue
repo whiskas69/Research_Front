@@ -1,6 +1,10 @@
 <template>
+  <div>
   <p class="text-2xl font-bold text-center my-10">สถานะ และประวัติเอกสาร</p>
-  <ApprovalSteps :status="formData.form.form_status" type="Page_Charge" />
+  <ApprovalSteps 
+  v-if="formData.form && formData.form.form_status"
+  :status="formData.form.form_status" 
+  type="Page_Charge" />
   <PageChageData :id="id" />
   <Research :id="id" :type="'Page_Charge'" />
   <FinanceAll :id="id" :type="'Page_Charge'" />
@@ -8,7 +12,7 @@
   <Dean :id="id" :type="'Page_Charge'" />
   <WithdrawMoney :id="id" :type="'Page_Charge'" />
 
-  <div class="container my-10 mx-auto" v-if="formData.status.form_status === 'waitingApproval'">
+  <div class="container my-10 mx-auto" v-if="role == 'research' && formData.status.form_status === 'waitingApproval'">
     <Mainbox>
       <p class="text-m font-bold">ตรวจสอบเอกสาร และข้อมูลการอนุมัติ</p>
       <div class="px-2 py-2">
@@ -53,8 +57,12 @@
       </div>
 
       <div class="flex justify-end">
-        <button @click="SummitStatus" class="btn btn-success text-white">
-          อัปเดตสถานะเอกสาร
+        <button 
+          @click="SummitStatus" 
+          :disabled="loading" 
+          class="btn btn-success text-white"
+        >
+        {{ loading ? "กำลังบันทึก..." : "อัปเดตสถานะเอกสาร" }}
         </button>
       </div>
     </Mainbox>
@@ -72,10 +80,21 @@
       </router-link>
     </div>
   </div>
+  <!-- Popup Loading -->
+    <div
+      v-if="loading"
+      class="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center"
+    >
+      <div class="bg-white rounded-xl p-6 flex flex-col items-center gap-4 shadow-lg">
+        <div class="animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent"></div>
+        <p class="text-gray-700 font-medium">กำลังบันทึกข้อมูล...</p>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
-import { reactive, onMounted, watch, computed } from "vue";
+import { reactive, onMounted, watch, computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import api from "@/setting/api";
 import { useVuelidate } from "@vuelidate/core";
@@ -90,10 +109,12 @@ import Dean from "@/components/form/DataforOffice/Dean.vue";
 import WithdrawMoney from "@/components/form/DataforOffice/WithdrawMoney.vue";
 import Mainbox from "@/components/form/Mainbox.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
+import { useUserStore } from "@/store/userStore";
 
 // Access route parameters
 const route = useRoute();
 const id = route.params.id;
+const loading = ref(false);
 
 const formData = reactive({
   form: [],
@@ -136,6 +157,9 @@ const rules = computed(() => ({
 
 const v$ = useVuelidate(rules, formData);
 
+const userStore = useUserStore();
+const role = userStore.user.user_role;
+
 const getDataPc = async () => {
   const response = await api.get(`/form/Pc/${id}`);
   formData.form = response.data.form;
@@ -147,10 +171,12 @@ const getStatus = async () => {
 };
 
 const SummitStatus = async () => {
+  if (loading.value) return;
   const result = await v$.value.$validate();
 
   if (result) {
     try {
+      loading.value = true
       const dataForBackend = {
         form_status: formData.new.form_status,
         return: formData.new.return ? formData.new.return : null,
@@ -164,6 +190,8 @@ const SummitStatus = async () => {
     } catch (error) {
       console.error("Error saving code:", error);
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+    } finally {
+      loading.value = false;
     }
   } else {
     alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");

@@ -17,8 +17,8 @@
             <TextInputLabelLeft
               label="วงเงินที่คณะจัดสรรไว้ จำนวนเงินทั้งสิ้น"
               customInput="max-w-max text-center"
-              v-model="formData.totalAll"
-              @input="handleInput('totalAll', $event.target.value)"
+              :modelValue="formatWithCommas(formData.totalAll)"
+              @input="handleTotalAllInput($event)"
             />
             <p class="flex items-center w-12">บาท</p>
           </div>
@@ -58,8 +58,8 @@
             <TextInputLabelLeft
               label="วงเงินที่คณะจัดสรรไว้ คงเหลือ"
               customInput="max-w-max text-center"
-              :placeholder="caltotalFaculty"
-              v-model="formData.caltotalFaculty"
+              :modelValue="caltotalFaculty"
+              readonly
             />
             <p class="flex items-center w-12">บาท</p>
           </div>
@@ -70,12 +70,12 @@
             <TextInputLabelLeft
               label="จำนวนเงินที่ขออนุมัติจัดสรรในครั้งนี้ เป็นจำนวนเงิน"
               customInput="max-w-max text-center"
-              :placeholder="
+              :modelValue="
                 parseFloat(moneyRequested).toLocaleString('en-US', {
                   minimumFractionDigits: 2,
                 })
               "
-              v-model="formData.newmoneyRequested"
+              readonly
             />
             <p class="flex items-center w-12">บาท</p>
           </div>
@@ -85,8 +85,8 @@
             <TextInputLabelLeft
               label="วงเงินที่คณะจัดสรรไว้ คงเหลือทั้งสิ้น"
               customInput="max-w-max text-center"
-              :placeholder="caltotalFacultyNow"
-              v-model="formData.caltotalFacultyNow"
+              :modelValue="caltotalFacultyNow"
+              readonly
             />
             <p class="flex items-center w-12">บาท</p>
           </div>
@@ -193,9 +193,22 @@
     </Mainbox>
 
     <div class="flex justify-end">
-      <button @click="OfficerConfer" class="btn btn-success text-white">
-        บันทึกข้อมูล
+      <button 
+        @click="OfficerConfer"
+        :disabled="loading" 
+        class="btn btn-success text-white rounded">
+        {{ loading ? "กำลังบันทึก..." : "บันทึก" }}
       </button>
+    </div>
+    <!-- Popup Loading -->
+    <div
+      v-if="loading"
+      class="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center"
+    >
+      <div class="bg-white rounded-xl p-6 flex flex-col items-center gap-4 shadow-lg">
+        <div class="animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent"></div>
+        <p class="text-gray-700 font-medium">กำลังบันทึกข้อมูล...</p>
+      </div>
     </div>
   </div>
 </template>
@@ -225,6 +238,8 @@ import ConferenceData from "@/components/form/DataforOffice/Conference.vue";
 import HR from "@/components/form/DataforOffice/HR.vue";
 import Research from "@/components/form/DataforOffice/Research.vue";
 
+const loading = ref(false);
+
 const formData = reactive({
   conference: [],
   offic: [],
@@ -247,6 +262,19 @@ const formData = reactive({
 
 const handleInput = (key, value) => {
   formData[key] = value;
+};
+
+const formatWithCommas = (value) => {
+  if (!value && value !== 0) return '';
+  const raw = String(value).replace(/,/g, '');
+  if (isNaN(raw)) return value;
+  return parseFloat(raw).toLocaleString('en-US');
+};
+
+const handleTotalAllInput = (e) => {
+  const raw = e.target.value.replace(/,/g, '');
+  formData.totalAll = raw;
+  e.target.value = raw ? parseFloat(raw).toLocaleString('en-US') : '';
 };
 
 const caltotalFaculty = computed(() => {
@@ -384,6 +412,7 @@ const returnMap = {
 };
 
 const OfficerConfer = async () => {
+  if (loading.value) return;
   const result = await v$.value.$validate();
   if (result) {
     if (confirm("ยืนยันข้อมูลถูกต้อง") == false) {
@@ -394,18 +423,27 @@ const OfficerConfer = async () => {
       formData.radioAuthOffic === "pending" &&
       formData.comment_text != null
     ) {
-      const dataForBackend = {
-        form_id: formData.form_id,
-        form_status: formData.radioAuthOffic,
-        comment_pending: formData.comment_text,
-      };
-      await api.post(`/budget`, dataForBackend);
-      alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      router.push("/officer");
+      try {
+        loading.value = true
+        const dataForBackend = {
+          form_id: formData.form_id,
+          form_status: formData.radioAuthOffic,
+          comment_pending: formData.comment_text,
+        };
+        await api.post(`/budget`, dataForBackend);
+        alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+        router.push("/HomePage/officer");
+      } catch (error) {
+        console.log("Error saving code : ", error);
+        alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      } finally {
+        loading.value = false;
+      }
     }
 
       if (formData.oldData.form_status !== "return" &&  (!formData.bud || Object.keys(formData.bud).length === 0)) {      
         try {
+          loading.value = true
         const dataForBackend = {
           user_id: user.value?.user_id,
           form_id: formData.form_id,
@@ -419,7 +457,7 @@ const OfficerConfer = async () => {
           doc_submit_date: formData.docSubmitDate,
 
           form_status: statusMap[formData.radioAuthOffic],
-          returnto: returnMap[formData.radioAuthOffic],
+          return_to: returnMap[formData.radioAuthOffic],
           return_note: formData.comment_text || null,
           past_return:
             statusMap[formData.radioAuthOffic] == "return"
@@ -429,13 +467,16 @@ const OfficerConfer = async () => {
 
         await api.post(`/budget`, dataForBackend);
         alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-        router.push("/officer");
+        router.push("/HomePage/officer");
       } catch (error) {
         console.log("Error saving code : ", error);
         alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      } finally {
+        loading.value = false;
       }
     } else if (formData.oldData.form_status === "return") {
       try {
+        loading.value = true
         const dataForBackend = {
           user_id: user.value?.user_id,
           form_id: formData.form_id,
@@ -452,20 +493,23 @@ const OfficerConfer = async () => {
             formData.radioAuthOffic === null
               ? formData.oldData?.past_return
               : statusMap[formData.radioAuthOffic],
-          returnto: null,
+          return_to: null,
           return_note: formData.comment_text || null,
           past_return: null,
         };
 
         await api.put(`/updateBudget/${formData.form_id}`, dataForBackend);
         alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-        router.push("/officer");
+        router.push("/HomePage/officer");
       } catch (error) {
         console.log("Error saving code : ", error);
         alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      } finally {
+        loading.value = false;
       }
     } else if (formData.oldData.form_status !== "return" && JSON.stringify(formData.bud)) {
       try {
+        loading.value = true
         const dataForBackend = {
           user_id: user.value?.user_id,
           form_id: formData.form_id,
@@ -482,17 +526,19 @@ const OfficerConfer = async () => {
             formData.radioAuthOffic === null
               ? formData.oldData?.past_return
               : statusMap[formData.radioAuthOffic],
-          returnto: null,
+          return_to: null,
           return_note: formData.comment_text || null,
           past_return: null,
         };
 
         await api.put(`/updateBudget/${formData.form_id}`, dataForBackend);
         alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-        router.push("/officer");
+        router.push("/HomePage/officer");
       } catch (error) {
         console.log("Error saving code : ", error);
         alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      } finally {
+        loading.value = false;
       }
     }
   } else {

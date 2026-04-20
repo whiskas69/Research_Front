@@ -395,11 +395,11 @@
       <p class="font-bold">คณบดีคณะเทคโนโลยีสารสนเทศ</p>
       <p>(ครั้งที่ 2)</p>
     </div>
-    <p class="text-[13px] pl-10">
+    <!-- <p class="text-[13px] pl-10">
       ขณะนี้บทความได้รับการตอบรับแล้ว (Letter of acceptance) เมื่อวันที่
       {{ formatThaiDate(formData.offic.p_date_accepted_approve) }}
       ตามหลักฐานที่แนบ
-    </p>
+    </p> -->
     <p class="text-[13px]">จึงเรียนมาเพื่อโปรดพิจารณา</p>
 
     <div class="flex flex-row text-[13px] pt-3 gap-4">

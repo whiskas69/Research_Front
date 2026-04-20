@@ -14,9 +14,9 @@
         </p>
         <RadioInput label="รับทราบ" value="acknowledge" v-model="formData.acknowledge" />
         <RadioInput label="ไม่รับทราบ" value="notAcknowledge" v-model="formData.acknowledge" />
-        <span v-if="v$.acknowledge.$error" class="text-base font-bold text-red-500 text-left">
+        <!-- <span v-if="v$.acknowledge.$error" class="text-base font-bold text-red-500 text-left">
           {{ v$.acknowledge.$errors[0].$message }}
-        </span>
+        </span> -->
       </SectionWrapper>
     </Mainbox>
 
@@ -25,11 +25,11 @@
         <p class="text-lg font-bold">
           เรียน คณบดีคณะเทคโนโลยีสารสนเทศ (ครั้งที่ 2)
         </p>
-        <p class="text-base mt-1">
+        <!-- <p class="text-base mt-1">
           ขณะนี้บทความได้รับการตอบรับแล้ว (Letter of acceptance) เมื่อวันที่
           <b>{{ formatThaiDate(formData.offic.p_date_accepted_approve) }} </b>
           ตามหลักฐานที่แนบจึงเรียนมาเพื่อโปรดพิจารณา
-        </p>
+        </p> -->
         <RadioInput label="อนุมัติ" value="approve" name="comment" v-model="formData.radioAuthOffic" />
         <RadioInput label="ไม่อนุมัติ" value="notApproved" name="comment" v-model="formData.radioAuthOffic" />
         <RadioInput label="ตีกลับอาจารย์เพื่อแก้ไขข้อมูล" value="return_professor" name="comment"
@@ -53,9 +53,21 @@
     </Mainbox>
 
     <div class="flex justify-end">
-      <button @click="OfficerPC" class="btn btn-success text-white">
-        บันทึกข้อมูล
+      <button 
+        @click="OfficerPC"
+        :disabled="loading" 
+        class="btn btn-success text-white rounded">
+        {{ loading ? "กำลังบันทึก..." : "บันทึก" }}
       </button>
+    </div>
+    <div
+      v-if="loading"
+      class="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center"
+    >
+      <div class="bg-white rounded-xl p-6 flex flex-col items-center gap-4 shadow-lg">
+        <div class="animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent"></div>
+        <p class="text-gray-700 font-medium">กำลังบันทึกข้อมูล...</p>
+      </div>
     </div>
   </div>
 </template>
@@ -79,6 +91,8 @@ import Research from "@/components/form/DataforOffice/Research.vue";
 import FinanceAll from "@/components/form/DataforOffice/FinanceAll.vue";
 import Assosiate from "@/components/form/DataforOffice/Assosiate.vue";
 
+const loading = ref(false);
+
 const formData = reactive({
   offic: [],
   docSubmitDate: DateTime.now().toISODate(),
@@ -86,7 +100,7 @@ const formData = reactive({
   acknowledge: "",
   radioAuthOffic: "",
   reason: "",
-  returnto: ""
+  return_to: ""
 });
 
 const formatThaiDate = (dateString) => {
@@ -127,16 +141,13 @@ const fetchProfessorData = async () => {
 };
 
 const rules = computed(() => ({
-  acknowledge: {
-    required: helpers.withMessage("* กรุณาเลือกข้อมูล *", required),
-  },
   radioAuthOffic: {
     required: helpers.withMessage("* กรุณาเลือกข้อมูล *", required),
   },
   reason: {
     required: helpers.withMessage(
       "* กรุณากรอกข้อมูล *",
-      requiredIf(() => formData.radioAuthOffic !== "approved")
+      requiredIf(() => formData.radioAuthOffic !== "approve")
     ),
   },
 }));
@@ -171,6 +182,7 @@ const resultMap = {
 }
 
 const OfficerPC = async () => {
+  if (loading.value) return;
   const result = await v$.value.$validate();
 
   if (result) {
@@ -179,31 +191,33 @@ const OfficerPC = async () => {
     }
 
     try {
+      loading.value = true
       const dataForBackend = {
         pageC_id: id,
         updated_data: [
           { field: 'dean_id', value: user.value?.user_id },
-          { field: 'p_dean_acknowledge', value: formData.acknowledge },
+          { field: 'p_dean_acknowledge', value: formData.acknowledge || null },
           { field: 'p_dean_result', value: resultMap[formData.radioAuthOffic] },
           { field: 'p_dean_reason', value: formData.reason },
-          { field: 'p_date_accepted_approve', value: DateTime.fromISO(formData.offic.p_date_accepted_approve).toISODate() }
+          { field: 'dean_doc_submit_date', value: formData.docSubmitDate },
         ],
         form_status: statusMap[formData.radioAuthOffic],
-        returnto: returnMap[formData.radioAuthOffic],
+        return_to: returnMap[formData.radioAuthOffic],
         return_note: formData.reason || null,
         past_return: statusMap[formData.radioAuthOffic] == 'return' ? user.value?.user_role : null
       };
 
       await api.put(`/opinionPC/${id}`, dataForBackend);
       alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-      router.push("/officer");
+      router.push("/HomePage/officer");
     } catch (error) {
       console.log("Error saving code : ", error);
       alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+    } finally {
+      loading.value = false;
     }
   } else {
     alert("โปรดกรอกข้อมูลให้ครบถ้วน และถูกต้อง");
-
     console.log("Validation failed:", v$.value.$errors);
   }
 };

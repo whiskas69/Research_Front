@@ -178,19 +178,32 @@
     </Mainbox>
 
     <div class="flex justify-end">
-      <button @click="OfficerConfer" class="btn btn-success text-white">
-        บันทึกข้อมูล
+      <button ผผ
+        @click="OfficerConfer"
+        :disabled="loading" 
+        class="btn btn-success text-white rounded">
+        {{ loading ? "กำลังบันทึก..." : "บันทึก" }}
       </button>
+    </div>
+    <!-- Popup Loading -->
+    <div
+      v-if="loading"
+      class="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center"
+    >
+      <div class="bg-white rounded-xl p-6 flex flex-col items-center gap-4 shadow-lg">
+        <div class="animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent"></div>
+        <p class="text-gray-700 font-medium">กำลังบันทึกข้อมูล...</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, reactive, computed } from "vue";
+import { onMounted, reactive, computed, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, requiredIf } from "@vuelidate/validators";
-
+import { DateTime } from "luxon";
 import { useUserStore } from "@/store/userStore";
 import api from "@/setting/api";
 
@@ -199,6 +212,8 @@ import SectionWrapper from "@/components/form/SectionWrapper.vue";
 import TextInputLabelLeft from "@/components/Input/TextInputLabelLeft.vue";
 import RadioInput from "@/components/Input/RadioInput.vue";
 import ConferenceData from "@/components/form/DataforOffice/Conference.vue";
+
+const loading = ref(false);
 
 const formData = reactive({
   file: "",
@@ -215,7 +230,8 @@ const formData = reactive({
   noteHR: "",
   radioAuthOffic: "",
   commentReason: "",
-  returnto: "",
+  return_to: "",
+  docSubmitDate: DateTime.now().toISODate(),
 
   oldData: {},
 });
@@ -283,6 +299,7 @@ const statusMap = {
 };
 
 const OfficerConfer = async () => {
+  if (loading.value) return;
   const result = await v$.value.$validate();
 
   if (result) {
@@ -292,6 +309,7 @@ const OfficerConfer = async () => {
 
     if (formData.oldData.form_status != "return" && (!formData.oldData.editor)) {
       try {
+        loading.value = true
         const dataForBackend = {
           hr_id: user.value?.user_id,
           conf_id: id,
@@ -303,7 +321,7 @@ const OfficerConfer = async () => {
           user_confer: formData.isUnder3YearsNoOverseasConf,
           form_status:
             statusMap[formData.radioAuthOffic] || formData.radioAuthOffic,
-          returnto:
+          return_to:
             formData.radioAuthOffic === "return_professor" ? "professor" : null,
           return_note: formData.commentReason || null,
           past_return:
@@ -314,13 +332,16 @@ const OfficerConfer = async () => {
         await api.post("/opinionConf", dataForBackend);
 
         alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-        router.push("/officer");
+        router.push("/HomePage/officer");
       } catch (error) {
         console.log("Error saving code : ", error);
         alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      } finally {
+        loading.value = false;
       }
     } else if (formData.oldData.form_status === "return") {
       try {
+        loading.value = true
         const dataForBackend = {
           conf_id: id,
           updated_data: [
@@ -341,13 +362,17 @@ const OfficerConfer = async () => {
         await api.put(`/opinionConf/${id}`, dataForBackend);
 
         alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-        router.push("/officer");
+        router.push("/HomePage/officer");
       } catch (error) {
         console.log("Error saving code : ", error);
         alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      } finally {
+        loading.value = false;
       }
     } else if (formData.oldData.form_status !== "return" && formData.oldData.editor) {
+      console.log("Editing existing return case", formData.oldData.form_status);
       try {
+        loading.value = true
         const dataForBackend = {
           conf_id: id,
           updated_data: [
@@ -360,7 +385,7 @@ const OfficerConfer = async () => {
           user_confer: formData.isUnder3YearsNoOverseasConf,
           form_status:
             statusMap[formData.radioAuthOffic] || formData.radioAuthOffic,
-          returnto:
+          return_to:
             formData.radioAuthOffic === "return_professor" ? "professor" : null,
           return_note: formData.commentReason || null,
           past_return:
@@ -371,10 +396,12 @@ const OfficerConfer = async () => {
         await api.put(`/opinionConf/${id}`, dataForBackend);
 
         alert("บันทึกข้อมูลเรียบร้อยแล้ว");
-        router.push("/officer");
+        router.push("/HomePage/officer");
       } catch (error) {
         console.log("Error saving code : ", error);
         alert("ไม่สามารถส่งข้อมูล โปรดลองอีกครั้งในภายหลัง");
+      } finally {
+        loading.value = false;
       }
     }
   } else {
