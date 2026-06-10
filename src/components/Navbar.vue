@@ -75,11 +75,7 @@
       </div>
 
       <router-link :to="logoRoute">
-        <img
-          class="max-w-14"
-          src="https://scholar.it.kmitl.ac.th/images/it-kmitl.png"
-          alt="LOGO IT KMITL"
-        />
+        <img class="max-w-14" src="/it-kmitl-logo.png" alt="LOGO IT KMITL" />
       </router-link>
 
       <div class="hidden lg:flex">
